@@ -93,7 +93,16 @@ Uses ConvexProviderWithClerk for auth integration. Users table stores role (inve
 **Goal**: Investor profile builder (preferences, budget, criteria) and service provider registration (broker, mortgage, lawyer)
 **Depends on**: Phase 2
 **Research**: Unlikely (CRUD using established auth)
-**Plans**: TBD
+**Plans**: 4 plans
+
+Plans:
+- [ ] 03-01: Onboarding flow (role selection, redirect incomplete users)
+- [ ] 03-02: Investor profile schema + form
+- [ ] 03-03: Service provider profile schema + form
+- [ ] 03-04: Settings page with role-based routing
+
+**Details:**
+Onboarding captures user role. Investor profiles store investment preferences (property types, budget, risk tolerance, timeline). Service provider profiles store business info (company, license, specializations, service areas, languages).
 
 ### Phase 4: Property Marketplace
 **Goal**: Property listing display with metrics, admin upload interface, detail pages, save/favorite functionality
