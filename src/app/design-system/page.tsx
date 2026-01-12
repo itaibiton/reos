@@ -158,7 +158,7 @@ function ButtonsInputsSection() {
             <SelectTrigger>
               <SelectValue placeholder="Select a fruit" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent position="popper">
               <SelectItem value="apple">Apple</SelectItem>
               <SelectItem value="banana">Banana</SelectItem>
               <SelectItem value="orange">Orange</SelectItem>
