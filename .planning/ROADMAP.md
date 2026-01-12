@@ -82,7 +82,7 @@ Created /design-system route with 5 category tabs (Buttons & Inputs, Layout, Fee
 **Plans**: 3 plans
 
 Plans:
-- [ ] 02-01: Clerk installation + Convex integration
+- [x] 02-01: Clerk installation + Convex integration
 - [ ] 02-02: User schema + sync functions
 - [ ] 02-03: Protected routes + auth UI
 
