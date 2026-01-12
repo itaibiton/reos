@@ -32,7 +32,7 @@ None
 **Plans**: 2 plans
 
 Plans:
-- [ ] 01-01: Project scaffolding (Next.js + Convex + Shadcn)
+- [x] 01-01: Project scaffolding (Next.js + Convex + Shadcn)
 - [ ] 01-02: Base layout (header, sidebar, main content)
 
 ### Phase 2: Authentication
@@ -88,7 +88,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 0/2 | Not started | - |
+| 1. Foundation | 1/2 | In progress | - |
 | 2. Authentication | 0/TBD | Not started | - |
 | 3. Profiles | 0/TBD | Not started | - |
 | 4. Property Marketplace | 0/TBD | Not started | - |
