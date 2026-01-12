@@ -79,7 +79,15 @@ Created /design-system route with 5 category tabs (Buttons & Inputs, Layout, Fee
 **Depends on**: Phase 1.3
 **Research**: Likely (new integration)
 **Research topics**: Clerk-Convex integration patterns, multi-role setup, JWT handling with Convex
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+- [ ] 02-01: Clerk installation + Convex integration
+- [ ] 02-02: User schema + sync functions
+- [ ] 02-03: Protected routes + auth UI
+
+**Details:**
+Uses ConvexProviderWithClerk for auth integration. Users table stores role (investor, broker, mortgage_advisor, lawyer). Auto-sync from Clerk on first sign-in.
 
 ### Phase 3: Profiles
 **Goal**: Investor profile builder (preferences, budget, criteria) and service provider registration (broker, mortgage, lawyer)
