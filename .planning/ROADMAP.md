@@ -29,7 +29,11 @@ None
 **Goal**: Project scaffolding with Next.js, Convex backend connected, Shadcn/ui components, and base layout structure
 **Depends on**: Nothing (first phase)
 **Research**: Unlikely (established patterns)
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+- [ ] 01-01: Project scaffolding (Next.js + Convex + Shadcn)
+- [ ] 01-02: Base layout (header, sidebar, main content)
 
 ### Phase 2: Authentication
 **Goal**: Clerk authentication with investor and service provider roles, protected routes, and Convex user sync
@@ -84,7 +88,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 0/TBD | Not started | - |
+| 1. Foundation | 0/2 | Not started | - |
 | 2. Authentication | 0/TBD | Not started | - |
 | 3. Profiles | 0/TBD | Not started | - |
 | 4. Property Marketplace | 0/TBD | Not started | - |
