@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
@@ -16,7 +17,7 @@ interface SidebarProps {
 }
 
 const navItems: { icon: IconSvgElement; label: string; href: string }[] = [
-  { icon: Home01Icon, label: "Dashboard", href: "/" },
+  { icon: Home01Icon, label: "Dashboard", href: "/dashboard" },
   { icon: Building02Icon, label: "Properties", href: "/properties" },
   { icon: Agreement01Icon, label: "Deals", href: "/deals" },
   { icon: Settings01Icon, label: "Settings", href: "/settings" },
@@ -44,7 +45,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
       >
         <nav className="flex flex-col gap-1 p-4">
           {navItems.map((item) => (
-            <a
+            <Link
               key={item.href}
               href={item.href}
               className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
@@ -52,7 +53,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
             >
               <HugeiconsIcon icon={item.icon} size={20} strokeWidth={1.5} />
               <span>{item.label}</span>
-            </a>
+            </Link>
           ))}
         </nav>
       </aside>
