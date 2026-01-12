@@ -1,18 +1,25 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { Home, Building2, Handshake, Settings } from "lucide-react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import {
+  Home01Icon,
+  Building02Icon,
+  Agreement01Icon,
+  Settings01Icon,
+} from "@hugeicons/core-free-icons";
+import type { IconSvgElement } from "@hugeicons/react";
 
 interface SidebarProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const navItems = [
-  { icon: Home, label: "Dashboard", href: "/" },
-  { icon: Building2, label: "Properties", href: "/properties" },
-  { icon: Handshake, label: "Deals", href: "/deals" },
-  { icon: Settings, label: "Settings", href: "/settings" },
+const navItems: { icon: IconSvgElement; label: string; href: string }[] = [
+  { icon: Home01Icon, label: "Dashboard", href: "/" },
+  { icon: Building02Icon, label: "Properties", href: "/properties" },
+  { icon: Agreement01Icon, label: "Deals", href: "/deals" },
+  { icon: Settings01Icon, label: "Settings", href: "/settings" },
 ];
 
 export function Sidebar({ isOpen, onClose }: SidebarProps) {
@@ -43,7 +50,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
               className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
               onClick={onClose}
             >
-              <item.icon className="h-5 w-5" />
+              <HugeiconsIcon icon={item.icon} size={20} strokeWidth={1.5} />
               <span>{item.label}</span>
             </a>
           ))}

@@ -1,7 +1,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Menu01Icon, Cancel01Icon } from "@hugeicons/core-free-icons";
 
 interface HeaderProps {
   isSidebarOpen: boolean;
@@ -20,7 +21,11 @@ export function Header({ isSidebarOpen, onToggleSidebar }: HeaderProps) {
           onClick={onToggleSidebar}
           aria-label={isSidebarOpen ? "Close menu" : "Open menu"}
         >
-          {isSidebarOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          <HugeiconsIcon
+            icon={isSidebarOpen ? Cancel01Icon : Menu01Icon}
+            size={20}
+            strokeWidth={1.5}
+          />
         </Button>
 
         {/* Logo */}
