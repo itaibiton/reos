@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
+import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 import { ConvexClientProvider } from "./ConvexClientProvider";
 import { AppShell } from "@/components/layout/AppShell";
@@ -29,9 +30,11 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`}
       >
-        <ConvexClientProvider>
-          <AppShell>{children}</AppShell>
-        </ConvexClientProvider>
+        <ClerkProvider>
+          <ConvexClientProvider>
+            <AppShell>{children}</AppShell>
+          </ConvexClientProvider>
+        </ClerkProvider>
       </body>
     </html>
   );
