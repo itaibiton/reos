@@ -4,6 +4,7 @@ import { useConvexAuth } from "convex/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { Spinner } from "@/components/ui/spinner";
+import { AppShell } from "@/components/layout/AppShell";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, isLoading } = useConvexAuth();
@@ -15,17 +16,14 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     }
   }, [isAuthenticated, isLoading, router]);
 
-  if (isLoading) {
+  // Show minimal loading screen without AppShell until auth is confirmed
+  if (isLoading || !isAuthenticated) {
     return (
-      <div className="flex min-h-[50vh] items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center">
         <Spinner className="h-8 w-8" />
       </div>
     );
   }
 
-  if (!isAuthenticated) {
-    return null; // Will redirect
-  }
-
-  return <>{children}</>;
+  return <AppShell>{children}</AppShell>;
 }

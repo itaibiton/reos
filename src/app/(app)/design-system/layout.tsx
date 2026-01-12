@@ -4,7 +4,7 @@ export default function DesignSystemLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="container max-w-6xl py-8 px-6">
+    <div className="max-w-6xl py-2">
       {children}
     </div>
   );

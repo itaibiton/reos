@@ -3,7 +3,6 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 import { ConvexClientProvider } from "./ConvexClientProvider";
-import { AppShell } from "@/components/layout/AppShell";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -30,10 +29,13 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`}
       >
-        <ClerkProvider>
-          <ConvexClientProvider>
-            <AppShell>{children}</AppShell>
-          </ConvexClientProvider>
+        <ClerkProvider
+          signInUrl="/sign-in"
+          signUpUrl="/sign-up"
+          signInFallbackRedirectUrl="/dashboard"
+          signUpFallbackRedirectUrl="/dashboard"
+        >
+          <ConvexClientProvider>{children}</ConvexClientProvider>
         </ClerkProvider>
       </body>
     </html>
