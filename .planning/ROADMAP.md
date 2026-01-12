@@ -1,0 +1,94 @@
+# Roadmap: REOS
+
+## Overview
+
+Building an end-to-end real estate investment platform connecting US investors with Israeli properties. The journey starts with foundational setup and authentication, moves through profile and marketplace systems, adds intelligent search, then implements the core deal flow orchestration, and culminates with dashboards and real-time communication features.
+
+## Domain Expertise
+
+None
+
+## Phases
+
+**Phase Numbering:**
+- Integer phases (1, 2, 3): Planned milestone work
+- Decimal phases (2.1, 2.2): Urgent insertions (marked with INSERTED)
+
+- [ ] **Phase 1: Foundation** - Project setup, Convex integration, basic layout
+- [ ] **Phase 2: Authentication** - Clerk integration, role-based access
+- [ ] **Phase 3: Profiles** - Investor and service provider profile systems
+- [ ] **Phase 4: Property Marketplace** - Listings, admin upload, detail pages, favorites
+- [ ] **Phase 5: Smart Search** - Natural language search to structured filters
+- [ ] **Phase 6: Deal Flow** - Deal stages, service provider requests, file storage
+- [ ] **Phase 7: Dashboards** - Investor and service provider dashboards
+- [ ] **Phase 8: Real-time Features** - Chat and live updates
+
+## Phase Details
+
+### Phase 1: Foundation
+**Goal**: Project scaffolding with Next.js, Convex backend connected, Shadcn/ui components, and base layout structure
+**Depends on**: Nothing (first phase)
+**Research**: Unlikely (established patterns)
+**Plans**: TBD
+
+### Phase 2: Authentication
+**Goal**: Clerk authentication with investor and service provider roles, protected routes, and Convex user sync
+**Depends on**: Phase 1
+**Research**: Likely (new integration)
+**Research topics**: Clerk-Convex integration patterns, multi-role setup, JWT handling with Convex
+**Plans**: TBD
+
+### Phase 3: Profiles
+**Goal**: Investor profile builder (preferences, budget, criteria) and service provider registration (broker, mortgage, lawyer)
+**Depends on**: Phase 2
+**Research**: Unlikely (CRUD using established auth)
+**Plans**: TBD
+
+### Phase 4: Property Marketplace
+**Goal**: Property listing display with metrics, admin upload interface, detail pages, save/favorite functionality
+**Depends on**: Phase 3
+**Research**: Unlikely (standard patterns)
+**Plans**: TBD
+
+### Phase 5: Smart Search
+**Goal**: Natural language search input parsed to structured property filters
+**Depends on**: Phase 4
+**Research**: Likely (NLP integration)
+**Research topics**: NLP library options for Next.js, structured filter generation from natural language
+**Plans**: TBD
+
+### Phase 6: Deal Flow
+**Goal**: Deal stages tracking, service provider requests, file storage per deal, client handoffs between providers
+**Depends on**: Phase 3
+**Research**: Likely (file storage + state machine)
+**Research topics**: Convex file storage patterns, deal state machines, multi-party access control
+**Plans**: TBD
+
+### Phase 7: Dashboards
+**Goal**: Investor dashboard (overview, saved properties, recommendations) and service provider dashboard (clients, leads)
+**Depends on**: Phase 4, Phase 6
+**Research**: Unlikely (internal UI patterns)
+**Plans**: TBD
+
+### Phase 8: Real-time Features
+**Goal**: Real-time chat between investors and service providers, live deal updates
+**Depends on**: Phase 6, Phase 7
+**Research**: Likely (real-time architecture)
+**Research topics**: Convex subscriptions for chat, real-time presence, message threading patterns
+**Plans**: TBD
+
+## Progress
+
+**Execution Order:**
+Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
+
+| Phase | Plans Complete | Status | Completed |
+|-------|----------------|--------|-----------|
+| 1. Foundation | 0/TBD | Not started | - |
+| 2. Authentication | 0/TBD | Not started | - |
+| 3. Profiles | 0/TBD | Not started | - |
+| 4. Property Marketplace | 0/TBD | Not started | - |
+| 5. Smart Search | 0/TBD | Not started | - |
+| 6. Deal Flow | 0/TBD | Not started | - |
+| 7. Dashboards | 0/TBD | Not started | - |
+| 8. Real-time Features | 0/TBD | Not started | - |
