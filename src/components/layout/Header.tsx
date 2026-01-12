@@ -1,6 +1,10 @@
 "use client";
 
+import { UserButton } from "@clerk/nextjs";
+import { Authenticated, Unauthenticated, AuthLoading } from "convex/react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Menu01Icon, Cancel01Icon } from "@hugeicons/core-free-icons";
 
@@ -29,13 +33,34 @@ export function Header({ isSidebarOpen, onToggleSidebar }: HeaderProps) {
         </Button>
 
         {/* Logo */}
-        <span className="text-xl font-bold">REOS</span>
+        <Link href="/" className="text-xl font-bold">
+          REOS
+        </Link>
       </div>
 
-      {/* User menu placeholder */}
-      <Button variant="outline" size="sm">
-        Sign In
-      </Button>
+      {/* Auth section */}
+      <div className="flex items-center">
+        <AuthLoading>
+          <Skeleton className="h-8 w-8 rounded-full" />
+        </AuthLoading>
+
+        <Authenticated>
+          <UserButton
+            afterSignOutUrl="/"
+            appearance={{
+              elements: {
+                avatarBox: "h-8 w-8",
+              },
+            }}
+          />
+        </Authenticated>
+
+        <Unauthenticated>
+          <Button asChild variant="outline" size="sm">
+            <Link href="/sign-in">Sign In</Link>
+          </Button>
+        </Unauthenticated>
+      </div>
     </header>
   );
 }
