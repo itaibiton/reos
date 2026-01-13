@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-01-12)
 ## Current Position
 
 Phase: 5 of 8 (Smart Search)
-Plan: 1 of 3 in current phase
+Plan: 2 of 3 in current phase
 Status: In progress
-Last activity: 2026-01-13 — Completed 05-01-PLAN.md (AI Parser Setup)
+Last activity: 2026-01-13 — Completed 05-02-PLAN.md (Extended Property Query)
 
-Progress: ████████░░ 80%
+Progress: █████████░ 85%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 17
+- Total plans completed: 18
 - Average duration: 7 min
-- Total execution time: 2.1 hours
+- Total execution time: 2.2 hours
 
 **By Phase:**
 
@@ -35,11 +35,11 @@ Progress: ████████░░ 80%
 | 3 | 4/4 | 30 min | 7.5 min |
 | 4 | 4/4 | 20 min | 5 min |
 | 4.1 | 1/1 | 3 min | 3 min |
-| 5 | 1/3 | 12 min | 12 min |
+| 5 | 2/3 | 13 min | 6.5 min |
 
 **Recent Trend:**
-- Last 5 plans: 5 min, 3 min, 4 min, 3 min, 12 min
-- Trend: Stable execution
+- Last 5 plans: 3 min, 4 min, 3 min, 12 min, 1 min
+- Trend: Fast execution
 
 ## Accumulated Context
 
@@ -75,6 +75,8 @@ Recent decisions affecting current work:
 - Phase 5: Claude 3 Haiku for search parsing (speed/cost efficiency)
 - Phase 5: Convex action for external API calls (not query/mutation)
 - Phase 5: Graceful error handling returns empty filters (fallback to all properties)
+- Phase 5: In-memory filtering after by_status index (Convex single-index constraint)
+- Phase 5: Properties with undefined values excluded when filters active
 
 ### Deferred Issues
 
@@ -94,5 +96,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-13
-Stopped at: Completed 05-01-PLAN.md (AI Parser Setup)
+Stopped at: Completed 05-02-PLAN.md (Extended Property Query)
 Resume file: None

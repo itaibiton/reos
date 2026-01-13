@@ -138,7 +138,7 @@ Extended PropertyForm with mode prop (create/edit) and initialData prop for pre-
 
 Plans:
 - [x] 05-01: AI Parser Setup (Anthropic SDK + parseSearchQuery action)
-- [ ] 05-02: Enhanced Query (extend properties.list with full filters)
+- [x] 05-02: Enhanced Query (extend properties.list with full filters)
 - [ ] 05-03: Search UI (SearchInput, FilterChips, marketplace integration)
 
 **Details:**
@@ -179,7 +179,7 @@ Phases execute in numeric order: 1 → 1.1 → 1.2 → 1.3 → 2 → 3 → 4 →
 | 3. Profiles | 4/4 | Complete | 2026-01-13 |
 | 4. Property Marketplace | 4/4 | Complete | 2026-01-13 |
 | 4.1 Edit Property (INSERTED) | 1/1 | Complete | 2026-01-13 |
-| 5. Smart Search | 1/3 | In progress | - |
+| 5. Smart Search | 2/3 | In progress | - |
 | 6. Deal Flow | 0/TBD | Not started | - |
 | 7. Dashboards | 0/TBD | Not started | - |
 | 8. Real-time Features | 0/TBD | Not started | - |
