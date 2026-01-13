@@ -111,7 +111,7 @@ Onboarding captures user role at /onboarding. Investor profiles store investment
 **Plans**: 4 plans
 
 Plans:
-- [ ] 04-01: Property schema + admin upload form
+- [x] 04-01: Property schema + admin upload form
 - [ ] 04-02: Property listings page (marketplace)
 - [ ] 04-03: Property detail page + favorites
 - [ ] 04-04: Navigation integration + verification
@@ -156,7 +156,7 @@ Phases execute in numeric order: 1 → 1.1 → 1.2 → 1.3 → 2 → 3 → 4 →
 | 1.3 Create Design System Page (INSERTED) | 1/1 | Complete | 2026-01-12 |
 | 2. Authentication | 3/3 | Complete | 2026-01-13 |
 | 3. Profiles | 4/4 | Complete | 2026-01-13 |
-| 4. Property Marketplace | 0/TBD | Not started | - |
+| 4. Property Marketplace | 1/4 | In progress | - |
 | 5. Smart Search | 0/TBD | Not started | - |
 | 6. Deal Flow | 0/TBD | Not started | - |
 | 7. Dashboards | 0/TBD | Not started | - |

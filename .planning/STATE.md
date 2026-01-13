@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-01-12)
 
 **Core value:** Deal flow tracking from interest to close.
-**Current focus:** Phase 3 — Profiles
+**Current focus:** Phase 4 — Property Marketplace
 
 ## Current Position
 
-Phase: 2 of 8 (Authentication) - COMPLETE
-Plan: 3 of 3 in current phase
-Status: Phase complete
-Last activity: 2026-01-13 — Completed 02-03-PLAN.md
+Phase: 4 of 8 (Property Marketplace)
+Plan: 1 of 4 in current phase
+Status: In progress
+Last activity: 2026-01-13 — Completed 04-01-PLAN.md
 
-Progress: ████░░░░░░ 37.5%
+Progress: █████▌░░░░ 54%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 9
-- Average duration: 8 min
-- Total execution time: 1.2 hours
+- Total plans completed: 14
+- Average duration: 7.5 min
+- Total execution time: 1.75 hours
 
 **By Phase:**
 
@@ -32,10 +32,12 @@ Progress: ████░░░░░░ 37.5%
 | 1.2 | 1/1 | 12 min | 12 min |
 | 1.3 | 1/1 | 15 min | 15 min |
 | 2 | 3/3 | 25 min | 8 min |
+| 3 | 4/4 | 30 min | 7.5 min |
+| 4 | 1/4 | 5 min | 5 min |
 
 **Recent Trend:**
-- Last 5 plans: 12 min, 15 min, 8 min, 7 min, 10 min
-- Trend: Stable
+- Last 5 plans: 7 min, 10 min, 6 min, 8 min, 5 min
+- Trend: Stable, fast execution
 
 ## Accumulated Context
 
@@ -54,6 +56,11 @@ Recent decisions affecting current work:
 - Phase 2: ConvexProviderWithClerk for auth integration
 - Phase 2: Route groups: (main) public, (auth) auth pages, (app) protected
 - Phase 2: User roles: investor, broker, mortgage_advisor, lawyer
+- Phase 3: Two-column layout for profile forms (lg:grid-cols-2)
+- Phase 3: Shared constants in src/lib/constants.ts for profile options
+- Phase 3: MultiSelectPopover uses native CSS scrolling
+- Phase 4: USD/ILS rate as constant (3.7) for MVP, not live API
+- Phase 4: All authenticated users can create properties (no admin restriction for MVP)
 
 ### Deferred Issues
 
@@ -72,5 +79,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-13
-Stopped at: Completed Phase 2: Authentication
+Stopped at: Completed 04-01-PLAN.md (Property Schema + Admin Upload)
 Resume file: None
