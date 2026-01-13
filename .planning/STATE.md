@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-01-12)
 ## Current Position
 
 Phase: 5.1 of 8 (Add Also Regular Filter)
-Plan: Not started
-Status: Phase 5 complete, ready for Phase 5.1
-Last activity: 2026-01-13 — Completed 05-03-PLAN.md (Search UI)
+Plan: 1 of 1 in current phase
+Status: Phase 5.1 complete
+Last activity: 2026-01-13 — Completed 05.1-01-PLAN.md (Traditional Filters)
 
-Progress: █████████░ 87%
+Progress: █████████░ 90%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 19
+- Total plans completed: 20
 - Average duration: 7 min
-- Total execution time: 2.3 hours
+- Total execution time: 2.5 hours
 
 **By Phase:**
 
@@ -36,9 +36,10 @@ Progress: █████████░ 87%
 | 4 | 4/4 | 20 min | 5 min |
 | 4.1 | 1/1 | 3 min | 3 min |
 | 5 | 3/3 | 21 min | 7 min |
+| 5.1 | 1/1 | 12 min | 12 min |
 
 **Recent Trend:**
-- Last 5 plans: 4 min, 3 min, 12 min, 1 min, 8 min
+- Last 5 plans: 3 min, 12 min, 1 min, 8 min, 12 min
 - Trend: Fast execution
 
 ## Accumulated Context
@@ -77,6 +78,9 @@ Recent decisions affecting current work:
 - Phase 5: Graceful error handling returns empty filters (fallback to all properties)
 - Phase 5: In-memory filtering after by_status index (Convex single-index constraint)
 - Phase 5: Properties with undefined values excluded when filters active
+- Phase 5.1: Popover for filter panel (not Collapsible)
+- Phase 5.1: Filters require Apply button (draft state pattern)
+- Phase 5.1: Sentinel value `__any__` for Radix Select empty state
 
 ### Deferred Issues
 
@@ -97,5 +101,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-13
-Stopped at: Completed 05-03-PLAN.md (Search UI) — Phase 5 complete
+Stopped at: Completed 05.1-01-PLAN.md (Traditional Filters) — Phase 5.1 complete
 Resume file: None

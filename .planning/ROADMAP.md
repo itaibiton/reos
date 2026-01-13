@@ -23,7 +23,7 @@ None
 - [x] **Phase 4: Property Marketplace** - Listings, admin upload, detail pages, favorites
 - [x] **Phase 4.1: Edit Property** (INSERTED) - Edit existing property listings
 - [x] **Phase 5: Smart Search** - Natural language search to structured filters
-- [ ] **Phase 5.1: Add Also Regular Filter** (INSERTED) - Add traditional filter UI alongside smart search
+- [x] **Phase 5.1: Add Also Regular Filter** (INSERTED) - Add traditional filter UI alongside smart search
 - [ ] **Phase 6: Deal Flow** - Deal stages, service provider requests, file storage
 - [ ] **Phase 7: Dashboards** - Investor and service provider dashboards
 - [ ] **Phase 8: Real-time Features** - Chat and live updates
@@ -149,13 +149,13 @@ Uses Claude AI (Anthropic SDK) to parse natural language queries into structured
 **Goal**: Add traditional filter dropdowns/inputs alongside smart search for users who prefer explicit controls
 **Depends on**: Phase 5
 **Research**: Unlikely
-**Plans**: 0 plans
+**Plans**: 1 plan
 
 Plans:
-- [ ] TBD (run /gsd:plan-phase 5.1 to break down)
+- [x] 05.1-01: PropertyFiltersPanel component with popover UI
 
 **Details:**
-[To be added during planning]
+Created PropertyFiltersPanel with Popover dropdown containing filter controls (City, Property Type, Bedrooms, Bathrooms, Price Range, Size Range). Uses draft state pattern - changes only apply on "Apply Filters" button click. FilterChips displayed inline with Filters button. Uses `__any__` sentinel value for Radix Select empty state.
 
 ### Phase 6: Deal Flow
 **Goal**: Deal stages tracking, service provider requests, file storage per deal, client handoffs between providers
@@ -193,7 +193,7 @@ Phases execute in numeric order: 1 → 1.1 → 1.2 → 1.3 → 2 → 3 → 4 →
 | 4. Property Marketplace | 4/4 | Complete | 2026-01-13 |
 | 4.1 Edit Property (INSERTED) | 1/1 | Complete | 2026-01-13 |
 | 5. Smart Search | 3/3 | Complete | 2026-01-13 |
-| 5.1 Add Also Regular Filter (INSERTED) | 0/TBD | Not started | - |
+| 5.1 Add Also Regular Filter (INSERTED) | 1/1 | Complete | 2026-01-13 |
 | 6. Deal Flow | 0/TBD | Not started | - |
 | 7. Dashboards | 0/TBD | Not started | - |
 | 8. Real-time Features | 0/TBD | Not started | - |
