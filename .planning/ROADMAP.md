@@ -19,7 +19,7 @@ None
 - [x] **Phase 1.2: Add All Shadcn Components** (INSERTED) - Install complete Shadcn component library
 - [x] **Phase 1.3: Create Design System Page** (INSERTED) - Design system documentation page
 - [x] **Phase 2: Authentication** - Clerk integration, role-based access
-- [ ] **Phase 3: Profiles** - Investor and service provider profile systems
+- [x] **Phase 3: Profiles** - Investor and service provider profile systems
 - [ ] **Phase 4: Property Marketplace** - Listings, admin upload, detail pages, favorites
 - [ ] **Phase 5: Smart Search** - Natural language search to structured filters
 - [ ] **Phase 6: Deal Flow** - Deal stages, service provider requests, file storage
@@ -96,19 +96,25 @@ Uses ConvexProviderWithClerk for auth integration. Users table stores role (inve
 **Plans**: 4 plans
 
 Plans:
-- [ ] 03-01: Onboarding flow (role selection, redirect incomplete users)
-- [ ] 03-02: Investor profile schema + form
-- [ ] 03-03: Service provider profile schema + form
-- [ ] 03-04: Settings page with role-based routing
+- [x] 03-01: Onboarding flow (role selection, redirect incomplete users)
+- [x] 03-02: Investor profile schema + form
+- [x] 03-03: Service provider profile schema + form
+- [x] 03-04: Settings page with role-based routing
 
 **Details:**
-Onboarding captures user role. Investor profiles store investment preferences (property types, budget, risk tolerance, timeline). Service provider profiles store business info (company, license, specializations, service areas, languages).
+Onboarding captures user role at /onboarding. Investor profiles store investment preferences (property types, budget, risk tolerance, timeline). Service provider profiles store business info (company, license, specializations, service areas, languages). Settings page at /settings shows role-appropriate profile form in two-column layout. Shared constants in src/lib/constants.ts.
 
 ### Phase 4: Property Marketplace
 **Goal**: Property listing display with metrics, admin upload interface, detail pages, save/favorite functionality
 **Depends on**: Phase 3
 **Research**: Unlikely (standard patterns)
-**Plans**: TBD
+**Plans**: 4 plans
+
+Plans:
+- [ ] 04-01: Property schema + admin upload form
+- [ ] 04-02: Property listings page (marketplace)
+- [ ] 04-03: Property detail page + favorites
+- [ ] 04-04: Navigation integration + verification
 
 ### Phase 5: Smart Search
 **Goal**: Natural language search input parsed to structured property filters
@@ -149,7 +155,7 @@ Phases execute in numeric order: 1 → 1.1 → 1.2 → 1.3 → 2 → 3 → 4 →
 | 1.2 Add All Shadcn Components (INSERTED) | 1/1 | Complete | 2026-01-12 |
 | 1.3 Create Design System Page (INSERTED) | 1/1 | Complete | 2026-01-12 |
 | 2. Authentication | 3/3 | Complete | 2026-01-13 |
-| 3. Profiles | 0/TBD | Not started | - |
+| 3. Profiles | 4/4 | Complete | 2026-01-13 |
 | 4. Property Marketplace | 0/TBD | Not started | - |
 | 5. Smart Search | 0/TBD | Not started | - |
 | 6. Deal Flow | 0/TBD | Not started | - |
