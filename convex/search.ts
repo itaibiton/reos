@@ -1,9 +1,41 @@
+/**
+ * Smart Search Module
+ *
+ * This module provides AI-powered natural language search for properties.
+ *
+ * SEARCH FLOW (Action → Query Pattern):
+ * =====================================
+ * Since Convex queries cannot call actions, the frontend orchestrates the search:
+ *
+ * 1. Frontend calls: parseSearchQuery action with natural language string
+ *    Example: "apartments in Tel Aviv under $500k with 3 bedrooms"
+ *
+ * 2. Action returns: PropertyFilters object
+ *    Example: { city: "Tel Aviv", propertyType: "residential", priceMax: 500000, bedroomsMin: 3 }
+ *
+ * 3. Frontend calls: properties.list query with the returned filters
+ *    The query applies all filters and returns matching properties
+ *
+ * This separation keeps queries pure (no side effects) while allowing
+ * AI parsing in actions (which can make external API calls).
+ */
+
 import { v } from "convex/values";
 import { action } from "./_generated/server";
 import Anthropic from "@anthropic-ai/sdk";
 
-// Property filter type for search results
-// Matches the args expected by properties.list query
+/**
+ * PropertyFilters - Filter criteria for property search
+ *
+ * This type matches the args expected by the properties.list query.
+ * Use parseSearchQuery to generate these filters from natural language,
+ * then pass them directly to properties.list.
+ *
+ * @example
+ * // Using with parseSearchQuery action
+ * const filters = await parseSearchQuery({ query: "3br apartment in Haifa" });
+ * const properties = await properties.list(filters);
+ */
 export type PropertyFilters = {
   status?: "available" | "pending" | "sold";
   city?: string;
