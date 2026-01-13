@@ -19,11 +19,11 @@ export default function PropertiesPage() {
   }
 
   return (
-    <div className="mx-auto max-w-6xl p-6">
-      <div className="flex items-center justify-between mb-8">
+    <div className="p-6">
+      <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-2xl font-bold">Properties</h1>
-          <p className="text-muted-foreground mt-1">
+          <p className="text-muted-foreground">
             {properties.length} {properties.length === 1 ? "property" : "properties"} available
           </p>
         </div>

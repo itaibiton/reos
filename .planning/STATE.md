@@ -61,6 +61,7 @@ Recent decisions affecting current work:
 - Phase 3: MultiSelectPopover uses native CSS scrolling
 - Phase 4: USD/ILS rate as constant (3.7) for MVP, not live API
 - Phase 4: All authenticated users can create properties (no admin restriction for MVP)
+- Phase 4: Page layout uses `<div className="p-6">` — content starts at top, no centering/max-width
 
 ### Deferred Issues
 

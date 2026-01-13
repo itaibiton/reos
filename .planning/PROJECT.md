@@ -93,6 +93,7 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 | NLP → filters for MVP search | Faster to ship, semantic search adds complexity | — Pending |
 | Free tier for MVP | Reduces friction for service provider adoption, billing later | — Pending |
 | Deal flow as core value | Differentiator is end-to-end process, not just property discovery | — Pending |
+| Page layout: `<div className="p-6">` | Content starts at top-left, no centering/max-width. Match settings page pattern. | Standard |
 
 ---
 *Last updated: 2026-01-12 after initialization*
