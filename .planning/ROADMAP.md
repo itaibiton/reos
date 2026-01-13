@@ -134,7 +134,15 @@ Extended PropertyForm with mode prop (create/edit) and initialData prop for pre-
 **Depends on**: Phase 4
 **Research**: Likely (NLP integration)
 **Research topics**: NLP library options for Next.js, structured filter generation from natural language
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+- [x] 05-01: AI Parser Setup (Anthropic SDK + parseSearchQuery action)
+- [ ] 05-02: Enhanced Query (extend properties.list with full filters)
+- [ ] 05-03: Search UI (SearchInput, FilterChips, marketplace integration)
+
+**Details:**
+Uses Claude AI (Anthropic SDK) to parse natural language queries into structured PropertyFilters. parseSearchQuery Convex action handles the NL→filter conversion.
 
 ### Phase 6: Deal Flow
 **Goal**: Deal stages tracking, service provider requests, file storage per deal, client handoffs between providers
@@ -171,7 +179,7 @@ Phases execute in numeric order: 1 → 1.1 → 1.2 → 1.3 → 2 → 3 → 4 →
 | 3. Profiles | 4/4 | Complete | 2026-01-13 |
 | 4. Property Marketplace | 4/4 | Complete | 2026-01-13 |
 | 4.1 Edit Property (INSERTED) | 1/1 | Complete | 2026-01-13 |
-| 5. Smart Search | 0/TBD | Not started | - |
+| 5. Smart Search | 1/3 | In progress | - |
 | 6. Deal Flow | 0/TBD | Not started | - |
 | 7. Dashboards | 0/TBD | Not started | - |
 | 8. Real-time Features | 0/TBD | Not started | - |

@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-01-12)
 
 **Core value:** Deal flow tracking from interest to close.
-**Current focus:** Phase 4 — Property Marketplace
+**Current focus:** Phase 5 — Smart Search
 
 ## Current Position
 
-Phase: 4 of 8 (Property Marketplace)
-Plan: 4 of 4 in current phase
-Status: Phase complete
-Last activity: 2026-01-13 — Completed 04-04-PLAN.md (Final Integration)
+Phase: 5 of 8 (Smart Search)
+Plan: 1 of 3 in current phase
+Status: In progress
+Last activity: 2026-01-13 — Completed 05-01-PLAN.md (AI Parser Setup)
 
-Progress: ████████░░ 75%
+Progress: ████████░░ 80%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 16
+- Total plans completed: 17
 - Average duration: 7 min
-- Total execution time: 1.9 hours
+- Total execution time: 2.1 hours
 
 **By Phase:**
 
@@ -35,10 +35,11 @@ Progress: ████████░░ 75%
 | 3 | 4/4 | 30 min | 7.5 min |
 | 4 | 4/4 | 20 min | 5 min |
 | 4.1 | 1/1 | 3 min | 3 min |
+| 5 | 1/3 | 12 min | 12 min |
 
 **Recent Trend:**
-- Last 5 plans: 8 min, 5 min, 3 min, 4 min, 3 min
-- Trend: Stable, fast execution
+- Last 5 plans: 5 min, 3 min, 4 min, 3 min, 12 min
+- Trend: Stable execution
 
 ## Accumulated Context
 
@@ -71,6 +72,9 @@ Recent decisions affecting current work:
 - Phase 4: SaveButton variants: "default" (full-width) and "overlay" (compact circle)
 - Phase 4: Compound index by_user_and_property for fast favorite lookups
 - Phase 4: Detail page two-column layout with sticky right sidebar
+- Phase 5: Claude 3 Haiku for search parsing (speed/cost efficiency)
+- Phase 5: Convex action for external API calls (not query/mutation)
+- Phase 5: Graceful error handling returns empty filters (fallback to all properties)
 
 ### Deferred Issues
 
@@ -90,5 +94,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-13
-Stopped at: Completed 04-04-PLAN.md (Final Integration) — Phase 4 complete
+Stopped at: Completed 05-01-PLAN.md (AI Parser Setup)
 Resume file: None
