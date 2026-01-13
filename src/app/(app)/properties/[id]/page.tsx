@@ -18,9 +18,9 @@ import {
   Calendar01Icon,
   Building02Icon,
   Location01Icon,
-  FavouriteIcon,
 } from "@hugeicons/core-free-icons";
 import Link from "next/link";
+import { SaveButton } from "@/components/properties/SaveButton";
 
 // Currency formatter for USD
 const formatUSD = (amount: number) => {
@@ -405,10 +405,7 @@ export default function PropertyDetailPage() {
 
           {/* Action Buttons */}
           <div className="space-y-3">
-            <Button variant="outline" className="w-full" disabled>
-              <HugeiconsIcon icon={FavouriteIcon} size={18} strokeWidth={1.5} />
-              Save Property
-            </Button>
+            <SaveButton propertyId={property._id} />
             <Button className="w-full" asChild>
               <a href="#">Contact Broker</a>
             </Button>

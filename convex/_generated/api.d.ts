@@ -8,6 +8,7 @@
  * @module
  */
 
+import type * as favorites from "../favorites.js";
 import type * as investorProfiles from "../investorProfiles.js";
 import type * as properties from "../properties.js";
 import type * as serviceProviderProfiles from "../serviceProviderProfiles.js";
@@ -20,6 +21,7 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  favorites: typeof favorites;
   investorProfiles: typeof investorProfiles;
   properties: typeof properties;
   serviceProviderProfiles: typeof serviceProviderProfiles;

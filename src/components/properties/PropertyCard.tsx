@@ -10,6 +10,7 @@ import {
   Bathtub01Icon,
   Square01Icon,
 } from "@hugeicons/core-free-icons";
+import { SaveButton } from "./SaveButton";
 
 // Currency formatter for USD
 const formatUSD = (amount: number) => {
@@ -110,15 +111,15 @@ export function PropertyCard({ property, onClick }: PropertyCardProps) {
           {getPropertyTypeLabel(propertyType)}
         </Badge>
 
-        {/* Status Badge - top-right (only if not available) */}
-        {status !== "available" && (
-          <Badge
-            variant={getStatusBadgeVariant(status)}
-            className="absolute top-2 right-2"
-          >
-            {getStatusLabel(status)}
-          </Badge>
-        )}
+        {/* Top-right area: Save button and status badge */}
+        <div className="absolute top-2 right-2 flex items-center gap-2">
+          {status !== "available" && (
+            <Badge variant={getStatusBadgeVariant(status)}>
+              {getStatusLabel(status)}
+            </Badge>
+          )}
+          <SaveButton propertyId={property._id} variant="overlay" />
+        </div>
       </div>
 
       <CardContent className="p-4 space-y-3">

@@ -192,4 +192,17 @@ export default defineSchema({
     .index("by_property_type", ["propertyType"])
     .index("by_status", ["status"])
     .index("by_price", ["priceUsd"]),
+
+  // User favorites (saved properties)
+  favorites: defineTable({
+    // Reference to user
+    userId: v.id("users"),
+    // Reference to property
+    propertyId: v.id("properties"),
+    // Timestamp
+    createdAt: v.number(),
+  })
+    .index("by_user", ["userId"])
+    .index("by_property", ["propertyId"])
+    .index("by_user_and_property", ["userId", "propertyId"]),
 });
