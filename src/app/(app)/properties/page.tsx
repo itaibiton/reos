@@ -1,14 +1,18 @@
 "use client";
 
-import { useQuery } from "convex/react";
+import { useState } from "react";
+import { useQuery, useAction } from "convex/react";
 import { useRouter } from "next/navigation";
 import { api } from "../../../../convex/_generated/api";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { PropertyCard } from "@/components/properties/PropertyCard";
+import { SearchInput } from "@/components/search/SearchInput";
+import { FilterChips, type PropertyFilterKey } from "@/components/search/FilterChips";
 import Link from "next/link";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Building02Icon } from "@hugeicons/core-free-icons";
+import type { PropertyFilters } from "../../../../convex/search";
 
 // Skeleton loader for property cards
 function PropertyCardSkeleton() {
@@ -51,7 +55,65 @@ function PropertyCardSkeleton() {
 
 export default function PropertiesPage() {
   const router = useRouter();
-  const properties = useQuery(api.properties.list, {});
+
+  // Search state
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filters, setFilters] = useState<PropertyFilters>({});
+  const [isSearching, setIsSearching] = useState(false);
+
+  // Actions and queries
+  const parseSearchQuery = useAction(api.search.parseSearchQuery);
+  const properties = useQuery(api.properties.list, filters);
+
+  // Handle search submit
+  const handleSearch = async (query: string) => {
+    setSearchQuery(query);
+    setIsSearching(true);
+
+    try {
+      const parsedFilters = await parseSearchQuery({ query });
+      setFilters(parsedFilters);
+    } catch (error) {
+      console.error("Error parsing search query:", error);
+      // On error, clear filters to show all properties
+      setFilters({});
+    } finally {
+      setIsSearching(false);
+    }
+  };
+
+  // Handle removing individual filter
+  const handleRemoveFilter = (filterKey: PropertyFilterKey) => {
+    const newFilters = { ...filters };
+
+    // Handle price range - remove both min and max if either is removed
+    if (filterKey === "priceMin" || filterKey === "priceMax") {
+      delete newFilters.priceMin;
+      delete newFilters.priceMax;
+    }
+    // Handle size range - remove both min and max if either is removed
+    else if (filterKey === "squareMetersMin" || filterKey === "squareMetersMax") {
+      delete newFilters.squareMetersMin;
+      delete newFilters.squareMetersMax;
+    }
+    // Remove single filter
+    else {
+      delete newFilters[filterKey];
+    }
+
+    setFilters(newFilters);
+
+    // Clear search query if all filters removed
+    if (Object.keys(newFilters).length === 0) {
+      setSearchQuery("");
+    }
+  };
+
+  // Handle clearing all filters
+  const handleClearAllFilters = () => {
+    setFilters({});
+    setSearchQuery("");
+  };
 
   // Loading state with skeletons
   if (properties === undefined) {
@@ -89,6 +151,24 @@ export default function PropertiesPage() {
         <Link href="/properties/new">
           <Button>Add Property</Button>
         </Link>
+      </div>
+
+      {/* Search Section */}
+      <div className="mb-6 space-y-3">
+        <SearchInput
+          onSearch={handleSearch}
+          isLoading={isSearching}
+          placeholder="Search properties... try 'apartments in Tel Aviv under $500k'"
+        />
+
+        {/* Filter Chips - only show when filters exist */}
+        {Object.keys(filters).length > 0 && (
+          <FilterChips
+            filters={filters}
+            onRemove={handleRemoveFilter}
+            onClearAll={handleClearAllFilters}
+          />
+        )}
       </div>
 
       {/* Empty State */}
