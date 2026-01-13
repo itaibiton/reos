@@ -17,12 +17,22 @@ const propertyStatusValidator = v.union(
 
 // List properties with optional filters
 // By default, shows available properties only
+// Supports full filter set for smart search (see PropertyFilters in search.ts)
 export const list = query({
   args: {
+    // Basic filters
     status: v.optional(propertyStatusValidator),
     city: v.optional(v.string()),
     propertyType: v.optional(propertyTypeValidator),
     limit: v.optional(v.number()),
+    // Price range filters
+    priceMin: v.optional(v.number()),
+    priceMax: v.optional(v.number()),
+    // Property feature filters
+    bedroomsMin: v.optional(v.number()),
+    bathroomsMin: v.optional(v.number()),
+    squareMetersMin: v.optional(v.number()),
+    squareMetersMax: v.optional(v.number()),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -40,13 +50,47 @@ export const list = query({
       .withIndex("by_status", (q) => q.eq("status", status))
       .collect();
 
-    // Apply additional filters
+    // Apply basic filters
     if (args.city) {
       properties = properties.filter((p) => p.city === args.city);
     }
 
     if (args.propertyType) {
       properties = properties.filter((p) => p.propertyType === args.propertyType);
+    }
+
+    // Apply price range filters
+    if (args.priceMin !== undefined) {
+      properties = properties.filter((p) => p.priceUsd >= args.priceMin!);
+    }
+
+    if (args.priceMax !== undefined) {
+      properties = properties.filter((p) => p.priceUsd <= args.priceMax!);
+    }
+
+    // Apply property feature filters (handle undefined property values gracefully)
+    if (args.bedroomsMin !== undefined) {
+      properties = properties.filter(
+        (p) => p.bedrooms !== undefined && p.bedrooms >= args.bedroomsMin!
+      );
+    }
+
+    if (args.bathroomsMin !== undefined) {
+      properties = properties.filter(
+        (p) => p.bathrooms !== undefined && p.bathrooms >= args.bathroomsMin!
+      );
+    }
+
+    if (args.squareMetersMin !== undefined) {
+      properties = properties.filter(
+        (p) => p.squareMeters !== undefined && p.squareMeters >= args.squareMetersMin!
+      );
+    }
+
+    if (args.squareMetersMax !== undefined) {
+      properties = properties.filter(
+        (p) => p.squareMeters !== undefined && p.squareMeters <= args.squareMetersMax!
+      );
     }
 
     // Sort by createdAt descending (newest first)
