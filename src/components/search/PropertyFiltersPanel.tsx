@@ -16,8 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { ChevronDownIcon, FilterIcon } from "@hugeicons/core-free-icons";
+import { ChevronDownIcon, SlidersHorizontalIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ISRAELI_LOCATIONS, PROPERTY_TYPES } from "@/lib/constants";
 import type { PropertyFilters } from "../../../convex/search";
@@ -81,12 +80,7 @@ export function PropertyFiltersPanel({
           className="w-full justify-between px-4 py-3 h-auto hover:bg-muted/50"
         >
           <div className="flex items-center gap-2">
-            <HugeiconsIcon
-              icon={FilterIcon}
-              size={16}
-              strokeWidth={1.5}
-              className="text-muted-foreground"
-            />
+            <SlidersHorizontalIcon className="size-4 text-muted-foreground" />
             <span className="text-sm font-medium">
               Filters
               {hasActiveFilters && (
@@ -96,12 +90,9 @@ export function PropertyFiltersPanel({
               )}
             </span>
           </div>
-          <HugeiconsIcon
-            icon={ChevronDownIcon}
-            size={16}
-            strokeWidth={1.5}
+          <ChevronDownIcon
             className={cn(
-              "text-muted-foreground transition-transform",
+              "size-4 text-muted-foreground transition-transform",
               isOpen && "rotate-180"
             )}
           />
