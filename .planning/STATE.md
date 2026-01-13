@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-01-12)
 
 **Core value:** Deal flow tracking from interest to close.
-**Current focus:** Phase 5 — Smart Search
+**Current focus:** Phase 5.1 — Add Also Regular Filter
 
 ## Current Position
 
-Phase: 5 of 8 (Smart Search)
-Plan: 2 of 3 in current phase
-Status: In progress
-Last activity: 2026-01-13 — Completed 05-02-PLAN.md (Extended Property Query)
+Phase: 5.1 of 8 (Add Also Regular Filter)
+Plan: Not started
+Status: Phase 5 complete, ready for Phase 5.1
+Last activity: 2026-01-13 — Completed 05-03-PLAN.md (Search UI)
 
-Progress: █████████░ 85%
+Progress: █████████░ 87%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 18
+- Total plans completed: 19
 - Average duration: 7 min
-- Total execution time: 2.2 hours
+- Total execution time: 2.3 hours
 
 **By Phase:**
 
@@ -35,10 +35,10 @@ Progress: █████████░ 85%
 | 3 | 4/4 | 30 min | 7.5 min |
 | 4 | 4/4 | 20 min | 5 min |
 | 4.1 | 1/1 | 3 min | 3 min |
-| 5 | 2/3 | 13 min | 6.5 min |
+| 5 | 3/3 | 21 min | 7 min |
 
 **Recent Trend:**
-- Last 5 plans: 3 min, 4 min, 3 min, 12 min, 1 min
+- Last 5 plans: 4 min, 3 min, 12 min, 1 min, 8 min
 - Trend: Fast execution
 
 ## Accumulated Context
@@ -92,9 +92,10 @@ None yet.
 - Phase 1.2 inserted after Phase 1.1: Add All Shadcn Components (COMPLETE)
 - Phase 1.3 inserted after Phase 1.2: Create Design System Page (COMPLETE)
 - Phase 4.1 inserted after Phase 4: Edit Property (COMPLETE)
+- Phase 5.1 inserted after Phase 5: Add Also Regular Filter (URGENT)
 
 ## Session Continuity
 
 Last session: 2026-01-13
-Stopped at: Completed 05-02-PLAN.md (Extended Property Query)
+Stopped at: Completed 05-03-PLAN.md (Search UI) — Phase 5 complete
 Resume file: None

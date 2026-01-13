@@ -22,7 +22,8 @@ None
 - [x] **Phase 3: Profiles** - Investor and service provider profile systems
 - [x] **Phase 4: Property Marketplace** - Listings, admin upload, detail pages, favorites
 - [x] **Phase 4.1: Edit Property** (INSERTED) - Edit existing property listings
-- [ ] **Phase 5: Smart Search** - Natural language search to structured filters
+- [x] **Phase 5: Smart Search** - Natural language search to structured filters
+- [ ] **Phase 5.1: Add Also Regular Filter** (INSERTED) - Add traditional filter UI alongside smart search
 - [ ] **Phase 6: Deal Flow** - Deal stages, service provider requests, file storage
 - [ ] **Phase 7: Dashboards** - Investor and service provider dashboards
 - [ ] **Phase 8: Real-time Features** - Chat and live updates
@@ -139,10 +140,22 @@ Extended PropertyForm with mode prop (create/edit) and initialData prop for pre-
 Plans:
 - [x] 05-01: AI Parser Setup (Anthropic SDK + parseSearchQuery action)
 - [x] 05-02: Enhanced Query (extend properties.list with full filters)
-- [ ] 05-03: Search UI (SearchInput, FilterChips, marketplace integration)
+- [x] 05-03: Search UI (SearchInput, FilterChips, marketplace integration)
 
 **Details:**
 Uses Claude AI (Anthropic SDK) to parse natural language queries into structured PropertyFilters. parseSearchQuery Convex action handles the NL→filter conversion.
+
+### Phase 5.1: Add Also Regular Filter (INSERTED)
+**Goal**: Add traditional filter dropdowns/inputs alongside smart search for users who prefer explicit controls
+**Depends on**: Phase 5
+**Research**: Unlikely
+**Plans**: 0 plans
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 5.1 to break down)
+
+**Details:**
+[To be added during planning]
 
 ### Phase 6: Deal Flow
 **Goal**: Deal stages tracking, service provider requests, file storage per deal, client handoffs between providers
@@ -167,7 +180,7 @@ Uses Claude AI (Anthropic SDK) to parse natural language queries into structured
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 1.1 → 1.2 → 1.3 → 2 → 3 → 4 → 4.1 → 5 → 6 → 7 → 8
+Phases execute in numeric order: 1 → 1.1 → 1.2 → 1.3 → 2 → 3 → 4 → 4.1 → 5 → 5.1 → 6 → 7 → 8
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
@@ -179,7 +192,8 @@ Phases execute in numeric order: 1 → 1.1 → 1.2 → 1.3 → 2 → 3 → 4 →
 | 3. Profiles | 4/4 | Complete | 2026-01-13 |
 | 4. Property Marketplace | 4/4 | Complete | 2026-01-13 |
 | 4.1 Edit Property (INSERTED) | 1/1 | Complete | 2026-01-13 |
-| 5. Smart Search | 2/3 | In progress | - |
+| 5. Smart Search | 3/3 | Complete | 2026-01-13 |
+| 5.1 Add Also Regular Filter (INSERTED) | 0/TBD | Not started | - |
 | 6. Deal Flow | 0/TBD | Not started | - |
 | 7. Dashboards | 0/TBD | Not started | - |
 | 8. Real-time Features | 0/TBD | Not started | - |
