@@ -75,35 +75,32 @@ export function PropertyFiltersPanel({
     <Collapsible
       open={isOpen}
       onOpenChange={setIsOpen}
-      className={cn("border rounded-lg", className)}
+      className={className}
     >
       <CollapsibleTrigger asChild>
         <Button
-          variant="ghost"
-          className="w-full justify-between px-4 py-3 h-auto hover:bg-muted/50"
+          variant="outline"
+          size="sm"
+          className="gap-2"
         >
-          <div className="flex items-center gap-2">
-            <SlidersHorizontalIcon className="size-4 text-muted-foreground" />
-            <span className="text-sm font-medium">
-              Filters
-              {hasActiveFilters && (
-                <span className="ml-2 text-xs text-muted-foreground">
-                  ({Object.keys(filters).length} active)
-                </span>
-              )}
+          <SlidersHorizontalIcon className="size-4" />
+          <span>Filters</span>
+          {hasActiveFilters && (
+            <span className="rounded-full bg-primary text-primary-foreground text-xs px-1.5 py-0.5 min-w-5 text-center">
+              {Object.keys(filters).length}
             </span>
-          </div>
+          )}
           <ChevronDownIcon
             className={cn(
-              "size-4 text-muted-foreground transition-transform",
+              "size-4 transition-transform",
               isOpen && "rotate-180"
             )}
           />
         </Button>
       </CollapsibleTrigger>
 
-      <CollapsibleContent className="px-4 pb-4">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 pt-3">
+      <CollapsibleContent className="mt-3 p-4 border rounded-lg">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           {/* City Filter */}
           <div className="space-y-1.5">
             <Label htmlFor="city-filter" className="text-xs font-medium">
