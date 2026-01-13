@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-01-12)
 ## Current Position
 
 Phase: 4 of 8 (Property Marketplace)
-Plan: 2 of 4 in current phase
+Plan: 3 of 4 in current phase
 Status: In progress
-Last activity: 2026-01-13 — Completed 04-02-PLAN.md (Property Listings Page)
+Last activity: 2026-01-13 — Completed 04-03-PLAN.md (Property Detail Page)
 
-Progress: ██████░░░░ 62%
+Progress: ███████░░░ 66%
 
 ## Performance Metrics
 
@@ -33,11 +33,11 @@ Progress: ██████░░░░ 62%
 | 1.3 | 1/1 | 15 min | 15 min |
 | 2 | 3/3 | 25 min | 8 min |
 | 3 | 4/4 | 30 min | 7.5 min |
-| 4 | 2/4 | 13 min | 6.5 min |
+| 4 | 3/4 | 17 min | 5.7 min |
 | 4.1 | 1/1 | 3 min | 3 min |
 
 **Recent Trend:**
-- Last 5 plans: 10 min, 6 min, 8 min, 5 min, 3 min
+- Last 5 plans: 6 min, 8 min, 5 min, 3 min, 4 min
 - Trend: Stable, fast execution
 
 ## Accumulated Context
@@ -68,6 +68,9 @@ Recent decisions affecting current work:
 - Phase 4: PropertyCard component pattern with investment metrics display
 - Phase 4: Currency formatting with Intl.NumberFormat for USD/ILS
 - Phase 4: Skeleton loaders matching card structure for smooth loading
+- Phase 4: SaveButton variants: "default" (full-width) and "overlay" (compact circle)
+- Phase 4: Compound index by_user_and_property for fast favorite lookups
+- Phase 4: Detail page two-column layout with sticky right sidebar
 
 ### Deferred Issues
 
@@ -87,5 +90,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-13
-Stopped at: Completed 04-02-PLAN.md (Property Listings Page)
+Stopped at: Completed 04-03-PLAN.md (Property Detail Page)
 Resume file: None
