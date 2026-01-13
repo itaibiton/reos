@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useMutation } from "convex/react";
 import { api } from "../../../convex/_generated/api";
+import { Id } from "../../../convex/_generated/dataModel";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -28,40 +29,98 @@ import {
 type PropertyType = "residential" | "commercial" | "mixed_use" | "land";
 type PropertyStatus = "available" | "pending" | "sold";
 
-export function PropertyForm() {
+interface PropertyFormData {
+  title: string;
+  description: string;
+  address: string;
+  city: string;
+  propertyType: PropertyType;
+  status: PropertyStatus;
+  priceUsd: number;
+  priceIls: number;
+  expectedRoi?: number;
+  cashOnCash?: number;
+  capRate?: number;
+  monthlyRent?: number;
+  bedrooms?: number;
+  bathrooms?: number;
+  squareMeters?: number;
+  yearBuilt?: number;
+  images: string[];
+  featuredImage?: string;
+}
+
+interface PropertyFormProps {
+  mode?: "create" | "edit";
+  propertyId?: Id<"properties">;
+  initialData?: PropertyFormData;
+}
+
+export function PropertyForm({
+  mode = "create",
+  propertyId,
+  initialData,
+}: PropertyFormProps) {
   const router = useRouter();
   const createProperty = useMutation(api.properties.create);
+  const updateProperty = useMutation(api.properties.update);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  // Core fields
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [propertyType, setPropertyType] = useState<PropertyType>("residential");
-  const [status, setStatus] = useState<PropertyStatus>("available");
+  // Core fields - initialize from initialData if provided
+  const [title, setTitle] = useState(initialData?.title ?? "");
+  const [description, setDescription] = useState(initialData?.description ?? "");
+  const [address, setAddress] = useState(initialData?.address ?? "");
+  const [city, setCity] = useState(initialData?.city ?? "");
+  const [propertyType, setPropertyType] = useState<PropertyType>(
+    initialData?.propertyType ?? "residential"
+  );
+  const [status, setStatus] = useState<PropertyStatus>(
+    initialData?.status ?? "available"
+  );
 
-  // Pricing
-  const [priceUsd, setPriceUsd] = useState("");
-  const [priceIls, setPriceIls] = useState("");
+  // Pricing - initialize from initialData if provided
+  const [priceUsd, setPriceUsd] = useState(
+    initialData?.priceUsd?.toString() ?? ""
+  );
+  const [priceIls, setPriceIls] = useState(
+    initialData?.priceIls?.toString() ?? ""
+  );
 
-  // Investment metrics
-  const [expectedRoi, setExpectedRoi] = useState("");
-  const [cashOnCash, setCashOnCash] = useState("");
-  const [capRate, setCapRate] = useState("");
-  const [monthlyRent, setMonthlyRent] = useState("");
+  // Investment metrics - initialize from initialData if provided
+  const [expectedRoi, setExpectedRoi] = useState(
+    initialData?.expectedRoi?.toString() ?? ""
+  );
+  const [cashOnCash, setCashOnCash] = useState(
+    initialData?.cashOnCash?.toString() ?? ""
+  );
+  const [capRate, setCapRate] = useState(initialData?.capRate?.toString() ?? "");
+  const [monthlyRent, setMonthlyRent] = useState(
+    initialData?.monthlyRent?.toString() ?? ""
+  );
 
-  // Property details
-  const [bedrooms, setBedrooms] = useState("");
-  const [bathrooms, setBathrooms] = useState("");
-  const [squareMeters, setSquareMeters] = useState("");
-  const [yearBuilt, setYearBuilt] = useState("");
+  // Property details - initialize from initialData if provided
+  const [bedrooms, setBedrooms] = useState(
+    initialData?.bedrooms?.toString() ?? ""
+  );
+  const [bathrooms, setBathrooms] = useState(
+    initialData?.bathrooms?.toString() ?? ""
+  );
+  const [squareMeters, setSquareMeters] = useState(
+    initialData?.squareMeters?.toString() ?? ""
+  );
+  const [yearBuilt, setYearBuilt] = useState(
+    initialData?.yearBuilt?.toString() ?? ""
+  );
 
-  // Media
-  const [imagesInput, setImagesInput] = useState("");
-  const [featuredImage, setFeaturedImage] = useState("");
+  // Media - initialize from initialData if provided
+  const [imagesInput, setImagesInput] = useState(
+    initialData?.images?.join(", ") ?? ""
+  );
+  const [featuredImage, setFeaturedImage] = useState(
+    initialData?.featuredImage ?? ""
+  );
 
   // Auto-calculate ILS when USD changes
   const handlePriceUsdChange = (value: string) => {
@@ -112,36 +171,70 @@ export function PropertyForm() {
         .map((url) => url.trim())
         .filter((url) => url.length > 0);
 
-      await createProperty({
-        title: title.trim(),
-        description: description.trim(),
-        address: address.trim(),
-        city,
-        propertyType,
-        status,
-        priceUsd: parseFloat(priceUsd),
-        priceIls: parseFloat(priceIls) || parseFloat(priceUsd) * USD_TO_ILS_RATE,
-        expectedRoi: expectedRoi ? parseFloat(expectedRoi) : undefined,
-        cashOnCash: cashOnCash ? parseFloat(cashOnCash) : undefined,
-        capRate: capRate ? parseFloat(capRate) : undefined,
-        monthlyRent: monthlyRent ? parseFloat(monthlyRent) : undefined,
-        bedrooms: bedrooms ? parseInt(bedrooms, 10) : undefined,
-        bathrooms: bathrooms ? parseInt(bathrooms, 10) : undefined,
-        squareMeters: squareMeters ? parseFloat(squareMeters) : undefined,
-        yearBuilt: yearBuilt ? parseInt(yearBuilt, 10) : undefined,
-        images,
-        featuredImage: featuredImage.trim() || undefined,
-      });
+      if (mode === "edit" && propertyId) {
+        // Update existing property
+        await updateProperty({
+          id: propertyId,
+          title: title.trim(),
+          description: description.trim(),
+          address: address.trim(),
+          city,
+          propertyType,
+          status,
+          priceUsd: parseFloat(priceUsd),
+          priceIls: parseFloat(priceIls) || parseFloat(priceUsd) * USD_TO_ILS_RATE,
+          expectedRoi: expectedRoi ? parseFloat(expectedRoi) : undefined,
+          cashOnCash: cashOnCash ? parseFloat(cashOnCash) : undefined,
+          capRate: capRate ? parseFloat(capRate) : undefined,
+          monthlyRent: monthlyRent ? parseFloat(monthlyRent) : undefined,
+          bedrooms: bedrooms ? parseInt(bedrooms, 10) : undefined,
+          bathrooms: bathrooms ? parseInt(bathrooms, 10) : undefined,
+          squareMeters: squareMeters ? parseFloat(squareMeters) : undefined,
+          yearBuilt: yearBuilt ? parseInt(yearBuilt, 10) : undefined,
+          images,
+          featuredImage: featuredImage.trim() || undefined,
+        });
 
-      toast.success("Property created successfully!");
+        toast.success("Property updated successfully!");
+      } else {
+        // Create new property
+        await createProperty({
+          title: title.trim(),
+          description: description.trim(),
+          address: address.trim(),
+          city,
+          propertyType,
+          status,
+          priceUsd: parseFloat(priceUsd),
+          priceIls: parseFloat(priceIls) || parseFloat(priceUsd) * USD_TO_ILS_RATE,
+          expectedRoi: expectedRoi ? parseFloat(expectedRoi) : undefined,
+          cashOnCash: cashOnCash ? parseFloat(cashOnCash) : undefined,
+          capRate: capRate ? parseFloat(capRate) : undefined,
+          monthlyRent: monthlyRent ? parseFloat(monthlyRent) : undefined,
+          bedrooms: bedrooms ? parseInt(bedrooms, 10) : undefined,
+          bathrooms: bathrooms ? parseInt(bathrooms, 10) : undefined,
+          squareMeters: squareMeters ? parseFloat(squareMeters) : undefined,
+          yearBuilt: yearBuilt ? parseInt(yearBuilt, 10) : undefined,
+          images,
+          featuredImage: featuredImage.trim() || undefined,
+        });
+
+        toast.success("Property created successfully!");
+      }
+
       router.push("/properties");
     } catch (error) {
-      console.error("Failed to create property:", error);
-      toast.error("Failed to create property. Please try again.");
+      console.error(`Failed to ${mode} property:`, error);
+      toast.error(
+        `Failed to ${mode === "edit" ? "update" : "create"} property. Please try again.`
+      );
     } finally {
       setIsSubmitting(false);
     }
   };
+
+  const buttonText = mode === "edit" ? "Save Changes" : "Create Property";
+  const buttonLoadingText = mode === "edit" ? "Saving..." : "Creating Property...";
 
   return (
     <form onSubmit={handleSubmit}>
@@ -449,10 +542,10 @@ export function PropertyForm() {
           {isSubmitting ? (
             <>
               <Spinner className="mr-2 h-4 w-4" />
-              Creating Property...
+              {buttonLoadingText}
             </>
           ) : (
-            "Create Property"
+            buttonText
           )}
         </Button>
       </div>
