@@ -4,11 +4,12 @@ import { Doc } from "../../../convex/_generated/dataModel";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { USD_TO_ILS_RATE, PROPERTY_TYPES, PROPERTY_STATUS } from "@/lib/constants";
+import { HugeiconsIcon } from "@hugeicons/react";
 import {
   Home01Icon,
-  BathtubIcon,
-  SquareIcon,
-} from "hugeicons-react";
+  Bathtub01Icon,
+  Square01Icon,
+} from "@hugeicons/core-free-icons";
 
 // Currency formatter for USD
 const formatUSD = (amount: number) => {
@@ -97,7 +98,7 @@ export function PropertyCard({ property, onClick }: PropertyCardProps) {
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-muted-foreground">
-            <Home01Icon className="h-12 w-12" />
+            <HugeiconsIcon icon={Home01Icon} size={48} strokeWidth={1.5} />
           </div>
         )}
 
@@ -163,19 +164,19 @@ export function PropertyCard({ property, onClick }: PropertyCardProps) {
         <div className="flex items-center gap-4 text-sm text-muted-foreground border-t pt-3">
           {bedrooms !== undefined && bedrooms !== null && (
             <div className="flex items-center gap-1">
-              <Home01Icon className="h-4 w-4" />
+              <HugeiconsIcon icon={Home01Icon} size={16} strokeWidth={1.5} />
               <span>{bedrooms} bed</span>
             </div>
           )}
           {bathrooms !== undefined && bathrooms !== null && (
             <div className="flex items-center gap-1">
-              <BathtubIcon className="h-4 w-4" />
+              <HugeiconsIcon icon={Bathtub01Icon} size={16} strokeWidth={1.5} />
               <span>{bathrooms} bath</span>
             </div>
           )}
           {squareMeters !== undefined && squareMeters !== null && (
             <div className="flex items-center gap-1">
-              <SquareIcon className="h-4 w-4" />
+              <HugeiconsIcon icon={Square01Icon} size={16} strokeWidth={1.5} />
               <span>{squareMeters} m<sup>2</sup></span>
             </div>
           )}

@@ -7,7 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { PropertyCard } from "@/components/properties/PropertyCard";
 import Link from "next/link";
-import { Building02Icon } from "hugeicons-react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Building02Icon } from "@hugeicons/core-free-icons";
 
 // Skeleton loader for property cards
 function PropertyCardSkeleton() {
@@ -93,8 +94,8 @@ export default function PropertiesPage() {
       {/* Empty State */}
       {properties.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
-          <div className="rounded-full bg-muted p-4 mb-4">
-            <Building02Icon className="h-12 w-12 text-muted-foreground" />
+          <div className="rounded-full bg-muted p-4 mb-4 text-muted-foreground">
+            <HugeiconsIcon icon={Building02Icon} size={48} strokeWidth={1.5} />
           </div>
           <h2 className="text-xl font-semibold mb-2">No properties yet</h2>
           <p className="text-muted-foreground mb-6 max-w-md">
