@@ -13,6 +13,58 @@ const userRoles = v.union(
   v.literal("lawyer")
 );
 
+// Property types for investor preferences
+const propertyTypes = v.union(
+  v.literal("residential"),
+  v.literal("commercial"),
+  v.literal("mixed_use"),
+  v.literal("land")
+);
+
+// Risk tolerance levels
+const riskTolerance = v.union(
+  v.literal("conservative"),
+  v.literal("moderate"),
+  v.literal("aggressive")
+);
+
+// Investment timeline options
+const investmentTimeline = v.union(
+  v.literal("short_term"), // < 2 years
+  v.literal("medium_term"), // 2-5 years
+  v.literal("long_term") // 5+ years
+);
+
+// Service provider types
+const providerType = v.union(
+  v.literal("broker"),
+  v.literal("mortgage_advisor"),
+  v.literal("lawyer")
+);
+
+// Property status
+const propertyStatus = v.union(
+  v.literal("available"),
+  v.literal("pending"),
+  v.literal("sold")
+);
+
+// Languages spoken
+const language = v.union(
+  v.literal("english"),
+  v.literal("hebrew"),
+  v.literal("russian"),
+  v.literal("french"),
+  v.literal("spanish")
+);
+
+// Contact preference
+const contactPreference = v.union(
+  v.literal("email"),
+  v.literal("phone"),
+  v.literal("whatsapp")
+);
+
 export default defineSchema({
   users: defineTable({
     // Clerk user ID (from JWT subject claim)
@@ -34,4 +86,110 @@ export default defineSchema({
     .index("by_clerk_id", ["clerkId"])
     .index("by_email", ["email"])
     .index("by_role", ["role"]),
+
+  // Investor investment preferences
+  investorProfiles: defineTable({
+    // Reference to user
+    userId: v.id("users"),
+
+    // Investment preferences
+    propertyTypes: v.array(propertyTypes),
+
+    // Target locations (Israeli cities/regions)
+    targetLocations: v.array(v.string()),
+
+    // Budget in USD
+    budgetMin: v.number(),
+    budgetMax: v.number(),
+
+    // Risk tolerance
+    riskTolerance: riskTolerance,
+
+    // Target metrics
+    targetRoiMin: v.optional(v.number()), // Percentage
+    investmentTimeline: v.optional(investmentTimeline),
+
+    // Additional notes
+    notes: v.optional(v.string()),
+
+    // Timestamps
+    createdAt: v.number(),
+    updatedAt: v.number(),
+  }).index("by_user", ["userId"]),
+
+  // Service provider business profiles
+  serviceProviderProfiles: defineTable({
+    // Reference to user
+    userId: v.id("users"),
+
+    // Provider type (mirrors user role)
+    providerType: providerType,
+
+    // Business information
+    companyName: v.optional(v.string()),
+    licenseNumber: v.optional(v.string()),
+    yearsExperience: v.optional(v.number()),
+
+    // Specializations (depends on provider type)
+    specializations: v.array(v.string()),
+
+    // Service areas (Israeli cities/regions they cover)
+    serviceAreas: v.array(v.string()),
+
+    // Languages spoken
+    languages: v.array(language),
+
+    // Bio/description
+    bio: v.optional(v.string()),
+
+    // Contact preferences
+    phoneNumber: v.optional(v.string()),
+    preferredContact: v.optional(contactPreference),
+
+    // Timestamps
+    createdAt: v.number(),
+    updatedAt: v.number(),
+  })
+    .index("by_user", ["userId"])
+    .index("by_provider_type", ["providerType"]),
+
+  // Property listings
+  properties: defineTable({
+    // Core fields
+    title: v.string(),
+    description: v.string(),
+    address: v.string(),
+    city: v.string(), // Israeli city from ISRAELI_LOCATIONS
+    propertyType: propertyTypes,
+    status: propertyStatus,
+
+    // Pricing
+    priceUsd: v.number(),
+    priceIls: v.number(), // Calculated or entered
+
+    // Investment metrics
+    expectedRoi: v.optional(v.number()), // Percentage
+    cashOnCash: v.optional(v.number()), // Percentage
+    capRate: v.optional(v.number()), // Percentage
+    monthlyRent: v.optional(v.number()), // USD
+
+    // Property details
+    bedrooms: v.optional(v.number()),
+    bathrooms: v.optional(v.number()),
+    squareMeters: v.optional(v.number()),
+    yearBuilt: v.optional(v.number()),
+
+    // Media
+    images: v.array(v.string()), // URLs for now, file storage later
+    featuredImage: v.optional(v.string()), // Main image URL
+
+    // Metadata
+    createdBy: v.id("users"), // Admin/user who uploaded
+    createdAt: v.number(),
+    updatedAt: v.number(),
+  })
+    .index("by_city", ["city"])
+    .index("by_property_type", ["propertyType"])
+    .index("by_status", ["status"])
+    .index("by_price", ["priceUsd"]),
 });

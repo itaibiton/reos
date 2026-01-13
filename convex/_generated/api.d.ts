@@ -8,6 +8,9 @@
  * @module
  */
 
+import type * as investorProfiles from "../investorProfiles.js";
+import type * as properties from "../properties.js";
+import type * as serviceProviderProfiles from "../serviceProviderProfiles.js";
 import type * as users from "../users.js";
 
 import type {
@@ -17,6 +20,9 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  investorProfiles: typeof investorProfiles;
+  properties: typeof properties;
+  serviceProviderProfiles: typeof serviceProviderProfiles;
   users: typeof users;
 }>;
 
