@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-01-12)
 ## Current Position
 
 Phase: 4 of 8 (Property Marketplace)
-Plan: 1 of 4 in current phase
-Status: In progress (Phase 4.1 complete)
-Last activity: 2026-01-13 — Completed 04.1-01-PLAN.md (Edit Property)
+Plan: 2 of 4 in current phase
+Status: In progress
+Last activity: 2026-01-13 — Completed 04-02-PLAN.md (Property Listings Page)
 
-Progress: ██████░░░░ 58%
+Progress: ██████░░░░ 62%
 
 ## Performance Metrics
 
@@ -33,7 +33,7 @@ Progress: ██████░░░░ 58%
 | 1.3 | 1/1 | 15 min | 15 min |
 | 2 | 3/3 | 25 min | 8 min |
 | 3 | 4/4 | 30 min | 7.5 min |
-| 4 | 1/4 | 5 min | 5 min |
+| 4 | 2/4 | 13 min | 6.5 min |
 | 4.1 | 1/1 | 3 min | 3 min |
 
 **Recent Trend:**
@@ -65,6 +65,9 @@ Recent decisions affecting current work:
 - Phase 4: Page layout uses `<div className="p-6">` — content starts at top, no centering/max-width
 - Phase 4.1: PropertyForm uses props (mode, propertyId, initialData) for create/edit behavior
 - Phase 4.1: Edit pages at /resource/[id]/edit route pattern
+- Phase 4: PropertyCard component pattern with investment metrics display
+- Phase 4: Currency formatting with Intl.NumberFormat for USD/ILS
+- Phase 4: Skeleton loaders matching card structure for smooth loading
 
 ### Deferred Issues
 
@@ -84,5 +87,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-13
-Stopped at: Completed 04.1-01-PLAN.md (Edit Property)
+Stopped at: Completed 04-02-PLAN.md (Property Listings Page)
 Resume file: None
