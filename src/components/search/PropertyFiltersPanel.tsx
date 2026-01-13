@@ -35,7 +35,7 @@ export interface PropertyFiltersPanelProps {
  *
  * Features:
  * - Collapsible panel with filter dropdowns and inputs
- * - Immediate filtering on change (no submit button)
+ * - Draft state with Apply button (filters only applied on submit)
  * - Clear All button to reset all filters
  * - Works alongside smart search with shared state
  */
@@ -46,29 +46,51 @@ export function PropertyFiltersPanel({
 }: PropertyFiltersPanelProps) {
   const [isOpen, setIsOpen] = React.useState(false);
 
-  // Update a single filter field
-  const updateFilter = <K extends keyof PropertyFilters>(
+  // Draft state for filters (not applied until user clicks Apply)
+  const [draftFilters, setDraftFilters] = React.useState<PropertyFilters>(filters);
+
+  // Sync draft with external filters when they change (e.g., from smart search)
+  React.useEffect(() => {
+    setDraftFilters(filters);
+  }, [filters]);
+
+  // Update a single draft filter field
+  const updateDraftFilter = <K extends keyof PropertyFilters>(
     key: K,
     value: PropertyFilters[K] | undefined
   ) => {
-    const newFilters = { ...filters };
+    setDraftFilters((prev) => {
+      const newFilters = { ...prev };
 
-    // Remove the key if value is undefined/empty
-    if (value === undefined || value === "" || value === null) {
-      delete newFilters[key];
-    } else {
-      newFilters[key] = value;
-    }
+      // Remove the key if value is undefined/empty
+      if (value === undefined || value === "" || value === null) {
+        delete newFilters[key];
+      } else {
+        newFilters[key] = value;
+      }
 
-    onFiltersChange(newFilters);
+      return newFilters;
+    });
   };
 
-  // Clear all filters
+  // Apply draft filters
+  const handleApply = () => {
+    onFiltersChange(draftFilters);
+    setIsOpen(false);
+  };
+
+  // Clear all draft filters
   const handleClearAll = () => {
-    onFiltersChange({});
+    setDraftFilters({});
   };
 
-  // Check if any filters are active
+  // Check if draft has changes from applied filters
+  const hasChanges = JSON.stringify(draftFilters) !== JSON.stringify(filters);
+
+  // Check if any draft filters are set
+  const hasDraftFilters = Object.keys(draftFilters).length > 0;
+
+  // Check if any applied filters are active
   const hasActiveFilters = Object.keys(filters).length > 0;
 
   return (
@@ -107,9 +129,9 @@ export function PropertyFiltersPanel({
               City
             </Label>
             <Select
-              value={filters.city || ANY_VALUE}
+              value={draftFilters.city || ANY_VALUE}
               onValueChange={(value) =>
-                updateFilter("city", value === ANY_VALUE ? undefined : value)
+                updateDraftFilter("city", value === ANY_VALUE ? undefined : value)
               }
             >
               <SelectTrigger id="city-filter" className="w-full">
@@ -132,9 +154,9 @@ export function PropertyFiltersPanel({
               Property Type
             </Label>
             <Select
-              value={filters.propertyType || ANY_VALUE}
+              value={draftFilters.propertyType || ANY_VALUE}
               onValueChange={(value) =>
-                updateFilter(
+                updateDraftFilter(
                   "propertyType",
                   value === ANY_VALUE
                     ? undefined
@@ -162,9 +184,9 @@ export function PropertyFiltersPanel({
               Bedrooms
             </Label>
             <Select
-              value={filters.bedroomsMin?.toString() || ANY_VALUE}
+              value={draftFilters.bedroomsMin?.toString() || ANY_VALUE}
               onValueChange={(value) =>
-                updateFilter(
+                updateDraftFilter(
                   "bedroomsMin",
                   value === ANY_VALUE ? undefined : parseInt(value, 10)
                 )
@@ -190,9 +212,9 @@ export function PropertyFiltersPanel({
               Bathrooms
             </Label>
             <Select
-              value={filters.bathroomsMin?.toString() || ANY_VALUE}
+              value={draftFilters.bathroomsMin?.toString() || ANY_VALUE}
               onValueChange={(value) =>
-                updateFilter(
+                updateDraftFilter(
                   "bathroomsMin",
                   value === ANY_VALUE ? undefined : parseInt(value, 10)
                 )
@@ -224,9 +246,9 @@ export function PropertyFiltersPanel({
                 id="price-min-filter"
                 type="number"
                 placeholder="0"
-                value={filters.priceMin ?? ""}
+                value={draftFilters.priceMin ?? ""}
                 onChange={(e) =>
-                  updateFilter(
+                  updateDraftFilter(
                     "priceMin",
                     e.target.value ? parseInt(e.target.value, 10) : undefined
                   )
@@ -249,9 +271,9 @@ export function PropertyFiltersPanel({
                 id="price-max-filter"
                 type="number"
                 placeholder="Any"
-                value={filters.priceMax ?? ""}
+                value={draftFilters.priceMax ?? ""}
                 onChange={(e) =>
-                  updateFilter(
+                  updateDraftFilter(
                     "priceMax",
                     e.target.value ? parseInt(e.target.value, 10) : undefined
                   )
@@ -270,9 +292,9 @@ export function PropertyFiltersPanel({
               id="size-min-filter"
               type="number"
               placeholder="0"
-              value={filters.squareMetersMin ?? ""}
+              value={draftFilters.squareMetersMin ?? ""}
               onChange={(e) =>
-                updateFilter(
+                updateDraftFilter(
                   "squareMetersMin",
                   e.target.value ? parseInt(e.target.value, 10) : undefined
                 )
@@ -289,30 +311,37 @@ export function PropertyFiltersPanel({
               id="size-max-filter"
               type="number"
               placeholder="Any"
-              value={filters.squareMetersMax ?? ""}
+              value={draftFilters.squareMetersMax ?? ""}
               onChange={(e) =>
-                updateFilter(
+                updateDraftFilter(
                   "squareMetersMax",
                   e.target.value ? parseInt(e.target.value, 10) : undefined
                 )
               }
             />
           </div>
+        </div>
 
-          {/* Clear All Button */}
-          {hasActiveFilters && (
-            <div className="flex items-end">
-              <Button
-                type="button"
-                variant="outline"
-                size="sm"
-                onClick={handleClearAll}
-                className="w-full"
-              >
-                Clear All
-              </Button>
-            </div>
+        {/* Action Buttons */}
+        <div className="flex items-center justify-end gap-2 mt-4 pt-4 border-t">
+          {hasDraftFilters && (
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={handleClearAll}
+            >
+              Clear All
+            </Button>
           )}
+          <Button
+            type="button"
+            size="sm"
+            onClick={handleApply}
+            disabled={!hasChanges}
+          >
+            Apply Filters
+          </Button>
         </div>
       </CollapsibleContent>
     </Collapsible>

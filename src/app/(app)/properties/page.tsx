@@ -171,20 +171,22 @@ export default function PropertiesPage() {
           placeholder="Search properties... try 'apartments in Tel Aviv under $500k'"
         />
 
-        {/* Manual Filters Panel */}
-        <PropertyFiltersPanel
-          filters={filters}
-          onFiltersChange={handleFiltersChange}
-        />
-
-        {/* Filter Chips - only show when filters exist */}
-        {Object.keys(filters).length > 0 && (
-          <FilterChips
+        {/* Filters Row - Button and Chips inline */}
+        <div className="flex items-center gap-3 flex-wrap">
+          <PropertyFiltersPanel
             filters={filters}
-            onRemove={handleRemoveFilter}
-            onClearAll={handleClearAllFilters}
+            onFiltersChange={handleFiltersChange}
           />
-        )}
+
+          {/* Filter Chips - inline with filter button */}
+          {Object.keys(filters).length > 0 && (
+            <FilterChips
+              filters={filters}
+              onRemove={handleRemoveFilter}
+              onClearAll={handleClearAllFilters}
+            />
+          )}
+        </div>
       </div>
 
       {/* Empty State */}
