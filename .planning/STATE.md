@@ -11,17 +11,17 @@ See: .planning/PROJECT.md (updated 2026-01-12)
 
 Phase: 4 of 8 (Property Marketplace)
 Plan: 1 of 4 in current phase
-Status: In progress
-Last activity: 2026-01-13 — Completed 04-01-PLAN.md
+Status: In progress (Phase 4.1 complete)
+Last activity: 2026-01-13 — Completed 04.1-01-PLAN.md (Edit Property)
 
-Progress: █████▌░░░░ 54%
+Progress: ██████░░░░ 58%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 14
-- Average duration: 7.5 min
-- Total execution time: 1.75 hours
+- Total plans completed: 15
+- Average duration: 7 min
+- Total execution time: 1.8 hours
 
 **By Phase:**
 
@@ -34,9 +34,10 @@ Progress: █████▌░░░░ 54%
 | 2 | 3/3 | 25 min | 8 min |
 | 3 | 4/4 | 30 min | 7.5 min |
 | 4 | 1/4 | 5 min | 5 min |
+| 4.1 | 1/1 | 3 min | 3 min |
 
 **Recent Trend:**
-- Last 5 plans: 7 min, 10 min, 6 min, 8 min, 5 min
+- Last 5 plans: 10 min, 6 min, 8 min, 5 min, 3 min
 - Trend: Stable, fast execution
 
 ## Accumulated Context
@@ -62,6 +63,8 @@ Recent decisions affecting current work:
 - Phase 4: USD/ILS rate as constant (3.7) for MVP, not live API
 - Phase 4: All authenticated users can create properties (no admin restriction for MVP)
 - Phase 4: Page layout uses `<div className="p-6">` — content starts at top, no centering/max-width
+- Phase 4.1: PropertyForm uses props (mode, propertyId, initialData) for create/edit behavior
+- Phase 4.1: Edit pages at /resource/[id]/edit route pattern
 
 ### Deferred Issues
 
@@ -76,9 +79,10 @@ None yet.
 - Phase 1.1 inserted after Phase 1: Integrate Shadcn (COMPLETE)
 - Phase 1.2 inserted after Phase 1.1: Add All Shadcn Components (COMPLETE)
 - Phase 1.3 inserted after Phase 1.2: Create Design System Page (COMPLETE)
+- Phase 4.1 inserted after Phase 4: Edit Property (COMPLETE)
 
 ## Session Continuity
 
 Last session: 2026-01-13
-Stopped at: Completed 04-01-PLAN.md (Property Schema + Admin Upload)
+Stopped at: Completed 04.1-01-PLAN.md (Edit Property)
 Resume file: None
