@@ -4,7 +4,7 @@ import * as React from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { SearchMagnifyGlass01Icon, Cancel01Icon } from "@hugeicons/core-free-icons";
+import { Search01Icon, Cancel01Icon } from "@hugeicons/core-free-icons";
 import { Loader2Icon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -54,7 +54,7 @@ export function SearchInput({
             <Loader2Icon className="size-4 animate-spin text-muted-foreground" />
           ) : (
             <HugeiconsIcon
-              icon={SearchMagnifyGlass01Icon}
+              icon={Search01Icon}
               size={16}
               strokeWidth={1.5}
               className="text-muted-foreground"

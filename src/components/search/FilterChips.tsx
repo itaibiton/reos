@@ -6,11 +6,24 @@ import { Button } from "@/components/ui/button";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Cancel01Icon } from "@hugeicons/core-free-icons";
 import { cn } from "@/lib/utils";
-import type { PropertyFilters } from "../../../../convex/search";
+import type { PropertyFilters } from "../../../convex/search";
+
+// Keys that can be removed from filters
+export type PropertyFilterKey =
+  | "status"
+  | "city"
+  | "propertyType"
+  | "priceMin"
+  | "priceMax"
+  | "bedroomsMin"
+  | "bathroomsMin"
+  | "squareMetersMin"
+  | "squareMetersMax"
+  | "limit";
 
 export interface FilterChipsProps {
   filters: PropertyFilters;
-  onRemove: (filterKey: keyof PropertyFilters) => void;
+  onRemove: (filterKey: PropertyFilterKey) => void;
   onClearAll: () => void;
   className?: string;
 }
@@ -50,7 +63,7 @@ export function FilterChips({
 
   // Build array of filter chips
   const filterChips: Array<{
-    key: keyof PropertyFilters;
+    key: PropertyFilterKey;
     label: string;
     value: string;
   }> = [];
