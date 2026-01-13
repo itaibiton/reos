@@ -2,10 +2,10 @@
 
 import * as React from "react";
 import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import {
   Select,
   SelectContent,
@@ -94,16 +94,12 @@ export function PropertyFiltersPanel({
   const hasActiveFilters = Object.keys(filters).length > 0;
 
   return (
-    <Collapsible
-      open={isOpen}
-      onOpenChange={setIsOpen}
-      className={className}
-    >
-      <CollapsibleTrigger asChild>
+    <Popover open={isOpen} onOpenChange={setIsOpen}>
+      <PopoverTrigger asChild>
         <Button
           variant="outline"
           size="sm"
-          className="gap-2"
+          className={cn("gap-2", className)}
         >
           <SlidersHorizontalIcon className="size-4" />
           <span>Filters</span>
@@ -119,10 +115,10 @@ export function PropertyFiltersPanel({
             )}
           />
         </Button>
-      </CollapsibleTrigger>
+      </PopoverTrigger>
 
-      <CollapsibleContent className="mt-3 p-4 border rounded-lg">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+      <PopoverContent align="start" className="w-[380px] p-4">
+        <div className="grid grid-cols-2 gap-3">
           {/* City Filter */}
           <div className="space-y-1.5">
             <Label htmlFor="city-filter" className="text-xs font-medium">
@@ -343,7 +339,7 @@ export function PropertyFiltersPanel({
             Apply Filters
           </Button>
         </div>
-      </CollapsibleContent>
-    </Collapsible>
+      </PopoverContent>
+    </Popover>
   );
 }
