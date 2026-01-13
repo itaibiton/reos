@@ -9,6 +9,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { PropertyCard } from "@/components/properties/PropertyCard";
 import { SearchInput } from "@/components/search/SearchInput";
 import { FilterChips, type PropertyFilterKey } from "@/components/search/FilterChips";
+import { PropertyFiltersPanel } from "@/components/search/PropertyFiltersPanel";
 import Link from "next/link";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Building02Icon } from "@hugeicons/core-free-icons";
@@ -115,6 +116,15 @@ export default function PropertiesPage() {
     setSearchQuery("");
   };
 
+  // Handle manual filter changes from PropertyFiltersPanel
+  const handleFiltersChange = (newFilters: PropertyFilters) => {
+    setFilters(newFilters);
+    // Clear search query when manual filters are applied to avoid confusion
+    if (Object.keys(newFilters).length > 0) {
+      setSearchQuery("");
+    }
+  };
+
   // Loading state with skeletons
   if (properties === undefined) {
     return (
@@ -159,6 +169,12 @@ export default function PropertiesPage() {
           onSearch={handleSearch}
           isLoading={isSearching}
           placeholder="Search properties... try 'apartments in Tel Aviv under $500k'"
+        />
+
+        {/* Manual Filters Panel */}
+        <PropertyFiltersPanel
+          filters={filters}
+          onFiltersChange={handleFiltersChange}
         />
 
         {/* Filter Chips - only show when filters exist */}
