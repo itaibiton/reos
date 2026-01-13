@@ -21,6 +21,9 @@ import { cn } from "@/lib/utils";
 import { ISRAELI_LOCATIONS, PROPERTY_TYPES } from "@/lib/constants";
 import type { PropertyFilters } from "../../../convex/search";
 
+// Sentinel value for "Any" selection (Radix Select doesn't allow empty strings)
+const ANY_VALUE = "__any__";
+
 export interface PropertyFiltersPanelProps {
   filters: PropertyFilters;
   onFiltersChange: (filters: PropertyFilters) => void;
@@ -107,16 +110,16 @@ export function PropertyFiltersPanel({
               City
             </Label>
             <Select
-              value={filters.city || ""}
+              value={filters.city || ANY_VALUE}
               onValueChange={(value) =>
-                updateFilter("city", value || undefined)
+                updateFilter("city", value === ANY_VALUE ? undefined : value)
               }
             >
               <SelectTrigger id="city-filter" className="w-full">
                 <SelectValue placeholder="Any city" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Any city</SelectItem>
+                <SelectItem value={ANY_VALUE}>Any city</SelectItem>
                 {ISRAELI_LOCATIONS.map((city) => (
                   <SelectItem key={city} value={city}>
                     {city}
@@ -132,13 +135,13 @@ export function PropertyFiltersPanel({
               Property Type
             </Label>
             <Select
-              value={filters.propertyType || ""}
+              value={filters.propertyType || ANY_VALUE}
               onValueChange={(value) =>
                 updateFilter(
                   "propertyType",
-                  value
-                    ? (value as PropertyFilters["propertyType"])
-                    : undefined
+                  value === ANY_VALUE
+                    ? undefined
+                    : (value as PropertyFilters["propertyType"])
                 )
               }
             >
@@ -146,7 +149,7 @@ export function PropertyFiltersPanel({
                 <SelectValue placeholder="Any type" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Any type</SelectItem>
+                <SelectItem value={ANY_VALUE}>Any type</SelectItem>
                 {PROPERTY_TYPES.map((type) => (
                   <SelectItem key={type.value} value={type.value}>
                     {type.label}
@@ -162,11 +165,11 @@ export function PropertyFiltersPanel({
               Bedrooms
             </Label>
             <Select
-              value={filters.bedroomsMin?.toString() || ""}
+              value={filters.bedroomsMin?.toString() || ANY_VALUE}
               onValueChange={(value) =>
                 updateFilter(
                   "bedroomsMin",
-                  value ? parseInt(value, 10) : undefined
+                  value === ANY_VALUE ? undefined : parseInt(value, 10)
                 )
               }
             >
@@ -174,7 +177,7 @@ export function PropertyFiltersPanel({
                 <SelectValue placeholder="Any" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Any</SelectItem>
+                <SelectItem value={ANY_VALUE}>Any</SelectItem>
                 <SelectItem value="1">1+</SelectItem>
                 <SelectItem value="2">2+</SelectItem>
                 <SelectItem value="3">3+</SelectItem>
@@ -190,11 +193,11 @@ export function PropertyFiltersPanel({
               Bathrooms
             </Label>
             <Select
-              value={filters.bathroomsMin?.toString() || ""}
+              value={filters.bathroomsMin?.toString() || ANY_VALUE}
               onValueChange={(value) =>
                 updateFilter(
                   "bathroomsMin",
-                  value ? parseInt(value, 10) : undefined
+                  value === ANY_VALUE ? undefined : parseInt(value, 10)
                 )
               }
             >
@@ -202,7 +205,7 @@ export function PropertyFiltersPanel({
                 <SelectValue placeholder="Any" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Any</SelectItem>
+                <SelectItem value={ANY_VALUE}>Any</SelectItem>
                 <SelectItem value="1">1+</SelectItem>
                 <SelectItem value="2">2+</SelectItem>
                 <SelectItem value="3">3+</SelectItem>
