@@ -6,6 +6,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import {
   Home01Icon,
   Building02Icon,
+  FavouriteIcon,
   Agreement01Icon,
   Settings01Icon,
 } from "@hugeicons/core-free-icons";
@@ -18,7 +19,8 @@ interface SidebarProps {
 
 const navItems: { icon: IconSvgElement; label: string; href: string }[] = [
   { icon: Home01Icon, label: "Dashboard", href: "/dashboard" },
-  { icon: Building02Icon, label: "Properties", href: "/properties" },
+  { icon: Building02Icon, label: "Marketplace", href: "/properties" },
+  { icon: FavouriteIcon, label: "Saved Properties", href: "/properties/saved" },
   { icon: Agreement01Icon, label: "Deals", href: "/deals" },
   { icon: Settings01Icon, label: "Settings", href: "/settings" },
 ];
