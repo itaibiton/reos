@@ -10,6 +10,7 @@
 
 import type * as favorites from "../favorites.js";
 import type * as investorProfiles from "../investorProfiles.js";
+import type * as neighborhoods from "../neighborhoods.js";
 import type * as priceHistory from "../priceHistory.js";
 import type * as properties from "../properties.js";
 import type * as search from "../search.js";
@@ -27,6 +28,7 @@ import type {
 declare const fullApi: ApiFromModules<{
   favorites: typeof favorites;
   investorProfiles: typeof investorProfiles;
+  neighborhoods: typeof neighborhoods;
   priceHistory: typeof priceHistory;
   properties: typeof properties;
   search: typeof search;

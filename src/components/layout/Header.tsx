@@ -19,7 +19,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Badge } from "@/components/ui/badge";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
   Menu01Icon,
@@ -28,6 +27,7 @@ import {
 } from "@hugeicons/core-free-icons";
 import { api } from "../../../convex/_generated/api";
 import { USER_ROLES } from "@/lib/constants";
+import { TopNav } from "./TopNav";
 
 // Separate component to use hooks inside Authenticated block
 function AuthenticatedContent() {
@@ -103,31 +103,47 @@ function AuthenticatedContent() {
 interface HeaderProps {
   isSidebarOpen: boolean;
   onToggleSidebar: () => void;
+  showTopNav?: boolean;
+  showSidebarToggle?: boolean;
 }
 
-export function Header({ isSidebarOpen, onToggleSidebar }: HeaderProps) {
+export function Header({
+  isSidebarOpen,
+  onToggleSidebar,
+  showTopNav = false,
+  showSidebarToggle = true,
+}: HeaderProps) {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 h-16 border-b bg-background px-4 flex items-center justify-between">
       <div className="flex items-center gap-4">
-        {/* Mobile hamburger menu */}
-        <Button
-          variant="ghost"
-          size="icon"
-          className="lg:hidden"
-          onClick={onToggleSidebar}
-          aria-label={isSidebarOpen ? "Close menu" : "Open menu"}
-        >
-          <HugeiconsIcon
-            icon={isSidebarOpen ? Cancel01Icon : Menu01Icon}
-            size={20}
-            strokeWidth={1.5}
-          />
-        </Button>
+        {/* Mobile hamburger menu - only for sidebar layout */}
+        {showSidebarToggle && (
+          <Button
+            variant="ghost"
+            size="icon"
+            className="lg:hidden"
+            onClick={onToggleSidebar}
+            aria-label={isSidebarOpen ? "Close menu" : "Open menu"}
+          >
+            <HugeiconsIcon
+              icon={isSidebarOpen ? Cancel01Icon : Menu01Icon}
+              size={20}
+              strokeWidth={1.5}
+            />
+          </Button>
+        )}
 
         {/* Logo */}
         <Link href="/" className="text-xl font-bold">
           REOS
         </Link>
+
+        {/* Top navigation for investor layout */}
+        {showTopNav && (
+          <div className="hidden md:block ml-4">
+            <TopNav />
+          </div>
+        )}
       </div>
 
       {/* Auth section */}

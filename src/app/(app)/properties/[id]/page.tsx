@@ -80,7 +80,7 @@ const getStatusLabel = (value: string) => {
 // Loading skeleton for the detail page
 function DetailPageSkeleton() {
   return (
-    <div className="p-6 max-w-4xl mx-auto">
+    <div className="p-6 ">
       {/* Header skeleton */}
       <div className="mb-6">
         <Skeleton className="h-6 w-32 mb-4" />
@@ -164,7 +164,7 @@ export default function PropertyDetailPage() {
   } = property;
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
+    <div className="p-6 ">
       {/* Header Section */}
       <div className="mb-6">
         {/* Back button */}
