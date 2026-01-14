@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
@@ -84,108 +83,103 @@ export function MortgageCalculator({ defaultPrice }: MortgageCalculatorProps) {
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="text-base">Mortgage Calculator</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-6">
-        {/* Input Fields */}
-        <div className="space-y-4">
-          {/* Property Price */}
-          <div className="space-y-2">
-            <Label htmlFor="price">Property Price</Label>
-            <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
-                $
-              </span>
-              <Input
-                id="price"
-                type="text"
-                value={formatNumber(price)}
-                onChange={handlePriceChange}
-                className="pl-7"
-              />
-            </div>
-          </div>
-
-          {/* Down Payment */}
-          <div className="space-y-2">
-            <div className="flex justify-between">
-              <Label>Down Payment</Label>
-              <span className="text-sm text-muted-foreground">
-                {downPaymentPercent}% ({formatUSD(calculations.downPayment)})
-              </span>
-            </div>
-            <Slider
-              value={[downPaymentPercent]}
-              onValueChange={(values) => setDownPaymentPercent(values[0])}
-              min={10}
-              max={50}
-              step={5}
-            />
-          </div>
-
-          {/* Interest Rate */}
-          <div className="space-y-2">
-            <Label htmlFor="interestRate">Interest Rate (%)</Label>
+    <div className="space-y-6">
+      {/* Input Fields */}
+      <div className="space-y-4">
+        {/* Property Price */}
+        <div className="space-y-2">
+          <Label htmlFor="price">Property Price</Label>
+          <div className="relative">
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
+              $
+            </span>
             <Input
-              id="interestRate"
-              type="number"
-              value={interestRate}
-              onChange={handleInterestRateChange}
-              step={0.1}
-              min={0}
-              max={30}
+              id="price"
+              type="text"
+              value={formatNumber(price)}
+              onChange={handlePriceChange}
+              className="pl-7"
             />
           </div>
-
-          {/* Loan Term */}
-          <div className="space-y-2">
-            <Label htmlFor="termYears">Loan Term</Label>
-            <Select
-              value={termYears.toString()}
-              onValueChange={(value) => setTermYears(Number(value))}
-            >
-              <SelectTrigger id="termYears" className="w-full">
-                <SelectValue placeholder="Select term" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="15">15 years</SelectItem>
-                <SelectItem value="20">20 years</SelectItem>
-                <SelectItem value="25">25 years</SelectItem>
-                <SelectItem value="30">30 years</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
         </div>
 
-        {/* Results Section */}
-        <div className="pt-4 border-t space-y-4">
-          {/* Monthly Payment - Prominent */}
-          <div className="text-center p-4 bg-primary/10 rounded-lg">
-            <p className="text-sm text-muted-foreground mb-1">Monthly Payment</p>
-            <p className="text-3xl font-bold text-primary">
-              {formatUSD(calculations.monthlyPayment)}
-            </p>
+        {/* Down Payment */}
+        <div className="space-y-2">
+          <div className="flex justify-between">
+            <Label>Down Payment</Label>
+            <span className="text-sm text-muted-foreground">
+              {downPaymentPercent}% ({formatUSD(calculations.downPayment)})
+            </span>
           </div>
+          <Slider
+            value={[downPaymentPercent]}
+            onValueChange={(values) => setDownPaymentPercent(values[0])}
+            min={10}
+            max={50}
+            step={5}
+          />
+        </div>
 
-          {/* Other metrics */}
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-1">
-              <p className="text-sm text-muted-foreground">Loan Amount</p>
-              <p className="font-semibold">{formatUSD(calculations.principal)}</p>
-            </div>
-            <div className="space-y-1">
-              <p className="text-sm text-muted-foreground">Total Interest</p>
-              <p className="font-semibold">{formatUSD(calculations.totalInterest)}</p>
-            </div>
-            <div className="col-span-2 space-y-1">
-              <p className="text-sm text-muted-foreground">Total Payment</p>
-              <p className="font-semibold">{formatUSD(calculations.totalPayment)}</p>
-            </div>
+        {/* Interest Rate */}
+        <div className="space-y-2">
+          <Label htmlFor="interestRate">Interest Rate (%)</Label>
+          <Input
+            id="interestRate"
+            type="number"
+            value={interestRate}
+            onChange={handleInterestRateChange}
+            step={0.1}
+            min={0}
+            max={30}
+          />
+        </div>
+
+        {/* Loan Term */}
+        <div className="space-y-2">
+          <Label htmlFor="termYears">Loan Term</Label>
+          <Select
+            value={termYears.toString()}
+            onValueChange={(value) => setTermYears(Number(value))}
+          >
+            <SelectTrigger id="termYears" className="w-full">
+              <SelectValue placeholder="Select term" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="15">15 years</SelectItem>
+              <SelectItem value="20">20 years</SelectItem>
+              <SelectItem value="25">25 years</SelectItem>
+              <SelectItem value="30">30 years</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+
+      {/* Results Section */}
+      <div className="pt-4 border-t space-y-4">
+        {/* Monthly Payment - Prominent */}
+        <div className="text-center p-4 bg-primary/10 rounded-lg">
+          <p className="text-sm text-muted-foreground mb-1">Monthly Payment</p>
+          <p className="text-3xl font-bold text-primary">
+            {formatUSD(calculations.monthlyPayment)}
+          </p>
+        </div>
+
+        {/* Other metrics */}
+        <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-1">
+            <p className="text-sm text-muted-foreground">Loan Amount</p>
+            <p className="font-semibold">{formatUSD(calculations.principal)}</p>
+          </div>
+          <div className="space-y-1">
+            <p className="text-sm text-muted-foreground">Total Interest</p>
+            <p className="font-semibold">{formatUSD(calculations.totalInterest)}</p>
+          </div>
+          <div className="col-span-2 space-y-1">
+            <p className="text-sm text-muted-foreground">Total Payment</p>
+            <p className="font-semibold">{formatUSD(calculations.totalPayment)}</p>
           </div>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }

@@ -1,6 +1,5 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { PROPERTY_AMENITIES } from "@/lib/constants";
 import { HugeiconsIcon, IconSvgElement } from "@hugeicons/react";
 import {
@@ -48,14 +47,7 @@ export function PropertyAmenities({ amenities }: PropertyAmenitiesProps) {
   // Handle empty amenities
   if (!amenities || amenities.length === 0) {
     return (
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">Property Amenities</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-muted-foreground text-sm">No amenities listed</p>
-        </CardContent>
-      </Card>
+      <p className="text-muted-foreground text-sm">No amenities listed</p>
     );
   }
 
@@ -77,40 +69,26 @@ export function PropertyAmenities({ amenities }: PropertyAmenitiesProps) {
   // If no valid amenities found after mapping
   if (amenityDetails.length === 0) {
     return (
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">Property Amenities</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-muted-foreground text-sm">No amenities listed</p>
-        </CardContent>
-      </Card>
+      <p className="text-muted-foreground text-sm">No amenities listed</p>
     );
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="text-base">Property Amenities</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-          {amenityDetails.map((amenity) => (
-            <div
-              key={amenity.key}
-              className="flex items-center gap-2 p-2 rounded-md bg-muted/50"
-            >
-              <HugeiconsIcon
-                icon={amenity.icon}
-                size={18}
-                strokeWidth={1.5}
-                className="text-muted-foreground shrink-0"
-              />
-              <span className="text-sm">{amenity.label}</span>
-            </div>
-          ))}
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+      {amenityDetails.map((amenity) => (
+        <div
+          key={amenity.key}
+          className="flex items-center gap-2 p-2 rounded-md bg-muted/50"
+        >
+          <HugeiconsIcon
+            icon={amenity.icon}
+            size={18}
+            strokeWidth={1.5}
+            className="text-muted-foreground shrink-0"
+          />
+          <span className="text-sm">{amenity.label}</span>
         </div>
-      </CardContent>
-    </Card>
+      ))}
+    </div>
   );
 }

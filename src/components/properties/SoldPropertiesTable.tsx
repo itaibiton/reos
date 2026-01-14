@@ -2,7 +2,6 @@
 
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
   TableBody,
@@ -49,81 +48,60 @@ export function SoldPropertiesTable({ city }: SoldPropertiesTableProps) {
   // Loading state
   if (soldProperties === undefined) {
     return (
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">Recently Sold in {city}</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-3">
-            <Skeleton className="h-10 w-full" />
-            <Skeleton className="h-10 w-full" />
-            <Skeleton className="h-10 w-full" />
-          </div>
-        </CardContent>
-      </Card>
+      <div className="space-y-3">
+        <Skeleton className="h-10 w-full" />
+        <Skeleton className="h-10 w-full" />
+        <Skeleton className="h-10 w-full" />
+      </div>
     );
   }
 
   // Empty data state
   if (soldProperties.length === 0) {
     return (
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">Recently Sold in {city}</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="flex items-center justify-center py-8 text-muted-foreground">
-            No recent sales data available for this area
-          </div>
-        </CardContent>
-      </Card>
+      <div className="flex items-center justify-center py-8 text-muted-foreground">
+        No recent sales data available for this area
+      </div>
     );
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="text-base">Recently Sold in {city}</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Address</TableHead>
-              <TableHead>Type</TableHead>
-              <TableHead className="text-right">Size (m&sup2;)</TableHead>
-              <TableHead className="text-right">Price (USD)</TableHead>
-              <TableHead className="text-right">Sold Date</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {soldProperties.map((property) => (
-              <TableRow key={property._id}>
-                <TableCell>
-                  <Link
-                    href={`/properties/${property._id}`}
-                    className="hover:underline text-foreground"
-                  >
-                    {property.address}
-                  </Link>
-                </TableCell>
-                <TableCell>{getPropertyTypeLabel(property.propertyType)}</TableCell>
-                <TableCell className="text-right">
-                  {property.squareMeters !== undefined
-                    ? property.squareMeters
-                    : "N/A"}
-                </TableCell>
-                <TableCell className="text-right">
-                  {formatUSD(property.soldPrice ?? property.priceUsd)}
-                </TableCell>
-                <TableCell className="text-right">
-                  {formatDate(property.soldDate ?? property.updatedAt)}
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </CardContent>
-    </Card>
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead>Address</TableHead>
+          <TableHead>Type</TableHead>
+          <TableHead className="text-right">Size (m&sup2;)</TableHead>
+          <TableHead className="text-right">Price (USD)</TableHead>
+          <TableHead className="text-right">Sold Date</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {soldProperties.map((property) => (
+          <TableRow key={property._id}>
+            <TableCell>
+              <Link
+                href={`/properties/${property._id}`}
+                className="hover:underline text-foreground"
+              >
+                {property.address}
+              </Link>
+            </TableCell>
+            <TableCell>{getPropertyTypeLabel(property.propertyType)}</TableCell>
+            <TableCell className="text-right">
+              {property.squareMeters !== undefined
+                ? property.squareMeters
+                : "N/A"}
+            </TableCell>
+            <TableCell className="text-right">
+              {formatUSD(property.soldPrice ?? property.priceUsd)}
+            </TableCell>
+            <TableCell className="text-right">
+              {formatDate(property.soldDate ?? property.updatedAt)}
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
   );
 }

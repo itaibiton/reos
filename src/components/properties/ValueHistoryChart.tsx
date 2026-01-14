@@ -2,7 +2,6 @@
 
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   ChartConfig,
@@ -52,33 +51,15 @@ export function ValueHistoryChart({ city }: ValueHistoryChartProps) {
 
   // Loading state
   if (priceHistory === undefined) {
-    return (
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">Price History</CardTitle>
-          <CardDescription>{city}</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Skeleton className="h-[200px] w-full" />
-        </CardContent>
-      </Card>
-    );
+    return <Skeleton className="h-[200px] w-full" />;
   }
 
   // Empty data state
   if (priceHistory.length === 0) {
     return (
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">Price History</CardTitle>
-          <CardDescription>{city}</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="flex items-center justify-center h-[200px] text-muted-foreground">
-            No price history available for this area
-          </div>
-        </CardContent>
-      </Card>
+      <div className="flex items-center justify-center h-[200px] text-muted-foreground">
+        No price history available for this area
+      </div>
     );
   }
 
@@ -104,82 +85,78 @@ export function ValueHistoryChart({ city }: ValueHistoryChartProps) {
   const priceChange = calculateChange(displayData);
 
   return (
-    <Card>
-      <CardHeader>
-        <div className="flex items-start justify-between">
-          <div>
-            <CardTitle className="text-base">Price History</CardTitle>
-            <CardDescription>{city}</CardDescription>
-          </div>
-          {priceChange !== null && (
-            <div
-              className={`text-sm font-medium ${
-                priceChange >= 0 ? "text-green-600" : "text-red-600"
-              }`}
-            >
-              {priceChange >= 0 ? "+" : ""}
-              {priceChange.toFixed(1)}%
-            </div>
-          )}
-        </div>
-      </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig} className="h-[200px] w-full">
-          <AreaChart
-            data={displayData}
-            margin={{ top: 10, right: 10, left: 0, bottom: 0 }}
+    <div className="space-y-4">
+      {/* Header with change indicator */}
+      <div className="flex items-center justify-between">
+        <p className="text-sm text-muted-foreground">{city}</p>
+        {priceChange !== null && (
+          <span
+            className={`text-sm font-medium ${
+              priceChange >= 0 ? "text-green-600" : "text-red-600"
+            }`}
           >
-            <defs>
-              <linearGradient id="fillPrice" x1="0" y1="0" x2="0" y2="1">
-                <stop
-                  offset="5%"
-                  stopColor="var(--color-priceUsd)"
-                  stopOpacity={0.8}
-                />
-                <stop
-                  offset="95%"
-                  stopColor="var(--color-priceUsd)"
-                  stopOpacity={0.1}
-                />
-              </linearGradient>
-            </defs>
-            <XAxis
-              dataKey="formattedDate"
-              tickLine={false}
-              axisLine={false}
-              tickMargin={8}
-              fontSize={12}
-            />
-            <YAxis
-              tickLine={false}
-              axisLine={false}
-              tickMargin={8}
-              fontSize={12}
-              tickFormatter={(value) => `$${(value / 1000).toFixed(0)}k`}
-            />
-            <ChartTooltip
-              content={
-                <ChartTooltipContent
-                  labelFormatter={(_, payload) => {
-                    if (payload && payload[0]) {
-                      return formatDate(payload[0].payload.date);
-                    }
-                    return "";
-                  }}
-                  formatter={(value) => formatPrice(value as number)}
-                />
-              }
-            />
-            <Area
-              type="monotone"
-              dataKey="priceUsd"
-              stroke="var(--color-priceUsd)"
-              fill="url(#fillPrice)"
-              strokeWidth={2}
-            />
-          </AreaChart>
-        </ChartContainer>
-      </CardContent>
-    </Card>
+            {priceChange >= 0 ? "+" : ""}
+            {priceChange.toFixed(1)}%
+          </span>
+        )}
+      </div>
+
+      {/* Chart */}
+      <ChartContainer config={chartConfig} className="h-[200px] w-full">
+        <AreaChart
+          data={displayData}
+          margin={{ top: 10, right: 10, left: 0, bottom: 0 }}
+        >
+          <defs>
+            <linearGradient id="fillPrice" x1="0" y1="0" x2="0" y2="1">
+              <stop
+                offset="5%"
+                stopColor="var(--color-priceUsd)"
+                stopOpacity={0.8}
+              />
+              <stop
+                offset="95%"
+                stopColor="var(--color-priceUsd)"
+                stopOpacity={0.1}
+              />
+            </linearGradient>
+          </defs>
+          <XAxis
+            dataKey="formattedDate"
+            tickLine={false}
+            axisLine={false}
+            tickMargin={8}
+            fontSize={12}
+          />
+          <YAxis
+            tickLine={false}
+            axisLine={false}
+            tickMargin={8}
+            fontSize={12}
+            tickFormatter={(value) => `$${(value / 1000).toFixed(0)}k`}
+          />
+          <ChartTooltip
+            content={
+              <ChartTooltipContent
+                labelFormatter={(_, payload) => {
+                  if (payload && payload[0]) {
+                    return formatDate(payload[0].payload.date);
+                  }
+                  return "";
+                }}
+                formatter={(value) => formatPrice(value as number)}
+              />
+            }
+          />
+          <Area
+            type="monotone"
+            dataKey="priceUsd"
+            stroke="var(--color-priceUsd)"
+            fill="url(#fillPrice)"
+            strokeWidth={2}
+          />
+        </AreaChart>
+      </ChartContainer>
+    </div>
   );
 }
