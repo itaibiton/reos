@@ -10,9 +10,10 @@ import { PropertyCard } from "@/components/properties/PropertyCard";
 import { SearchInput } from "@/components/search/SearchInput";
 import { FilterChips, type PropertyFilterKey } from "@/components/search/FilterChips";
 import { PropertyFiltersPanel } from "@/components/search/PropertyFiltersPanel";
+import { DashboardMap } from "@/components/dashboard/DashboardMap";
 import Link from "next/link";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Building02Icon } from "@hugeicons/core-free-icons";
+import { Building02Icon, Location01Icon, DashboardSquare01Icon } from "@hugeicons/core-free-icons";
 import type { PropertyFilters } from "../../../../convex/search";
 
 // Skeleton loader for property cards
@@ -61,6 +62,7 @@ export default function PropertiesPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [filters, setFilters] = useState<PropertyFilters>({});
   const [isSearching, setIsSearching] = useState(false);
+  const [showMap, setShowMap] = useState(true);
 
   // Actions and queries
   const parseSearchQuery = useAction(api.search.parseSearchQuery);
@@ -125,12 +127,28 @@ export default function PropertiesPage() {
     }
   };
 
+  // Transform properties for map
+  const mapProperties = properties
+    ? properties
+        .filter((p) => p.latitude && p.longitude)
+        .map((p) => ({
+          id: p._id,
+          title: p.title,
+          address: p.address,
+          city: p.city,
+          latitude: p.latitude!,
+          longitude: p.longitude!,
+          priceUsd: p.priceUsd,
+          propertyType: p.propertyType,
+        }))
+    : [];
+
   // Loading state with skeletons
   if (properties === undefined) {
     return (
-      <div className="p-6">
+      <div className="p-6 h-[calc(100vh-4rem)]">
         {/* Header */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-4">
           <div className="space-y-1">
             <Skeleton className="h-8 w-48" />
             <Skeleton className="h-5 w-32" />
@@ -138,33 +156,57 @@ export default function PropertiesPage() {
           <Skeleton className="h-10 w-32" />
         </div>
 
-        {/* Skeleton grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {Array.from({ length: 6 }).map((_, i) => (
-            <PropertyCardSkeleton key={i} />
-          ))}
+        {/* Search skeleton */}
+        <div className="mb-4">
+          <Skeleton className="h-10 w-full" />
+        </div>
+
+        {/* Split view skeleton */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-[calc(100%-8rem)]">
+          <div className="space-y-4 overflow-hidden">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <PropertyCardSkeleton key={i} />
+            ))}
+          </div>
+          <Skeleton className="h-full min-h-[400px] rounded-lg" />
         </div>
       </div>
     );
   }
 
   return (
-    <div className="p-6">
+    <div className="p-6 h-[calc(100vh-4rem)] flex flex-col">
       {/* Header Section */}
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between mb-4">
         <div>
           <h1 className="text-2xl font-bold">Property Marketplace</h1>
           <p className="text-muted-foreground">
             {properties.length} {properties.length === 1 ? "property" : "properties"} available
           </p>
         </div>
-        <Link href="/properties/new">
-          <Button>Add Property</Button>
-        </Link>
+        <div className="flex items-center gap-2">
+          {/* Map toggle button */}
+          <Button
+            variant={showMap ? "default" : "outline"}
+            size="sm"
+            onClick={() => setShowMap(!showMap)}
+            className="hidden lg:flex items-center gap-2"
+          >
+            <HugeiconsIcon
+              icon={showMap ? DashboardSquare01Icon : Location01Icon}
+              size={16}
+              strokeWidth={2}
+            />
+            {showMap ? "Grid View" : "Map View"}
+          </Button>
+          <Link href="/properties/new">
+            <Button>Add Property</Button>
+          </Link>
+        </div>
       </div>
 
       {/* Search Section */}
-      <div className="mb-6 space-y-3">
+      <div className="mb-4 space-y-3">
         <SearchInput
           onSearch={handleSearch}
           isLoading={isSearching}
@@ -191,28 +233,51 @@ export default function PropertiesPage() {
 
       {/* Empty State */}
       {properties.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
+        <div className="flex-1 flex flex-col items-center justify-center py-16 px-4 text-center">
           <div className="rounded-full bg-muted p-4 mb-4 text-muted-foreground">
             <HugeiconsIcon icon={Building02Icon} size={48} strokeWidth={1.5} />
           </div>
-          <h2 className="text-xl font-semibold mb-2">No properties yet</h2>
+          <h2 className="text-xl font-semibold mb-2">No properties found</h2>
           <p className="text-muted-foreground mb-6 max-w-md">
-            Start building your marketplace by adding your first property listing.
+            {Object.keys(filters).length > 0
+              ? "Try adjusting your filters or search query."
+              : "Start building your marketplace by adding your first property listing."}
           </p>
-          <Link href="/properties/new">
-            <Button>Add Your First Property</Button>
-          </Link>
+          {Object.keys(filters).length > 0 ? (
+            <Button onClick={handleClearAllFilters} variant="outline">
+              Clear Filters
+            </Button>
+          ) : (
+            <Link href="/properties/new">
+              <Button>Add Your First Property</Button>
+            </Link>
+          )}
         </div>
       ) : (
-        /* Property Grid */
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {properties.map((property) => (
-            <PropertyCard
-              key={property._id}
-              property={property}
-              onClick={() => router.push(`/properties/${property._id}`)}
-            />
-          ))}
+        /* Split View - Cards + Map */
+        <div className={`flex-1 grid gap-6 min-h-0 ${showMap ? "grid-cols-1 lg:grid-cols-2" : "grid-cols-1"}`}>
+          {/* Property List - Scrollable */}
+          <div className="overflow-auto pr-2 min-h-0">
+            <div className={`grid gap-4 ${showMap ? "grid-cols-1 xl:grid-cols-2" : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"}`}>
+              {properties.map((property) => (
+                <PropertyCard
+                  key={property._id}
+                  property={property}
+                  onClick={() => router.push(`/properties/${property._id}`)}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Map - Sticky on right */}
+          {showMap && (
+            <div className="hidden lg:block h-full min-h-[400px] rounded-lg overflow-hidden border">
+              <DashboardMap
+                properties={mapProperties}
+                className="h-full"
+              />
+            </div>
+          )}
         </div>
       )}
     </div>
