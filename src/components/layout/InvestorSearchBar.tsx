@@ -35,8 +35,8 @@ export function InvestorSearchBar() {
 
   const handleSearch = () => {
     const params = new URLSearchParams();
-    if (city) params.set("city", city);
-    if (propertyType) params.set("type", propertyType);
+    if (city && city !== "all") params.set("city", city);
+    if (propertyType && propertyType !== "all") params.set("type", propertyType);
     params.set("status", activeTab === "sold" ? "sold" : "available");
 
     router.push(`/properties?${params.toString()}`);
@@ -77,7 +77,7 @@ export function InvestorSearchBar() {
               <SelectValue placeholder="Select city" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">All Cities</SelectItem>
+              <SelectItem value="all">All Cities</SelectItem>
               {ISRAELI_LOCATIONS.map((location) => (
                 <SelectItem key={location} value={location}>
                   {location}
@@ -92,7 +92,7 @@ export function InvestorSearchBar() {
               <SelectValue placeholder="Property type" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">All Types</SelectItem>
+              <SelectItem value="all">All Types</SelectItem>
               {PROPERTY_TYPES.map((type) => (
                 <SelectItem key={type.value} value={type.value}>
                   {type.label}
@@ -150,7 +150,7 @@ export function InvestorSearchBar() {
                   <SelectValue placeholder="Any" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Any</SelectItem>
+                  <SelectItem value="any">Any</SelectItem>
                   <SelectItem value="1">1+</SelectItem>
                   <SelectItem value="2">2+</SelectItem>
                   <SelectItem value="3">3+</SelectItem>
@@ -168,7 +168,7 @@ export function InvestorSearchBar() {
                   <SelectValue placeholder="Any" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Any</SelectItem>
+                  <SelectItem value="any">Any</SelectItem>
                   <SelectItem value="5">5%+</SelectItem>
                   <SelectItem value="7">7%+</SelectItem>
                   <SelectItem value="10">10%+</SelectItem>
