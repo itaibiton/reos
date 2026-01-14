@@ -42,6 +42,8 @@ export const seedProperties = mutation({
         description: property.description,
         address: property.address,
         city: property.city,
+        latitude: property.latitude,
+        longitude: property.longitude,
         propertyType: property.propertyType,
         status: property.status,
         priceUsd: property.priceUsd,
