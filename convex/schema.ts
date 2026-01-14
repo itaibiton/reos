@@ -6,11 +6,13 @@ import { v } from "convex/values";
 // - broker: real estate agent connecting investors with properties
 // - mortgage_advisor: handles financing for deals
 // - lawyer: handles legal process for closing
+// - admin: platform administrator with role-switching capability
 const userRoles = v.union(
   v.literal("investor"),
   v.literal("broker"),
   v.literal("mortgage_advisor"),
-  v.literal("lawyer")
+  v.literal("lawyer"),
+  v.literal("admin")
 );
 
 // Property types for investor preferences

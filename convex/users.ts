@@ -60,14 +60,15 @@ export const getCurrentUser = query({
   },
 });
 
-// Update user's role (used during onboarding)
+// Update user's role (used during onboarding and admin role-switching)
 export const setUserRole = mutation({
   args: {
     role: v.union(
       v.literal("investor"),
       v.literal("broker"),
       v.literal("mortgage_advisor"),
-      v.literal("lawyer")
+      v.literal("lawyer"),
+      v.literal("admin")
     ),
   },
   handler: async (ctx, args) => {

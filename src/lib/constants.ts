@@ -107,3 +107,12 @@ export const PROPERTY_STATUS = [
 
 // USD to ILS exchange rate (approximate, for display purposes)
 export const USD_TO_ILS_RATE = 3.7;
+
+// User roles for role-switching dropdown
+export const USER_ROLES = [
+  { value: "investor", label: "Investor" },
+  { value: "broker", label: "Broker" },
+  { value: "mortgage_advisor", label: "Mortgage Advisor" },
+  { value: "lawyer", label: "Lawyer" },
+  { value: "admin", label: "Admin" },
+] as const;
