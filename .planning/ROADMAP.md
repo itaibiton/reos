@@ -193,7 +193,7 @@ Adds latitude/longitude to property schema and seed data. Creates PropertyImageC
 
 Plans:
 - [x] 05.4-01: Schema extension (amenities, neighborhoods, price history)
-- [ ] 05.4-02: Property amenities display + mortgage calculator
+- [x] 05.4-02: Property amenities display + mortgage calculator
 - [ ] 05.4-03: Neighborhood info + value history + sold properties
 
 **Details:**
@@ -251,7 +251,7 @@ Phases execute in numeric order: 1 → 1.1 → 1.2 → 1.3 → 2 → 3 → 4 →
 | 5.1 Add Also Regular Filter (INSERTED) | 1/1 | Complete | 2026-01-13 |
 | 5.2 Mock Data & Super User (INSERTED) | 1/1 | Complete | 2026-01-14 |
 | 5.3 Property Page Carousel and Interactive Map (INSERTED) | 2/2 | Complete | 2026-01-14 |
-| 5.4 Yad2-Style Property Page (INSERTED) | 1/3 | In progress | - |
+| 5.4 Yad2-Style Property Page (INSERTED) | 2/3 | In progress | - |
 | 6. Deal Flow | 0/TBD | Not started | - |
 | 7. Dashboards | 0/TBD | Not started | - |
 | 8. Real-time Features | 0/TBD | Not started | - |
