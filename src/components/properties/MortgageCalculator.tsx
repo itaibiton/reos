@@ -84,6 +84,7 @@ export function MortgageCalculator({ defaultPrice }: MortgageCalculatorProps) {
 
   return (
     <div className="border rounded-lg p-4 space-y-6">
+      <h3 className="font-semibold">Mortgage Calculator</h3>
       {/* Input Fields */}
       <div className="space-y-4">
         {/* Property Price */}

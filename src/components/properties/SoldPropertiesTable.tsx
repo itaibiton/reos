@@ -67,6 +67,7 @@ export function SoldPropertiesTable({ city }: SoldPropertiesTableProps) {
 
   return (
     <div className="border rounded-lg overflow-hidden">
+      <h3 className="font-semibold p-4 pb-0">Recently Sold</h3>
     <Table>
       <TableHeader>
         <TableRow>
