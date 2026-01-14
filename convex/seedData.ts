@@ -22,6 +22,7 @@ export type SeedProperty = {
   bathrooms?: number;
   squareMeters?: number;
   yearBuilt?: number;
+  amenities?: string[];
   images: string[];
   featuredImage?: string;
 };
@@ -48,6 +49,7 @@ export const SEED_PROPERTIES: SeedProperty[] = [
     bathrooms: 3,
     squareMeters: 220,
     yearBuilt: 2021,
+    amenities: ["airConditioning", "elevator", "parking", "balcony", "security", "renovated", "safeRoom"],
     images: [
       "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop",
       "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop",
@@ -75,6 +77,7 @@ export const SEED_PROPERTIES: SeedProperty[] = [
     bathrooms: 1,
     squareMeters: 75,
     yearBuilt: 2015,
+    amenities: ["airConditioning", "elevator", "balcony", "renovated"],
     images: [
       "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop",
       "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop",
@@ -100,6 +103,7 @@ export const SEED_PROPERTIES: SeedProperty[] = [
     monthlyRent: 6500,
     squareMeters: 95,
     yearBuilt: 2008,
+    amenities: ["airConditioning", "security", "accessible"],
     images: [
       "https://images.unsplash.com/photo-1604014237800-1c9102c219da?w=800&h=600&fit=crop",
       "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop",
@@ -129,6 +133,7 @@ export const SEED_PROPERTIES: SeedProperty[] = [
     bathrooms: 3,
     squareMeters: 280,
     yearBuilt: 1995,
+    amenities: ["airConditioning", "parking", "garden", "renovated", "safeRoom", "storage"],
     images: [
       "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop",
       "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&h=600&fit=crop",
@@ -156,6 +161,7 @@ export const SEED_PROPERTIES: SeedProperty[] = [
     bathrooms: 2,
     squareMeters: 110,
     yearBuilt: 2010,
+    amenities: ["airConditioning", "elevator", "balcony", "renovated", "safeRoom"],
     images: [
       "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800&h=600&fit=crop",
       "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=800&h=600&fit=crop",
@@ -185,6 +191,7 @@ export const SEED_PROPERTIES: SeedProperty[] = [
     bathrooms: 2,
     squareMeters: 150,
     yearBuilt: 2019,
+    amenities: ["airConditioning", "elevator", "parking", "balcony", "security", "gym", "pool", "safeRoom"],
     images: [
       "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=600&fit=crop",
       "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=600&fit=crop",
@@ -210,6 +217,7 @@ export const SEED_PROPERTIES: SeedProperty[] = [
     monthlyRent: 5200,
     squareMeters: 120,
     yearBuilt: 2017,
+    amenities: ["airConditioning", "parking", "elevator", "security", "accessible"],
     images: [
       "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800&h=600&fit=crop",
       "https://images.unsplash.com/photo-1497366412874-3415097a27e7?w=800&h=600&fit=crop",
@@ -239,6 +247,7 @@ export const SEED_PROPERTIES: SeedProperty[] = [
     bathrooms: 2,
     squareMeters: 105,
     yearBuilt: 2012,
+    amenities: ["airConditioning", "elevator", "parking", "balcony", "storage"],
     images: [
       "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&h=600&fit=crop",
       "https://images.unsplash.com/photo-1560448075-cbc16bb4af8e?w=800&h=600&fit=crop",
@@ -264,6 +273,7 @@ export const SEED_PROPERTIES: SeedProperty[] = [
     monthlyRent: 7800,
     squareMeters: 350,
     yearBuilt: 2005,
+    amenities: ["airConditioning", "parking", "elevator", "storage", "accessible"],
     images: [
       "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=600&fit=crop",
       "https://images.unsplash.com/photo-1464938050520-ef2571867405?w=800&h=600&fit=crop",
@@ -293,6 +303,7 @@ export const SEED_PROPERTIES: SeedProperty[] = [
     bathrooms: 1,
     squareMeters: 42,
     yearBuilt: 2018,
+    amenities: ["airConditioning", "elevator", "furnished", "renovated"],
     images: [
       "https://images.unsplash.com/photo-1536376072261-38c75010e6c9?w=800&h=600&fit=crop",
       "https://images.unsplash.com/photo-1501183638710-841dd1904471?w=800&h=600&fit=crop",
@@ -320,6 +331,7 @@ export const SEED_PROPERTIES: SeedProperty[] = [
     bathrooms: 2,
     squareMeters: 180,
     yearBuilt: 2016,
+    amenities: ["airConditioning", "parking", "garden", "storage", "safeRoom", "petFriendly", "solar"],
     images: [
       "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&h=600&fit=crop",
       "https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=800&h=600&fit=crop",
@@ -349,6 +361,7 @@ export const SEED_PROPERTIES: SeedProperty[] = [
     bathrooms: 2,
     squareMeters: 140,
     yearBuilt: 2014,
+    amenities: ["airConditioning", "parking", "garden", "storage", "safeRoom", "petFriendly", "accessible"],
     images: [
       "https://images.unsplash.com/photo-1598228723793-52759bba239c?w=800&h=600&fit=crop",
       "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&h=600&fit=crop",
@@ -378,6 +391,7 @@ export const SEED_PROPERTIES: SeedProperty[] = [
     bathrooms: 2,
     squareMeters: 95,
     yearBuilt: 2024,
+    amenities: ["airConditioning", "elevator", "parking", "balcony", "safeRoom", "solar"],
     images: [
       "https://images.unsplash.com/photo-1551361415-69c87624334f?w=800&h=600&fit=crop",
       "https://images.unsplash.com/photo-1560185008-b033106af5c3?w=800&h=600&fit=crop",
@@ -407,6 +421,7 @@ export const SEED_PROPERTIES: SeedProperty[] = [
     bathrooms: 2,
     squareMeters: 110,
     yearBuilt: 2008,
+    amenities: ["airConditioning", "parking", "storage", "petFriendly"],
     images: [
       "https://images.unsplash.com/photo-1460317442991-0ec209397118?w=800&h=600&fit=crop",
       "https://images.unsplash.com/photo-1495433324511-bf8e92934d90?w=800&h=600&fit=crop",
@@ -436,6 +451,7 @@ export const SEED_PROPERTIES: SeedProperty[] = [
     bathrooms: 1,
     squareMeters: 68,
     yearBuilt: 2020,
+    amenities: ["airConditioning", "elevator", "pool", "gym", "security", "furnished", "balcony"],
     images: [
       "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=800&h=600&fit=crop",
       "https://images.unsplash.com/photo-1602343168117-bb8ffe3e2e9f?w=800&h=600&fit=crop",
@@ -444,3 +460,135 @@ export const SEED_PROPERTIES: SeedProperty[] = [
     featuredImage: "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=800&h=600&fit=crop",
   },
 ];
+
+// Neighborhood data for 9 Israeli cities
+export type SeedNeighborhood = {
+  city: string;
+  population?: number;
+  avgPricePerSqm: number;
+  priceChange1Year?: number;
+  nearbyAmenities: string[];
+  description?: string;
+};
+
+export const SEED_NEIGHBORHOODS: SeedNeighborhood[] = [
+  {
+    city: "Tel Aviv",
+    population: 460000,
+    avgPricePerSqm: 12500,
+    priceChange1Year: 8.2,
+    nearbyAmenities: ["beaches", "transit", "shopping", "restaurants", "parks"],
+    description: "Israel's economic and cultural center, known for its vibrant nightlife, tech industry, and Mediterranean beaches.",
+  },
+  {
+    city: "Jerusalem",
+    population: 936000,
+    avgPricePerSqm: 9800,
+    priceChange1Year: 5.5,
+    nearbyAmenities: ["schools", "hospitals", "shopping", "transit", "parks"],
+    description: "Israel's capital and spiritual center, home to significant religious sites and a diverse population.",
+  },
+  {
+    city: "Herzliya",
+    population: 97000,
+    avgPricePerSqm: 11200,
+    priceChange1Year: 7.8,
+    nearbyAmenities: ["beaches", "shopping", "parks", "hospitals", "transit"],
+    description: "Upscale coastal city known for its tech park, marina, and affluent neighborhoods.",
+  },
+  {
+    city: "Haifa",
+    population: 285000,
+    avgPricePerSqm: 6200,
+    priceChange1Year: 6.3,
+    nearbyAmenities: ["beaches", "transit", "hospitals", "schools", "parks"],
+    description: "Major port city on Mount Carmel, home to the Technion and known for religious coexistence.",
+  },
+  {
+    city: "Netanya",
+    population: 221000,
+    avgPricePerSqm: 5800,
+    priceChange1Year: 9.1,
+    nearbyAmenities: ["beaches", "shopping", "parks", "hospitals"],
+    description: "Coastal resort city with beautiful beaches, popular with tourists and French-speaking immigrants.",
+  },
+  {
+    city: "Ra'anana",
+    population: 155000,
+    avgPricePerSqm: 8900,
+    priceChange1Year: 5.2,
+    nearbyAmenities: ["schools", "parks", "shopping", "transit"],
+    description: "Affluent city in the Sharon region, popular with English-speaking families and tech professionals.",
+  },
+  {
+    city: "Ashdod",
+    population: 225000,
+    avgPricePerSqm: 4500,
+    priceChange1Year: 10.5,
+    nearbyAmenities: ["beaches", "shopping", "hospitals", "parks"],
+    description: "Israel's largest port city with growing residential development and improving infrastructure.",
+  },
+  {
+    city: "Beer Sheva",
+    population: 210000,
+    avgPricePerSqm: 3200,
+    priceChange1Year: 12.8,
+    nearbyAmenities: ["hospitals", "schools", "transit", "shopping"],
+    description: "Capital of the Negev desert, home to Ben-Gurion University and a growing tech sector.",
+  },
+  {
+    city: "Eilat",
+    population: 52000,
+    avgPricePerSqm: 5500,
+    priceChange1Year: 4.2,
+    nearbyAmenities: ["beaches", "shopping", "restaurants"],
+    description: "Red Sea resort city with tax-free status, coral reefs, and year-round tourism.",
+  },
+];
+
+// Price history data - 12 monthly data points per city (market averages)
+export type SeedPriceHistory = {
+  city: string;
+  date: number;
+  priceUsd: number;
+  eventType: "listing" | "sale" | "market_avg";
+};
+
+// Generate price history for the past 12 months
+function generatePriceHistory(): SeedPriceHistory[] {
+  const history: SeedPriceHistory[] = [];
+  const now = Date.now();
+  const oneMonth = 30 * 24 * 60 * 60 * 1000;
+
+  // Base prices per sqm for each city (at month 0, i.e., 12 months ago)
+  const cityBasePrices: Record<string, { basePrice: number; monthlyGrowth: number }> = {
+    "Tel Aviv": { basePrice: 11500, monthlyGrowth: 0.68 },
+    "Jerusalem": { basePrice: 9300, monthlyGrowth: 0.46 },
+    "Herzliya": { basePrice: 10400, monthlyGrowth: 0.65 },
+    "Haifa": { basePrice: 5800, monthlyGrowth: 0.53 },
+    "Netanya": { basePrice: 5300, monthlyGrowth: 0.76 },
+    "Ra'anana": { basePrice: 8450, monthlyGrowth: 0.43 },
+    "Ashdod": { basePrice: 4070, monthlyGrowth: 0.88 },
+    "Beer Sheva": { basePrice: 2840, monthlyGrowth: 1.07 },
+    "Eilat": { basePrice: 5280, monthlyGrowth: 0.35 },
+  };
+
+  for (const [city, { basePrice, monthlyGrowth }] of Object.entries(cityBasePrices)) {
+    for (let monthsAgo = 11; monthsAgo >= 0; monthsAgo--) {
+      const monthsFromStart = 11 - monthsAgo;
+      const priceUsd = Math.round(basePrice * (1 + (monthlyGrowth / 100) * monthsFromStart));
+      const date = now - (monthsAgo * oneMonth);
+
+      history.push({
+        city,
+        date,
+        priceUsd,
+        eventType: "market_avg",
+      });
+    }
+  }
+
+  return history;
+}
+
+export const SEED_PRICE_HISTORY = generatePriceHistory();
