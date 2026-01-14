@@ -379,11 +379,11 @@ export const SEED_PROPERTIES: SeedProperty[] = [
     squareMeters: 95,
     yearBuilt: 2024,
     images: [
-      "https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=800&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=800&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1551361415-69c87624334f?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1560185008-b033106af5c3?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1560448205-4d9b3e6bb6db?w=800&h=600&fit=crop",
     ],
-    featuredImage: "https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=800&h=600&fit=crop",
+    featuredImage: "https://images.unsplash.com/photo-1551361415-69c87624334f?w=800&h=600&fit=crop",
   },
 
   // Beer Sheva properties
