@@ -60,7 +60,7 @@ export function SaveButton({
       );
     }
     return (
-      <Button variant="outline" className={cn("w-full", className)} disabled>
+      <Button variant="outline" className={className} disabled>
         <HugeiconsIcon icon={FavouriteIcon} size={18} strokeWidth={1.5} />
         Save Property
       </Button>
@@ -86,7 +86,7 @@ export function SaveButton({
     return (
       <Button
         variant="outline"
-        className={cn("w-full", className)}
+        className={className}
         disabled
         title="Sign in to save properties"
       >
@@ -129,7 +129,6 @@ export function SaveButton({
       onClick={handleClick}
       disabled={isLoading}
       className={cn(
-        "w-full",
         isSaved && "text-red-500 border-red-200 hover:text-red-600 hover:border-red-300",
         className
       )}

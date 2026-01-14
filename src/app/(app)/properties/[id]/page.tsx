@@ -219,9 +219,9 @@ export default function PropertyDetailPage() {
       </div>
 
       {/* Action Buttons */}
-      <div className="flex flex-col gap-3 mb-8">
-        <SaveButton propertyId={property._id} variant="default" className="w-full" />
-        <Button className="w-full" asChild>
+      <div className="flex gap-3 mb-8">
+        <SaveButton propertyId={property._id} variant="default" className="w-auto" />
+        <Button asChild>
           <a href="#">Contact Broker</a>
         </Button>
       </div>
