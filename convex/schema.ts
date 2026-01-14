@@ -186,6 +186,9 @@ export default defineSchema({
     squareMeters: v.optional(v.number()),
     yearBuilt: v.optional(v.number()),
 
+    // Amenities - flexible string array for amenity keys
+    amenities: v.optional(v.array(v.string())),
+
     // Media
     images: v.array(v.string()), // URLs for now, file storage later
     featuredImage: v.optional(v.string()), // Main image URL
@@ -199,6 +202,32 @@ export default defineSchema({
     .index("by_property_type", ["propertyType"])
     .index("by_status", ["status"])
     .index("by_price", ["priceUsd"]),
+
+  // Neighborhood data for city/area statistics
+  neighborhoods: defineTable({
+    city: v.string(), // Israeli city
+    population: v.optional(v.number()),
+    avgPricePerSqm: v.number(), // USD per square meter
+    priceChange1Year: v.optional(v.number()), // Percentage change
+    nearbyAmenities: v.array(v.string()), // ["schools", "parks", "shopping", "transit", "beaches", "hospitals"]
+    description: v.optional(v.string()),
+    createdAt: v.number(),
+    updatedAt: v.number(),
+  }).index("by_city", ["city"]),
+
+  // Price history for properties and market averages
+  priceHistory: defineTable({
+    propertyId: v.optional(v.id("properties")), // null for area-wide market data
+    city: v.string(),
+    date: v.number(), // timestamp
+    priceUsd: v.number(), // price at that date
+    eventType: v.union(
+      v.literal("listing"),
+      v.literal("sale"),
+      v.literal("market_avg")
+    ),
+    createdAt: v.number(),
+  }).index("by_city", ["city"]),
 
   // User favorites (saved properties)
   favorites: defineTable({

@@ -108,6 +108,25 @@ export const PROPERTY_STATUS = [
 // USD to ILS exchange rate (approximate, for display purposes)
 export const USD_TO_ILS_RATE = 3.7;
 
+// Property amenities for Yad2-style property pages
+export const PROPERTY_AMENITIES = [
+  { value: "airConditioning", label: "Air Conditioning", icon: "AirConditioning" },
+  { value: "elevator", label: "Elevator", icon: "Elevator" },
+  { value: "parking", label: "Parking", icon: "Car" },
+  { value: "storage", label: "Storage", icon: "Storage" },
+  { value: "balcony", label: "Balcony", icon: "Balcony" },
+  { value: "security", label: "Security", icon: "Security" },
+  { value: "gym", label: "Gym", icon: "Gym" },
+  { value: "pool", label: "Pool", icon: "Pool" },
+  { value: "garden", label: "Garden", icon: "Garden" },
+  { value: "renovated", label: "Renovated", icon: "Renovated" },
+  { value: "furnished", label: "Furnished", icon: "Furniture" },
+  { value: "petFriendly", label: "Pet Friendly", icon: "Pet" },
+  { value: "accessible", label: "Accessible", icon: "Accessible" },
+  { value: "safeRoom", label: "Safe Room", icon: "SafeRoom" },
+  { value: "solar", label: "Solar", icon: "Solar" },
+] as const;
+
 // User roles for role-switching dropdown
 export const USER_ROLES = [
   { value: "investor", label: "Investor" },

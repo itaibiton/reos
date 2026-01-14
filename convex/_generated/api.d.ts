@@ -12,6 +12,8 @@ import type * as favorites from "../favorites.js";
 import type * as investorProfiles from "../investorProfiles.js";
 import type * as properties from "../properties.js";
 import type * as search from "../search.js";
+import type * as seed from "../seed.js";
+import type * as seedData from "../seedData.js";
 import type * as serviceProviderProfiles from "../serviceProviderProfiles.js";
 import type * as users from "../users.js";
 
@@ -26,6 +28,8 @@ declare const fullApi: ApiFromModules<{
   investorProfiles: typeof investorProfiles;
   properties: typeof properties;
   search: typeof search;
+  seed: typeof seed;
+  seedData: typeof seedData;
   serviceProviderProfiles: typeof serviceProviderProfiles;
   users: typeof users;
 }>;
