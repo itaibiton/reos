@@ -1,13 +1,14 @@
 "use client";
 
 import { useQuery } from "convex/react";
-import { useRouter, useParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import { api } from "../../../../../convex/_generated/api";
 import { Id } from "../../../../../convex/_generated/dataModel";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { USD_TO_ILS_RATE, PROPERTY_TYPES, PROPERTY_STATUS } from "@/lib/constants";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
@@ -23,6 +24,11 @@ import Link from "next/link";
 import { SaveButton } from "@/components/properties/SaveButton";
 import { PropertyImageCarousel } from "@/components/properties/PropertyImageCarousel";
 import { PropertyMap } from "@/components/properties/PropertyMap";
+import { PropertyAmenities } from "@/components/properties/PropertyAmenities";
+import { MortgageCalculator } from "@/components/properties/MortgageCalculator";
+import { ValueHistoryChart } from "@/components/properties/ValueHistoryChart";
+import { NeighborhoodInfo } from "@/components/properties/NeighborhoodInfo";
+import { SoldPropertiesTable } from "@/components/properties/SoldPropertiesTable";
 
 // Currency formatter for USD
 const formatUSD = (amount: number) => {
@@ -89,20 +95,15 @@ function DetailPageSkeleton() {
         {/* Left column */}
         <div className="lg:col-span-3 space-y-6">
           <Skeleton className="aspect-video w-full rounded-lg" />
-          <div className="space-y-2">
-            <Skeleton className="h-6 w-32" />
-            <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-3/4" />
-          </div>
+          <Skeleton className="h-10 w-full rounded-lg" />
+          <Skeleton className="h-64 w-full rounded-lg" />
         </div>
 
         {/* Right column */}
         <div className="lg:col-span-2 space-y-4">
-          <Skeleton className="h-32 w-full rounded-lg" />
           <Skeleton className="h-48 w-full rounded-lg" />
-          <Skeleton className="h-64 w-full rounded-lg" />
-          <Skeleton className="h-80 w-full rounded-lg" />
+          <Skeleton className="h-32 w-full rounded-lg" />
+          <Skeleton className="h-12 w-full rounded-lg" />
         </div>
       </div>
     </div>
@@ -130,7 +131,6 @@ function PropertyNotFound() {
 }
 
 export default function PropertyDetailPage() {
-  const router = useRouter();
   const params = useParams();
   const propertyId = params.id as string;
 
@@ -169,6 +169,7 @@ export default function PropertyDetailPage() {
     featuredImage,
     latitude,
     longitude,
+    amenities,
   } = property;
 
   return (
@@ -196,11 +197,10 @@ export default function PropertyDetailPage() {
         </div>
       </div>
 
-      {/* Two Column Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-        {/* Left Column - Images and Description */}
-        <div className="lg:col-span-3 space-y-6">
-          {/* Image Carousel */}
+      {/* Two Column Layout - Top Section */}
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 mb-6">
+        {/* Left Column - Image Carousel */}
+        <div className="lg:col-span-3">
           <div className="relative">
             <PropertyImageCarousel
               images={images && images.length > 0 ? images : featuredImage ? [featuredImage] : []}
@@ -214,19 +214,11 @@ export default function PropertyDetailPage() {
               {getPropertyTypeLabel(propertyType)}
             </Badge>
           </div>
-
-          {/* Description */}
-          <div>
-            <h2 className="text-lg font-semibold mb-3">Description</h2>
-            <p className="text-muted-foreground whitespace-pre-wrap leading-relaxed">
-              {description || "No description available."}
-            </p>
-          </div>
         </div>
 
-        {/* Right Column - Map, Price, Metrics, Details, Actions */}
-        <div className="lg:col-span-2 space-y-4 lg:sticky lg:top-6 lg:self-start">
-          {/* Location Map - At Top */}
+        {/* Right Column - Map, Price, Action Buttons */}
+        <div className="lg:col-span-2 space-y-4">
+          {/* Location Map */}
           <PropertyMap
             latitude={latitude}
             longitude={longitude}
@@ -238,7 +230,7 @@ export default function PropertyDetailPage() {
           {/* Price Section */}
           <Card>
             <CardContent className="p-4">
-              <div className="flex items-start justify-between mb-4">
+              <div className="flex items-start justify-between">
                 <div>
                   <p className="text-3xl font-bold">{formatUSD(priceUsd)}</p>
                   <p className="text-muted-foreground">
@@ -252,142 +244,6 @@ export default function PropertyDetailPage() {
             </CardContent>
           </Card>
 
-          {/* Investment Metrics Card */}
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-base">Investment Metrics</CardTitle>
-            </CardHeader>
-            <CardContent className="p-4 pt-0">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-1">
-                  <p className="text-sm text-muted-foreground">Expected ROI</p>
-                  <p className="text-lg font-semibold">
-                    {expectedRoi !== undefined && expectedRoi !== null
-                      ? formatPercent(expectedRoi)
-                      : "N/A"}
-                  </p>
-                </div>
-                <div className="space-y-1">
-                  <p className="text-sm text-muted-foreground">Cap Rate</p>
-                  <p className="text-lg font-semibold">
-                    {capRate !== undefined && capRate !== null
-                      ? formatPercent(capRate)
-                      : "N/A"}
-                  </p>
-                </div>
-                <div className="space-y-1">
-                  <p className="text-sm text-muted-foreground">Cash-on-Cash</p>
-                  <p className="text-lg font-semibold">
-                    {cashOnCash !== undefined && cashOnCash !== null
-                      ? formatPercent(cashOnCash)
-                      : "N/A"}
-                  </p>
-                </div>
-                <div className="space-y-1">
-                  <p className="text-sm text-muted-foreground">Monthly Rent</p>
-                  <p className="text-lg font-semibold">
-                    {monthlyRent !== undefined && monthlyRent !== null
-                      ? formatUSD(monthlyRent)
-                      : "N/A"}
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Property Details Card */}
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-base">Property Details</CardTitle>
-            </CardHeader>
-            <CardContent className="p-4 pt-0">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="flex items-center gap-2">
-                  <HugeiconsIcon
-                    icon={Home01Icon}
-                    size={18}
-                    strokeWidth={1.5}
-                    className="text-muted-foreground"
-                  />
-                  <div>
-                    <p className="text-sm text-muted-foreground">Bedrooms</p>
-                    <p className="font-medium">
-                      {bedrooms !== undefined && bedrooms !== null ? bedrooms : "N/A"}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <HugeiconsIcon
-                    icon={Bathtub01Icon}
-                    size={18}
-                    strokeWidth={1.5}
-                    className="text-muted-foreground"
-                  />
-                  <div>
-                    <p className="text-sm text-muted-foreground">Bathrooms</p>
-                    <p className="font-medium">
-                      {bathrooms !== undefined && bathrooms !== null ? bathrooms : "N/A"}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <HugeiconsIcon
-                    icon={Square01Icon}
-                    size={18}
-                    strokeWidth={1.5}
-                    className="text-muted-foreground"
-                  />
-                  <div>
-                    <p className="text-sm text-muted-foreground">Size</p>
-                    <p className="font-medium">
-                      {squareMeters !== undefined && squareMeters !== null
-                        ? `${squareMeters} m\u00B2`
-                        : "N/A"}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <HugeiconsIcon
-                    icon={Calendar01Icon}
-                    size={18}
-                    strokeWidth={1.5}
-                    className="text-muted-foreground"
-                  />
-                  <div>
-                    <p className="text-sm text-muted-foreground">Year Built</p>
-                    <p className="font-medium">
-                      {yearBuilt !== undefined && yearBuilt !== null ? yearBuilt : "N/A"}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <HugeiconsIcon
-                    icon={Building02Icon}
-                    size={18}
-                    strokeWidth={1.5}
-                    className="text-muted-foreground"
-                  />
-                  <div>
-                    <p className="text-sm text-muted-foreground">Type</p>
-                    <p className="font-medium">{getPropertyTypeLabel(propertyType)}</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <HugeiconsIcon
-                    icon={Location01Icon}
-                    size={18}
-                    strokeWidth={1.5}
-                    className="text-muted-foreground"
-                  />
-                  <div>
-                    <p className="text-sm text-muted-foreground">City</p>
-                    <p className="font-medium">{city}</p>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
           {/* Action Buttons */}
           <div className="space-y-3">
             <SaveButton propertyId={property._id} />
@@ -397,6 +253,192 @@ export default function PropertyDetailPage() {
           </div>
         </div>
       </div>
+
+      {/* Tabbed Content Section */}
+      <Tabs defaultValue="overview" className="w-full">
+        <TabsList className="w-full justify-start overflow-x-auto">
+          <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="amenities">Amenities</TabsTrigger>
+          <TabsTrigger value="investment">Investment</TabsTrigger>
+          <TabsTrigger value="area">Area</TabsTrigger>
+        </TabsList>
+
+        {/* Overview Tab */}
+        <TabsContent value="overview" className="mt-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Description */}
+            <div>
+              <h2 className="text-lg font-semibold mb-3">Description</h2>
+              <p className="text-muted-foreground whitespace-pre-wrap leading-relaxed">
+                {description || "No description available."}
+              </p>
+            </div>
+
+            {/* Property Details Card */}
+            <Card>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-base">Property Details</CardTitle>
+              </CardHeader>
+              <CardContent className="p-4 pt-0">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="flex items-center gap-2">
+                    <HugeiconsIcon
+                      icon={Home01Icon}
+                      size={18}
+                      strokeWidth={1.5}
+                      className="text-muted-foreground"
+                    />
+                    <div>
+                      <p className="text-sm text-muted-foreground">Bedrooms</p>
+                      <p className="font-medium">
+                        {bedrooms !== undefined && bedrooms !== null ? bedrooms : "N/A"}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <HugeiconsIcon
+                      icon={Bathtub01Icon}
+                      size={18}
+                      strokeWidth={1.5}
+                      className="text-muted-foreground"
+                    />
+                    <div>
+                      <p className="text-sm text-muted-foreground">Bathrooms</p>
+                      <p className="font-medium">
+                        {bathrooms !== undefined && bathrooms !== null ? bathrooms : "N/A"}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <HugeiconsIcon
+                      icon={Square01Icon}
+                      size={18}
+                      strokeWidth={1.5}
+                      className="text-muted-foreground"
+                    />
+                    <div>
+                      <p className="text-sm text-muted-foreground">Size</p>
+                      <p className="font-medium">
+                        {squareMeters !== undefined && squareMeters !== null
+                          ? `${squareMeters} m\u00B2`
+                          : "N/A"}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <HugeiconsIcon
+                      icon={Calendar01Icon}
+                      size={18}
+                      strokeWidth={1.5}
+                      className="text-muted-foreground"
+                    />
+                    <div>
+                      <p className="text-sm text-muted-foreground">Year Built</p>
+                      <p className="font-medium">
+                        {yearBuilt !== undefined && yearBuilt !== null ? yearBuilt : "N/A"}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <HugeiconsIcon
+                      icon={Building02Icon}
+                      size={18}
+                      strokeWidth={1.5}
+                      className="text-muted-foreground"
+                    />
+                    <div>
+                      <p className="text-sm text-muted-foreground">Type</p>
+                      <p className="font-medium">{getPropertyTypeLabel(propertyType)}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <HugeiconsIcon
+                      icon={Location01Icon}
+                      size={18}
+                      strokeWidth={1.5}
+                      className="text-muted-foreground"
+                    />
+                    <div>
+                      <p className="text-sm text-muted-foreground">City</p>
+                      <p className="font-medium">{city}</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </TabsContent>
+
+        {/* Amenities Tab */}
+        <TabsContent value="amenities" className="mt-6">
+          <PropertyAmenities amenities={amenities} />
+        </TabsContent>
+
+        {/* Investment Tab */}
+        <TabsContent value="investment" className="mt-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Investment Metrics Card */}
+            <Card>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-base">Investment Metrics</CardTitle>
+              </CardHeader>
+              <CardContent className="p-4 pt-0">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-1">
+                    <p className="text-sm text-muted-foreground">Expected ROI</p>
+                    <p className="text-lg font-semibold">
+                      {expectedRoi !== undefined && expectedRoi !== null
+                        ? formatPercent(expectedRoi)
+                        : "N/A"}
+                    </p>
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-sm text-muted-foreground">Cap Rate</p>
+                    <p className="text-lg font-semibold">
+                      {capRate !== undefined && capRate !== null
+                        ? formatPercent(capRate)
+                        : "N/A"}
+                    </p>
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-sm text-muted-foreground">Cash-on-Cash</p>
+                    <p className="text-lg font-semibold">
+                      {cashOnCash !== undefined && cashOnCash !== null
+                        ? formatPercent(cashOnCash)
+                        : "N/A"}
+                    </p>
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-sm text-muted-foreground">Monthly Rent</p>
+                    <p className="text-lg font-semibold">
+                      {monthlyRent !== undefined && monthlyRent !== null
+                        ? formatUSD(monthlyRent)
+                        : "N/A"}
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Mortgage Calculator */}
+            <MortgageCalculator defaultPrice={priceUsd} />
+          </div>
+        </TabsContent>
+
+        {/* Area Tab */}
+        <TabsContent value="area" className="mt-6">
+          <div className="space-y-6">
+            {/* Neighborhood Info */}
+            <NeighborhoodInfo city={city} />
+
+            {/* Value History Chart */}
+            <ValueHistoryChart city={city} />
+
+            {/* Sold Properties Table */}
+            <SoldPropertiesTable city={city} />
+          </div>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }
