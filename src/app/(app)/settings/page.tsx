@@ -4,9 +4,10 @@ import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { InvestorProfileForm } from "@/components/profile/InvestorProfileForm";
 import { ProviderProfileForm } from "@/components/profile/ProviderProfileForm";
 import { Spinner } from "@/components/ui/spinner";
+import { Badge } from "@/components/ui/badge";
 
 export default function SettingsPage() {
-  const { user, isLoading } = useCurrentUser();
+  const { user, isLoading, effectiveRole, isAdmin, isInvestor, isServiceProvider } = useCurrentUser();
 
   if (isLoading || !user) {
     return (
@@ -16,18 +17,39 @@ export default function SettingsPage() {
     );
   }
 
-  const isInvestor = user.role === "investor";
+  // Admin viewing a role shows that role's settings
+  const showInvestorProfile = isInvestor;
+  const showProviderProfile = isServiceProvider;
 
   return (
     <div className="p-6">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold">Settings</h1>
+        <div className="flex items-center gap-3">
+          <h1 className="text-2xl font-bold">Settings</h1>
+          {isAdmin && effectiveRole !== "admin" && (
+            <Badge variant="outline" className="text-xs">
+              Viewing as {effectiveRole}
+            </Badge>
+          )}
+        </div>
         <p className="text-muted-foreground">
-          Manage your profile settings
+          {effectiveRole === "admin"
+            ? "Admin settings and system configuration"
+            : "Manage your profile settings"}
         </p>
       </div>
 
-      {isInvestor ? <InvestorProfileForm /> : <ProviderProfileForm />}
+      {showInvestorProfile && <InvestorProfileForm />}
+      {showProviderProfile && <ProviderProfileForm />}
+      {effectiveRole === "admin" && (
+        <div className="rounded-lg border p-6">
+          <h2 className="text-lg font-semibold mb-2">Admin Panel</h2>
+          <p className="text-muted-foreground text-sm">
+            Use the &quot;View as&quot; dropdown in the header to preview the app as different user types.
+            The sidebar and available features will change based on the selected role.
+          </p>
+        </div>
+      )}
     </div>
   );
 }

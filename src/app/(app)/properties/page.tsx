@@ -20,7 +20,7 @@ function PropertyCardSkeleton() {
   return (
     <div className="rounded-xl border overflow-hidden">
       {/* Image skeleton */}
-      <Skeleton className="aspect-video w-full" />
+      <Skeleton className="h-48 w-full" />
 
       {/* Content skeleton */}
       <div className="p-4 space-y-3">

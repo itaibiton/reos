@@ -90,7 +90,7 @@ export function PropertyCard({ property, onClick }: PropertyCardProps) {
       onClick={onClick}
     >
       {/* Image Section */}
-      <div className="aspect-video bg-muted relative">
+      <div className="h-48 bg-muted relative">
         {featuredImage ? (
           <img
             src={featuredImage}

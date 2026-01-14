@@ -93,3 +93,42 @@ export const setUserRole = mutation({
     });
   },
 });
+
+// Set the role an admin is viewing as (for testing different perspectives)
+// Admin's actual role stays "admin", but viewingAsRole affects what they see
+export const setViewingAsRole = mutation({
+  args: {
+    viewingAsRole: v.union(
+      v.literal("investor"),
+      v.literal("broker"),
+      v.literal("mortgage_advisor"),
+      v.literal("lawyer"),
+      v.literal("admin")
+    ),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Not authenticated");
+    }
+
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_clerk_id", (q) => q.eq("clerkId", identity.subject))
+      .unique();
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    // Only admins can use this feature
+    if (user.role !== "admin") {
+      throw new Error("Only admins can switch viewing role");
+    }
+
+    await ctx.db.patch(user._id, {
+      viewingAsRole: args.viewingAsRole,
+      updatedAt: Date.now(),
+    });
+  },
+});

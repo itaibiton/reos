@@ -79,6 +79,9 @@ export default defineSchema({
     imageUrl: v.optional(v.string()),
     // User's role in the system
     role: v.optional(userRoles),
+    // Role the admin is viewing as (for testing different perspectives)
+    // Only used by admins - their actual role stays "admin"
+    viewingAsRole: v.optional(userRoles),
     // Onboarding completed flag
     onboardingComplete: v.boolean(),
     // Timestamps
