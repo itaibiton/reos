@@ -48,8 +48,12 @@ export const SEED_PROPERTIES: SeedProperty[] = [
     bathrooms: 3,
     squareMeters: 220,
     yearBuilt: 2021,
-    images: ["https://placehold.co/800x600?text=Tel+Aviv+Penthouse+1"],
-    featuredImage: "https://placehold.co/800x600?text=Tel+Aviv+Penthouse+1",
+    images: [
+      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=800&h=600&fit=crop",
+    ],
+    featuredImage: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop",
   },
   {
     title: "Boutique Investment Apartment",
@@ -71,8 +75,12 @@ export const SEED_PROPERTIES: SeedProperty[] = [
     bathrooms: 1,
     squareMeters: 75,
     yearBuilt: 2015,
-    images: ["https://placehold.co/800x600?text=Dizengoff+Apartment"],
-    featuredImage: "https://placehold.co/800x600?text=Dizengoff+Apartment",
+    images: [
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800&h=600&fit=crop",
+    ],
+    featuredImage: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop",
   },
   {
     title: "Commercial Space - Prime Retail",
@@ -92,8 +100,12 @@ export const SEED_PROPERTIES: SeedProperty[] = [
     monthlyRent: 6500,
     squareMeters: 95,
     yearBuilt: 2008,
-    images: ["https://placehold.co/800x600?text=Tel+Aviv+Commercial"],
-    featuredImage: "https://placehold.co/800x600?text=Tel+Aviv+Commercial",
+    images: [
+      "https://images.unsplash.com/photo-1604014237800-1c9102c219da?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&h=600&fit=crop",
+    ],
+    featuredImage: "https://images.unsplash.com/photo-1604014237800-1c9102c219da?w=800&h=600&fit=crop",
   },
 
   // Jerusalem properties
@@ -117,8 +129,12 @@ export const SEED_PROPERTIES: SeedProperty[] = [
     bathrooms: 3,
     squareMeters: 280,
     yearBuilt: 1995,
-    images: ["https://placehold.co/800x600?text=Jerusalem+Villa"],
-    featuredImage: "https://placehold.co/800x600?text=Jerusalem+Villa",
+    images: [
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=800&h=600&fit=crop",
+    ],
+    featuredImage: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop",
   },
   {
     title: "German Colony Investment Apartment",
@@ -140,8 +156,12 @@ export const SEED_PROPERTIES: SeedProperty[] = [
     bathrooms: 2,
     squareMeters: 110,
     yearBuilt: 2010,
-    images: ["https://placehold.co/800x600?text=German+Colony+Apt"],
-    featuredImage: "https://placehold.co/800x600?text=German+Colony+Apt",
+    images: [
+      "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?w=800&h=600&fit=crop",
+    ],
+    featuredImage: "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800&h=600&fit=crop",
   },
 
   // Herzliya properties
@@ -165,8 +185,12 @@ export const SEED_PROPERTIES: SeedProperty[] = [
     bathrooms: 2,
     squareMeters: 150,
     yearBuilt: 2019,
-    images: ["https://placehold.co/800x600?text=Herzliya+Marina"],
-    featuredImage: "https://placehold.co/800x600?text=Herzliya+Marina",
+    images: [
+      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1567496898669-ee935f5f647a?w=800&h=600&fit=crop",
+    ],
+    featuredImage: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=600&fit=crop",
   },
   {
     title: "Tech Park Office Space",
@@ -186,8 +210,12 @@ export const SEED_PROPERTIES: SeedProperty[] = [
     monthlyRent: 5200,
     squareMeters: 120,
     yearBuilt: 2017,
-    images: ["https://placehold.co/800x600?text=Herzliya+Office"],
-    featuredImage: "https://placehold.co/800x600?text=Herzliya+Office",
+    images: [
+      "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1497366412874-3415097a27e7?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=800&h=600&fit=crop",
+    ],
+    featuredImage: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800&h=600&fit=crop",
   },
 
   // Haifa properties
@@ -211,8 +239,12 @@ export const SEED_PROPERTIES: SeedProperty[] = [
     bathrooms: 2,
     squareMeters: 105,
     yearBuilt: 2012,
-    images: ["https://placehold.co/800x600?text=Haifa+Carmel"],
-    featuredImage: "https://placehold.co/800x600?text=Haifa+Carmel",
+    images: [
+      "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1560448075-cbc16bb4af8e?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&h=600&fit=crop",
+    ],
+    featuredImage: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&h=600&fit=crop",
   },
   {
     title: "Downtown Haifa Mixed-Use Building",
@@ -232,8 +264,12 @@ export const SEED_PROPERTIES: SeedProperty[] = [
     monthlyRent: 7800,
     squareMeters: 350,
     yearBuilt: 2005,
-    images: ["https://placehold.co/800x600?text=Haifa+Mixed+Use"],
-    featuredImage: "https://placehold.co/800x600?text=Haifa+Mixed+Use",
+    images: [
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1464938050520-ef2571867405?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1577495508048-b635879837f1?w=800&h=600&fit=crop",
+    ],
+    featuredImage: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=600&fit=crop",
   },
 
   // Netanya properties
@@ -257,8 +293,12 @@ export const SEED_PROPERTIES: SeedProperty[] = [
     bathrooms: 1,
     squareMeters: 42,
     yearBuilt: 2018,
-    images: ["https://placehold.co/800x600?text=Netanya+Studio"],
-    featuredImage: "https://placehold.co/800x600?text=Netanya+Studio",
+    images: [
+      "https://images.unsplash.com/photo-1536376072261-38c75010e6c9?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1501183638710-841dd1904471?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=800&h=600&fit=crop",
+    ],
+    featuredImage: "https://images.unsplash.com/photo-1536376072261-38c75010e6c9?w=800&h=600&fit=crop",
   },
   {
     title: "Family Home Near Poleg Beach",
@@ -280,8 +320,12 @@ export const SEED_PROPERTIES: SeedProperty[] = [
     bathrooms: 2,
     squareMeters: 180,
     yearBuilt: 2016,
-    images: ["https://placehold.co/800x600?text=Netanya+Family+Home"],
-    featuredImage: "https://placehold.co/800x600?text=Netanya+Family+Home",
+    images: [
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&h=600&fit=crop",
+    ],
+    featuredImage: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&h=600&fit=crop",
   },
 
   // Ra'anana properties
@@ -305,8 +349,12 @@ export const SEED_PROPERTIES: SeedProperty[] = [
     bathrooms: 2,
     squareMeters: 140,
     yearBuilt: 2014,
-    images: ["https://placehold.co/800x600?text=Raanana+Garden+Apt"],
-    featuredImage: "https://placehold.co/800x600?text=Raanana+Garden+Apt",
+    images: [
+      "https://images.unsplash.com/photo-1598228723793-52759bba239c?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&h=600&fit=crop",
+    ],
+    featuredImage: "https://images.unsplash.com/photo-1598228723793-52759bba239c?w=800&h=600&fit=crop",
   },
 
   // Ashdod properties
@@ -330,8 +378,12 @@ export const SEED_PROPERTIES: SeedProperty[] = [
     bathrooms: 2,
     squareMeters: 95,
     yearBuilt: 2024,
-    images: ["https://placehold.co/800x600?text=Ashdod+New+Dev"],
-    featuredImage: "https://placehold.co/800x600?text=Ashdod+New+Dev",
+    images: [
+      "https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800&h=600&fit=crop",
+    ],
+    featuredImage: "https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=800&h=600&fit=crop",
   },
 
   // Beer Sheva properties
@@ -355,8 +407,12 @@ export const SEED_PROPERTIES: SeedProperty[] = [
     bathrooms: 2,
     squareMeters: 110,
     yearBuilt: 2008,
-    images: ["https://placehold.co/800x600?text=Beer+Sheva+Student"],
-    featuredImage: "https://placehold.co/800x600?text=Beer+Sheva+Student",
+    images: [
+      "https://images.unsplash.com/photo-1460317442991-0ec209397118?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1495433324511-bf8e92934d90?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1554995207-c18c203602cb?w=800&h=600&fit=crop",
+    ],
+    featuredImage: "https://images.unsplash.com/photo-1460317442991-0ec209397118?w=800&h=600&fit=crop",
   },
 
   // Eilat properties
@@ -380,7 +436,11 @@ export const SEED_PROPERTIES: SeedProperty[] = [
     bathrooms: 1,
     squareMeters: 68,
     yearBuilt: 2020,
-    images: ["https://placehold.co/800x600?text=Eilat+Resort+Condo"],
-    featuredImage: "https://placehold.co/800x600?text=Eilat+Resort+Condo",
+    images: [
+      "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1602343168117-bb8ffe3e2e9f?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&h=600&fit=crop",
+    ],
+    featuredImage: "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=800&h=600&fit=crop",
   },
 ];

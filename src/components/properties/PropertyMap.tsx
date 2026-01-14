@@ -11,6 +11,7 @@ interface PropertyMapProps {
   longitude?: number;
   title: string;
   address: string;
+  featuredImage?: string;
   className?: string;
 }
 
@@ -47,6 +48,7 @@ export function PropertyMap({
   longitude,
   title,
   address,
+  featuredImage,
   className,
 }: PropertyMapProps) {
   // Check if coordinates are available
@@ -68,6 +70,7 @@ export function PropertyMap({
             longitude={longitude}
             title={title}
             address={address}
+            featuredImage={featuredImage}
           />
         ) : (
           <MapPlaceholder />

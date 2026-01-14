@@ -140,6 +140,7 @@ export default function PropertiesPage() {
           longitude: p.longitude!,
           priceUsd: p.priceUsd,
           propertyType: p.propertyType,
+          featuredImage: p.featuredImage,
         }))
     : [];
 

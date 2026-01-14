@@ -385,6 +385,7 @@ export default function PropertyDetailPage() {
             longitude={longitude}
             title={title}
             address={`${address}, ${city}`}
+            featuredImage={featuredImage}
           />
 
           {/* Action Buttons */}

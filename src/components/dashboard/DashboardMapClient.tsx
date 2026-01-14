@@ -14,6 +14,7 @@ interface PropertyMarker {
   longitude: number;
   priceUsd: number;
   propertyType: string;
+  featuredImage?: string;
 }
 
 interface DashboardMapClientProps {
@@ -106,7 +107,16 @@ export function DashboardMapClient({ properties }: DashboardMapClientProps) {
           icon={defaultIcon}
         >
           <Popup>
-            <div className="text-sm min-w-[200px]">
+            <div className="text-sm min-w-[220px]">
+              {property.featuredImage && (
+                <div className="w-full h-28 mb-2 rounded overflow-hidden bg-muted">
+                  <img
+                    src={property.featuredImage}
+                    alt={property.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              )}
               <p className="font-semibold text-base mb-1">{property.title}</p>
               <p className="text-muted-foreground text-xs mb-2">
                 {property.address}, {property.city}

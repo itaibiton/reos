@@ -9,6 +9,7 @@ interface PropertyMapClientProps {
   longitude: number;
   title: string;
   address: string;
+  featuredImage?: string;
 }
 
 // Fix for default marker icon in Leaflet with bundlers
@@ -27,6 +28,7 @@ export function PropertyMapClient({
   longitude,
   title,
   address,
+  featuredImage,
 }: PropertyMapClientProps) {
   const position: [number, number] = [latitude, longitude];
 
@@ -44,7 +46,16 @@ export function PropertyMapClient({
       />
       <Marker position={position} icon={defaultIcon}>
         <Popup>
-          <div className="text-sm">
+          <div className="text-sm min-w-[200px]">
+            {featuredImage && (
+              <div className="w-full h-24 mb-2 rounded overflow-hidden bg-muted">
+                <img
+                  src={featuredImage}
+                  alt={title}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            )}
             <p className="font-semibold">{title}</p>
             <p className="text-muted-foreground">{address}</p>
           </div>

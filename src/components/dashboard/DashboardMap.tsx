@@ -14,6 +14,7 @@ interface PropertyMarker {
   longitude: number;
   priceUsd: number;
   propertyType: string;
+  featuredImage?: string;
 }
 
 interface DashboardMapProps {
