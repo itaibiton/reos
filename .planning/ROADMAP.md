@@ -24,6 +24,7 @@ None
 - [x] **Phase 4.1: Edit Property** (INSERTED) - Edit existing property listings
 - [x] **Phase 5: Smart Search** - Natural language search to structured filters
 - [x] **Phase 5.1: Add Also Regular Filter** (INSERTED) - Add traditional filter UI alongside smart search
+- [x] **Phase 5.2: Mock Data & Super User** (INSERTED) - Mock data, super user role switching, Israeli properties
 - [ ] **Phase 6: Deal Flow** - Deal stages, service provider requests, file storage
 - [ ] **Phase 7: Dashboards** - Investor and service provider dashboards
 - [ ] **Phase 8: Real-time Features** - Chat and live updates
@@ -157,6 +158,18 @@ Plans:
 **Details:**
 Created PropertyFiltersPanel with Popover dropdown containing filter controls (City, Property Type, Bedrooms, Bathrooms, Price Range, Size Range). Uses draft state pattern - changes only apply on "Apply Filters" button click. FilterChips displayed inline with Filters button. Uses `__any__` sentinel value for Radix Select empty state.
 
+### Phase 5.2: Mock Data & Super User (INSERTED)
+**Goal**: Add mock data system, super user with role-switching dropdown, and variety of Israeli property listings
+**Depends on**: Phase 5.1
+**Research**: Unlikely
+**Plans**: 1 plan
+
+Plans:
+- [x] 05.2-01: Admin role, seed data, role-switching UI
+
+**Details:**
+Added "admin" as 5th user role with viewingAsRole field for impersonation. Created 15 mock Israeli properties across 9 cities. Built role-switching dropdown (admin-only) that changes sidebar navigation and settings based on effective role.
+
 ### Phase 6: Deal Flow
 **Goal**: Deal stages tracking, service provider requests, file storage per deal, client handoffs between providers
 **Depends on**: Phase 3
@@ -180,7 +193,7 @@ Created PropertyFiltersPanel with Popover dropdown containing filter controls (C
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 1.1 → 1.2 → 1.3 → 2 → 3 → 4 → 4.1 → 5 → 5.1 → 6 → 7 → 8
+Phases execute in numeric order: 1 → 1.1 → 1.2 → 1.3 → 2 → 3 → 4 → 4.1 → 5 → 5.1 → 5.2 → 6 → 7 → 8
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
@@ -194,6 +207,7 @@ Phases execute in numeric order: 1 → 1.1 → 1.2 → 1.3 → 2 → 3 → 4 →
 | 4.1 Edit Property (INSERTED) | 1/1 | Complete | 2026-01-13 |
 | 5. Smart Search | 3/3 | Complete | 2026-01-13 |
 | 5.1 Add Also Regular Filter (INSERTED) | 1/1 | Complete | 2026-01-13 |
+| 5.2 Mock Data & Super User (INSERTED) | 1/1 | Complete | 2026-01-14 |
 | 6. Deal Flow | 0/TBD | Not started | - |
 | 7. Dashboards | 0/TBD | Not started | - |
 | 8. Real-time Features | 0/TBD | Not started | - |

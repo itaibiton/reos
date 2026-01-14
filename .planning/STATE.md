@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-01-12)
 
 **Core value:** Deal flow tracking from interest to close.
-**Current focus:** Phase 5.1 — Add Also Regular Filter
+**Current focus:** Phase 5.2 — Mock Data & Super User (COMPLETE)
 
 ## Current Position
 
-Phase: 5.1 of 8 (Add Also Regular Filter)
+Phase: 5.2 of 8 (Mock Data & Super User)
 Plan: 1 of 1 in current phase
-Status: Phase 5.1 complete
-Last activity: 2026-01-13 — Completed 05.1-01-PLAN.md (Traditional Filters)
+Status: Phase 5.2 complete
+Last activity: 2026-01-14 — Completed 05.2-01-PLAN.md (Mock Data & Super User)
 
-Progress: █████████░ 90%
+Progress: █████████░ 92%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 20
-- Average duration: 7 min
-- Total execution time: 2.5 hours
+- Total plans completed: 21
+- Average duration: 8 min
+- Total execution time: 2.8 hours
 
 **By Phase:**
 
@@ -37,9 +37,10 @@ Progress: █████████░ 90%
 | 4.1 | 1/1 | 3 min | 3 min |
 | 5 | 3/3 | 21 min | 7 min |
 | 5.1 | 1/1 | 12 min | 12 min |
+| 5.2 | 1/1 | 18 min | 18 min |
 
 **Recent Trend:**
-- Last 5 plans: 3 min, 12 min, 1 min, 8 min, 12 min
+- Last 5 plans: 12 min, 1 min, 8 min, 12 min, 18 min
 - Trend: Fast execution
 
 ## Accumulated Context
@@ -81,6 +82,10 @@ Recent decisions affecting current work:
 - Phase 5.1: Popover for filter panel (not Collapsible)
 - Phase 5.1: Filters require Apply button (draft state pattern)
 - Phase 5.1: Sentinel value `__any__` for Radix Select empty state
+- Phase 5.2: viewingAsRole field separate from role for admin impersonation
+- Phase 5.2: effectiveRole = viewingAsRole ?? role pattern for role-aware UI
+- Phase 5.2: Role-based Sidebar navigation (different items per role)
+- Phase 5.2: Property card image height h-48 (192px)
 
 ### Deferred Issues
 
@@ -97,9 +102,10 @@ None yet.
 - Phase 1.3 inserted after Phase 1.2: Create Design System Page (COMPLETE)
 - Phase 4.1 inserted after Phase 4: Edit Property (COMPLETE)
 - Phase 5.1 inserted after Phase 5: Add Also Regular Filter (URGENT)
+- Phase 5.2 inserted after Phase 5.1: Mock Data & Super User (COMPLETE)
 
 ## Session Continuity
 
-Last session: 2026-01-13
-Stopped at: Completed 05.1-01-PLAN.md (Traditional Filters) — Phase 5.1 complete
+Last session: 2026-01-14
+Stopped at: Completed 05.2-01-PLAN.md (Mock Data & Super User) — Phase 5.2 complete
 Resume file: None
