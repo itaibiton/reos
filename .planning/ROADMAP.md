@@ -25,6 +25,7 @@ None
 - [x] **Phase 5: Smart Search** - Natural language search to structured filters
 - [x] **Phase 5.1: Add Also Regular Filter** (INSERTED) - Add traditional filter UI alongside smart search
 - [x] **Phase 5.2: Mock Data & Super User** (INSERTED) - Mock data, super user role switching, Israeli properties
+- [ ] **Phase 5.3: Property Page Carousel and Interactive Map** (INSERTED) - Image carousel and map for property detail page
 - [ ] **Phase 6: Deal Flow** - Deal stages, service provider requests, file storage
 - [ ] **Phase 7: Dashboards** - Investor and service provider dashboards
 - [ ] **Phase 8: Real-time Features** - Chat and live updates
@@ -170,6 +171,19 @@ Plans:
 **Details:**
 Added "admin" as 5th user role with viewingAsRole field for impersonation. Created 15 mock Israeli properties across 9 cities. Built role-switching dropdown (admin-only) that changes sidebar navigation and settings based on effective role.
 
+### Phase 5.3: Property Page Carousel and Interactive Map (INSERTED)
+**Goal**: Replace static image display with interactive carousel and add property location map
+**Depends on**: Phase 5.2
+**Research**: Unlikely
+**Plans**: 2 plans
+
+Plans:
+- [ ] 05.3-01: Schema coordinates + seed data + PropertyImageCarousel component
+- [ ] 05.3-02: PropertyMap component + property detail page integration
+
+**Details:**
+Adds latitude/longitude to property schema and seed data. Creates PropertyImageCarousel using Shadcn/embla-carousel. Creates PropertyMap using react-leaflet with OpenStreetMap tiles. Integrates both into property detail page.
+
 ### Phase 6: Deal Flow
 **Goal**: Deal stages tracking, service provider requests, file storage per deal, client handoffs between providers
 **Depends on**: Phase 3
@@ -193,7 +207,7 @@ Added "admin" as 5th user role with viewingAsRole field for impersonation. Creat
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 1.1 → 1.2 → 1.3 → 2 → 3 → 4 → 4.1 → 5 → 5.1 → 5.2 → 6 → 7 → 8
+Phases execute in numeric order: 1 → 1.1 → 1.2 → 1.3 → 2 → 3 → 4 → 4.1 → 5 → 5.1 → 5.2 → 5.3 → 6 → 7 → 8
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
@@ -208,6 +222,7 @@ Phases execute in numeric order: 1 → 1.1 → 1.2 → 1.3 → 2 → 3 → 4 →
 | 5. Smart Search | 3/3 | Complete | 2026-01-13 |
 | 5.1 Add Also Regular Filter (INSERTED) | 1/1 | Complete | 2026-01-13 |
 | 5.2 Mock Data & Super User (INSERTED) | 1/1 | Complete | 2026-01-14 |
+| 5.3 Property Page Carousel and Interactive Map (INSERTED) | 0/2 | Not started | - |
 | 6. Deal Flow | 0/TBD | Not started | - |
 | 7. Dashboards | 0/TBD | Not started | - |
 | 8. Real-time Features | 0/TBD | Not started | - |
