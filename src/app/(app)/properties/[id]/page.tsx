@@ -21,6 +21,8 @@ import {
 } from "@hugeicons/core-free-icons";
 import Link from "next/link";
 import { SaveButton } from "@/components/properties/SaveButton";
+import { PropertyImageCarousel } from "@/components/properties/PropertyImageCarousel";
+import { PropertyMap } from "@/components/properties/PropertyMap";
 
 // Currency formatter for USD
 const formatUSD = (amount: number) => {
@@ -97,9 +99,10 @@ function DetailPageSkeleton() {
 
         {/* Right column */}
         <div className="lg:col-span-2 space-y-4">
+          <Skeleton className="h-32 w-full rounded-lg" />
           <Skeleton className="h-48 w-full rounded-lg" />
           <Skeleton className="h-64 w-full rounded-lg" />
-          <Skeleton className="h-48 w-full rounded-lg" />
+          <Skeleton className="h-80 w-full rounded-lg" />
         </div>
       </div>
     </div>
@@ -164,6 +167,8 @@ export default function PropertyDetailPage() {
     yearBuilt,
     images,
     featuredImage,
+    latitude,
+    longitude,
   } = property;
 
   return (
@@ -195,48 +200,19 @@ export default function PropertyDetailPage() {
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
         {/* Left Column - Images and Description */}
         <div className="lg:col-span-3 space-y-6">
-          {/* Image Gallery */}
-          <div className="space-y-4">
-            {/* Featured Image */}
-            <div className="aspect-video bg-muted rounded-lg overflow-hidden relative">
-              {featuredImage ? (
-                <img
-                  src={featuredImage}
-                  alt={title}
-                  className="object-cover w-full h-full"
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center text-muted-foreground">
-                  <HugeiconsIcon icon={Home01Icon} size={64} strokeWidth={1.5} />
-                </div>
-              )}
-
-              {/* Property Type Badge */}
-              <Badge
-                variant="secondary"
-                className="absolute top-4 left-4 bg-background/90 backdrop-blur-sm"
-              >
-                {getPropertyTypeLabel(propertyType)}
-              </Badge>
-            </div>
-
-            {/* Thumbnail Gallery (if multiple images) */}
-            {images && images.length > 1 && (
-              <div className="grid grid-cols-4 gap-2">
-                {images.slice(0, 4).map((image, index) => (
-                  <div
-                    key={index}
-                    className="aspect-video bg-muted rounded-md overflow-hidden"
-                  >
-                    <img
-                      src={image}
-                      alt={`${title} - Image ${index + 1}`}
-                      className="object-cover w-full h-full"
-                    />
-                  </div>
-                ))}
-              </div>
-            )}
+          {/* Image Carousel */}
+          <div className="relative">
+            <PropertyImageCarousel
+              images={images && images.length > 0 ? images : featuredImage ? [featuredImage] : []}
+              title={title}
+            />
+            {/* Property Type Badge */}
+            <Badge
+              variant="secondary"
+              className="absolute top-4 left-4 bg-background/90 backdrop-blur-sm z-10"
+            >
+              {getPropertyTypeLabel(propertyType)}
+            </Badge>
           </div>
 
           {/* Description */}
@@ -402,6 +378,14 @@ export default function PropertyDetailPage() {
               </div>
             </CardContent>
           </Card>
+
+          {/* Location Map */}
+          <PropertyMap
+            latitude={latitude}
+            longitude={longitude}
+            title={title}
+            address={`${address}, ${city}`}
+          />
 
           {/* Action Buttons */}
           <div className="space-y-3">
