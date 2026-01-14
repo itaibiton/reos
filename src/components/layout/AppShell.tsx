@@ -30,9 +30,12 @@ export function AppShell({ children }: AppShellProps) {
       pathname === "/properties/saved" ||
       pathname === "/dashboard");
 
+  // Full-bleed pages (no padding wrapper)
+  const isFullBleedPage = pathname === "/properties";
+
   if (isInvestorLayout) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="h-screen flex flex-col bg-background">
         <Header
           isSidebarOpen={false}
           onToggleSidebar={() => {}}
@@ -40,16 +43,15 @@ export function AppShell({ children }: AppShellProps) {
           showSidebarToggle={false}
         />
 
-        {/* Search bar for marketplace pages */}
-        {showSearchBar && (
-          <div className="fixed top-16 left-0 right-0 z-40">
-            <InvestorSearchBar />
-          </div>
-        )}
+        {/* Spacer for fixed header */}
+        <div className="h-16 flex-shrink-0" />
 
-        {/* Main content area - no sidebar offset */}
-        <main className={`pt-16 pb-16 md:pb-0 ${showSearchBar ? "pt-[140px]" : ""}`}>
-          <div className="p-6">{children}</div>
+        {/* Search bar for marketplace pages */}
+        {showSearchBar && <InvestorSearchBar />}
+
+        {/* Main content area - fills remaining space */}
+        <main className="flex-1 overflow-hidden pb-16 md:pb-0">
+          {isFullBleedPage ? children : <div className="h-full overflow-auto p-6">{children}</div>}
         </main>
 
         {/* Mobile bottom navigation */}
