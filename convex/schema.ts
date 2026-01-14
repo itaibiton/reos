@@ -165,6 +165,8 @@ export default defineSchema({
     description: v.string(),
     address: v.string(),
     city: v.string(), // Israeli city from ISRAELI_LOCATIONS
+    latitude: v.optional(v.number()), // Decimal degrees
+    longitude: v.optional(v.number()), // Decimal degrees
     propertyType: propertyTypes,
     status: propertyStatus,
 
