@@ -102,7 +102,7 @@ export function PropertyImageCarousel({
       </Carousel>
 
       {/* Thumbnail row below the carousel */}
-      <div className="flex gap-2 mt-3 overflow-x-auto pb-1">
+      <div className="flex justify-center gap-2 mt-4 pt-2 overflow-x-auto pb-1">
         {images.map((image, index) => (
           <button
             key={index}
