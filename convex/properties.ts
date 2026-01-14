@@ -205,6 +205,27 @@ export const create = mutation({
   },
 });
 
+// Get sold properties in a city
+export const getSoldInCity = query({
+  args: { city: v.string(), limit: v.optional(v.number()) },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      return [];
+    }
+
+    const results = await ctx.db
+      .query("properties")
+      .withIndex("by_status", (q) => q.eq("status", "sold"))
+      .collect();
+
+    // Filter by city in memory (Convex single-index constraint)
+    return results
+      .filter((p) => p.city === args.city)
+      .slice(0, args.limit || 5);
+  },
+});
+
 // Update an existing property
 export const update = mutation({
   args: {
