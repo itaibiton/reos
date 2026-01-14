@@ -178,7 +178,7 @@ Added "admin" as 5th user role with viewingAsRole field for impersonation. Creat
 **Plans**: 2 plans
 
 Plans:
-- [ ] 05.3-01: Schema coordinates + seed data + PropertyImageCarousel component
+- [x] 05.3-01: Schema coordinates + seed data + PropertyImageCarousel component
 - [ ] 05.3-02: PropertyMap component + property detail page integration
 
 **Details:**
@@ -222,7 +222,7 @@ Phases execute in numeric order: 1 → 1.1 → 1.2 → 1.3 → 2 → 3 → 4 →
 | 5. Smart Search | 3/3 | Complete | 2026-01-13 |
 | 5.1 Add Also Regular Filter (INSERTED) | 1/1 | Complete | 2026-01-13 |
 | 5.2 Mock Data & Super User (INSERTED) | 1/1 | Complete | 2026-01-14 |
-| 5.3 Property Page Carousel and Interactive Map (INSERTED) | 0/2 | Not started | - |
+| 5.3 Property Page Carousel and Interactive Map (INSERTED) | 1/2 | In progress | - |
 | 6. Deal Flow | 0/TBD | Not started | - |
 | 7. Dashboards | 0/TBD | Not started | - |
 | 8. Real-time Features | 0/TBD | Not started | - |
