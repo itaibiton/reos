@@ -26,6 +26,7 @@ None
 - [x] **Phase 5.1: Add Also Regular Filter** (INSERTED) - Add traditional filter UI alongside smart search
 - [x] **Phase 5.2: Mock Data & Super User** (INSERTED) - Mock data, super user role switching, Israeli properties
 - [x] **Phase 5.3: Property Page Carousel and Interactive Map** (INSERTED) - Image carousel and map for property detail page
+- [ ] **Phase 5.4: Yad2-Style Property Page** (INSERTED) - Full property detail page redesign with Yad2-inspired features
 - [ ] **Phase 6: Deal Flow** - Deal stages, service provider requests, file storage
 - [ ] **Phase 7: Dashboards** - Investor and service provider dashboards
 - [ ] **Phase 8: Real-time Features** - Chat and live updates
@@ -184,6 +185,33 @@ Plans:
 **Details:**
 Adds latitude/longitude to property schema and seed data. Creates PropertyImageCarousel using Shadcn/embla-carousel. Creates PropertyMap using react-leaflet with OpenStreetMap tiles. Integrates both into property detail page.
 
+### Phase 5.4: Yad2-Style Property Page (INSERTED)
+**Goal**: Redesign property detail page with Yad2-inspired layout and features: property amenities, neighborhood info, mortgage calculator, property value history, and sold properties in area
+**Depends on**: Phase 5.3
+**Research**: Unlikely (UI components with Shadcn charts/tables)
+**Plans**: 3 plans
+
+Plans:
+- [x] 05.4-01: Schema extension (amenities, neighborhoods, price history)
+- [ ] 05.4-02: Property amenities display + mortgage calculator
+- [ ] 05.4-03: Neighborhood info + value history + sold properties
+
+**Details:**
+Yad2-inspired features to implement:
+- **מה יש בנכס** (Property Amenities): Grid/list of property features (AC, elevator, parking, storage, etc.)
+- **מידע על השכונה** (Neighborhood Info): Area statistics, nearby amenities, demographics
+- **מחשבון משכנתא** (Mortgage Calculator): Interactive calculator with principal, interest, term inputs
+- **היסטוריית שווי** (Value History): Property/area price trends over time using Shadcn charts
+- **נכסים שנמכרו באזור** (Sold in Area): Table of recent sales with property details, prices, dates
+
+Database extensions needed:
+- Property amenities enum/flags
+- Neighborhood data table (city/area statistics)
+- Historical price data table
+- Sold properties table (or status field on existing properties)
+
+Uses Shadcn components: Charts (Recharts), Tables, Cards, Tabs for section organization.
+
 ### Phase 6: Deal Flow
 **Goal**: Deal stages tracking, service provider requests, file storage per deal, client handoffs between providers
 **Depends on**: Phase 3
@@ -207,7 +235,7 @@ Adds latitude/longitude to property schema and seed data. Creates PropertyImageC
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 1.1 → 1.2 → 1.3 → 2 → 3 → 4 → 4.1 → 5 → 5.1 → 5.2 → 5.3 → 6 → 7 → 8
+Phases execute in numeric order: 1 → 1.1 → 1.2 → 1.3 → 2 → 3 → 4 → 4.1 → 5 → 5.1 → 5.2 → 5.3 → 5.4 → 6 → 7 → 8
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
@@ -223,6 +251,7 @@ Phases execute in numeric order: 1 → 1.1 → 1.2 → 1.3 → 2 → 3 → 4 →
 | 5.1 Add Also Regular Filter (INSERTED) | 1/1 | Complete | 2026-01-13 |
 | 5.2 Mock Data & Super User (INSERTED) | 1/1 | Complete | 2026-01-14 |
 | 5.3 Property Page Carousel and Interactive Map (INSERTED) | 2/2 | Complete | 2026-01-14 |
+| 5.4 Yad2-Style Property Page (INSERTED) | 1/3 | In progress | - |
 | 6. Deal Flow | 0/TBD | Not started | - |
 | 7. Dashboards | 0/TBD | Not started | - |
 | 8. Real-time Features | 0/TBD | Not started | - |
