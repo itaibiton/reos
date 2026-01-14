@@ -5,10 +5,8 @@ import { useParams } from "next/navigation";
 import { api } from "../../../../../convex/_generated/api";
 import { Id } from "../../../../../convex/_generated/dataModel";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { USD_TO_ILS_RATE, PROPERTY_TYPES, PROPERTY_STATUS } from "@/lib/constants";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
@@ -82,7 +80,7 @@ const getStatusLabel = (value: string) => {
 // Loading skeleton for the detail page
 function DetailPageSkeleton() {
   return (
-    <div className="p-6">
+    <div className="p-6 max-w-4xl mx-auto">
       {/* Header skeleton */}
       <div className="mb-6">
         <Skeleton className="h-6 w-32 mb-4" />
@@ -90,21 +88,14 @@ function DetailPageSkeleton() {
         <Skeleton className="h-5 w-1/2" />
       </div>
 
-      {/* Two column layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-        {/* Left column */}
-        <div className="lg:col-span-3 space-y-6">
-          <Skeleton className="aspect-video w-full rounded-lg" />
-          <Skeleton className="h-10 w-full rounded-lg" />
-          <Skeleton className="h-64 w-full rounded-lg" />
-        </div>
+      {/* Image skeleton */}
+      <Skeleton className="aspect-video w-full rounded-lg mb-6" />
 
-        {/* Right column */}
-        <div className="lg:col-span-2 space-y-4">
-          <Skeleton className="h-48 w-full rounded-lg" />
-          <Skeleton className="h-32 w-full rounded-lg" />
-          <Skeleton className="h-12 w-full rounded-lg" />
-        </div>
+      {/* Content skeleton */}
+      <div className="space-y-6">
+        <Skeleton className="h-32 w-full rounded-lg" />
+        <Skeleton className="h-48 w-full rounded-lg" />
+        <Skeleton className="h-64 w-full rounded-lg" />
       </div>
     </div>
   );
@@ -173,7 +164,7 @@ export default function PropertyDetailPage() {
   } = property;
 
   return (
-    <div className="p-6">
+    <div className="p-6 max-w-4xl mx-auto">
       {/* Header Section */}
       <div className="mb-6">
         {/* Back button */}
@@ -185,260 +176,220 @@ export default function PropertyDetailPage() {
           Back to Marketplace
         </Link>
 
-        {/* Title and Address */}
-        <div className="flex items-start justify-between">
+        {/* Title, Address, Price */}
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold mb-1">{title}</h1>
+            <div className="flex items-center gap-2 mb-1">
+              <h1 className="text-2xl font-bold">{title}</h1>
+              <Badge variant={getStatusBadgeVariant(status)}>
+                {getStatusLabel(status)}
+              </Badge>
+            </div>
             <div className="flex items-center gap-2 text-muted-foreground">
               <HugeiconsIcon icon={Location01Icon} size={16} strokeWidth={1.5} />
-              <span>{address}, {city}</span>
+              <span>
+                {address}, {city}
+              </span>
             </div>
           </div>
+          <div className="text-left sm:text-right">
+            <p className="text-2xl font-bold">{formatUSD(priceUsd)}</p>
+            <p className="text-muted-foreground text-sm">
+              {formatILS(priceIls || priceUsd * USD_TO_ILS_RATE)}
+            </p>
+          </div>
         </div>
       </div>
 
-      {/* Two Column Layout - Top Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 mb-6">
-        {/* Left Column - Image Carousel */}
-        <div className="lg:col-span-3">
-          <div className="relative">
-            <PropertyImageCarousel
-              images={images && images.length > 0 ? images : featuredImage ? [featuredImage] : []}
-              title={title}
-            />
-            {/* Property Type Badge */}
-            <Badge
-              variant="secondary"
-              className="absolute top-4 left-4 bg-background/90 backdrop-blur-sm z-10"
-            >
-              {getPropertyTypeLabel(propertyType)}
-            </Badge>
-          </div>
-        </div>
-
-        {/* Right Column - Map, Price, Action Buttons */}
-        <div className="lg:col-span-2 space-y-4">
-          {/* Location Map */}
-          <PropertyMap
-            latitude={latitude}
-            longitude={longitude}
+      {/* Image Carousel */}
+      <div className="mb-8">
+        <div className="relative">
+          <PropertyImageCarousel
+            images={images && images.length > 0 ? images : featuredImage ? [featuredImage] : []}
             title={title}
-            address={`${address}, ${city}`}
-            featuredImage={featuredImage}
           />
-
-          {/* Price Section */}
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-start justify-between">
-                <div>
-                  <p className="text-3xl font-bold">{formatUSD(priceUsd)}</p>
-                  <p className="text-muted-foreground">
-                    {formatILS(priceIls || priceUsd * USD_TO_ILS_RATE)}
-                  </p>
-                </div>
-                <Badge variant={getStatusBadgeVariant(status)}>
-                  {getStatusLabel(status)}
-                </Badge>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Action Buttons */}
-          <div className="space-y-3">
-            <SaveButton propertyId={property._id} />
-            <Button className="w-full" asChild>
-              <a href="#">Contact Broker</a>
-            </Button>
-          </div>
+          {/* Property Type Badge */}
+          <Badge
+            variant="secondary"
+            className="absolute top-4 left-4 bg-background/90 backdrop-blur-sm z-10"
+          >
+            {getPropertyTypeLabel(propertyType)}
+          </Badge>
         </div>
       </div>
 
-      {/* Tabbed Content Section */}
-      <Tabs defaultValue="overview" className="w-full">
-        <TabsList className="w-full justify-start overflow-x-auto">
-          <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="amenities">Amenities</TabsTrigger>
-          <TabsTrigger value="investment">Investment</TabsTrigger>
-          <TabsTrigger value="area">Area</TabsTrigger>
-        </TabsList>
+      {/* Action Buttons */}
+      <div className="flex gap-3 mb-8">
+        <SaveButton propertyId={property._id} variant="default" />
+        <Button className="flex-1" asChild>
+          <a href="#">Contact Broker</a>
+        </Button>
+      </div>
 
-        {/* Overview Tab */}
-        <TabsContent value="overview" className="mt-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Description */}
+      {/* Property Details */}
+      <section className="mb-8">
+        <h2 className="text-lg font-semibold mb-4">Property Details</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+          <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
+            <HugeiconsIcon
+              icon={Home01Icon}
+              size={20}
+              strokeWidth={1.5}
+              className="text-muted-foreground"
+            />
             <div>
-              <h2 className="text-lg font-semibold mb-3">Description</h2>
-              <p className="text-muted-foreground whitespace-pre-wrap leading-relaxed">
-                {description || "No description available."}
+              <p className="text-xs text-muted-foreground">Bedrooms</p>
+              <p className="font-medium">
+                {bedrooms !== undefined && bedrooms !== null ? bedrooms : "N/A"}
               </p>
             </div>
-
-            {/* Property Details Card */}
-            <Card>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-base">Property Details</CardTitle>
-              </CardHeader>
-              <CardContent className="p-4 pt-0">
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="flex items-center gap-2">
-                    <HugeiconsIcon
-                      icon={Home01Icon}
-                      size={18}
-                      strokeWidth={1.5}
-                      className="text-muted-foreground"
-                    />
-                    <div>
-                      <p className="text-sm text-muted-foreground">Bedrooms</p>
-                      <p className="font-medium">
-                        {bedrooms !== undefined && bedrooms !== null ? bedrooms : "N/A"}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <HugeiconsIcon
-                      icon={Bathtub01Icon}
-                      size={18}
-                      strokeWidth={1.5}
-                      className="text-muted-foreground"
-                    />
-                    <div>
-                      <p className="text-sm text-muted-foreground">Bathrooms</p>
-                      <p className="font-medium">
-                        {bathrooms !== undefined && bathrooms !== null ? bathrooms : "N/A"}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <HugeiconsIcon
-                      icon={Square01Icon}
-                      size={18}
-                      strokeWidth={1.5}
-                      className="text-muted-foreground"
-                    />
-                    <div>
-                      <p className="text-sm text-muted-foreground">Size</p>
-                      <p className="font-medium">
-                        {squareMeters !== undefined && squareMeters !== null
-                          ? `${squareMeters} m\u00B2`
-                          : "N/A"}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <HugeiconsIcon
-                      icon={Calendar01Icon}
-                      size={18}
-                      strokeWidth={1.5}
-                      className="text-muted-foreground"
-                    />
-                    <div>
-                      <p className="text-sm text-muted-foreground">Year Built</p>
-                      <p className="font-medium">
-                        {yearBuilt !== undefined && yearBuilt !== null ? yearBuilt : "N/A"}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <HugeiconsIcon
-                      icon={Building02Icon}
-                      size={18}
-                      strokeWidth={1.5}
-                      className="text-muted-foreground"
-                    />
-                    <div>
-                      <p className="text-sm text-muted-foreground">Type</p>
-                      <p className="font-medium">{getPropertyTypeLabel(propertyType)}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <HugeiconsIcon
-                      icon={Location01Icon}
-                      size={18}
-                      strokeWidth={1.5}
-                      className="text-muted-foreground"
-                    />
-                    <div>
-                      <p className="text-sm text-muted-foreground">City</p>
-                      <p className="font-medium">{city}</p>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
           </div>
-        </TabsContent>
-
-        {/* Amenities Tab */}
-        <TabsContent value="amenities" className="mt-6">
-          <PropertyAmenities amenities={amenities} />
-        </TabsContent>
-
-        {/* Investment Tab */}
-        <TabsContent value="investment" className="mt-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Investment Metrics Card */}
-            <Card>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-base">Investment Metrics</CardTitle>
-              </CardHeader>
-              <CardContent className="p-4 pt-0">
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-1">
-                    <p className="text-sm text-muted-foreground">Expected ROI</p>
-                    <p className="text-lg font-semibold">
-                      {expectedRoi !== undefined && expectedRoi !== null
-                        ? formatPercent(expectedRoi)
-                        : "N/A"}
-                    </p>
-                  </div>
-                  <div className="space-y-1">
-                    <p className="text-sm text-muted-foreground">Cap Rate</p>
-                    <p className="text-lg font-semibold">
-                      {capRate !== undefined && capRate !== null
-                        ? formatPercent(capRate)
-                        : "N/A"}
-                    </p>
-                  </div>
-                  <div className="space-y-1">
-                    <p className="text-sm text-muted-foreground">Cash-on-Cash</p>
-                    <p className="text-lg font-semibold">
-                      {cashOnCash !== undefined && cashOnCash !== null
-                        ? formatPercent(cashOnCash)
-                        : "N/A"}
-                    </p>
-                  </div>
-                  <div className="space-y-1">
-                    <p className="text-sm text-muted-foreground">Monthly Rent</p>
-                    <p className="text-lg font-semibold">
-                      {monthlyRent !== undefined && monthlyRent !== null
-                        ? formatUSD(monthlyRent)
-                        : "N/A"}
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Mortgage Calculator */}
-            <MortgageCalculator defaultPrice={priceUsd} />
+          <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
+            <HugeiconsIcon
+              icon={Bathtub01Icon}
+              size={20}
+              strokeWidth={1.5}
+              className="text-muted-foreground"
+            />
+            <div>
+              <p className="text-xs text-muted-foreground">Bathrooms</p>
+              <p className="font-medium">
+                {bathrooms !== undefined && bathrooms !== null ? bathrooms : "N/A"}
+              </p>
+            </div>
           </div>
-        </TabsContent>
-
-        {/* Area Tab */}
-        <TabsContent value="area" className="mt-6">
-          <div className="space-y-6">
-            {/* Neighborhood Info */}
-            <NeighborhoodInfo city={city} />
-
-            {/* Value History Chart */}
-            <ValueHistoryChart city={city} />
-
-            {/* Sold Properties Table */}
-            <SoldPropertiesTable city={city} />
+          <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
+            <HugeiconsIcon
+              icon={Square01Icon}
+              size={20}
+              strokeWidth={1.5}
+              className="text-muted-foreground"
+            />
+            <div>
+              <p className="text-xs text-muted-foreground">Size</p>
+              <p className="font-medium">
+                {squareMeters !== undefined && squareMeters !== null
+                  ? `${squareMeters} m²`
+                  : "N/A"}
+              </p>
+            </div>
           </div>
-        </TabsContent>
-      </Tabs>
+          <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
+            <HugeiconsIcon
+              icon={Calendar01Icon}
+              size={20}
+              strokeWidth={1.5}
+              className="text-muted-foreground"
+            />
+            <div>
+              <p className="text-xs text-muted-foreground">Year Built</p>
+              <p className="font-medium">
+                {yearBuilt !== undefined && yearBuilt !== null ? yearBuilt : "N/A"}
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
+            <HugeiconsIcon
+              icon={Building02Icon}
+              size={20}
+              strokeWidth={1.5}
+              className="text-muted-foreground"
+            />
+            <div>
+              <p className="text-xs text-muted-foreground">Type</p>
+              <p className="font-medium">{getPropertyTypeLabel(propertyType)}</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
+            <HugeiconsIcon
+              icon={Location01Icon}
+              size={20}
+              strokeWidth={1.5}
+              className="text-muted-foreground"
+            />
+            <div>
+              <p className="text-xs text-muted-foreground">City</p>
+              <p className="font-medium">{city}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Description */}
+      <section className="mb-8">
+        <h2 className="text-lg font-semibold mb-4">Description</h2>
+        <p className="text-muted-foreground whitespace-pre-wrap leading-relaxed">
+          {description || "No description available."}
+        </p>
+      </section>
+
+      {/* Amenities */}
+      <section className="mb-8">
+        <h2 className="text-lg font-semibold mb-4">Amenities</h2>
+        <PropertyAmenities amenities={amenities} />
+      </section>
+
+      {/* Investment Metrics */}
+      <section className="mb-8">
+        <h2 className="text-lg font-semibold mb-4">Investment</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+          <div className="p-4 rounded-lg bg-muted/50 text-center">
+            <p className="text-xs text-muted-foreground mb-1">Expected ROI</p>
+            <p className="text-xl font-semibold">
+              {expectedRoi !== undefined && expectedRoi !== null
+                ? formatPercent(expectedRoi)
+                : "N/A"}
+            </p>
+          </div>
+          <div className="p-4 rounded-lg bg-muted/50 text-center">
+            <p className="text-xs text-muted-foreground mb-1">Cap Rate</p>
+            <p className="text-xl font-semibold">
+              {capRate !== undefined && capRate !== null ? formatPercent(capRate) : "N/A"}
+            </p>
+          </div>
+          <div className="p-4 rounded-lg bg-muted/50 text-center">
+            <p className="text-xs text-muted-foreground mb-1">Cash-on-Cash</p>
+            <p className="text-xl font-semibold">
+              {cashOnCash !== undefined && cashOnCash !== null
+                ? formatPercent(cashOnCash)
+                : "N/A"}
+            </p>
+          </div>
+          <div className="p-4 rounded-lg bg-muted/50 text-center">
+            <p className="text-xs text-muted-foreground mb-1">Monthly Rent</p>
+            <p className="text-xl font-semibold">
+              {monthlyRent !== undefined && monthlyRent !== null
+                ? formatUSD(monthlyRent)
+                : "N/A"}
+            </p>
+          </div>
+        </div>
+        <MortgageCalculator defaultPrice={priceUsd} />
+      </section>
+
+      {/* Map */}
+      <section className="mb-8">
+        <h2 className="text-lg font-semibold mb-4">Location</h2>
+        <PropertyMap
+          latitude={latitude}
+          longitude={longitude}
+          title={title}
+          address={`${address}, ${city}`}
+          featuredImage={featuredImage}
+          variant="inline"
+          className="h-64 rounded-lg overflow-hidden"
+        />
+      </section>
+
+      {/* Area Info */}
+      <section className="mb-8">
+        <h2 className="text-lg font-semibold mb-4">About {city}</h2>
+        <div className="space-y-6">
+          <NeighborhoodInfo city={city} />
+          <ValueHistoryChart city={city} />
+          <SoldPropertiesTable city={city} />
+        </div>
+      </section>
     </div>
   );
 }

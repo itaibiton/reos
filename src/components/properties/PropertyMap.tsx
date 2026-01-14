@@ -13,6 +13,7 @@ interface PropertyMapProps {
   address: string;
   featuredImage?: string;
   className?: string;
+  variant?: "card" | "inline";
 }
 
 // Loading component while map loads
@@ -50,6 +51,7 @@ export function PropertyMap({
   address,
   featuredImage,
   className,
+  variant = "card",
 }: PropertyMapProps) {
   // Check if coordinates are available
   const hasCoordinates =
@@ -58,24 +60,30 @@ export function PropertyMap({
     !isNaN(latitude) &&
     !isNaN(longitude);
 
+  const mapContent = hasCoordinates ? (
+    <MapContainer
+      latitude={latitude}
+      longitude={longitude}
+      title={title}
+      address={address}
+      featuredImage={featuredImage}
+    />
+  ) : (
+    <MapPlaceholder />
+  );
+
+  // Inline variant: no card wrapper, just the map
+  if (variant === "inline") {
+    return <div className={className}>{mapContent}</div>;
+  }
+
+  // Card variant: wrapped in Card with title
   return (
     <Card className={className}>
       <CardHeader className="pb-2">
         <CardTitle className="text-base">Location</CardTitle>
       </CardHeader>
-      <CardContent className="p-4 pt-0">
-        {hasCoordinates ? (
-          <MapContainer
-            latitude={latitude}
-            longitude={longitude}
-            title={title}
-            address={address}
-            featuredImage={featuredImage}
-          />
-        ) : (
-          <MapPlaceholder />
-        )}
-      </CardContent>
+      <CardContent className="p-4 pt-0">{mapContent}</CardContent>
     </Card>
   );
 }
