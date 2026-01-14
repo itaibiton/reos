@@ -114,10 +114,10 @@ export function SoldPropertiesTable({ city }: SoldPropertiesTableProps) {
                     : "N/A"}
                 </TableCell>
                 <TableCell className="text-right">
-                  {formatUSD(property.priceUsd)}
+                  {formatUSD(property.soldPrice ?? property.priceUsd)}
                 </TableCell>
                 <TableCell className="text-right">
-                  {formatDate(property.updatedAt)}
+                  {formatDate(property.soldDate ?? property.updatedAt)}
                 </TableCell>
               </TableRow>
             ))}

@@ -193,6 +193,10 @@ export default defineSchema({
     images: v.array(v.string()), // URLs for now, file storage later
     featuredImage: v.optional(v.string()), // Main image URL
 
+    // Sale info (for sold properties)
+    soldDate: v.optional(v.number()), // Timestamp when sold
+    soldPrice: v.optional(v.number()), // Final sale price in USD
+
     // Metadata
     createdBy: v.id("users"), // Admin/user who uploaded
     createdAt: v.number(),
