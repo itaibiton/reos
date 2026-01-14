@@ -66,6 +66,7 @@ export function SoldPropertiesTable({ city }: SoldPropertiesTableProps) {
   }
 
   return (
+    <div className="border rounded-lg overflow-hidden">
     <Table>
       <TableHeader>
         <TableRow>
@@ -103,5 +104,6 @@ export function SoldPropertiesTable({ city }: SoldPropertiesTableProps) {
         ))}
       </TableBody>
     </Table>
+    </div>
   );
 }

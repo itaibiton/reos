@@ -83,7 +83,7 @@ export function MortgageCalculator({ defaultPrice }: MortgageCalculatorProps) {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="border rounded-lg p-4 space-y-6">
       {/* Input Fields */}
       <div className="space-y-4">
         {/* Property Price */}

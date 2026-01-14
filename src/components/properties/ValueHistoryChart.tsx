@@ -85,7 +85,7 @@ export function ValueHistoryChart({ city }: ValueHistoryChartProps) {
   const priceChange = calculateChange(displayData);
 
   return (
-    <div className="space-y-4">
+    <div className="border rounded-lg p-4 space-y-4">
       {/* Header with change indicator */}
       <div className="flex items-center justify-between">
         <p className="text-sm text-muted-foreground">{city}</p>
