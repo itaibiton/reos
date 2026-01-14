@@ -256,10 +256,10 @@ export default function PropertiesPage() {
         </div>
       ) : (
         /* Split View - Cards + Map */
-        <div className={`flex-1 grid gap-6 min-h-0 ${showMap ? "grid-cols-1 lg:grid-cols-2" : "grid-cols-1"}`}>
+        <div className={`flex-1 grid gap-4 min-h-0 ${showMap ? "grid-cols-1 lg:grid-cols-[1fr_320px]" : "grid-cols-1"}`}>
           {/* Property List - Scrollable */}
           <div className="overflow-auto pr-2 min-h-0">
-            <div className={`grid gap-4 ${showMap ? "grid-cols-1 xl:grid-cols-2" : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"}`}>
+            <div className={`grid gap-4 ${showMap ? "grid-cols-1 md:grid-cols-2 xl:grid-cols-3" : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"}`}>
               {properties.map((property) => (
                 <PropertyCard
                   key={property._id}
@@ -270,9 +270,9 @@ export default function PropertiesPage() {
             </div>
           </div>
 
-          {/* Map - Sticky on right */}
+          {/* Map - Fixed width on right */}
           {showMap && (
-            <div className="hidden lg:block h-full min-h-[400px] rounded-lg overflow-hidden border">
+            <div className="hidden lg:block rounded-lg overflow-hidden border">
               <DashboardMap
                 properties={mapProperties}
                 className="h-full"

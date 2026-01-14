@@ -224,8 +224,17 @@ export default function PropertyDetailPage() {
           </div>
         </div>
 
-        {/* Right Column - Price, Metrics, Details, Actions */}
+        {/* Right Column - Map, Price, Metrics, Details, Actions */}
         <div className="lg:col-span-2 space-y-4 lg:sticky lg:top-6 lg:self-start">
+          {/* Location Map - At Top */}
+          <PropertyMap
+            latitude={latitude}
+            longitude={longitude}
+            title={title}
+            address={`${address}, ${city}`}
+            featuredImage={featuredImage}
+          />
+
           {/* Price Section */}
           <Card>
             <CardContent className="p-4">
@@ -378,15 +387,6 @@ export default function PropertyDetailPage() {
               </div>
             </CardContent>
           </Card>
-
-          {/* Location Map */}
-          <PropertyMap
-            latitude={latitude}
-            longitude={longitude}
-            title={title}
-            address={`${address}, ${city}`}
-            featuredImage={featuredImage}
-          />
 
           {/* Action Buttons */}
           <div className="space-y-3">

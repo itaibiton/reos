@@ -101,20 +101,26 @@ export function PropertyImageCarousel({
         />
       </Carousel>
 
-      {/* Dot indicators below the carousel */}
-      <div className="flex justify-center gap-2 mt-3">
-        {Array.from({ length: count }).map((_, index) => (
+      {/* Thumbnail row below the carousel */}
+      <div className="flex gap-2 mt-3 overflow-x-auto pb-1">
+        {images.map((image, index) => (
           <button
             key={index}
             onClick={() => api?.scrollTo(index)}
             className={cn(
-              "w-2 h-2 rounded-full transition-colors duration-200",
+              "flex-shrink-0 w-16 h-12 rounded overflow-hidden transition-all duration-200",
               index === current
-                ? "bg-primary"
-                : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                ? "ring-2 ring-primary ring-offset-2"
+                : "opacity-60 hover:opacity-100"
             )}
-            aria-label={`Go to slide ${index + 1}`}
-          />
+            aria-label={`Go to image ${index + 1}`}
+          >
+            <img
+              src={image}
+              alt={`${title} - Thumbnail ${index + 1}`}
+              className="w-full h-full object-cover"
+            />
+          </button>
         ))}
       </div>
     </div>
