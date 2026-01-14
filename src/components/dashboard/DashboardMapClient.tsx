@@ -93,7 +93,7 @@ export function DashboardMapClient({ properties }: DashboardMapClientProps) {
       center={center}
       zoom={zoom}
       scrollWheelZoom={true}
-      className="h-full w-full rounded-lg z-0"
+      className="h-full w-full z-0"
       style={{ minHeight: "400px" }}
     >
       <TileLayer

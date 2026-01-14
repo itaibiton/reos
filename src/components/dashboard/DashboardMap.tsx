@@ -25,7 +25,7 @@ interface DashboardMapProps {
 // Loading component while map loads
 function MapSkeleton() {
   return (
-    <div className="h-full w-full rounded-lg bg-muted flex items-center justify-center min-h-[400px]">
+    <div className="h-full w-full bg-muted flex items-center justify-center min-h-[400px]">
       <div className="flex flex-col items-center gap-2 text-muted-foreground">
         <HugeiconsIcon icon={Location01Icon} size={32} strokeWidth={1.5} />
         <p className="text-sm">Loading map...</p>
@@ -37,7 +37,7 @@ function MapSkeleton() {
 // Placeholder when no properties
 function MapPlaceholder() {
   return (
-    <div className="h-full w-full rounded-lg bg-muted flex flex-col items-center justify-center text-muted-foreground gap-2 min-h-[400px]">
+    <div className="h-full w-full bg-muted flex flex-col items-center justify-center text-muted-foreground gap-2 min-h-[400px]">
       <HugeiconsIcon icon={Location01Icon} size={32} strokeWidth={1.5} />
       <p className="text-sm">No properties to display</p>
     </div>
