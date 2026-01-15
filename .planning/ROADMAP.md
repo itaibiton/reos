@@ -27,7 +27,7 @@ None
 - [x] **Phase 5.2: Mock Data & Super User** (INSERTED) - Mock data, super user role switching, Israeli properties
 - [x] **Phase 5.3: Property Page Carousel and Interactive Map** (INSERTED) - Image carousel and map for property detail page
 - [x] **Phase 5.4: Yad2-Style Property Page** (INSERTED) - Full property detail page redesign with Yad2-inspired features
-- [ ] **Phase 6: Deal Flow** - Deal stages, service provider requests, file storage
+- [x] **Phase 6: Deal Flow** - Deal stages, service provider requests, file storage
 - [ ] **Phase 7: Dashboards** - Investor and service provider dashboards
 - [ ] **Phase 8: Real-time Features** - Chat and live updates
 
@@ -223,7 +223,7 @@ Plans:
 - [x] 06-02: Service provider request flow
 - [x] 06-03: File storage per deal (Convex storage)
 - [x] 06-04: Deal transitions + handoffs
-- [ ] 06-05: Deals UI (list + detail pages)
+- [x] 06-05: Deals UI (list + detail pages)
 
 **Details:**
 Deal flow is the core value of the platform. Implements:
@@ -266,6 +266,6 @@ Phases execute in numeric order: 1 → 1.1 → 1.2 → 1.3 → 2 → 3 → 4 →
 | 5.2 Mock Data & Super User (INSERTED) | 1/1 | Complete | 2026-01-14 |
 | 5.3 Property Page Carousel and Interactive Map (INSERTED) | 2/2 | Complete | 2026-01-14 |
 | 5.4 Yad2-Style Property Page (INSERTED) | 3/3 | Complete | 2026-01-15 |
-| 6. Deal Flow | 4/5 | In progress | - |
+| 6. Deal Flow | 5/5 | Complete | 2026-01-15 |
 | 7. Dashboards | 0/TBD | Not started | - |
 | 8. Real-time Features | 0/TBD | Not started | - |

@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-01-12)
 ## Current Position
 
 Phase: 6 of 8 (Deal Flow)
-Plan: 4 of 5 in current phase
-Status: In progress
-Last activity: 2026-01-15 — Completed 06-04-PLAN.md
+Plan: 5 of 5 in current phase
+Status: Phase complete
+Last activity: 2026-01-15 — Completed 06-05-PLAN.md
 
-Progress: █████████░ 97%
+Progress: █████████░ 100% (Phase 6 complete)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 29
+- Total plans completed: 30
 - Average duration: 9 min
-- Total execution time: 4.2 hours
+- Total execution time: 4.4 hours
 
 **By Phase:**
 
@@ -40,11 +40,11 @@ Progress: █████████░ 97%
 | 5.2 | 1/1 | 18 min | 18 min |
 | 5.3 | 2/2 | 48 min | 24 min |
 | 5.4 | 3/3 | 26 min | 8.7 min |
-| 6 | 4/5 | 16 min | 4 min |
+| 6 | 5/5 | 27 min | 5.4 min |
 
 **Recent Trend:**
-- Last 5 plans: 5 min, 5 min, 3 min, 3 min
-- Trend: Fast execution (schema/CRUD tasks ~3-5 min)
+- Last 5 plans: 5 min, 3 min, 3 min, 11 min
+- Trend: UI plans slightly longer due to human verification
 
 ## Accumulated Context
 
@@ -108,6 +108,10 @@ Recent decisions affecting current work:
 - Phase 6: Activity log captures all deal events (stage_change, file_uploaded, handoffs)
 - Phase 6: Handoffs use existing serviceRequests for consistency
 - Phase 6: Stage-to-provider mapping: broker_assigned→broker, mortgage→mortgage_advisor, legal→lawyer
+- Phase 6: Stage progress as horizontal step indicator with completed/current/upcoming states
+- Phase 6: Deal cards show property image, title, city, price, stage badge, provider count
+- Phase 6: Four tabs on deal detail page: Overview, Providers, Files, Activity
+- Phase 6: "Start Deal" button on property pages for investors (creates deal + redirects)
 
 ### Deferred Issues
 
@@ -131,6 +135,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-15
-Stopped at: Completed 06-04-PLAN.md
+Stopped at: Completed 06-05-PLAN.md (Phase 6 complete)
 Resume file: None
-Next: Execute 06-05-PLAN.md (run /gsd:execute-plan)
+Next: Plan Phase 7 (run /gsd:plan-phase 7)
