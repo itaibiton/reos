@@ -559,12 +559,12 @@ export function InvestorSearchBar() {
               </Button>
             </SheetTrigger>
 
-            <SheetContent side="bottom" className="h-[85vh] rounded-t-xl">
+            <SheetContent side="bottom" className="h-[85vh] rounded-t-xl px-6">
               <SheetHeader className="pb-4">
                 <SheetTitle>Search & Filters</SheetTitle>
               </SheetHeader>
 
-              <div className="space-y-6 overflow-auto pb-20">
+              <div className="space-y-6 overflow-auto pb-20 px-1">
                 {/* Smart Search in sheet */}
                 <div className="space-y-1.5">
                   <Label className="text-xs font-medium">AI-Powered Search</Label>
