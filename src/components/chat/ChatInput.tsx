@@ -3,7 +3,7 @@
 import { useState, useRef, useCallback, KeyboardEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Sent01Icon } from "@hugeicons/core-free-icons";
+import { SentIcon } from "@hugeicons/core-free-icons";
 import { cn } from "@/lib/utils";
 
 interface ChatInputProps {
@@ -82,7 +82,7 @@ export function ChatInput({
         size="icon"
         className="h-10 w-10 flex-shrink-0"
       >
-        <HugeiconsIcon icon={Sent01Icon} size={18} />
+        <HugeiconsIcon icon={SentIcon} size={18} />
       </Button>
     </div>
   );

@@ -11,6 +11,7 @@ import {
   Settings01Icon,
   Add01Icon,
   UserMultiple02Icon,
+  Message02Icon,
 } from "@hugeicons/core-free-icons";
 import type { IconSvgElement } from "@hugeicons/react";
 import { useCurrentUser, type UserRole } from "@/hooks/useCurrentUser";
@@ -57,6 +58,13 @@ const navItems: NavItem[] = [
     label: "Deals",
     href: "/deals",
     roles: ["investor", "admin"],
+  },
+
+  // Chat - all authenticated users with deals
+  {
+    icon: Message02Icon,
+    label: "Chat",
+    href: "/chat",
   },
 
   // Clients - service providers only (future feature)
