@@ -8,9 +8,11 @@
  * @module
  */
 
+import type * as dealFiles from "../dealFiles.js";
 import type * as deals from "../deals.js";
 import type * as favorites from "../favorites.js";
 import type * as investorProfiles from "../investorProfiles.js";
+import type * as messages from "../messages.js";
 import type * as neighborhoods from "../neighborhoods.js";
 import type * as priceHistory from "../priceHistory.js";
 import type * as properties from "../properties.js";
@@ -28,9 +30,11 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  dealFiles: typeof dealFiles;
   deals: typeof deals;
   favorites: typeof favorites;
   investorProfiles: typeof investorProfiles;
+  messages: typeof messages;
   neighborhoods: typeof neighborhoods;
   priceHistory: typeof priceHistory;
   properties: typeof properties;

@@ -94,6 +94,31 @@ export const setUserRole = mutation({
   },
 });
 
+// Update clerkId for a user (internal/admin use for migrating seed data)
+export const updateClerkId = mutation({
+  args: {
+    oldClerkId: v.string(),
+    newClerkId: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_clerk_id", (q) => q.eq("clerkId", args.oldClerkId))
+      .unique();
+
+    if (!user) {
+      throw new Error(`User with clerkId ${args.oldClerkId} not found`);
+    }
+
+    await ctx.db.patch(user._id, {
+      clerkId: args.newClerkId,
+      updatedAt: Date.now(),
+    });
+
+    return { success: true, userId: user._id };
+  },
+});
+
 // Set the role an admin is viewing as (for testing different perspectives)
 // Admin's actual role stays "admin", but viewingAsRole affects what they see
 export const setViewingAsRole = mutation({

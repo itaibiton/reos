@@ -59,7 +59,7 @@ export function ChatInput({
   const isEmpty = value.trim().length === 0;
 
   return (
-    <div className="flex items-end gap-2 p-4 border-t bg-background">
+    <div className="flex items-end gap-2 px-3 py-2 border-t bg-background flex-shrink-0">
       <textarea
         ref={textareaRef}
         value={value}

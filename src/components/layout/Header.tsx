@@ -24,6 +24,7 @@ import {
   Menu01Icon,
   Cancel01Icon,
   CheckmarkCircle01Icon,
+  BlackHoleIcon
 } from "@hugeicons/core-free-icons";
 import { api } from "../../../convex/_generated/api";
 import { USER_ROLES } from "@/lib/constants";
@@ -114,7 +115,7 @@ export function Header({
   showSidebarToggle = true,
 }: HeaderProps) {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 h-16 border-b bg-background px-4 flex items-center justify-between">
+    <header className="fixed top-0 left-0 right-0 z-50 h-16 border-b bg-background px-6 flex items-center justify-between">
       <div className="flex items-center gap-4">
         {/* Mobile hamburger menu - only for sidebar layout */}
         {showSidebarToggle && (
@@ -134,7 +135,8 @@ export function Header({
         )}
 
         {/* Logo */}
-        <Link href="/" className="text-xl font-bold">
+        <Link href="/" className="text-xl font-bold flex items-center gap-3">
+        <HugeiconsIcon icon={BlackHoleIcon} size={24} strokeWidth={1.5} /> 
           REOS
         </Link>
 

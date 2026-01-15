@@ -23,6 +23,7 @@ interface ChatThreadProps {
   participantImage?: string;
   participantRole?: string;
   onBack?: () => void;
+  hideHeader?: boolean;
 }
 
 // Format role for display
@@ -56,6 +57,7 @@ export function ChatThread({
   participantImage,
   participantRole,
   onBack,
+  hideHeader = false,
 }: ChatThreadProps) {
   const { user } = useCurrentUser();
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -103,35 +105,37 @@ export function ChatThread({
   const isLoading = messages === undefined;
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full overflow-hidden">
       {/* Header */}
-      <div className="flex items-center gap-3 px-4 h-14 border-b flex-shrink-0">
-        {onBack && (
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={onBack}
-            className="lg:hidden"
-          >
-            <HugeiconsIcon icon={ArrowLeft01Icon} size={20} />
-          </Button>
-        )}
-        <Avatar className="h-8 w-8">
-          <AvatarImage src={participantImage} alt={participantName} />
-          <AvatarFallback>{getInitials(participantName)}</AvatarFallback>
-        </Avatar>
-        <div className="flex-1 min-w-0">
-          <p className="font-medium truncate">{participantName}</p>
-          {participantRole && (
-            <Badge variant="secondary" className="text-xs">
-              {formatRole(participantRole)}
-            </Badge>
+      {!hideHeader && (
+        <div className="flex items-center gap-3 px-4 h-14 border-b flex-shrink-0">
+          {onBack && (
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={onBack}
+              className="lg:hidden"
+            >
+              <HugeiconsIcon icon={ArrowLeft01Icon} size={20} />
+            </Button>
           )}
+          <Avatar className="h-8 w-8">
+            <AvatarImage src={participantImage} alt={participantName} />
+            <AvatarFallback>{getInitials(participantName)}</AvatarFallback>
+          </Avatar>
+          <div className="flex-1 min-w-0">
+            <p className="font-medium truncate">{participantName}</p>
+            {participantRole && (
+              <Badge variant="secondary" className="text-xs">
+                {formatRole(participantRole)}
+              </Badge>
+            )}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Messages area */}
-      <ScrollArea className="flex-1" ref={scrollRef}>
+      <ScrollArea className="flex-1 min-h-0" ref={scrollRef}>
         <div className="p-4 space-y-4">
           {isLoading ? (
             // Loading skeleton

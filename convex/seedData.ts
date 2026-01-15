@@ -1246,3 +1246,319 @@ export const SEED_DEALS: SeedDeal[] = [
     daysAgo: 45,
   },
 ];
+
+// Deal flow scenarios for comprehensive seeding
+// Each scenario includes deal config, provider assignments, and message templates
+export type SeedDealScenario = {
+  propertyIndex: number;
+  stage: "interest" | "broker_assigned" | "mortgage" | "legal" | "closing" | "completed" | "cancelled";
+  offerPrice?: number;
+  notes?: string;
+  daysAgo: number;
+  // Provider assignments by email (matched from SEED_SERVICE_PROVIDERS)
+  brokerEmail?: string;
+  mortgageAdvisorEmail?: string;
+  lawyerEmail?: string;
+  // Message thread IDs to include (indexes into SEED_MESSAGE_TEMPLATES)
+  messageThreads: number[];
+};
+
+export const SEED_DEAL_SCENARIOS: SeedDealScenario[] = [
+  // Deal 1: Interest stage - just started, no providers yet
+  {
+    propertyIndex: 1, // Boutique Investment Apartment - Tel Aviv
+    stage: "interest",
+    notes: "Just discovered this property, want to learn more",
+    daysAgo: 2,
+    messageThreads: [],
+  },
+  // Deal 2: Broker assigned - working with broker
+  {
+    propertyIndex: 2, // Commercial Space - Prime Retail - Tel Aviv
+    stage: "broker_assigned",
+    offerPrice: 880000,
+    notes: "Negotiating terms with seller through broker",
+    daysAgo: 8,
+    brokerEmail: "david.cohen@reosbrokers.com",
+    messageThreads: [0], // broker intro thread
+  },
+  // Deal 3: Mortgage stage - broker + mortgage advisor
+  {
+    propertyIndex: 4, // German Colony Investment Apartment - Jerusalem
+    stage: "mortgage",
+    offerPrice: 760000,
+    notes: "Mortgage pre-approval in progress",
+    daysAgo: 18,
+    brokerEmail: "michael@jerusalemhomes.com",
+    mortgageAdvisorEmail: "natan@mortgageisrael.com",
+    messageThreads: [1, 2], // broker + mortgage threads
+  },
+  // Deal 4: Legal stage - all providers assigned
+  {
+    propertyIndex: 6, // Tech Park Office Space - Herzliya
+    stage: "legal",
+    offerPrice: 635000,
+    notes: "Contract under legal review",
+    daysAgo: 25,
+    brokerEmail: "sarah.levy@tlvproperties.com",
+    mortgageAdvisorEmail: "tamar@homeloans.co.il",
+    lawyerEmail: "ruth.katz@katzlaw.co.il",
+    messageThreads: [3, 4, 5], // broker + mortgage + lawyer threads
+  },
+  // Deal 5: Closing stage - final steps
+  {
+    propertyIndex: 7, // Carmel Mountain View Apartment - Haifa
+    stage: "closing",
+    offerPrice: 410000,
+    notes: "Closing scheduled for next week",
+    daysAgo: 35,
+    brokerEmail: "rachel@haifarealty.com",
+    mortgageAdvisorEmail: "avi@finansim.co.il",
+    lawyerEmail: "daniel@peretzlaw.com",
+    messageThreads: [6, 7, 8], // closing threads
+  },
+  // Deal 6: Completed deal
+  {
+    propertyIndex: 10, // Family Home Near Poleg Beach - Netanya
+    stage: "completed",
+    offerPrice: 705000,
+    notes: "Successfully closed! Keys handed over.",
+    daysAgo: 60,
+    brokerEmail: "david.cohen@reosbrokers.com",
+    mortgageAdvisorEmail: "tamar@homeloans.co.il",
+    lawyerEmail: "daniel@peretzlaw.com",
+    messageThreads: [9, 10, 11],
+  },
+  // Deal 7: Another interest stage
+  {
+    propertyIndex: 11, // Garden Apartment in Ra'anana
+    stage: "interest",
+    notes: "Interested in family-friendly neighborhood",
+    daysAgo: 1,
+    messageThreads: [],
+  },
+  // Deal 8: Cancelled deal
+  {
+    propertyIndex: 13, // Student Housing Investment - Beer Sheva
+    stage: "cancelled",
+    offerPrice: 265000,
+    notes: "Decided not to proceed - found better opportunity",
+    daysAgo: 20,
+    brokerEmail: "yosef@southernproperties.com",
+    messageThreads: [12],
+  },
+  // Deal 9: Mortgage stage with different providers
+  {
+    propertyIndex: 14, // Resort Vacation Condo - Eilat
+    stage: "mortgage",
+    offerPrice: 375000,
+    notes: "Vacation rental investment, arranging financing",
+    daysAgo: 15,
+    brokerEmail: "yosef@southernproperties.com",
+    mortgageAdvisorEmail: "avi@finansim.co.il",
+    messageThreads: [13, 14],
+  },
+  // Deal 10: Legal stage
+  {
+    propertyIndex: 8, // Downtown Haifa Mixed-Use Building
+    stage: "legal",
+    offerPrice: 860000,
+    notes: "Due diligence on commercial tenants",
+    daysAgo: 28,
+    brokerEmail: "rachel@haifarealty.com",
+    mortgageAdvisorEmail: "natan@mortgageisrael.com",
+    lawyerEmail: "miriam@southlegal.co.il",
+    messageThreads: [15, 16, 17],
+  },
+];
+
+// Message templates for seeding conversations between investors and providers
+export type SeedMessageThread = {
+  providerRole: "broker" | "mortgage_advisor" | "lawyer";
+  messages: Array<{
+    fromInvestor: boolean;
+    content: string;
+    offsetMinutes: number; // offset from thread start
+  }>;
+};
+
+export const SEED_MESSAGE_TEMPLATES: SeedMessageThread[] = [
+  // Thread 0: Broker intro for commercial property
+  {
+    providerRole: "broker",
+    messages: [
+      { fromInvestor: true, content: "Hi, I'm interested in the commercial space on King George. Is it still available?", offsetMinutes: 0 },
+      { fromInvestor: false, content: "Yes, it's available! Great location with high foot traffic. The current tenant lease has 3 years remaining. Would you like to schedule a viewing?", offsetMinutes: 15 },
+      { fromInvestor: true, content: "Yes please. I'm also curious about the rental income history.", offsetMinutes: 45 },
+      { fromInvestor: false, content: "The property has been consistently rented for 8 years. I'll send over the rental history. How does Thursday at 2pm work for viewing?", offsetMinutes: 60 },
+      { fromInvestor: true, content: "Thursday works. See you then!", offsetMinutes: 90 },
+    ],
+  },
+  // Thread 1: Broker for Jerusalem property
+  {
+    providerRole: "broker",
+    messages: [
+      { fromInvestor: true, content: "I saw your listing for the German Colony apartment. I'm relocating from the US and this looks perfect.", offsetMinutes: 0 },
+      { fromInvestor: false, content: "Welcome! The German Colony is wonderful for American families. This particular unit was just renovated. When are you planning to move?", offsetMinutes: 20 },
+      { fromInvestor: true, content: "We're looking at early next year. Is there flexibility on the price?", offsetMinutes: 60 },
+      { fromInvestor: false, content: "The seller is motivated. I think we have room for negotiation. Let me set up a video call to discuss the property in detail.", offsetMinutes: 90 },
+    ],
+  },
+  // Thread 2: Mortgage advisor conversation
+  {
+    providerRole: "mortgage_advisor",
+    messages: [
+      { fromInvestor: false, content: "Hi! Michael mentioned you're looking at the German Colony property. I specialize in helping American buyers with Israeli mortgages.", offsetMinutes: 0 },
+      { fromInvestor: true, content: "Yes! I'm not sure how Israeli mortgages work compared to the US.", offsetMinutes: 30 },
+      { fromInvestor: false, content: "It's quite different. Israeli banks typically finance up to 50% for foreign residents, and we'll need to structure the loan in ILS or USD. What's your budget?", offsetMinutes: 45 },
+      { fromInvestor: true, content: "I'm planning to put down about 400k USD and finance the rest.", offsetMinutes: 120 },
+      { fromInvestor: false, content: "That works well. With 50% down, you'll get the best rates. I'll prepare a comparison of offers from Bank Leumi, Mizrachi, and Discount.", offsetMinutes: 150 },
+    ],
+  },
+  // Thread 3: Broker for Herzliya tech park
+  {
+    providerRole: "broker",
+    messages: [
+      { fromInvestor: true, content: "I'm interested in the tech park office space. Is this good for a startup?", offsetMinutes: 0 },
+      { fromInvestor: false, content: "Absolutely! It's right in the heart of Herzliya tech hub. Many startups and established tech companies nearby. Open floor plan with great natural light.", offsetMinutes: 25 },
+      { fromInvestor: true, content: "What about parking? My team will need several spots.", offsetMinutes: 60 },
+      { fromInvestor: false, content: "The unit comes with 4 parking spots included. Additional spots can be leased from the building management.", offsetMinutes: 80 },
+      { fromInvestor: true, content: "That sounds good. Let's move forward with the offer.", offsetMinutes: 180 },
+    ],
+  },
+  // Thread 4: Mortgage for Herzliya
+  {
+    providerRole: "mortgage_advisor",
+    messages: [
+      { fromInvestor: false, content: "Sarah mentioned you're purchasing the tech park office. I can help with commercial property financing.", offsetMinutes: 0 },
+      { fromInvestor: true, content: "Great, what are the rates for commercial properties?", offsetMinutes: 45 },
+      { fromInvestor: false, content: "Commercial rates are typically 0.5-1% higher than residential. For this property, I'm seeing around 4.5-5% fixed. How much financing do you need?", offsetMinutes: 60 },
+      { fromInvestor: true, content: "I'd like to finance about 60% if possible.", offsetMinutes: 120 },
+      { fromInvestor: false, content: "We can do that with strong financials. I'll need your last 3 years of tax returns and a business plan for the space.", offsetMinutes: 150 },
+    ],
+  },
+  // Thread 5: Lawyer for Herzliya
+  {
+    providerRole: "lawyer",
+    messages: [
+      { fromInvestor: false, content: "I've received the purchase contract for the tech park property. I'm reviewing it now and will have comments within 48 hours.", offsetMinutes: 0 },
+      { fromInvestor: true, content: "Thank you! Anything concerning so far?", offsetMinutes: 60 },
+      { fromInvestor: false, content: "The main issue is the parking rights - they're listed as leasehold rather than ownership. I'm negotiating to convert them to ownership.", offsetMinutes: 180 },
+      { fromInvestor: true, content: "That would be better for resale value. Thanks for catching that.", offsetMinutes: 240 },
+      { fromInvestor: false, content: "Exactly. I'll update you once I hear back from seller's counsel.", offsetMinutes: 270 },
+    ],
+  },
+  // Thread 6: Broker for Haifa closing
+  {
+    providerRole: "broker",
+    messages: [
+      { fromInvestor: false, content: "Great news! The seller accepted our counter-offer of 410k. We're moving to closing!", offsetMinutes: 0 },
+      { fromInvestor: true, content: "That's wonderful! What are the next steps?", offsetMinutes: 30 },
+      { fromInvestor: false, content: "I'll coordinate with the mortgage advisor and lawyer. Closing is scheduled for next week. We need to arrange the key handover.", offsetMinutes: 45 },
+      { fromInvestor: true, content: "I can fly in for the closing. Will everything be ready by then?", offsetMinutes: 120 },
+      { fromInvestor: false, content: "Yes, all paperwork is being finalized. I'll send you the closing checklist.", offsetMinutes: 150 },
+    ],
+  },
+  // Thread 7: Mortgage for Haifa closing
+  {
+    providerRole: "mortgage_advisor",
+    messages: [
+      { fromInvestor: false, content: "The bank has approved the final disbursement. Funds will be transferred on closing day.", offsetMinutes: 0 },
+      { fromInvestor: true, content: "Perfect! Do I need to sign anything else?", offsetMinutes: 60 },
+      { fromInvestor: false, content: "Just the final closing documents. Everything else is in order. You'll get a great rate at 4.2%.", offsetMinutes: 90 },
+    ],
+  },
+  // Thread 8: Lawyer for Haifa closing
+  {
+    providerRole: "lawyer",
+    messages: [
+      { fromInvestor: false, content: "All documents are ready for closing. The title transfer will be registered with Tabu within 3 business days after closing.", offsetMinutes: 0 },
+      { fromInvestor: true, content: "Thanks for handling everything smoothly.", offsetMinutes: 45 },
+      { fromInvestor: false, content: "My pleasure! See you at the signing.", offsetMinutes: 60 },
+    ],
+  },
+  // Thread 9: Completed deal - broker
+  {
+    providerRole: "broker",
+    messages: [
+      { fromInvestor: false, content: "Congratulations on your new home! It was a pleasure working with you.", offsetMinutes: 0 },
+      { fromInvestor: true, content: "Thank you so much for all your help! The kids love the beach already.", offsetMinutes: 120 },
+      { fromInvestor: false, content: "So happy to hear that! Don't hesitate to reach out if you ever need anything.", offsetMinutes: 180 },
+    ],
+  },
+  // Thread 10: Completed deal - mortgage
+  {
+    providerRole: "mortgage_advisor",
+    messages: [
+      { fromInvestor: false, content: "Your first mortgage payment has been set up. Let me know if you have any questions about the repayment schedule.", offsetMinutes: 0 },
+      { fromInvestor: true, content: "Got it, thank you for making the process so easy!", offsetMinutes: 60 },
+    ],
+  },
+  // Thread 11: Completed deal - lawyer
+  {
+    providerRole: "lawyer",
+    messages: [
+      { fromInvestor: false, content: "The property is now officially registered in your name. I'll send the final documentation package by courier.", offsetMinutes: 0 },
+      { fromInvestor: true, content: "Excellent! Thanks for your diligence throughout.", offsetMinutes: 90 },
+    ],
+  },
+  // Thread 12: Cancelled deal - broker
+  {
+    providerRole: "broker",
+    messages: [
+      { fromInvestor: true, content: "I've decided not to proceed with the Beer Sheva property. Found something closer to my work.", offsetMinutes: 0 },
+      { fromInvestor: false, content: "I understand completely. Let me know if you need help with your new search!", offsetMinutes: 30 },
+      { fromInvestor: true, content: "Will do, thanks for understanding.", offsetMinutes: 60 },
+    ],
+  },
+  // Thread 13: Eilat broker
+  {
+    providerRole: "broker",
+    messages: [
+      { fromInvestor: true, content: "Looking at the Eilat condo as a vacation rental investment. What are the typical occupancy rates?", offsetMinutes: 0 },
+      { fromInvestor: false, content: "Eilat properties see 70-80% occupancy during peak season. The resort complex handles rentals for owners.", offsetMinutes: 30 },
+      { fromInvestor: true, content: "That's better than I expected. Let's put in an offer.", offsetMinutes: 120 },
+      { fromInvestor: false, content: "Great! I'll prepare the paperwork. The tax-free status makes this extra attractive.", offsetMinutes: 150 },
+    ],
+  },
+  // Thread 14: Eilat mortgage
+  {
+    providerRole: "mortgage_advisor",
+    messages: [
+      { fromInvestor: false, content: "For investment properties in Eilat, banks typically require 40% down. I can work with Bank Mizrachi on this.", offsetMinutes: 0 },
+      { fromInvestor: true, content: "40% is doable. What documents do you need?", offsetMinutes: 45 },
+      { fromInvestor: false, content: "I'll send you the checklist. Main items are proof of income, bank statements, and passport copies.", offsetMinutes: 60 },
+    ],
+  },
+  // Thread 15: Haifa mixed-use broker
+  {
+    providerRole: "broker",
+    messages: [
+      { fromInvestor: true, content: "The mixed-use building in Haifa looks interesting. What's the tenant situation?", offsetMinutes: 0 },
+      { fromInvestor: false, content: "Ground floor is a cafe with 5 years remaining on lease. Upper units are residential, all occupied with long-term tenants.", offsetMinutes: 20 },
+      { fromInvestor: true, content: "What's the total monthly income?", offsetMinutes: 60 },
+      { fromInvestor: false, content: "Combined rent is 7,800 USD monthly. Very stable cash flow.", offsetMinutes: 75 },
+      { fromInvestor: true, content: "Let's proceed with due diligence.", offsetMinutes: 180 },
+    ],
+  },
+  // Thread 16: Haifa mixed-use mortgage
+  {
+    providerRole: "mortgage_advisor",
+    messages: [
+      { fromInvestor: false, content: "Mixed-use properties require commercial underwriting. I'm working with Discount Bank on your application.", offsetMinutes: 0 },
+      { fromInvestor: true, content: "How long does commercial underwriting typically take?", offsetMinutes: 60 },
+      { fromInvestor: false, content: "Usually 3-4 weeks. The existing tenants with long leases actually help your case.", offsetMinutes: 90 },
+    ],
+  },
+  // Thread 17: Haifa mixed-use lawyer
+  {
+    providerRole: "lawyer",
+    messages: [
+      { fromInvestor: false, content: "I'm reviewing the lease agreements with current tenants. Important to understand the terms before purchase.", offsetMinutes: 0 },
+      { fromInvestor: true, content: "Any red flags?", offsetMinutes: 120 },
+      { fromInvestor: false, content: "The commercial lease is solid. One residential tenant has month-to-month - might want to lock that in.", offsetMinutes: 180 },
+      { fromInvestor: true, content: "Good catch. Can we make that a condition of closing?", offsetMinutes: 240 },
+      { fromInvestor: false, content: "Absolutely. I'll add it to the purchase agreement.", offsetMinutes: 270 },
+    ],
+  },
+];

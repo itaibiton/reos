@@ -34,7 +34,7 @@ export function ChatLayoutContainer({
   return (
     <div
       className={cn(
-        "grid h-full gap-2 p-2",
+        "grid h-full gap-2 p-2 overflow-hidden",
         gridClass,
         // For quad mode, ensure both rows take equal space
         mode === "quad" && "auto-rows-fr"

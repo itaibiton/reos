@@ -119,6 +119,7 @@ export function ChatPane({
           participantImage={participant.imageUrl}
           participantRole={participant.role}
           onBack={compact ? undefined : onClear}
+          hideHeader={compact}
         />
       </div>
     </div>

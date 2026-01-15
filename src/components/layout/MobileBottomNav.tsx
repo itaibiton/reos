@@ -9,7 +9,7 @@ import {
   Building02Icon,
   FavouriteIcon,
   Agreement01Icon,
-  Settings01Icon,
+  Message02Icon,
 } from "@hugeicons/core-free-icons";
 import type { IconSvgElement } from "@hugeicons/react";
 
@@ -24,7 +24,7 @@ const navItems: NavItem[] = [
   { icon: Building02Icon, label: "Properties", href: "/properties" },
   { icon: FavouriteIcon, label: "Saved", href: "/properties/saved" },
   { icon: Agreement01Icon, label: "Deals", href: "/deals" },
-  { icon: Settings01Icon, label: "Settings", href: "/settings" },
+  { icon: Message02Icon, label: "Chat", href: "/chat" },
 ];
 
 export function MobileBottomNav() {

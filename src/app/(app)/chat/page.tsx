@@ -248,13 +248,13 @@ export default function ChatPage() {
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
     >
-      <div className="h-full flex flex-col">
-        {/* Header with layout selector */}
-        <div className="px-4 py-2 border-b flex items-center justify-between flex-shrink-0">
-          <div className="flex items-center gap-4">
-            {/* Deal selector */}
+      <div className="h-full flex">
+        {/* Left sidebar: Participant list */}
+        <div className="w-72 border-r flex flex-col flex-shrink-0 hidden lg:flex">
+          {/* Deal selector header */}
+          <div className="p-3 border-b flex-shrink-0">
             {isLoading ? (
-              <Skeleton className="h-9 w-48" />
+              <Skeleton className="h-9 w-full" />
             ) : activeDeals.length === 0 ? (
               <p className="text-sm text-muted-foreground">No active deals</p>
             ) : (
@@ -262,7 +262,7 @@ export default function ChatPage() {
                 value={selectedDealId?.toString() || ""}
                 onValueChange={handleDealSelect}
               >
-                <SelectTrigger className="w-48">
+                <SelectTrigger className="w-full">
                   <SelectValue placeholder="Choose a deal..." />
                 </SelectTrigger>
                 <SelectContent>
@@ -281,49 +281,48 @@ export default function ChatPage() {
             )}
           </div>
 
-          {/* Layout mode selector */}
+          {/* Participant list */}
+          <div className="flex-1 overflow-y-auto">
+            {selectedDealId ? (
+              <>
+                {isMultiLayout && (
+                  <div className="p-2 border-b bg-muted/30">
+                    <p className="text-xs text-muted-foreground text-center">
+                      Drag participants to chat panes
+                    </p>
+                  </div>
+                )}
+                <ChatParticipantList
+                  dealId={selectedDealId}
+                  selectedParticipantId={
+                    layoutMode === "single"
+                      ? selectedParticipant?._id
+                      : undefined
+                  }
+                  onSelectParticipant={handleParticipantSelect}
+                  enableDrag={isMultiLayout}
+                />
+              </>
+            ) : (
+              <div className="p-4 text-center text-muted-foreground text-sm">
+                Select a deal to see participants
+              </div>
+            )}
+          </div>
+
+          {/* Layout mode selector at bottom */}
           {selectedDealId && (
-            <LayoutModeSelector
-              mode={layoutMode}
-              onModeChange={handleLayoutModeChange}
-            />
+            <div className="p-3 border-t flex-shrink-0">
+              <LayoutModeSelector
+                mode={layoutMode}
+                onModeChange={handleLayoutModeChange}
+              />
+            </div>
           )}
         </div>
 
-        <div className="flex-1 flex min-h-0">
-          {/* Left sidebar: Participant list */}
-          <div className="w-80 border-r flex flex-col flex-shrink-0 hidden lg:flex">
-            <div className="flex-1 overflow-y-auto">
-              {selectedDealId ? (
-                <>
-                  {isMultiLayout && (
-                    <div className="p-2 border-b bg-muted/30">
-                      <p className="text-xs text-muted-foreground text-center">
-                        Drag participants to chat panes
-                      </p>
-                    </div>
-                  )}
-                  <ChatParticipantList
-                    dealId={selectedDealId}
-                    selectedParticipantId={
-                      layoutMode === "single"
-                        ? selectedParticipant?._id
-                        : undefined
-                    }
-                    onSelectParticipant={handleParticipantSelect}
-                    enableDrag={isMultiLayout}
-                  />
-                </>
-              ) : (
-                <div className="p-4 text-center text-muted-foreground text-sm">
-                  Select a deal to see participants
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Main area */}
-          <div className="flex-1 flex flex-col min-w-0">
+        {/* Main chat area */}
+        <div className="flex-1 flex flex-col min-w-0">
             {!selectedDealId ? (
               // No deal selected
               <Empty className="h-full border-0">
@@ -375,7 +374,6 @@ export default function ChatPage() {
                 onOpenSelector={handleOpenSelector}
               />
             )}
-          </div>
         </div>
 
         {/* Drag overlay */}

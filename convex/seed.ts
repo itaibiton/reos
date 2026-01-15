@@ -1,5 +1,5 @@
 import { mutation } from "./_generated/server";
-import { SEED_PROPERTIES, SEED_NEIGHBORHOODS, SEED_PRICE_HISTORY, SEED_DEALS, SEED_SERVICE_PROVIDERS } from "./seedData";
+import { SEED_PROPERTIES, SEED_NEIGHBORHOODS, SEED_PRICE_HISTORY, SEED_DEALS, SEED_SERVICE_PROVIDERS, SEED_DEAL_SCENARIOS, SEED_MESSAGE_TEMPLATES } from "./seedData";
 import { Id } from "./_generated/dataModel";
 
 // Seed properties - inserts mock data into the database
@@ -675,6 +675,237 @@ export const seedAll = mutation({
       success: true,
       results,
       message: `Seeded ${results.properties} properties, ${results.neighborhoods} neighborhoods, ${results.priceHistory} price history entries, ${results.deals} deals, ${results.serviceProviders} service providers`,
+    };
+  },
+});
+
+// Seed comprehensive deal flow data - creates deals with providers, service requests, activity, and messages
+// Call from Convex dashboard or CLI: npx convex run seed:seedDealFlow
+export const seedDealFlow = mutation({
+  args: {},
+  handler: async (ctx) => {
+    const now = Date.now();
+    const results = {
+      deals: 0,
+      serviceRequests: 0,
+      dealActivity: 0,
+      messages: 0,
+    };
+
+    // Get investor user (or create one)
+    let investorId = await ctx.db
+      .query("users")
+      .filter((q) => q.eq(q.field("role"), "investor"))
+      .first()
+      .then((user) => user?._id);
+
+    if (!investorId) {
+      const adminUser = await ctx.db
+        .query("users")
+        .filter((q) => q.eq(q.field("role"), "admin"))
+        .first();
+      if (adminUser) {
+        investorId = adminUser._id;
+      } else {
+        investorId = await ctx.db.insert("users", {
+          clerkId: "test_investor_dealflow",
+          email: "investor@reos.dev",
+          name: "Test Investor",
+          role: "investor",
+          onboardingComplete: true,
+          createdAt: now,
+          updatedAt: now,
+        });
+      }
+    }
+
+    // Get all properties
+    const properties = await ctx.db.query("properties").collect();
+    if (properties.length === 0) {
+      return {
+        success: false,
+        results,
+        message: "No properties found. Please run seed:seedProperties first.",
+      };
+    }
+
+    // Build provider email to user ID map
+    const providerMap: Map<string, Id<"users">> = new Map();
+    for (const provider of SEED_SERVICE_PROVIDERS) {
+      const user = await ctx.db
+        .query("users")
+        .filter((q) => q.eq(q.field("email"), provider.email))
+        .first();
+      if (user) {
+        providerMap.set(provider.email, user._id);
+      }
+    }
+
+    // Clear existing deal-related data
+    const existingDeals = await ctx.db.query("deals").collect();
+    for (const deal of existingDeals) {
+      await ctx.db.delete(deal._id);
+    }
+
+    const existingRequests = await ctx.db.query("serviceRequests").collect();
+    for (const request of existingRequests) {
+      await ctx.db.delete(request._id);
+    }
+
+    const existingActivity = await ctx.db.query("dealActivity").collect();
+    for (const activity of existingActivity) {
+      await ctx.db.delete(activity._id);
+    }
+
+    const existingMessages = await ctx.db.query("messages").collect();
+    for (const message of existingMessages) {
+      await ctx.db.delete(message._id);
+    }
+
+    // Process each deal scenario
+    for (const scenario of SEED_DEAL_SCENARIOS) {
+      // Skip if property index doesn't exist
+      if (scenario.propertyIndex >= properties.length) {
+        continue;
+      }
+
+      const property = properties[scenario.propertyIndex];
+      const createdAt = now - scenario.daysAgo * 24 * 60 * 60 * 1000;
+
+      // Determine provider IDs based on scenario
+      const brokerId = scenario.brokerEmail ? providerMap.get(scenario.brokerEmail) : undefined;
+      const mortgageAdvisorId = scenario.mortgageAdvisorEmail ? providerMap.get(scenario.mortgageAdvisorEmail) : undefined;
+      const lawyerId = scenario.lawyerEmail ? providerMap.get(scenario.lawyerEmail) : undefined;
+
+      // Generate stage history
+      const stageHistory = generateStageHistory(
+        scenario.stage,
+        scenario.daysAgo,
+        scenario.notes
+      );
+
+      // Create the deal
+      const dealId = await ctx.db.insert("deals", {
+        propertyId: property._id,
+        investorId: investorId,
+        stage: scenario.stage,
+        offerPrice: scenario.offerPrice,
+        notes: scenario.notes,
+        brokerId,
+        mortgageAdvisorId,
+        lawyerId,
+        stageHistory,
+        createdAt,
+        updatedAt: now,
+      });
+      results.deals++;
+
+      // Create service requests for each assigned provider
+      const providerAssignments: Array<{ providerId: Id<"users">; providerType: "broker" | "mortgage_advisor" | "lawyer" }> = [];
+
+      if (brokerId) {
+        providerAssignments.push({ providerId: brokerId, providerType: "broker" });
+      }
+      if (mortgageAdvisorId) {
+        providerAssignments.push({ providerId: mortgageAdvisorId, providerType: "mortgage_advisor" });
+      }
+      if (lawyerId) {
+        providerAssignments.push({ providerId: lawyerId, providerType: "lawyer" });
+      }
+
+      for (let i = 0; i < providerAssignments.length; i++) {
+        const { providerId, providerType } = providerAssignments[i];
+        // Stagger request creation times
+        const requestCreatedAt = createdAt + i * 2 * 24 * 60 * 60 * 1000; // 2 days apart
+        const requestRespondedAt = requestCreatedAt + 12 * 60 * 60 * 1000; // 12 hours later
+
+        await ctx.db.insert("serviceRequests", {
+          dealId,
+          investorId: investorId,
+          providerId,
+          providerType,
+          status: "accepted",
+          investorMessage: `I'd like your help with this ${property.city} property.`,
+          createdAt: requestCreatedAt,
+          respondedAt: requestRespondedAt,
+        });
+        results.serviceRequests++;
+
+        // Create activity log for provider assignment
+        await ctx.db.insert("dealActivity", {
+          dealId,
+          actorId: providerId,
+          activityType: "provider_assigned",
+          details: { providerType },
+          createdAt: requestRespondedAt,
+        });
+        results.dealActivity++;
+      }
+
+      // Create stage change activity logs based on stage history
+      for (let i = 0; i < stageHistory.length; i++) {
+        const historyEntry = stageHistory[i];
+        const prevStage = i > 0 ? stageHistory[i - 1].stage : undefined;
+        await ctx.db.insert("dealActivity", {
+          dealId,
+          actorId: investorId,
+          activityType: "stage_change",
+          details: {
+            fromStage: prevStage,
+            toStage: historyEntry.stage,
+            note: historyEntry.notes,
+          },
+          createdAt: historyEntry.timestamp,
+        });
+        results.dealActivity++;
+      }
+
+      // Create messages from templates
+      for (const threadIndex of scenario.messageThreads) {
+        if (threadIndex >= SEED_MESSAGE_TEMPLATES.length) continue;
+
+        const thread = SEED_MESSAGE_TEMPLATES[threadIndex];
+
+        // Determine the provider for this thread
+        let threadProviderId: Id<"users"> | undefined;
+        if (thread.providerRole === "broker" && brokerId) {
+          threadProviderId = brokerId;
+        } else if (thread.providerRole === "mortgage_advisor" && mortgageAdvisorId) {
+          threadProviderId = mortgageAdvisorId;
+        } else if (thread.providerRole === "lawyer" && lawyerId) {
+          threadProviderId = lawyerId;
+        }
+
+        if (!threadProviderId) continue;
+
+        // Calculate thread start time (based on deal age)
+        const threadStartTime = createdAt + Math.random() * 3 * 24 * 60 * 60 * 1000; // within first 3 days
+
+        // Create messages
+        for (const msg of thread.messages) {
+          const msgTime = threadStartTime + msg.offsetMinutes * 60 * 1000;
+
+          const senderId = msg.fromInvestor ? investorId : threadProviderId;
+          const recipientId = msg.fromInvestor ? threadProviderId : investorId;
+
+          await ctx.db.insert("messages", {
+            dealId,
+            senderId,
+            recipientId,
+            content: msg.content,
+            status: "read", // All seed messages are read
+            readAt: msgTime + 5 * 60 * 1000, // Read 5 minutes after sent
+            createdAt: msgTime,
+          });
+          results.messages++;
+        }
+      }
+    }
+
+    return {
+      success: true,
+      results,
+      message: `Seeded ${results.deals} deals, ${results.serviceRequests} service requests, ${results.dealActivity} activity logs, ${results.messages} messages`,
     };
   },
 });
