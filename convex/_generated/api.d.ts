@@ -8,6 +8,7 @@
  * @module
  */
 
+import type * as deals from "../deals.js";
 import type * as favorites from "../favorites.js";
 import type * as investorProfiles from "../investorProfiles.js";
 import type * as neighborhoods from "../neighborhoods.js";
@@ -17,6 +18,7 @@ import type * as search from "../search.js";
 import type * as seed from "../seed.js";
 import type * as seedData from "../seedData.js";
 import type * as serviceProviderProfiles from "../serviceProviderProfiles.js";
+import type * as serviceRequests from "../serviceRequests.js";
 import type * as users from "../users.js";
 
 import type {
@@ -26,6 +28,7 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  deals: typeof deals;
   favorites: typeof favorites;
   investorProfiles: typeof investorProfiles;
   neighborhoods: typeof neighborhoods;
@@ -35,6 +38,7 @@ declare const fullApi: ApiFromModules<{
   seed: typeof seed;
   seedData: typeof seedData;
   serviceProviderProfiles: typeof serviceProviderProfiles;
+  serviceRequests: typeof serviceRequests;
   users: typeof users;
 }>;
 
