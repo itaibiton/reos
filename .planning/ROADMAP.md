@@ -28,7 +28,7 @@ None
 - [x] **Phase 5.3: Property Page Carousel and Interactive Map** (INSERTED) - Image carousel and map for property detail page
 - [x] **Phase 5.4: Yad2-Style Property Page** (INSERTED) - Full property detail page redesign with Yad2-inspired features
 - [x] **Phase 6: Deal Flow** - Deal stages, service provider requests, file storage
-- [ ] **Phase 6.1: Multi-layout Chat Page** (INSERTED) - Chat with service providers in single, split, or quad layouts
+- [x] **Phase 6.1: Multi-layout Chat Page** (INSERTED) - Chat with service providers in single, split, or quad layouts
 - [ ] **Phase 7: Dashboards** - Investor and service provider dashboards
 - [ ] **Phase 8: Real-time Features** - Chat and live updates
 
@@ -243,7 +243,7 @@ Deal flow is the core value of the platform. Implements:
 Plans:
 - [x] 06.1-01: Messages schema + chat backend (queries, mutations)
 - [x] 06.1-02: Chat UI components + single layout
-- [ ] 06.1-03: Multi-layout system with drag-and-drop
+- [x] 06.1-03: Multi-layout system with drag-and-drop
 
 **Details:**
 Multi-layout chat interface for investor-provider communication:
@@ -289,6 +289,6 @@ Phases execute in numeric order: 1 → 1.1 → 1.2 → 1.3 → 2 → 3 → 4 →
 | 5.3 Property Page Carousel and Interactive Map (INSERTED) | 2/2 | Complete | 2026-01-14 |
 | 5.4 Yad2-Style Property Page (INSERTED) | 3/3 | Complete | 2026-01-15 |
 | 6. Deal Flow | 5/5 | Complete | 2026-01-15 |
-| 6.1 Multi-layout Chat Page (INSERTED) | 2/3 | In progress | - |
+| 6.1 Multi-layout Chat Page (INSERTED) | 3/3 | Complete | 2026-01-15 |
 | 7. Dashboards | 0/TBD | Not started | - |
 | 8. Real-time Features | 0/TBD | Not started | - |

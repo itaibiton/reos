@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-01-12)
 ## Current Position
 
 Phase: 6.1 of 8 (Multi-layout Chat Page)
-Plan: 2 of 3 in current phase
-Status: In progress
-Last activity: 2026-01-15 — Completed 06.1-02-PLAN.md
+Plan: 3 of 3 in current phase
+Status: Phase complete
+Last activity: 2026-01-15 — Completed 06.1-03-PLAN.md
 
-Progress: █░░░░░░░░░ 10% (Phase 6.1: 2/3 plans complete)
+Progress: █████████░ 90% (Phase 6.1: 3/3 plans complete)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 31
+- Total plans completed: 32
 - Average duration: 9 min
-- Total execution time: 4.5 hours
+- Total execution time: 4.6 hours
 
 **By Phase:**
 
@@ -41,11 +41,11 @@ Progress: █░░░░░░░░░ 10% (Phase 6.1: 2/3 plans complete)
 | 5.3 | 2/2 | 48 min | 24 min |
 | 5.4 | 3/3 | 26 min | 8.7 min |
 | 6 | 5/5 | 27 min | 5.4 min |
-| 6.1 | 2/3 | 8 min | 4 min |
+| 6.1 | 3/3 | 15 min | 5 min |
 
 **Recent Trend:**
-- Last 5 plans: 3 min, 3 min, 11 min, 3 min, 5 min
-- Trend: Chat UI components completed efficiently
+- Last 5 plans: 3 min, 11 min, 3 min, 5 min, 7 min
+- Trend: Phase 6.1 complete - multi-layout chat with drag-and-drop
 
 ## Accumulated Context
 
@@ -118,6 +118,10 @@ Recent decisions affecting current work:
 - Phase 6.1: ChatThread auto-scrolls to bottom, marks as read on mount
 - Phase 6.1: ChatParticipantList with client-side unread count calculation
 - Phase 6.1: Chat page uses deal selector dropdown + participant list sidebar (w-80)
+- Phase 6.1: dnd-kit for drag-and-drop (not react-dnd), cleaner API
+- Phase 6.1: Three layout modes: single (1 pane), split (2 cols), quad (2x2 grid)
+- Phase 6.1: Panes state array of 4 slots, null for empty
+- Phase 6.1: ChatPane component handles empty/filled states with droppable zones
 
 ### Deferred Issues
 
@@ -142,6 +146,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-15
-Stopped at: Completed 06.1-02-PLAN.md
+Stopped at: Completed 06.1-03-PLAN.md (Phase 6.1 complete)
 Resume file: None
-Next: Execute Phase 6.1 Plan 03 (run /gsd:execute-plan .planning/phases/06.1-multi-layout-chat/06.1-03-PLAN.md)
+Next: Plan Phase 7 (run /gsd:plan-phase 7)
