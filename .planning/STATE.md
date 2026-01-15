@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-01-12)
 ## Current Position
 
 Phase: 6 of 8 (Deal Flow)
-Plan: 3 of 5 in current phase
+Plan: 4 of 5 in current phase
 Status: In progress
-Last activity: 2026-01-15 — Completed 06-03-PLAN.md
+Last activity: 2026-01-15 — Completed 06-04-PLAN.md
 
-Progress: █████████░ 96%
+Progress: █████████░ 97%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 28
+- Total plans completed: 29
 - Average duration: 9 min
-- Total execution time: 4.1 hours
+- Total execution time: 4.2 hours
 
 **By Phase:**
 
@@ -40,10 +40,10 @@ Progress: █████████░ 96%
 | 5.2 | 1/1 | 18 min | 18 min |
 | 5.3 | 2/2 | 48 min | 24 min |
 | 5.4 | 3/3 | 26 min | 8.7 min |
-| 6 | 3/5 | 13 min | 4.3 min |
+| 6 | 4/5 | 16 min | 4 min |
 
 **Recent Trend:**
-- Last 5 plans: 15 min, 5 min, 5 min, 3 min
+- Last 5 plans: 5 min, 5 min, 3 min, 3 min
 - Trend: Fast execution (schema/CRUD tasks ~3-5 min)
 
 ## Accumulated Context
@@ -105,6 +105,9 @@ Recent decisions affecting current work:
 - Phase 6: File categories: contract, id_document, financial, legal, other
 - Phase 6: File visibility: "all" (all participants) or "providers_only" (service providers only)
 - Phase 6: Convex storage pattern: generateUploadUrl → POST file → saveFile with storageId
+- Phase 6: Activity log captures all deal events (stage_change, file_uploaded, handoffs)
+- Phase 6: Handoffs use existing serviceRequests for consistency
+- Phase 6: Stage-to-provider mapping: broker_assigned→broker, mortgage→mortgage_advisor, legal→lawyer
 
 ### Deferred Issues
 
@@ -128,6 +131,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-15
-Stopped at: Completed 06-03-PLAN.md
+Stopped at: Completed 06-04-PLAN.md
 Resume file: None
-Next: Execute 06-04-PLAN.md (run /gsd:execute-plan)
+Next: Execute 06-05-PLAN.md (run /gsd:execute-plan)
