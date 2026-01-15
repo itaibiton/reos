@@ -164,3 +164,82 @@ export const getProvidersByType = query({
     return providersWithUser;
   },
 });
+
+// List providers by type with optional city filter, sorted by experience
+// Powers the "Find a Provider" UI
+export const listByType = query({
+  args: {
+    providerType: providerTypeValidator,
+    city: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    let providers = await ctx.db
+      .query("serviceProviderProfiles")
+      .withIndex("by_provider_type", (q) =>
+        q.eq("providerType", args.providerType)
+      )
+      .collect();
+
+    // Filter by city if provided (check serviceAreas)
+    if (args.city) {
+      providers = providers.filter((p) =>
+        p.serviceAreas.some(
+          (area) => area.toLowerCase() === args.city!.toLowerCase()
+        )
+      );
+    }
+
+    // Get user info for each provider
+    const providersWithUser = await Promise.all(
+      providers.map(async (provider) => {
+        const user = await ctx.db.get(provider.userId);
+        return {
+          ...provider,
+          name: user?.name,
+          email: user?.email,
+          imageUrl: user?.imageUrl,
+        };
+      })
+    );
+
+    // Sort by years experience (descending)
+    providersWithUser.sort(
+      (a, b) => (b.yearsExperience || 0) - (a.yearsExperience || 0)
+    );
+
+    return providersWithUser;
+  },
+});
+
+// Get a provider profile with user details
+// Powers provider detail view and profile cards
+export const getWithUser = query({
+  args: {
+    userId: v.id("users"),
+  },
+  handler: async (ctx, args) => {
+    // Get user
+    const user = await ctx.db.get(args.userId);
+    if (!user) {
+      return null;
+    }
+
+    // Get service provider profile
+    const profile = await ctx.db
+      .query("serviceProviderProfiles")
+      .withIndex("by_user", (q) => q.eq("userId", args.userId))
+      .unique();
+
+    if (!profile) {
+      return null;
+    }
+
+    // Return combined profile + user info
+    return {
+      ...profile,
+      name: user.name,
+      email: user.email,
+      imageUrl: user.imageUrl,
+    };
+  },
+});
