@@ -78,6 +78,14 @@ export const dealStage = v.union(
   v.literal("cancelled")        // Deal cancelled at any stage
 );
 
+// Service request status
+const requestStatus = v.union(
+  v.literal("pending"),   // Request sent, awaiting provider response
+  v.literal("accepted"),  // Provider accepted
+  v.literal("declined"),  // Provider declined
+  v.literal("cancelled")  // Investor cancelled request
+);
+
 export default defineSchema({
   users: defineTable({
     // Clerk user ID (from JWT subject claim)
@@ -292,4 +300,30 @@ export default defineSchema({
     .index("by_broker", ["brokerId"])
     .index("by_mortgage_advisor", ["mortgageAdvisorId"])
     .index("by_lawyer", ["lawyerId"]),
+
+  // Service requests - investors requesting providers for deals
+  serviceRequests: defineTable({
+    // References
+    dealId: v.id("deals"),
+    investorId: v.id("users"),
+    providerId: v.id("users"),
+
+    // What type of provider (broker, mortgage_advisor, lawyer)
+    providerType: providerType,
+
+    // Status
+    status: requestStatus,
+
+    // Messages
+    investorMessage: v.optional(v.string()), // Initial request message
+    providerResponse: v.optional(v.string()), // Response when accept/decline
+
+    // Timestamps
+    createdAt: v.number(),
+    respondedAt: v.optional(v.number()),
+  })
+    .index("by_deal", ["dealId"])
+    .index("by_investor", ["investorId"])
+    .index("by_provider", ["providerId"])
+    .index("by_provider_and_status", ["providerId", "status"]),
 });
