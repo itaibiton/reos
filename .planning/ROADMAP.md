@@ -221,7 +221,7 @@ Uses Shadcn components: Charts (Recharts), Tables, Cards, Tabs for section organ
 Plans:
 - [x] 06-01: Deals schema + basic CRUD
 - [x] 06-02: Service provider request flow
-- [ ] 06-03: File storage per deal (Convex storage)
+- [x] 06-03: File storage per deal (Convex storage)
 - [ ] 06-04: Deal transitions + handoffs
 - [ ] 06-05: Deals UI (list + detail pages)
 
@@ -266,6 +266,6 @@ Phases execute in numeric order: 1 → 1.1 → 1.2 → 1.3 → 2 → 3 → 4 →
 | 5.2 Mock Data & Super User (INSERTED) | 1/1 | Complete | 2026-01-14 |
 | 5.3 Property Page Carousel and Interactive Map (INSERTED) | 2/2 | Complete | 2026-01-14 |
 | 5.4 Yad2-Style Property Page (INSERTED) | 3/3 | Complete | 2026-01-15 |
-| 6. Deal Flow | 2/5 | In progress | - |
+| 6. Deal Flow | 3/5 | In progress | - |
 | 7. Dashboards | 0/TBD | Not started | - |
 | 8. Real-time Features | 0/TBD | Not started | - |
