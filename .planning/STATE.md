@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-01-12)
 ## Current Position
 
 Phase: 6.1 of 8 (Multi-layout Chat Page)
-Plan: 1 of 3 in current phase
+Plan: 2 of 3 in current phase
 Status: In progress
-Last activity: 2026-01-15 — Completed 06.1-01-PLAN.md
+Last activity: 2026-01-15 — Completed 06.1-02-PLAN.md
 
-Progress: █░░░░░░░░░ 10% (Phase 6.1: 1/3 plans complete)
+Progress: █░░░░░░░░░ 10% (Phase 6.1: 2/3 plans complete)
 
 ## Performance Metrics
 
@@ -41,11 +41,11 @@ Progress: █░░░░░░░░░ 10% (Phase 6.1: 1/3 plans complete)
 | 5.3 | 2/2 | 48 min | 24 min |
 | 5.4 | 3/3 | 26 min | 8.7 min |
 | 6 | 5/5 | 27 min | 5.4 min |
-| 6.1 | 1/3 | 3 min | 3 min |
+| 6.1 | 2/3 | 8 min | 4 min |
 
 **Recent Trend:**
-- Last 5 plans: 5 min, 3 min, 3 min, 11 min
-- Trend: UI plans slightly longer due to human verification
+- Last 5 plans: 3 min, 3 min, 11 min, 3 min, 5 min
+- Trend: Chat UI components completed efficiently
 
 ## Accumulated Context
 
@@ -113,6 +113,11 @@ Recent decisions affecting current work:
 - Phase 6: Deal cards show property image, title, city, price, stage badge, provider count
 - Phase 6: Four tabs on deal detail page: Overview, Providers, Files, Activity
 - Phase 6: "Start Deal" button on property pages for investors (creates deal + redirects)
+- Phase 6.1: ChatMessage component with own/other bubble styling (right/left aligned)
+- Phase 6.1: ChatInput with Enter sends, Shift+Enter newline, auto-resize up to 4 lines
+- Phase 6.1: ChatThread auto-scrolls to bottom, marks as read on mount
+- Phase 6.1: ChatParticipantList with client-side unread count calculation
+- Phase 6.1: Chat page uses deal selector dropdown + participant list sidebar (w-80)
 
 ### Deferred Issues
 
@@ -137,6 +142,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-15
-Stopped at: Completed 06.1-01-PLAN.md
+Stopped at: Completed 06.1-02-PLAN.md
 Resume file: None
-Next: Execute Phase 6.1 Plan 02 (run /gsd:execute-plan .planning/phases/06.1-multi-layout-chat/06.1-02-PLAN.md)
+Next: Execute Phase 6.1 Plan 03 (run /gsd:execute-plan .planning/phases/06.1-multi-layout-chat/06.1-03-PLAN.md)

@@ -242,7 +242,7 @@ Deal flow is the core value of the platform. Implements:
 
 Plans:
 - [x] 06.1-01: Messages schema + chat backend (queries, mutations)
-- [ ] 06.1-02: Chat UI components + single layout
+- [x] 06.1-02: Chat UI components + single layout
 - [ ] 06.1-03: Multi-layout system with drag-and-drop
 
 **Details:**
@@ -289,6 +289,6 @@ Phases execute in numeric order: 1 → 1.1 → 1.2 → 1.3 → 2 → 3 → 4 →
 | 5.3 Property Page Carousel and Interactive Map (INSERTED) | 2/2 | Complete | 2026-01-14 |
 | 5.4 Yad2-Style Property Page (INSERTED) | 3/3 | Complete | 2026-01-15 |
 | 6. Deal Flow | 5/5 | Complete | 2026-01-15 |
-| 6.1 Multi-layout Chat Page (INSERTED) | 1/3 | In progress | - |
+| 6.1 Multi-layout Chat Page (INSERTED) | 2/3 | In progress | - |
 | 7. Dashboards | 0/TBD | Not started | - |
 | 8. Real-time Features | 0/TBD | Not started | - |
