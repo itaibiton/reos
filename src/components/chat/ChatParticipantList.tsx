@@ -2,6 +2,8 @@
 
 import { useMemo } from "react";
 import { useQuery } from "convex/react";
+import { useDraggable } from "@dnd-kit/core";
+import { CSS } from "@dnd-kit/utilities";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -22,6 +24,7 @@ interface ChatParticipantListProps {
   dealId: Id<"deals">;
   selectedParticipantId?: Id<"users">;
   onSelectParticipant: (participant: Participant) => void;
+  enableDrag?: boolean;
 }
 
 // Format role for display
@@ -48,10 +51,118 @@ function getInitials(name?: string | null) {
     .slice(0, 2);
 }
 
+// Draggable participant item
+interface DraggableParticipantProps {
+  participant: Participant;
+  isSelected: boolean;
+  unreadCount: number;
+  onClick: () => void;
+  enableDrag: boolean;
+}
+
+function DraggableParticipant({
+  participant,
+  isSelected,
+  unreadCount,
+  onClick,
+  enableDrag,
+}: DraggableParticipantProps) {
+  const { attributes, listeners, setNodeRef, transform, isDragging } =
+    useDraggable({
+      id: participant._id,
+      data: { participant },
+      disabled: !enableDrag,
+    });
+
+  const style = transform
+    ? {
+        transform: CSS.Translate.toString(transform),
+        zIndex: isDragging ? 50 : undefined,
+      }
+    : undefined;
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      {...(enableDrag ? listeners : {})}
+      {...(enableDrag ? attributes : {})}
+      onClick={onClick}
+      className={cn(
+        "w-full flex items-center gap-3 p-2 rounded-lg text-left transition-colors",
+        "hover:bg-accent",
+        isSelected && "bg-accent",
+        enableDrag && "cursor-grab active:cursor-grabbing",
+        isDragging && "opacity-50 shadow-lg bg-background"
+      )}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onClick();
+        }
+      }}
+    >
+      {/* Avatar */}
+      <Avatar className="h-8 w-8 flex-shrink-0">
+        <AvatarImage src={participant.imageUrl} alt={participant.name} />
+        <AvatarFallback className="text-xs">
+          {getInitials(participant.name)}
+        </AvatarFallback>
+      </Avatar>
+
+      {/* Info */}
+      <div className="flex-1 min-w-0">
+        <p className="font-medium text-sm truncate">{participant.name}</p>
+        {participant.role && (
+          <Badge variant="secondary" className="text-xs">
+            {formatRole(participant.role)}
+          </Badge>
+        )}
+      </div>
+
+      {/* Unread badge */}
+      {unreadCount > 0 && (
+        <Badge className="ml-auto flex-shrink-0 h-5 min-w-[20px] px-1.5">
+          {unreadCount > 99 ? "99+" : unreadCount}
+        </Badge>
+      )}
+    </div>
+  );
+}
+
+// Drag overlay content (rendered in DragOverlay at page level)
+export function ParticipantDragPreview({
+  participant,
+}: {
+  participant: Participant;
+}) {
+  return (
+    <div className="flex items-center gap-3 p-2 rounded-lg bg-background border shadow-lg w-64">
+      <Avatar className="h-8 w-8 flex-shrink-0">
+        <AvatarImage src={participant.imageUrl} alt={participant.name} />
+        <AvatarFallback className="text-xs">
+          {getInitials(participant.name)}
+        </AvatarFallback>
+      </Avatar>
+      <div className="flex-1 min-w-0">
+        <p className="font-medium text-sm truncate">{participant.name}</p>
+        {participant.role && (
+          <Badge variant="secondary" className="text-xs">
+            {formatRole(participant.role)}
+          </Badge>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export function ChatParticipantList({
   dealId,
   selectedParticipantId,
   onSelectParticipant,
+  enableDrag = false,
 }: ChatParticipantListProps) {
   const { user } = useCurrentUser();
 
@@ -113,40 +224,14 @@ export function ChatParticipantList({
         const unreadCount = unreadCounts[participant._id.toString()] || 0;
 
         return (
-          <button
+          <DraggableParticipant
             key={participant._id}
+            participant={participant as Participant}
+            isSelected={isSelected}
+            unreadCount={unreadCount}
             onClick={() => onSelectParticipant(participant as Participant)}
-            className={cn(
-              "w-full flex items-center gap-3 p-2 rounded-lg text-left transition-colors",
-              "hover:bg-accent",
-              isSelected && "bg-accent"
-            )}
-          >
-            {/* Avatar */}
-            <Avatar className="h-8 w-8 flex-shrink-0">
-              <AvatarImage src={participant.imageUrl} alt={participant.name} />
-              <AvatarFallback className="text-xs">
-                {getInitials(participant.name)}
-              </AvatarFallback>
-            </Avatar>
-
-            {/* Info */}
-            <div className="flex-1 min-w-0">
-              <p className="font-medium text-sm truncate">{participant.name}</p>
-              {participant.role && (
-                <Badge variant="secondary" className="text-xs">
-                  {formatRole(participant.role)}
-                </Badge>
-              )}
-            </div>
-
-            {/* Unread badge */}
-            {unreadCount > 0 && (
-              <Badge className="ml-auto flex-shrink-0 h-5 min-w-[20px] px-1.5">
-                {unreadCount > 99 ? "99+" : unreadCount}
-              </Badge>
-            )}
-          </button>
+            enableDrag={enableDrag}
+          />
         );
       })}
     </div>
