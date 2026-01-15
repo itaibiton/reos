@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useQuery, useMutation } from "convex/react";
 import { useParams, useRouter } from "next/navigation";
 import { api } from "../../../../../convex/_generated/api";
@@ -42,6 +42,7 @@ import {
 } from "@hugeicons/core-free-icons";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { FileUpload } from "@/components/deals/FileUpload";
+import { RequestProviderDialog } from "@/components/deals/RequestProviderDialog";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 
@@ -418,11 +419,17 @@ function FileItem({
   );
 }
 
+type ProviderType = "broker" | "mortgage_advisor" | "lawyer";
+
 export default function DealDetailPage() {
   const params = useParams();
   const router = useRouter();
   const dealId = params.id as string;
   const { user, effectiveRole } = useCurrentUser();
+
+  // Provider request dialog state
+  const [requestDialogOpen, setRequestDialogOpen] = useState(false);
+  const [requestDialogType, setRequestDialogType] = useState<ProviderType>("broker");
 
   // Fetch deal
   const deal = useQuery(api.deals.get, { dealId: dealId as Id<"deals"> });
@@ -453,6 +460,7 @@ export default function DealDetailPage() {
 
   // Mutations
   const deleteFile = useMutation(api.dealFiles.deleteFile);
+  const cancelRequest = useMutation(api.serviceRequests.cancel);
 
   // Fetch provider details
   const brokerId = deal?.brokerId;
@@ -493,6 +501,23 @@ export default function DealDetailPage() {
   function canDeleteFile(uploaderId: Id<"users">) {
     if (!user) return false;
     return user._id === uploaderId || user.role === "admin";
+  }
+
+  // Open provider request dialog
+  function openRequestDialog(type: ProviderType) {
+    setRequestDialogType(type);
+    setRequestDialogOpen(true);
+  }
+
+  // Cancel a pending service request
+  async function handleCancelRequest(requestId: Id<"serviceRequests">) {
+    try {
+      await cancelRequest({ requestId });
+      toast.success("Request cancelled");
+    } catch (error) {
+      console.error("Error cancelling request:", error);
+      toast.error(error instanceof Error ? error.message : "Failed to cancel request");
+    }
   }
 
   // Loading state
@@ -699,7 +724,7 @@ export default function DealDetailPage() {
                   <div className="p-4 rounded-lg border border-dashed text-center">
                     <p className="text-sm text-muted-foreground mb-2">No broker assigned</p>
                     {isInvestor && !isTerminal && (
-                      <Button variant="outline" size="sm">
+                      <Button variant="outline" size="sm" onClick={() => openRequestDialog("broker")}>
                         <HugeiconsIcon icon={Add01Icon} size={14} className="mr-1" />
                         Find a Broker
                       </Button>
@@ -723,7 +748,7 @@ export default function DealDetailPage() {
                   <div className="p-4 rounded-lg border border-dashed text-center">
                     <p className="text-sm text-muted-foreground mb-2">No mortgage advisor assigned</p>
                     {isInvestor && !isTerminal && (
-                      <Button variant="outline" size="sm">
+                      <Button variant="outline" size="sm" onClick={() => openRequestDialog("mortgage_advisor")}>
                         <HugeiconsIcon icon={Add01Icon} size={14} className="mr-1" />
                         Find a Mortgage Advisor
                       </Button>
@@ -747,7 +772,7 @@ export default function DealDetailPage() {
                   <div className="p-4 rounded-lg border border-dashed text-center">
                     <p className="text-sm text-muted-foreground mb-2">No lawyer assigned</p>
                     {isInvestor && !isTerminal && (
-                      <Button variant="outline" size="sm">
+                      <Button variant="outline" size="sm" onClick={() => openRequestDialog("lawyer")}>
                         <HugeiconsIcon icon={Add01Icon} size={14} className="mr-1" />
                         Find a Lawyer
                       </Button>
@@ -777,6 +802,33 @@ export default function DealDetailPage() {
                             </p>
                           </div>
                           <Badge variant="secondary">Pending</Badge>
+                          {isInvestor && (
+                            <AlertDialog>
+                              <AlertDialogTrigger asChild>
+                                <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive">
+                                  <HugeiconsIcon icon={Cancel01Icon} size={14} className="mr-1" />
+                                  Cancel
+                                </Button>
+                              </AlertDialogTrigger>
+                              <AlertDialogContent>
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle>Cancel this request?</AlertDialogTitle>
+                                  <AlertDialogDescription>
+                                    This will cancel your request to {request.provider?.name}. You can send a new request to a different provider.
+                                  </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>Keep Request</AlertDialogCancel>
+                                  <AlertDialogAction
+                                    onClick={() => handleCancelRequest(request._id)}
+                                    className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                                  >
+                                    Cancel Request
+                                  </AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
+                          )}
                         </div>
                       ))}
                   </div>
@@ -871,6 +923,14 @@ export default function DealDetailPage() {
           </Card>
         </TabsContent>
       </Tabs>
+
+      {/* Request Provider Dialog */}
+      <RequestProviderDialog
+        dealId={deal._id}
+        providerType={requestDialogType}
+        open={requestDialogOpen}
+        onOpenChange={setRequestDialogOpen}
+      />
     </div>
   );
 }
