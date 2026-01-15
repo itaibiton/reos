@@ -86,6 +86,21 @@ const requestStatus = v.union(
   v.literal("cancelled")  // Investor cancelled request
 );
 
+// Deal file categories
+const fileCategory = v.union(
+  v.literal("contract"),
+  v.literal("id_document"),
+  v.literal("financial"),
+  v.literal("legal"),
+  v.literal("other")
+);
+
+// File visibility - who can see the file
+const fileVisibility = v.union(
+  v.literal("all"),            // All deal participants
+  v.literal("providers_only")  // Only service providers
+);
+
 export default defineSchema({
   users: defineTable({
     // Clerk user ID (from JWT subject claim)
@@ -326,4 +341,31 @@ export default defineSchema({
     .index("by_investor", ["investorId"])
     .index("by_provider", ["providerId"])
     .index("by_provider_and_status", ["providerId", "status"]),
+
+  // Deal files - documents attached to deals
+  dealFiles: defineTable({
+    // References
+    dealId: v.id("deals"),
+    uploadedBy: v.id("users"),
+
+    // File info
+    storageId: v.id("_storage"), // Convex file storage ID
+    fileName: v.string(),        // Original filename
+    fileType: v.string(),        // MIME type
+    fileSize: v.number(),        // Bytes
+
+    // Categorization
+    category: fileCategory,
+
+    // Optional description
+    description: v.optional(v.string()),
+
+    // Visibility: who can see this file
+    visibility: fileVisibility,
+
+    // Timestamps
+    createdAt: v.number(),
+  })
+    .index("by_deal", ["dealId"])
+    .index("by_uploader", ["uploadedBy"]),
 });
