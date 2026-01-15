@@ -33,6 +33,7 @@ import {
   LayoutModeSelector,
   LayoutMode,
 } from "@/components/chat/LayoutModeSelector";
+import { ParticipantSelectorDialog } from "@/components/chat/ParticipantSelectorDialog";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Message02Icon, Agreement01Icon } from "@hugeicons/core-free-icons";
 import {
@@ -385,7 +386,18 @@ export default function ChatPage() {
         </DragOverlay>
       </div>
 
-      {/* Participant selector dialog will be added in Task 7 */}
+      {/* Participant selector dialog */}
+      {selectedDealId && (
+        <ParticipantSelectorDialog
+          open={selectorPaneIndex !== null}
+          onOpenChange={(open) => {
+            if (!open) setSelectorPaneIndex(null);
+          }}
+          dealId={selectedDealId}
+          excludeIds={assignedParticipantIds}
+          onSelect={handleDialogSelect}
+        />
+      )}
     </DndContext>
   );
 }
