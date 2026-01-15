@@ -5,14 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-01-12)
 
 **Core value:** Deal flow tracking from interest to close.
-**Current focus:** Phase 5.4 — Yad2-Style Property Page (urgent insertion)
+**Current focus:** Phase 6 — Deal Flow (core feature)
 
 ## Current Position
 
-Phase: 5.4 of 8 (Yad2-Style Property Page)
-Plan: 3 of 3 in current phase
-Status: Complete
-Last activity: 2026-01-15 — Completed 05.4-03-PLAN.md
+Phase: 6 of 8 (Deal Flow)
+Plan: 0 of 5 in current phase
+Status: Planning complete
+Last activity: 2026-01-15 — Created Phase 6 plans (5 plans)
 
 Progress: █████████░ 90%
 
@@ -120,6 +120,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-15
-Stopped at: Completed 05.4-03-PLAN.md (Phase 5.4 complete)
+Stopped at: Created Phase 6 plans (5 plans ready)
 Resume file: None
-Next: Phase 6 - Deal Flow (run /gsd:plan-phase 6)
+Next: Execute 06-01-PLAN.md (run /gsd:execute-plan)

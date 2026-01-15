@@ -215,9 +215,23 @@ Uses Shadcn components: Charts (Recharts), Tables, Cards, Tabs for section organ
 ### Phase 6: Deal Flow
 **Goal**: Deal stages tracking, service provider requests, file storage per deal, client handoffs between providers
 **Depends on**: Phase 3
-**Research**: Likely (file storage + state machine)
-**Research topics**: Convex file storage patterns, deal state machines, multi-party access control
-**Plans**: TBD
+**Research**: Level 1 (Convex file storage is documented)
+**Plans**: 5 plans
+
+Plans:
+- [ ] 06-01: Deals schema + basic CRUD
+- [ ] 06-02: Service provider request flow
+- [ ] 06-03: File storage per deal (Convex storage)
+- [ ] 06-04: Deal transitions + handoffs
+- [ ] 06-05: Deals UI (list + detail pages)
+
+**Details:**
+Deal flow is the core value of the platform. Implements:
+- 7-stage deal progression (interest → broker_assigned → mortgage → legal → closing → completed, + cancelled)
+- Service requests between investors and providers
+- Convex file storage for deal documents
+- Activity logging for audit trail
+- Provider handoff workflow
 
 ### Phase 7: Dashboards
 **Goal**: Investor dashboard (overview, saved properties, recommendations) and service provider dashboard (clients, leads)
@@ -252,6 +266,6 @@ Phases execute in numeric order: 1 → 1.1 → 1.2 → 1.3 → 2 → 3 → 4 →
 | 5.2 Mock Data & Super User (INSERTED) | 1/1 | Complete | 2026-01-14 |
 | 5.3 Property Page Carousel and Interactive Map (INSERTED) | 2/2 | Complete | 2026-01-14 |
 | 5.4 Yad2-Style Property Page (INSERTED) | 3/3 | Complete | 2026-01-15 |
-| 6. Deal Flow | 0/TBD | Not started | - |
+| 6. Deal Flow | 0/5 | Not started | - |
 | 7. Dashboards | 0/TBD | Not started | - |
 | 8. Real-time Features | 0/TBD | Not started | - |
