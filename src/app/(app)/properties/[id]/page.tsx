@@ -1,7 +1,8 @@
 "use client";
 
-import { useQuery } from "convex/react";
-import { useParams } from "next/navigation";
+import { useState } from "react";
+import { useQuery, useMutation } from "convex/react";
+import { useParams, useRouter } from "next/navigation";
 import { api } from "../../../../../convex/_generated/api";
 import { Id } from "../../../../../convex/_generated/dataModel";
 import { Button } from "@/components/ui/button";
@@ -17,6 +18,7 @@ import {
   Calendar01Icon,
   Building02Icon,
   Location01Icon,
+  Agreement01Icon,
 } from "@hugeicons/core-free-icons";
 import Link from "next/link";
 import { SaveButton } from "@/components/properties/SaveButton";
@@ -27,6 +29,8 @@ import { MortgageCalculator } from "@/components/properties/MortgageCalculator";
 import { ValueHistoryChart } from "@/components/properties/ValueHistoryChart";
 import { NeighborhoodInfo } from "@/components/properties/NeighborhoodInfo";
 import { SoldPropertiesTable } from "@/components/properties/SoldPropertiesTable";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { toast } from "sonner";
 
 // Currency formatter for USD
 const formatUSD = (amount: number) => {
@@ -123,11 +127,42 @@ function PropertyNotFound() {
 
 export default function PropertyDetailPage() {
   const params = useParams();
+  const router = useRouter();
   const propertyId = params.id as string;
+  const { effectiveRole } = useCurrentUser();
+  const [isCreatingDeal, setIsCreatingDeal] = useState(false);
 
   const property = useQuery(api.properties.getById, {
     id: propertyId as Id<"properties">,
   });
+
+  // Check if user already has a deal on this property
+  const existingDeals = useQuery(api.deals.getByProperty, {
+    propertyId: propertyId as Id<"properties">,
+  });
+
+  const createDeal = useMutation(api.deals.create);
+
+  // Check if user already has an active deal
+  const hasActiveDeal = existingDeals?.some(
+    (deal) => deal.stage !== "completed" && deal.stage !== "cancelled"
+  );
+
+  const handleStartDeal = async () => {
+    setIsCreatingDeal(true);
+    try {
+      const dealId = await createDeal({
+        propertyId: propertyId as Id<"properties">,
+      });
+      toast.success("Deal created! Redirecting...");
+      router.push(`/deals/${dealId}`);
+    } catch (error) {
+      console.error("Error creating deal:", error);
+      toast.error(error instanceof Error ? error.message : "Failed to create deal");
+    } finally {
+      setIsCreatingDeal(false);
+    }
+  };
 
   // Loading state
   if (property === undefined) {
@@ -219,11 +254,23 @@ export default function PropertyDetailPage() {
       </div>
 
       {/* Action Buttons */}
-      <div className="flex gap-3 mb-8">
+      <div className="flex flex-wrap gap-3 mb-8">
         <SaveButton propertyId={property._id} variant="default" className="w-auto" />
-        <Button asChild>
-          <a href="#">Contact Broker</a>
-        </Button>
+        {effectiveRole === "investor" && status === "available" && (
+          hasActiveDeal ? (
+            <Link href={`/deals/${existingDeals?.find(d => d.stage !== "completed" && d.stage !== "cancelled")?._id}`}>
+              <Button variant="secondary">
+                <HugeiconsIcon icon={Agreement01Icon} size={16} className="mr-2" />
+                View My Deal
+              </Button>
+            </Link>
+          ) : (
+            <Button onClick={handleStartDeal} disabled={isCreatingDeal}>
+              <HugeiconsIcon icon={Agreement01Icon} size={16} className="mr-2" />
+              {isCreatingDeal ? "Creating..." : "Start Deal"}
+            </Button>
+          )
+        )}
       </div>
 
       {/* Property Details */}
