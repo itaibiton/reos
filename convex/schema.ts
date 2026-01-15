@@ -67,6 +67,17 @@ const contactPreference = v.union(
   v.literal("whatsapp")
 );
 
+// Deal stages - investor progresses through these
+export const dealStage = v.union(
+  v.literal("interest"),        // Investor expressed interest
+  v.literal("broker_assigned"), // Broker is working with investor
+  v.literal("mortgage"),        // With mortgage advisor
+  v.literal("legal"),           // With lawyer
+  v.literal("closing"),         // In final closing process
+  v.literal("completed"),       // Deal closed
+  v.literal("cancelled")        // Deal cancelled at any stage
+);
+
 export default defineSchema({
   users: defineTable({
     // Clerk user ID (from JWT subject claim)
@@ -245,4 +256,40 @@ export default defineSchema({
     .index("by_user", ["userId"])
     .index("by_property", ["propertyId"])
     .index("by_user_and_property", ["userId", "propertyId"]),
+
+  // Deals - tracking investor-property transactions through stages
+  deals: defineTable({
+    // Core references
+    propertyId: v.id("properties"),
+    investorId: v.id("users"),
+
+    // Current stage
+    stage: dealStage,
+
+    // Service provider assignments (added as deal progresses)
+    brokerId: v.optional(v.id("users")),
+    mortgageAdvisorId: v.optional(v.id("users")),
+    lawyerId: v.optional(v.id("users")),
+
+    // Deal info
+    offerPrice: v.optional(v.number()), // USD
+    notes: v.optional(v.string()),
+
+    // Stage history tracking
+    stageHistory: v.array(v.object({
+      stage: dealStage,
+      timestamp: v.number(),
+      notes: v.optional(v.string()),
+    })),
+
+    // Timestamps
+    createdAt: v.number(),
+    updatedAt: v.number(),
+  })
+    .index("by_investor", ["investorId"])
+    .index("by_property", ["propertyId"])
+    .index("by_stage", ["stage"])
+    .index("by_broker", ["brokerId"])
+    .index("by_mortgage_advisor", ["mortgageAdvisorId"])
+    .index("by_lawyer", ["lawyerId"]),
 });
