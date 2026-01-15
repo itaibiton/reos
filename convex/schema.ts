@@ -113,6 +113,13 @@ const activityType = v.union(
   v.literal("handoff_completed")
 );
 
+// Message status for chat
+const messageStatus = v.union(
+  v.literal("sent"),
+  v.literal("delivered"),
+  v.literal("read")
+);
+
 export default defineSchema({
   users: defineTable({
     // Clerk user ID (from JWT subject claim)
@@ -406,4 +413,27 @@ export default defineSchema({
   })
     .index("by_deal", ["dealId"])
     .index("by_deal_and_time", ["dealId", "createdAt"]),
+
+  // Messages - chat between deal participants
+  messages: defineTable({
+    // Conversation context
+    dealId: v.id("deals"),
+    senderId: v.id("users"),
+    recipientId: v.id("users"),
+
+    // Message content
+    content: v.string(),
+
+    // Status tracking
+    status: messageStatus,
+    readAt: v.optional(v.number()),
+
+    // Timestamps
+    createdAt: v.number(),
+  })
+    .index("by_deal", ["dealId"])
+    .index("by_deal_and_time", ["dealId", "createdAt"])
+    .index("by_sender", ["senderId"])
+    .index("by_recipient", ["recipientId"])
+    .index("by_conversation", ["dealId", "senderId", "recipientId"]),
 });
