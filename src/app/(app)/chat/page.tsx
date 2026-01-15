@@ -1,7 +1,17 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { useQuery } from "convex/react";
+import {
+  DndContext,
+  DragEndEvent,
+  DragOverlay,
+  DragStartEvent,
+  MouseSensor,
+  TouchSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
 import { api } from "../../../../convex/_generated/api";
 import { Id } from "../../../../convex/_generated/dataModel";
 import {
@@ -13,7 +23,16 @@ import {
 } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ChatThread } from "@/components/chat/ChatThread";
-import { ChatParticipantList, Participant } from "@/components/chat/ChatParticipantList";
+import {
+  ChatParticipantList,
+  Participant,
+  ParticipantDragPreview,
+} from "@/components/chat/ChatParticipantList";
+import { ChatLayoutContainer } from "@/components/chat/ChatLayoutContainer";
+import {
+  LayoutModeSelector,
+  LayoutMode,
+} from "@/components/chat/LayoutModeSelector";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Message02Icon, Agreement01Icon } from "@hugeicons/core-free-icons";
 import {
@@ -25,30 +44,47 @@ import {
 } from "@/components/ui/empty";
 
 export default function ChatPage() {
-  const [selectedDealId, setSelectedDealId] = useState<Id<"deals"> | null>(null);
-  const [selectedParticipant, setSelectedParticipant] = useState<Participant | null>(null);
+  const [selectedDealId, setSelectedDealId] = useState<Id<"deals"> | null>(
+    null
+  );
+  const [selectedParticipant, setSelectedParticipant] =
+    useState<Participant | null>(null);
+  const [layoutMode, setLayoutMode] = useState<LayoutMode>("single");
+  const [panes, setPanes] = useState<(Participant | null)[]>([
+    null,
+    null,
+    null,
+    null,
+  ]);
+  const [activeDragParticipant, setActiveDragParticipant] =
+    useState<Participant | null>(null);
+  const [selectorPaneIndex, setSelectorPaneIndex] = useState<number | null>(
+    null
+  );
+
+  // Configure drag sensors with activation constraints
+  const sensors = useSensors(
+    useSensor(MouseSensor, {
+      activationConstraint: {
+        distance: 8, // Require 8px movement before starting drag
+      },
+    }),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 200,
+        tolerance: 5,
+      },
+    })
+  );
 
   // Fetch user's deals
   const deals = useQuery(api.deals.list, {});
-
-  // Fetch properties for deal titles
-  const propertyIds = useMemo(() => {
-    if (!deals) return [];
-    return [...new Set(deals.map((d) => d.propertyId))];
-  }, [deals]);
-
-  // Fetch properties (we'll do one-by-one since there's no batch query)
-  const properties = useQuery(
-    api.properties.getById,
-    propertyIds.length > 0 ? { id: propertyIds[0] } : "skip"
-  );
 
   // Build a map of deal ID to property title
   const dealTitles = useMemo(() => {
     const titles: Record<string, string> = {};
     if (deals) {
       for (const deal of deals) {
-        // For now, use city from deal or fallback
         titles[deal._id.toString()] = `Deal #${deal._id.toString().slice(-6)}`;
       }
     }
@@ -58,17 +94,132 @@ export default function ChatPage() {
   // Handle deal selection
   const handleDealSelect = (dealId: string) => {
     setSelectedDealId(dealId as Id<"deals">);
-    setSelectedParticipant(null); // Clear participant when switching deals
+    setSelectedParticipant(null);
+    // Reset panes when switching deals
+    setPanes([null, null, null, null]);
   };
 
-  // Handle participant selection
-  const handleParticipantSelect = (participant: Participant) => {
-    setSelectedParticipant(participant);
-  };
+  // Handle participant selection (for single mode)
+  const handleParticipantSelect = useCallback(
+    (participant: Participant) => {
+      if (layoutMode === "single") {
+        setSelectedParticipant(participant);
+      } else {
+        // In multi-pane mode, clicking assigns to first empty pane
+        const emptyIndex = panes.findIndex((p) => p === null);
+        if (emptyIndex !== -1) {
+          setPanes((prev) => {
+            const next = [...prev];
+            next[emptyIndex] = participant;
+            return next;
+          });
+        }
+      }
+    },
+    [layoutMode, panes]
+  );
 
   // Handle back from chat (mobile)
   const handleBack = () => {
     setSelectedParticipant(null);
+  };
+
+  // Handle pane change
+  const handlePaneChange = useCallback(
+    (paneIndex: number, participant: Participant | null) => {
+      setPanes((prev) => {
+        const next = [...prev];
+        next[paneIndex] = participant;
+        return next;
+      });
+    },
+    []
+  );
+
+  // Handle opening participant selector for a pane
+  const handleOpenSelector = useCallback((paneIndex: number) => {
+    setSelectorPaneIndex(paneIndex);
+  }, []);
+
+  // Handle selecting participant from dialog
+  const handleDialogSelect = useCallback(
+    (participant: Participant) => {
+      if (selectorPaneIndex !== null) {
+        handlePaneChange(selectorPaneIndex, participant);
+        setSelectorPaneIndex(null);
+      }
+    },
+    [selectorPaneIndex, handlePaneChange]
+  );
+
+  // Handle drag start
+  const handleDragStart = (event: DragStartEvent) => {
+    const participant = event.active.data.current?.participant as
+      | Participant
+      | undefined;
+    if (participant) {
+      setActiveDragParticipant(participant);
+    }
+  };
+
+  // Handle drag end
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    setActiveDragParticipant(null);
+
+    if (!over) return;
+
+    // Extract pane index from droppable id
+    const paneId = over.id.toString();
+    if (!paneId.startsWith("pane-")) return;
+
+    const paneIndex = parseInt(paneId.replace("pane-", ""));
+    if (isNaN(paneIndex)) return;
+
+    // Get participant from drag data
+    const participant = active.data.current?.participant as
+      | Participant
+      | undefined;
+    if (!participant) return;
+
+    // Check if participant is already in another pane, if so swap
+    const existingPaneIndex = panes.findIndex(
+      (p) => p?._id === participant._id
+    );
+
+    setPanes((prev) => {
+      const next = [...prev];
+
+      // If dropping on a pane that has a participant, swap
+      if (existingPaneIndex !== -1 && existingPaneIndex !== paneIndex) {
+        // Swap the participants
+        const targetParticipant = next[paneIndex];
+        next[existingPaneIndex] = targetParticipant;
+      }
+
+      next[paneIndex] = participant;
+      return next;
+    });
+  };
+
+  // Handle layout mode change
+  const handleLayoutModeChange = (mode: LayoutMode) => {
+    setLayoutMode(mode);
+    // When switching to single mode, preserve first pane as selected participant
+    if (mode === "single" && panes[0]) {
+      setSelectedParticipant(panes[0]);
+    }
+    // When switching from single to multi, put selected participant in first pane
+    if (mode !== "single" && selectedParticipant) {
+      setPanes((prev) => {
+        const next = [...prev];
+        // Only set if not already in a pane
+        if (!next.some((p) => p?._id === selectedParticipant._id)) {
+          next[0] = selectedParticipant;
+        }
+        return next;
+      });
+    }
   };
 
   const isLoading = deals === undefined;
@@ -77,95 +228,164 @@ export default function ChatPage() {
   // Filter to only active deals (not completed or cancelled)
   const activeDeals = useMemo(() => {
     if (!deals) return [];
-    return deals.filter(d => d.stage !== "completed" && d.stage !== "cancelled");
+    return deals.filter(
+      (d) => d.stage !== "completed" && d.stage !== "cancelled"
+    );
   }, [deals]);
 
+  // Get IDs of participants currently assigned to panes (for excluding from selector)
+  const assignedParticipantIds = useMemo(() => {
+    return panes.filter((p): p is Participant => p !== null).map((p) => p._id);
+  }, [panes]);
+
+  // Check if we're in multi-layout mode
+  const isMultiLayout = layoutMode !== "single";
+
   return (
-    <div className="h-full flex">
-      {/* Left sidebar: Deal selector + participant list */}
-      <div className="w-80 border-r flex flex-col flex-shrink-0 hidden lg:flex">
-        {/* Deal selector */}
-        <div className="p-4 border-b">
-          <label className="text-sm font-medium text-muted-foreground mb-2 block">
-            Select Deal
-          </label>
-          {isLoading ? (
-            <Skeleton className="h-10 w-full" />
-          ) : activeDeals.length === 0 ? (
-            <p className="text-sm text-muted-foreground">No active deals</p>
-          ) : (
-            <Select
-              value={selectedDealId?.toString() || ""}
-              onValueChange={handleDealSelect}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Choose a deal..." />
-              </SelectTrigger>
-              <SelectContent>
-                {activeDeals.map((deal) => (
-                  <SelectItem key={deal._id} value={deal._id.toString()}>
-                    <div className="flex items-center gap-2">
-                      <HugeiconsIcon icon={Agreement01Icon} size={14} />
-                      <span>{dealTitles[deal._id.toString()] || `Deal ${deal._id}`}</span>
-                    </div>
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          )}
-        </div>
+    <DndContext
+      sensors={sensors}
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+    >
+      <div className="h-full flex flex-col">
+        {/* Header with layout selector */}
+        <div className="px-4 py-2 border-b flex items-center justify-between flex-shrink-0">
+          <div className="flex items-center gap-4">
+            {/* Deal selector */}
+            {isLoading ? (
+              <Skeleton className="h-9 w-48" />
+            ) : activeDeals.length === 0 ? (
+              <p className="text-sm text-muted-foreground">No active deals</p>
+            ) : (
+              <Select
+                value={selectedDealId?.toString() || ""}
+                onValueChange={handleDealSelect}
+              >
+                <SelectTrigger className="w-48">
+                  <SelectValue placeholder="Choose a deal..." />
+                </SelectTrigger>
+                <SelectContent>
+                  {activeDeals.map((deal) => (
+                    <SelectItem key={deal._id} value={deal._id.toString()}>
+                      <div className="flex items-center gap-2">
+                        <HugeiconsIcon icon={Agreement01Icon} size={14} />
+                        <span>
+                          {dealTitles[deal._id.toString()] || `Deal ${deal._id}`}
+                        </span>
+                      </div>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
+          </div>
 
-        {/* Participant list */}
-        <div className="flex-1 overflow-y-auto">
-          {selectedDealId ? (
-            <ChatParticipantList
-              dealId={selectedDealId}
-              selectedParticipantId={selectedParticipant?._id}
-              onSelectParticipant={handleParticipantSelect}
+          {/* Layout mode selector */}
+          {selectedDealId && (
+            <LayoutModeSelector
+              mode={layoutMode}
+              onModeChange={handleLayoutModeChange}
             />
-          ) : (
-            <div className="p-4 text-center text-muted-foreground text-sm">
-              Select a deal to see participants
-            </div>
           )}
         </div>
+
+        <div className="flex-1 flex min-h-0">
+          {/* Left sidebar: Participant list */}
+          <div className="w-80 border-r flex flex-col flex-shrink-0 hidden lg:flex">
+            <div className="flex-1 overflow-y-auto">
+              {selectedDealId ? (
+                <>
+                  {isMultiLayout && (
+                    <div className="p-2 border-b bg-muted/30">
+                      <p className="text-xs text-muted-foreground text-center">
+                        Drag participants to chat panes
+                      </p>
+                    </div>
+                  )}
+                  <ChatParticipantList
+                    dealId={selectedDealId}
+                    selectedParticipantId={
+                      layoutMode === "single"
+                        ? selectedParticipant?._id
+                        : undefined
+                    }
+                    onSelectParticipant={handleParticipantSelect}
+                    enableDrag={isMultiLayout}
+                  />
+                </>
+              ) : (
+                <div className="p-4 text-center text-muted-foreground text-sm">
+                  Select a deal to see participants
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Main area */}
+          <div className="flex-1 flex flex-col min-w-0">
+            {!selectedDealId ? (
+              // No deal selected
+              <Empty className="h-full border-0">
+                <EmptyHeader>
+                  <EmptyMedia variant="icon">
+                    <HugeiconsIcon icon={Message02Icon} size={24} />
+                  </EmptyMedia>
+                  <EmptyTitle>
+                    {!hasDeals ? "No deals yet" : "Select a deal"}
+                  </EmptyTitle>
+                  <EmptyDescription>
+                    {!hasDeals
+                      ? "Start a deal on a property to chat with service providers"
+                      : "Choose a deal from the dropdown to see who you can chat with"}
+                  </EmptyDescription>
+                </EmptyHeader>
+              </Empty>
+            ) : layoutMode === "single" ? (
+              // Single layout mode
+              selectedParticipant ? (
+                <ChatThread
+                  dealId={selectedDealId}
+                  participantId={selectedParticipant._id}
+                  participantName={selectedParticipant.name}
+                  participantImage={selectedParticipant.imageUrl}
+                  participantRole={selectedParticipant.role}
+                  onBack={handleBack}
+                />
+              ) : (
+                <Empty className="h-full border-0">
+                  <EmptyHeader>
+                    <EmptyMedia variant="icon">
+                      <HugeiconsIcon icon={Message02Icon} size={24} />
+                    </EmptyMedia>
+                    <EmptyTitle>Select a conversation</EmptyTitle>
+                    <EmptyDescription>
+                      Choose a participant from the list to start messaging
+                    </EmptyDescription>
+                  </EmptyHeader>
+                </Empty>
+              )
+            ) : (
+              // Multi-layout mode (split or quad)
+              <ChatLayoutContainer
+                mode={layoutMode}
+                dealId={selectedDealId}
+                panes={panes}
+                onPaneChange={handlePaneChange}
+                onOpenSelector={handleOpenSelector}
+              />
+            )}
+          </div>
+        </div>
+
+        {/* Drag overlay */}
+        <DragOverlay>
+          {activeDragParticipant && (
+            <ParticipantDragPreview participant={activeDragParticipant} />
+          )}
+        </DragOverlay>
       </div>
 
-      {/* Main area: Chat thread or empty state */}
-      <div className="flex-1 flex flex-col min-w-0">
-        {selectedParticipant && selectedDealId ? (
-          <ChatThread
-            dealId={selectedDealId}
-            participantId={selectedParticipant._id}
-            participantName={selectedParticipant.name}
-            participantImage={selectedParticipant.imageUrl}
-            participantRole={selectedParticipant.role}
-            onBack={handleBack}
-          />
-        ) : (
-          <Empty className="h-full border-0">
-            <EmptyHeader>
-              <EmptyMedia variant="icon">
-                <HugeiconsIcon icon={Message02Icon} size={24} />
-              </EmptyMedia>
-              <EmptyTitle>
-                {!hasDeals
-                  ? "No deals yet"
-                  : !selectedDealId
-                    ? "Select a deal"
-                    : "Select a conversation"}
-              </EmptyTitle>
-              <EmptyDescription>
-                {!hasDeals
-                  ? "Start a deal on a property to chat with service providers"
-                  : !selectedDealId
-                    ? "Choose a deal from the sidebar to see who you can chat with"
-                    : "Choose a participant from the list to start messaging"}
-              </EmptyDescription>
-            </EmptyHeader>
-          </Empty>
-        )}
-      </div>
-    </div>
+      {/* Participant selector dialog will be added in Task 7 */}
+    </DndContext>
   );
 }
