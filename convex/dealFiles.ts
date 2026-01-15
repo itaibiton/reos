@@ -96,6 +96,8 @@ export const saveFile = mutation({
       throw new Error("Not authorized to upload files to this deal");
     }
 
+    const now = Date.now();
+
     const fileId = await ctx.db.insert("dealFiles", {
       dealId: args.dealId,
       uploadedBy: user._id,
@@ -106,7 +108,19 @@ export const saveFile = mutation({
       category: args.category,
       description: args.description,
       visibility: args.visibility,
-      createdAt: Date.now(),
+      createdAt: now,
+    });
+
+    // Log file upload activity
+    await ctx.db.insert("dealActivity", {
+      dealId: args.dealId,
+      actorId: user._id,
+      activityType: "file_uploaded",
+      details: {
+        fileId: fileId,
+        fileName: args.fileName,
+      },
+      createdAt: now,
     });
 
     return fileId;
@@ -142,6 +156,20 @@ export const deleteFile = mutation({
     if (file.uploadedBy !== user._id && user.role !== "admin") {
       throw new Error("Not authorized to delete this file");
     }
+
+    const now = Date.now();
+
+    // Log file deletion activity before deleting
+    await ctx.db.insert("dealActivity", {
+      dealId: file.dealId,
+      actorId: user._id,
+      activityType: "file_deleted",
+      details: {
+        fileId: args.fileId,
+        fileName: file.fileName,
+      },
+      createdAt: now,
+    });
 
     // Delete from storage
     await ctx.storage.delete(file.storageId);
