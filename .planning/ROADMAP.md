@@ -259,7 +259,18 @@ Multi-layout chat interface for investor-provider communication:
 **Goal**: Investor dashboard (overview, saved properties, recommendations) and service provider dashboard (clients, leads)
 **Depends on**: Phase 4, Phase 6.1
 **Research**: Unlikely (internal UI patterns)
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+- [ ] 07-01: Dashboard backend queries (stats per role, property recommendations)
+- [ ] 07-02: Investor dashboard UI (personalized stats, recommendations section)
+- [ ] 07-03: Provider dashboard UI (client metrics, pending requests, activity feed)
+
+**Details:**
+Role-specific dashboards replacing generic dashboard:
+- **Investor**: Active/completed deals, saved properties count, pending requests, recommended properties based on profile
+- **Service Provider**: Pending requests, active clients, total clients, recent activity feed, quick accept/decline
+- **Admin**: Platform-wide stats (total users, deals, properties)
 
 ### Phase 8: Real-time Features
 **Goal**: Real-time chat between investors and service providers, live deal updates
@@ -290,5 +301,5 @@ Phases execute in numeric order: 1 → 1.1 → 1.2 → 1.3 → 2 → 3 → 4 →
 | 5.4 Yad2-Style Property Page (INSERTED) | 3/3 | Complete | 2026-01-15 |
 | 6. Deal Flow | 5/5 | Complete | 2026-01-15 |
 | 6.1 Multi-layout Chat Page (INSERTED) | 3/3 | Complete | 2026-01-15 |
-| 7. Dashboards | 0/TBD | Not started | - |
+| 7. Dashboards | 0/3 | Not started | - |
 | 8. Real-time Features | 0/TBD | Not started | - |
