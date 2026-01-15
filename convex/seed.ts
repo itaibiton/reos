@@ -1,5 +1,5 @@
 import { mutation } from "./_generated/server";
-import { SEED_PROPERTIES, SEED_NEIGHBORHOODS, SEED_PRICE_HISTORY, SEED_DEALS } from "./seedData";
+import { SEED_PROPERTIES, SEED_NEIGHBORHOODS, SEED_PRICE_HISTORY, SEED_DEALS, SEED_SERVICE_PROVIDERS } from "./seedData";
 import { Id } from "./_generated/dataModel";
 
 // Seed properties - inserts mock data into the database
@@ -348,6 +348,120 @@ export const clearDeals = mutation({
   },
 });
 
+// Seed service providers - creates users and profiles for brokers, mortgage advisors, and lawyers
+// Call from Convex dashboard or CLI: npx convex run seed:seedServiceProviders
+export const seedServiceProviders = mutation({
+  args: {},
+  handler: async (ctx) => {
+    const now = Date.now();
+    let insertedCount = 0;
+
+    for (const provider of SEED_SERVICE_PROVIDERS) {
+      // Check if user already exists by email
+      const existingUser = await ctx.db
+        .query("users")
+        .filter((q) => q.eq(q.field("email"), provider.email))
+        .first();
+
+      let userId: Id<"users">;
+
+      if (existingUser) {
+        // Update existing user role if needed
+        if (existingUser.role !== provider.role) {
+          await ctx.db.patch(existingUser._id, { role: provider.role });
+        }
+        userId = existingUser._id;
+      } else {
+        // Create new user
+        userId = await ctx.db.insert("users", {
+          clerkId: `seed_${provider.role}_${provider.email.split("@")[0]}`,
+          email: provider.email,
+          name: provider.name,
+          role: provider.role,
+          imageUrl: provider.imageUrl,
+          onboardingComplete: true,
+          createdAt: now,
+          updatedAt: now,
+        });
+      }
+
+      // Check if profile already exists
+      const existingProfile = await ctx.db
+        .query("serviceProviderProfiles")
+        .withIndex("by_user", (q) => q.eq("userId", userId))
+        .first();
+
+      if (!existingProfile) {
+        // Create service provider profile
+        await ctx.db.insert("serviceProviderProfiles", {
+          userId,
+          providerType: provider.role,
+          companyName: provider.profile.companyName,
+          licenseNumber: provider.profile.licenseNumber,
+          yearsExperience: provider.profile.yearsExperience,
+          specializations: provider.profile.specializations,
+          serviceAreas: provider.profile.serviceAreas,
+          bio: provider.profile.bio,
+          languages: provider.profile.languages,
+          phoneNumber: provider.profile.phoneNumber,
+          createdAt: now,
+          updatedAt: now,
+        });
+        insertedCount++;
+      }
+    }
+
+    return {
+      success: true,
+      insertedCount,
+      message: `Seeded ${insertedCount} service providers`,
+    };
+  },
+});
+
+// Clear all service providers (users and profiles)
+// Call from Convex dashboard or CLI: npx convex run seed:clearServiceProviders
+export const clearServiceProviders = mutation({
+  args: {},
+  handler: async (ctx) => {
+    // Get all seed provider emails
+    const seedEmails = SEED_SERVICE_PROVIDERS.map((p) => p.email);
+    let deletedUsers = 0;
+    let deletedProfiles = 0;
+
+    for (const email of seedEmails) {
+      const user = await ctx.db
+        .query("users")
+        .filter((q) => q.eq(q.field("email"), email))
+        .first();
+
+      if (user) {
+        // Delete profile first
+        const profile = await ctx.db
+          .query("serviceProviderProfiles")
+          .withIndex("by_user", (q) => q.eq("userId", user._id))
+          .first();
+
+        if (profile) {
+          await ctx.db.delete(profile._id);
+          deletedProfiles++;
+        }
+
+        // Delete user
+        await ctx.db.delete(user._id);
+        deletedUsers++;
+      }
+    }
+
+    return {
+      success: true,
+      deletedUsers,
+      deletedProfiles,
+      message: `Deleted ${deletedUsers} users and ${deletedProfiles} profiles`,
+    };
+  },
+});
+
 // Seed all data - convenience function to seed everything at once
 // Call from Convex dashboard or CLI: npx convex run seed:seedAll
 export const seedAll = mutation({
@@ -383,6 +497,7 @@ export const seedAll = mutation({
       neighborhoods: 0,
       priceHistory: 0,
       deals: 0,
+      serviceProviders: 0,
     };
 
     // Clear existing data
@@ -504,10 +619,62 @@ export const seedAll = mutation({
       }
     }
 
+    // Seed service providers
+    for (const provider of SEED_SERVICE_PROVIDERS) {
+      // Check if user already exists by email
+      const existingUser = await ctx.db
+        .query("users")
+        .filter((q) => q.eq(q.field("email"), provider.email))
+        .first();
+
+      let userId: Id<"users">;
+
+      if (existingUser) {
+        userId = existingUser._id;
+      } else {
+        // Create new user
+        userId = await ctx.db.insert("users", {
+          clerkId: `seed_${provider.role}_${provider.email.split("@")[0]}`,
+          email: provider.email,
+          name: provider.name,
+          role: provider.role,
+          imageUrl: provider.imageUrl,
+          onboardingComplete: true,
+          createdAt: now,
+          updatedAt: now,
+        });
+      }
+
+      // Check if profile already exists
+      const existingProfile = await ctx.db
+        .query("serviceProviderProfiles")
+        .withIndex("by_user", (q) => q.eq("userId", userId))
+        .first();
+
+      if (!existingProfile) {
+        // Create service provider profile
+        await ctx.db.insert("serviceProviderProfiles", {
+          userId,
+          providerType: provider.role,
+          companyName: provider.profile.companyName,
+          licenseNumber: provider.profile.licenseNumber,
+          yearsExperience: provider.profile.yearsExperience,
+          specializations: provider.profile.specializations,
+          serviceAreas: provider.profile.serviceAreas,
+          bio: provider.profile.bio,
+          languages: provider.profile.languages,
+          phoneNumber: provider.profile.phoneNumber,
+          createdAt: now,
+          updatedAt: now,
+        });
+        results.serviceProviders++;
+      }
+    }
+
     return {
       success: true,
       results,
-      message: `Seeded ${results.properties} properties, ${results.neighborhoods} neighborhoods, ${results.priceHistory} price history entries, ${results.deals} deals`,
+      message: `Seeded ${results.properties} properties, ${results.neighborhoods} neighborhoods, ${results.priceHistory} price history entries, ${results.deals} deals, ${results.serviceProviders} service providers`,
     };
   },
 });

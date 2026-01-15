@@ -990,6 +990,210 @@ function generatePriceHistory(): SeedPriceHistory[] {
 
 export const SEED_PRICE_HISTORY = generatePriceHistory();
 
+// Service provider seed data
+type Language = "english" | "hebrew" | "russian" | "french" | "spanish";
+
+export type SeedServiceProvider = {
+  name: string;
+  email: string;
+  role: "broker" | "mortgage_advisor" | "lawyer";
+  imageUrl?: string;
+  profile: {
+    companyName?: string;
+    licenseNumber?: string;
+    yearsExperience?: number;
+    specializations: string[];
+    serviceAreas: string[];
+    bio?: string;
+    languages: Language[];
+    phoneNumber?: string;
+  };
+};
+
+export const SEED_SERVICE_PROVIDERS: SeedServiceProvider[] = [
+  // Brokers
+  {
+    name: "David Cohen",
+    email: "david.cohen@reosbrokers.com",
+    role: "broker",
+    imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
+    profile: {
+      companyName: "Cohen Real Estate",
+      licenseNumber: "BRK-12345",
+      yearsExperience: 12,
+      specializations: ["luxury", "investment", "residential"],
+      serviceAreas: ["Tel Aviv", "Herzliya", "Ra'anana", "Netanya"],
+      bio: "Specializing in luxury properties for international investors. 12 years of experience in the Israeli market.",
+      languages: ["english", "hebrew", "french"],
+      phoneNumber: "+972-52-123-4567",
+    },
+  },
+  {
+    name: "Sarah Levy",
+    email: "sarah.levy@tlvproperties.com",
+    role: "broker",
+    imageUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop&crop=face",
+    profile: {
+      companyName: "TLV Properties",
+      licenseNumber: "BRK-23456",
+      yearsExperience: 8,
+      specializations: ["residential", "new_development", "first_time_buyers"],
+      serviceAreas: ["Tel Aviv", "Herzliya", "Ramat Gan"],
+      bio: "Helping families find their perfect home in the greater Tel Aviv area.",
+      languages: ["english", "hebrew"],
+      phoneNumber: "+972-52-234-5678",
+    },
+  },
+  {
+    name: "Michael Azoulay",
+    email: "michael@jerusalemhomes.com",
+    role: "broker",
+    imageUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face",
+    profile: {
+      companyName: "Jerusalem Homes",
+      licenseNumber: "BRK-34567",
+      yearsExperience: 15,
+      specializations: ["luxury", "historic", "investment"],
+      serviceAreas: ["Jerusalem", "Beit Shemesh"],
+      bio: "Jerusalem specialist with deep knowledge of historic neighborhoods.",
+      languages: ["english", "hebrew", "french"],
+      phoneNumber: "+972-52-345-6789",
+    },
+  },
+  {
+    name: "Rachel Ben-David",
+    email: "rachel@haifarealty.com",
+    role: "broker",
+    imageUrl: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=face",
+    profile: {
+      companyName: "Haifa Realty Group",
+      licenseNumber: "BRK-45678",
+      yearsExperience: 10,
+      specializations: ["residential", "commercial", "student_housing"],
+      serviceAreas: ["Haifa", "Acre", "Nahariya"],
+      bio: "North Israel property expert, specializing in Haifa and surrounding areas.",
+      languages: ["english", "hebrew", "russian"],
+      phoneNumber: "+972-52-456-7890",
+    },
+  },
+  {
+    name: "Yosef Mizrachi",
+    email: "yosef@southernproperties.com",
+    role: "broker",
+    imageUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop&crop=face",
+    profile: {
+      companyName: "Southern Properties",
+      licenseNumber: "BRK-56789",
+      yearsExperience: 7,
+      specializations: ["investment", "new_development", "commercial"],
+      serviceAreas: ["Ashdod", "Ashkelon", "Beer Sheva", "Eilat"],
+      bio: "Southern Israel specialist focusing on high-yield investment opportunities.",
+      languages: ["english", "hebrew"],
+      phoneNumber: "+972-52-567-8901",
+    },
+  },
+
+  // Mortgage Advisors
+  {
+    name: "Natan Goldberg",
+    email: "natan@mortgageisrael.com",
+    role: "mortgage_advisor",
+    imageUrl: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop&crop=face",
+    profile: {
+      companyName: "Mortgage Israel",
+      licenseNumber: "MGA-12345",
+      yearsExperience: 14,
+      specializations: ["foreign_buyers", "investment_properties", "refinancing"],
+      serviceAreas: ["Tel Aviv", "Jerusalem", "Herzliya", "Ra'anana", "Netanya"],
+      bio: "Expert in mortgage solutions for American and European investors.",
+      languages: ["english", "hebrew"],
+      phoneNumber: "+972-52-678-9012",
+    },
+  },
+  {
+    name: "Tamar Shapira",
+    email: "tamar@homeloans.co.il",
+    role: "mortgage_advisor",
+    imageUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop&crop=face",
+    profile: {
+      companyName: "Home Loans Israel",
+      licenseNumber: "MGA-23456",
+      yearsExperience: 9,
+      specializations: ["first_time_buyers", "residential", "government_programs"],
+      serviceAreas: ["Tel Aviv", "Herzliya", "Haifa", "Netanya", "Ashdod"],
+      bio: "Helping families navigate the Israeli mortgage system with personalized solutions.",
+      languages: ["english", "hebrew", "spanish"],
+      phoneNumber: "+972-52-789-0123",
+    },
+  },
+  {
+    name: "Avi Rosenberg",
+    email: "avi@finansim.co.il",
+    role: "mortgage_advisor",
+    imageUrl: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=200&h=200&fit=crop&crop=face",
+    profile: {
+      companyName: "Finansim Consulting",
+      licenseNumber: "MGA-34567",
+      yearsExperience: 20,
+      specializations: ["commercial", "investment_properties", "large_portfolios"],
+      serviceAreas: ["Tel Aviv", "Jerusalem", "Haifa", "Beer Sheva", "Eilat"],
+      bio: "Two decades of experience in commercial and investment property financing.",
+      languages: ["english", "hebrew", "french"],
+      phoneNumber: "+972-52-890-1234",
+    },
+  },
+
+  // Lawyers
+  {
+    name: "Dr. Ruth Katz",
+    email: "ruth.katz@katzlaw.co.il",
+    role: "lawyer",
+    imageUrl: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=200&h=200&fit=crop&crop=face",
+    profile: {
+      companyName: "Katz & Partners Law Firm",
+      licenseNumber: "LAW-12345",
+      yearsExperience: 18,
+      specializations: ["real_estate", "contracts", "international_transactions"],
+      serviceAreas: ["Tel Aviv", "Jerusalem", "Herzliya", "Ra'anana"],
+      bio: "Senior real estate attorney specializing in international property transactions.",
+      languages: ["english", "hebrew", "french"],
+      phoneNumber: "+972-52-901-2345",
+    },
+  },
+  {
+    name: "Daniel Peretz",
+    email: "daniel@peretzlaw.com",
+    role: "lawyer",
+    imageUrl: "https://images.unsplash.com/photo-1556157382-97ede2916cd7?w=200&h=200&fit=crop&crop=face",
+    profile: {
+      companyName: "Peretz Legal Services",
+      licenseNumber: "LAW-23456",
+      yearsExperience: 12,
+      specializations: ["real_estate", "taxation", "corporate"],
+      serviceAreas: ["Tel Aviv", "Herzliya", "Netanya", "Haifa"],
+      bio: "Expert in real estate law and tax optimization for property investments.",
+      languages: ["english", "hebrew"],
+      phoneNumber: "+972-52-012-3456",
+    },
+  },
+  {
+    name: "Miriam Levi",
+    email: "miriam@southlegal.co.il",
+    role: "lawyer",
+    imageUrl: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop&crop=face",
+    profile: {
+      companyName: "South Legal Associates",
+      licenseNumber: "LAW-34567",
+      yearsExperience: 8,
+      specializations: ["real_estate", "contracts", "disputes"],
+      serviceAreas: ["Ashdod", "Ashkelon", "Beer Sheva", "Eilat"],
+      bio: "Southern Israel real estate law specialist with focus on buyer protection.",
+      languages: ["english", "hebrew", "russian"],
+      phoneNumber: "+972-52-123-4567",
+    },
+  },
+];
+
 // Sample deals seed data
 // Note: Deals require real user IDs and property IDs which are assigned at seed time
 // These templates define the deal configurations to be created
