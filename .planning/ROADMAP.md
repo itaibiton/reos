@@ -28,6 +28,7 @@ None
 - [x] **Phase 5.3: Property Page Carousel and Interactive Map** (INSERTED) - Image carousel and map for property detail page
 - [x] **Phase 5.4: Yad2-Style Property Page** (INSERTED) - Full property detail page redesign with Yad2-inspired features
 - [x] **Phase 6: Deal Flow** - Deal stages, service provider requests, file storage
+- [ ] **Phase 6.1: Multi-layout Chat Page** (INSERTED) - Chat with service providers in single, split, or quad layouts
 - [ ] **Phase 7: Dashboards** - Investor and service provider dashboards
 - [ ] **Phase 8: Real-time Features** - Chat and live updates
 
@@ -233,9 +234,30 @@ Deal flow is the core value of the platform. Implements:
 - Activity logging for audit trail
 - Provider handoff workflow
 
+### Phase 6.1: Multi-layout Chat Page (INSERTED)
+**Goal**: Chat page with multiple layout options for communicating with service providers
+**Depends on**: Phase 6
+**Research**: Complete (dnd-kit for drag-and-drop, Convex subscriptions for real-time)
+**Plans**: 3 plans
+
+Plans:
+- [x] 06.1-01: Messages schema + chat backend (queries, mutations)
+- [ ] 06.1-02: Chat UI components + single layout
+- [ ] 06.1-03: Multi-layout system with drag-and-drop
+
+**Details:**
+Multi-layout chat interface for investor-provider communication:
+- **Single layout**: Full chat experience with one service provider
+- **Split layout**: Two chats side-by-side
+- **Quad layout**: Four chat panes with drag-and-drop to assign providers
+- **Left sidebar**: List of available provider chats
+- **Drag-and-drop**: Drag provider from list to chat pane, or click button in empty pane to select
+- Real-time messaging using Convex subscriptions
+- Uses @dnd-kit/core for drag-and-drop functionality
+
 ### Phase 7: Dashboards
 **Goal**: Investor dashboard (overview, saved properties, recommendations) and service provider dashboard (clients, leads)
-**Depends on**: Phase 4, Phase 6
+**Depends on**: Phase 4, Phase 6.1
 **Research**: Unlikely (internal UI patterns)
 **Plans**: TBD
 
@@ -249,7 +271,7 @@ Deal flow is the core value of the platform. Implements:
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 1.1 → 1.2 → 1.3 → 2 → 3 → 4 → 4.1 → 5 → 5.1 → 5.2 → 5.3 → 5.4 → 6 → 7 → 8
+Phases execute in numeric order: 1 → 1.1 → 1.2 → 1.3 → 2 → 3 → 4 → 4.1 → 5 → 5.1 → 5.2 → 5.3 → 5.4 → 6 → 6.1 → 7 → 8
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
@@ -267,5 +289,6 @@ Phases execute in numeric order: 1 → 1.1 → 1.2 → 1.3 → 2 → 3 → 4 →
 | 5.3 Property Page Carousel and Interactive Map (INSERTED) | 2/2 | Complete | 2026-01-14 |
 | 5.4 Yad2-Style Property Page (INSERTED) | 3/3 | Complete | 2026-01-15 |
 | 6. Deal Flow | 5/5 | Complete | 2026-01-15 |
+| 6.1 Multi-layout Chat Page (INSERTED) | 1/3 | In progress | - |
 | 7. Dashboards | 0/TBD | Not started | - |
 | 8. Real-time Features | 0/TBD | Not started | - |
