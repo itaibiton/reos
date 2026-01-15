@@ -101,6 +101,18 @@ const fileVisibility = v.union(
   v.literal("providers_only")  // Only service providers
 );
 
+// Deal activity types - for audit trail
+const activityType = v.union(
+  v.literal("stage_change"),
+  v.literal("provider_assigned"),
+  v.literal("provider_removed"),
+  v.literal("file_uploaded"),
+  v.literal("file_deleted"),
+  v.literal("note_added"),
+  v.literal("handoff_initiated"),
+  v.literal("handoff_completed")
+);
+
 export default defineSchema({
   users: defineTable({
     // Clerk user ID (from JWT subject claim)
@@ -368,4 +380,30 @@ export default defineSchema({
   })
     .index("by_deal", ["dealId"])
     .index("by_uploader", ["uploadedBy"]),
+
+  // Deal activity log - audit trail for all deal events
+  dealActivity: defineTable({
+    // Reference to deal
+    dealId: v.id("deals"),
+    // Who performed the action
+    actorId: v.id("users"),
+    // What type of activity
+    activityType: activityType,
+
+    // Details based on activity type
+    details: v.object({
+      fromStage: v.optional(v.string()),
+      toStage: v.optional(v.string()),
+      providerId: v.optional(v.id("users")),
+      providerType: v.optional(v.string()),
+      fileId: v.optional(v.id("dealFiles")),
+      fileName: v.optional(v.string()),
+      note: v.optional(v.string()),
+    }),
+
+    // Timestamp
+    createdAt: v.number(),
+  })
+    .index("by_deal", ["dealId"])
+    .index("by_deal_and_time", ["dealId", "createdAt"]),
 });
