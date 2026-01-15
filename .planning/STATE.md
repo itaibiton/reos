@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-01-12)
 ## Current Position
 
 Phase: 6 of 8 (Deal Flow)
-Plan: 1 of 5 in current phase
+Plan: 2 of 5 in current phase
 Status: In progress
-Last activity: 2026-01-15 — Completed 06-01-PLAN.md
+Last activity: 2026-01-15 — Completed 06-02-PLAN.md
 
-Progress: █████████░ 91%
+Progress: █████████░ 93%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 26
+- Total plans completed: 27
 - Average duration: 9 min
-- Total execution time: 3.9 hours
+- Total execution time: 4.0 hours
 
 **By Phase:**
 
@@ -40,10 +40,11 @@ Progress: █████████░ 91%
 | 5.2 | 1/1 | 18 min | 18 min |
 | 5.3 | 2/2 | 48 min | 24 min |
 | 5.4 | 3/3 | 26 min | 8.7 min |
+| 6 | 2/5 | 10 min | 5 min |
 
 **Recent Trend:**
-- Last 5 plans: 6 min, 5 min, 15 min, 5 min
-- Trend: Stabilizing (schema/CRUD tasks ~5 min)
+- Last 5 plans: 5 min, 15 min, 5 min, 5 min
+- Trend: Fast execution (schema/CRUD tasks ~5 min)
 
 ## Accumulated Context
 
@@ -97,6 +98,10 @@ Recent decisions affecting current work:
 - Phase 5.4: InvestorSearchBar uses full-width search input (no expand/collapse)
 - Phase 5.4: Mobile filters use Sheet component as bottom drawer
 - Phase 5.4: AppShell investor layout uses h-screen flex flex-col for proper stacking
+- Phase 6: Request status uses 4-state union (pending, accepted, declined, cancelled)
+- Phase 6: Provider acceptance auto-assigns to deal field (brokerId/mortgageAdvisorId/lawyerId)
+- Phase 6: Broker acceptance advances deal stage from "interest" to "broker_assigned"
+- Phase 6: Provider recommendations match property city to provider serviceAreas
 
 ### Deferred Issues
 
@@ -120,6 +125,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-15
-Stopped at: Completed 06-01-PLAN.md
+Stopped at: Completed 06-02-PLAN.md
 Resume file: None
-Next: Execute 06-02-PLAN.md (run /gsd:execute-plan)
+Next: Execute 06-03-PLAN.md (run /gsd:execute-plan)
