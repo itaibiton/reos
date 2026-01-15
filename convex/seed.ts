@@ -1,5 +1,6 @@
 import { mutation } from "./_generated/server";
-import { SEED_PROPERTIES, SEED_NEIGHBORHOODS, SEED_PRICE_HISTORY } from "./seedData";
+import { SEED_PROPERTIES, SEED_NEIGHBORHOODS, SEED_PRICE_HISTORY, SEED_DEALS } from "./seedData";
+import { Id } from "./_generated/dataModel";
 
 // Seed properties - inserts mock data into the database
 // Call from Convex dashboard or CLI: npx convex run seed:seedProperties
@@ -213,6 +214,140 @@ export const clearPriceHistory = mutation({
   },
 });
 
+// Helper to generate stage history for a deal
+function generateStageHistory(
+  targetStage: string,
+  daysAgo: number,
+  notes?: string
+): Array<{ stage: "interest" | "broker_assigned" | "mortgage" | "legal" | "closing" | "completed" | "cancelled"; timestamp: number; notes?: string }> {
+  const stageOrder = ["interest", "broker_assigned", "mortgage", "legal", "closing", "completed"];
+  const targetIndex = targetStage === "cancelled" ? -1 : stageOrder.indexOf(targetStage);
+  const history: Array<{ stage: "interest" | "broker_assigned" | "mortgage" | "legal" | "closing" | "completed" | "cancelled"; timestamp: number; notes?: string }> = [];
+
+  const now = Date.now();
+  const createdAt = now - daysAgo * 24 * 60 * 60 * 1000;
+  const daysBetweenStages = Math.max(1, Math.floor(daysAgo / (targetIndex + 1)));
+
+  for (let i = 0; i <= targetIndex; i++) {
+    const stageTime = createdAt + i * daysBetweenStages * 24 * 60 * 60 * 1000;
+    history.push({
+      stage: stageOrder[i] as "interest" | "broker_assigned" | "mortgage" | "legal" | "closing" | "completed",
+      timestamp: stageTime,
+      notes: i === targetIndex ? notes : `Progressed to ${stageOrder[i]}`,
+    });
+  }
+
+  return history;
+}
+
+// Seed deals - inserts sample deal data for testing
+// Call from Convex dashboard or CLI: npx convex run seed:seedDeals
+// NOTE: Requires existing users and properties. Will use system user as investor for testing.
+export const seedDeals = mutation({
+  args: {},
+  handler: async (ctx) => {
+    // Get or create a system user for seeding
+    let investorId = await ctx.db
+      .query("users")
+      .filter((q) => q.eq(q.field("role"), "investor"))
+      .first()
+      .then((user) => user?._id);
+
+    // If no investor, try admin
+    if (!investorId) {
+      investorId = await ctx.db
+        .query("users")
+        .filter((q) => q.eq(q.field("role"), "admin"))
+        .first()
+        .then((user) => user?._id);
+    }
+
+    // If still no user, create a test investor
+    if (!investorId) {
+      investorId = await ctx.db.insert("users", {
+        clerkId: "test_investor_seed_user",
+        email: "test-investor@reos.dev",
+        name: "Test Investor",
+        role: "investor",
+        onboardingComplete: true,
+        createdAt: Date.now(),
+        updatedAt: Date.now(),
+      });
+    }
+
+    // Get all properties to map indexes to IDs
+    const properties = await ctx.db.query("properties").collect();
+    if (properties.length === 0) {
+      return {
+        success: false,
+        insertedCount: 0,
+        message: "No properties found. Please seed properties first.",
+      };
+    }
+
+    // Clear existing deals first
+    const existingDeals = await ctx.db.query("deals").collect();
+    for (const deal of existingDeals) {
+      await ctx.db.delete(deal._id);
+    }
+
+    const now = Date.now();
+    let insertedCount = 0;
+
+    for (const dealTemplate of SEED_DEALS) {
+      // Skip if property index doesn't exist
+      if (dealTemplate.propertyIndex >= properties.length) {
+        continue;
+      }
+
+      const property = properties[dealTemplate.propertyIndex];
+      const createdAt = now - dealTemplate.daysAgo * 24 * 60 * 60 * 1000;
+      const stageHistory = generateStageHistory(
+        dealTemplate.stage,
+        dealTemplate.daysAgo,
+        dealTemplate.notes
+      );
+
+      await ctx.db.insert("deals", {
+        propertyId: property._id as Id<"properties">,
+        investorId: investorId,
+        stage: dealTemplate.stage,
+        offerPrice: dealTemplate.offerPrice,
+        notes: dealTemplate.notes,
+        stageHistory,
+        createdAt,
+        updatedAt: now,
+      });
+      insertedCount++;
+    }
+
+    return {
+      success: true,
+      insertedCount,
+      message: `Seeded ${insertedCount} deals (using ${investorId} as investor)`,
+    };
+  },
+});
+
+// Clear all deals
+// Call from Convex dashboard or CLI: npx convex run seed:clearDeals
+export const clearDeals = mutation({
+  args: {},
+  handler: async (ctx) => {
+    const allDeals = await ctx.db.query("deals").collect();
+
+    for (const deal of allDeals) {
+      await ctx.db.delete(deal._id);
+    }
+
+    return {
+      success: true,
+      deletedCount: allDeals.length,
+      message: `Deleted ${allDeals.length} deals`,
+    };
+  },
+});
+
 // Seed all data - convenience function to seed everything at once
 // Call from Convex dashboard or CLI: npx convex run seed:seedAll
 export const seedAll = mutation({
@@ -247,9 +382,15 @@ export const seedAll = mutation({
       properties: 0,
       neighborhoods: 0,
       priceHistory: 0,
+      deals: 0,
     };
 
     // Clear existing data
+    const existingDeals = await ctx.db.query("deals").collect();
+    for (const deal of existingDeals) {
+      await ctx.db.delete(deal._id);
+    }
+
     const existingProperties = await ctx.db.query("properties").collect();
     for (const property of existingProperties) {
       const favorites = await ctx.db
@@ -333,10 +474,40 @@ export const seedAll = mutation({
       results.priceHistory++;
     }
 
+    // Seed deals - need to get freshly inserted properties
+    const seededProperties = await ctx.db.query("properties").collect();
+    if (seededProperties.length > 0) {
+      for (const dealTemplate of SEED_DEALS) {
+        if (dealTemplate.propertyIndex >= seededProperties.length) {
+          continue;
+        }
+
+        const property = seededProperties[dealTemplate.propertyIndex];
+        const createdAt = now - dealTemplate.daysAgo * 24 * 60 * 60 * 1000;
+        const stageHistory = generateStageHistory(
+          dealTemplate.stage,
+          dealTemplate.daysAgo,
+          dealTemplate.notes
+        );
+
+        await ctx.db.insert("deals", {
+          propertyId: property._id,
+          investorId: creatorId,
+          stage: dealTemplate.stage,
+          offerPrice: dealTemplate.offerPrice,
+          notes: dealTemplate.notes,
+          stageHistory,
+          createdAt,
+          updatedAt: now,
+        });
+        results.deals++;
+      }
+    }
+
     return {
       success: true,
       results,
-      message: `Seeded ${results.properties} properties, ${results.neighborhoods} neighborhoods, ${results.priceHistory} price history entries`,
+      message: `Seeded ${results.properties} properties, ${results.neighborhoods} neighborhoods, ${results.priceHistory} price history entries, ${results.deals} deals`,
     };
   },
 });

@@ -989,3 +989,56 @@ function generatePriceHistory(): SeedPriceHistory[] {
 }
 
 export const SEED_PRICE_HISTORY = generatePriceHistory();
+
+// Sample deals seed data
+// Note: Deals require real user IDs and property IDs which are assigned at seed time
+// These templates define the deal configurations to be created
+export type SeedDeal = {
+  // Property index from SEED_PROPERTIES (will be resolved to actual ID at seed time)
+  propertyIndex: number;
+  // Stage of the deal
+  stage: "interest" | "broker_assigned" | "mortgage" | "legal" | "closing" | "completed" | "cancelled";
+  // Optional offer price
+  offerPrice?: number;
+  // Notes about the deal
+  notes?: string;
+  // How many days ago the deal was created (for realistic timestamps)
+  daysAgo: number;
+};
+
+export const SEED_DEALS: SeedDeal[] = [
+  {
+    propertyIndex: 0, // Modern Penthouse in Tel Aviv
+    stage: "broker_assigned",
+    offerPrice: 1800000,
+    notes: "Serious buyer, negotiating terms",
+    daysAgo: 14,
+  },
+  {
+    propertyIndex: 3, // Historic Stone Villa in Jerusalem
+    stage: "mortgage",
+    offerPrice: 2050000,
+    notes: "Pre-approved for financing, processing mortgage application",
+    daysAgo: 21,
+  },
+  {
+    propertyIndex: 5, // Luxury Marina Apartment in Herzliya
+    stage: "legal",
+    offerPrice: 1420000,
+    notes: "Contract review in progress",
+    daysAgo: 30,
+  },
+  {
+    propertyIndex: 9, // Beachfront Studio in Netanya
+    stage: "interest",
+    notes: "Initial inquiry, requested more information",
+    daysAgo: 3,
+  },
+  {
+    propertyIndex: 12, // New Development Apartment in Ashdod
+    stage: "completed",
+    offerPrice: 315000,
+    notes: "Deal closed successfully",
+    daysAgo: 45,
+  },
+];
