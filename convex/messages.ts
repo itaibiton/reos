@@ -1,6 +1,7 @@
 import { v } from "convex/values";
 import { Id } from "./_generated/dataModel";
 import { mutation, query } from "./_generated/server";
+import { createNotification } from "./notifications";
 
 // ============================================================================
 // QUERIES
@@ -304,6 +305,25 @@ export const send = mutation({
       content: trimmedContent,
       status: "sent",
       createdAt: now,
+    });
+
+    // Create notification for recipient
+    const senderName = user.name || user.email || "Someone";
+    const truncatedMessage =
+      trimmedContent.length > 100
+        ? trimmedContent.substring(0, 100) + "..."
+        : trimmedContent;
+
+    await createNotification(ctx, {
+      userId: args.recipientId,
+      type: "new_message",
+      title: `${senderName} sent you a message`,
+      message: truncatedMessage,
+      link: `/deals/${args.dealId}/messages`,
+      metadata: {
+        dealId: args.dealId,
+        senderId: user._id,
+      },
     });
 
     return messageId;

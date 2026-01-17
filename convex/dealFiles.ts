@@ -1,6 +1,7 @@
 import { v } from "convex/values";
-import { mutation, query, QueryCtx } from "./_generated/server";
+import { mutation, query, QueryCtx, MutationCtx } from "./_generated/server";
 import { Id } from "./_generated/dataModel";
+import { createNotification } from "./notifications";
 
 // File category type
 const fileCategory = v.union(
@@ -48,6 +49,31 @@ async function isServiceProvider(
     deal.mortgageAdvisorId === userId ||
     deal.lawyerId === userId
   );
+}
+
+// Helper: Get all participant IDs for a deal (excluding specified user)
+async function getDealParticipantIds(
+  ctx: QueryCtx | MutationCtx,
+  dealId: Id<"deals">,
+  excludeUserId?: Id<"users">
+): Promise<Id<"users">[]> {
+  const deal = await ctx.db.get(dealId);
+  if (!deal) return [];
+
+  const participantIds: Id<"users">[] = [];
+  if (deal.investorId && deal.investorId !== excludeUserId) {
+    participantIds.push(deal.investorId);
+  }
+  if (deal.brokerId && deal.brokerId !== excludeUserId) {
+    participantIds.push(deal.brokerId);
+  }
+  if (deal.mortgageAdvisorId && deal.mortgageAdvisorId !== excludeUserId) {
+    participantIds.push(deal.mortgageAdvisorId);
+  }
+  if (deal.lawyerId && deal.lawyerId !== excludeUserId) {
+    participantIds.push(deal.lawyerId);
+  }
+  return participantIds;
 }
 
 // Generate an upload URL for client-side uploads
@@ -122,6 +148,27 @@ export const saveFile = mutation({
       },
       createdAt: now,
     });
+
+    // Notify other deal participants about the file upload
+    const uploaderName = user.name || user.email || "Someone";
+    const participantIds = await getDealParticipantIds(ctx, args.dealId, user._id);
+
+    await Promise.all(
+      participantIds.map((participantId) =>
+        createNotification(ctx, {
+          userId: participantId,
+          type: "file_uploaded",
+          title: "New File Uploaded",
+          message: `${uploaderName} uploaded "${args.fileName}"`,
+          link: `/deals/${args.dealId}/files`,
+          metadata: {
+            dealId: args.dealId,
+            senderId: user._id,
+            fileId: fileId,
+          },
+        })
+      )
+    );
 
     return fileId;
   },

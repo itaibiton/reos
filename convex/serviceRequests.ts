@@ -1,5 +1,6 @@
 import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
+import { createNotification } from "./notifications";
 
 // Provider type validator (same as schema)
 const providerTypeValidator = v.union(
@@ -351,6 +352,24 @@ export const create = mutation({
       createdAt: now,
     });
 
+    // Notify the provider of the new request
+    const investorName = user.name || user.email || "An investor";
+    const property = await ctx.db.get(deal.propertyId);
+    const propertyTitle = property?.title || "a property";
+
+    await createNotification(ctx, {
+      userId: args.providerId,
+      type: "request_received",
+      title: "New Service Request",
+      message: `${investorName} requested your services for ${propertyTitle}`,
+      link: `/provider/requests`,
+      metadata: {
+        dealId: args.dealId,
+        senderId: user._id,
+        requestId: requestId,
+      },
+    });
+
     return requestId;
   },
 });
@@ -394,6 +413,10 @@ export const respond = mutation({
     }
 
     const now = Date.now();
+
+    // Get provider name for notification
+    const providerName = user.name || user.email || "A provider";
+    const providerTypeDisplay = request.providerType.replace("_", " ");
 
     if (args.accept) {
       // Update request status to accepted
@@ -440,12 +463,40 @@ export const respond = mutation({
       }
 
       await ctx.db.patch(request.dealId, updateFields);
+
+      // Notify investor that request was accepted
+      await createNotification(ctx, {
+        userId: request.investorId,
+        type: "request_accepted",
+        title: "Request Accepted",
+        message: `${providerName} (${providerTypeDisplay}) accepted your request`,
+        link: `/deals/${request.dealId}`,
+        metadata: {
+          dealId: request.dealId,
+          senderId: user._id,
+          requestId: args.requestId,
+        },
+      });
     } else {
       // Update request status to declined
       await ctx.db.patch(args.requestId, {
         status: "declined",
         providerResponse: args.response,
         respondedAt: now,
+      });
+
+      // Notify investor that request was declined
+      await createNotification(ctx, {
+        userId: request.investorId,
+        type: "request_declined",
+        title: "Request Declined",
+        message: `${providerName} (${providerTypeDisplay}) declined your request`,
+        link: `/deals/${request.dealId}`,
+        metadata: {
+          dealId: request.dealId,
+          senderId: user._id,
+          requestId: args.requestId,
+        },
       });
     }
 

@@ -1,6 +1,8 @@
 import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
 import { dealStage } from "./schema";
+import { createNotification } from "./notifications";
+import { Id } from "./_generated/dataModel";
 
 // Valid stage transitions - defines which stages can transition to which
 const VALID_TRANSITIONS: Record<string, string[]> = {
@@ -317,6 +319,43 @@ export const updateStage = mutation({
       },
       createdAt: now,
     });
+
+    // Notify all deal participants (except the actor)
+    const property = await ctx.db.get(deal.propertyId);
+    const propertyTitle = property?.title || "the property";
+    const stageDisplay = args.newStage.replace("_", " ");
+
+    // Collect all participant IDs
+    const participantIds: Id<"users">[] = [];
+    if (deal.investorId && deal.investorId !== user._id) {
+      participantIds.push(deal.investorId);
+    }
+    if (deal.brokerId && deal.brokerId !== user._id) {
+      participantIds.push(deal.brokerId);
+    }
+    if (deal.mortgageAdvisorId && deal.mortgageAdvisorId !== user._id) {
+      participantIds.push(deal.mortgageAdvisorId);
+    }
+    if (deal.lawyerId && deal.lawyerId !== user._id) {
+      participantIds.push(deal.lawyerId);
+    }
+
+    // Create notification for each participant
+    await Promise.all(
+      participantIds.map((participantId) =>
+        createNotification(ctx, {
+          userId: participantId,
+          type: "deal_stage_change",
+          title: "Deal Stage Updated",
+          message: `Deal for ${propertyTitle} moved to ${stageDisplay}`,
+          link: `/deals/${args.dealId}`,
+          metadata: {
+            dealId: args.dealId,
+            senderId: user._id,
+          },
+        })
+      )
+    );
 
     return args.dealId;
   },
