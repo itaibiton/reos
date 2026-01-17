@@ -1,0 +1,486 @@
+"use client";
+
+import { useQuery, useMutation } from "convex/react";
+import { useRouter } from "next/navigation";
+import { api } from "../../../convex/_generated/api";
+import { Id } from "../../../convex/_generated/dataModel";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { HugeiconsIcon } from "@hugeicons/react";
+import {
+  Clock01Icon,
+  UserMultiple02Icon,
+  User02Icon,
+  Activity01Icon,
+  ArrowRight01Icon,
+  CheckmarkCircle01Icon,
+  Cancel01Icon,
+  Location01Icon,
+  Agreement01Icon,
+} from "@hugeicons/core-free-icons";
+import Link from "next/link";
+import { toast } from "sonner";
+import { useState } from "react";
+
+// Format date
+function formatDate(timestamp: number) {
+  return new Date(timestamp).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+  });
+}
+
+// Format relative time
+function formatRelativeTime(timestamp: number) {
+  const now = Date.now();
+  const diff = now - timestamp;
+  const minutes = Math.floor(diff / 60000);
+  const hours = Math.floor(diff / 3600000);
+  const days = Math.floor(diff / 86400000);
+
+  if (minutes < 1) return "just now";
+  if (minutes < 60) return `${minutes}m ago`;
+  if (hours < 24) return `${hours}h ago`;
+  if (days < 7) return `${days}d ago`;
+  return formatDate(timestamp);
+}
+
+// Format USD
+function formatUSD(amount: number) {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0,
+  }).format(amount);
+}
+
+// Get initials from name
+function getInitials(name?: string | null) {
+  if (!name) return "?";
+  return name
+    .split(" ")
+    .map((n) => n[0])
+    .join("")
+    .toUpperCase()
+    .slice(0, 2);
+}
+
+interface ProviderDashboardProps {
+  userName?: string;
+}
+
+export function ProviderDashboard({ userName }: ProviderDashboardProps) {
+  const router = useRouter();
+  const [respondingId, setRespondingId] = useState<Id<"serviceRequests"> | null>(null);
+
+  const stats = useQuery(api.dashboard.getStats);
+  const pendingRequests = useQuery(api.serviceRequests.listForProvider, {
+    status: "pending",
+  });
+  const recentActivity = useQuery(api.dashboard.getRecentActivity, { limit: 5 });
+
+  const respondToRequest = useMutation(api.serviceRequests.respond);
+
+  const isLoading = stats === undefined;
+
+  // Handle accept
+  async function handleAccept(requestId: Id<"serviceRequests">) {
+    setRespondingId(requestId);
+    try {
+      await respondToRequest({ requestId, accept: true });
+      toast.success("Request accepted! You're now assigned to this deal.");
+    } catch (error) {
+      console.error("Error accepting request:", error);
+      toast.error(error instanceof Error ? error.message : "Failed to accept request");
+    } finally {
+      setRespondingId(null);
+    }
+  }
+
+  // Handle decline
+  async function handleDecline(requestId: Id<"serviceRequests">) {
+    setRespondingId(requestId);
+    try {
+      await respondToRequest({ requestId, accept: false });
+      toast.success("Request declined");
+    } catch (error) {
+      console.error("Error declining request:", error);
+      toast.error(error instanceof Error ? error.message : "Failed to decline request");
+    } finally {
+      setRespondingId(null);
+    }
+  }
+
+  if (isLoading) {
+    return <ProviderDashboardSkeleton userName={userName} />;
+  }
+
+  // Handle non-provider or null stats
+  if (!stats || !["broker", "mortgage_advisor", "lawyer"].includes(stats.role)) {
+    return null;
+  }
+
+  const providerStats = stats as {
+    role: "broker" | "mortgage_advisor" | "lawyer";
+    pendingRequests: number;
+    activeClients: number;
+    totalClients: number;
+    recentActivity: number;
+  };
+
+  return (
+    <div className="space-y-6 overflow-auto">
+      {/* Header */}
+      <div>
+        <h1 className="text-2xl font-bold">Dashboard</h1>
+        <p className="text-muted-foreground">
+          Welcome back{userName ? `, ${userName}` : ""}!
+        </p>
+      </div>
+
+      {/* Stats Cards */}
+      <div className="grid grid-cols-2 gap-4">
+        <Link href="/clients?filter=pending">
+          <Card className="hover:bg-muted/50 transition-colors cursor-pointer">
+            <CardContent className="p-4">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-yellow-500/10 rounded-lg">
+                  <HugeiconsIcon
+                    icon={Clock01Icon}
+                    size={20}
+                    strokeWidth={1.5}
+                    className="text-yellow-500"
+                  />
+                </div>
+                <div>
+                  <p className="text-2xl font-bold">{providerStats.pendingRequests}</p>
+                  <p className="text-xs text-muted-foreground">Pending Requests</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </Link>
+
+        <Link href="/clients?filter=accepted">
+          <Card className="hover:bg-muted/50 transition-colors cursor-pointer">
+            <CardContent className="p-4">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-green-500/10 rounded-lg">
+                  <HugeiconsIcon
+                    icon={UserMultiple02Icon}
+                    size={20}
+                    strokeWidth={1.5}
+                    className="text-green-500"
+                  />
+                </div>
+                <div>
+                  <p className="text-2xl font-bold">{providerStats.activeClients}</p>
+                  <p className="text-xs text-muted-foreground">Active Clients</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </Link>
+
+        <Card>
+          <CardContent className="p-4">
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-blue-500/10 rounded-lg">
+                <HugeiconsIcon
+                  icon={User02Icon}
+                  size={20}
+                  strokeWidth={1.5}
+                  className="text-blue-500"
+                />
+              </div>
+              <div>
+                <p className="text-2xl font-bold">{providerStats.totalClients}</p>
+                <p className="text-xs text-muted-foreground">Total Clients</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent className="p-4">
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-purple-500/10 rounded-lg">
+                <HugeiconsIcon
+                  icon={Activity01Icon}
+                  size={20}
+                  strokeWidth={1.5}
+                  className="text-purple-500"
+                />
+              </div>
+              <div>
+                <p className="text-2xl font-bold">{providerStats.recentActivity}</p>
+                <p className="text-xs text-muted-foreground">Activity (7d)</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Pending Requests Section */}
+      <Card>
+        <CardHeader className="pb-2">
+          <div className="flex items-center justify-between">
+            <CardTitle className="text-base">Pending Requests</CardTitle>
+            <Link
+              href="/clients"
+              className="text-sm text-primary hover:underline flex items-center gap-1"
+            >
+              View all
+              <HugeiconsIcon icon={ArrowRight01Icon} size={14} />
+            </Link>
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          {pendingRequests === undefined ? (
+            // Loading state
+            <div className="space-y-3">
+              {[1, 2].map((i) => (
+                <div key={i} className="flex items-center gap-3 p-2">
+                  <Skeleton className="h-10 w-10 rounded-md" />
+                  <div className="flex-1 space-y-1">
+                    <Skeleton className="h-4 w-32" />
+                    <Skeleton className="h-3 w-24" />
+                  </div>
+                  <Skeleton className="h-8 w-16" />
+                </div>
+              ))}
+            </div>
+          ) : pendingRequests.length > 0 ? (
+            pendingRequests.slice(0, 3).map((request) => (
+              <div
+                key={request._id}
+                className="flex items-center gap-3 p-2 rounded-lg border bg-card"
+              >
+                {/* Investor Avatar */}
+                <Avatar className="h-10 w-10">
+                  <AvatarImage src={request.investor?.imageUrl} />
+                  <AvatarFallback className="text-xs">
+                    {getInitials(request.investor?.name)}
+                  </AvatarFallback>
+                </Avatar>
+
+                {/* Request Info */}
+                <div className="flex-1 min-w-0">
+                  <p className="font-medium truncate text-sm">
+                    {request.investor?.name || "Investor"}
+                  </p>
+                  <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                    {request.property && (
+                      <>
+                        <span className="truncate">{request.property.title}</span>
+                        <span>•</span>
+                      </>
+                    )}
+                    <span>{formatDate(request.createdAt)}</span>
+                  </div>
+                </div>
+
+                {/* Actions */}
+                <div className="flex gap-1">
+                  <Button
+                    size="sm"
+                    variant="default"
+                    className="h-8 px-2"
+                    onClick={() => handleAccept(request._id)}
+                    disabled={respondingId === request._id}
+                  >
+                    <HugeiconsIcon icon={CheckmarkCircle01Icon} size={14} />
+                  </Button>
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="h-8 px-2"
+                        disabled={respondingId === request._id}
+                      >
+                        <HugeiconsIcon icon={Cancel01Icon} size={14} />
+                      </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>Decline this request?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                          The investor will be notified and can request another provider.
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction
+                          onClick={() => handleDecline(request._id)}
+                          className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                        >
+                          Decline
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="text-center py-6 text-muted-foreground">
+              <HugeiconsIcon
+                icon={Clock01Icon}
+                size={32}
+                className="mx-auto mb-2 opacity-50"
+              />
+              <p className="text-sm">No pending requests</p>
+              <p className="text-xs mt-1">Check back soon for new client requests</p>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Recent Activity Section */}
+      <Card>
+        <CardHeader className="pb-2">
+          <CardTitle className="text-base">Recent Activity</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          {recentActivity === undefined ? (
+            // Loading state
+            <div className="space-y-3">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="flex items-center gap-3">
+                  <Skeleton className="h-8 w-8 rounded-full" />
+                  <div className="flex-1 space-y-1">
+                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="h-3 w-20" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : recentActivity.length > 0 ? (
+            recentActivity.map((activity) => (
+              <div
+                key={activity._id}
+                className="flex items-start gap-3 text-sm cursor-pointer hover:bg-muted/50 p-2 rounded-lg transition-colors"
+                onClick={() => router.push(`/deals/${activity.dealId}`)}
+              >
+                {/* Actor Avatar */}
+                <Avatar className="h-8 w-8">
+                  <AvatarImage src={activity.actor?.imageUrl} />
+                  <AvatarFallback className="text-xs">
+                    {getInitials(activity.actor?.name)}
+                  </AvatarFallback>
+                </Avatar>
+
+                {/* Activity Info */}
+                <div className="flex-1 min-w-0">
+                  <p className="text-muted-foreground">
+                    <span className="font-medium text-foreground">
+                      {activity.actor?.name || "Someone"}
+                    </span>{" "}
+                    {activity.description}
+                    {activity.property && (
+                      <>
+                        {" "}
+                        on <span className="font-medium">{activity.property.title}</span>
+                      </>
+                    )}
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    {formatRelativeTime(activity.createdAt)}
+                  </p>
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="text-center py-6 text-muted-foreground">
+              <HugeiconsIcon
+                icon={Activity01Icon}
+                size={32}
+                className="mx-auto mb-2 opacity-50"
+              />
+              <p className="text-sm">No recent activity</p>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Quick Actions */}
+      <Card>
+        <CardHeader className="pb-2">
+          <CardTitle className="text-base">Quick Actions</CardTitle>
+        </CardHeader>
+        <CardContent className="flex gap-2 flex-wrap">
+          <Link
+            href="/clients"
+            className="text-sm bg-primary text-primary-foreground px-4 py-2 rounded-md hover:bg-primary/90 transition-colors"
+          >
+            View Clients
+          </Link>
+          <Link
+            href="/deals"
+            className="text-sm bg-muted text-foreground px-4 py-2 rounded-md hover:bg-muted/80 transition-colors"
+          >
+            My Deals
+          </Link>
+          <Link
+            href="/properties"
+            className="text-sm bg-muted text-foreground px-4 py-2 rounded-md hover:bg-muted/80 transition-colors"
+          >
+            Browse Properties
+          </Link>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+
+// Skeleton loader
+function ProviderDashboardSkeleton({ userName }: { userName?: string }) {
+  return (
+    <div className="space-y-6">
+      {/* Header */}
+      <div>
+        <h1 className="text-2xl font-bold">Dashboard</h1>
+        <p className="text-muted-foreground">
+          Welcome back{userName ? `, ${userName}` : ""}!
+        </p>
+      </div>
+
+      {/* Stats Cards Skeleton */}
+      <div className="grid grid-cols-2 gap-4">
+        <Skeleton className="h-24 w-full rounded-lg" />
+        <Skeleton className="h-24 w-full rounded-lg" />
+        <Skeleton className="h-24 w-full rounded-lg" />
+        <Skeleton className="h-24 w-full rounded-lg" />
+      </div>
+
+      {/* Pending Requests Skeleton */}
+      <Skeleton className="h-48 w-full rounded-lg" />
+
+      {/* Activity Skeleton */}
+      <Skeleton className="h-48 w-full rounded-lg" />
+
+      {/* Quick Actions Skeleton */}
+      <Skeleton className="h-24 w-full rounded-lg" />
+    </div>
+  );
+}
