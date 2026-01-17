@@ -8,6 +8,7 @@
  * @module
  */
 
+import type * as dashboard from "../dashboard.js";
 import type * as dealFiles from "../dealFiles.js";
 import type * as deals from "../deals.js";
 import type * as favorites from "../favorites.js";
@@ -30,6 +31,7 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  dashboard: typeof dashboard;
   dealFiles: typeof dealFiles;
   deals: typeof deals;
   favorites: typeof favorites;
