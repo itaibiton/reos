@@ -1,3 +1,4 @@
+import { v } from "convex/values";
 import { query } from "./_generated/server";
 
 // Dashboard statistics per role
@@ -242,5 +243,152 @@ export const getRecommendedProperties = query({
     // Sort by score descending and return top 6
     scoredProperties.sort((a, b) => b.matchScore - a.matchScore);
     return scoredProperties.slice(0, 6);
+  },
+});
+
+// ============================================================================
+// Recent Activity
+// ============================================================================
+// Get recent deal activity for the current user's deals.
+// Providers see activity on deals where they're assigned.
+// Investors see activity on their own deals.
+// Admins see all activity.
+export const getRecentActivity = query({
+  args: {
+    limit: v.optional(v.number()),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      return [];
+    }
+
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_clerk_id", (q) => q.eq("clerkId", identity.subject))
+      .unique();
+
+    if (!user) {
+      return [];
+    }
+
+    const limit = args.limit || 5;
+
+    // Determine effective role
+    const effectiveRole = user.role === "admin" && user.viewingAsRole
+      ? user.viewingAsRole
+      : user.role;
+
+    // Get deals based on role
+    let dealIds: Set<string>;
+
+    if (user.role === "admin" && !user.viewingAsRole) {
+      // Admin (no viewingAsRole) - all activity
+      const allDeals = await ctx.db.query("deals").collect();
+      dealIds = new Set(allDeals.map((d) => d._id));
+    } else if (effectiveRole === "investor") {
+      // Investor - their deals
+      const investorDeals = await ctx.db
+        .query("deals")
+        .withIndex("by_investor", (q) => q.eq("investorId", user._id))
+        .collect();
+      dealIds = new Set(investorDeals.map((d) => d._id));
+    } else if (effectiveRole === "broker") {
+      const assignedDeals = await ctx.db
+        .query("deals")
+        .withIndex("by_broker", (q) => q.eq("brokerId", user._id))
+        .collect();
+      dealIds = new Set(assignedDeals.map((d) => d._id));
+    } else if (effectiveRole === "mortgage_advisor") {
+      const assignedDeals = await ctx.db
+        .query("deals")
+        .withIndex("by_mortgage_advisor", (q) => q.eq("mortgageAdvisorId", user._id))
+        .collect();
+      dealIds = new Set(assignedDeals.map((d) => d._id));
+    } else if (effectiveRole === "lawyer") {
+      const assignedDeals = await ctx.db
+        .query("deals")
+        .withIndex("by_lawyer", (q) => q.eq("lawyerId", user._id))
+        .collect();
+      dealIds = new Set(assignedDeals.map((d) => d._id));
+    } else {
+      return [];
+    }
+
+    if (dealIds.size === 0) {
+      return [];
+    }
+
+    // Get all activity and filter to user's deals
+    const allActivity = await ctx.db.query("dealActivity").collect();
+    const relevantActivity = allActivity
+      .filter((a) => dealIds.has(a.dealId))
+      .sort((a, b) => b.createdAt - a.createdAt)
+      .slice(0, limit);
+
+    // Helper to generate description from activity type and details
+    function getActivityDescription(
+      activityType: string,
+      details: {
+        fromStage?: string;
+        toStage?: string;
+        providerType?: string;
+        fileName?: string;
+        note?: string;
+      }
+    ): string {
+      switch (activityType) {
+        case "stage_change":
+          return `moved deal to ${details.toStage?.replace("_", " ") || "new stage"}`;
+        case "provider_assigned":
+          return `assigned a ${details.providerType?.replace("_", " ") || "provider"}`;
+        case "provider_removed":
+          return `removed a ${details.providerType?.replace("_", " ") || "provider"}`;
+        case "file_uploaded":
+          return `uploaded ${details.fileName || "a file"}`;
+        case "file_deleted":
+          return `deleted ${details.fileName || "a file"}`;
+        case "note_added":
+          return "added a note";
+        case "handoff_initiated":
+          return "initiated a handoff";
+        case "handoff_completed":
+          return "completed a handoff";
+        default:
+          return "performed an action";
+      }
+    }
+
+    // Enrich with actor and property info
+    const enrichedActivity = await Promise.all(
+      relevantActivity.map(async (activity) => {
+        const actor = await ctx.db.get(activity.actorId);
+        const deal = await ctx.db.get(activity.dealId);
+        const property = deal ? await ctx.db.get(deal.propertyId) : null;
+
+        return {
+          _id: activity._id,
+          dealId: activity.dealId,
+          activityType: activity.activityType,
+          description: getActivityDescription(activity.activityType, activity.details),
+          createdAt: activity.createdAt,
+          actor: actor
+            ? {
+                _id: actor._id,
+                name: actor.name,
+                imageUrl: actor.imageUrl,
+              }
+            : null,
+          property: property
+            ? {
+                _id: property._id,
+                title: property.title,
+              }
+            : null,
+        };
+      })
+    );
+
+    return enrichedActivity;
   },
 });

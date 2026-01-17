@@ -15,6 +15,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { DashboardMap } from "@/components/dashboard/DashboardMap";
 import { InvestorDashboard } from "@/components/dashboard/InvestorDashboard";
 import { RecommendedProperties } from "@/components/dashboard/RecommendedProperties";
+import { ProviderDashboard } from "@/components/dashboard/ProviderDashboard";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
   Home01Icon,
@@ -126,159 +127,13 @@ export default function DashboardPage() {
   }
 
   // Service Provider Dashboard (broker, mortgage_advisor, lawyer)
-  // TODO: Plan 03 will enhance this with provider-specific components
   if (effectiveRole === "broker" || effectiveRole === "mortgage_advisor" || effectiveRole === "lawyer") {
     return (
       <div className="p-6 h-[calc(100vh-4rem)]">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full">
-          {/* Left Column - Provider Dashboard Content */}
-          {/* TODO: Replace with ProviderDashboard component in Plan 03 */}
-          <div className="space-y-6 overflow-auto">
-            {/* Header */}
-            <div>
-              <h1 className="text-2xl font-bold">Dashboard</h1>
-              <p className="text-muted-foreground">
-                Welcome back{user?.name ? `, ${user.name}` : ""}!
-              </p>
-            </div>
-
-            {/* Stats Cards - Generic for now */}
-            <div className="grid grid-cols-2 gap-4">
-              <Card>
-                <CardContent className="p-4">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 bg-primary/10 rounded-lg">
-                      <HugeiconsIcon
-                        icon={Home01Icon}
-                        size={20}
-                        strokeWidth={1.5}
-                        className="text-primary"
-                      />
-                    </div>
-                    <div>
-                      <p className="text-2xl font-bold">{stats?.totalProperties || 0}</p>
-                      <p className="text-xs text-muted-foreground">Available Properties</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardContent className="p-4">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 bg-green-500/10 rounded-lg">
-                      <HugeiconsIcon
-                        icon={Money01Icon}
-                        size={20}
-                        strokeWidth={1.5}
-                        className="text-green-500"
-                      />
-                    </div>
-                    <div>
-                      <p className="text-2xl font-bold">
-                        {stats ? formatUSD(stats.totalValue) : "$0"}
-                      </p>
-                      <p className="text-xs text-muted-foreground">Total Value</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardContent className="p-4">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 bg-blue-500/10 rounded-lg">
-                      <HugeiconsIcon
-                        icon={ChartLineData02Icon}
-                        size={20}
-                        strokeWidth={1.5}
-                        className="text-blue-500"
-                      />
-                    </div>
-                    <div>
-                      <p className="text-2xl font-bold">
-                        {stats ? `${stats.avgRoi.toFixed(1)}%` : "0%"}
-                      </p>
-                      <p className="text-xs text-muted-foreground">Avg. ROI</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardContent className="p-4">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 bg-purple-500/10 rounded-lg">
-                      <HugeiconsIcon
-                        icon={Building02Icon}
-                        size={20}
-                        strokeWidth={1.5}
-                        className="text-purple-500"
-                      />
-                    </div>
-                    <div>
-                      <p className="text-2xl font-bold">{stats?.cities || 0}</p>
-                      <p className="text-xs text-muted-foreground">Cities</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* User Profile Card */}
-            <Card>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-base">Your Profile</CardTitle>
-                <CardDescription>Account information</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">Email</span>
-                  <span className="text-sm">{user?.email}</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">Role</span>
-                  {effectiveRole ? (
-                    <Badge variant="secondary">{effectiveRole.replace("_", " ")}</Badge>
-                  ) : (
-                    <Badge variant="outline">Not set</Badge>
-                  )}
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">Onboarding</span>
-                  <Badge variant={user?.onboardingComplete ? "default" : "destructive"}>
-                    {user?.onboardingComplete ? "Complete" : "Incomplete"}
-                  </Badge>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Quick Actions */}
-            <Card>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-base">Quick Actions</CardTitle>
-              </CardHeader>
-              <CardContent className="flex gap-2 flex-wrap">
-                <Link
-                  href="/clients"
-                  className="text-sm bg-primary text-primary-foreground px-4 py-2 rounded-md hover:bg-primary/90 transition-colors"
-                >
-                  View Clients
-                </Link>
-                <Link
-                  href="/deals"
-                  className="text-sm bg-muted text-foreground px-4 py-2 rounded-md hover:bg-muted/80 transition-colors"
-                >
-                  My Deals
-                </Link>
-                <Link
-                  href="/properties"
-                  className="text-sm bg-muted text-foreground px-4 py-2 rounded-md hover:bg-muted/80 transition-colors"
-                >
-                  Browse Properties
-                </Link>
-              </CardContent>
-            </Card>
+          {/* Left Column - Provider Dashboard */}
+          <div className="overflow-auto">
+            <ProviderDashboard userName={user?.name} />
           </div>
 
           {/* Right Column - Interactive Map */}
