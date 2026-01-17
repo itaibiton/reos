@@ -273,11 +273,21 @@ Role-specific dashboards replacing generic dashboard:
 - **Admin**: Platform-wide stats (total users, deals, properties)
 
 ### Phase 8: Real-time Features
-**Goal**: Real-time chat between investors and service providers, live deal updates
+**Goal**: Notification system for real-time event alerts (messages, deal updates, file uploads)
 **Depends on**: Phase 6, Phase 7
-**Research**: Likely (real-time architecture)
-**Research topics**: Convex subscriptions for chat, real-time presence, message threading patterns
-**Plans**: TBD
+**Research**: Unlikely (Convex subscriptions are built-in)
+**Plans**: 2 plans
+
+Plans:
+- [ ] 08-01: Notifications schema + backend (table, queries, mutations, event triggers)
+- [ ] 08-02: Notification UI (NotificationCenter component, header integration)
+
+**Details:**
+Chat already implemented in Phase 6.1 with Convex real-time subscriptions. Phase 8 adds a notification system to alert users of events when they're not actively viewing the relevant page:
+- Bell icon in header with unread count badge
+- Notification dropdown with recent alerts
+- Notifications triggered by: new messages, deal stage changes, file uploads, service request responses
+- Mark as read functionality
 
 ## Progress
 
