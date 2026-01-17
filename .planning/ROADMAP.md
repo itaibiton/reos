@@ -262,7 +262,7 @@ Multi-layout chat interface for investor-provider communication:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 07-01: Dashboard backend queries (stats per role, property recommendations)
+- [x] 07-01: Dashboard backend queries (stats per role, property recommendations)
 - [ ] 07-02: Investor dashboard UI (personalized stats, recommendations section)
 - [ ] 07-03: Provider dashboard UI (client metrics, pending requests, activity feed)
 
@@ -301,5 +301,5 @@ Phases execute in numeric order: 1 → 1.1 → 1.2 → 1.3 → 2 → 3 → 4 →
 | 5.4 Yad2-Style Property Page (INSERTED) | 3/3 | Complete | 2026-01-15 |
 | 6. Deal Flow | 5/5 | Complete | 2026-01-15 |
 | 6.1 Multi-layout Chat Page (INSERTED) | 3/3 | Complete | 2026-01-15 |
-| 7. Dashboards | 0/3 | Not started | - |
+| 7. Dashboards | 1/3 | In progress | - |
 | 8. Real-time Features | 0/TBD | Not started | - |
