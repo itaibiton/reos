@@ -140,7 +140,11 @@ export const getStats = query({
   },
 });
 
-// Property recommendations for investors
+// ============================================================================
+// Property Recommendations
+// ============================================================================
+// Personalized property suggestions for investors based on their profile.
+// Scores properties by: property type, budget, location, and ROI targets.
 export const getRecommendedProperties = query({
   args: {},
   handler: async (ctx) => {
