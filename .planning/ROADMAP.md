@@ -279,7 +279,7 @@ Role-specific dashboards replacing generic dashboard:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 08-01: Notifications schema + backend (table, queries, mutations, event triggers)
+- [x] 08-01: Notifications schema + backend (table, queries, mutations, event triggers)
 - [ ] 08-02: Notification UI (NotificationCenter component, header integration)
 
 **Details:**
@@ -312,4 +312,4 @@ Phases execute in numeric order: 1 → 1.1 → 1.2 → 1.3 → 2 → 3 → 4 →
 | 6. Deal Flow | 5/5 | Complete | 2026-01-15 |
 | 6.1 Multi-layout Chat Page (INSERTED) | 3/3 | Complete | 2026-01-15 |
 | 7. Dashboards | 3/3 | Complete | 2026-01-17 |
-| 8. Real-time Features | 0/TBD | Not started | - |
+| 8. Real-time Features | 1/2 | In progress | - |
