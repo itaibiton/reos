@@ -29,6 +29,7 @@ import {
 import { api } from "../../../convex/_generated/api";
 import { USER_ROLES } from "@/lib/constants";
 import { TopNav } from "./TopNav";
+import { NotificationCenter } from "@/components/notifications/NotificationCenter";
 
 // Separate component to use hooks inside Authenticated block
 function AuthenticatedContent() {
@@ -54,6 +55,9 @@ function AuthenticatedContent() {
 
   return (
     <div className="flex items-center gap-3">
+      {/* Notification center */}
+      <NotificationCenter />
+
       {/* Role-switching dropdown - admin only */}
       {isAdmin && (
         <DropdownMenu>
