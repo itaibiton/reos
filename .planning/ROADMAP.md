@@ -30,7 +30,7 @@ None
 - [x] **Phase 6: Deal Flow** - Deal stages, service provider requests, file storage
 - [x] **Phase 6.1: Multi-layout Chat Page** (INSERTED) - Chat with service providers in single, split, or quad layouts
 - [x] **Phase 7: Dashboards** - Investor and service provider dashboards
-- [ ] **Phase 8: Real-time Features** - Chat and live updates
+- [x] **Phase 8: Real-time Features** - Chat and live updates
 
 ## Phase Details
 
@@ -280,7 +280,7 @@ Role-specific dashboards replacing generic dashboard:
 
 Plans:
 - [x] 08-01: Notifications schema + backend (table, queries, mutations, event triggers)
-- [ ] 08-02: Notification UI (NotificationCenter component, header integration)
+- [x] 08-02: Notification UI (NotificationCenter component, header integration)
 
 **Details:**
 Chat already implemented in Phase 6.1 with Convex real-time subscriptions. Phase 8 adds a notification system to alert users of events when they're not actively viewing the relevant page:
@@ -312,4 +312,4 @@ Phases execute in numeric order: 1 → 1.1 → 1.2 → 1.3 → 2 → 3 → 4 →
 | 6. Deal Flow | 5/5 | Complete | 2026-01-15 |
 | 6.1 Multi-layout Chat Page (INSERTED) | 3/3 | Complete | 2026-01-15 |
 | 7. Dashboards | 3/3 | Complete | 2026-01-17 |
-| 8. Real-time Features | 1/2 | In progress | - |
+| 8. Real-time Features | 2/2 | Complete | 2026-01-17 |
