@@ -120,6 +120,16 @@ const messageStatus = v.union(
   v.literal("read")
 );
 
+// Notification types
+const notificationType = v.union(
+  v.literal("new_message"),
+  v.literal("deal_stage_change"),
+  v.literal("file_uploaded"),
+  v.literal("request_received"),
+  v.literal("request_accepted"),
+  v.literal("request_declined")
+);
+
 export default defineSchema({
   users: defineTable({
     // Clerk user ID (from JWT subject claim)
@@ -436,4 +446,38 @@ export default defineSchema({
     .index("by_sender", ["senderId"])
     .index("by_recipient", ["recipientId"])
     .index("by_conversation", ["dealId", "senderId", "recipientId"]),
+
+  // Notifications - real-time alerts for users
+  notifications: defineTable({
+    // Recipient of the notification
+    userId: v.id("users"),
+
+    // Notification type
+    type: notificationType,
+
+    // Display content
+    title: v.string(),
+    message: v.string(),
+
+    // Read status
+    read: v.boolean(),
+
+    // Optional link to navigate to when clicked
+    link: v.optional(v.string()),
+
+    // Additional metadata for context
+    metadata: v.object({
+      dealId: v.optional(v.id("deals")),
+      propertyId: v.optional(v.id("properties")),
+      senderId: v.optional(v.id("users")),
+      fileId: v.optional(v.id("dealFiles")),
+      requestId: v.optional(v.id("serviceRequests")),
+    }),
+
+    // Timestamp
+    createdAt: v.number(),
+  })
+    .index("by_user", ["userId"])
+    .index("by_user_and_read", ["userId", "read"])
+    .index("by_user_and_time", ["userId", "createdAt"]),
 });
