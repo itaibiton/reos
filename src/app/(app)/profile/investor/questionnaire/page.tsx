@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "../../../../../../convex/_generated/api";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
@@ -34,10 +35,18 @@ import {
 } from "@/components/questionnaire/steps";
 
 export default function EditQuestionnairePage() {
-  const { user, isLoading: isUserLoading } = useCurrentUser();
+  const { user, isLoading: isUserLoading, effectiveRole } = useCurrentUser();
+  const router = useRouter();
   const questionnaire = useQuery(api.investorQuestionnaires.getByUser);
   const updateStep = useMutation(api.investorQuestionnaires.updateStep);
   const saveAnswers = useMutation(api.investorQuestionnaires.saveAnswers);
+
+  // Redirect non-investors away from this page
+  useEffect(() => {
+    if (!isUserLoading && effectiveRole && effectiveRole !== "investor") {
+      router.push("/dashboard");
+    }
+  }, [isUserLoading, effectiveRole, router]);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
