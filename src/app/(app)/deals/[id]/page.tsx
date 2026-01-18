@@ -43,6 +43,7 @@ import {
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { FileUpload } from "@/components/deals/FileUpload";
 import { RequestProviderDialog } from "@/components/deals/RequestProviderDialog";
+import { InvestorQuestionnaireCard } from "@/components/deals/InvestorQuestionnaireCard";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 
@@ -697,6 +698,11 @@ export default function DealDetailPage() {
               />
             </CardContent>
           </Card>
+
+          {/* Investor Profile - show to providers only */}
+          {!isInvestor && deal.investorId && (
+            <InvestorQuestionnaireCard investorId={deal.investorId} />
+          )}
         </TabsContent>
 
         {/* Providers Tab */}
