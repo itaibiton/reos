@@ -94,11 +94,11 @@ Plans:
 **Goal**: Complete layout overhaul using Shadcn sidebar component with role-based navigation for all user types (Investor, Broker, Mortgage Advisor, Lawyer, Accountant, Notary, Tax Consultant, Appraiser)
 **Depends on**: Phase 16.1
 **Research**: None (Shadcn docs reference)
-**Plans**: 0/2 plans
-**Status**: Planned
+**Plans**: 1/2 plans
+**Status**: In progress
 
 Plans:
-- [ ] 16.3-01: Core Sidebar Component - Navigation config, Shadcn sidebar, AppShell integration
+- [x] 16.3-01: Core Sidebar Component - Navigation config, Shadcn sidebar, AppShell integration
 - [ ] 16.3-02: Placeholder Pages - ComingSoon component, 21 new route pages
 
 **Details:**
@@ -160,7 +160,7 @@ Plans:
 |-------|-----------|-------|--------|-----------|
 | 16. Provider Dashboard Enhancement | v1.2 | 1/1 | Complete | 2026-01-18 |
 | 16.1 Layout & Navigation Improvements | v1.2 | 1/1 | Complete | 2026-01-18 |
-| 16.3 Shadcn Sidebar Layout | v1.2 | 0/2 | Planned | - |
+| 16.3 Shadcn Sidebar Layout | v1.2 | 1/2 | In progress | - |
 | 17. Client Management | v1.2 | 0/? | Not started | - |
 | 18. Service Provider Profiles | v1.2 | 0/? | Not started | - |
 | 19. Provider Analytics | v1.2 | 0/? | Not started | - |

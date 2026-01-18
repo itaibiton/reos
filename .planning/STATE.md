@@ -10,12 +10,12 @@ See: .planning/PROJECT.md (updated 2026-01-17)
 ## Current Position
 
 Milestone: v1.2 Provider Experience
-Phase: 16.1 of 20 (Layout & Navigation Improvements)
-Plan: 1 of 1 in current phase
-Status: Phase complete
-Last activity: 2026-01-18 — Completed 16.1-01 (inserted phase)
+Phase: 16.3 of 20 (Shadcn Sidebar Layout)
+Plan: 1 of 2 in current phase
+Status: In progress
+Last activity: 2026-01-18 — Completed 16.3-01-PLAN.md
 
-Progress: ███░░░░░░░ 33% (2/6 phases)
+Progress: ███░░░░░░░ 50% (3/6 phases counting current)
 
 ## Performance Metrics
 
@@ -53,10 +53,11 @@ Progress: ███░░░░░░░ 33% (2/6 phases)
 | 14 | 1/1 | 4 min | 4 min |
 | 15 | 2/2 | 8 min | 4 min |
 | 16 | 1/1 | 12 min | 12 min |
+| 16.3 | 1/2 | 5 min | 5 min |
 
 **Recent Trend:**
-- Last 5 plans: 3 min, 4 min, 5 min, 3 min, 12 min
-- Trend: v1.2 started - 45 plans total
+- Last 5 plans: 4 min, 5 min, 3 min, 12 min, 5 min
+- Trend: v1.2 progressing - 46 plans total
 
 ## Accumulated Context
 
@@ -166,6 +167,10 @@ Recent decisions affecting current work:
 - Phase 16.1: Favorites toggle in filter bar replaces /properties/saved page
 - Phase 16.1: Provider sidebar spans full height with logo, header inline in main content
 - Phase 16.1: Favorites use ?favorites=true URL param with conditional query
+- Phase 16.3: Shadcn Sidebar with collapsible="icon" mode, SidebarRail for toggle
+- Phase 16.3: Navigation config in src/lib/navigation.ts with getNavigationForRole()
+- Phase 16.3: Extended UserRole type with 8 roles (including accountant, notary, tax_consultant, appraiser)
+- Phase 16.3: SidebarProvider wraps provider layout, cookie persistence automatic
 
 ### Deferred Issues
 
@@ -193,6 +198,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-18
-Stopped at: Phase 16.3 planned (2 plans created)
+Stopped at: Completed 16.3-01-PLAN.md (Shadcn Sidebar Layout)
 Resume file: None
-Next: /gsd:execute-plan .planning/phases/16.3-shadcn-sidebar-layout/16.3-01-PLAN.md
+Next: /gsd:execute-plan .planning/phases/16.3-shadcn-sidebar-layout/16.3-02-PLAN.md
