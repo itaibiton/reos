@@ -214,12 +214,12 @@ export default function QuestionnairePage() {
   // Get current step from questionnaire (default to 1)
   const currentStep = questionnaire?.currentStep ?? 1;
 
-  // Redirect to dashboard if already onboarded
+  // Redirect to properties if questionnaire already complete
   useEffect(() => {
-    if (!isUserLoading && user?.onboardingComplete) {
-      router.push("/dashboard");
+    if (!isUserLoading && questionnaire?.status === "complete") {
+      router.push("/properties");
     }
-  }, [isUserLoading, user, router]);
+  }, [isUserLoading, questionnaire, router]);
 
   // Redirect to role selection if no role
   useEffect(() => {
@@ -288,13 +288,14 @@ export default function QuestionnairePage() {
     }
   };
 
-  // Handle skip
+  // Handle skip - saves progress but does NOT complete onboarding
+  // User can access app but will see reminder to complete profile
   const handleSkip = async () => {
     setIsSubmitting(true);
     try {
       await saveProgress();
-      await completeOnboarding();
-      router.push("/dashboard");
+      // Don't call completeOnboarding - user skipped, not completed
+      router.push("/properties");
     } catch (error) {
       console.error("Failed to skip onboarding:", error);
       toast.error("Failed to skip. Please try again.");
@@ -305,8 +306,8 @@ export default function QuestionnairePage() {
   // Loading states
   const isLoading = isUserLoading || questionnaire === undefined;
 
-  // Show loading while data loads or if already onboarded (redirecting)
-  if (isLoading || !user || user.onboardingComplete) {
+  // Show loading while data loads
+  if (isLoading || !user) {
     return (
       <div className="flex min-h-[80vh] items-center justify-center">
         <Spinner className="h-8 w-8" />

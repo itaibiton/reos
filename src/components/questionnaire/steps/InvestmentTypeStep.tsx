@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useCallback } from "react";
 import { QuestionBubble } from "../QuestionBubble";
 import { AnswerArea } from "../AnswerArea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -11,12 +12,21 @@ interface InvestmentTypeStepProps {
 }
 
 export function InvestmentTypeStep({ value, onChange }: InvestmentTypeStepProps) {
+  const [showAnswer, setShowAnswer] = useState(false);
+
+  // Stable callback to prevent QuestionBubble re-renders
+  const handleTypingComplete = useCallback(() => {
+    setShowAnswer(true);
+  }, []);
+
   return (
     <div className="space-y-6">
       <QuestionBubble
         question="What type of investment are you looking for?"
         description="Understanding your goals helps us match you with the right properties and service providers."
+        onTypingComplete={handleTypingComplete}
       />
+      {showAnswer && (
       <AnswerArea>
         <RadioGroup value={value} onValueChange={onChange}>
           <div className="space-y-3">
@@ -51,6 +61,7 @@ export function InvestmentTypeStep({ value, onChange }: InvestmentTypeStepProps)
           </div>
         </RadioGroup>
       </AnswerArea>
+      )}
     </div>
   );
 }

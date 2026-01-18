@@ -110,6 +110,7 @@ interface HeaderProps {
   onToggleSidebar: () => void;
   showTopNav?: boolean;
   showSidebarToggle?: boolean;
+  isInline?: boolean;
 }
 
 export function Header({
@@ -117,9 +118,14 @@ export function Header({
   onToggleSidebar,
   showTopNav = false,
   showSidebarToggle = true,
+  isInline = false,
 }: HeaderProps) {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 h-16 border-b bg-background px-6 flex items-center justify-between">
+    <header
+      className={`h-16 border-b bg-background px-6 flex items-center justify-between flex-shrink-0 ${
+        isInline ? "" : "fixed top-0 left-0 right-0 z-50"
+      }`}
+    >
       <div className="flex items-center gap-4">
         {/* Mobile hamburger menu - only for sidebar layout */}
         {showSidebarToggle && (

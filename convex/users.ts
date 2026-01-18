@@ -227,6 +227,60 @@ export const updateClerkId = mutation({
   },
 });
 
+// Reset onboarding for testing (dev only)
+// Sets onboardingComplete to false and resets questionnaire
+export const resetOnboarding = mutation({
+  args: {
+    userId: v.optional(v.id("users")),
+  },
+  handler: async (ctx, args) => {
+    let user;
+
+    // If userId provided directly, use it (for internal testing)
+    if (args.userId) {
+      user = await ctx.db.get(args.userId);
+    } else {
+      // Otherwise, use authenticated user
+      const identity = await ctx.auth.getUserIdentity();
+      if (!identity) {
+        throw new Error("Not authenticated");
+      }
+
+      user = await ctx.db
+        .query("users")
+        .withIndex("by_clerk_id", (q) => q.eq("clerkId", identity.subject))
+        .unique();
+    }
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    // Reset user onboarding status
+    await ctx.db.patch(user._id, {
+      onboardingComplete: false,
+      onboardingStep: 1,
+      updatedAt: Date.now(),
+    });
+
+    // Reset questionnaire if exists
+    const questionnaire = await ctx.db
+      .query("investorQuestionnaires")
+      .withIndex("by_user", (q) => q.eq("userId", user._id))
+      .unique();
+
+    if (questionnaire) {
+      await ctx.db.patch(questionnaire._id, {
+        status: "draft",
+        currentStep: 1,
+        updatedAt: Date.now(),
+      });
+    }
+
+    return { success: true };
+  },
+});
+
 // Set the role an admin is viewing as (for testing different perspectives)
 // Admin's actual role stays "admin", but viewingAsRole affects what they see
 export const setViewingAsRole = mutation({

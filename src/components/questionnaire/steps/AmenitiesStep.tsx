@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useCallback } from "react";
 import { QuestionBubble } from "../QuestionBubble";
 import { AnswerArea } from "../AnswerArea";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -12,6 +13,13 @@ interface AmenitiesStepProps {
 }
 
 export function AmenitiesStep({ value = [], onChange }: AmenitiesStepProps) {
+  const [showAnswer, setShowAnswer] = useState(false);
+
+  // Stable callback to prevent QuestionBubble re-renders
+  const handleTypingComplete = useCallback(() => {
+    setShowAnswer(true);
+  }, []);
+
   const handleToggle = (amenity: string, checked: boolean) => {
     if (checked) {
       onChange([...value, amenity]);
@@ -25,7 +33,9 @@ export function AmenitiesStep({ value = [], onChange }: AmenitiesStepProps) {
       <QuestionBubble
         question="What amenities are important to you?"
         description="Select all amenities you'd like in your investment property."
+        onTypingComplete={handleTypingComplete}
       />
+      {showAnswer && (
       <AnswerArea>
         <div className="grid grid-cols-3 gap-3">
           {PROPERTY_AMENITIES.map((amenity) => (
@@ -46,6 +56,7 @@ export function AmenitiesStep({ value = [], onChange }: AmenitiesStepProps) {
           ))}
         </div>
       </AnswerArea>
+      )}
     </div>
   );
 }

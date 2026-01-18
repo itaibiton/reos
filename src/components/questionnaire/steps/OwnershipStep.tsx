@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useCallback } from "react";
 import { QuestionBubble } from "../QuestionBubble";
 import { AnswerArea } from "../AnswerArea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -11,6 +12,13 @@ interface OwnershipStepProps {
 }
 
 export function OwnershipStep({ value, onChange }: OwnershipStepProps) {
+  const [showAnswer, setShowAnswer] = useState(false);
+
+  // Stable callback to prevent QuestionBubble re-renders
+  const handleTypingComplete = useCallback(() => {
+    setShowAnswer(true);
+  }, []);
+
   // Convert boolean to string for RadioGroup, and back on change
   const stringValue = value === undefined ? undefined : value ? "yes" : "no";
 
@@ -23,7 +31,9 @@ export function OwnershipStep({ value, onChange }: OwnershipStepProps) {
       <QuestionBubble
         question="Do you currently own property in Israel?"
         description="This affects the tax treatment on additional property purchases, including purchase tax rates."
+        onTypingComplete={handleTypingComplete}
       />
+      {showAnswer && (
       <AnswerArea>
         <RadioGroup value={stringValue} onValueChange={handleChange}>
           <div className="space-y-3">
@@ -48,6 +58,7 @@ export function OwnershipStep({ value, onChange }: OwnershipStepProps) {
           </div>
         </RadioGroup>
       </AnswerArea>
+      )}
     </div>
   );
 }

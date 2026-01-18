@@ -43,6 +43,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { NotificationCenter } from "@/components/notifications/NotificationCenter";
+import { IncompleteProfileReminder } from "@/components/IncompleteProfileReminder";
 
 // Breadcrumb config: maps paths to their group and label
 // Format: { group?: string, label: string }
@@ -286,6 +287,7 @@ export function AppShell({ children }: AppShellProps) {
   // Unified sidebar layout for all roles
   return (
     <SidebarProvider>
+      <IncompleteProfileReminder />
       <AppSidebar />
       <SidebarInset>
         {/* Header */}

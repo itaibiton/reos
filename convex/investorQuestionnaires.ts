@@ -309,3 +309,51 @@ export const markComplete = mutation({
     });
   },
 });
+
+// DEV ONLY: Reset questionnaire status to draft for testing incomplete profile reminder
+export const resetToDraft = mutation({
+  args: {
+    questionnaireId: v.optional(v.id("investorQuestionnaires")),
+  },
+  handler: async (ctx, args) => {
+    // If ID provided directly, use it (for internal testing)
+    if (args.questionnaireId) {
+      await ctx.db.patch(args.questionnaireId, {
+        status: "draft",
+        updatedAt: Date.now(),
+      });
+      return { reset: true };
+    }
+
+    // Otherwise, use authenticated user
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Not authenticated");
+    }
+
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_clerk_id", (q) => q.eq("clerkId", identity.subject))
+      .unique();
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    const questionnaire = await ctx.db
+      .query("investorQuestionnaires")
+      .withIndex("by_user", (q) => q.eq("userId", user._id))
+      .unique();
+
+    if (!questionnaire) {
+      throw new Error("Questionnaire not found");
+    }
+
+    await ctx.db.patch(questionnaire._id, {
+      status: "draft",
+      updatedAt: Date.now(),
+    });
+
+    return { reset: true };
+  },
+});

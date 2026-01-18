@@ -7,7 +7,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { PropertyCard } from "@/components/properties/PropertyCard";
 import { DashboardMap } from "@/components/dashboard/DashboardMap";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Building02Icon } from "@hugeicons/core-free-icons";
+import { Building02Icon, FavouriteIcon } from "@hugeicons/core-free-icons";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import type { PropertyFilters } from "../../../../convex/search";
@@ -45,6 +45,9 @@ export default function PropertiesPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  // Check for favorites filter
+  const showFavoritesOnly = searchParams.get("favorites") === "true";
+
   // Build filters from URL params
   const filters: PropertyFilters = {};
   const city = searchParams.get("city");
@@ -65,7 +68,12 @@ export default function PropertiesPage() {
   if (sizeMin) filters.squareMetersMin = parseInt(sizeMin, 10);
   if (sizeMax) filters.squareMetersMax = parseInt(sizeMax, 10);
 
-  const properties = useQuery(api.properties.list, filters);
+  // Use different query based on favorites filter
+  const allProperties = useQuery(api.properties.list, showFavoritesOnly ? "skip" : filters);
+  const favoriteProperties = useQuery(api.favorites.listMyFavorites, showFavoritesOnly ? {} : "skip");
+
+  // Select the appropriate properties based on mode
+  const properties = showFavoritesOnly ? favoriteProperties : allProperties;
 
   // Transform properties for map
   const mapProperties = properties
@@ -110,15 +118,27 @@ export default function PropertiesPage() {
       <div className="h-full flex items-center justify-center">
         <div className="flex flex-col items-center text-center px-4">
           <div className="rounded-full bg-muted p-4 mb-4 text-muted-foreground">
-            <HugeiconsIcon icon={Building02Icon} size={48} strokeWidth={1.5} />
+            <HugeiconsIcon
+              icon={showFavoritesOnly ? FavouriteIcon : Building02Icon}
+              size={48}
+              strokeWidth={1.5}
+            />
           </div>
-          <h2 className="text-xl font-semibold mb-2">No properties found</h2>
+          <h2 className="text-xl font-semibold mb-2">
+            {showFavoritesOnly ? "No saved properties" : "No properties found"}
+          </h2>
           <p className="text-muted-foreground mb-6 max-w-md">
-            {Object.keys(filters).length > 0
-              ? "Try adjusting your filters."
-              : "Start building your marketplace by adding your first property listing."}
+            {showFavoritesOnly
+              ? "Browse the marketplace and save properties you're interested in to view them here."
+              : Object.keys(filters).length > 0
+                ? "Try adjusting your filters."
+                : "Start building your marketplace by adding your first property listing."}
           </p>
-          {Object.keys(filters).length > 0 ? (
+          {showFavoritesOnly ? (
+            <Button onClick={() => router.push("/properties")} variant="outline">
+              Browse Marketplace
+            </Button>
+          ) : Object.keys(filters).length > 0 ? (
             <Button onClick={() => router.push("/properties")} variant="outline">
               Clear Filters
             </Button>
@@ -137,7 +157,9 @@ export default function PropertiesPage() {
       {/* Left side - Property Cards */}
       <div className="flex-1 p-6 overflow-auto">
         <p className="text-sm text-muted-foreground mb-4">
-          {properties.length} {properties.length === 1 ? "property" : "properties"} found
+          {properties.length} {showFavoritesOnly ? "saved " : ""}
+          {properties.length === 1 ? "property" : "properties"}
+          {showFavoritesOnly ? "" : " found"}
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {properties.map((property) => (

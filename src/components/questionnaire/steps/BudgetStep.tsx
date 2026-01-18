@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useCallback } from "react";
 import { QuestionBubble } from "../QuestionBubble";
 import { AnswerArea } from "../AnswerArea";
 import { Input } from "@/components/ui/input";
@@ -18,6 +19,13 @@ export function BudgetStep({
   onBudgetMinChange,
   onBudgetMaxChange,
 }: BudgetStepProps) {
+  const [showAnswer, setShowAnswer] = useState(false);
+
+  // Stable callback to prevent QuestionBubble re-renders
+  const handleTypingComplete = useCallback(() => {
+    setShowAnswer(true);
+  }, []);
+
   const formatCurrency = (value: number | undefined) => {
     if (value === undefined) return "";
     return value.toLocaleString("en-US");
@@ -34,7 +42,9 @@ export function BudgetStep({
       <QuestionBubble
         question="What's your investment budget range?"
         description="This helps us show properties that match your financial capacity. All amounts are in USD."
+        onTypingComplete={handleTypingComplete}
       />
+      {showAnswer && (
       <AnswerArea>
         <div className="space-y-4">
           <div className="rounded-lg border p-4">
@@ -73,6 +83,7 @@ export function BudgetStep({
           </div>
         </div>
       </AnswerArea>
+      )}
     </div>
   );
 }

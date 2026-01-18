@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useCallback } from "react";
 import { QuestionBubble } from "../QuestionBubble";
 import { AnswerArea } from "../AnswerArea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -11,12 +12,21 @@ interface ExperienceStepProps {
 }
 
 export function ExperienceStep({ value, onChange }: ExperienceStepProps) {
+  const [showAnswer, setShowAnswer] = useState(false);
+
+  // Stable callback to prevent QuestionBubble re-renders
+  const handleTypingComplete = useCallback(() => {
+    setShowAnswer(true);
+  }, []);
+
   return (
     <div className="space-y-6">
       <QuestionBubble
         question="How much experience do you have with Israeli real estate?"
         description="This helps us tailor our recommendations and guidance to your knowledge level."
+        onTypingComplete={handleTypingComplete}
       />
+      {showAnswer && (
       <AnswerArea>
         <RadioGroup value={value} onValueChange={onChange}>
           <div className="space-y-3">
@@ -65,6 +75,7 @@ export function ExperienceStep({ value, onChange }: ExperienceStepProps) {
           </div>
         </RadioGroup>
       </AnswerArea>
+      )}
     </div>
   );
 }

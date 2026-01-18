@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useCallback } from "react";
 import { QuestionBubble } from "../QuestionBubble";
 import { AnswerArea } from "../AnswerArea";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -34,6 +35,13 @@ const GOALS = [
 ];
 
 export function GoalsStep({ value = [], onChange }: GoalsStepProps) {
+  const [showAnswer, setShowAnswer] = useState(false);
+
+  // Stable callback to prevent QuestionBubble re-renders
+  const handleTypingComplete = useCallback(() => {
+    setShowAnswer(true);
+  }, []);
+
   const handleToggle = (goalId: string, checked: boolean) => {
     if (checked) {
       onChange([...value, goalId]);
@@ -47,7 +55,9 @@ export function GoalsStep({ value = [], onChange }: GoalsStepProps) {
       <QuestionBubble
         question="What are your investment goals?"
         description="Select all that apply - this helps us understand your priorities."
+        onTypingComplete={handleTypingComplete}
       />
+      {showAnswer && (
       <AnswerArea>
         <div className="space-y-3">
           {GOALS.map((goal) => (
@@ -74,6 +84,7 @@ export function GoalsStep({ value = [], onChange }: GoalsStepProps) {
           ))}
         </div>
       </AnswerArea>
+      )}
     </div>
   );
 }

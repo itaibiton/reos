@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, memo, useState, useEffect } from "react";
+import { ReactNode, useState, useCallback, useRef, useEffect } from "react";
 import { Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { TypeWriter } from "./TypeWriter";
@@ -10,22 +10,47 @@ interface QuestionBubbleProps {
   description?: string;
   icon?: ReactNode;
   className?: string;
+  onTypingComplete?: () => void;
 }
 
-export const QuestionBubble = memo(function QuestionBubble({
+/**
+ * QuestionBubble displays a question with typewriter animation.
+ * Uses refs for callbacks to ensure animations don't re-trigger on parent state changes.
+ */
+export function QuestionBubble({
   question,
   description,
   icon,
   className,
+  onTypingComplete,
 }: QuestionBubbleProps) {
   const [questionComplete, setQuestionComplete] = useState(false);
   const [descriptionComplete, setDescriptionComplete] = useState(false);
 
-  // Reset states when question changes
+  // Store onTypingComplete in a ref to avoid stale closures
+  const onTypingCompleteRef = useRef(onTypingComplete);
   useEffect(() => {
-    setQuestionComplete(false);
-    setDescriptionComplete(false);
-  }, [question]);
+    onTypingCompleteRef.current = onTypingComplete;
+  }, [onTypingComplete]);
+
+  // Call onTypingComplete when all typing is done
+  useEffect(() => {
+    const isComplete = description
+      ? questionComplete && descriptionComplete
+      : questionComplete;
+
+    if (isComplete) {
+      onTypingCompleteRef.current?.();
+    }
+  }, [questionComplete, descriptionComplete, description]);
+
+  const handleQuestionComplete = useCallback(() => {
+    setQuestionComplete(true);
+  }, []);
+
+  const handleDescriptionComplete = useCallback(() => {
+    setDescriptionComplete(true);
+  }, []);
 
   return (
     <div className={cn("flex items-start gap-3", className)}>
@@ -38,19 +63,17 @@ export const QuestionBubble = memo(function QuestionBubble({
       <div className="flex-1 rounded-2xl rounded-tl-sm bg-muted px-5 py-4 animate-in fade-in duration-200">
         <p className="text-lg font-medium text-foreground">
           <TypeWriter
-            key={`q-${question}`}
             text={question}
             speed={15}
-            onComplete={() => setQuestionComplete(true)}
+            onComplete={handleQuestionComplete}
           />
         </p>
         {description && questionComplete && (
           <p className="mt-2 text-sm text-muted-foreground">
             <TypeWriter
-              key={`d-${description}`}
               text={description}
               speed={10}
-              onComplete={() => setDescriptionComplete(true)}
+              onComplete={handleDescriptionComplete}
               showCursor={!descriptionComplete}
             />
           </p>
@@ -58,4 +81,4 @@ export const QuestionBubble = memo(function QuestionBubble({
       </div>
     </div>
   );
-});
+}

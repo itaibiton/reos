@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useCallback } from "react";
 import { QuestionBubble } from "../QuestionBubble";
 import { AnswerArea } from "../AnswerArea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -11,12 +12,21 @@ interface HorizonStepProps {
 }
 
 export function HorizonStep({ value, onChange }: HorizonStepProps) {
+  const [showAnswer, setShowAnswer] = useState(false);
+
+  // Stable callback to prevent QuestionBubble re-renders
+  const handleTypingComplete = useCallback(() => {
+    setShowAnswer(true);
+  }, []);
+
   return (
     <div className="space-y-6">
       <QuestionBubble
         question="What's your investment timeline?"
         description="Your timeline helps us recommend appropriate investment strategies."
+        onTypingComplete={handleTypingComplete}
       />
+      {showAnswer && (
       <AnswerArea>
         <RadioGroup value={value} onValueChange={onChange}>
           <div className="space-y-3">
@@ -65,6 +75,7 @@ export function HorizonStep({ value, onChange }: HorizonStepProps) {
           </div>
         </RadioGroup>
       </AnswerArea>
+      )}
     </div>
   );
 }

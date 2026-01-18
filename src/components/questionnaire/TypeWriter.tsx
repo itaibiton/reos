@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, memo } from "react";
+import { useState, useEffect, useRef } from "react";
 
 interface TypeWriterProps {
   text: string;
@@ -10,7 +10,11 @@ interface TypeWriterProps {
   className?: string;
 }
 
-export const TypeWriter = memo(function TypeWriter({
+/**
+ * TypeWriter component that animates text character by character.
+ * Uses a ref for onComplete to avoid stale closure issues.
+ */
+export function TypeWriter({
   text,
   speed = 20,
   onComplete,
@@ -20,7 +24,22 @@ export const TypeWriter = memo(function TypeWriter({
   const [displayedText, setDisplayedText] = useState("");
   const [isComplete, setIsComplete] = useState(false);
 
+  // Store onComplete in a ref to avoid it being a dependency
+  const onCompleteRef = useRef(onComplete);
   useEffect(() => {
+    onCompleteRef.current = onComplete;
+  }, [onComplete]);
+
+  // Track which text we've completed animation for
+  const completedTextRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    // Skip if we already completed animation for this exact text
+    if (completedTextRef.current === text) {
+      return;
+    }
+
+    // Reset state for new animation
     setDisplayedText("");
     setIsComplete(false);
 
@@ -32,12 +51,13 @@ export const TypeWriter = memo(function TypeWriter({
       } else {
         clearInterval(intervalId);
         setIsComplete(true);
-        onComplete?.();
+        completedTextRef.current = text;
+        onCompleteRef.current?.();
       }
     }, speed);
 
     return () => clearInterval(intervalId);
-  }, [text, speed, onComplete]);
+  }, [text, speed]);
 
   return (
     <span className={className}>
@@ -47,4 +67,4 @@ export const TypeWriter = memo(function TypeWriter({
       )}
     </span>
   );
-});
+}

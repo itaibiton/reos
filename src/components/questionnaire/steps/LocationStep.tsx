@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useCallback } from "react";
 import { QuestionBubble } from "../QuestionBubble";
 import { AnswerArea } from "../AnswerArea";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -12,6 +13,13 @@ interface LocationStepProps {
 }
 
 export function LocationStep({ value = [], onChange }: LocationStepProps) {
+  const [showAnswer, setShowAnswer] = useState(false);
+
+  // Stable callback to prevent QuestionBubble re-renders
+  const handleTypingComplete = useCallback(() => {
+    setShowAnswer(true);
+  }, []);
+
   const handleToggle = (location: string, checked: boolean) => {
     if (checked) {
       onChange([...value, location]);
@@ -25,7 +33,9 @@ export function LocationStep({ value = [], onChange }: LocationStepProps) {
       <QuestionBubble
         question="Which cities or areas interest you?"
         description="Select all locations you'd consider for investment."
+        onTypingComplete={handleTypingComplete}
       />
+      {showAnswer && (
       <AnswerArea>
         <div className="grid grid-cols-2 gap-3">
           {ISRAELI_LOCATIONS.map((location) => (
@@ -46,6 +56,7 @@ export function LocationStep({ value = [], onChange }: LocationStepProps) {
           ))}
         </div>
       </AnswerArea>
+      )}
     </div>
   );
 }

@@ -138,3 +138,53 @@ html[data-scroll-locked] body {
   overflow: visible !important;
   margin-right: 0 !important;
 }
+
+/* Animated gradient border - Siri-style glow effect */
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes spin-gradient {
+  from {
+    --angle: 0deg;
+  }
+  to {
+    --angle: 360deg;
+  }
+}
+
+.animate-gradient-border {
+  --angle: 0deg;
+  background: conic-gradient(
+    from var(--angle),
+    #7c3aed,
+    #2563eb,
+    #06b6d4,
+    #10b981,
+    #f59e0b,
+    #ef4444,
+    #ec4899,
+    #7c3aed
+  );
+  animation: spin-gradient 3s linear infinite;
+}
+
+.animate-gradient-border-glow {
+  --angle: 0deg;
+  background: conic-gradient(
+    from var(--angle),
+    #7c3aed,
+    #2563eb,
+    #06b6d4,
+    #10b981,
+    #f59e0b,
+    #ef4444,
+    #ec4899,
+    #7c3aed
+  );
+  animation: spin-gradient 3s linear infinite;
+  filter: blur(8px);
+  opacity: 0.6;
+}

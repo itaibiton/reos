@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useCallback } from "react";
 import { QuestionBubble } from "../QuestionBubble";
 import { AnswerArea } from "../AnswerArea";
 import { Input } from "@/components/ui/input";
@@ -26,6 +27,13 @@ export function PropertySizeStep({
   onMinAreaChange,
   onMaxAreaChange,
 }: PropertySizeStepProps) {
+  const [showAnswer, setShowAnswer] = useState(false);
+
+  // Stable callback to prevent QuestionBubble re-renders
+  const handleTypingComplete = useCallback(() => {
+    setShowAnswer(true);
+  }, []);
+
   const parseNumber = (value: string): number | undefined => {
     const cleaned = value.replace(/[^0-9]/g, "");
     if (cleaned === "") return undefined;
@@ -42,7 +50,9 @@ export function PropertySizeStep({
       <QuestionBubble
         question="What size property are you looking for?"
         description="This helps us filter properties that match your space requirements."
+        onTypingComplete={handleTypingComplete}
       />
+      {showAnswer && (
       <AnswerArea>
         <div className="space-y-6">
           {/* Bedrooms section */}
@@ -116,6 +126,7 @@ export function PropertySizeStep({
           </div>
         </div>
       </AnswerArea>
+      )}
     </div>
   );
 }

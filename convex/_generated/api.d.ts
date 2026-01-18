@@ -8,13 +8,16 @@
  * @module
  */
 
+import type * as clients from "../clients.js";
 import type * as dashboard from "../dashboard.js";
 import type * as dealFiles from "../dealFiles.js";
 import type * as deals from "../deals.js";
 import type * as favorites from "../favorites.js";
 import type * as investorProfiles from "../investorProfiles.js";
+import type * as investorQuestionnaires from "../investorQuestionnaires.js";
 import type * as messages from "../messages.js";
 import type * as neighborhoods from "../neighborhoods.js";
+import type * as notifications from "../notifications.js";
 import type * as priceHistory from "../priceHistory.js";
 import type * as properties from "../properties.js";
 import type * as search from "../search.js";
@@ -31,13 +34,16 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  clients: typeof clients;
   dashboard: typeof dashboard;
   dealFiles: typeof dealFiles;
   deals: typeof deals;
   favorites: typeof favorites;
   investorProfiles: typeof investorProfiles;
+  investorQuestionnaires: typeof investorQuestionnaires;
   messages: typeof messages;
   neighborhoods: typeof neighborhoods;
+  notifications: typeof notifications;
   priceHistory: typeof priceHistory;
   properties: typeof properties;
   search: typeof search;

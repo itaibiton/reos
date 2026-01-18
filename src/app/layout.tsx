@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 import { ConvexClientProvider } from "./ConvexClientProvider";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -36,6 +37,7 @@ export default function RootLayout({
           signUpFallbackRedirectUrl="/dashboard"
         >
           <ConvexClientProvider>{children}</ConvexClientProvider>
+          <Toaster position="bottom-right" />
         </ClerkProvider>
       </body>
     </html>

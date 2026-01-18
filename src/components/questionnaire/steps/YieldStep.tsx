@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useCallback } from "react";
 import { QuestionBubble } from "../QuestionBubble";
 import { AnswerArea } from "../AnswerArea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -11,12 +12,21 @@ interface YieldStepProps {
 }
 
 export function YieldStep({ value, onChange }: YieldStepProps) {
+  const [showAnswer, setShowAnswer] = useState(false);
+
+  // Stable callback to prevent QuestionBubble re-renders
+  const handleTypingComplete = useCallback(() => {
+    setShowAnswer(true);
+  }, []);
+
   return (
     <div className="space-y-6">
       <QuestionBubble
         question="What's your yield preference?"
         description="This affects which properties we prioritize in recommendations."
+        onTypingComplete={handleTypingComplete}
       />
+      {showAnswer && (
       <AnswerArea>
         <RadioGroup value={value} onValueChange={onChange}>
           <div className="space-y-3">
@@ -65,6 +75,7 @@ export function YieldStep({ value, onChange }: YieldStepProps) {
           </div>
         </RadioGroup>
       </AnswerArea>
+      )}
     </div>
   );
 }

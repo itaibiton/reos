@@ -27,7 +27,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { FilterIcon, Search01Icon, Cancel01Icon } from "@hugeicons/core-free-icons";
+import { FilterIcon, Search01Icon, Cancel01Icon, FavouriteIcon } from "@hugeicons/core-free-icons";
 import { ChevronDownIcon, Loader2Icon } from "lucide-react";
 import { ISRAELI_LOCATIONS, PROPERTY_TYPES } from "@/lib/constants";
 import { api } from "../../../convex/_generated/api";
@@ -44,6 +44,7 @@ interface Filters {
   bathroomsMin?: number;
   squareMetersMin?: number;
   squareMetersMax?: number;
+  favorites?: boolean;
 }
 
 export function InvestorSearchBar() {
@@ -71,6 +72,7 @@ export function InvestorSearchBar() {
     const bathrooms = searchParams.get("bathrooms");
     const sizeMin = searchParams.get("sizeMin");
     const sizeMax = searchParams.get("sizeMax");
+    const favorites = searchParams.get("favorites");
 
     if (city) initial.city = city;
     if (type) initial.propertyType = type;
@@ -80,6 +82,7 @@ export function InvestorSearchBar() {
     if (bathrooms) initial.bathroomsMin = parseInt(bathrooms, 10);
     if (sizeMin) initial.squareMetersMin = parseInt(sizeMin, 10);
     if (sizeMax) initial.squareMetersMax = parseInt(sizeMax, 10);
+    if (favorites === "true") initial.favorites = true;
 
     return initial;
   });
@@ -112,6 +115,7 @@ export function InvestorSearchBar() {
       if (newFilters.bathroomsMin) params.set("bathrooms", newFilters.bathroomsMin.toString());
       if (newFilters.squareMetersMin) params.set("sizeMin", newFilters.squareMetersMin.toString());
       if (newFilters.squareMetersMax) params.set("sizeMax", newFilters.squareMetersMax.toString());
+      if (newFilters.favorites) params.set("favorites", "true");
 
       const queryString = params.toString();
       const targetPath = pathname === "/properties" ? pathname : "/properties";
@@ -197,8 +201,20 @@ export function InvestorSearchBar() {
     searchInputRef.current?.focus();
   };
 
-  // Count active filters
-  const activeFilterCount = Object.keys(filters).length;
+  // Toggle favorites filter
+  const toggleFavorites = () => {
+    const newFilters = { ...filters };
+    if (newFilters.favorites) {
+      delete newFilters.favorites;
+    } else {
+      newFilters.favorites = true;
+    }
+    setFilters(newFilters);
+    applyFilters(newFilters);
+  };
+
+  // Count active filters (excluding favorites as it has its own toggle)
+  const activeFilterCount = Object.keys(filters).filter((k) => k !== "favorites").length;
 
   // Count advanced filters applied
   const advancedFilterCount = [
@@ -536,6 +552,27 @@ export function InvestorSearchBar() {
 
           <div className="h-6 w-px bg-border flex-shrink-0" />
 
+          {/* Favorites Toggle */}
+          <Button
+            variant={filters.favorites ? "default" : "outline"}
+            size="sm"
+            onClick={toggleFavorites}
+            className={cn(
+              "gap-1.5 h-9 flex-shrink-0",
+              filters.favorites && "bg-red-500 hover:bg-red-600 text-white"
+            )}
+          >
+            <HugeiconsIcon
+              icon={FavouriteIcon}
+              size={16}
+              strokeWidth={1.5}
+              className={filters.favorites ? "fill-white" : ""}
+            />
+            <span className="hidden sm:inline">Favorites</span>
+          </Button>
+
+          <div className="h-6 w-px bg-border flex-shrink-0" />
+
           {/* Filters */}
           <div className="flex items-center gap-3 flex-shrink-0">
             <FilterControls />
@@ -595,6 +632,29 @@ export function InvestorSearchBar() {
                       Search
                     </Button>
                   </form>
+                </div>
+
+                <div className="h-px bg-border" />
+
+                {/* Favorites Toggle */}
+                <div className="space-y-1.5">
+                  <Label className="text-xs font-medium">Show Only</Label>
+                  <Button
+                    variant={filters.favorites ? "default" : "outline"}
+                    onClick={toggleFavorites}
+                    className={cn(
+                      "w-full gap-2 justify-start",
+                      filters.favorites && "bg-red-500 hover:bg-red-600 text-white"
+                    )}
+                  >
+                    <HugeiconsIcon
+                      icon={FavouriteIcon}
+                      size={18}
+                      strokeWidth={1.5}
+                      className={filters.favorites ? "fill-white" : ""}
+                    />
+                    My Favorites
+                  </Button>
                 </div>
 
                 <div className="h-px bg-border" />
