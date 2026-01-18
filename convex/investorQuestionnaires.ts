@@ -98,6 +98,64 @@ export const updateStep = mutation({
   },
 });
 
+// Save partial answers to questionnaire (for draft persistence)
+export const saveAnswers = mutation({
+  args: {
+    citizenship: v.optional(v.string()),
+    residencyStatus: v.optional(v.string()),
+    experienceLevel: v.optional(v.string()),
+    ownsPropertyInIsrael: v.optional(v.boolean()),
+    investmentType: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Not authenticated");
+    }
+
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_clerk_id", (q) => q.eq("clerkId", identity.subject))
+      .unique();
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    const questionnaire = await ctx.db
+      .query("investorQuestionnaires")
+      .withIndex("by_user", (q) => q.eq("userId", user._id))
+      .unique();
+
+    if (!questionnaire) {
+      throw new Error("Questionnaire not found");
+    }
+
+    // Build update object with only provided fields
+    const updates: Record<string, unknown> = {
+      updatedAt: Date.now(),
+    };
+
+    if (args.citizenship !== undefined) {
+      updates.citizenship = args.citizenship;
+    }
+    if (args.residencyStatus !== undefined) {
+      updates.residencyStatus = args.residencyStatus;
+    }
+    if (args.experienceLevel !== undefined) {
+      updates.experienceLevel = args.experienceLevel;
+    }
+    if (args.ownsPropertyInIsrael !== undefined) {
+      updates.ownsPropertyInIsrael = args.ownsPropertyInIsrael;
+    }
+    if (args.investmentType !== undefined) {
+      updates.investmentType = args.investmentType;
+    }
+
+    await ctx.db.patch(questionnaire._id, updates);
+  },
+});
+
 // Mark questionnaire as complete
 export const markComplete = mutation({
   args: {},
