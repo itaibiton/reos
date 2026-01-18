@@ -2,230 +2,160 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
+import { ChevronRight } from "lucide-react";
 import { HugeiconsIcon } from "@hugeicons/react";
+import { BlackHoleIcon } from "@hugeicons/core-free-icons";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
 import {
-  Home01Icon,
-  Building02Icon,
-  FavouriteIcon,
-  Agreement01Icon,
-  Settings01Icon,
-  Add01Icon,
-  UserMultiple02Icon,
-  Message02Icon,
-  SidebarLeft01Icon,
-  SidebarRight01Icon,
-} from "@hugeicons/core-free-icons";
-import type { IconSvgElement } from "@hugeicons/react";
-import { useCurrentUser, type UserRole } from "@/hooks/useCurrentUser";
+  getNavigationForRole,
+  isActivePath,
+  type UserRole,
+} from "@/lib/navigation";
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { Button } from "@/components/ui/button";
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarMenuSkeleton,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
+  SidebarRail,
+} from "@/components/ui/sidebar";
 
-interface SidebarProps {
-  isOpen: boolean;
-  onClose: () => void;
-  isCollapsed: boolean;
-  onToggleCollapse: () => void;
-}
-
-type NavItem = {
-  icon: IconSvgElement;
-  label: string;
-  href: string;
-  // Which roles can see this item (empty = all roles)
-  roles?: UserRole[];
-};
-
-const navItems: NavItem[] = [
-  // Dashboard - all roles
-  { icon: Home01Icon, label: "Dashboard", href: "/dashboard" },
-
-  // Marketplace - all roles
-  { icon: Building02Icon, label: "Marketplace", href: "/properties" },
-
-  // Saved Properties - investors only
-  {
-    icon: FavouriteIcon,
-    label: "Saved Properties",
-    href: "/properties/saved",
-    roles: ["investor", "admin"],
-  },
-
-  // Add Property - admin only
-  {
-    icon: Add01Icon,
-    label: "Add Property",
-    href: "/properties/new",
-    roles: ["admin"],
-  },
-
-  // Deals - investors (future: also service providers)
-  {
-    icon: Agreement01Icon,
-    label: "Deals",
-    href: "/deals",
-    roles: ["investor", "admin"],
-  },
-
-  // Chat - all authenticated users with deals
-  {
-    icon: Message02Icon,
-    label: "Chat",
-    href: "/chat",
-  },
-
-  // Clients - service providers only (future feature)
-  {
-    icon: UserMultiple02Icon,
-    label: "Clients",
-    href: "/clients",
-    roles: ["broker", "mortgage_advisor", "lawyer", "admin"],
-  },
-
-  // Settings - all roles
-  { icon: Settings01Icon, label: "Settings", href: "/settings" },
-];
-
-export function Sidebar({
-  isOpen,
-  onClose,
-  isCollapsed,
-  onToggleCollapse,
-}: SidebarProps) {
+export function AppSidebar() {
   const { effectiveRole, isLoading } = useCurrentUser();
   const pathname = usePathname();
 
-  // Filter nav items based on user's effective role
-  const visibleNavItems = navItems.filter((item) => {
-    // If no roles specified, show to everyone
-    if (!item.roles || item.roles.length === 0) return true;
-    // If user has no role yet (onboarding), show basic items
-    if (!effectiveRole) return !item.roles;
-    // Check if user's effective role is in the allowed roles
-    return item.roles.includes(effectiveRole);
-  });
+  // Get navigation for current role, cast to extended UserRole type
+  // Default to investor for loading state
+  const role = (effectiveRole as UserRole) ?? "investor";
+  const navigation = getNavigationForRole(role);
 
   return (
-    <>
-      {/* Mobile overlay */}
-      {isOpen && (
-        <div
-          className="fixed inset-0 z-40 bg-black/50 lg:hidden"
-          onClick={onClose}
-          aria-hidden="true"
-        />
-      )}
-
-      {/* Sidebar */}
-      <aside
-        className={cn(
-          "fixed left-0 top-16 bottom-0 z-40 border-r bg-background transition-all duration-200",
-          "lg:translate-x-0",
-          isOpen ? "translate-x-0" : "-translate-x-full",
-          isCollapsed ? "w-16" : "w-64"
-        )}
-      >
-        <div className="flex flex-col h-full">
-          <nav className={cn("flex flex-col gap-1 flex-1", isCollapsed ? "p-2" : "p-4")}>
-            {isLoading ? (
-              // Show skeleton while loading
-              <>
-                {[1, 2, 3, 4].map((i) => (
-                  <div
-                    key={i}
-                    className={cn(
-                      "rounded-lg bg-muted animate-pulse",
-                      isCollapsed ? "h-10 w-10" : "h-10"
-                    )}
-                  />
-                ))}
-              </>
-            ) : (
-              visibleNavItems.map((item) => {
-                const isActive =
-                  pathname === item.href ||
-                  pathname.startsWith(item.href + "/");
-
-                const linkContent = (
-                  <Link
-                    href={item.href}
-                    className={cn(
-                      "flex items-center rounded-lg transition-colors",
-                      isCollapsed
-                        ? "h-10 w-10 justify-center"
-                        : "gap-3 px-3 py-2",
-                      isActive
-                        ? "bg-accent text-accent-foreground font-medium"
-                        : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-                    )}
-                    onClick={onClose}
-                  >
-                    <HugeiconsIcon
-                      icon={item.icon}
-                      size={20}
-                      strokeWidth={1.5}
-                    />
-                    {!isCollapsed && <span>{item.label}</span>}
-                  </Link>
-                );
-
-                if (isCollapsed) {
-                  return (
-                    <Tooltip key={item.href}>
-                      <TooltipTrigger asChild>{linkContent}</TooltipTrigger>
-                      <TooltipContent side="right" sideOffset={8}>
-                        {item.label}
-                      </TooltipContent>
-                    </Tooltip>
-                  );
-                }
-
-                return (
-                  <div key={item.href}>{linkContent}</div>
-                );
-              })
-            )}
-          </nav>
-
-          {/* Collapse toggle button */}
-          <div
-            className={cn(
-              "border-t flex-shrink-0",
-              isCollapsed ? "p-2" : "p-4"
-            )}
-          >
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size={isCollapsed ? "icon" : "default"}
-                  onClick={onToggleCollapse}
-                  className={cn(
-                    "text-muted-foreground hover:text-foreground",
-                    isCollapsed ? "h-10 w-10" : "w-full justify-start gap-3"
-                  )}
-                >
+    <Sidebar collapsible="icon">
+      <SidebarHeader>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton size="lg" asChild>
+              <Link href="/">
+                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
                   <HugeiconsIcon
-                    icon={isCollapsed ? SidebarRight01Icon : SidebarLeft01Icon}
-                    size={20}
+                    icon={BlackHoleIcon}
+                    className="size-4"
                     strokeWidth={1.5}
                   />
-                  {!isCollapsed && <span>Collapse</span>}
-                </Button>
-              </TooltipTrigger>
-              {isCollapsed && (
-                <TooltipContent side="right" sideOffset={8}>
-                  Expand sidebar
-                </TooltipContent>
+                </div>
+                <div className="grid flex-1 text-left text-sm leading-tight">
+                  <span className="truncate font-semibold">REOS</span>
+                  <span className="truncate text-xs">Real Estate OS</span>
+                </div>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarHeader>
+
+      <SidebarContent>
+        {isLoading ? (
+          // Loading skeleton
+          <SidebarGroup>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <SidebarMenuItem key={i}>
+                    <SidebarMenuSkeleton showIcon />
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        ) : (
+          navigation.groups.map((group, groupIndex) => (
+            <SidebarGroup key={groupIndex}>
+              {group.label && (
+                <SidebarGroupLabel>{group.label}</SidebarGroupLabel>
               )}
-            </Tooltip>
-          </div>
-        </div>
-      </aside>
-    </>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  {group.items.map((item) => {
+                    const isActive = isActivePath(pathname, item.href);
+
+                    return (
+                      <SidebarMenuItem key={item.href}>
+                        {item.items && item.items.length > 0 ? (
+                          // Collapsible menu item with sub-items
+                          <Collapsible
+                            defaultOpen
+                            className="group/collapsible"
+                          >
+                            <CollapsibleTrigger asChild>
+                              <SidebarMenuButton tooltip={item.label}>
+                                <item.icon />
+                                <span>{item.label}</span>
+                                <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                              </SidebarMenuButton>
+                            </CollapsibleTrigger>
+                            <CollapsibleContent>
+                              <SidebarMenuSub>
+                                {item.items.map((subItem) => {
+                                  const isSubActive = isActivePath(
+                                    pathname,
+                                    subItem.href
+                                  );
+                                  return (
+                                    <SidebarMenuSubItem key={subItem.href}>
+                                      <SidebarMenuSubButton
+                                        asChild
+                                        isActive={isSubActive}
+                                      >
+                                        <Link href={subItem.href}>
+                                          <span>{subItem.label}</span>
+                                        </Link>
+                                      </SidebarMenuSubButton>
+                                    </SidebarMenuSubItem>
+                                  );
+                                })}
+                              </SidebarMenuSub>
+                            </CollapsibleContent>
+                          </Collapsible>
+                        ) : (
+                          // Simple menu item
+                          <SidebarMenuButton
+                            asChild
+                            isActive={isActive}
+                            tooltip={item.label}
+                          >
+                            <Link href={item.href}>
+                              <item.icon />
+                              <span>{item.label}</span>
+                            </Link>
+                          </SidebarMenuButton>
+                        )}
+                      </SidebarMenuItem>
+                    );
+                  })}
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+          ))
+        )}
+      </SidebarContent>
+
+      <SidebarFooter>{/* User info + logout can go here in future */}</SidebarFooter>
+
+      <SidebarRail />
+    </Sidebar>
   );
 }
