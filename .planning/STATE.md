@@ -10,12 +10,12 @@ See: .planning/PROJECT.md (updated 2026-01-17)
 ## Current Position
 
 Milestone: v1.2 Provider Experience
-Phase: 16 of 20 (Provider Dashboard Enhancement)
+Phase: 16.1 of 20 (Layout & Navigation Improvements)
 Plan: 1 of 1 in current phase
 Status: Phase complete
-Last activity: 2026-01-18 — Completed 16-01-PLAN.md
+Last activity: 2026-01-18 — Completed 16.1-01 (inserted phase)
 
-Progress: ██░░░░░░░░ 20% (1/5 phases)
+Progress: ███░░░░░░░ 33% (2/6 phases)
 
 ## Performance Metrics
 
@@ -162,6 +162,10 @@ Recent decisions affecting current work:
 - Phase 16: Dashboard without map - full-width single-column layout
 - Phase 16: Investors redirect to /properties (no investor dashboard)
 - Phase 16: Active deals section shows 5 most recent with property/investor info
+- Phase 16.1: Dashboard removed from investor sidebar navigation
+- Phase 16.1: Favorites toggle in filter bar replaces /properties/saved page
+- Phase 16.1: Provider sidebar spans full height with logo, header inline in main content
+- Phase 16.1: Favorites use ?favorites=true URL param with conditional query
 
 ### Deferred Issues
 
@@ -183,10 +187,12 @@ None yet.
 - Phase 5.4 inserted after Phase 5.3: Yad2-Style Property Page (URGENT)
 - Phase 6.1 inserted after Phase 6: Multi-layout Chat Page (URGENT)
 - Milestone v1.1 created: Investor Onboarding, 7 phases (Phase 9-15)
+- Phase 16.1 inserted after Phase 16: Layout & Navigation Improvements (COMPLETE)
+- Phase 16.3 inserted after Phase 16.1: Shadcn Sidebar Layout (URGENT)
 
 ## Session Continuity
 
 Last session: 2026-01-18
-Stopped at: Completed 16-01-PLAN.md — Phase 16 complete
+Stopped at: Phase 16.3 planned (2 plans created)
 Resume file: None
-Next: /gsd:plan-phase 17 for Client Management
+Next: /gsd:execute-plan .planning/phases/16.3-shadcn-sidebar-layout/16.3-01-PLAN.md

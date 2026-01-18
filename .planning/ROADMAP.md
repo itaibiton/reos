@@ -72,6 +72,42 @@ Building an end-to-end real estate investment platform connecting US investors w
 Plans:
 - [x] 16-01: Active deals section, full-width layout, investor redirect
 
+### Phase 16.1: Layout & Navigation Improvements (INSERTED)
+
+**Goal**: Improve investor and provider navigation, favorites in filter bar, full-height provider sidebar
+**Depends on**: Phase 16
+**Research**: None (UI refinements)
+**Plans**: 1/1 complete
+**Status**: Complete
+**Completed**: 2026-01-18
+
+Plans:
+- [x] 16.1-01: Investor sidebar cleanup, favorites toggle, provider layout restructure
+
+**Changes:**
+- Removed Dashboard from investor sidebar (investors redirect to /properties)
+- Removed Saved Properties page, added favorites toggle to filter bar with heart icon
+- Provider layout: sidebar spans full height with logo, header inline in main content
+
+### Phase 16.3: Shadcn Sidebar Layout (INSERTED)
+
+**Goal**: Complete layout overhaul using Shadcn sidebar component with role-based navigation for all user types (Investor, Broker, Mortgage Advisor, Lawyer, Accountant, Notary, Tax Consultant, Appraiser)
+**Depends on**: Phase 16.1
+**Research**: None (Shadcn docs reference)
+**Plans**: 0/2 plans
+**Status**: Planned
+
+Plans:
+- [ ] 16.3-01: Core Sidebar Component - Navigation config, Shadcn sidebar, AppShell integration
+- [ ] 16.3-02: Placeholder Pages - ComingSoon component, 21 new route pages
+
+**Details:**
+- Replace current custom sidebar with Shadcn Sidebar component
+- Implement role-based navigation per sidebar-routes.md specification
+- Add relevant icons for all menu items (lucide-react)
+- Create placeholder pages for non-existent routes with "Coming Soon" messages
+- Support collapsible groups (Marketplace, Property Management, etc.)
+
 ### Phase 17: Client Management
 
 **Goal**: Client list, client details, deal history per client
@@ -118,11 +154,13 @@ Plans:
 |-----------|--------|-------|--------|---------|
 | v1.0 MVP | 17 | 40 | Complete | 2026-01-17 |
 | v1.1 Investor Onboarding | 7 | 8 | Complete | 2026-01-18 |
-| v1.2 Provider Experience | 5 | 1/? | In Progress | - |
+| v1.2 Provider Experience | 6 | 2/? | In Progress | - |
 
 | Phase | Milestone | Plans | Status | Completed |
 |-------|-----------|-------|--------|-----------|
 | 16. Provider Dashboard Enhancement | v1.2 | 1/1 | Complete | 2026-01-18 |
+| 16.1 Layout & Navigation Improvements | v1.2 | 1/1 | Complete | 2026-01-18 |
+| 16.3 Shadcn Sidebar Layout | v1.2 | 0/2 | Planned | - |
 | 17. Client Management | v1.2 | 0/? | Not started | - |
 | 18. Service Provider Profiles | v1.2 | 0/? | Not started | - |
 | 19. Provider Analytics | v1.2 | 0/? | Not started | - |
