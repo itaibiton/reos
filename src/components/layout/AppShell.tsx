@@ -1,41 +1,123 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
+import { UserButton } from "@clerk/nextjs";
+import {
+  Authenticated,
+  Unauthenticated,
+  AuthLoading,
+  useQuery,
+  useMutation,
+} from "convex/react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { CheckmarkCircle01Icon } from "@hugeicons/core-free-icons";
+import { api } from "../../../convex/_generated/api";
+import { USER_ROLES } from "@/lib/constants";
 import { Header } from "./Header";
-import { Sidebar } from "./Sidebar";
+import { AppSidebar } from "./Sidebar";
 import { MobileBottomNav } from "./MobileBottomNav";
 import { InvestorSearchBar } from "./InvestorSearchBar";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Separator } from "@/components/ui/separator";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  SidebarProvider,
+  SidebarInset,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
+import { NotificationCenter } from "@/components/notifications/NotificationCenter";
 
 interface AppShellProps {
   children: React.ReactNode;
 }
 
-const SIDEBAR_COLLAPSED_KEY = "sidebar-collapsed";
+// Inline authenticated content for provider header
+function ProviderHeaderContent() {
+  const currentUser = useQuery(api.users.getCurrentUser);
+  const setViewingAsRole = useMutation(api.users.setViewingAsRole);
+
+  // Admin check is based on actual role, not viewingAsRole
+  const isAdmin = currentUser?.role === "admin";
+
+  // The effective role being viewed (viewingAsRole if set, otherwise actual role)
+  const effectiveRole = currentUser?.viewingAsRole ?? currentUser?.role;
+
+  const handleRoleChange = (role: string) => {
+    setViewingAsRole({
+      viewingAsRole: role as
+        | "investor"
+        | "broker"
+        | "mortgage_advisor"
+        | "lawyer"
+        | "admin",
+    });
+  };
+
+  return (
+    <div className="flex items-center gap-3">
+      {/* Notification center */}
+      <NotificationCenter />
+
+      {/* Role-switching dropdown - admin only */}
+      {isAdmin && (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" size="sm" className="h-8 text-xs gap-1.5">
+              <span className="text-muted-foreground">View as:</span>
+              <span className="font-medium">
+                {USER_ROLES.find((r) => r.value === effectiveRole)?.label ||
+                  "Admin"}
+              </span>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-48">
+            <DropdownMenuLabel>Switch View</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            {USER_ROLES.map((role) => (
+              <DropdownMenuItem
+                key={role.value}
+                onClick={() => handleRoleChange(role.value)}
+                className="flex items-center justify-between cursor-pointer"
+              >
+                {role.label}
+                {effectiveRole === role.value && (
+                  <HugeiconsIcon
+                    icon={CheckmarkCircle01Icon}
+                    size={16}
+                    className="text-primary"
+                  />
+                )}
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )}
+
+      <UserButton
+        afterSignOutUrl="/"
+        appearance={{
+          elements: {
+            avatarBox: "h-8 w-8",
+          },
+        }}
+      />
+    </div>
+  );
+}
 
 export function AppShell({ children }: AppShellProps) {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const { effectiveRole } = useCurrentUser();
   const pathname = usePathname();
-
-  // Load collapsed state from localStorage on mount
-  useEffect(() => {
-    const stored = localStorage.getItem(SIDEBAR_COLLAPSED_KEY);
-    if (stored !== null) {
-      setIsSidebarCollapsed(stored === "true");
-    }
-  }, []);
-
-  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
-  const closeSidebar = () => setIsSidebarOpen(false);
-
-  const toggleSidebarCollapse = () => {
-    const newValue = !isSidebarCollapsed;
-    setIsSidebarCollapsed(newValue);
-    localStorage.setItem(SIDEBAR_COLLAPSED_KEY, String(newValue));
-  };
 
   // Investor gets top nav layout (no sidebar)
   const isInvestorLayout = effectiveRole === "investor";
@@ -50,6 +132,7 @@ export function AppShell({ children }: AppShellProps) {
   // Full-bleed pages (no padding wrapper)
   const isFullBleedPage = pathname === "/properties" || pathname === "/chat";
 
+  // Investor layout (no sidebar, top nav)
   if (isInvestorLayout) {
     return (
       <div className="h-screen flex flex-col bg-background">
@@ -68,7 +151,11 @@ export function AppShell({ children }: AppShellProps) {
 
         {/* Main content area - fills remaining space */}
         <main className="flex-1 overflow-hidden pb-16 md:pb-0">
-          {isFullBleedPage ? children : <div className="h-full overflow-auto">{children}</div>}
+          {isFullBleedPage ? (
+            children
+          ) : (
+            <div className="h-full overflow-auto">{children}</div>
+          )}
         </main>
 
         {/* Mobile bottom navigation */}
@@ -77,29 +164,46 @@ export function AppShell({ children }: AppShellProps) {
     );
   }
 
-  // Provider layout (sidebar)
-  const sidebarWidth = isSidebarCollapsed ? "lg:ml-16" : "lg:ml-64";
-
+  // Provider layout (Shadcn sidebar with SidebarProvider)
   return (
-    <div className="min-h-screen bg-background">
-      <Header isSidebarOpen={isSidebarOpen} onToggleSidebar={toggleSidebar} />
-      <Sidebar
-        isOpen={isSidebarOpen}
-        onClose={closeSidebar}
-        isCollapsed={isSidebarCollapsed}
-        onToggleCollapse={toggleSidebarCollapse}
-      />
+    <SidebarProvider>
+      <AppSidebar />
+      <SidebarInset>
+        {/* Inline header for provider layout */}
+        <header className="flex h-16 shrink-0 items-center justify-between border-b px-4">
+          <div className="flex items-center gap-2">
+            <SidebarTrigger className="-ml-1" />
+            <Separator orientation="vertical" className="mr-2 h-4" />
+            {/* Breadcrumb or page title could go here */}
+          </div>
 
-      {/* Main content area */}
-      <main
-        className={`pt-16 transition-all duration-200 ${sidebarWidth} ${isFullBleedPage ? "h-screen" : ""}`}
-      >
-        {isFullBleedPage ? (
-          <div className="h-[calc(100vh-4rem)]">{children}</div>
-        ) : (
-          <div className="p-6">{children}</div>
-        )}
-      </main>
-    </div>
+          {/* Auth section */}
+          <div className="flex items-center">
+            <AuthLoading>
+              <Skeleton className="h-8 w-8 rounded-full" />
+            </AuthLoading>
+
+            <Authenticated>
+              <ProviderHeaderContent />
+            </Authenticated>
+
+            <Unauthenticated>
+              <Button asChild variant="outline" size="sm">
+                <Link href="/sign-in">Sign In</Link>
+              </Button>
+            </Unauthenticated>
+          </div>
+        </header>
+
+        {/* Main content area */}
+        <main className={isFullBleedPage ? "" : "p-6"}>
+          {isFullBleedPage ? (
+            <div className="h-[calc(100vh-4rem)]">{children}</div>
+          ) : (
+            children
+          )}
+        </main>
+      </SidebarInset>
+    </SidebarProvider>
   );
 }
