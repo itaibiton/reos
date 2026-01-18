@@ -11,18 +11,18 @@ See: .planning/PROJECT.md (updated 2026-01-17)
 
 Milestone: v1.1 Investor Onboarding
 Phase: 9 of 15 (Onboarding Gate & State)
-Plan: Not started
-Status: Ready to plan
-Last activity: 2026-01-18 — Milestone v1.1 created
+Plan: 01 complete
+Status: Ready for Phase 10
+Last activity: 2026-01-18 — Phase 9 Plan 01 complete
 
-Progress: ░░░░░░░░░░ 0%
+Progress: █░░░░░░░░░ 14% (1/7 phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 36
+- Total plans completed: 37
 - Average duration: 9 min
-- Total execution time: 5.0 hours
+- Total execution time: 5.1 hours
 
 **By Phase:**
 
@@ -45,10 +45,11 @@ Progress: ░░░░░░░░░░ 0%
 | 6.1 | 3/3 | 15 min | 5 min |
 | 7 | 3/3 | 13 min | 4.3 min |
 | 8 | 2/2 | 14 min | 7 min |
+| 9 | 1/1 | 5 min | 5 min |
 
 **Recent Trend:**
-- Last 5 plans: 6 min, 4 min, 4 min, 4 min, 10 min
-- Trend: Milestone complete - all 36 plans executed
+- Last 5 plans: 4 min, 4 min, 4 min, 10 min, 5 min
+- Trend: v1.1 started - 37 plans executed
 
 ## Accumulated Context
 
@@ -125,6 +126,10 @@ Recent decisions affecting current work:
 - Phase 6.1: Three layout modes: single (1 pane), split (2 cols), quad (2x2 grid)
 - Phase 6.1: Panes state array of 4 slots, null for empty
 - Phase 6.1: ChatPane component handles empty/filled states with droppable zones
+- Phase 9: Role-aware onboarding: investors get onboardingStep=1, service providers complete immediately
+- Phase 9: investorQuestionnaires table stores draft answers with status field (draft/complete)
+- Phase 9: Gate logic in layout.tsx checks role + onboardingComplete for redirect decisions
+- Phase 9: "Skip for now" button on questionnaire page for dev bypass
 
 ### Deferred Issues
 
@@ -150,6 +155,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-18
-Stopped at: Milestone v1.1 initialization
+Stopped at: Phase 9 Plan 01 complete
 Resume file: None
-Next: Run /gsd:plan-phase 9 to plan first phase
+Next: Plan Phase 10 (Questionnaire UI Framework)

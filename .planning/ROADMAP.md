@@ -47,10 +47,10 @@ Building an end-to-end real estate investment platform connecting US investors w
 **Goal**: Lock platform features behind onboarding, create progress tracking
 **Depends on**: v1.0 MVP complete
 **Research**: Unlikely (internal patterns - routing, middleware)
-**Plans**: TBD
+**Plans**: 1/1 complete
 
 Plans:
-- [ ] 09-01: TBD (run /gsd:plan-phase 9 to break down)
+- [x] 09-01: Onboarding gate infrastructure — completed 2026-01-18
 
 ### Phase 10: Questionnaire UI Framework
 
@@ -122,7 +122,7 @@ Plans:
 
 | Phase | Milestone | Plans | Status | Completed |
 |-------|-----------|-------|--------|-----------|
-| 9. Onboarding Gate & State | v1.1 | 0/? | Not started | - |
+| 9. Onboarding Gate & State | v1.1 | 1/1 | Complete | 2026-01-18 |
 | 10. Questionnaire UI Framework | v1.1 | 0/? | Not started | - |
 | 11. Questionnaire Content - Part 1 | v1.1 | 0/? | Not started | - |
 | 12. Questionnaire Content - Part 2 | v1.1 | 0/? | Not started | - |
