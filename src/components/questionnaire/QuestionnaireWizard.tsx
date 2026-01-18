@@ -36,7 +36,8 @@ export function QuestionnaireWizard({
 
   // For smooth height animation
   const contentRef = useRef<HTMLDivElement>(null);
-  const [contentHeight, setContentHeight] = useState<number | "auto">("auto");
+  const [contentHeight, setContentHeight] = useState<number>(300);
+  const [isAnimating, setIsAnimating] = useState(false);
 
   const handleBack = useCallback(() => {
     if (!isFirstStep) {
@@ -52,43 +53,47 @@ export function QuestionnaireWizard({
     }
   }, [isLastStep, currentStep, onStepChange, onComplete]);
 
-  // Measure and animate content height on step change
+  // Animate height on step change
   useEffect(() => {
-    if (contentRef.current) {
-      // Set to auto first to get natural height
-      setContentHeight("auto");
+    if (!contentRef.current) return;
 
-      // Use requestAnimationFrame to ensure DOM has updated
+    setIsAnimating(true);
+
+    // Wait for new content to render, then measure and animate
+    const frameId = requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         if (contentRef.current) {
-          const height = contentRef.current.scrollHeight;
-          setContentHeight(height);
+          const newHeight = contentRef.current.scrollHeight;
+          setContentHeight(newHeight);
         }
+        // Allow transition to complete
+        setTimeout(() => setIsAnimating(false), 350);
       });
-    }
+    });
+
+    return () => cancelAnimationFrame(frameId);
   }, [currentStep]);
 
-  // Also update height when content changes within a step (e.g., description appears)
+  // ResizeObserver for within-step content changes (like description appearing)
   useEffect(() => {
+    if (!contentRef.current) return;
+
     const observer = new ResizeObserver((entries) => {
       for (const entry of entries) {
-        if (entry.target === contentRef.current) {
-          setContentHeight(entry.contentRect.height);
+        const newHeight = entry.contentRect.height;
+        if (newHeight > 0 && Math.abs(newHeight - contentHeight) > 1) {
+          setContentHeight(newHeight);
         }
       }
     });
 
-    if (contentRef.current) {
-      observer.observe(contentRef.current);
-    }
-
+    observer.observe(contentRef.current);
     return () => observer.disconnect();
-  }, []);
+  }, [contentHeight]);
 
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Don't trigger if user is typing in an input
       if (
         e.target instanceof HTMLInputElement ||
         e.target instanceof HTMLTextAreaElement
@@ -116,8 +121,8 @@ export function QuestionnaireWizard({
         className
       )}
     >
-      <Card className="w-full max-w-[600px] overflow-hidden">
-        <CardContent className="space-y-8 p-8">
+      <Card className="w-full max-w-[600px]">
+        <CardContent className="p-8">
           {/* Progress indicator */}
           <QuestionnaireProgress
             steps={steps.map(({ id, title }) => ({ id, title }))}
@@ -126,21 +131,24 @@ export function QuestionnaireWizard({
 
           {/* Animated height container */}
           <div
-            className="overflow-hidden transition-[height] duration-300 ease-in-out"
-            style={{ height: contentHeight === "auto" ? "auto" : `${contentHeight}px` }}
+            className="overflow-hidden mt-8"
+            style={{
+              height: contentHeight,
+              transition: "height 300ms cubic-bezier(0.4, 0, 0.2, 1)",
+            }}
           >
-            {/* Current step content - key ensures fresh animation per step */}
+            {/* Content wrapper for measurement */}
             <div ref={contentRef} key={currentStepData?.id} className="py-4">
               {currentStepData?.component}
             </div>
           </div>
 
           {/* Navigation controls */}
-          <div className="flex items-center justify-between pt-4">
+          <div className="flex items-center justify-between pt-8">
             <Button
               variant="outline"
               onClick={handleBack}
-              disabled={isFirstStep || isLoading}
+              disabled={isFirstStep || isLoading || isAnimating}
               className="min-w-[100px]"
             >
               Back
@@ -148,7 +156,7 @@ export function QuestionnaireWizard({
 
             <Button
               onClick={handleContinue}
-              disabled={isLoading}
+              disabled={isLoading || isAnimating}
               className="min-w-[120px]"
             >
               {isLastStep ? "Complete" : "Continue"}
