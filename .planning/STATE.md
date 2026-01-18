@@ -5,15 +5,17 @@
 See: .planning/PROJECT.md (updated 2026-01-17)
 
 **Core value:** Deal flow tracking from interest to close.
-**Current focus:** v1.0 MVP shipped — planning next milestone
+**Current focus:** v1.1 Investor Onboarding — gated questionnaire with AI-powered flow
 
 ## Current Position
 
-Milestone: v1.0 MVP SHIPPED
-Status: Ready for v1.1 planning
-Last activity: 2026-01-17 — v1.0 milestone complete
+Milestone: v1.1 Investor Onboarding
+Phase: 9 of 15 (Onboarding Gate & State)
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-01-18 — Milestone v1.1 created
 
-Progress: ██████████ 100% (v1.0 complete)
+Progress: ░░░░░░░░░░ 0%
 
 ## Performance Metrics
 
@@ -143,10 +145,11 @@ None yet.
 - Phase 5.3 inserted after Phase 5.2: Property Page Carousel and Interactive Map (COMPLETE)
 - Phase 5.4 inserted after Phase 5.3: Yad2-Style Property Page (URGENT)
 - Phase 6.1 inserted after Phase 6: Multi-layout Chat Page (URGENT)
+- Milestone v1.1 created: Investor Onboarding, 7 phases (Phase 9-15)
 
 ## Session Continuity
 
-Last session: 2026-01-17
-Stopped at: v1.0 MVP milestone complete
+Last session: 2026-01-18
+Stopped at: Milestone v1.1 initialization
 Resume file: None
-Next: Run /gsd:discuss-milestone to plan v1.1
+Next: Run /gsd:plan-phase 9 to plan first phase
