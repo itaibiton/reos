@@ -26,6 +26,9 @@ import {
   PropertySizeStep,
   LocationStep,
   AmenitiesStep,
+  TimelineStep,
+  AdditionalPreferencesStep,
+  ServicesStep,
 } from "@/components/questionnaire/steps";
 
 export default function QuestionnairePage() {
@@ -60,6 +63,10 @@ export default function QuestionnairePage() {
   const [minArea, setMinArea] = useState<number | undefined>();
   const [maxArea, setMaxArea] = useState<number | undefined>();
   const [preferredAmenities, setPreferredAmenities] = useState<string[]>([]);
+  // Phase 14 fields
+  const [purchaseTimeline, setPurchaseTimeline] = useState<string | undefined>();
+  const [additionalPreferences, setAdditionalPreferences] = useState<string | undefined>();
+  const [servicesNeeded, setServicesNeeded] = useState<string[]>([]);
 
   // Initialize state from questionnaire data (for draft restoration)
   useEffect(() => {
@@ -84,42 +91,48 @@ export default function QuestionnairePage() {
       setMinArea(questionnaire.minArea);
       setMaxArea(questionnaire.maxArea);
       setPreferredAmenities(questionnaire.preferredAmenities ?? []);
+      // Phase 14 fields
+      setPurchaseTimeline(questionnaire.purchaseTimeline);
+      setAdditionalPreferences(questionnaire.additionalPreferences);
+      setServicesNeeded(questionnaire.servicesNeeded ?? []);
     }
   }, [questionnaire]);
 
   // Define wizard steps with real components
+  // Each component has a key to ensure proper remounting when step changes
   const steps: WizardStep[] = useMemo(
     () => [
       {
         id: "citizenship",
         title: "Citizenship",
-        component: <CitizenshipStep value={citizenship} onChange={setCitizenship} />,
+        component: <CitizenshipStep key="citizenship" value={citizenship} onChange={setCitizenship} />,
       },
       {
         id: "residency",
         title: "Residency",
-        component: <ResidencyStep value={residencyStatus} onChange={setResidencyStatus} />,
+        component: <ResidencyStep key="residency" value={residencyStatus} onChange={setResidencyStatus} />,
       },
       {
         id: "experience",
         title: "Experience",
-        component: <ExperienceStep value={experienceLevel} onChange={setExperienceLevel} />,
+        component: <ExperienceStep key="experience" value={experienceLevel} onChange={setExperienceLevel} />,
       },
       {
         id: "ownership",
         title: "Ownership",
-        component: <OwnershipStep value={ownsPropertyInIsrael} onChange={setOwnsPropertyInIsrael} />,
+        component: <OwnershipStep key="ownership" value={ownsPropertyInIsrael} onChange={setOwnsPropertyInIsrael} />,
       },
       {
         id: "investment-type",
         title: "Investment Type",
-        component: <InvestmentTypeStep value={investmentType} onChange={setInvestmentType} />,
+        component: <InvestmentTypeStep key="investment-type" value={investmentType} onChange={setInvestmentType} />,
       },
       {
         id: "budget",
         title: "Budget",
         component: (
           <BudgetStep
+            key="budget"
             budgetMin={budgetMin}
             budgetMax={budgetMax}
             onBudgetMinChange={setBudgetMin}
@@ -130,33 +143,34 @@ export default function QuestionnairePage() {
       {
         id: "horizon",
         title: "Timeline",
-        component: <HorizonStep value={investmentHorizon} onChange={setInvestmentHorizon} />,
+        component: <HorizonStep key="horizon" value={investmentHorizon} onChange={setInvestmentHorizon} />,
       },
       {
         id: "goals",
         title: "Goals",
-        component: <GoalsStep value={investmentGoals} onChange={setInvestmentGoals} />,
+        component: <GoalsStep key="goals" value={investmentGoals} onChange={setInvestmentGoals} />,
       },
       {
         id: "yield",
         title: "Yield",
-        component: <YieldStep value={yieldPreference} onChange={setYieldPreference} />,
+        component: <YieldStep key="yield" value={yieldPreference} onChange={setYieldPreference} />,
       },
       {
         id: "financing",
         title: "Financing",
-        component: <FinancingStep value={financingApproach} onChange={setFinancingApproach} />,
+        component: <FinancingStep key="financing" value={financingApproach} onChange={setFinancingApproach} />,
       },
       {
         id: "property-type",
         title: "Property Type",
-        component: <PropertyTypeStep value={preferredPropertyTypes} onChange={setPreferredPropertyTypes} />,
+        component: <PropertyTypeStep key="property-type" value={preferredPropertyTypes} onChange={setPreferredPropertyTypes} />,
       },
       {
         id: "property-size",
         title: "Property Size",
         component: (
           <PropertySizeStep
+            key="property-size"
             minBedrooms={minBedrooms}
             maxBedrooms={maxBedrooms}
             minArea={minArea}
@@ -171,15 +185,30 @@ export default function QuestionnairePage() {
       {
         id: "location",
         title: "Location",
-        component: <LocationStep value={preferredLocations} onChange={setPreferredLocations} />,
+        component: <LocationStep key="location" value={preferredLocations} onChange={setPreferredLocations} />,
       },
       {
         id: "amenities",
         title: "Amenities",
-        component: <AmenitiesStep value={preferredAmenities} onChange={setPreferredAmenities} />,
+        component: <AmenitiesStep key="amenities" value={preferredAmenities} onChange={setPreferredAmenities} />,
+      },
+      {
+        id: "timeline",
+        title: "Timeline",
+        component: <TimelineStep key="timeline" value={purchaseTimeline} onChange={setPurchaseTimeline} />,
+      },
+      {
+        id: "additional-preferences",
+        title: "Preferences",
+        component: <AdditionalPreferencesStep key="additional-preferences" value={additionalPreferences} onChange={setAdditionalPreferences} />,
+      },
+      {
+        id: "services",
+        title: "Services",
+        component: <ServicesStep key="services" value={servicesNeeded} onChange={setServicesNeeded} />,
       },
     ],
-    [citizenship, residencyStatus, experienceLevel, ownsPropertyInIsrael, investmentType, budgetMin, budgetMax, investmentHorizon, investmentGoals, yieldPreference, financingApproach, preferredPropertyTypes, preferredLocations, minBedrooms, maxBedrooms, minArea, maxArea, preferredAmenities]
+    [citizenship, residencyStatus, experienceLevel, ownsPropertyInIsrael, investmentType, budgetMin, budgetMax, investmentHorizon, investmentGoals, yieldPreference, financingApproach, preferredPropertyTypes, preferredLocations, minBedrooms, maxBedrooms, minArea, maxArea, preferredAmenities, purchaseTimeline, additionalPreferences, servicesNeeded]
   );
 
   // Get current step from questionnaire (default to 1)
@@ -223,6 +252,10 @@ export default function QuestionnairePage() {
         minArea,
         maxArea,
         preferredAmenities,
+        // Phase 14 fields
+        purchaseTimeline,
+        additionalPreferences,
+        servicesNeeded,
       });
     } catch (error) {
       console.error("Failed to save answers:", error);
