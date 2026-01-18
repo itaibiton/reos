@@ -61,6 +61,8 @@ export const getCurrentUser = query({
 });
 
 // Update user's role (used during onboarding and admin role-switching)
+// For investors: sets onboardingComplete = false, onboardingStep = 1 (questionnaire pending)
+// For service providers: sets onboardingComplete = true (fully onboarded)
 export const setUserRole = mutation({
   args: {
     role: v.union(
@@ -86,11 +88,117 @@ export const setUserRole = mutation({
       throw new Error("User not found");
     }
 
+    const isInvestor = args.role === "investor";
+    const isServiceProvider =
+      args.role === "broker" ||
+      args.role === "mortgage_advisor" ||
+      args.role === "lawyer";
+
+    // Service providers complete onboarding after role selection
+    // Investors need to complete the questionnaire first
     await ctx.db.patch(user._id, {
       role: args.role,
+      onboardingComplete: isServiceProvider || args.role === "admin",
+      onboardingStep: isInvestor ? 1 : undefined, // 1 = role selected, questionnaire pending
+      updatedAt: Date.now(),
+    });
+
+    // For investors, initialize their questionnaire draft
+    if (isInvestor) {
+      // Check if questionnaire already exists
+      const existing = await ctx.db
+        .query("investorQuestionnaires")
+        .withIndex("by_user", (q) => q.eq("userId", user._id))
+        .unique();
+
+      if (!existing) {
+        await ctx.db.insert("investorQuestionnaires", {
+          userId: user._id,
+          status: "draft",
+          currentStep: 1,
+          createdAt: Date.now(),
+          updatedAt: Date.now(),
+        });
+      }
+    }
+  },
+});
+
+// Complete onboarding for the current user
+// Used when investor finishes the questionnaire
+export const completeOnboarding = mutation({
+  args: {},
+  handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Not authenticated");
+    }
+
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_clerk_id", (q) => q.eq("clerkId", identity.subject))
+      .unique();
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    await ctx.db.patch(user._id, {
       onboardingComplete: true,
       updatedAt: Date.now(),
     });
+
+    // If investor, mark questionnaire as complete
+    if (user.role === "investor") {
+      const questionnaire = await ctx.db
+        .query("investorQuestionnaires")
+        .withIndex("by_user", (q) => q.eq("userId", user._id))
+        .unique();
+
+      if (questionnaire) {
+        await ctx.db.patch(questionnaire._id, {
+          status: "complete",
+          updatedAt: Date.now(),
+        });
+      }
+    }
+  },
+});
+
+// Get onboarding status for gate logic
+export const getOnboardingStatus = query({
+  args: {},
+  handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      return null;
+    }
+
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_clerk_id", (q) => q.eq("clerkId", identity.subject))
+      .unique();
+
+    if (!user) {
+      return null;
+    }
+
+    // Get questionnaire status for investors
+    let questionnaireStatus: "draft" | "complete" | null = null;
+    if (user.role === "investor") {
+      const questionnaire = await ctx.db
+        .query("investorQuestionnaires")
+        .withIndex("by_user", (q) => q.eq("userId", user._id))
+        .unique();
+      questionnaireStatus = questionnaire?.status ?? null;
+    }
+
+    return {
+      role: user.role,
+      onboardingComplete: user.onboardingComplete,
+      onboardingStep: user.onboardingStep,
+      questionnaireStatus,
+    };
   },
 });
 
