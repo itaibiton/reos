@@ -12,3 +12,6 @@ export { PropertyTypeStep } from "./PropertyTypeStep";
 export { PropertySizeStep } from "./PropertySizeStep";
 export { LocationStep } from "./LocationStep";
 export { AmenitiesStep } from "./AmenitiesStep";
+export { TimelineStep } from "./TimelineStep";
+export { AdditionalPreferencesStep } from "./AdditionalPreferencesStep";
+export { ServicesStep } from "./ServicesStep";

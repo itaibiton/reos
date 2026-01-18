@@ -525,6 +525,11 @@ export default defineSchema({
     preferredAmenities: v.optional(v.array(v.string())), // from PROPERTY_AMENITIES
     locationFlexibility: v.optional(v.string()), // "flexible" | "specific" | "nearby_cities"
 
+    // Phase 14 fields - AI preferences & service selection
+    purchaseTimeline: v.optional(v.string()), // "3_months" | "6_months" | "1_year" | "exploring"
+    additionalPreferences: v.optional(v.string()), // free-text up to 2000 chars
+    servicesNeeded: v.optional(v.array(v.string())), // ["broker", "mortgage_advisor", "lawyer"]
+
     // Timestamps
     createdAt: v.number(),
     updatedAt: v.number(),

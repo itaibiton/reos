@@ -122,6 +122,10 @@ export const saveAnswers = mutation({
     maxArea: v.optional(v.number()),
     preferredAmenities: v.optional(v.array(v.string())),
     locationFlexibility: v.optional(v.string()),
+    // Phase 14 fields
+    purchaseTimeline: v.optional(v.string()),
+    additionalPreferences: v.optional(v.string()),
+    servicesNeeded: v.optional(v.array(v.string())),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -210,6 +214,16 @@ export const saveAnswers = mutation({
     }
     if (args.locationFlexibility !== undefined) {
       updates.locationFlexibility = args.locationFlexibility;
+    }
+    // Phase 14 fields
+    if (args.purchaseTimeline !== undefined) {
+      updates.purchaseTimeline = args.purchaseTimeline;
+    }
+    if (args.additionalPreferences !== undefined) {
+      updates.additionalPreferences = args.additionalPreferences;
+    }
+    if (args.servicesNeeded !== undefined) {
+      updates.servicesNeeded = args.servicesNeeded;
     }
 
     await ctx.db.patch(questionnaire._id, updates);
