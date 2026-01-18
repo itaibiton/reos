@@ -379,21 +379,32 @@ export function getNavigationForRole(role: UserRole): RoleNavigation {
 
 /**
  * Check if a path is active (matches exactly or is a parent route)
- * @param pathname - Current pathname
+ * @param pathname - Current pathname (without query string)
+ * @param searchParams - Current URL search params string (e.g., "favorites=true")
  * @param href - Link href to check
  * @returns Whether the link should be shown as active
  */
-export function isActivePath(pathname: string, href: string): boolean {
-  // Handle query parameters - compare base paths
-  const hrefBase = href.split("?")[0];
-  const pathnameBase = pathname.split("?")[0];
+export function isActivePath(pathname: string, searchParams: string, href: string): boolean {
+  const [hrefBase, hrefQuery] = href.split("?");
 
-  // Exact match
-  if (pathnameBase === hrefBase) return true;
+  // If href has query params, require exact match of both path and query
+  if (hrefQuery) {
+    return pathname === hrefBase && searchParams === hrefQuery;
+  }
+
+  // For links without query params, match only if current URL also has no relevant query
+  // This prevents /properties from matching when we're on /properties?favorites=true
+  if (pathname === hrefBase) {
+    // If there's a favorites param, this is the saved properties page, not browse
+    if (searchParams.includes("favorites=true")) {
+      return false;
+    }
+    return true;
+  }
 
   // Check if pathname starts with href (for nested routes)
   // But not for root paths like "/" to avoid false positives
-  if (hrefBase !== "/" && pathnameBase.startsWith(hrefBase + "/")) return true;
+  if (hrefBase !== "/" && pathname.startsWith(hrefBase + "/")) return true;
 
   return false;
 }

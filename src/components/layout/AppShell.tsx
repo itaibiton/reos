@@ -1,6 +1,6 @@
 "use client";
 
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { UserButton } from "@clerk/nextjs";
 import {
@@ -33,10 +33,111 @@ import {
   SidebarInset,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import { NotificationCenter } from "@/components/notifications/NotificationCenter";
+
+// Route label mappings for breadcrumbs
+const routeLabels: Record<string, string> = {
+  properties: "Properties",
+  deals: "Deals",
+  chat: "Chat",
+  profile: "Profile",
+  settings: "Settings",
+  dashboard: "Dashboard",
+  clients: "Clients",
+  investor: "Investor Profile",
+  provider: "Provider Profile",
+  new: "New Property",
+  edit: "Edit",
+  listings: "Your Listings",
+  tours: "Property Tours",
+  leads: "Lead Management",
+  mortgage: "Mortgage",
+  applications: "Applications",
+  "pre-approvals": "Pre-approvals",
+  legal: "Legal",
+  consultations: "Consultations",
+  contracts: "Contracts",
+  documents: "Documents",
+  accounting: "Accounting",
+  analysis: "Financial Analysis",
+  "tax-planning": "Tax Planning",
+  notary: "Notary",
+  requests: "Requests",
+  signings: "Document Signings",
+  transactions: "Transactions",
+  tax: "Tax",
+  filings: "Tax Filings",
+  planning: "Tax Planning",
+  appraisal: "Appraisal",
+  valuations: "Property Valuations",
+  reports: "Valuation Reports",
+  onboarding: "Onboarding",
+  questionnaire: "Questionnaire",
+  "design-system": "Design System",
+};
 
 interface AppShellProps {
   children: React.ReactNode;
+}
+
+// Generate breadcrumb items from pathname
+function generateBreadcrumbs(pathname: string, searchParams: string) {
+  const segments = pathname.split("/").filter(Boolean);
+  const breadcrumbs: { label: string; href: string; isLast: boolean }[] = [];
+
+  // Special case for favorites
+  if (pathname === "/properties" && searchParams.includes("favorites=true")) {
+    breadcrumbs.push({
+      label: "Properties",
+      href: "/properties",
+      isLast: false,
+    });
+    breadcrumbs.push({
+      label: "Saved",
+      href: "/properties?favorites=true",
+      isLast: true,
+    });
+    return breadcrumbs;
+  }
+
+  let currentPath = "";
+  segments.forEach((segment, index) => {
+    currentPath += `/${segment}`;
+    const isLast = index === segments.length - 1;
+
+    // Skip dynamic segments that look like IDs
+    const isId = /^[a-z0-9]{20,}$/i.test(segment);
+
+    // Get label from mappings or format the segment
+    let label = routeLabels[segment];
+    if (!label) {
+      if (isId) {
+        label = "Details";
+      } else {
+        // Capitalize and replace dashes with spaces
+        label = segment
+          .split("-")
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(" ");
+      }
+    }
+
+    breadcrumbs.push({
+      label,
+      href: currentPath,
+      isLast,
+    });
+  });
+
+  return breadcrumbs;
 }
 
 // Inline authenticated content for provider header
@@ -116,6 +217,11 @@ function ProviderHeaderContent() {
 export function AppShell({ children }: AppShellProps) {
   const { effectiveRole } = useCurrentUser();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const searchParamsString = searchParams.toString();
+
+  // Generate breadcrumbs
+  const breadcrumbs = generateBreadcrumbs(pathname, searchParamsString);
 
   // Show search bar on marketplace pages for investor
   const isInvestorLayout = effectiveRole === "investor";
@@ -136,7 +242,25 @@ export function AppShell({ children }: AppShellProps) {
           <div className="flex items-center gap-2">
             <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="mr-2 h-4" />
-            {/* Breadcrumb or page title could go here */}
+            {/* Breadcrumbs */}
+            <Breadcrumb>
+              <BreadcrumbList>
+                {breadcrumbs.map((crumb, index) => (
+                  <BreadcrumbItem key={crumb.href}>
+                    {crumb.isLast ? (
+                      <BreadcrumbPage>{crumb.label}</BreadcrumbPage>
+                    ) : (
+                      <>
+                        <BreadcrumbLink asChild>
+                          <Link href={crumb.href}>{crumb.label}</Link>
+                        </BreadcrumbLink>
+                        <BreadcrumbSeparator />
+                      </>
+                    )}
+                  </BreadcrumbItem>
+                ))}
+              </BreadcrumbList>
+            </Breadcrumb>
           </div>
 
           {/* Auth section */}
