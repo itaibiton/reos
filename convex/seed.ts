@@ -366,9 +366,19 @@ export const seedServiceProviders = mutation({
       let userId: Id<"users">;
 
       if (existingUser) {
-        // Update existing user role if needed
+        // Update existing user role and onboarding status if needed
+        const updates: Record<string, unknown> = {};
         if (existingUser.role !== provider.role) {
-          await ctx.db.patch(existingUser._id, { role: provider.role });
+          updates.role = provider.role;
+        }
+        // Ensure service providers are marked as onboarding complete
+        if (!existingUser.onboardingComplete) {
+          updates.onboardingComplete = true;
+          updates.onboardingStep = undefined;
+        }
+        if (Object.keys(updates).length > 0) {
+          updates.updatedAt = now;
+          await ctx.db.patch(existingUser._id, updates);
         }
         userId = existingUser._id;
       } else {
