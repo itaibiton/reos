@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { ChevronRight } from "lucide-react";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { BlackHoleIcon } from "@hugeicons/core-free-icons";
@@ -37,8 +37,6 @@ import {
 export function AppSidebar() {
   const { effectiveRole, isLoading } = useCurrentUser();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const searchParamsString = searchParams.toString();
 
   // Get navigation for current role, cast to extended UserRole type
   // Default to investor for loading state
@@ -92,7 +90,7 @@ export function AppSidebar() {
               <SidebarGroupContent>
                 <SidebarMenu>
                   {group.items.map((item) => {
-                    const isActive = isActivePath(pathname, searchParamsString, item.href);
+                    const isActive = isActivePath(pathname, item.href);
 
                     return (
                       <SidebarMenuItem key={item.href}>
@@ -114,7 +112,6 @@ export function AppSidebar() {
                                 {item.items.map((subItem) => {
                                   const isSubActive = isActivePath(
                                     pathname,
-                                    searchParamsString,
                                     subItem.href
                                   );
                                   return (

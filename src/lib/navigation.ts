@@ -59,7 +59,7 @@ const investorNavigation: RoleNavigation = {
       label: "Marketplace",
       items: [
         { label: "Browse Properties", href: "/properties", icon: Building2 },
-        { label: "Saved Properties", href: "/properties?favorites=true", icon: Heart },
+        { label: "Saved Properties", href: "/properties/saved", icon: Heart },
         { label: "Deals", href: "/deals", icon: Handshake },
       ],
     },
@@ -85,7 +85,7 @@ const brokerNavigation: RoleNavigation = {
       label: "Marketplace",
       items: [
         { label: "Browse Properties", href: "/properties", icon: Building2 },
-        { label: "Saved Properties", href: "/properties?favorites=true", icon: Heart },
+        { label: "Saved Properties", href: "/properties/saved", icon: Heart },
         { label: "Your Listings", href: "/properties/listings", icon: Building },
         { label: "Deals", href: "/deals", icon: Handshake },
       ],
@@ -121,7 +121,7 @@ const mortgageAdvisorNavigation: RoleNavigation = {
       label: "Marketplace",
       items: [
         { label: "Browse Properties", href: "/properties", icon: Building2 },
-        { label: "Saved Properties", href: "/properties?favorites=true", icon: Heart },
+        { label: "Saved Properties", href: "/properties/saved", icon: Heart },
         { label: "Deals", href: "/deals", icon: Handshake },
       ],
     },
@@ -156,7 +156,7 @@ const lawyerNavigation: RoleNavigation = {
       label: "Marketplace",
       items: [
         { label: "Browse Properties", href: "/properties", icon: Building2 },
-        { label: "Saved Properties", href: "/properties?favorites=true", icon: Heart },
+        { label: "Saved Properties", href: "/properties/saved", icon: Heart },
         { label: "Deals", href: "/deals", icon: Handshake },
       ],
     },
@@ -191,7 +191,7 @@ const accountantNavigation: RoleNavigation = {
       label: "Marketplace",
       items: [
         { label: "Browse Properties", href: "/properties", icon: Building2 },
-        { label: "Saved Properties", href: "/properties?favorites=true", icon: Heart },
+        { label: "Saved Properties", href: "/properties/saved", icon: Heart },
         { label: "Deals", href: "/deals", icon: Handshake },
       ],
     },
@@ -226,7 +226,7 @@ const notaryNavigation: RoleNavigation = {
       label: "Marketplace",
       items: [
         { label: "Browse Properties", href: "/properties", icon: Building2 },
-        { label: "Saved Properties", href: "/properties?favorites=true", icon: Heart },
+        { label: "Saved Properties", href: "/properties/saved", icon: Heart },
         { label: "Deals", href: "/deals", icon: Handshake },
       ],
     },
@@ -261,7 +261,7 @@ const taxConsultantNavigation: RoleNavigation = {
       label: "Marketplace",
       items: [
         { label: "Browse Properties", href: "/properties", icon: Building2 },
-        { label: "Saved Properties", href: "/properties?favorites=true", icon: Heart },
+        { label: "Saved Properties", href: "/properties/saved", icon: Heart },
         { label: "Deals", href: "/deals", icon: Handshake },
       ],
     },
@@ -296,7 +296,7 @@ const appraiserNavigation: RoleNavigation = {
       label: "Marketplace",
       items: [
         { label: "Browse Properties", href: "/properties", icon: Building2 },
-        { label: "Saved Properties", href: "/properties?favorites=true", icon: Heart },
+        { label: "Saved Properties", href: "/properties/saved", icon: Heart },
         { label: "Deals", href: "/deals", icon: Handshake },
       ],
     },
@@ -331,7 +331,7 @@ const adminNavigation: RoleNavigation = {
       label: "Marketplace",
       items: [
         { label: "Browse Properties", href: "/properties", icon: Building2 },
-        { label: "Saved Properties", href: "/properties?favorites=true", icon: Heart },
+        { label: "Saved Properties", href: "/properties/saved", icon: Heart },
         { label: "Your Listings", href: "/properties/listings", icon: Building },
         { label: "Deals", href: "/deals", icon: Handshake },
       ],
@@ -380,31 +380,21 @@ export function getNavigationForRole(role: UserRole): RoleNavigation {
 /**
  * Check if a path is active (matches exactly or is a parent route)
  * @param pathname - Current pathname (without query string)
- * @param searchParams - Current URL search params string (e.g., "favorites=true")
  * @param href - Link href to check
  * @returns Whether the link should be shown as active
  */
-export function isActivePath(pathname: string, searchParams: string, href: string): boolean {
-  const [hrefBase, hrefQuery] = href.split("?");
-
-  // If href has query params, require exact match of both path and query
-  if (hrefQuery) {
-    return pathname === hrefBase && searchParams === hrefQuery;
-  }
-
-  // For links without query params, match only if current URL also has no relevant query
-  // This prevents /properties from matching when we're on /properties?favorites=true
-  if (pathname === hrefBase) {
-    // If there's a favorites param, this is the saved properties page, not browse
-    if (searchParams.includes("favorites=true")) {
-      return false;
-    }
+export function isActivePath(pathname: string, href: string): boolean {
+  // Exact match
+  if (pathname === href) {
     return true;
   }
 
   // Check if pathname starts with href (for nested routes)
   // But not for root paths like "/" to avoid false positives
-  if (hrefBase !== "/" && pathname.startsWith(hrefBase + "/")) return true;
+  // Also exclude /properties from matching /properties/saved
+  if (href !== "/" && href !== "/properties" && pathname.startsWith(href + "/")) {
+    return true;
+  }
 
   return false;
 }
