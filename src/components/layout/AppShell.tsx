@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { UserButton } from "@clerk/nextjs";
@@ -298,23 +299,20 @@ export function AppShell({ children }: AppShellProps) {
                 {breadcrumbs.map((crumb, index) => {
                   const isLast = index === breadcrumbs.length - 1;
                   return (
-                    <BreadcrumbItem key={`${crumb.label}-${index}`}>
-                      {isLast ? (
-                        <BreadcrumbPage>{crumb.label}</BreadcrumbPage>
-                      ) : crumb.href ? (
-                        <>
+                    <React.Fragment key={`${crumb.label}-${index}`}>
+                      <BreadcrumbItem>
+                        {isLast ? (
+                          <BreadcrumbPage>{crumb.label}</BreadcrumbPage>
+                        ) : crumb.href ? (
                           <BreadcrumbLink asChild>
                             <Link href={crumb.href}>{crumb.label}</Link>
                           </BreadcrumbLink>
-                          <BreadcrumbSeparator />
-                        </>
-                      ) : (
-                        <>
+                        ) : (
                           <span className="text-muted-foreground">{crumb.label}</span>
-                          <BreadcrumbSeparator />
-                        </>
-                      )}
-                    </BreadcrumbItem>
+                        )}
+                      </BreadcrumbItem>
+                      {!isLast && <BreadcrumbSeparator />}
+                    </React.Fragment>
                   );
                 })}
               </BreadcrumbList>
