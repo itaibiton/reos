@@ -7,7 +7,7 @@ Building an end-to-end real estate investment platform connecting US investors w
 ## Milestones
 
 - ✅ [v1.0 MVP](milestones/v1.0-ROADMAP.md) (Phases 1-8) — SHIPPED 2026-01-17
-- 🚧 **v1.1 Investor Onboarding** — Phases 9-15 (in progress)
+- ✅ **v1.1 Investor Onboarding** — Phases 9-15 — SHIPPED 2026-01-18
 
 ## Completed Milestones
 
@@ -38,9 +38,11 @@ Building an end-to-end real estate investment platform connecting US investors w
 
 </details>
 
-## 🚧 v1.1 Investor Onboarding (In Progress)
+## ✅ v1.1 Investor Onboarding (Complete)
 
 **Milestone Goal:** Gated investor onboarding questionnaire with AI-powered conversational flow, enabling personalized property matching and service provider visibility.
+
+**SHIPPED:** 2026-01-18
 
 ### Phase 9: Onboarding Gate & State
 
@@ -108,18 +110,18 @@ Plans:
 **Goal**: Investor profile visible to providers, edit answers, completeness indicator
 **Depends on**: Phase 14
 **Research**: Unlikely (internal patterns)
-**Plans**: 1/2 complete
+**Plans**: 2/2 complete
 
 Plans:
 - [x] 15-01: Profile display for providers — completed 2026-01-18
-- [ ] 15-02: Profile edit for investors
+- [x] 15-02: Profile edit for investors — completed 2026-01-18
 
 ## Progress
 
 | Milestone | Phases | Plans | Status | Shipped |
 |-----------|--------|-------|--------|---------|
 | v1.0 MVP | 17 | 40 | Complete | 2026-01-17 |
-| v1.1 Investor Onboarding | 7 | 7/8 | In Progress | - |
+| v1.1 Investor Onboarding | 7 | 8 | Complete | 2026-01-18 |
 
 | Phase | Milestone | Plans | Status | Completed |
 |-------|-----------|-------|--------|-----------|
@@ -129,7 +131,7 @@ Plans:
 | 12. Questionnaire Content - Part 2 | v1.1 | 1/1 | Complete | 2026-01-18 |
 | 13. Property Preferences & Location | v1.1 | 1/1 | Complete | 2026-01-18 |
 | 14. AI Preferences & Service Selection | v1.1 | 1/1 | Complete | 2026-01-18 |
-| 15. Profile Display & Edit | v1.1 | 1/2 | In Progress | - |
+| 15. Profile Display & Edit | v1.1 | 2/2 | Complete | 2026-01-18 |
 
 ---
 

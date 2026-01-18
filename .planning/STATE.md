@@ -9,20 +9,20 @@ See: .planning/PROJECT.md (updated 2026-01-17)
 
 ## Current Position
 
-Milestone: v1.1 Investor Onboarding
-Phase: 15 of 15 (Profile Display & Edit)
-Plan: 1 of 2 in current phase
-Status: In progress
-Last activity: 2026-01-18 — Completed 15-01-PLAN.md
+Milestone: v1.1 Investor Onboarding — COMPLETE
+Phase: 15 of 15 (Profile Display & Edit) — COMPLETE
+Plan: 2 of 2 in current phase
+Status: Milestone complete
+Last activity: 2026-01-18 — Completed 15-02-PLAN.md, v1.1 shipped
 
-Progress: ██████████ 93% (6.5/7 phases)
+Progress: ██████████ 100% (7/7 phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 43
-- Average duration: 9 min
-- Total execution time: 5.52 hours
+- Total plans completed: 44
+- Average duration: 8 min
+- Total execution time: 5.58 hours
 
 **By Phase:**
 
@@ -51,11 +51,11 @@ Progress: ██████████ 93% (6.5/7 phases)
 | 12 | 1/1 | 4 min | 4 min |
 | 13 | 1/1 | 3 min | 3 min |
 | 14 | 1/1 | 4 min | 4 min |
-| 15 | 1/2 | 5 min | 5 min |
+| 15 | 2/2 | 8 min | 4 min |
 
 **Recent Trend:**
-- Last 5 plans: 3 min, 4 min, 3 min, 4 min, 5 min
-- Trend: v1.1 in progress - 43 plans executed
+- Last 5 plans: 4 min, 3 min, 4 min, 5 min, 3 min
+- Trend: v1.1 COMPLETE - 44 plans total (40 v1.0 + 8 v1.1 less 4 duplicates)
 
 ## Accumulated Context
 
@@ -156,6 +156,8 @@ Recent decisions affecting current work:
 - Phase 15: getByInvestorId access control: self-access OR provider assigned to shared deal
 - Phase 15: InvestorQuestionnaireCard shows to providers only (not to investor viewing own deal)
 - Phase 15: Label mappings kept inline in component for simplicity
+- Phase 15: QuestionnaireWizard extended with editMode prop (hides skip, shows "Save Changes")
+- Phase 15: Completeness calculation uses 15 required fields, excludes optional (bedrooms/area/amenities)
 
 ### Deferred Issues
 
@@ -181,6 +183,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-18
-Stopped at: Completed 15-01-PLAN.md
+Stopped at: Completed 15-02-PLAN.md — v1.1 milestone shipped
 Resume file: None
-Next: Execute 15-02-PLAN.md (Profile Edit)
+Next: /gsd:complete-milestone to archive v1.1 and plan v1.2
