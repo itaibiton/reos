@@ -36,6 +36,7 @@ import {
   Cancel01Icon,
   Location01Icon,
   Agreement01Icon,
+  Building05Icon,
 } from "@hugeicons/core-free-icons";
 import Link from "next/link";
 import { toast } from "sonner";
@@ -84,6 +85,113 @@ function getInitials(name?: string | null) {
     .slice(0, 2);
 }
 
+// Stage badge color mapping
+function getStageBadgeClasses(stage: string): string {
+  switch (stage) {
+    case "broker_assigned":
+      return "bg-blue-100 text-blue-800";
+    case "mortgage":
+      return "bg-purple-100 text-purple-800";
+    case "legal":
+      return "bg-orange-100 text-orange-800";
+    case "closing":
+      return "bg-green-100 text-green-800";
+    default:
+      return "bg-gray-100 text-gray-800";
+  }
+}
+
+// Format stage name for display
+function formatStageName(stage: string): string {
+  return stage
+    .split("_")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
+
+// Active Deal Card component
+interface ActiveDealCardProps {
+  deal: {
+    _id: string;
+    stage: string;
+    createdAt: number;
+    property: {
+      _id: string;
+      title: string;
+      city: string;
+      priceUsd: number;
+      images: string[];
+    } | null;
+    investor: {
+      _id: string;
+      name?: string;
+      imageUrl?: string;
+    } | null;
+  };
+}
+
+function ActiveDealCard({ deal }: ActiveDealCardProps) {
+  const router = useRouter();
+
+  return (
+    <div
+      className="flex gap-3 p-3 border rounded-lg hover:bg-muted/50 transition-colors cursor-pointer"
+      onClick={() => router.push(`/deals/${deal._id}`)}
+    >
+      {/* Property Image */}
+      <div className="h-16 w-16 rounded-md overflow-hidden bg-muted flex-shrink-0">
+        {deal.property?.images && deal.property.images.length > 0 ? (
+          <img
+            src={deal.property.images[0]}
+            alt={deal.property?.title || "Property"}
+            className="h-full w-full object-cover"
+          />
+        ) : (
+          <div className="h-full w-full flex items-center justify-center">
+            <HugeiconsIcon
+              icon={Building05Icon}
+              size={24}
+              className="text-muted-foreground"
+            />
+          </div>
+        )}
+      </div>
+
+      {/* Deal Info */}
+      <div className="flex-1 min-w-0">
+        <p className="font-medium text-sm truncate">
+          {deal.property?.title || "Property"}
+        </p>
+        <div className="flex items-center gap-1 text-xs text-muted-foreground">
+          <HugeiconsIcon icon={Location01Icon} size={12} />
+          <span>{deal.property?.city || "Unknown"}</span>
+          <span>•</span>
+          <span>{formatUSD(deal.property?.priceUsd || 0)}</span>
+        </div>
+
+        {/* Investor + Stage */}
+        <div className="flex items-center gap-2 mt-1">
+          <Avatar className="h-5 w-5">
+            <AvatarImage src={deal.investor?.imageUrl} />
+            <AvatarFallback className="text-[8px]">
+              {getInitials(deal.investor?.name)}
+            </AvatarFallback>
+          </Avatar>
+          <span className="text-xs text-muted-foreground truncate">
+            {deal.investor?.name || "Investor"}
+          </span>
+          <Badge
+            variant="secondary"
+            className={`text-[10px] px-1.5 py-0 ${getStageBadgeClasses(deal.stage)}`}
+          >
+            {formatStageName(deal.stage)}
+          </Badge>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 interface ProviderDashboardProps {
   userName?: string;
 }
@@ -93,6 +201,7 @@ export function ProviderDashboard({ userName }: ProviderDashboardProps) {
   const [respondingId, setRespondingId] = useState<Id<"serviceRequests"> | null>(null);
 
   const stats = useQuery(api.dashboard.getStats);
+  const activeDeals = useQuery(api.dashboard.getProviderActiveDeals);
   const pendingRequests = useQuery(api.serviceRequests.listForProvider, {
     status: "pending",
   });
@@ -239,6 +348,55 @@ export function ProviderDashboard({ userName }: ProviderDashboardProps) {
           </CardContent>
         </Card>
       </div>
+
+      {/* My Active Deals Section */}
+      <Card>
+        <CardHeader className="pb-2">
+          <div className="flex items-center justify-between">
+            <CardTitle className="text-base">My Active Deals</CardTitle>
+            <Link
+              href="/deals"
+              className="text-sm text-primary hover:underline flex items-center gap-1"
+            >
+              View all
+              <HugeiconsIcon icon={ArrowRight01Icon} size={14} />
+            </Link>
+          </div>
+        </CardHeader>
+        <CardContent>
+          {activeDeals === undefined ? (
+            // Loading state
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+              {[1, 2].map((i) => (
+                <div key={i} className="flex gap-3 p-3 border rounded-lg">
+                  <Skeleton className="h-16 w-16 rounded-md" />
+                  <div className="flex-1 space-y-2">
+                    <Skeleton className="h-4 w-32" />
+                    <Skeleton className="h-3 w-24" />
+                    <Skeleton className="h-3 w-20" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : activeDeals.length > 0 ? (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+              {activeDeals.map((deal) => (
+                <ActiveDealCard key={deal._id} deal={deal} />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-6 text-muted-foreground">
+              <HugeiconsIcon
+                icon={Building05Icon}
+                size={32}
+                className="mx-auto mb-2 opacity-50"
+              />
+              <p className="text-sm">No active deals</p>
+              <p className="text-xs mt-1">Accepted client requests will appear here</p>
+            </div>
+          )}
+        </CardContent>
+      </Card>
 
       {/* Pending Requests Section */}
       <Card>
@@ -472,6 +630,9 @@ function ProviderDashboardSkeleton({ userName }: { userName?: string }) {
         <Skeleton className="h-24 w-full rounded-lg" />
         <Skeleton className="h-24 w-full rounded-lg" />
       </div>
+
+      {/* Active Deals Skeleton */}
+      <Skeleton className="h-48 w-full rounded-lg" />
 
       {/* Pending Requests Skeleton */}
       <Skeleton className="h-48 w-full rounded-lg" />
