@@ -10,19 +10,19 @@ See: .planning/PROJECT.md (updated 2026-01-17)
 ## Current Position
 
 Milestone: v1.1 Investor Onboarding
-Phase: 11 of 15 (Questionnaire Content - Part 1)
+Phase: 12 of 15 (Questionnaire Content - Part 2)
 Plan: 01 complete
-Status: Phase 11 complete, ready for Phase 12
-Last activity: 2026-01-18 — Completed 11-01-PLAN.md
+Status: Phase 12 complete, ready for Phase 13
+Last activity: 2026-01-18 — Completed 12-01-PLAN.md
 
-Progress: ███░░░░░░░ 43% (3/7 phases)
+Progress: ████░░░░░░ 57% (4/7 phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 39
+- Total plans completed: 40
 - Average duration: 9 min
-- Total execution time: 5.25 hours
+- Total execution time: 5.32 hours
 
 **By Phase:**
 
@@ -48,10 +48,11 @@ Progress: ███░░░░░░░ 43% (3/7 phases)
 | 9 | 1/1 | 5 min | 5 min |
 | 10 | 1/1 | 5 min | 5 min |
 | 11 | 1/1 | 3 min | 3 min |
+| 12 | 1/1 | 4 min | 4 min |
 
 **Recent Trend:**
-- Last 5 plans: 4 min, 10 min, 5 min, 5 min, 3 min
-- Trend: v1.1 in progress - 39 plans executed
+- Last 5 plans: 10 min, 5 min, 5 min, 3 min, 4 min
+- Trend: v1.1 in progress - 40 plans executed
 
 ## Accumulated Context
 
@@ -140,6 +141,9 @@ Recent decisions affecting current work:
 - Phase 11: Step components follow value/onChange props pattern
 - Phase 11: Local useState for UI, Convex sync on step change
 - Phase 11: Draft restoration via useEffect on questionnaire load
+- Phase 12: BudgetStep uses separate min/max props with individual onChange handlers
+- Phase 12: GoalsStep uses checkbox multi-select with array state
+- Phase 12: Currency formatting uses toLocaleString for display
 
 ### Deferred Issues
 
@@ -165,6 +169,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-18
-Stopped at: Completed 11-01-PLAN.md
+Stopped at: Completed 12-01-PLAN.md
 Resume file: None
-Next: Plan Phase 12 (Questionnaire Content - Part 2)
+Next: Plan Phase 13 (Property Preferences & Location)

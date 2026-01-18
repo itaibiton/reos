@@ -77,10 +77,10 @@ Plans:
 **Goal**: Budget, investment horizon, goals, yield preferences, and financing questions
 **Depends on**: Phase 11
 **Research**: Unlikely (internal patterns - form fields)
-**Plans**: TBD
+**Plans**: 1/1 complete
 
 Plans:
-- [ ] 12-01: TBD
+- [x] 12-01: 5 financial context steps with budget and goals — completed 2026-01-18
 
 ### Phase 13: Property Preferences & Location
 
@@ -118,14 +118,14 @@ Plans:
 | Milestone | Phases | Plans | Status | Shipped |
 |-----------|--------|-------|--------|---------|
 | v1.0 MVP | 17 | 40 | Complete | 2026-01-17 |
-| v1.1 Investor Onboarding | 7 | 3/? | In Progress | - |
+| v1.1 Investor Onboarding | 7 | 4/? | In Progress | - |
 
 | Phase | Milestone | Plans | Status | Completed |
 |-------|-----------|-------|--------|-----------|
 | 9. Onboarding Gate & State | v1.1 | 1/1 | Complete | 2026-01-18 |
 | 10. Questionnaire UI Framework | v1.1 | 1/1 | Complete | 2026-01-18 |
 | 11. Questionnaire Content - Part 1 | v1.1 | 1/1 | Complete | 2026-01-18 |
-| 12. Questionnaire Content - Part 2 | v1.1 | 0/? | Not started | - |
+| 12. Questionnaire Content - Part 2 | v1.1 | 1/1 | Complete | 2026-01-18 |
 | 13. Property Preferences & Location | v1.1 | 0/? | Not started | - |
 | 14. AI Preferences & Service Selection | v1.1 | 0/? | Not started | - |
 | 15. Profile Display & Edit | v1.1 | 0/? | Not started | - |
