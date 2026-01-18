@@ -72,7 +72,12 @@ export default function OnboardingPage() {
     setIsSubmitting(true);
     try {
       await setUserRole({ role: selectedRole });
-      router.push("/dashboard");
+      // Investors go to questionnaire, service providers go to dashboard
+      if (selectedRole === "investor") {
+        router.push("/onboarding/questionnaire");
+      } else {
+        router.push("/dashboard");
+      }
     } catch (error) {
       console.error("Failed to set role:", error);
       setIsSubmitting(false);

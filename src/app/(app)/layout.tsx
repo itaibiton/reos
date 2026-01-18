@@ -15,24 +15,36 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
   const isLoading = isAuthLoading || isUserLoading;
 
+  // Check if current path is an onboarding path (role selection or questionnaire)
+  const isOnboardingPath = pathname.startsWith("/onboarding");
+
   useEffect(() => {
     if (!isAuthLoading && !isAuthenticated) {
       router.push("/sign-in");
     }
   }, [isAuthenticated, isAuthLoading, router]);
 
-  // Redirect to onboarding if not complete (but not if already on /onboarding)
+  // Role-aware onboarding gate logic
   useEffect(() => {
-    if (
-      !isLoading &&
-      isAuthenticated &&
-      user &&
-      !user.onboardingComplete &&
-      pathname !== "/onboarding"
-    ) {
-      router.push("/onboarding");
+    if (isLoading || !isAuthenticated || !user || isOnboardingPath) {
+      return;
     }
-  }, [isLoading, isAuthenticated, user, pathname, router]);
+
+    // No role selected - redirect to role selection
+    if (!user.role) {
+      router.push("/onboarding");
+      return;
+    }
+
+    // Investor with incomplete onboarding - redirect to questionnaire
+    if (user.role === "investor" && !user.onboardingComplete) {
+      router.push("/onboarding/questionnaire");
+      return;
+    }
+
+    // Service providers and admins complete onboarding after role selection
+    // (handled in setUserRole mutation)
+  }, [isLoading, isAuthenticated, user, pathname, router, isOnboardingPath]);
 
   // Show minimal loading screen until auth and user data are confirmed
   if (isLoading || !isAuthenticated) {
