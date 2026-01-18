@@ -10,19 +10,19 @@ See: .planning/PROJECT.md (updated 2026-01-17)
 ## Current Position
 
 Milestone: v1.1 Investor Onboarding
-Phase: 13 of 15 (Property Preferences & Location)
+Phase: 14 of 15 (AI Preferences & Service Selection)
 Plan: 01 complete
-Status: Phase 13 complete, ready for Phase 14
-Last activity: 2026-01-18 — Completed 13-01-PLAN.md
+Status: Phase 14 complete, ready for Phase 15
+Last activity: 2026-01-18 — Completed 14-01-PLAN.md
 
-Progress: █████░░░░░ 71% (5/7 phases)
+Progress: ██████░░░░ 86% (6/7 phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 41
+- Total plans completed: 42
 - Average duration: 9 min
-- Total execution time: 5.37 hours
+- Total execution time: 5.44 hours
 
 **By Phase:**
 
@@ -50,10 +50,11 @@ Progress: █████░░░░░ 71% (5/7 phases)
 | 11 | 1/1 | 3 min | 3 min |
 | 12 | 1/1 | 4 min | 4 min |
 | 13 | 1/1 | 3 min | 3 min |
+| 14 | 1/1 | 4 min | 4 min |
 
 **Recent Trend:**
-- Last 5 plans: 5 min, 5 min, 3 min, 4 min, 3 min
-- Trend: v1.1 in progress - 41 plans executed
+- Last 5 plans: 5 min, 3 min, 4 min, 3 min, 4 min
+- Trend: v1.1 in progress - 42 plans executed
 
 ## Accumulated Context
 
@@ -148,6 +149,9 @@ Recent decisions affecting current work:
 - Phase 13: PropertySizeStep uses 4 individual onChange handlers (bedrooms min/max, area min/max)
 - Phase 13: LocationStep uses 2-column grid for 15 Israeli cities
 - Phase 13: AmenitiesStep uses 3-column grid for compact display of 15 amenities
+- Phase 14: TimelineStep uses radio single-select with 4 purchase timeline options
+- Phase 14: AdditionalPreferencesStep uses Textarea with 2000 char limit and character count
+- Phase 14: ServicesStep uses checkbox multi-select for broker/mortgage_advisor/lawyer
 
 ### Deferred Issues
 
@@ -173,6 +177,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-18
-Stopped at: Completed 13-01-PLAN.md
+Stopped at: Completed 14-01-PLAN.md
 Resume file: None
-Next: Plan Phase 14 (AI Preferences & Service Selection)
+Next: Plan Phase 15 (Profile Display & Edit)
