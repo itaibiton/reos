@@ -10,19 +10,19 @@ See: .planning/PROJECT.md (updated 2026-01-17)
 ## Current Position
 
 Milestone: v1.1 Investor Onboarding
-Phase: 9 of 15 (Onboarding Gate & State)
+Phase: 10 of 15 (Questionnaire UI Framework)
 Plan: 01 complete
-Status: Ready for Phase 10
-Last activity: 2026-01-18 — Phase 9 Plan 01 complete
+Status: Ready for Phase 11
+Last activity: 2026-01-18 — Phase 10 Plan 01 complete
 
-Progress: █░░░░░░░░░ 14% (1/7 phases)
+Progress: ██░░░░░░░░ 29% (2/7 phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 37
+- Total plans completed: 38
 - Average duration: 9 min
-- Total execution time: 5.1 hours
+- Total execution time: 5.2 hours
 
 **By Phase:**
 
@@ -46,10 +46,11 @@ Progress: █░░░░░░░░░ 14% (1/7 phases)
 | 7 | 3/3 | 13 min | 4.3 min |
 | 8 | 2/2 | 14 min | 7 min |
 | 9 | 1/1 | 5 min | 5 min |
+| 10 | 1/1 | 5 min | 5 min |
 
 **Recent Trend:**
-- Last 5 plans: 4 min, 4 min, 4 min, 10 min, 5 min
-- Trend: v1.1 started - 37 plans executed
+- Last 5 plans: 4 min, 4 min, 10 min, 5 min, 5 min
+- Trend: v1.1 in progress - 38 plans executed
 
 ## Accumulated Context
 
@@ -130,6 +131,11 @@ Recent decisions affecting current work:
 - Phase 9: investorQuestionnaires table stores draft answers with status field (draft/complete)
 - Phase 9: Gate logic in layout.tsx checks role + onboardingComplete for redirect decisions
 - Phase 9: "Skip for now" button on questionnaire page for dev bypass
+- Phase 10: QuestionnaireWizard with 1-based step indexing to match Convex currentStep field
+- Phase 10: Conversational UI with QuestionBubble (assistant bubble) and AnswerArea (user input)
+- Phase 10: Tailwind animate-in utilities for animations (no framer-motion)
+- Phase 10: Keyboard navigation: Enter to continue, Escape to skip
+- Phase 10: Barrel exports via @/components/questionnaire
 
 ### Deferred Issues
 
@@ -155,6 +161,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-18
-Stopped at: Phase 9 Plan 01 complete
+Stopped at: Phase 10 Plan 01 complete
 Resume file: None
-Next: Plan Phase 10 (Questionnaire UI Framework)
+Next: Plan Phase 11 (Questionnaire Content - Part 1)

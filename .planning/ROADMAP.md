@@ -57,10 +57,10 @@ Plans:
 **Goal**: Multi-step wizard with AI-style conversational UI and draft persistence
 **Depends on**: Phase 9
 **Research**: Unlikely (internal patterns - forms, wizard)
-**Plans**: TBD
+**Plans**: 1/1 complete
 
 Plans:
-- [ ] 10-01: TBD
+- [x] 10-01: Questionnaire wizard framework — completed 2026-01-18
 
 ### Phase 11: Questionnaire Content - Part 1
 
@@ -118,12 +118,12 @@ Plans:
 | Milestone | Phases | Plans | Status | Shipped |
 |-----------|--------|-------|--------|---------|
 | v1.0 MVP | 17 | 40 | Complete | 2026-01-17 |
-| v1.1 Investor Onboarding | 7 | 0/? | In Progress | - |
+| v1.1 Investor Onboarding | 7 | 2/? | In Progress | - |
 
 | Phase | Milestone | Plans | Status | Completed |
 |-------|-----------|-------|--------|-----------|
 | 9. Onboarding Gate & State | v1.1 | 1/1 | Complete | 2026-01-18 |
-| 10. Questionnaire UI Framework | v1.1 | 0/? | Not started | - |
+| 10. Questionnaire UI Framework | v1.1 | 1/1 | Complete | 2026-01-18 |
 | 11. Questionnaire Content - Part 1 | v1.1 | 0/? | Not started | - |
 | 12. Questionnaire Content - Part 2 | v1.1 | 0/? | Not started | - |
 | 13. Property Preferences & Location | v1.1 | 0/? | Not started | - |
