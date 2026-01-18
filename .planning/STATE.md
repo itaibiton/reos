@@ -10,19 +10,19 @@ See: .planning/PROJECT.md (updated 2026-01-17)
 ## Current Position
 
 Milestone: v1.1 Investor Onboarding
-Phase: 12 of 15 (Questionnaire Content - Part 2)
+Phase: 13 of 15 (Property Preferences & Location)
 Plan: 01 complete
-Status: Phase 12 complete, ready for Phase 13
-Last activity: 2026-01-18 — Completed 12-01-PLAN.md
+Status: Phase 13 complete, ready for Phase 14
+Last activity: 2026-01-18 — Completed 13-01-PLAN.md
 
-Progress: ████░░░░░░ 57% (4/7 phases)
+Progress: █████░░░░░ 71% (5/7 phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 40
+- Total plans completed: 41
 - Average duration: 9 min
-- Total execution time: 5.32 hours
+- Total execution time: 5.37 hours
 
 **By Phase:**
 
@@ -49,10 +49,11 @@ Progress: ████░░░░░░ 57% (4/7 phases)
 | 10 | 1/1 | 5 min | 5 min |
 | 11 | 1/1 | 3 min | 3 min |
 | 12 | 1/1 | 4 min | 4 min |
+| 13 | 1/1 | 3 min | 3 min |
 
 **Recent Trend:**
-- Last 5 plans: 10 min, 5 min, 5 min, 3 min, 4 min
-- Trend: v1.1 in progress - 40 plans executed
+- Last 5 plans: 5 min, 5 min, 3 min, 4 min, 3 min
+- Trend: v1.1 in progress - 41 plans executed
 
 ## Accumulated Context
 
@@ -144,6 +145,9 @@ Recent decisions affecting current work:
 - Phase 12: BudgetStep uses separate min/max props with individual onChange handlers
 - Phase 12: GoalsStep uses checkbox multi-select with array state
 - Phase 12: Currency formatting uses toLocaleString for display
+- Phase 13: PropertySizeStep uses 4 individual onChange handlers (bedrooms min/max, area min/max)
+- Phase 13: LocationStep uses 2-column grid for 15 Israeli cities
+- Phase 13: AmenitiesStep uses 3-column grid for compact display of 15 amenities
 
 ### Deferred Issues
 
@@ -169,6 +173,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-18
-Stopped at: Completed 12-01-PLAN.md
+Stopped at: Completed 13-01-PLAN.md
 Resume file: None
-Next: Plan Phase 13 (Property Preferences & Location)
+Next: Plan Phase 14 (AI Preferences & Service Selection)
