@@ -515,6 +515,16 @@ export default defineSchema({
     yieldPreference: v.optional(v.string()), // "rental_yield" | "appreciation" | "balanced"
     financingApproach: v.optional(v.string()), // "cash" | "mortgage" | "exploring"
 
+    // Phase 13 fields - property preferences & location
+    preferredPropertyTypes: v.optional(v.array(v.string())), // from PROPERTY_TYPES
+    preferredLocations: v.optional(v.array(v.string())), // from ISRAELI_LOCATIONS
+    minBedrooms: v.optional(v.number()),
+    maxBedrooms: v.optional(v.number()),
+    minArea: v.optional(v.number()), // in sqm
+    maxArea: v.optional(v.number()), // in sqm
+    preferredAmenities: v.optional(v.array(v.string())), // from PROPERTY_AMENITIES
+    locationFlexibility: v.optional(v.string()), // "flexible" | "specific" | "nearby_cities"
+
     // Timestamps
     createdAt: v.number(),
     updatedAt: v.number(),

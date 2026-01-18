@@ -113,6 +113,15 @@ export const saveAnswers = mutation({
     investmentGoals: v.optional(v.array(v.string())),
     yieldPreference: v.optional(v.string()),
     financingApproach: v.optional(v.string()),
+    // Phase 13 fields
+    preferredPropertyTypes: v.optional(v.array(v.string())),
+    preferredLocations: v.optional(v.array(v.string())),
+    minBedrooms: v.optional(v.number()),
+    maxBedrooms: v.optional(v.number()),
+    minArea: v.optional(v.number()),
+    maxArea: v.optional(v.number()),
+    preferredAmenities: v.optional(v.array(v.string())),
+    locationFlexibility: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -176,6 +185,31 @@ export const saveAnswers = mutation({
     }
     if (args.financingApproach !== undefined) {
       updates.financingApproach = args.financingApproach;
+    }
+    // Phase 13 fields
+    if (args.preferredPropertyTypes !== undefined) {
+      updates.preferredPropertyTypes = args.preferredPropertyTypes;
+    }
+    if (args.preferredLocations !== undefined) {
+      updates.preferredLocations = args.preferredLocations;
+    }
+    if (args.minBedrooms !== undefined) {
+      updates.minBedrooms = args.minBedrooms;
+    }
+    if (args.maxBedrooms !== undefined) {
+      updates.maxBedrooms = args.maxBedrooms;
+    }
+    if (args.minArea !== undefined) {
+      updates.minArea = args.minArea;
+    }
+    if (args.maxArea !== undefined) {
+      updates.maxArea = args.maxArea;
+    }
+    if (args.preferredAmenities !== undefined) {
+      updates.preferredAmenities = args.preferredAmenities;
+    }
+    if (args.locationFlexibility !== undefined) {
+      updates.locationFlexibility = args.locationFlexibility;
     }
 
     await ctx.db.patch(questionnaire._id, updates);

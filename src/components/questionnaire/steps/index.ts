@@ -8,3 +8,7 @@ export { HorizonStep } from "./HorizonStep";
 export { GoalsStep } from "./GoalsStep";
 export { YieldStep } from "./YieldStep";
 export { FinancingStep } from "./FinancingStep";
+export { PropertyTypeStep } from "./PropertyTypeStep";
+export { PropertySizeStep } from "./PropertySizeStep";
+export { LocationStep } from "./LocationStep";
+export { AmenitiesStep } from "./AmenitiesStep";
