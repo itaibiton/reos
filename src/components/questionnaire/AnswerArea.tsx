@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, memo } from "react";
+import { ReactNode, useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 
 interface AnswerAreaProps {
@@ -8,11 +8,23 @@ interface AnswerAreaProps {
   className?: string;
 }
 
-export const AnswerArea = memo(function AnswerArea({ children, className }: AnswerAreaProps) {
+export function AnswerArea({ children, className }: AnswerAreaProps) {
+  const [hasAnimated, setHasAnimated] = useState(false);
+
+  // Only animate on first mount
+  useEffect(() => {
+    // Small delay to ensure animation triggers after mount
+    const timer = setTimeout(() => {
+      setHasAnimated(true);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div
       className={cn(
-        "ml-auto max-w-[85%] mt-6 animate-in fade-in slide-in-from-right-4 duration-300 delay-150",
+        "ml-auto max-w-[85%] mt-6",
+        !hasAnimated && "animate-in fade-in slide-in-from-right-4 duration-300",
         className
       )}
     >
@@ -21,4 +33,4 @@ export const AnswerArea = memo(function AnswerArea({ children, className }: Answ
       </div>
     </div>
   );
-});
+}

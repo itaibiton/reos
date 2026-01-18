@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useCallback, useEffect } from "react";
+import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { QuestionnaireProgress, StepConfig } from "./QuestionnaireProgress";
@@ -34,6 +34,10 @@ export function QuestionnaireWizard({
   const isLastStep = currentStep === totalSteps;
   const currentStepData = steps[currentStep - 1];
 
+  // For smooth height animation
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [contentHeight, setContentHeight] = useState<number | "auto">("auto");
+
   const handleBack = useCallback(() => {
     if (!isFirstStep) {
       onStepChange(currentStep - 1);
@@ -47,6 +51,39 @@ export function QuestionnaireWizard({
       onStepChange(currentStep + 1);
     }
   }, [isLastStep, currentStep, onStepChange, onComplete]);
+
+  // Measure and animate content height on step change
+  useEffect(() => {
+    if (contentRef.current) {
+      // Set to auto first to get natural height
+      setContentHeight("auto");
+
+      // Use requestAnimationFrame to ensure DOM has updated
+      requestAnimationFrame(() => {
+        if (contentRef.current) {
+          const height = contentRef.current.scrollHeight;
+          setContentHeight(height);
+        }
+      });
+    }
+  }, [currentStep]);
+
+  // Also update height when content changes within a step (e.g., description appears)
+  useEffect(() => {
+    const observer = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.target === contentRef.current) {
+          setContentHeight(entry.contentRect.height);
+        }
+      }
+    });
+
+    if (contentRef.current) {
+      observer.observe(contentRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   // Keyboard navigation
   useEffect(() => {
@@ -64,7 +101,6 @@ export function QuestionnaireWizard({
         handleContinue();
       } else if (e.key === "Escape") {
         e.preventDefault();
-        // Could show a confirmation dialog here
         onSkip();
       }
     };
@@ -80,7 +116,7 @@ export function QuestionnaireWizard({
         className
       )}
     >
-      <Card className="w-full max-w-[600px]">
+      <Card className="w-full max-w-[600px] overflow-hidden">
         <CardContent className="space-y-8 p-8">
           {/* Progress indicator */}
           <QuestionnaireProgress
@@ -88,9 +124,15 @@ export function QuestionnaireWizard({
             currentStep={currentStep}
           />
 
-          {/* Current step content - key ensures fresh animation per step */}
-          <div key={currentStepData?.id} className="min-h-[300px] py-4">
-            {currentStepData?.component}
+          {/* Animated height container */}
+          <div
+            className="overflow-hidden transition-[height] duration-300 ease-in-out"
+            style={{ height: contentHeight === "auto" ? "auto" : `${contentHeight}px` }}
+          >
+            {/* Current step content - key ensures fresh animation per step */}
+            <div ref={contentRef} key={currentStepData?.id} className="py-4">
+              {currentStepData?.component}
+            </div>
           </div>
 
           {/* Navigation controls */}
