@@ -106,6 +106,13 @@ export const saveAnswers = mutation({
     experienceLevel: v.optional(v.string()),
     ownsPropertyInIsrael: v.optional(v.boolean()),
     investmentType: v.optional(v.string()),
+    // Phase 12 fields
+    budgetMin: v.optional(v.number()),
+    budgetMax: v.optional(v.number()),
+    investmentHorizon: v.optional(v.string()),
+    investmentGoals: v.optional(v.array(v.string())),
+    yieldPreference: v.optional(v.string()),
+    financingApproach: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -150,6 +157,25 @@ export const saveAnswers = mutation({
     }
     if (args.investmentType !== undefined) {
       updates.investmentType = args.investmentType;
+    }
+    // Phase 12 fields
+    if (args.budgetMin !== undefined) {
+      updates.budgetMin = args.budgetMin;
+    }
+    if (args.budgetMax !== undefined) {
+      updates.budgetMax = args.budgetMax;
+    }
+    if (args.investmentHorizon !== undefined) {
+      updates.investmentHorizon = args.investmentHorizon;
+    }
+    if (args.investmentGoals !== undefined) {
+      updates.investmentGoals = args.investmentGoals;
+    }
+    if (args.yieldPreference !== undefined) {
+      updates.yieldPreference = args.yieldPreference;
+    }
+    if (args.financingApproach !== undefined) {
+      updates.financingApproach = args.financingApproach;
     }
 
     await ctx.db.patch(questionnaire._id, updates);

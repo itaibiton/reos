@@ -3,3 +3,8 @@ export { ResidencyStep } from "./ResidencyStep";
 export { ExperienceStep } from "./ExperienceStep";
 export { OwnershipStep } from "./OwnershipStep";
 export { InvestmentTypeStep } from "./InvestmentTypeStep";
+export { BudgetStep } from "./BudgetStep";
+export { HorizonStep } from "./HorizonStep";
+export { GoalsStep } from "./GoalsStep";
+export { YieldStep } from "./YieldStep";
+export { FinancingStep } from "./FinancingStep";

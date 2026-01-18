@@ -507,6 +507,14 @@ export default defineSchema({
     ownsPropertyInIsrael: v.optional(v.boolean()),
     investmentType: v.optional(v.string()), // "residential" | "investment"
 
+    // Phase 12 fields - financial context
+    budgetMin: v.optional(v.number()), // USD minimum
+    budgetMax: v.optional(v.number()), // USD maximum
+    investmentHorizon: v.optional(v.string()), // "short_term" | "medium_term" | "long_term"
+    investmentGoals: v.optional(v.array(v.string())), // ["appreciation", "rental_income", "diversification", "tax_benefits"]
+    yieldPreference: v.optional(v.string()), // "rental_yield" | "appreciation" | "balanced"
+    financingApproach: v.optional(v.string()), // "cash" | "mortgage" | "exploring"
+
     // Timestamps
     createdAt: v.number(),
     updatedAt: v.number(),
