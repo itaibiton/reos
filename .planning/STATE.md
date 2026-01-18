@@ -10,19 +10,19 @@ See: .planning/PROJECT.md (updated 2026-01-17)
 ## Current Position
 
 Milestone: v1.1 Investor Onboarding
-Phase: 10 of 15 (Questionnaire UI Framework)
+Phase: 11 of 15 (Questionnaire Content - Part 1)
 Plan: 01 complete
-Status: Ready for Phase 11
-Last activity: 2026-01-18 — Phase 10 Plan 01 complete
+Status: Phase 11 complete, ready for Phase 12
+Last activity: 2026-01-18 — Completed 11-01-PLAN.md
 
-Progress: ██░░░░░░░░ 29% (2/7 phases)
+Progress: ███░░░░░░░ 43% (3/7 phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 38
+- Total plans completed: 39
 - Average duration: 9 min
-- Total execution time: 5.2 hours
+- Total execution time: 5.25 hours
 
 **By Phase:**
 
@@ -47,10 +47,11 @@ Progress: ██░░░░░░░░ 29% (2/7 phases)
 | 8 | 2/2 | 14 min | 7 min |
 | 9 | 1/1 | 5 min | 5 min |
 | 10 | 1/1 | 5 min | 5 min |
+| 11 | 1/1 | 3 min | 3 min |
 
 **Recent Trend:**
-- Last 5 plans: 4 min, 4 min, 10 min, 5 min, 5 min
-- Trend: v1.1 in progress - 38 plans executed
+- Last 5 plans: 4 min, 10 min, 5 min, 5 min, 3 min
+- Trend: v1.1 in progress - 39 plans executed
 
 ## Accumulated Context
 
@@ -136,6 +137,9 @@ Recent decisions affecting current work:
 - Phase 10: Tailwind animate-in utilities for animations (no framer-motion)
 - Phase 10: Keyboard navigation: Enter to continue, Escape to skip
 - Phase 10: Barrel exports via @/components/questionnaire
+- Phase 11: Step components follow value/onChange props pattern
+- Phase 11: Local useState for UI, Convex sync on step change
+- Phase 11: Draft restoration via useEffect on questionnaire load
 
 ### Deferred Issues
 
@@ -161,6 +165,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-18
-Stopped at: Phase 10 Plan 01 complete
+Stopped at: Completed 11-01-PLAN.md
 Resume file: None
-Next: Plan Phase 11 (Questionnaire Content - Part 1)
+Next: Plan Phase 12 (Questionnaire Content - Part 2)
