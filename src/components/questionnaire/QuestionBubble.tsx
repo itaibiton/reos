@@ -18,17 +18,17 @@ export const QuestionBubble = memo(function QuestionBubble({
   icon,
   className,
 }: QuestionBubbleProps) {
-  const [showDescription, setShowDescription] = useState(false);
+  const [questionComplete, setQuestionComplete] = useState(false);
+  const [descriptionComplete, setDescriptionComplete] = useState(false);
 
-  // Reset description visibility when question changes
+  // Reset states when question changes
   useEffect(() => {
-    setShowDescription(false);
+    setQuestionComplete(false);
+    setDescriptionComplete(false);
   }, [question]);
 
   return (
-    <div
-      className={cn("flex items-start gap-3", className)}
-    >
+    <div className={cn("flex items-start gap-3", className)}>
       {/* Avatar/Icon */}
       <div className="flex-shrink-0 flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary animate-in fade-in duration-300">
         {icon ?? <Sparkles className="h-5 w-5" />}
@@ -38,15 +38,21 @@ export const QuestionBubble = memo(function QuestionBubble({
       <div className="flex-1 rounded-2xl rounded-tl-sm bg-muted px-5 py-4 animate-in fade-in duration-200">
         <p className="text-lg font-medium text-foreground">
           <TypeWriter
-            key={question}
+            key={`q-${question}`}
             text={question}
             speed={15}
-            onComplete={() => setShowDescription(true)}
+            onComplete={() => setQuestionComplete(true)}
           />
         </p>
-        {description && showDescription && (
-          <p className="mt-2 text-sm text-muted-foreground animate-in fade-in duration-300">
-            {description}
+        {description && questionComplete && (
+          <p className="mt-2 text-sm text-muted-foreground">
+            <TypeWriter
+              key={`d-${description}`}
+              text={description}
+              speed={10}
+              onComplete={() => setDescriptionComplete(true)}
+              showCursor={!descriptionComplete}
+            />
           </p>
         )}
       </div>

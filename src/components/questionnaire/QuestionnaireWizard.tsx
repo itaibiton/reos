@@ -36,7 +36,7 @@ export function QuestionnaireWizard({
 
   // For smooth height animation
   const contentRef = useRef<HTMLDivElement>(null);
-  const [contentHeight, setContentHeight] = useState<number>(300);
+  const [contentHeight, setContentHeight] = useState<number>(400);
   const [isAnimating, setIsAnimating] = useState(false);
 
   const handleBack = useCallback(() => {
@@ -53,6 +53,15 @@ export function QuestionnaireWizard({
     }
   }, [isLastStep, currentStep, onStepChange, onComplete]);
 
+  // Measure height helper
+  const measureHeight = useCallback(() => {
+    if (contentRef.current) {
+      const newHeight = contentRef.current.scrollHeight;
+      // Add small buffer to prevent cut-off
+      setContentHeight(newHeight + 8);
+    }
+  }, []);
+
   // Animate height on step change
   useEffect(() => {
     if (!contentRef.current) return;
@@ -62,34 +71,25 @@ export function QuestionnaireWizard({
     // Wait for new content to render, then measure and animate
     const frameId = requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        if (contentRef.current) {
-          const newHeight = contentRef.current.scrollHeight;
-          setContentHeight(newHeight);
-        }
-        // Allow transition to complete
+        measureHeight();
         setTimeout(() => setIsAnimating(false), 350);
       });
     });
 
     return () => cancelAnimationFrame(frameId);
-  }, [currentStep]);
+  }, [currentStep, measureHeight]);
 
   // ResizeObserver for within-step content changes (like description appearing)
   useEffect(() => {
     if (!contentRef.current) return;
 
-    const observer = new ResizeObserver((entries) => {
-      for (const entry of entries) {
-        const newHeight = entry.contentRect.height;
-        if (newHeight > 0 && Math.abs(newHeight - contentHeight) > 1) {
-          setContentHeight(newHeight);
-        }
-      }
+    const observer = new ResizeObserver(() => {
+      measureHeight();
     });
 
     observer.observe(contentRef.current);
     return () => observer.disconnect();
-  }, [contentHeight]);
+  }, [measureHeight]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -131,20 +131,21 @@ export function QuestionnaireWizard({
 
           {/* Animated height container */}
           <div
-            className="overflow-hidden mt-8"
+            className="mt-8"
             style={{
               height: contentHeight,
+              overflow: "hidden",
               transition: "height 300ms cubic-bezier(0.4, 0, 0.2, 1)",
             }}
           >
             {/* Content wrapper for measurement */}
-            <div ref={contentRef} key={currentStepData?.id} className="py-4">
+            <div ref={contentRef} key={currentStepData?.id} className="pb-4">
               {currentStepData?.component}
             </div>
           </div>
 
           {/* Navigation controls */}
-          <div className="flex items-center justify-between pt-8">
+          <div className="flex items-center justify-between pt-6">
             <Button
               variant="outline"
               onClick={handleBack}

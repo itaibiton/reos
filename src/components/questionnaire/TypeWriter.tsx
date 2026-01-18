@@ -6,6 +6,7 @@ interface TypeWriterProps {
   text: string;
   speed?: number;
   onComplete?: () => void;
+  showCursor?: boolean;
   className?: string;
 }
 
@@ -13,6 +14,7 @@ export const TypeWriter = memo(function TypeWriter({
   text,
   speed = 20,
   onComplete,
+  showCursor = true,
   className,
 }: TypeWriterProps) {
   const [displayedText, setDisplayedText] = useState("");
@@ -40,7 +42,9 @@ export const TypeWriter = memo(function TypeWriter({
   return (
     <span className={className}>
       {displayedText}
-      {!isComplete && <span className="animate-pulse">|</span>}
+      {showCursor && !isComplete && (
+        <span className="animate-pulse ml-0.5">|</span>
+      )}
     </span>
   );
 });
