@@ -130,6 +130,12 @@ const notificationType = v.union(
   v.literal("request_declined")
 );
 
+// Investor questionnaire status
+const questionnaireStatus = v.union(
+  v.literal("draft"),
+  v.literal("complete")
+);
+
 export default defineSchema({
   users: defineTable({
     // Clerk user ID (from JWT subject claim)
@@ -147,6 +153,8 @@ export default defineSchema({
     viewingAsRole: v.optional(userRoles),
     // Onboarding completed flag
     onboardingComplete: v.boolean(),
+    // Onboarding step tracking (0 = not started, 1 = role selected, 2+ = questionnaire progress)
+    onboardingStep: v.optional(v.number()),
     // Timestamps
     createdAt: v.number(),
     updatedAt: v.number(),
@@ -480,4 +488,27 @@ export default defineSchema({
     .index("by_user", ["userId"])
     .index("by_user_and_read", ["userId", "read"])
     .index("by_user_and_time", ["userId", "createdAt"]),
+
+  // Investor questionnaires - stores draft and completed questionnaire data
+  investorQuestionnaires: defineTable({
+    // Reference to user
+    userId: v.id("users"),
+
+    // Status: draft while in progress, complete when finished
+    status: questionnaireStatus,
+
+    // Current step in the questionnaire (1-based for Phase 10+ UI)
+    currentStep: v.number(),
+
+    // Draft answers - basic fields for Phase 9 gate, expanded in Phases 11-14
+    citizenship: v.optional(v.string()), // "israeli" | "non_israeli"
+    residencyStatus: v.optional(v.string()), // "resident" | "returning_resident" | "non_resident" | "unsure"
+    experienceLevel: v.optional(v.string()), // "none" | "some" | "experienced"
+    ownsPropertyInIsrael: v.optional(v.boolean()),
+    investmentType: v.optional(v.string()), // "residential" | "investment"
+
+    // Timestamps
+    createdAt: v.number(),
+    updatedAt: v.number(),
+  }).index("by_user", ["userId"]),
 });
