@@ -11,18 +11,18 @@ See: .planning/PROJECT.md (updated 2026-01-17)
 
 Milestone: v1.2 Provider Experience
 Phase: 16 of 20 (Provider Dashboard Enhancement)
-Plan: Not started
-Status: Ready to plan
-Last activity: 2026-01-18 — Milestone v1.2 created
+Plan: 1 of 1 in current phase
+Status: Phase complete
+Last activity: 2026-01-18 — Completed 16-01-PLAN.md
 
-Progress: ░░░░░░░░░░ 0% (0/5 phases)
+Progress: ██░░░░░░░░ 20% (1/5 phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 44
+- Total plans completed: 45
 - Average duration: 8 min
-- Total execution time: 5.58 hours
+- Total execution time: 5.78 hours
 
 **By Phase:**
 
@@ -52,10 +52,11 @@ Progress: ░░░░░░░░░░ 0% (0/5 phases)
 | 13 | 1/1 | 3 min | 3 min |
 | 14 | 1/1 | 4 min | 4 min |
 | 15 | 2/2 | 8 min | 4 min |
+| 16 | 1/1 | 12 min | 12 min |
 
 **Recent Trend:**
-- Last 5 plans: 4 min, 3 min, 4 min, 5 min, 3 min
-- Trend: v1.1 COMPLETE - 44 plans total (40 v1.0 + 8 v1.1 less 4 duplicates)
+- Last 5 plans: 3 min, 4 min, 5 min, 3 min, 12 min
+- Trend: v1.2 started - 45 plans total
 
 ## Accumulated Context
 
@@ -158,6 +159,9 @@ Recent decisions affecting current work:
 - Phase 15: Label mappings kept inline in component for simplicity
 - Phase 15: QuestionnaireWizard extended with editMode prop (hides skip, shows "Save Changes")
 - Phase 15: Completeness calculation uses 15 required fields, excludes optional (bedrooms/area/amenities)
+- Phase 16: Dashboard without map - full-width single-column layout
+- Phase 16: Investors redirect to /properties (no investor dashboard)
+- Phase 16: Active deals section shows 5 most recent with property/investor info
 
 ### Deferred Issues
 
@@ -183,6 +187,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-18
-Stopped at: Completed 15-02-PLAN.md — v1.1 milestone shipped
+Stopped at: Completed 16-01-PLAN.md — Phase 16 complete
 Resume file: None
-Next: /gsd:complete-milestone to archive v1.1 and plan v1.2
+Next: /gsd:plan-phase 17 for Client Management

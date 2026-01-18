@@ -65,10 +65,12 @@ Building an end-to-end real estate investment platform connecting US investors w
 **Goal**: Enhanced dashboard with client overview, pending requests, active deals summary
 **Depends on**: v1.1 complete
 **Research**: Unlikely (internal patterns)
-**Plans**: TBD
+**Plans**: 1/1 complete
+**Status**: Complete
+**Completed**: 2026-01-18
 
 Plans:
-- [ ] 16-01: TBD (run /gsd:plan-phase 16 to break down)
+- [x] 16-01: Active deals section, full-width layout, investor redirect
 
 ### Phase 17: Client Management
 
@@ -116,11 +118,11 @@ Plans:
 |-----------|--------|-------|--------|---------|
 | v1.0 MVP | 17 | 40 | Complete | 2026-01-17 |
 | v1.1 Investor Onboarding | 7 | 8 | Complete | 2026-01-18 |
-| v1.2 Provider Experience | 5 | 0/? | In Progress | - |
+| v1.2 Provider Experience | 5 | 1/? | In Progress | - |
 
 | Phase | Milestone | Plans | Status | Completed |
 |-------|-----------|-------|--------|-----------|
-| 16. Provider Dashboard Enhancement | v1.2 | 0/? | Not started | - |
+| 16. Provider Dashboard Enhancement | v1.2 | 1/1 | Complete | 2026-01-18 |
 | 17. Client Management | v1.2 | 0/? | Not started | - |
 | 18. Service Provider Profiles | v1.2 | 0/? | Not started | - |
 | 19. Provider Analytics | v1.2 | 0/? | Not started | - |
