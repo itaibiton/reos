@@ -230,6 +230,52 @@ export const saveAnswers = mutation({
   },
 });
 
+// Get questionnaire by investor ID - for service providers viewing shared deals
+export const getByInvestorId = query({
+  args: { investorId: v.id("users") },
+  handler: async (ctx, args) => {
+    // Auth check
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) return null;
+
+    const currentUser = await ctx.db
+      .query("users")
+      .withIndex("by_clerk_id", (q) => q.eq("clerkId", identity.subject))
+      .unique();
+    if (!currentUser) return null;
+
+    // Self-access check
+    if (currentUser._id === args.investorId) {
+      return await ctx.db
+        .query("investorQuestionnaires")
+        .withIndex("by_user", (q) => q.eq("userId", args.investorId))
+        .unique();
+    }
+
+    // Provider access check - must share a deal with investor
+    const sharedDeals = await ctx.db
+      .query("deals")
+      .filter((q) =>
+        q.and(
+          q.eq(q.field("investorId"), args.investorId),
+          q.or(
+            q.eq(q.field("brokerId"), currentUser._id),
+            q.eq(q.field("mortgageAdvisorId"), currentUser._id),
+            q.eq(q.field("lawyerId"), currentUser._id)
+          )
+        )
+      )
+      .first();
+
+    if (!sharedDeals) return null;
+
+    return await ctx.db
+      .query("investorQuestionnaires")
+      .withIndex("by_user", (q) => q.eq("userId", args.investorId))
+      .unique();
+  },
+});
+
 // Mark questionnaire as complete
 export const markComplete = mutation({
   args: {},
