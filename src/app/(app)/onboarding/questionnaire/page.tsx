@@ -17,6 +17,11 @@ import {
   ExperienceStep,
   OwnershipStep,
   InvestmentTypeStep,
+  BudgetStep,
+  HorizonStep,
+  GoalsStep,
+  YieldStep,
+  FinancingStep,
 } from "@/components/questionnaire/steps";
 
 export default function QuestionnairePage() {
@@ -36,6 +41,13 @@ export default function QuestionnairePage() {
   const [experienceLevel, setExperienceLevel] = useState<string | undefined>();
   const [ownsPropertyInIsrael, setOwnsPropertyInIsrael] = useState<boolean | undefined>();
   const [investmentType, setInvestmentType] = useState<string | undefined>();
+  // Phase 12 fields
+  const [budgetMin, setBudgetMin] = useState<number | undefined>();
+  const [budgetMax, setBudgetMax] = useState<number | undefined>();
+  const [investmentHorizon, setInvestmentHorizon] = useState<string | undefined>();
+  const [investmentGoals, setInvestmentGoals] = useState<string[]>([]);
+  const [yieldPreference, setYieldPreference] = useState<string | undefined>();
+  const [financingApproach, setFinancingApproach] = useState<string | undefined>();
 
   // Initialize state from questionnaire data (for draft restoration)
   useEffect(() => {
@@ -45,6 +57,13 @@ export default function QuestionnairePage() {
       setExperienceLevel(questionnaire.experienceLevel);
       setOwnsPropertyInIsrael(questionnaire.ownsPropertyInIsrael);
       setInvestmentType(questionnaire.investmentType);
+      // Phase 12 fields
+      setBudgetMin(questionnaire.budgetMin);
+      setBudgetMax(questionnaire.budgetMax);
+      setInvestmentHorizon(questionnaire.investmentHorizon);
+      setInvestmentGoals(questionnaire.investmentGoals ?? []);
+      setYieldPreference(questionnaire.yieldPreference);
+      setFinancingApproach(questionnaire.financingApproach);
     }
   }, [questionnaire]);
 
@@ -76,8 +95,40 @@ export default function QuestionnairePage() {
         title: "Investment Type",
         component: <InvestmentTypeStep value={investmentType} onChange={setInvestmentType} />,
       },
+      {
+        id: "budget",
+        title: "Budget",
+        component: (
+          <BudgetStep
+            budgetMin={budgetMin}
+            budgetMax={budgetMax}
+            onBudgetMinChange={setBudgetMin}
+            onBudgetMaxChange={setBudgetMax}
+          />
+        ),
+      },
+      {
+        id: "horizon",
+        title: "Timeline",
+        component: <HorizonStep value={investmentHorizon} onChange={setInvestmentHorizon} />,
+      },
+      {
+        id: "goals",
+        title: "Goals",
+        component: <GoalsStep value={investmentGoals} onChange={setInvestmentGoals} />,
+      },
+      {
+        id: "yield",
+        title: "Yield",
+        component: <YieldStep value={yieldPreference} onChange={setYieldPreference} />,
+      },
+      {
+        id: "financing",
+        title: "Financing",
+        component: <FinancingStep value={financingApproach} onChange={setFinancingApproach} />,
+      },
     ],
-    [citizenship, residencyStatus, experienceLevel, ownsPropertyInIsrael, investmentType]
+    [citizenship, residencyStatus, experienceLevel, ownsPropertyInIsrael, investmentType, budgetMin, budgetMax, investmentHorizon, investmentGoals, yieldPreference, financingApproach]
   );
 
   // Get current step from questionnaire (default to 1)
@@ -106,6 +157,13 @@ export default function QuestionnairePage() {
         experienceLevel,
         ownsPropertyInIsrael,
         investmentType,
+        // Phase 12 fields
+        budgetMin,
+        budgetMax,
+        investmentHorizon,
+        investmentGoals,
+        yieldPreference,
+        financingApproach,
       });
     } catch (error) {
       console.error("Failed to save answers:", error);
