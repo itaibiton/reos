@@ -43,45 +43,66 @@ import {
 } from "@/components/ui/breadcrumb";
 import { NotificationCenter } from "@/components/notifications/NotificationCenter";
 
-// Route label mappings for breadcrumbs
-const routeLabels: Record<string, string> = {
-  properties: "Properties",
-  deals: "Deals",
-  chat: "Chat",
-  profile: "Profile",
-  settings: "Settings",
-  dashboard: "Dashboard",
-  clients: "Clients",
-  investor: "Investor Profile",
-  provider: "Provider Profile",
-  new: "New Property",
-  edit: "Edit",
-  listings: "Your Listings",
-  tours: "Property Tours",
-  leads: "Lead Management",
-  mortgage: "Mortgage",
-  applications: "Applications",
-  "pre-approvals": "Pre-approvals",
-  legal: "Legal",
-  consultations: "Consultations",
-  contracts: "Contracts",
-  documents: "Documents",
-  accounting: "Accounting",
-  analysis: "Financial Analysis",
-  "tax-planning": "Tax Planning",
-  notary: "Notary",
-  requests: "Requests",
-  signings: "Document Signings",
-  transactions: "Transactions",
-  tax: "Tax",
-  filings: "Tax Filings",
-  planning: "Tax Planning",
-  appraisal: "Appraisal",
-  valuations: "Property Valuations",
-  reports: "Valuation Reports",
-  onboarding: "Onboarding",
-  questionnaire: "Questionnaire",
-  "design-system": "Design System",
+// Breadcrumb config: maps paths to their group and label
+// Format: { group?: string, label: string }
+type BreadcrumbConfig = {
+  group?: string;
+  label: string;
+};
+
+const breadcrumbConfig: Record<string, BreadcrumbConfig> = {
+  // Marketplace items
+  "/properties": { group: "Marketplace", label: "Browse" },
+  "/properties?favorites=true": { group: "Marketplace", label: "Saved" },
+  "/deals": { group: "Marketplace", label: "Deals" },
+  "/properties/listings": { group: "Marketplace", label: "Your Listings" },
+
+  // Property Management
+  "/properties/tours": { group: "Property Management", label: "Property Tours" },
+  "/leads": { group: "Property Management", label: "Lead Management" },
+
+  // Mortgage Requests
+  "/mortgage/applications": { group: "Mortgage Requests", label: "New Applications" },
+  "/mortgage/pre-approvals": { group: "Mortgage Requests", label: "Pre-approvals" },
+  "/mortgage/deals": { group: "Mortgage Requests", label: "Financing Deals" },
+
+  // Legal Services
+  "/legal/consultations": { group: "Legal Services", label: "Consultations" },
+  "/legal/contracts": { group: "Legal Services", label: "Contract Reviews" },
+  "/legal/documents": { group: "Legal Services", label: "Documents" },
+
+  // Accounting Services
+  "/accounting/consultations": { group: "Accounting Services", label: "Consultations" },
+  "/accounting/analysis": { group: "Accounting Services", label: "Financial Analysis" },
+  "/accounting/tax-planning": { group: "Accounting Services", label: "Tax Planning" },
+
+  // Notarization Services
+  "/notary/requests": { group: "Notarization Services", label: "Requests" },
+  "/notary/signings": { group: "Notarization Services", label: "Document Signings" },
+  "/notary/transactions": { group: "Notarization Services", label: "Transactions" },
+
+  // Tax Services
+  "/tax/consultations": { group: "Tax Services", label: "Consultations" },
+  "/tax/filings": { group: "Tax Services", label: "Tax Filings" },
+  "/tax/planning": { group: "Tax Services", label: "Tax Planning" },
+
+  // Appraisal Services
+  "/appraisal/requests": { group: "Appraisal Services", label: "Requests" },
+  "/appraisal/valuations": { group: "Appraisal Services", label: "Property Valuations" },
+  "/appraisal/reports": { group: "Appraisal Services", label: "Valuation Reports" },
+
+  // Single items (no group)
+  "/dashboard": { label: "Dashboard" },
+  "/chat": { label: "Chat" },
+  "/clients": { label: "Clients" },
+  "/settings": { label: "Settings" },
+  "/profile/investor": { label: "Profile" },
+  "/profile/provider": { label: "Profile" },
+  "/profile/investor/questionnaire": { label: "Edit Questionnaire" },
+  "/properties/new": { group: "Marketplace", label: "New Property" },
+  "/onboarding": { label: "Onboarding" },
+  "/onboarding/questionnaire": { label: "Questionnaire" },
+  "/design-system": { label: "Design System" },
 };
 
 interface AppShellProps {
@@ -90,51 +111,80 @@ interface AppShellProps {
 
 // Generate breadcrumb items from pathname
 function generateBreadcrumbs(pathname: string, searchParams: string) {
-  const segments = pathname.split("/").filter(Boolean);
-  const breadcrumbs: { label: string; href: string; isLast: boolean }[] = [];
+  const breadcrumbs: { label: string; href?: string }[] = [];
 
-  // Special case for favorites
-  if (pathname === "/properties" && searchParams.includes("favorites=true")) {
-    breadcrumbs.push({
-      label: "Properties",
-      href: "/properties",
-      isLast: false,
-    });
-    breadcrumbs.push({
-      label: "Saved",
-      href: "/properties?favorites=true",
-      isLast: true,
-    });
+  // Build full path with query params if present
+  const fullPath = searchParams ? `${pathname}?${searchParams}` : pathname;
+
+  // Check for exact match first (including query params)
+  let config = breadcrumbConfig[fullPath];
+
+  // If no exact match with query, try without query params
+  if (!config) {
+    config = breadcrumbConfig[pathname];
+  }
+
+  // If we have a config, use it
+  if (config) {
+    // Add group as first breadcrumb (non-clickable)
+    if (config.group) {
+      breadcrumbs.push({ label: config.group });
+    }
+    // Add the page label as the last breadcrumb
+    breadcrumbs.push({ label: config.label });
     return breadcrumbs;
   }
 
-  let currentPath = "";
-  segments.forEach((segment, index) => {
-    currentPath += `/${segment}`;
-    const isLast = index === segments.length - 1;
+  // Handle dynamic routes (e.g., /properties/[id], /properties/[id]/edit, /deals/[id])
+  const segments = pathname.split("/").filter(Boolean);
 
-    // Skip dynamic segments that look like IDs
-    const isId = /^[a-z0-9]{20,}$/i.test(segment);
+  if (segments.length >= 2) {
+    const baseRoute = `/${segments[0]}`;
+    const baseConfig = breadcrumbConfig[baseRoute];
 
-    // Get label from mappings or format the segment
-    let label = routeLabels[segment];
-    if (!label) {
-      if (isId) {
-        label = "Details";
-      } else {
-        // Capitalize and replace dashes with spaces
-        label = segment
-          .split("-")
-          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-          .join(" ");
+    if (baseConfig) {
+      // Add group if present
+      if (baseConfig.group) {
+        breadcrumbs.push({ label: baseConfig.group });
       }
-    }
 
-    breadcrumbs.push({
-      label,
-      href: currentPath,
-      isLast,
-    });
+      // Add base route as clickable link
+      breadcrumbs.push({ label: baseConfig.label, href: baseRoute });
+
+      // Check if second segment is an ID (dynamic route)
+      const isId = /^[a-z0-9]{10,}$/i.test(segments[1]);
+      if (isId) {
+        // Check for /edit suffix
+        if (segments[2] === "edit") {
+          breadcrumbs.push({ label: "Edit" });
+        } else {
+          breadcrumbs.push({ label: "Details" });
+        }
+      } else {
+        // Not an ID, try to find config for the full path
+        const subConfig = breadcrumbConfig[pathname];
+        if (subConfig) {
+          breadcrumbs.push({ label: subConfig.label });
+        } else {
+          // Fallback: format the segment
+          const label = segments[segments.length - 1]
+            .split("-")
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(" ");
+          breadcrumbs.push({ label });
+        }
+      }
+      return breadcrumbs;
+    }
+  }
+
+  // Fallback: just show the path segments
+  segments.forEach((segment) => {
+    const label = segment
+      .split("-")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+    breadcrumbs.push({ label });
   });
 
   return breadcrumbs;
@@ -245,20 +295,28 @@ export function AppShell({ children }: AppShellProps) {
             {/* Breadcrumbs */}
             <Breadcrumb>
               <BreadcrumbList>
-                {breadcrumbs.map((crumb, index) => (
-                  <BreadcrumbItem key={crumb.href}>
-                    {crumb.isLast ? (
-                      <BreadcrumbPage>{crumb.label}</BreadcrumbPage>
-                    ) : (
-                      <>
-                        <BreadcrumbLink asChild>
-                          <Link href={crumb.href}>{crumb.label}</Link>
-                        </BreadcrumbLink>
-                        <BreadcrumbSeparator />
-                      </>
-                    )}
-                  </BreadcrumbItem>
-                ))}
+                {breadcrumbs.map((crumb, index) => {
+                  const isLast = index === breadcrumbs.length - 1;
+                  return (
+                    <BreadcrumbItem key={`${crumb.label}-${index}`}>
+                      {isLast ? (
+                        <BreadcrumbPage>{crumb.label}</BreadcrumbPage>
+                      ) : crumb.href ? (
+                        <>
+                          <BreadcrumbLink asChild>
+                            <Link href={crumb.href}>{crumb.label}</Link>
+                          </BreadcrumbLink>
+                          <BreadcrumbSeparator />
+                        </>
+                      ) : (
+                        <>
+                          <span className="text-muted-foreground">{crumb.label}</span>
+                          <BreadcrumbSeparator />
+                        </>
+                      )}
+                    </BreadcrumbItem>
+                  );
+                })}
               </BreadcrumbList>
             </Breadcrumb>
           </div>
