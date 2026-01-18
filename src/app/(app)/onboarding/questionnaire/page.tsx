@@ -9,67 +9,15 @@ import { toast } from "sonner";
 import { Spinner } from "@/components/ui/spinner";
 import {
   QuestionnaireWizard,
-  QuestionBubble,
-  AnswerArea,
   type WizardStep,
 } from "@/components/questionnaire";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Label } from "@/components/ui/label";
-
-// Placeholder step 1: Welcome with citizenship preview
-function WelcomeStep() {
-  return (
-    <div className="space-y-6">
-      <QuestionBubble
-        question="Welcome! Let's get to know you better."
-        description="This brief questionnaire will help us personalize your experience and match you with the right properties and service providers."
-      />
-      <AnswerArea>
-        <div className="space-y-4">
-          <p className="text-sm font-medium text-foreground">
-            Are you an Israeli citizen?
-          </p>
-          <RadioGroup defaultValue="israeli">
-            <div className="flex items-center space-x-3 rounded-lg border p-3 hover:bg-muted/50 cursor-pointer">
-              <RadioGroupItem value="israeli" id="israeli" />
-              <Label htmlFor="israeli" className="cursor-pointer flex-1">
-                Yes, I am an Israeli citizen
-              </Label>
-            </div>
-            <div className="flex items-center space-x-3 rounded-lg border p-3 hover:bg-muted/50 cursor-pointer">
-              <RadioGroupItem value="non_israeli" id="non_israeli" />
-              <Label htmlFor="non_israeli" className="cursor-pointer flex-1">
-                No, I am not an Israeli citizen
-              </Label>
-            </div>
-          </RadioGroup>
-          <p className="text-xs text-muted-foreground">
-            This helps us understand tax implications and legal requirements.
-          </p>
-        </div>
-      </AnswerArea>
-    </div>
-  );
-}
-
-// Placeholder step 2: Coming soon message
-function PlaceholderStep() {
-  return (
-    <div className="space-y-6">
-      <QuestionBubble
-        question="Great progress! More questions coming soon."
-        description="We're building out the full questionnaire experience. In the next update, you'll be able to share more about your investment preferences."
-      />
-      <AnswerArea>
-        <div className="rounded-lg border border-dashed border-muted-foreground/25 bg-muted/20 p-6 text-center">
-          <p className="text-sm text-muted-foreground">
-            Additional questions about your experience level, investment goals, and property preferences will appear here.
-          </p>
-        </div>
-      </AnswerArea>
-    </div>
-  );
-}
+import {
+  CitizenshipStep,
+  ResidencyStep,
+  ExperienceStep,
+  OwnershipStep,
+  InvestmentTypeStep,
+} from "@/components/questionnaire/steps";
 
 export default function QuestionnairePage() {
   const router = useRouter();
@@ -78,24 +26,58 @@ export default function QuestionnairePage() {
   const completeOnboarding = useMutation(api.users.completeOnboarding);
   const updateStep = useMutation(api.investorQuestionnaires.updateStep);
   const markComplete = useMutation(api.investorQuestionnaires.markComplete);
+  const saveAnswers = useMutation(api.investorQuestionnaires.saveAnswers);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Define wizard steps
+  // Local state for each answer
+  const [citizenship, setCitizenship] = useState<string | undefined>();
+  const [residencyStatus, setResidencyStatus] = useState<string | undefined>();
+  const [experienceLevel, setExperienceLevel] = useState<string | undefined>();
+  const [ownsPropertyInIsrael, setOwnsPropertyInIsrael] = useState<boolean | undefined>();
+  const [investmentType, setInvestmentType] = useState<string | undefined>();
+
+  // Initialize state from questionnaire data (for draft restoration)
+  useEffect(() => {
+    if (questionnaire) {
+      setCitizenship(questionnaire.citizenship);
+      setResidencyStatus(questionnaire.residencyStatus);
+      setExperienceLevel(questionnaire.experienceLevel);
+      setOwnsPropertyInIsrael(questionnaire.ownsPropertyInIsrael);
+      setInvestmentType(questionnaire.investmentType);
+    }
+  }, [questionnaire]);
+
+  // Define wizard steps with real components
   const steps: WizardStep[] = useMemo(
     () => [
       {
-        id: "welcome",
-        title: "Welcome",
-        component: <WelcomeStep />,
+        id: "citizenship",
+        title: "Citizenship",
+        component: <CitizenshipStep value={citizenship} onChange={setCitizenship} />,
       },
       {
-        id: "placeholder",
-        title: "Almost done",
-        component: <PlaceholderStep />,
+        id: "residency",
+        title: "Residency",
+        component: <ResidencyStep value={residencyStatus} onChange={setResidencyStatus} />,
+      },
+      {
+        id: "experience",
+        title: "Experience",
+        component: <ExperienceStep value={experienceLevel} onChange={setExperienceLevel} />,
+      },
+      {
+        id: "ownership",
+        title: "Ownership",
+        component: <OwnershipStep value={ownsPropertyInIsrael} onChange={setOwnsPropertyInIsrael} />,
+      },
+      {
+        id: "investment-type",
+        title: "Investment Type",
+        component: <InvestmentTypeStep value={investmentType} onChange={setInvestmentType} />,
       },
     ],
-    []
+    [citizenship, residencyStatus, experienceLevel, ownsPropertyInIsrael, investmentType]
   );
 
   // Get current step from questionnaire (default to 1)
@@ -115,9 +97,25 @@ export default function QuestionnairePage() {
     }
   }, [isUserLoading, user, router]);
 
-  // Handle step change
+  // Save current answers to Convex
+  const saveProgress = async () => {
+    try {
+      await saveAnswers({
+        citizenship,
+        residencyStatus,
+        experienceLevel,
+        ownsPropertyInIsrael,
+        investmentType,
+      });
+    } catch (error) {
+      console.error("Failed to save answers:", error);
+    }
+  };
+
+  // Handle step change - save before navigating
   const handleStepChange = async (step: number) => {
     try {
+      await saveProgress();
       await updateStep({ step });
     } catch (error) {
       console.error("Failed to update step:", error);
@@ -129,6 +127,7 @@ export default function QuestionnairePage() {
   const handleComplete = async () => {
     setIsSubmitting(true);
     try {
+      await saveProgress();
       await markComplete();
       await completeOnboarding();
       router.push("/dashboard");
@@ -143,6 +142,7 @@ export default function QuestionnairePage() {
   const handleSkip = async () => {
     setIsSubmitting(true);
     try {
+      await saveProgress();
       await completeOnboarding();
       router.push("/dashboard");
     } catch (error) {
