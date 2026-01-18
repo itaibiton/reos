@@ -1,6 +1,7 @@
 "use client";
 
 import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { QuestionnaireProgress, StepConfig } from "./QuestionnaireProgress";
@@ -15,9 +16,11 @@ interface QuestionnaireWizardProps {
   currentStep: number;
   onStepChange: (step: number) => void;
   onComplete: () => void;
-  onSkip: () => void;
+  onSkip?: () => void;
   isLoading?: boolean;
   className?: string;
+  /** Edit mode hides skip button and changes "Complete" to "Save Changes" */
+  editMode?: boolean;
 }
 
 export function QuestionnaireWizard({
@@ -28,16 +31,34 @@ export function QuestionnaireWizard({
   onSkip,
   isLoading = false,
   className,
+  editMode = false,
 }: QuestionnaireWizardProps) {
   const totalSteps = steps.length;
   const isFirstStep = currentStep === 1;
   const isLastStep = currentStep === totalSteps;
   const currentStepData = steps[currentStep - 1];
 
-  // For smooth height animation
+  // Height animation state
   const contentRef = useRef<HTMLDivElement>(null);
-  const [contentHeight, setContentHeight] = useState<number>(400);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [contentHeight, setContentHeight] = useState<number | "auto">("auto");
+
+  // Observe content height changes for smooth animation
+  useEffect(() => {
+    const element = contentRef.current;
+    if (!element) return;
+
+    const observer = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const height = entry.contentRect.height;
+        if (height > 0) {
+          setContentHeight(height);
+        }
+      }
+    });
+
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
 
   const handleBack = useCallback(() => {
     if (!isFirstStep) {
@@ -53,44 +74,6 @@ export function QuestionnaireWizard({
     }
   }, [isLastStep, currentStep, onStepChange, onComplete]);
 
-  // Measure height helper
-  const measureHeight = useCallback(() => {
-    if (contentRef.current) {
-      const newHeight = contentRef.current.scrollHeight;
-      // Add small buffer to prevent cut-off
-      setContentHeight(newHeight + 8);
-    }
-  }, []);
-
-  // Animate height on step change
-  useEffect(() => {
-    if (!contentRef.current) return;
-
-    setIsAnimating(true);
-
-    // Wait for new content to render, then measure and animate
-    const frameId = requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        measureHeight();
-        setTimeout(() => setIsAnimating(false), 350);
-      });
-    });
-
-    return () => cancelAnimationFrame(frameId);
-  }, [currentStep, measureHeight]);
-
-  // ResizeObserver for within-step content changes (like description appearing)
-  useEffect(() => {
-    if (!contentRef.current) return;
-
-    const observer = new ResizeObserver(() => {
-      measureHeight();
-    });
-
-    observer.observe(contentRef.current);
-    return () => observer.disconnect();
-  }, [measureHeight]);
-
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -104,7 +87,7 @@ export function QuestionnaireWizard({
       if (e.key === "Enter" && !isLoading) {
         e.preventDefault();
         handleContinue();
-      } else if (e.key === "Escape") {
+      } else if (e.key === "Escape" && onSkip && !editMode) {
         e.preventDefault();
         onSkip();
       }
@@ -112,7 +95,7 @@ export function QuestionnaireWizard({
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [handleContinue, onSkip, isLoading]);
+  }, [handleContinue, onSkip, isLoading, editMode]);
 
   return (
     <div
@@ -129,27 +112,33 @@ export function QuestionnaireWizard({
             currentStep={currentStep}
           />
 
-          {/* Animated height container */}
-          <div
-            className="mt-8"
-            style={{
-              height: contentHeight,
-              overflow: "hidden",
-              transition: "height 300ms cubic-bezier(0.4, 0, 0.2, 1)",
-            }}
+          {/* Content wrapper - animates height smoothly */}
+          <motion.div
+            className="mt-8 overflow-hidden"
+            animate={{ height: contentHeight }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
           >
-            {/* Content wrapper for measurement */}
-            <div ref={contentRef} key={currentStepData?.id} className="pb-4">
-              {currentStepData?.component}
+            <div ref={contentRef}>
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={currentStepData?.id}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.15 }}
+                >
+                  {currentStepData?.component}
+                </motion.div>
+              </AnimatePresence>
             </div>
-          </div>
+          </motion.div>
 
           {/* Navigation controls */}
           <div className="flex items-center justify-between pt-6">
             <Button
               variant="outline"
               onClick={handleBack}
-              disabled={isFirstStep || isLoading || isAnimating}
+              disabled={isFirstStep || isLoading}
               className="min-w-[100px]"
             >
               Back
@@ -157,25 +146,27 @@ export function QuestionnaireWizard({
 
             <Button
               onClick={handleContinue}
-              disabled={isLoading || isAnimating}
+              disabled={isLoading}
               className="min-w-[120px]"
             >
-              {isLastStep ? "Complete" : "Continue"}
+              {isLastStep ? (editMode ? "Save Changes" : "Complete") : "Continue"}
             </Button>
           </div>
         </CardContent>
       </Card>
 
-      {/* Skip link - outside the card */}
-      <div className="mt-6 text-center">
-        <button
-          onClick={onSkip}
-          disabled={isLoading}
-          className="text-sm text-muted-foreground hover:text-foreground hover:underline transition-colors disabled:opacity-50"
-        >
-          Skip for now
-        </button>
-      </div>
+      {/* Skip link - outside the card (hidden in edit mode) */}
+      {!editMode && onSkip && (
+        <div className="mt-6 text-center">
+          <button
+            onClick={onSkip}
+            disabled={isLoading}
+            className="text-sm text-muted-foreground hover:text-foreground hover:underline transition-colors disabled:opacity-50"
+          >
+            Skip for now
+          </button>
+        </div>
+      )}
     </div>
   );
 }
