@@ -14,9 +14,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { CheckmarkCircle01Icon } from "@hugeicons/core-free-icons";
 import { api } from "../../../convex/_generated/api";
 import { USER_ROLES } from "@/lib/constants";
-import { Header } from "./Header";
 import { AppSidebar } from "./Sidebar";
-import { MobileBottomNav } from "./MobileBottomNav";
 import { InvestorSearchBar } from "./InvestorSearchBar";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { Button } from "@/components/ui/button";
@@ -119,57 +117,21 @@ export function AppShell({ children }: AppShellProps) {
   const { effectiveRole } = useCurrentUser();
   const pathname = usePathname();
 
-  // Investor gets top nav layout (no sidebar)
-  const isInvestorLayout = effectiveRole === "investor";
-
   // Show search bar on marketplace pages for investor
+  const isInvestorLayout = effectiveRole === "investor";
   const showSearchBar =
     isInvestorLayout &&
-    (pathname === "/properties" ||
-      pathname === "/properties/saved" ||
-      pathname === "/dashboard");
+    (pathname === "/properties" || pathname === "/properties/saved");
 
   // Full-bleed pages (no padding wrapper)
   const isFullBleedPage = pathname === "/properties" || pathname === "/chat";
 
-  // Investor layout (no sidebar, top nav)
-  if (isInvestorLayout) {
-    return (
-      <div className="h-screen flex flex-col bg-background">
-        <Header
-          isSidebarOpen={false}
-          onToggleSidebar={() => {}}
-          showTopNav={true}
-          showSidebarToggle={false}
-        />
-
-        {/* Spacer for fixed header */}
-        <div className="h-16 flex-shrink-0" />
-
-        {/* Search bar for marketplace pages */}
-        {showSearchBar && <InvestorSearchBar />}
-
-        {/* Main content area - fills remaining space */}
-        <main className="flex-1 overflow-hidden pb-16 md:pb-0">
-          {isFullBleedPage ? (
-            children
-          ) : (
-            <div className="h-full overflow-auto">{children}</div>
-          )}
-        </main>
-
-        {/* Mobile bottom navigation */}
-        <MobileBottomNav />
-      </div>
-    );
-  }
-
-  // Provider layout (Shadcn sidebar with SidebarProvider)
+  // Unified sidebar layout for all roles
   return (
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
-        {/* Inline header for provider layout */}
+        {/* Header */}
         <header className="flex h-16 shrink-0 items-center justify-between border-b px-4">
           <div className="flex items-center gap-2">
             <SidebarTrigger className="-ml-1" />
@@ -194,6 +156,9 @@ export function AppShell({ children }: AppShellProps) {
             </Unauthenticated>
           </div>
         </header>
+
+        {/* Search bar for investor marketplace pages */}
+        {showSearchBar && <InvestorSearchBar />}
 
         {/* Main content area */}
         <main className={isFullBleedPage ? "" : "p-6"}>
