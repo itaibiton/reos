@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode } from "react";
+import { ReactNode, memo } from "react";
 import { cn } from "@/lib/utils";
 
 interface AnswerAreaProps {
@@ -8,11 +8,11 @@ interface AnswerAreaProps {
   className?: string;
 }
 
-export function AnswerArea({ children, className }: AnswerAreaProps) {
+export const AnswerArea = memo(function AnswerArea({ children, className }: AnswerAreaProps) {
   return (
     <div
       className={cn(
-        "ml-auto max-w-[85%] mt-6 animate-in fade-in slide-in-from-bottom-1 duration-200 delay-100",
+        "ml-auto max-w-[85%] mt-6 animate-in fade-in slide-in-from-right-4 duration-300 delay-150",
         className
       )}
     >
@@ -21,4 +21,4 @@ export function AnswerArea({ children, className }: AnswerAreaProps) {
       </div>
     </div>
   );
-}
+});

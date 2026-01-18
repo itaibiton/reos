@@ -88,8 +88,8 @@ export function QuestionnaireWizard({
             currentStep={currentStep}
           />
 
-          {/* Current step content */}
-          <div className="min-h-[300px] py-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
+          {/* Current step content - key ensures fresh animation per step */}
+          <div key={currentStepData?.id} className="min-h-[300px] py-4">
             {currentStepData?.component}
           </div>
 
@@ -112,19 +112,19 @@ export function QuestionnaireWizard({
               {isLastStep ? "Complete" : "Continue"}
             </Button>
           </div>
-
-          {/* Skip link */}
-          <div className="text-center">
-            <button
-              onClick={onSkip}
-              disabled={isLoading}
-              className="text-sm text-muted-foreground hover:text-foreground hover:underline transition-colors disabled:opacity-50"
-            >
-              Skip for now
-            </button>
-          </div>
         </CardContent>
       </Card>
+
+      {/* Skip link - outside the card */}
+      <div className="mt-6 text-center">
+        <button
+          onClick={onSkip}
+          disabled={isLoading}
+          className="text-sm text-muted-foreground hover:text-foreground hover:underline transition-colors disabled:opacity-50"
+        >
+          Skip for now
+        </button>
+      </div>
     </div>
   );
 }
