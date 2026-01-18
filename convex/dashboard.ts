@@ -247,6 +247,104 @@ export const getRecommendedProperties = query({
 });
 
 // ============================================================================
+// Provider Active Deals
+// ============================================================================
+// Get active deals for a service provider with property and investor info.
+// Returns deals where user is assigned (broker/mortgage_advisor/lawyer).
+export const getProviderActiveDeals = query({
+  args: {},
+  handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      return [];
+    }
+
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_clerk_id", (q) => q.eq("clerkId", identity.subject))
+      .unique();
+
+    if (!user) {
+      return [];
+    }
+
+    // Determine effective role (viewingAsRole for admins, otherwise actual role)
+    const effectiveRole = user.role === "admin" && user.viewingAsRole
+      ? user.viewingAsRole
+      : user.role;
+
+    // Only for service providers
+    if (
+      effectiveRole !== "broker" &&
+      effectiveRole !== "mortgage_advisor" &&
+      effectiveRole !== "lawyer"
+    ) {
+      return [];
+    }
+
+    // Get deals where this provider is assigned
+    let assignedDeals;
+    if (effectiveRole === "broker") {
+      assignedDeals = await ctx.db
+        .query("deals")
+        .withIndex("by_broker", (q) => q.eq("brokerId", user._id))
+        .collect();
+    } else if (effectiveRole === "mortgage_advisor") {
+      assignedDeals = await ctx.db
+        .query("deals")
+        .withIndex("by_mortgage_advisor", (q) => q.eq("mortgageAdvisorId", user._id))
+        .collect();
+    } else {
+      assignedDeals = await ctx.db
+        .query("deals")
+        .withIndex("by_lawyer", (q) => q.eq("lawyerId", user._id))
+        .collect();
+    }
+
+    // Filter to active deals only (not completed or cancelled)
+    const activeDeals = assignedDeals.filter(
+      (d) => d.stage !== "completed" && d.stage !== "cancelled"
+    );
+
+    // Sort by createdAt descending and limit to 5
+    activeDeals.sort((a, b) => b.createdAt - a.createdAt);
+    const limitedDeals = activeDeals.slice(0, 5);
+
+    // Enrich with property and investor info
+    const enrichedDeals = await Promise.all(
+      limitedDeals.map(async (deal) => {
+        const property = await ctx.db.get(deal.propertyId);
+        const investor = await ctx.db.get(deal.investorId);
+
+        return {
+          _id: deal._id,
+          stage: deal.stage,
+          createdAt: deal.createdAt,
+          property: property
+            ? {
+                _id: property._id,
+                title: property.title,
+                city: property.city,
+                priceUsd: property.priceUsd,
+                images: property.images,
+              }
+            : null,
+          investor: investor
+            ? {
+                _id: investor._id,
+                name: investor.name,
+                imageUrl: investor.imageUrl,
+              }
+            : null,
+        };
+      })
+    );
+
+    return enrichedDeals;
+  },
+});
+
+// ============================================================================
 // Recent Activity
 // ============================================================================
 // Get recent deal activity for the current user's deals.
