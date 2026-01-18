@@ -5,17 +5,17 @@
 See: .planning/PROJECT.md (updated 2026-01-17)
 
 **Core value:** Deal flow tracking from interest to close.
-**Current focus:** v1.1 Investor Onboarding — gated questionnaire with AI-powered flow
+**Current focus:** v1.2 Provider Experience — enhanced dashboards, client management, profiles
 
 ## Current Position
 
-Milestone: v1.1 Investor Onboarding — COMPLETE
-Phase: 15 of 15 (Profile Display & Edit) — COMPLETE
-Plan: 2 of 2 in current phase
-Status: Milestone complete
-Last activity: 2026-01-18 — Completed 15-02-PLAN.md, v1.1 shipped
+Milestone: v1.2 Provider Experience
+Phase: 16 of 20 (Provider Dashboard Enhancement)
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-01-18 — Milestone v1.2 created
 
-Progress: ██████████ 100% (7/7 phases)
+Progress: ░░░░░░░░░░ 0% (0/5 phases)
 
 ## Performance Metrics
 

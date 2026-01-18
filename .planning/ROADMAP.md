@@ -7,7 +7,8 @@ Building an end-to-end real estate investment platform connecting US investors w
 ## Milestones
 
 - ✅ [v1.0 MVP](milestones/v1.0-ROADMAP.md) (Phases 1-8) — SHIPPED 2026-01-17
-- ✅ **v1.1 Investor Onboarding** — Phases 9-15 — SHIPPED 2026-01-18
+- ✅ [v1.1 Investor Onboarding](milestones/v1.1-ROADMAP.md) (Phases 9-15) — SHIPPED 2026-01-18
+- 🚧 **v1.2 Provider Experience** — Phases 16-20 (in progress)
 
 ## Completed Milestones
 
@@ -38,83 +39,76 @@ Building an end-to-end real estate investment platform connecting US investors w
 
 </details>
 
-## ✅ v1.1 Investor Onboarding (Complete)
+<details>
+<summary>v1.1 Investor Onboarding (Phases 9-15) — SHIPPED 2026-01-18</summary>
 
-**Milestone Goal:** Gated investor onboarding questionnaire with AI-powered conversational flow, enabling personalized property matching and service provider visibility.
+**7 phases, 8 plans**
 
-**SHIPPED:** 2026-01-18
+- [x] Phase 9: Onboarding Gate & State (1/1 plan) — completed 2026-01-18
+- [x] Phase 10: Questionnaire UI Framework (1/1 plan) — completed 2026-01-18
+- [x] Phase 11: Questionnaire Content - Part 1 (1/1 plan) — completed 2026-01-18
+- [x] Phase 12: Questionnaire Content - Part 2 (1/1 plan) — completed 2026-01-18
+- [x] Phase 13: Property Preferences & Location (1/1 plan) — completed 2026-01-18
+- [x] Phase 14: AI Preferences & Service Selection (1/1 plan) — completed 2026-01-18
+- [x] Phase 15: Profile Display & Edit (2/2 plans) — completed 2026-01-18
 
-### Phase 9: Onboarding Gate & State
+[Full details →](milestones/v1.1-ROADMAP.md)
 
-**Goal**: Lock platform features behind onboarding, create progress tracking
-**Depends on**: v1.0 MVP complete
-**Research**: Unlikely (internal patterns - routing, middleware)
-**Plans**: 1/1 complete
+</details>
 
-Plans:
-- [x] 09-01: Onboarding gate infrastructure — completed 2026-01-18
+## 🚧 v1.2 Provider Experience (In Progress)
 
-### Phase 10: Questionnaire UI Framework
+**Milestone Goal:** Enhance the service provider experience with improved dashboards, client management, public profiles, analytics, and settings.
 
-**Goal**: Multi-step wizard with AI-style conversational UI and draft persistence
-**Depends on**: Phase 9
-**Research**: Unlikely (internal patterns - forms, wizard)
-**Plans**: 1/1 complete
+### Phase 16: Provider Dashboard Enhancement
 
-Plans:
-- [x] 10-01: Questionnaire wizard framework — completed 2026-01-18
-
-### Phase 11: Questionnaire Content - Part 1
-
-**Goal**: Citizenship, residency, experience, ownership, and investment type questions
-**Depends on**: Phase 10
-**Research**: Unlikely (internal patterns - form fields)
-**Plans**: 1/1 complete
-
-Plans:
-- [x] 11-01: 5 questionnaire steps with state persistence — completed 2026-01-18
-
-### Phase 12: Questionnaire Content - Part 2
-
-**Goal**: Budget, investment horizon, goals, yield preferences, and financing questions
-**Depends on**: Phase 11
-**Research**: Unlikely (internal patterns - form fields)
-**Plans**: 1/1 complete
-
-Plans:
-- [x] 12-01: 5 financial context steps with budget and goals — completed 2026-01-18
-
-### Phase 13: Property Preferences & Location
-
-**Goal**: Property characteristics, city/area selection with map, radius search
-**Depends on**: Phase 12
-**Research**: Likely (AI integration for preference parsing)
-**Research topics**: Claude/OpenAI for parsing free-text preferences into structured filters
-**Plans**: 1/1 complete
-
-Plans:
-- [x] 13-01: Property preferences and location steps — completed 2026-01-18
-
-### Phase 14: AI Preferences & Service Selection
-
-**Goal**: Free-text AI preferences input, timeline, service provider selection
-**Depends on**: Phase 13
-**Research**: Unlikely (already using Claude in Phase 5)
-**Plans**: 1/1 complete
-
-Plans:
-- [x] 14-01: AI preferences & service selection steps — completed 2026-01-18
-
-### Phase 15: Profile Display & Edit
-
-**Goal**: Investor profile visible to providers, edit answers, completeness indicator
-**Depends on**: Phase 14
+**Goal**: Enhanced dashboard with client overview, pending requests, active deals summary
+**Depends on**: v1.1 complete
 **Research**: Unlikely (internal patterns)
-**Plans**: 2/2 complete
+**Plans**: TBD
 
 Plans:
-- [x] 15-01: Profile display for providers — completed 2026-01-18
-- [x] 15-02: Profile edit for investors — completed 2026-01-18
+- [ ] 16-01: TBD (run /gsd:plan-phase 16 to break down)
+
+### Phase 17: Client Management
+
+**Goal**: Client list, client details, deal history per client
+**Depends on**: Phase 16
+**Research**: Unlikely (internal patterns)
+**Plans**: TBD
+
+Plans:
+- [ ] 17-01: TBD
+
+### Phase 18: Service Provider Profiles
+
+**Goal**: Public-facing profiles, reviews/ratings, portfolio showcase
+**Depends on**: Phase 17
+**Research**: Unlikely (internal patterns)
+**Plans**: TBD
+
+Plans:
+- [ ] 18-01: TBD
+
+### Phase 19: Provider Analytics
+
+**Goal**: Earnings tracking, conversion metrics, performance insights
+**Depends on**: Phase 18
+**Research**: Unlikely (internal patterns)
+**Plans**: TBD
+
+Plans:
+- [ ] 19-01: TBD
+
+### Phase 20: Provider Settings & Availability
+
+**Goal**: Availability calendar, service area management, notification preferences
+**Depends on**: Phase 19
+**Research**: Unlikely (internal patterns)
+**Plans**: TBD
+
+Plans:
+- [ ] 20-01: TBD
 
 ## Progress
 
@@ -122,16 +116,15 @@ Plans:
 |-----------|--------|-------|--------|---------|
 | v1.0 MVP | 17 | 40 | Complete | 2026-01-17 |
 | v1.1 Investor Onboarding | 7 | 8 | Complete | 2026-01-18 |
+| v1.2 Provider Experience | 5 | 0/? | In Progress | - |
 
 | Phase | Milestone | Plans | Status | Completed |
 |-------|-----------|-------|--------|-----------|
-| 9. Onboarding Gate & State | v1.1 | 1/1 | Complete | 2026-01-18 |
-| 10. Questionnaire UI Framework | v1.1 | 1/1 | Complete | 2026-01-18 |
-| 11. Questionnaire Content - Part 1 | v1.1 | 1/1 | Complete | 2026-01-18 |
-| 12. Questionnaire Content - Part 2 | v1.1 | 1/1 | Complete | 2026-01-18 |
-| 13. Property Preferences & Location | v1.1 | 1/1 | Complete | 2026-01-18 |
-| 14. AI Preferences & Service Selection | v1.1 | 1/1 | Complete | 2026-01-18 |
-| 15. Profile Display & Edit | v1.1 | 2/2 | Complete | 2026-01-18 |
+| 16. Provider Dashboard Enhancement | v1.2 | 0/? | Not started | - |
+| 17. Client Management | v1.2 | 0/? | Not started | - |
+| 18. Service Provider Profiles | v1.2 | 0/? | Not started | - |
+| 19. Provider Analytics | v1.2 | 0/? | Not started | - |
+| 20. Provider Settings & Availability | v1.2 | 0/? | Not started | - |
 
 ---
 
