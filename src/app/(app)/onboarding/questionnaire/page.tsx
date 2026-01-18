@@ -22,6 +22,10 @@ import {
   GoalsStep,
   YieldStep,
   FinancingStep,
+  PropertyTypeStep,
+  PropertySizeStep,
+  LocationStep,
+  AmenitiesStep,
 } from "@/components/questionnaire/steps";
 
 export default function QuestionnairePage() {
@@ -48,6 +52,14 @@ export default function QuestionnairePage() {
   const [investmentGoals, setInvestmentGoals] = useState<string[]>([]);
   const [yieldPreference, setYieldPreference] = useState<string | undefined>();
   const [financingApproach, setFinancingApproach] = useState<string | undefined>();
+  // Phase 13 fields
+  const [preferredPropertyTypes, setPreferredPropertyTypes] = useState<string[]>([]);
+  const [preferredLocations, setPreferredLocations] = useState<string[]>([]);
+  const [minBedrooms, setMinBedrooms] = useState<number | undefined>();
+  const [maxBedrooms, setMaxBedrooms] = useState<number | undefined>();
+  const [minArea, setMinArea] = useState<number | undefined>();
+  const [maxArea, setMaxArea] = useState<number | undefined>();
+  const [preferredAmenities, setPreferredAmenities] = useState<string[]>([]);
 
   // Initialize state from questionnaire data (for draft restoration)
   useEffect(() => {
@@ -64,6 +76,14 @@ export default function QuestionnairePage() {
       setInvestmentGoals(questionnaire.investmentGoals ?? []);
       setYieldPreference(questionnaire.yieldPreference);
       setFinancingApproach(questionnaire.financingApproach);
+      // Phase 13 fields
+      setPreferredPropertyTypes(questionnaire.preferredPropertyTypes ?? []);
+      setPreferredLocations(questionnaire.preferredLocations ?? []);
+      setMinBedrooms(questionnaire.minBedrooms);
+      setMaxBedrooms(questionnaire.maxBedrooms);
+      setMinArea(questionnaire.minArea);
+      setMaxArea(questionnaire.maxArea);
+      setPreferredAmenities(questionnaire.preferredAmenities ?? []);
     }
   }, [questionnaire]);
 
@@ -127,8 +147,39 @@ export default function QuestionnairePage() {
         title: "Financing",
         component: <FinancingStep value={financingApproach} onChange={setFinancingApproach} />,
       },
+      {
+        id: "property-type",
+        title: "Property Type",
+        component: <PropertyTypeStep value={preferredPropertyTypes} onChange={setPreferredPropertyTypes} />,
+      },
+      {
+        id: "property-size",
+        title: "Property Size",
+        component: (
+          <PropertySizeStep
+            minBedrooms={minBedrooms}
+            maxBedrooms={maxBedrooms}
+            minArea={minArea}
+            maxArea={maxArea}
+            onMinBedroomsChange={setMinBedrooms}
+            onMaxBedroomsChange={setMaxBedrooms}
+            onMinAreaChange={setMinArea}
+            onMaxAreaChange={setMaxArea}
+          />
+        ),
+      },
+      {
+        id: "location",
+        title: "Location",
+        component: <LocationStep value={preferredLocations} onChange={setPreferredLocations} />,
+      },
+      {
+        id: "amenities",
+        title: "Amenities",
+        component: <AmenitiesStep value={preferredAmenities} onChange={setPreferredAmenities} />,
+      },
     ],
-    [citizenship, residencyStatus, experienceLevel, ownsPropertyInIsrael, investmentType, budgetMin, budgetMax, investmentHorizon, investmentGoals, yieldPreference, financingApproach]
+    [citizenship, residencyStatus, experienceLevel, ownsPropertyInIsrael, investmentType, budgetMin, budgetMax, investmentHorizon, investmentGoals, yieldPreference, financingApproach, preferredPropertyTypes, preferredLocations, minBedrooms, maxBedrooms, minArea, maxArea, preferredAmenities]
   );
 
   // Get current step from questionnaire (default to 1)
@@ -164,6 +215,14 @@ export default function QuestionnairePage() {
         investmentGoals,
         yieldPreference,
         financingApproach,
+        // Phase 13 fields
+        preferredPropertyTypes,
+        preferredLocations,
+        minBedrooms,
+        maxBedrooms,
+        minArea,
+        maxArea,
+        preferredAmenities,
       });
     } catch (error) {
       console.error("Failed to save answers:", error);
