@@ -108,17 +108,18 @@ Plans:
 **Goal**: Investor profile visible to providers, edit answers, completeness indicator
 **Depends on**: Phase 14
 **Research**: Unlikely (internal patterns)
-**Plans**: TBD
+**Plans**: 1/2 complete
 
 Plans:
-- [ ] 15-01: TBD
+- [x] 15-01: Profile display for providers — completed 2026-01-18
+- [ ] 15-02: Profile edit for investors
 
 ## Progress
 
 | Milestone | Phases | Plans | Status | Shipped |
 |-----------|--------|-------|--------|---------|
 | v1.0 MVP | 17 | 40 | Complete | 2026-01-17 |
-| v1.1 Investor Onboarding | 7 | 6/? | In Progress | - |
+| v1.1 Investor Onboarding | 7 | 7/8 | In Progress | - |
 
 | Phase | Milestone | Plans | Status | Completed |
 |-------|-----------|-------|--------|-----------|
@@ -128,7 +129,7 @@ Plans:
 | 12. Questionnaire Content - Part 2 | v1.1 | 1/1 | Complete | 2026-01-18 |
 | 13. Property Preferences & Location | v1.1 | 1/1 | Complete | 2026-01-18 |
 | 14. AI Preferences & Service Selection | v1.1 | 1/1 | Complete | 2026-01-18 |
-| 15. Profile Display & Edit | v1.1 | 0/? | Not started | - |
+| 15. Profile Display & Edit | v1.1 | 1/2 | In Progress | - |
 
 ---
 

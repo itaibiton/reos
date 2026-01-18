@@ -10,19 +10,19 @@ See: .planning/PROJECT.md (updated 2026-01-17)
 ## Current Position
 
 Milestone: v1.1 Investor Onboarding
-Phase: 14 of 15 (AI Preferences & Service Selection)
-Plan: 01 complete
-Status: Phase 14 complete, ready for Phase 15
-Last activity: 2026-01-18 — Completed 14-01-PLAN.md
+Phase: 15 of 15 (Profile Display & Edit)
+Plan: 1 of 2 in current phase
+Status: In progress
+Last activity: 2026-01-18 — Completed 15-01-PLAN.md
 
-Progress: ██████░░░░ 86% (6/7 phases)
+Progress: ██████████ 93% (6.5/7 phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 42
+- Total plans completed: 43
 - Average duration: 9 min
-- Total execution time: 5.44 hours
+- Total execution time: 5.52 hours
 
 **By Phase:**
 
@@ -51,10 +51,11 @@ Progress: ██████░░░░ 86% (6/7 phases)
 | 12 | 1/1 | 4 min | 4 min |
 | 13 | 1/1 | 3 min | 3 min |
 | 14 | 1/1 | 4 min | 4 min |
+| 15 | 1/2 | 5 min | 5 min |
 
 **Recent Trend:**
-- Last 5 plans: 5 min, 3 min, 4 min, 3 min, 4 min
-- Trend: v1.1 in progress - 42 plans executed
+- Last 5 plans: 3 min, 4 min, 3 min, 4 min, 5 min
+- Trend: v1.1 in progress - 43 plans executed
 
 ## Accumulated Context
 
@@ -152,6 +153,9 @@ Recent decisions affecting current work:
 - Phase 14: TimelineStep uses radio single-select with 4 purchase timeline options
 - Phase 14: AdditionalPreferencesStep uses Textarea with 2000 char limit and character count
 - Phase 14: ServicesStep uses checkbox multi-select for broker/mortgage_advisor/lawyer
+- Phase 15: getByInvestorId access control: self-access OR provider assigned to shared deal
+- Phase 15: InvestorQuestionnaireCard shows to providers only (not to investor viewing own deal)
+- Phase 15: Label mappings kept inline in component for simplicity
 
 ### Deferred Issues
 
@@ -177,6 +181,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-18
-Stopped at: Completed 14-01-PLAN.md
+Stopped at: Completed 15-01-PLAN.md
 Resume file: None
-Next: Plan Phase 15 (Profile Display & Edit)
+Next: Execute 15-02-PLAN.md (Profile Edit)
