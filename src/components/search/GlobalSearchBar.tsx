@@ -236,6 +236,7 @@ export function GlobalSearchBar() {
         onOpenChange={setOpen}
         title="Search"
         description="Search for users, posts, and properties"
+        shouldFilter={false}
       >
         <CommandInput
           placeholder="Search users, posts, properties..."
