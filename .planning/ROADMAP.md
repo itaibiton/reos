@@ -250,12 +250,15 @@ Plans:
 
 **Goal**: Search posts/users globally, trending content, recommendations
 **Depends on**: Phase 26
-**Research**: Likely (search/ranking algorithms)
-**Research topics**: Content ranking, trending algorithms, recommendation systems
-**Plans**: TBD
+**Research**: Complete (27-RESEARCH.md)
+**Plans**: 5 plans
 
 Plans:
-- [ ] 27-01: TBD
+- [ ] 27-01-PLAN.md — Schema search indexes + unified search + search history
+- [ ] 27-02-PLAN.md — Trending + recommendations backend
+- [ ] 27-03-PLAN.md — Header search bar + autocomplete UI
+- [ ] 27-04-PLAN.md — Search results page
+- [ ] 27-05-PLAN.md — Discovery widgets (trending, people to follow) + feed integration
 
 ## Progress
 
@@ -264,7 +267,7 @@ Plans:
 | v1.0 MVP | 17 | 40 | Complete | 2026-01-17 |
 | v1.1 Investor Onboarding | 7 | 8 | Complete | 2026-01-18 |
 | v1.2 Provider Experience | 6 | 11 | Complete | 2026-01-19 |
-| v1.3 Social Feed & Global Community | 7 | 18/? | In Progress | - |
+| v1.3 Social Feed & Global Community | 7 | 18/23 | In Progress | - |
 
 | Phase | Milestone | Plans | Status | Completed |
 |-------|-----------|-------|--------|-----------|
@@ -281,7 +284,7 @@ Plans:
 | 24. Social Interactions | v1.3 | 4/4 | Complete | 2026-01-19 |
 | 25. User Following | v1.3 | 2/2 | Complete | 2026-01-19 |
 | 26. User Profiles Revamp | v1.3 | 2/2 | Complete | 2026-01-19 |
-| 27. Global Discovery | v1.3 | 0/? | Not started | - |
+| 27. Global Discovery | v1.3 | 0/5 | Planned | - |
 
 ---
 
