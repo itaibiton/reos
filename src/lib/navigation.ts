@@ -7,6 +7,7 @@ import {
   Handshake,
   CalendarDays,
   Users,
+  UserSearch,
   FileText,
   Calculator,
   Scale,
@@ -60,6 +61,7 @@ const investorNavigation: RoleNavigation = {
       items: [
         { label: "Browse Properties", href: "/properties", icon: Building2 },
         { label: "Saved Properties", href: "/properties/saved", icon: Heart },
+        { label: "Find Providers", href: "/providers", icon: UserSearch },
         { label: "Deals", href: "/deals", icon: Handshake },
       ],
     },
