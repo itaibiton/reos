@@ -179,7 +179,7 @@
         "Build passes without errors"
       ],
       "dependencies": ["COPY-01", "COPY-02", "COPY-03"],
-      "pass": false
+      "pass": true
     },
     {
       "id": "INT-02",

@@ -30,8 +30,9 @@ Build a services showcase landing page for REOS with three key sections:
 - [x] COPY-01: Write Services Grid Copy
 - [x] COPY-02: Write Process Steps Copy
 - [x] COPY-03: Write Team Section Copy
+- [x] INT-01: Create Landing Page Route
 
-## Current Phase: Phase 3 - Copywriting (COMPLETE) → Phase 4 - Integration
+## Current Phase: Phase 4 - Integration
 
 ---
 ## Progress Log:
@@ -214,4 +215,19 @@ Polished marketing copy for Team Section:
 - Focus: Background + contribution + personality hint
 
 **Next:** Phase 3 Copywriting is complete. INT-01 can proceed.
+
+### 2026-01-19 - INT-01 Complete
+**Task:** Create Landing Page Route
+**Agent:** senior-frontend-dev
+**Output:** Updated `src/app/[locale]/(main)/page.tsx`
+
+Created landing page composing all three sections:
+- Route: `src/app/[locale]/(main)/page.tsx` (root marketing page)
+- Sections: ServicesGrid → ProcessSteps → TeamSection
+- Visual separation: Alternating backgrounds (bg-background, bg-muted/30)
+- Metadata: Title and SEO-optimized description
+- Server Component by default for optimal performance
+- TypeScript types properly configured
+
+**Next:** INT-02 (Final Polish and Verification) can proceed.
 

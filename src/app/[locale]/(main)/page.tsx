@@ -1,27 +1,25 @@
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import type { Metadata } from "next";
+import { ServicesGrid } from "@/components/landing/ServicesGrid";
+import { ProcessSteps } from "@/components/landing/ProcessSteps";
+import { TeamSection } from "@/components/landing/TeamSection";
 
-export default function Home() {
+export const metadata: Metadata = {
+  title: "REOS - Property Management Made Simple",
+  description:
+    "Comprehensive tools for real estate operations. Manage your entire property portfolio with automated workflows, tenant portals, and financial insights all in one place.",
+};
+
+export default function LandingPage() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center p-6">
-      <div className="max-w-md text-center space-y-6">
-        <h1 className="text-4xl font-bold">REOS</h1>
-        <p className="text-lg text-muted-foreground">
-          Real Estate Investment Platform
-        </p>
-        <p className="text-muted-foreground">
-          Connect US investors with Israeli properties through streamlined deal flow
-          tracking from interest to close.
-        </p>
-        <div className="flex gap-4 justify-center pt-4">
-          <Button asChild>
-            <Link href="/sign-in">Sign In</Link>
-          </Button>
-          <Button asChild variant="outline">
-            <Link href="/sign-up">Sign Up</Link>
-          </Button>
-        </div>
-      </div>
-    </div>
+    <main className="min-h-screen">
+      {/* Services Grid Section */}
+      <ServicesGrid className="bg-background" />
+
+      {/* Process Steps Section */}
+      <ProcessSteps className="bg-muted/30" />
+
+      {/* Team Section */}
+      <TeamSection className="bg-background" />
+    </main>
   );
 }
