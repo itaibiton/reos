@@ -3,7 +3,7 @@
 import { useSearchParams } from "next/navigation";
 import { useMutation } from "convex/react";
 import { useEffect, useRef } from "react";
-import { api } from "../../../../convex/_generated/api";
+import { api } from "../../../../../convex/_generated/api";
 import { SearchResults } from "@/components/search/SearchResults";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Search01Icon } from "@hugeicons/core-free-icons";

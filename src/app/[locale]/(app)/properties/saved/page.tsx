@@ -2,7 +2,7 @@
 
 import { useQuery } from "convex/react";
 import { useRouter } from "next/navigation";
-import { api } from "../../../../../convex/_generated/api";
+import { api } from "../../../../../../convex/_generated/api";
 import { Skeleton } from "@/components/ui/skeleton";
 import { PropertyCard } from "@/components/properties/PropertyCard";
 import { DashboardMap } from "@/components/dashboard/DashboardMap";

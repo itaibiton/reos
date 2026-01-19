@@ -12,8 +12,8 @@ import {
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
-import { api } from "../../../../convex/_generated/api";
-import { Id } from "../../../../convex/_generated/dataModel";
+import { api } from "../../../../../convex/_generated/api";
+import { Id } from "../../../../../convex/_generated/dataModel";
 import { DealSelectorPopover } from "@/components/chat/DealSelectorPopover";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ChatThread } from "@/components/chat/ChatThread";

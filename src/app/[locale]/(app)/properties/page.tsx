@@ -2,7 +2,7 @@
 
 import { useQuery } from "convex/react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { api } from "../../../../convex/_generated/api";
+import { api } from "../../../../../convex/_generated/api";
 import { Skeleton } from "@/components/ui/skeleton";
 import { PropertyCard } from "@/components/properties/PropertyCard";
 import { DashboardMap } from "@/components/dashboard/DashboardMap";
@@ -10,7 +10,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { Building02Icon } from "@hugeicons/core-free-icons";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import type { PropertyFilters } from "../../../../convex/search";
+import type { PropertyFilters } from "../../../../../convex/search";
 
 // Skeleton loader for property cards
 function PropertyCardSkeleton() {

@@ -1,12 +1,12 @@
 "use client";
 
 import { useConvexAuth, useQuery } from "convex/react";
-import { useRouter, usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { Spinner } from "@/components/ui/spinner";
 import { AppShell } from "@/components/layout/AppShell";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
-import { api } from "../../../convex/_generated/api";
+import { api } from "../../../../convex/_generated/api";
+import { useRouter, usePathname } from "@/i18n/navigation";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, isLoading: isAuthLoading } = useConvexAuth();

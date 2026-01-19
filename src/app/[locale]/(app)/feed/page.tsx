@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { usePaginatedQuery } from "convex/react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { api } from "../../../../convex/_generated/api";
+import { api } from "../../../../../convex/_generated/api";
 import { PostCard, PostCardSkeleton, CreatePostDialog } from "@/components/feed";
 import { TrendingSection, PeopleToFollow } from "@/components/discovery";
 import { Button } from "@/components/ui/button";
