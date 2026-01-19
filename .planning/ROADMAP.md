@@ -267,11 +267,11 @@ Plans:
 **Goal**: Add quick actions and page navigation to global search - when user searches "Set", show Settings page as first result before other content
 **Depends on**: Phase 27
 **Research**: None (UI enhancement using existing navigation config)
-**Plans**: 0 plans
+**Plans**: 1 plan
 **Status**: Not started
 
 Plans:
-- [ ] TBD (run /gsd:plan-phase 27.2 to break down)
+- [ ] 27.2-01-PLAN.md — Search-actions helper and GlobalSearchBar Quick Actions integration
 
 **Details:**
 - Create search-actions helper to flatten navigation items into searchable actions
@@ -287,7 +287,7 @@ Plans:
 | v1.0 MVP | 17 | 40 | Complete | 2026-01-17 |
 | v1.1 Investor Onboarding | 7 | 8 | Complete | 2026-01-18 |
 | v1.2 Provider Experience | 6 | 11 | Complete | 2026-01-19 |
-| v1.3 Social Feed & Global Community | 8 | 23/24 | In Progress | - |
+| v1.3 Social Feed & Global Community | 8 | 24/24 | In Progress | - |
 
 | Phase | Milestone | Plans | Status | Completed |
 |-------|-----------|-------|--------|-----------|
