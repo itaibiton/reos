@@ -575,3 +575,196 @@ export const isLikedByUser = query({
     return like !== null;
   },
 });
+
+// ============================================================================
+// SAVE/UNSAVE MUTATIONS
+// ============================================================================
+
+// Save a post (bookmark) - idempotent
+export const savePost = mutation({
+  args: {
+    postId: v.id("posts"),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Not authenticated");
+    }
+
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_clerk_id", (q) => q.eq("clerkId", identity.subject))
+      .unique();
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    // Validate post exists
+    const post = await ctx.db.get(args.postId);
+    if (!post) {
+      throw new Error("Post not found");
+    }
+
+    // Check if already saved using compound index
+    const existing = await ctx.db
+      .query("postSaves")
+      .withIndex("by_post_and_user", (q) =>
+        q.eq("postId", args.postId).eq("userId", user._id)
+      )
+      .unique();
+
+    // Idempotent: if already saved, return early
+    if (existing) {
+      return { success: true, alreadySaved: true };
+    }
+
+    // Insert save record
+    await ctx.db.insert("postSaves", {
+      postId: args.postId,
+      userId: user._id,
+      createdAt: Date.now(),
+    });
+
+    // Atomically increment saveCount on post
+    await ctx.db.patch(args.postId, {
+      saveCount: post.saveCount + 1,
+    });
+
+    return { success: true, alreadySaved: false };
+  },
+});
+
+// Unsave a post (remove bookmark) - idempotent
+export const unsavePost = mutation({
+  args: {
+    postId: v.id("posts"),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Not authenticated");
+    }
+
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_clerk_id", (q) => q.eq("clerkId", identity.subject))
+      .unique();
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    // Validate post exists
+    const post = await ctx.db.get(args.postId);
+    if (!post) {
+      throw new Error("Post not found");
+    }
+
+    // Find existing save using compound index
+    const existing = await ctx.db
+      .query("postSaves")
+      .withIndex("by_post_and_user", (q) =>
+        q.eq("postId", args.postId).eq("userId", user._id)
+      )
+      .unique();
+
+    // Idempotent: if not saved, return early
+    if (!existing) {
+      return { success: true, wasSaved: false };
+    }
+
+    // Delete save record
+    await ctx.db.delete(existing._id);
+
+    // Atomically decrement saveCount (prevent negative)
+    await ctx.db.patch(args.postId, {
+      saveCount: Math.max(0, post.saveCount - 1),
+    });
+
+    return { success: true, wasSaved: true };
+  },
+});
+
+// Check if current user has saved a post
+export const isSavedByUser = query({
+  args: {
+    postId: v.id("posts"),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      return false;
+    }
+
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_clerk_id", (q) => q.eq("clerkId", identity.subject))
+      .unique();
+
+    if (!user) {
+      return false;
+    }
+
+    // Query using compound index
+    const save = await ctx.db
+      .query("postSaves")
+      .withIndex("by_post_and_user", (q) =>
+        q.eq("postId", args.postId).eq("userId", user._id)
+      )
+      .unique();
+
+    return save !== null;
+  },
+});
+
+// Get all saved posts for current user (paginated)
+export const getSavedPosts = query({
+  args: {
+    paginationOpts: paginationOptsValidator,
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      return { page: [], isDone: true, continueCursor: "" };
+    }
+
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_clerk_id", (q) => q.eq("clerkId", identity.subject))
+      .unique();
+
+    if (!user) {
+      return { page: [], isDone: true, continueCursor: "" };
+    }
+
+    // Query user's saved posts, newest first
+    const savedResults = await ctx.db
+      .query("postSaves")
+      .withIndex("by_user", (q) => q.eq("userId", user._id))
+      .order("desc")
+      .paginate(args.paginationOpts);
+
+    // Fetch and enrich each saved post
+    const enrichedPage = await Promise.all(
+      savedResults.page.map(async (save) => {
+        const post = await ctx.db.get(save.postId);
+        if (!post) return null;
+
+        // Check visibility
+        const canView = await canViewPost(ctx, post, user._id);
+        if (!canView) return null;
+
+        return enrichPost(ctx, post);
+      })
+    );
+
+    // Filter out null entries (deleted posts or no access)
+    const filteredPage = enrichedPage.filter((p) => p !== null);
+
+    return {
+      ...savedResults,
+      page: filteredPage,
+    };
+  },
+});
