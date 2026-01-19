@@ -243,3 +243,147 @@ export const getWithUser = query({
     };
   },
 });
+
+// Get public profile with all data needed for the public profile page
+// Combines: profile, user info, stats, recent reviews, portfolio (completed deals)
+export const getPublicProfile = query({
+  args: {
+    providerId: v.id("users"),
+  },
+  handler: async (ctx, args) => {
+    // Get user
+    const user = await ctx.db.get(args.providerId);
+    if (!user) {
+      return null;
+    }
+
+    // Check if user is a service provider
+    if (!user.role || user.role === "investor" || user.role === "admin") {
+      return null;
+    }
+
+    // Get service provider profile
+    const profile = await ctx.db
+      .query("serviceProviderProfiles")
+      .withIndex("by_user", (q) => q.eq("userId", args.providerId))
+      .unique();
+
+    if (!profile) {
+      return null;
+    }
+
+    // Get reviews for this provider
+    const allReviews = await ctx.db
+      .query("providerReviews")
+      .withIndex("by_provider", (q) => q.eq("providerId", args.providerId))
+      .collect();
+
+    // Sort by createdAt desc and take last 5
+    allReviews.sort((a, b) => b.createdAt - a.createdAt);
+    const recentReviews = allReviews.slice(0, 5);
+
+    // Enrich reviews with reviewer info and property context
+    const enrichedReviews = await Promise.all(
+      recentReviews.map(async (review) => {
+        const reviewer = await ctx.db.get(review.reviewerId);
+        const deal = await ctx.db.get(review.dealId);
+        let propertyTitle: string | undefined;
+
+        if (deal) {
+          const property = await ctx.db.get(deal.propertyId);
+          propertyTitle = property?.title;
+        }
+
+        return {
+          _id: review._id,
+          rating: review.rating,
+          reviewText: review.reviewText,
+          createdAt: review.createdAt,
+          reviewerName: reviewer?.name,
+          reviewerImageUrl: reviewer?.imageUrl,
+          propertyTitle,
+        };
+      })
+    );
+
+    // Calculate stats
+    const totalReviews = allReviews.length;
+    const averageRating =
+      totalReviews > 0
+        ? Math.round(
+            (allReviews.reduce((sum, r) => sum + r.rating, 0) / totalReviews) *
+              10
+          ) / 10
+        : 0;
+
+    // Count completed deals where this provider was assigned
+    const allCompletedDeals = await ctx.db
+      .query("deals")
+      .withIndex("by_stage", (q) => q.eq("stage", "completed"))
+      .collect();
+
+    const providerCompletedDeals = allCompletedDeals.filter(
+      (deal) =>
+        deal.brokerId === args.providerId ||
+        deal.mortgageAdvisorId === args.providerId ||
+        deal.lawyerId === args.providerId
+    );
+
+    // Get last 5 completed deals for portfolio
+    const portfolioDeals = providerCompletedDeals
+      .sort((a, b) => b.updatedAt - a.updatedAt)
+      .slice(0, 5);
+
+    // Enrich portfolio with property info
+    const portfolio = await Promise.all(
+      portfolioDeals.map(async (deal) => {
+        const property = await ctx.db.get(deal.propertyId);
+
+        return {
+          dealId: deal._id,
+          propertyId: deal.propertyId,
+          propertyTitle: property?.title,
+          propertyCity: property?.city,
+          propertyImage: property?.featuredImage ?? property?.images[0],
+          soldPrice: property?.soldPrice ?? deal.offerPrice ?? property?.priceUsd,
+          completedAt: deal.updatedAt,
+        };
+      })
+    );
+
+    const stats = {
+      averageRating,
+      totalReviews,
+      completedDeals: providerCompletedDeals.length,
+      yearsExperience: profile.yearsExperience ?? 0,
+    };
+
+    return {
+      // User info
+      name: user.name,
+      email: user.email,
+      imageUrl: user.imageUrl,
+      role: user.role,
+
+      // Profile info
+      companyName: profile.companyName,
+      licenseNumber: profile.licenseNumber,
+      yearsExperience: profile.yearsExperience,
+      specializations: profile.specializations,
+      serviceAreas: profile.serviceAreas,
+      languages: profile.languages,
+      bio: profile.bio,
+      phoneNumber: profile.phoneNumber,
+      preferredContact: profile.preferredContact,
+
+      // Stats
+      stats,
+
+      // Reviews (last 5)
+      reviews: enrichedReviews,
+
+      // Portfolio (last 5 completed deals)
+      portfolio,
+    };
+  },
+});
