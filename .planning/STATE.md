@@ -224,6 +224,8 @@ Recent decisions affecting current work:
 - Phase 23: Feed page uses usePaginatedQuery for infinite scroll (results, status, loadMore)
 - Phase 23: Filter tabs use URL params for shareable filter state
 - Phase 23: Feed navigation link added for all 9 user roles in bottom section
+- Phase 24: EngagementFooter uses optimistic UI with local state synced via useEffect
+- Phase 24: Mutation pending state disables buttons to prevent double-clicks
 - Phase 24: Comment max length 1000 chars (consistent with other text fields)
 - Phase 24: Comments paginated newest-first for typical social feed UX
 - Phase 24: addComment follows likePost/savePost auth and validation pattern
