@@ -29,8 +29,9 @@ Build a services showcase landing page for REOS with three key sections:
 - [x] UI-03: Implement Team Section Component
 - [x] COPY-01: Write Services Grid Copy
 - [x] COPY-02: Write Process Steps Copy
+- [x] COPY-03: Write Team Section Copy
 
-## Current Phase: Phase 3 - Copywriting
+## Current Phase: Phase 3 - Copywriting (COMPLETE) → Phase 4 - Integration
 
 ---
 ## Progress Log:
@@ -195,4 +196,22 @@ Polished marketing copy for Process Steps:
 - Focus: Speed, ease, immediate value
 
 **Next:** COPY-03 (Team Section) can proceed.
+
+### 2026-01-19 - COPY-03 Complete
+**Task:** Write Team Section Copy
+**Agent:** kohelet-copywriter
+**Output:** Updated `src/components/landing/TeamSection.tsx`
+
+Polished marketing copy for Team Section:
+- Headline: "The People Behind REOS"
+- Subheadline: "We started REOS because we believe property managers deserve better tools. Our team combines real estate expertise with technical innovation to build software that actually works for you."
+- 4 team member bios with warmth and personality:
+  - Sarah Mitchell: Founder story, 200-unit portfolio, mentors landlords
+  - Marcus Chen: Stripe/Zillow background, enterprise tech for everyone
+  - Emily Rodriguez: Airbnb/Figma design, "what would make this easier?"
+  - James O'Connor: Lived PM experience, relatable scenarios, never alone
+- Tone: Warm, personable, builds trust
+- Focus: Background + contribution + personality hint
+
+**Next:** Phase 3 Copywriting is complete. INT-01 can proceed.
 

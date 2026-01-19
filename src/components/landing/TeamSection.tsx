@@ -47,7 +47,7 @@ const teamMembers: TeamMember[] = [
     id: "sarah-mitchell",
     name: "Sarah Mitchell",
     role: "CEO & Founder",
-    bio: "Former real estate investor who managed 200+ units before founding REOS. Sarah saw firsthand how fragmented property management software costs landlords thousands in lost time and revenue. She built REOS to bring enterprise-grade automation to property managers of all sizes.",
+    bio: "Sarah spent twelve years building a 200-unit rental portfolio before realizing the software meant to help her was actually holding her back. She founded REOS to give property managers the automation tools she wished she had. When she's not leading the team, you'll find her mentoring first-time landlords.",
     initials: "SM",
     avatarGradient: "bg-gradient-to-br from-purple-500 to-purple-700",
     socialLinks: [
@@ -67,7 +67,7 @@ const teamMembers: TeamMember[] = [
     id: "marcus-chen",
     name: "Marcus Chen",
     role: "Head of Engineering",
-    bio: "Previously led backend infrastructure teams at Zillow and Stripe. Marcus specializes in building scalable, secure systems that handle millions of transactions. At REOS, he's architecting a platform that's both powerful for enterprises and intuitive for individual landlords.",
+    bio: "Marcus built payment systems at Stripe and search infrastructure at Zillow before joining REOS. He's obsessed with creating software that feels fast and reliable, no matter how many properties you manage. His mission here: make enterprise-grade technology accessible to landlords of all sizes.",
     initials: "MC",
     avatarGradient: "bg-gradient-to-br from-blue-500 to-blue-700",
     socialLinks: [
@@ -92,7 +92,7 @@ const teamMembers: TeamMember[] = [
     id: "emily-rodriguez",
     name: "Emily Rodriguez",
     role: "Lead Product Designer",
-    bio: "Award-winning UX designer with a passion for simplifying complex workflows. Emily's design philosophy centers on empathy-driven interfaces that reduce cognitive load. She's redesigned REOS from the ground up to make property management feel effortless, not overwhelming.",
+    bio: "Emily believes property management software should feel intuitive from day one, not require a training manual. After designing products at Airbnb and Figma, she joined REOS to bring that same thoughtful approach to an industry often overlooked by great design. Every screen she creates starts with one question: what would make this easier?",
     initials: "ER",
     avatarGradient: "bg-gradient-to-br from-green-500 to-green-700",
     socialLinks: [
@@ -117,7 +117,7 @@ const teamMembers: TeamMember[] = [
     id: "james-oconnor",
     name: "James O'Connor",
     role: "Head of Customer Success",
-    bio: "James spent a decade as a property manager before joining REOS, managing portfolios ranging from single-family homes to 500-unit apartment complexes. He understands every pain point our customers face because he's lived them. Now, he ensures every REOS user gets the support they need to succeed.",
+    bio: "Before joining REOS, James managed everything from single-family rentals to 500-unit apartment complexes. He knows what it's like to chase late payments at midnight and juggle maintenance requests during family dinner. Now he leads our support team with one goal: making sure you never feel like you're figuring this out alone.",
     initials: "JO",
     avatarGradient: "bg-gradient-to-br from-orange-500 to-orange-700",
     socialLinks: [
@@ -339,11 +339,12 @@ export function TeamSection({ className }: TeamSectionProps) {
             id="team-heading"
             className="mb-4 text-2xl font-bold text-foreground md:text-3xl lg:text-4xl"
           >
-            Meet the Team
+            The People Behind REOS
           </h2>
           <p className="mx-auto max-w-3xl text-base text-muted-foreground md:text-lg">
-            Experts in real estate, technology, and customer success working
-            together to transform property management.
+            We started REOS because we believe property managers deserve better
+            tools. Our team combines real estate expertise with technical
+            innovation to build software that actually works for you.
           </p>
         </div>
 
