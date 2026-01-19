@@ -64,7 +64,9 @@ export default async function LocaleLayout({ children, params }: Props) {
           signUpFallbackRedirectUrl={`/${locale}/dashboard`}
         >
           <ConvexClientProvider>
-            <Providers direction={direction}>{children}</Providers>
+            <Providers locale={locale} direction={direction}>
+              {children}
+            </Providers>
           </ConvexClientProvider>
           <Toaster position="bottom-right" />
         </ClerkProvider>
