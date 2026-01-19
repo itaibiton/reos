@@ -230,7 +230,7 @@ export function InvestorProfileForm() {
                 {RISK_TOLERANCE_OPTIONS.map((option) => (
                   <div
                     key={option.value}
-                    className="flex items-start space-x-3 rounded-lg border p-3 hover:bg-muted/50 cursor-pointer"
+                    className="flex items-start space-x-3 rtl:space-x-reverse rounded-lg border p-3 hover:bg-muted/50 cursor-pointer"
                     onClick={() => setRiskTolerance(option.value as RiskTolerance)}
                   >
                     <RadioGroupItem value={option.value} id={option.value} className="mt-0.5" />
@@ -255,7 +255,7 @@ export function InvestorProfileForm() {
                 {INVESTMENT_TIMELINE_OPTIONS.map((option) => (
                   <div
                     key={option.value}
-                    className="flex items-start space-x-3 rounded-lg border p-3 hover:bg-muted/50 cursor-pointer"
+                    className="flex items-start space-x-3 rtl:space-x-reverse rounded-lg border p-3 hover:bg-muted/50 cursor-pointer"
                     onClick={() => setInvestmentTimeline(option.value as InvestmentTimeline)}
                   >
                     <RadioGroupItem value={option.value} id={`timeline-${option.value}`} className="mt-0.5" />
@@ -291,7 +291,7 @@ export function InvestorProfileForm() {
           <Button type="submit" disabled={isSubmitting} size="lg">
             {isSubmitting ? (
               <>
-                <Spinner className="mr-2 h-4 w-4" />
+                <Spinner className="me-2 h-4 w-4" />
                 Saving...
               </>
             ) : (

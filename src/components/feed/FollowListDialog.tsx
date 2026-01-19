@@ -86,7 +86,7 @@ export function FollowListDialog({
           </div>
         ) : (
           <ScrollArea className="max-h-[60vh]">
-            <div className="space-y-3 pr-4">
+            <div className="space-y-3 pe-4">
               {users.map((user) => (
                 <div
                   key={user._id}

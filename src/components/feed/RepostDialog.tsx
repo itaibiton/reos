@@ -189,7 +189,7 @@ export function RepostDialog({ post, open, onOpenChange }: RepostDialogProps) {
                     </Badge>
                   )}
                 </div>
-                <span className="text-xs text-muted-foreground ml-auto">
+                <span className="text-xs text-muted-foreground ms-auto">
                   {formatDistanceToNow(post.createdAt, { addSuffix: true })}
                 </span>
               </div>

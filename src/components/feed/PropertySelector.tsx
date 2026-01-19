@@ -105,14 +105,14 @@ export function PropertySelector({
         <HugeiconsIcon
           icon={Search01Icon}
           size={16}
-          className="absolute left-2.5 top-1/2 -translate-y-1/2 text-muted-foreground"
+          className="absolute start-2.5 top-1/2 -translate-y-1/2 text-muted-foreground"
         />
         <Input
           type="text"
           placeholder="Search properties..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="pl-8 h-9"
+          className="ps-8 h-9"
         />
       </div>
 

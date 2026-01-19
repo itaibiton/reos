@@ -295,7 +295,7 @@ export function ProviderProfileForm() {
                   {CONTACT_PREFERENCE_OPTIONS.map((option) => (
                     <div
                       key={option.value}
-                      className="flex items-center space-x-2"
+                      className="flex items-center space-x-2 rtl:space-x-reverse"
                     >
                       <RadioGroupItem value={option.value} id={`contact-${option.value}`} />
                       <Label htmlFor={`contact-${option.value}`} className="cursor-pointer">
@@ -328,7 +328,7 @@ export function ProviderProfileForm() {
           <Button type="submit" disabled={isSubmitting} size="lg">
             {isSubmitting ? (
               <>
-                <Spinner className="mr-2 h-4 w-4" />
+                <Spinner className="me-2 h-4 w-4" />
                 Saving...
               </>
             ) : (

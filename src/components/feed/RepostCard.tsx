@@ -139,7 +139,7 @@ export function RepostCard({ post }: RepostCardProps) {
                     </Badge>
                   )}
                 </div>
-                <span className="text-xs text-muted-foreground ml-auto">
+                <span className="text-xs text-muted-foreground ms-auto">
                   {formatDistanceToNow(originalPost.createdAt, { addSuffix: true })}
                 </span>
               </div>
