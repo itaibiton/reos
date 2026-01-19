@@ -120,7 +120,7 @@
         "Grid layout responsive"
       ],
       "dependencies": ["PRD-03"],
-      "pass": false
+      "pass": true
     },
     {
       "id": "COPY-01",
