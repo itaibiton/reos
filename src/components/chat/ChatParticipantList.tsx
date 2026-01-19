@@ -131,7 +131,7 @@ function DraggableParticipant({
 
       {/* Unread badge */}
       {unreadCount > 0 && (
-        <Badge className="ml-auto flex-shrink-0 h-5 min-w-[20px] px-1.5">
+        <Badge className="ms-auto flex-shrink-0 h-5 min-w-[20px] px-1.5">
           {unreadCount > 99 ? "99+" : unreadCount}
         </Badge>
       )}

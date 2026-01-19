@@ -129,7 +129,7 @@ export function DirectChatThread({
         {isGroup ? (
           <button
             onClick={() => setSettingsOpen(true)}
-            className="flex items-center gap-3 flex-1 min-w-0 hover:bg-muted/50 -ml-2 pl-2 pr-2 py-1 rounded-md transition-colors"
+            className="flex items-center gap-3 flex-1 min-w-0 hover:bg-muted/50 -ms-2 ps-2 pe-2 py-1 rounded-md transition-colors"
           >
             <StackedAvatars
               participants={(conversation?.participants || []).filter((p): p is NonNullable<typeof p> => p !== null)}

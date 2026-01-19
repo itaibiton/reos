@@ -63,7 +63,7 @@ export function ChatMessage({
     <div
       className={cn(
         "flex gap-2 max-w-[70%]",
-        isOwn ? "ml-auto flex-row-reverse" : "mr-auto"
+        isOwn ? "ms-auto flex-row-reverse" : "me-auto"
       )}
     >
       {/* Avatar for other's messages only */}

@@ -35,7 +35,7 @@ export function ChatModeToggle({
         <HugeiconsIcon icon={Message02Icon} size={16} />
         <span>Direct</span>
         {directUnreadCount > 0 && (
-          <span className="absolute -top-1 -right-1 h-4 min-w-4 px-1 rounded-full bg-destructive text-destructive-foreground text-[10px] font-medium flex items-center justify-center">
+          <span className="absolute -top-1 -end-1 h-4 min-w-4 px-1 rounded-full bg-destructive text-destructive-foreground text-[10px] font-medium flex items-center justify-center">
             {directUnreadCount > 99 ? "99+" : directUnreadCount}
           </span>
         )}
