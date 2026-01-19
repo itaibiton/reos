@@ -82,8 +82,8 @@ export function ChatMessage({
           className={cn(
             "px-3 py-2 text-sm",
             isOwn
-              ? "bg-primary text-primary-foreground rounded-2xl rounded-br-sm"
-              : "bg-muted rounded-2xl rounded-bl-sm"
+              ? "bg-primary text-primary-foreground rounded-2xl rounded-ee-sm"
+              : "bg-muted rounded-2xl rounded-es-sm"
           )}
         >
           <p className="whitespace-pre-wrap break-words">{content}</p>
