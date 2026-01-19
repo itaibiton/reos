@@ -20,8 +20,8 @@ Progress: █████████░ 100% (11/11 plans)
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 64
-- Average duration: 6.6 min
+- Total plans completed: 65
+- Average duration: 6.5 min
 - Total execution time: 7.0 hours
 
 **By Phase:**
@@ -63,11 +63,11 @@ Progress: █████████░ 100% (11/11 plans)
 | 22 | 2/2 | 4 min | 2 min |
 | 23 | 2/2 | 3.5 min | 1.75 min |
 | 24 | 3/3 | 7 min | 2.3 min |
-| 25 | 1/2 | 2 min | 2 min |
+| 25 | 2/2 | 6 min | 3 min |
 
 **Recent Trend:**
-- Last 5 plans: 2 min, 2 min, 2 min, 3 min, 2 min
-- Trend: Phase 25 plan 2 complete - 64 plans total
+- Last 5 plans: 2 min, 2 min, 3 min, 2 min, 4 min
+- Trend: Phase 25 complete - 65 plans total
 
 ## Accumulated Context
 
@@ -235,6 +235,9 @@ Recent decisions affecting current work:
 - Phase 24: Share URL format: /feed/post/${postId}
 - Phase 24: CommentSection uses expandable toggle pattern (showComments state)
 - Phase 24: Comments load 5 initially with "Load more" pagination
+- Phase 25: FollowButton follows EngagementFooter optimistic UI pattern (local state + useEffect sync)
+- Phase 25: Feed page has two-level tab navigation (source: Global/Following + type filter for global only)
+- Phase 25: Conditional usePaginatedQuery with skip parameter for inactive feeds
 - Phase 25: FollowStats manages dialog state internally for self-contained usage
 - Phase 25: FollowListDialog uses conditional query skip to avoid unnecessary queries when dialog closed
 - Phase 25: FollowButton included in list items for direct follow/unfollow from list
