@@ -145,7 +145,7 @@ function ClientCard({ client, onViewDetails }: ClientCardProps) {
             className="flex-shrink-0"
           >
             View
-            <HugeiconsIcon icon={ArrowRight01Icon} size={14} className="ms-1" />
+            <HugeiconsIcon icon={ArrowRight01Icon} size={14} className="ms-1 rtl:-scale-x-100" />
           </Button>
         </div>
       </CardContent>

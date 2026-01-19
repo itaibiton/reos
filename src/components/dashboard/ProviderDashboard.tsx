@@ -359,7 +359,7 @@ export function ProviderDashboard({ userName }: ProviderDashboardProps) {
               className="text-sm text-primary hover:underline flex items-center gap-1"
             >
               View all
-              <HugeiconsIcon icon={ArrowRight01Icon} size={14} />
+              <HugeiconsIcon icon={ArrowRight01Icon} size={14} className="rtl:-scale-x-100" />
             </Link>
           </div>
         </CardHeader>
@@ -408,7 +408,7 @@ export function ProviderDashboard({ userName }: ProviderDashboardProps) {
               className="text-sm text-primary hover:underline flex items-center gap-1"
             >
               View all
-              <HugeiconsIcon icon={ArrowRight01Icon} size={14} />
+              <HugeiconsIcon icon={ArrowRight01Icon} size={14} className="rtl:-scale-x-100" />
             </Link>
           </div>
         </CardHeader>

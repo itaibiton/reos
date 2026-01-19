@@ -177,7 +177,7 @@ export function InvestorDashboard({ userName }: InvestorDashboardProps) {
               className="text-sm text-primary hover:underline flex items-center gap-1"
             >
               View all
-              <HugeiconsIcon icon={ArrowRight01Icon} size={14} />
+              <HugeiconsIcon icon={ArrowRight01Icon} size={14} className="rtl:-scale-x-100" />
             </Link>
           </div>
         </CardHeader>
