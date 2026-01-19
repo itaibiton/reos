@@ -10,19 +10,19 @@ See: .planning/PROJECT.md (updated 2026-01-17)
 ## Current Position
 
 Milestone: v1.3 Social Feed & Global Community
-Phase: 21 of 27 (Feed Infrastructure) — NOT STARTED
-Plan: Not started
-Status: Ready to plan
-Last activity: 2026-01-19 — Milestone v1.3 created
+Phase: 21 of 27 (Feed Infrastructure) — IN PROGRESS
+Plan: 1 of 2 complete
+Status: In progress
+Last activity: 2026-01-19 — Completed 21-01-PLAN.md
 
-Progress: ░░░░░░░░░░ 0% (7 phases)
+Progress: ██░░░░░░░░ 14% (1/7 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 54
-- Average duration: 7.3 min
-- Total execution time: 6.7 hours
+- Total plans completed: 55
+- Average duration: 7.2 min
+- Total execution time: 6.75 hours
 
 **By Phase:**
 
@@ -59,9 +59,11 @@ Progress: ░░░░░░░░░░ 0% (7 phases)
 | 19 | 1/1 | 12 min | 12 min |
 | 20 | 2/2 | 18 min | 9 min |
 
+| 21 | 1/2 | 3 min | 3 min |
+
 **Recent Trend:**
-- Last 5 plans: 10 min, 12 min, 8 min, 10 min
-- Trend: v1.2 COMPLETE - 54 plans total, milestone shipped
+- Last 5 plans: 12 min, 8 min, 10 min, 3 min
+- Trend: v1.3 started - 55 plans total
 
 ## Accumulated Context
 
@@ -197,6 +199,11 @@ Recent decisions affecting current work:
 - Phase 20: Calendar disables past dates (only future dates can be blocked)
 - Phase 20: Notification toggles grouped by category with visual border-left indicator
 - Phase 20: ToggleRow helper component for consistent toggle UI pattern
+- Phase 21: Single posts table with postType discriminator (property_listing, service_request, discussion)
+- Phase 21: Post visibility: public, followers_only, deal_participants
+- Phase 21: Denormalized counters (likeCount, commentCount, shareCount, saveCount) on post documents
+- Phase 21: In-memory filtering after pagination (Convex single-index constraint)
+- Phase 21: canViewPost helper for visibility enforcement with switch pattern
 
 ### Deferred Issues
 
@@ -225,6 +232,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-19
-Stopped at: Milestone v1.3 initialization
+Stopped at: Completed 21-01-PLAN.md
 Resume file: None
-Next: /gsd:plan-phase 21
+Next: /gsd:execute-phase 21-02
