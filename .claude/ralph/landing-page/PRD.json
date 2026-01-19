@@ -58,7 +58,7 @@
         "Mobile layout specified"
       ],
       "dependencies": [],
-      "pass": false
+      "pass": true
     },
     {
       "id": "PRD-03",
