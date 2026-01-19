@@ -11,18 +11,18 @@ See: .planning/PROJECT.md (updated 2026-01-17)
 
 Milestone: v1.3 Social Feed & Global Community
 Phase: 27 of 27 (Global Discovery)
-Plan: 2 of 3 complete
+Plan: 2 of 5 complete
 Status: In progress
-Last activity: 2026-01-19 — Completed 27-02-PLAN.md
+Last activity: 2026-01-19 — Completed 27-01-PLAN.md (Search Backend)
 
-Progress: █████████░ 93% (14/15 plans)
+Progress: █████████░ 93% (15/17 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 68
-- Average duration: 6.3 min
-- Total execution time: 7.1 hours
+- Total plans completed: 69
+- Average duration: 6.2 min
+- Total execution time: 7.2 hours
 
 **By Phase:**
 
@@ -65,11 +65,11 @@ Progress: █████████░ 93% (14/15 plans)
 | 24 | 3/3 | 7 min | 2.3 min |
 | 25 | 2/2 | 6 min | 3 min |
 | 26 | 2/2 | 4 min | 2 min |
-| 27 | 2/3 | 4 min | 2 min |
+| 27 | 2/5 | 5 min | 2.5 min |
 
 **Recent Trend:**
-- Last 5 plans: 2 min, 4 min, 2 min, 2 min, 2 min
-- Trend: Phase 27 plan 02 complete - 68 plans total
+- Last 5 plans: 4 min, 2 min, 2 min, 2 min, 3 min
+- Trend: Phase 27 plan 01 complete - 69 plans total
 
 ## Accumulated Context
 
@@ -249,6 +249,9 @@ Recent decisions affecting current work:
 - Phase 26: Profile type detection via stats !== null (service providers have stats)
 - Phase 26: Author profile link pattern: wrap Avatar and name with Link to /profile/[authorId]
 - Phase 26: Hover feedback: opacity-80 on avatar, underline on name
+- Phase 27: Search indexes use single searchField per Convex constraint (title, content, name)
+- Phase 27: Autocomplete returns 5 results per category, full search returns 20
+- Phase 27: Search history limited to 20 entries per user with auto-pruning
 - Phase 27: Hacker News time-decay formula: (P-1) / (T+2)^G with gravity 1.8
 - Phase 27: Trending windows: today (24h) and week (7d)
 - Phase 27: Properties scored by favorites + (deals * 2)
@@ -282,6 +285,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-19
-Stopped at: Completed 27-02-PLAN.md (Trending & Recommendations Backend)
+Stopped at: Completed 27-01-PLAN.md (Search Backend)
 Resume file: None
 Next: 27-03 (Discover Page UI)
