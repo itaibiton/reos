@@ -9,3 +9,5 @@ export { EngagementFooter } from "./EngagementFooter";
 export { ShareButton } from "./ShareButton";
 export { CommentSection } from "./CommentSection";
 export { FollowButton } from "./FollowButton";
+export { FollowStats } from "./FollowStats";
+export { FollowListDialog } from "./FollowListDialog";
