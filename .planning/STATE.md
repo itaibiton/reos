@@ -11,18 +11,18 @@ See: .planning/PROJECT.md (updated 2026-01-17)
 
 Milestone: v1.3 Social Feed & Global Community
 Phase: 27.2 of 28 (Quick Actions & Pages in Search)
-Plan: 0 of 1 complete
-Status: Phase inserted, not yet planned
-Last activity: 2026-01-19 — Phase 27.2 inserted after Phase 27
+Plan: 1 of 1 complete
+Status: Phase complete
+Last activity: 2026-01-19 — Completed 27.2-01-PLAN.md
 
-Progress: █████████░ 96% (23/24 plans)
+Progress: ██████████ 100% (24/24 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 69
-- Average duration: 6.2 min
-- Total execution time: 7.2 hours
+- Total plans completed: 70
+- Average duration: 6.1 min
+- Total execution time: 7.25 hours
 
 **By Phase:**
 
@@ -66,10 +66,11 @@ Progress: █████████░ 96% (23/24 plans)
 | 25 | 2/2 | 6 min | 3 min |
 | 26 | 2/2 | 4 min | 2 min |
 | 27 | 5/5 | 12 min | 2.4 min |
+| 27.2 | 1/1 | 3 min | 3 min |
 
 **Recent Trend:**
-- Last 5 plans: 2 min, 2 min, 3 min, 3 min, 2 min
-- Trend: Phase 27 complete - 72 plans total, Milestone v1.3 complete
+- Last 5 plans: 2 min, 3 min, 3 min, 2 min, 3 min
+- Trend: Phase 27.2 complete - Quick Actions in global search
 
 ## Accumulated Context
 
@@ -267,6 +268,10 @@ Recent decisions affecting current work:
 - Phase 27: Discovery widgets (TrendingSection, PeopleToFollow) in feed page sidebar
 - Phase 27: Two-column feed layout on lg+ screens (flex-1 main + w-80 sidebar)
 - Phase 27: Sticky sidebar with top-6 offset (sticky top-6 self-start)
+- Phase 27.2: Quick Actions appear FIRST in global search results
+- Phase 27.2: Match scoring: exact(100) > starts-with(80) > word-boundary(70) > contains(60) > keyword(50/40/30)
+- Phase 27.2: Keyword aliases in KEYWORD_MAPPINGS for common navigation terms
+- Phase 27.2: QuickAction type with flattenNavItem() for recursive navigation conversion
 
 ### Deferred Issues
 
@@ -291,11 +296,11 @@ None yet.
 - Phase 16.1 inserted after Phase 16: Layout & Navigation Improvements (COMPLETE)
 - Phase 16.3 inserted after Phase 16.1: Shadcn Sidebar Layout (COMPLETE)
 - Milestone v1.3 created: Social Feed & Global Community, 7 phases (Phase 21-27)
-- Phase 27.2 inserted after Phase 27: Quick Actions & Pages in Search (URGENT)
+- Phase 27.2 inserted after Phase 27: Quick Actions & Pages in Search (COMPLETE)
 
 ## Session Continuity
 
 Last session: 2026-01-19
-Stopped at: Phase 27.2 inserted, ready for planning
+Stopped at: Completed 27.2-01-PLAN.md
 Resume file: None
-Next: Plan and execute Phase 27.2
+Next: Phase 28 or milestone v1.3 completion
