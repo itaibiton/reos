@@ -8,7 +8,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardContent } from "@/components/ui/card";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Search01Icon, TrendUp01Icon } from "@hugeicons/core-free-icons";
+import { Search01Icon, AnalyticsUpIcon } from "@hugeicons/core-free-icons";
 
 // ============================================================================
 // TYPES
@@ -104,7 +104,7 @@ function TrendingSuggestions() {
   return (
     <div className="space-y-4 mt-6">
       <div className="flex items-center gap-2 text-muted-foreground">
-        <HugeiconsIcon icon={TrendUp01Icon} size={16} strokeWidth={1.5} />
+        <HugeiconsIcon icon={AnalyticsUpIcon} size={16} strokeWidth={1.5} />
         <span className="text-sm font-medium">Discover what&apos;s trending</span>
       </div>
 
@@ -165,18 +165,19 @@ export function SearchResults({ query, initialType = "all" }: SearchResultsProps
 
   // Convert API results to SearchResult format
   const userResults: SearchResult[] = (results?.users ?? []).map((u) => ({
-    resultType: "user" as const,
     ...u,
+    name: u.name ?? "Unknown User",
+    resultType: "user" as const,
   }));
 
   const postResults: SearchResult[] = (results?.posts ?? []).map((p) => ({
-    resultType: "post" as const,
     ...p,
+    resultType: "post" as const,
   }));
 
   const propertyResults: SearchResult[] = (results?.properties ?? []).map((p) => ({
-    resultType: "property" as const,
     ...p,
+    resultType: "property" as const,
   }));
 
   // Loading state
