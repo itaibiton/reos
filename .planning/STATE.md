@@ -296,6 +296,8 @@ Recent decisions affecting current work:
 - Phase 29: Carousel navigation buttons use start-4/end-4 for RTL-aware positioning
 - Phase 29: Table numeric columns use text-end instead of text-right
 - Phase 29: Input currency prefix uses start-3/ps-7 for RTL-aware positioning
+- Phase 29: Chat message alignment uses ms-auto for own messages, me-auto for others
+- Phase 29: Stacked avatars use -ms-* for correct RTL overlap direction
 
 ### v1.4 Research Findings
 
