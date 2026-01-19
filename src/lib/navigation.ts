@@ -18,6 +18,7 @@ import {
   UserCircle,
   Settings,
   BarChart3,
+  Rss,
 } from "lucide-react";
 
 // All user roles in the system (extended for future roles)
@@ -62,12 +63,14 @@ const investorNavigation: RoleNavigation = {
       items: [
         { label: "Browse Properties", href: "/properties", icon: Building2 },
         { label: "Saved Properties", href: "/properties/saved", icon: Heart },
+        { label: "Your Listings", href: "/properties/listings", icon: Building },
         { label: "Find Providers", href: "/providers", icon: UserSearch },
         { label: "Deals", href: "/deals", icon: Handshake },
       ],
     },
     {
       items: [
+        { label: "Feed", href: "/feed", icon: Rss },
         { label: "Chat", href: "/chat", icon: MessageSquare },
         { label: "Profile", href: "/profile/investor", icon: UserCircle },
         { label: "Settings", href: "/settings", icon: Settings },
@@ -97,7 +100,6 @@ const brokerNavigation: RoleNavigation = {
     {
       label: "Property Management",
       items: [
-        { label: "Listings", href: "/properties/listings", icon: Building },
         { label: "Property Tours", href: "/properties/tours", icon: CalendarDays },
         { label: "Lead Management", href: "/leads", icon: Users },
       ],
@@ -105,6 +107,7 @@ const brokerNavigation: RoleNavigation = {
     {
       items: [
         { label: "Clients", href: "/clients", icon: Users },
+        { label: "Feed", href: "/feed", icon: Rss },
         { label: "Chat", href: "/chat", icon: MessageSquare },
         { label: "Profile", href: "/profile/provider", icon: UserCircle },
         { label: "Settings", href: "/settings", icon: Settings },
@@ -141,6 +144,7 @@ const mortgageAdvisorNavigation: RoleNavigation = {
     {
       items: [
         { label: "Clients", href: "/clients", icon: Users },
+        { label: "Feed", href: "/feed", icon: Rss },
         { label: "Chat", href: "/chat", icon: MessageSquare },
         { label: "Profile", href: "/profile/provider", icon: UserCircle },
         { label: "Settings", href: "/settings", icon: Settings },
@@ -177,6 +181,7 @@ const lawyerNavigation: RoleNavigation = {
     {
       items: [
         { label: "Clients", href: "/clients", icon: Users },
+        { label: "Feed", href: "/feed", icon: Rss },
         { label: "Chat", href: "/chat", icon: MessageSquare },
         { label: "Profile", href: "/profile/provider", icon: UserCircle },
         { label: "Settings", href: "/settings", icon: Settings },
@@ -213,6 +218,7 @@ const accountantNavigation: RoleNavigation = {
     {
       items: [
         { label: "Clients", href: "/clients", icon: Users },
+        { label: "Feed", href: "/feed", icon: Rss },
         { label: "Chat", href: "/chat", icon: MessageSquare },
         { label: "Profile", href: "/profile/provider", icon: UserCircle },
         { label: "Settings", href: "/settings", icon: Settings },
@@ -249,6 +255,7 @@ const notaryNavigation: RoleNavigation = {
     {
       items: [
         { label: "Clients", href: "/clients", icon: Users },
+        { label: "Feed", href: "/feed", icon: Rss },
         { label: "Chat", href: "/chat", icon: MessageSquare },
         { label: "Profile", href: "/profile/provider", icon: UserCircle },
         { label: "Settings", href: "/settings", icon: Settings },
@@ -285,6 +292,7 @@ const taxConsultantNavigation: RoleNavigation = {
     {
       items: [
         { label: "Clients", href: "/clients", icon: Users },
+        { label: "Feed", href: "/feed", icon: Rss },
         { label: "Chat", href: "/chat", icon: MessageSquare },
         { label: "Profile", href: "/profile/provider", icon: UserCircle },
         { label: "Settings", href: "/settings", icon: Settings },
@@ -321,6 +329,7 @@ const appraiserNavigation: RoleNavigation = {
     {
       items: [
         { label: "Clients", href: "/clients", icon: Users },
+        { label: "Feed", href: "/feed", icon: Rss },
         { label: "Chat", href: "/chat", icon: MessageSquare },
         { label: "Profile", href: "/profile/provider", icon: UserCircle },
         { label: "Settings", href: "/settings", icon: Settings },
@@ -350,7 +359,6 @@ const adminNavigation: RoleNavigation = {
     {
       label: "Property Management",
       items: [
-        { label: "Listings", href: "/properties/listings", icon: Building },
         { label: "Property Tours", href: "/properties/tours", icon: CalendarDays },
         { label: "Lead Management", href: "/leads", icon: Users },
       ],
@@ -358,6 +366,7 @@ const adminNavigation: RoleNavigation = {
     {
       items: [
         { label: "Clients", href: "/clients", icon: Users },
+        { label: "Feed", href: "/feed", icon: Rss },
         { label: "Chat", href: "/chat", icon: MessageSquare },
         { label: "Profile", href: "/profile/provider", icon: UserCircle },
         { label: "Settings", href: "/settings", icon: Settings },
