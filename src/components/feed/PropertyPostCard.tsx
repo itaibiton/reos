@@ -130,6 +130,7 @@ export function PropertyPostCard({ post }: PropertyPostCardProps) {
           commentCount={post.commentCount}
           saveCount={post.saveCount}
           shareCount={post.shareCount}
+          post={post}
         />
       </CardContent>
     </Card>

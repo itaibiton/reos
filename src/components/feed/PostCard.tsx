@@ -4,6 +4,7 @@ import { Doc, Id } from "../../../convex/_generated/dataModel";
 import { PropertyPostCard } from "./PropertyPostCard";
 import { ServiceRequestPostCard } from "./ServiceRequestPostCard";
 import { DiscussionPostCard } from "./DiscussionPostCard";
+import { RepostCard } from "./RepostCard";
 
 // Type for enriched post from globalFeed query
 export type EnrichedPost = Doc<"posts"> & {
@@ -17,6 +18,19 @@ export type EnrichedPost = Doc<"posts"> & {
     priceUsd: number;
     featuredImage?: string;
   } | null;
+  // For reposts, the enriched original post
+  originalPost?: (Doc<"posts"> & {
+    authorName: string;
+    authorImageUrl?: string;
+    authorRole?: string;
+    property?: {
+      _id: Id<"properties">;
+      title: string;
+      city: string;
+      priceUsd: number;
+      featuredImage?: string;
+    } | null;
+  }) | null;
 };
 
 interface PostCardProps {
@@ -31,6 +45,8 @@ export function PostCard({ post }: PostCardProps) {
       return <ServiceRequestPostCard post={post} />;
     case "discussion":
       return <DiscussionPostCard post={post} />;
+    case "repost":
+      return <RepostCard post={post} />;
     default:
       return null;
   }

@@ -262,6 +262,24 @@ Plans:
 - [x] 27-04: Search results page
 - [x] 27-05: Discovery widgets (trending, people to follow) + feed integration
 
+### Phase 27.2: Quick Actions & Pages in Search (INSERTED)
+
+**Goal**: Add quick actions and page navigation to global search - when user searches "Set", show Settings page as first result before other content
+**Depends on**: Phase 27
+**Research**: None (UI enhancement using existing navigation config)
+**Plans**: 0 plans
+**Status**: Not started
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 27.2 to break down)
+
+**Details:**
+- Create search-actions helper to flatten navigation items into searchable actions
+- Add Quick Actions group to GlobalSearchBar before Users/Posts/Properties
+- Client-side filtering against navigation.ts data (no backend changes)
+- Support keyword aliases (e.g., "Set" matches "Settings")
+- Role-aware: only show pages the user can access
+
 ## Progress
 
 | Milestone | Phases | Plans | Status | Shipped |
@@ -269,7 +287,7 @@ Plans:
 | v1.0 MVP | 17 | 40 | Complete | 2026-01-17 |
 | v1.1 Investor Onboarding | 7 | 8 | Complete | 2026-01-18 |
 | v1.2 Provider Experience | 6 | 11 | Complete | 2026-01-19 |
-| v1.3 Social Feed & Global Community | 7 | 23/23 | Complete | 2026-01-19 |
+| v1.3 Social Feed & Global Community | 8 | 23/24 | In Progress | - |
 
 | Phase | Milestone | Plans | Status | Completed |
 |-------|-----------|-------|--------|-----------|
@@ -287,6 +305,7 @@ Plans:
 | 25. User Following | v1.3 | 2/2 | Complete | 2026-01-19 |
 | 26. User Profiles Revamp | v1.3 | 2/2 | Complete | 2026-01-19 |
 | 27. Global Discovery | v1.3 | 5/5 | Complete | 2026-01-19 |
+| 27.2 Quick Actions & Pages in Search | v1.3 | 0/1 | Not started | - |
 
 ---
 

@@ -9,7 +9,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { ArrowLeft01Icon } from "@hugeicons/core-free-icons";
-import { ProfileHeader, UserPostsFeed, StatsRow, PortfolioSection } from "@/components/profile";
+import { ProfileHeader, UserPostsFeed, UserRepostsFeed, StatsRow, PortfolioSection } from "@/components/profile";
 
 // Skeleton for profile page loading state
 function ProfilePageSkeleton() {
@@ -95,6 +95,7 @@ export default function ProfilePage() {
       <Tabs defaultValue="posts" className="w-full">
         <TabsList>
           <TabsTrigger value="posts">Posts</TabsTrigger>
+          <TabsTrigger value="reposts">Reposts</TabsTrigger>
           {profile.stats && (
             <TabsTrigger value="portfolio">Portfolio</TabsTrigger>
           )}
@@ -102,6 +103,10 @@ export default function ProfilePage() {
 
         <TabsContent value="posts" className="mt-4">
           <UserPostsFeed userId={profile._id} />
+        </TabsContent>
+
+        <TabsContent value="reposts" className="mt-4">
+          <UserRepostsFeed userId={profile._id} />
         </TabsContent>
 
         {profile.stats && (

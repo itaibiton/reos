@@ -94,6 +94,7 @@ export function DiscussionPostCard({ post }: DiscussionPostCardProps) {
           commentCount={post.commentCount}
           saveCount={post.saveCount}
           shareCount={post.shareCount}
+          post={post}
         />
       </CardContent>
     </Card>

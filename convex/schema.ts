@@ -146,7 +146,8 @@ const questionnaireStatus = v.union(
 const postType = v.union(
   v.literal("property_listing"),
   v.literal("service_request"),
-  v.literal("discussion")
+  v.literal("discussion"),
+  v.literal("repost")
 );
 
 // Post visibility
@@ -660,7 +661,7 @@ export default defineSchema({
   posts: defineTable({
     // Author
     authorId: v.id("users"),
-    // Post type discriminator (property_listing, service_request, discussion)
+    // Post type discriminator (property_listing, service_request, discussion, repost)
     postType: postType,
     // Main text content
     content: v.string(),
@@ -670,10 +671,13 @@ export default defineSchema({
     propertyId: v.optional(v.id("properties")), // For property_listing
     dealId: v.optional(v.id("deals")), // For deal_participants visibility
     serviceType: v.optional(serviceTypeForPost), // For service_request
+    // Repost-specific fields (for postType === "repost")
+    originalPostId: v.optional(v.id("posts")), // Reference to original post being reposted
+    repostComment: v.optional(v.string()), // Optional comment added to the repost
     // Engagement counters (denormalized for performance)
     likeCount: v.number(),
     commentCount: v.number(),
-    shareCount: v.number(),
+    shareCount: v.number(), // Also used as repost count for original posts
     saveCount: v.number(),
     // Timestamps
     createdAt: v.number(),
@@ -684,6 +688,7 @@ export default defineSchema({
     .index("by_type", ["postType"])
     .index("by_visibility_and_time", ["visibility", "createdAt"])
     .index("by_property", ["propertyId"])
+    .index("by_original_post", ["originalPostId"]) // For finding reposts of a post
     .searchIndex("search_content", {
       searchField: "content",
       filterFields: ["postType", "visibility"],
@@ -729,6 +734,17 @@ export default defineSchema({
     .index("by_post", ["postId"])
     .index("by_post_and_time", ["postId", "createdAt"])
     .index("by_author", ["authorId"]),
+
+  // Post reposts - tracks who reposted which post (for deduplication and quick lookup)
+  postReposts: defineTable({
+    originalPostId: v.id("posts"), // The post that was reposted
+    userId: v.id("users"), // User who created the repost
+    repostId: v.id("posts"), // The repost post entry
+    createdAt: v.number(),
+  })
+    .index("by_original", ["originalPostId"])
+    .index("by_user", ["userId"])
+    .index("by_original_and_user", ["originalPostId", "userId"]),
 
   // Search history - user search queries for autocomplete
   searchHistory: defineTable({

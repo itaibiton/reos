@@ -9,9 +9,12 @@ import {
   FavouriteIcon,
   Comment01Icon,
   BookmarkAdd01Icon,
+  RefreshIcon,
 } from "@hugeicons/core-free-icons";
 import { ShareButton } from "./ShareButton";
 import { CommentSection } from "./CommentSection";
+import { RepostDialog } from "./RepostDialog";
+import type { EnrichedPost } from "./PostCard";
 
 interface EngagementFooterProps {
   postId: Id<"posts">;
@@ -19,6 +22,10 @@ interface EngagementFooterProps {
   commentCount: number;
   saveCount: number;
   shareCount: number;
+  // For repost dialog - pass the full post if available
+  post?: EnrichedPost;
+  // Whether this is a repost (reposts shouldn't have repost button)
+  isRepost?: boolean;
 }
 
 export function EngagementFooter({
@@ -27,10 +34,13 @@ export function EngagementFooter({
   commentCount,
   saveCount,
   shareCount,
+  post,
+  isRepost = false,
 }: EngagementFooterProps) {
-  // Query current user's like/save status
+  // Query current user's like/save/repost status
   const isLikedByUser = useQuery(api.posts.isLikedByUser, { postId });
   const isSavedByUser = useQuery(api.posts.isSavedByUser, { postId });
+  const isRepostedByUser = useQuery(api.posts.isRepostedByUser, { postId });
 
   // Mutations for toggle actions
   const likePost = useMutation(api.posts.likePost);
@@ -41,8 +51,10 @@ export function EngagementFooter({
   // Local state for optimistic UI
   const [isLiked, setIsLiked] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
+  const [isReposted, setIsReposted] = useState(false);
   const [localLikeCount, setLocalLikeCount] = useState(likeCount);
   const [localSaveCount, setLocalSaveCount] = useState(saveCount);
+  const [localShareCount, setLocalShareCount] = useState(shareCount);
 
   // Pending states for disabling buttons during mutation
   const [isLikePending, setIsLikePending] = useState(false);
@@ -50,6 +62,9 @@ export function EngagementFooter({
 
   // Comment section visibility toggle
   const [showComments, setShowComments] = useState(false);
+
+  // Repost dialog visibility
+  const [showRepostDialog, setShowRepostDialog] = useState(false);
 
   // Sync local state with server state when queries update
   useEffect(() => {
@@ -64,6 +79,13 @@ export function EngagementFooter({
     }
   }, [isSavedByUser]);
 
+  // Sync reposted state with server
+  useEffect(() => {
+    if (isRepostedByUser !== undefined) {
+      setIsReposted(isRepostedByUser);
+    }
+  }, [isRepostedByUser]);
+
   // Sync counts with props (in case they update from server)
   useEffect(() => {
     setLocalLikeCount(likeCount);
@@ -72,6 +94,10 @@ export function EngagementFooter({
   useEffect(() => {
     setLocalSaveCount(saveCount);
   }, [saveCount]);
+
+  useEffect(() => {
+    setLocalShareCount(shareCount);
+  }, [shareCount]);
 
   // Handle like toggle
   const handleLikeToggle = async () => {
@@ -178,12 +204,42 @@ export function EngagementFooter({
           <span>{localSaveCount}</span>
         </button>
 
+        {/* Repost Button - only show if not a repost and post data is available */}
+        {!isRepost && post && (
+          <button
+            onClick={() => setShowRepostDialog(true)}
+            disabled={isReposted}
+            className={`flex items-center gap-1 hover:text-foreground transition-colors ${
+              isReposted ? "text-green-500" : ""
+            }`}
+            aria-label={isReposted ? "Already reposted" : "Repost"}
+            title={isReposted ? "You've already reposted this" : "Repost"}
+          >
+            <HugeiconsIcon
+              icon={RefreshIcon}
+              size={16}
+              strokeWidth={1.5}
+              className={isReposted ? "text-green-500" : ""}
+            />
+            <span>{localShareCount}</span>
+          </button>
+        )}
+
         {/* Share Button */}
-        <ShareButton postId={postId} shareCount={shareCount} />
+        <ShareButton postId={postId} shareCount={isRepost ? shareCount : 0} />
       </div>
 
       {/* Comment Section - conditionally rendered */}
       {showComments && <CommentSection postId={postId} />}
+
+      {/* Repost Dialog */}
+      {post && (
+        <RepostDialog
+          post={post}
+          open={showRepostDialog}
+          onOpenChange={setShowRepostDialog}
+        />
+      )}
     </div>
   );
 }

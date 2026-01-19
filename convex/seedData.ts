@@ -1562,3 +1562,807 @@ export const SEED_MESSAGE_TEMPLATES: SeedMessageThread[] = [
     ],
   },
 ];
+
+// ============================================================================
+// SOCIAL FEED SEED DATA (Phase 27.1)
+// ============================================================================
+
+// Post types for seeding
+type SeedPostType = "property_listing" | "service_request" | "discussion";
+type SeedVisibility = "public" | "followers_only";
+type SeedServiceType = "broker" | "mortgage_advisor" | "lawyer";
+
+export type SeedPost = {
+  postType: SeedPostType;
+  content: string;
+  visibility: SeedVisibility;
+  // Author index from SEED_SERVICE_PROVIDERS (null = use system user/investor)
+  authorProviderIndex?: number;
+  // Property index for property_listing type
+  propertyIndex?: number;
+  // Service type for service_request type
+  serviceType?: SeedServiceType;
+  // Days ago the post was created (for realistic timestamps)
+  daysAgo: number;
+  // Engagement counts
+  likeCount: number;
+  commentCount: number;
+  shareCount: number;
+  saveCount: number;
+};
+
+// 50 seed posts across 3 types
+export const SEED_POSTS: SeedPost[] = [
+  // ============= PROPERTY LISTING POSTS (20) =============
+  {
+    postType: "property_listing",
+    content: "Just listed! This stunning Tel Aviv penthouse is now available. Sea views, modern finishes, and a rooftop terrace that will take your breath away. Perfect for investors looking for a premium property.",
+    visibility: "public",
+    authorProviderIndex: 0, // David Cohen (broker)
+    propertyIndex: 0, // Modern Penthouse in Tel Aviv
+    daysAgo: 1,
+    likeCount: 45,
+    commentCount: 8,
+    shareCount: 12,
+    saveCount: 23,
+  },
+  {
+    postType: "property_listing",
+    content: "Great investment opportunity on Dizengoff! This 2BR apartment has excellent rental potential. Walking distance to the beach and all amenities.",
+    visibility: "public",
+    authorProviderIndex: 1, // Sarah Levy (broker)
+    propertyIndex: 1, // Boutique Investment Apartment
+    daysAgo: 2,
+    likeCount: 32,
+    commentCount: 5,
+    shareCount: 8,
+    saveCount: 15,
+  },
+  {
+    postType: "property_listing",
+    content: "Prime retail space available in Tel Aviv. High foot traffic location, currently tenanted with stable income. Ideal for investors seeking commercial exposure.",
+    visibility: "public",
+    authorProviderIndex: 0, // David Cohen (broker)
+    propertyIndex: 2, // Commercial Space - Prime Retail
+    daysAgo: 3,
+    likeCount: 28,
+    commentCount: 3,
+    shareCount: 5,
+    saveCount: 11,
+  },
+  {
+    postType: "property_listing",
+    content: "A rare gem in Rehavia! This Jerusalem stone villa combines historic charm with modern luxury. Don't miss this opportunity to own a piece of Jerusalem's heritage.",
+    visibility: "public",
+    authorProviderIndex: 2, // Michael Azoulay (broker)
+    propertyIndex: 3, // Historic Stone Villa
+    daysAgo: 4,
+    likeCount: 67,
+    commentCount: 12,
+    shareCount: 18,
+    saveCount: 34,
+  },
+  {
+    postType: "property_listing",
+    content: "German Colony apartment alert! Recently renovated 3BR with perfect location. Walking distance to Emek Refaim and First Station.",
+    visibility: "public",
+    authorProviderIndex: 2, // Michael Azoulay (broker)
+    propertyIndex: 4, // German Colony Investment Apartment
+    daysAgo: 5,
+    likeCount: 41,
+    commentCount: 7,
+    shareCount: 9,
+    saveCount: 19,
+  },
+  {
+    postType: "property_listing",
+    content: "Marina living at its finest! This Herzliya apartment offers resort-style amenities and stunning views. Perfect for those seeking the ultimate coastal lifestyle.",
+    visibility: "public",
+    authorProviderIndex: 1, // Sarah Levy (broker)
+    propertyIndex: 5, // Luxury Marina Apartment
+    daysAgo: 6,
+    likeCount: 55,
+    commentCount: 9,
+    shareCount: 14,
+    saveCount: 27,
+  },
+  {
+    postType: "property_listing",
+    content: "Tech hub opportunity! Office space in Herzliya's premium tech park. Modern fit-out, excellent location, ideal for startups.",
+    visibility: "public",
+    authorProviderIndex: 1, // Sarah Levy (broker)
+    propertyIndex: 6, // Tech Park Office Space
+    daysAgo: 7,
+    likeCount: 23,
+    commentCount: 4,
+    shareCount: 6,
+    saveCount: 12,
+  },
+  {
+    postType: "property_listing",
+    content: "Haifa property with incredible views! This Carmel apartment offers panoramic bay views and is close to top universities.",
+    visibility: "public",
+    authorProviderIndex: 3, // Rachel Ben-David (broker)
+    propertyIndex: 7, // Carmel Mountain View Apartment
+    daysAgo: 8,
+    likeCount: 36,
+    commentCount: 6,
+    shareCount: 7,
+    saveCount: 16,
+  },
+  {
+    postType: "property_listing",
+    content: "Mixed-use building in downtown Haifa! Three stories of income-generating potential. Retail on ground, residential above.",
+    visibility: "public",
+    authorProviderIndex: 3, // Rachel Ben-David (broker)
+    propertyIndex: 8, // Downtown Haifa Mixed-Use Building
+    daysAgo: 9,
+    likeCount: 29,
+    commentCount: 5,
+    shareCount: 4,
+    saveCount: 14,
+  },
+  {
+    postType: "property_listing",
+    content: "Beachfront living in Netanya! Perfect studio for vacation rentals. Steps from the sand, fully furnished.",
+    visibility: "public",
+    authorProviderIndex: 0, // David Cohen (broker)
+    propertyIndex: 9, // Beachfront Studio
+    daysAgo: 10,
+    likeCount: 47,
+    commentCount: 8,
+    shareCount: 11,
+    saveCount: 22,
+  },
+  {
+    postType: "property_listing",
+    content: "Family home near Poleg Beach! Spacious 4BR with garden, perfect for families. Great schools nearby.",
+    visibility: "public",
+    authorProviderIndex: 0, // David Cohen (broker)
+    propertyIndex: 10, // Family Home Near Poleg Beach
+    daysAgo: 11,
+    likeCount: 38,
+    commentCount: 6,
+    shareCount: 8,
+    saveCount: 17,
+  },
+  {
+    postType: "property_listing",
+    content: "Ra'anana garden apartment! Ground floor with private garden in one of Israel's most desirable neighborhoods. Popular with expat families.",
+    visibility: "public",
+    authorProviderIndex: 1, // Sarah Levy (broker)
+    propertyIndex: 11, // Garden Apartment in Ra'anana
+    daysAgo: 12,
+    likeCount: 52,
+    commentCount: 10,
+    shareCount: 13,
+    saveCount: 25,
+  },
+  {
+    postType: "property_listing",
+    content: "New development in Ashdod Marina district! Brand new apartment with sea views and modern amenities. Excellent value for investors.",
+    visibility: "public",
+    authorProviderIndex: 4, // Yosef Mizrachi (broker)
+    propertyIndex: 12, // New Development Apartment
+    daysAgo: 13,
+    likeCount: 31,
+    commentCount: 4,
+    shareCount: 6,
+    saveCount: 13,
+  },
+  {
+    postType: "property_listing",
+    content: "Student housing investment! Multi-unit property near Ben-Gurion University. Consistent rental income from stable tenant base.",
+    visibility: "public",
+    authorProviderIndex: 4, // Yosef Mizrachi (broker)
+    propertyIndex: 13, // Student Housing Investment
+    daysAgo: 14,
+    likeCount: 44,
+    commentCount: 7,
+    shareCount: 9,
+    saveCount: 21,
+  },
+  {
+    postType: "property_listing",
+    content: "Eilat vacation condo! Turnkey investment with hotel amenities. High rental demand year-round.",
+    visibility: "public",
+    authorProviderIndex: 4, // Yosef Mizrachi (broker)
+    propertyIndex: 14, // Resort Vacation Condo
+    daysAgo: 15,
+    likeCount: 39,
+    commentCount: 6,
+    shareCount: 10,
+    saveCount: 18,
+  },
+  {
+    postType: "property_listing",
+    content: "Just reduced! The Tel Aviv penthouse seller is motivated. This is a rare opportunity to get into Rothschild Blvd at a better price.",
+    visibility: "public",
+    authorProviderIndex: 0, // David Cohen (broker)
+    propertyIndex: 0, // Modern Penthouse in Tel Aviv
+    daysAgo: 16,
+    likeCount: 58,
+    commentCount: 11,
+    shareCount: 15,
+    saveCount: 29,
+  },
+  {
+    postType: "property_listing",
+    content: "Open house this weekend! Come see the Rehavia villa in person. Sunday 10am-2pm. RSVP in comments.",
+    visibility: "public",
+    authorProviderIndex: 2, // Michael Azoulay (broker)
+    propertyIndex: 3, // Historic Stone Villa
+    daysAgo: 17,
+    likeCount: 34,
+    commentCount: 15,
+    shareCount: 7,
+    saveCount: 12,
+  },
+  {
+    postType: "property_listing",
+    content: "Price update on the Herzliya marina apartment. New competitive pricing makes this an even better opportunity!",
+    visibility: "followers_only",
+    authorProviderIndex: 1, // Sarah Levy (broker)
+    propertyIndex: 5, // Luxury Marina Apartment
+    daysAgo: 18,
+    likeCount: 26,
+    commentCount: 4,
+    shareCount: 3,
+    saveCount: 11,
+  },
+  {
+    postType: "property_listing",
+    content: "Investor special! The Haifa mixed-use building has strong tenants and great cash flow. Let me know if you want to see the financials.",
+    visibility: "public",
+    authorProviderIndex: 3, // Rachel Ben-David (broker)
+    propertyIndex: 8, // Downtown Haifa Mixed-Use Building
+    daysAgo: 19,
+    likeCount: 37,
+    commentCount: 8,
+    shareCount: 5,
+    saveCount: 16,
+  },
+  {
+    postType: "property_listing",
+    content: "Quick update on the Beer Sheva student housing - all units currently rented with leases through next year. Stable investment!",
+    visibility: "public",
+    authorProviderIndex: 4, // Yosef Mizrachi (broker)
+    propertyIndex: 13, // Student Housing Investment
+    daysAgo: 20,
+    likeCount: 29,
+    commentCount: 3,
+    shareCount: 4,
+    saveCount: 10,
+  },
+
+  // ============= DISCUSSION POSTS (15) =============
+  {
+    postType: "discussion",
+    content: "What are your thoughts on the Tel Aviv market this year? I'm seeing strong demand despite higher interest rates. The tech sector continues to drive prices in certain areas.",
+    visibility: "public",
+    authorProviderIndex: 0, // David Cohen (broker)
+    daysAgo: 2,
+    likeCount: 78,
+    commentCount: 23,
+    shareCount: 8,
+    saveCount: 15,
+  },
+  {
+    postType: "discussion",
+    content: "Tips for first-time investors: Always work with local professionals who understand Israeli real estate law. The process here is different from the US or Europe!",
+    visibility: "public",
+    authorProviderIndex: 5, // Natan Goldberg (mortgage)
+    daysAgo: 4,
+    likeCount: 92,
+    commentCount: 18,
+    shareCount: 25,
+    saveCount: 47,
+  },
+  {
+    postType: "discussion",
+    content: "Mortgage rates update: Banks are offering competitive rates this month. If you're on the fence about financing, now might be a good time to lock in.",
+    visibility: "public",
+    authorProviderIndex: 6, // Tamar Shapira (mortgage)
+    daysAgo: 6,
+    likeCount: 65,
+    commentCount: 12,
+    shareCount: 14,
+    saveCount: 28,
+  },
+  {
+    postType: "discussion",
+    content: "Important reminder: Foreign buyers need to understand the tax implications before purchasing. Capital gains tax, rental income tax, and inheritance considerations all matter.",
+    visibility: "public",
+    authorProviderIndex: 8, // Ruth Katz (lawyer)
+    daysAgo: 8,
+    likeCount: 103,
+    commentCount: 27,
+    shareCount: 32,
+    saveCount: 56,
+  },
+  {
+    postType: "discussion",
+    content: "The south is growing! Beer Sheva and Ashdod are seeing significant development. Worth considering for long-term investment strategies.",
+    visibility: "public",
+    authorProviderIndex: 4, // Yosef Mizrachi (broker)
+    daysAgo: 10,
+    likeCount: 54,
+    commentCount: 11,
+    shareCount: 9,
+    saveCount: 19,
+  },
+  {
+    postType: "discussion",
+    content: "Question for the community: What's your experience with rental management companies in Israel? Looking for recommendations for out-of-country investors.",
+    visibility: "public",
+    authorProviderIndex: 2, // Michael Azoulay (broker)
+    daysAgo: 12,
+    likeCount: 41,
+    commentCount: 35,
+    shareCount: 3,
+    saveCount: 12,
+  },
+  {
+    postType: "discussion",
+    content: "Haifa is underrated! With the tech expansion and improving infrastructure, I predict strong appreciation in the next 5 years.",
+    visibility: "public",
+    authorProviderIndex: 3, // Rachel Ben-David (broker)
+    daysAgo: 14,
+    likeCount: 67,
+    commentCount: 19,
+    shareCount: 11,
+    saveCount: 24,
+  },
+  {
+    postType: "discussion",
+    content: "Due diligence checklist for Israeli properties: 1) Title search 2) Building permits 3) Outstanding debts 4) Tenant rights 5) Zoning. Don't skip any steps!",
+    visibility: "public",
+    authorProviderIndex: 9, // Daniel Peretz (lawyer)
+    daysAgo: 16,
+    likeCount: 134,
+    commentCount: 16,
+    shareCount: 45,
+    saveCount: 78,
+  },
+  {
+    postType: "discussion",
+    content: "Weekend market update: Lots of activity in the Sharon region. Ra'anana and Herzliya seeing multiple offers on quality properties.",
+    visibility: "public",
+    authorProviderIndex: 1, // Sarah Levy (broker)
+    daysAgo: 18,
+    likeCount: 48,
+    commentCount: 8,
+    shareCount: 6,
+    saveCount: 14,
+  },
+  {
+    postType: "discussion",
+    content: "For those asking about financing as a non-resident: Yes, it's possible! Banks typically require 50% down and proof of income. Happy to explain the process.",
+    visibility: "public",
+    authorProviderIndex: 7, // Avi Rosenberg (mortgage)
+    daysAgo: 20,
+    likeCount: 87,
+    commentCount: 22,
+    shareCount: 18,
+    saveCount: 35,
+  },
+  {
+    postType: "discussion",
+    content: "Contract tip: Always negotiate the payment schedule. In Israel, you can often structure payments to your advantage during the closing period.",
+    visibility: "public",
+    authorProviderIndex: 8, // Ruth Katz (lawyer)
+    daysAgo: 22,
+    likeCount: 71,
+    commentCount: 9,
+    shareCount: 12,
+    saveCount: 29,
+  },
+  {
+    postType: "discussion",
+    content: "The vacation rental market in Eilat is booming. Tax-free status and year-round tourism make it attractive for short-term rental investors.",
+    visibility: "public",
+    authorProviderIndex: 4, // Yosef Mizrachi (broker)
+    daysAgo: 24,
+    likeCount: 59,
+    commentCount: 14,
+    shareCount: 10,
+    saveCount: 22,
+  },
+  {
+    postType: "discussion",
+    content: "New regulations coming for Airbnb-style rentals in certain areas. Make sure you understand local rules before investing for short-term rental purposes.",
+    visibility: "public",
+    authorProviderIndex: 10, // Miriam Levi (lawyer)
+    daysAgo: 26,
+    likeCount: 96,
+    commentCount: 28,
+    shareCount: 21,
+    saveCount: 41,
+  },
+  {
+    postType: "discussion",
+    content: "Market insight: Jerusalem prices have stabilized after last year's increase. Good time for buyers who were previously priced out.",
+    visibility: "public",
+    authorProviderIndex: 2, // Michael Azoulay (broker)
+    daysAgo: 28,
+    likeCount: 52,
+    commentCount: 11,
+    shareCount: 7,
+    saveCount: 18,
+  },
+  {
+    postType: "discussion",
+    content: "Happy to announce we just closed another successful transaction! Thank you to all the professionals who made it happen smoothly.",
+    visibility: "followers_only",
+    authorProviderIndex: 0, // David Cohen (broker)
+    daysAgo: 30,
+    likeCount: 43,
+    commentCount: 7,
+    shareCount: 2,
+    saveCount: 5,
+  },
+
+  // ============= SERVICE REQUEST POSTS (15) =============
+  {
+    postType: "service_request",
+    content: "Looking for a broker who specializes in Tel Aviv investment properties. I'm an overseas investor seeking someone who can help me navigate the market remotely.",
+    visibility: "public",
+    serviceType: "broker",
+    daysAgo: 1,
+    likeCount: 12,
+    commentCount: 8,
+    shareCount: 2,
+    saveCount: 3,
+  },
+  {
+    postType: "service_request",
+    content: "Need a mortgage advisor experienced with American buyers. I have a US credit history and need help with Israeli bank requirements.",
+    visibility: "public",
+    serviceType: "mortgage_advisor",
+    daysAgo: 3,
+    likeCount: 18,
+    commentCount: 6,
+    shareCount: 3,
+    saveCount: 5,
+  },
+  {
+    postType: "service_request",
+    content: "Seeking a real estate lawyer in Jerusalem area. Have a contract to review for a property in the German Colony.",
+    visibility: "public",
+    serviceType: "lawyer",
+    daysAgo: 5,
+    likeCount: 9,
+    commentCount: 4,
+    shareCount: 1,
+    saveCount: 2,
+  },
+  {
+    postType: "service_request",
+    content: "Looking for broker recommendations in Herzliya. Interested in properties near the tech park for office space.",
+    visibility: "public",
+    serviceType: "broker",
+    daysAgo: 7,
+    likeCount: 14,
+    commentCount: 7,
+    shareCount: 2,
+    saveCount: 4,
+  },
+  {
+    postType: "service_request",
+    content: "Need help with commercial property financing. Looking for a mortgage advisor who handles investment properties.",
+    visibility: "public",
+    serviceType: "mortgage_advisor",
+    daysAgo: 9,
+    likeCount: 21,
+    commentCount: 5,
+    shareCount: 4,
+    saveCount: 6,
+  },
+  {
+    postType: "service_request",
+    content: "International tax implications question - seeking a lawyer who can advise on cross-border real estate investments.",
+    visibility: "public",
+    serviceType: "lawyer",
+    daysAgo: 11,
+    likeCount: 25,
+    commentCount: 9,
+    shareCount: 5,
+    saveCount: 8,
+  },
+  {
+    postType: "service_request",
+    content: "First-time buyer looking for a patient broker who can explain the Israeli market. Based in New York, planning to relocate.",
+    visibility: "public",
+    serviceType: "broker",
+    daysAgo: 13,
+    likeCount: 16,
+    commentCount: 11,
+    shareCount: 3,
+    saveCount: 4,
+  },
+  {
+    postType: "service_request",
+    content: "Refinancing question - is anyone familiar with mortgage advisors who handle refinancing for existing properties?",
+    visibility: "public",
+    serviceType: "mortgage_advisor",
+    daysAgo: 15,
+    likeCount: 19,
+    commentCount: 6,
+    shareCount: 2,
+    saveCount: 5,
+  },
+  {
+    postType: "service_request",
+    content: "Urgent: Need lawyer for closing next month. Southern Israel property (Ashdod area). Any recommendations?",
+    visibility: "public",
+    serviceType: "lawyer",
+    daysAgo: 17,
+    likeCount: 11,
+    commentCount: 8,
+    shareCount: 4,
+    saveCount: 2,
+  },
+  {
+    postType: "service_request",
+    content: "Looking for a broker with experience in Haifa market. Interested in income-producing properties for long-term hold.",
+    visibility: "public",
+    serviceType: "broker",
+    daysAgo: 19,
+    likeCount: 13,
+    commentCount: 5,
+    shareCount: 1,
+    saveCount: 3,
+  },
+  {
+    postType: "service_request",
+    content: "French speaker needed - looking for mortgage advisor who can work with French bank documentation.",
+    visibility: "public",
+    serviceType: "mortgage_advisor",
+    daysAgo: 21,
+    likeCount: 8,
+    commentCount: 4,
+    shareCount: 2,
+    saveCount: 1,
+  },
+  {
+    postType: "service_request",
+    content: "Complex inheritance situation - need a lawyer experienced with foreign heirs and Israeli property.",
+    visibility: "public",
+    serviceType: "lawyer",
+    daysAgo: 23,
+    likeCount: 15,
+    commentCount: 6,
+    shareCount: 3,
+    saveCount: 4,
+  },
+  {
+    postType: "service_request",
+    content: "Searching for broker specializing in vacation properties. Looking at Eilat and possibly Netanya for rental investment.",
+    visibility: "public",
+    serviceType: "broker",
+    daysAgo: 25,
+    likeCount: 17,
+    commentCount: 7,
+    shareCount: 2,
+    saveCount: 5,
+  },
+  {
+    postType: "service_request",
+    content: "Need mortgage pre-approval before starting property search. Looking for advisor who can work with UK income documentation.",
+    visibility: "public",
+    serviceType: "mortgage_advisor",
+    daysAgo: 27,
+    likeCount: 22,
+    commentCount: 5,
+    shareCount: 3,
+    saveCount: 6,
+  },
+  {
+    postType: "service_request",
+    content: "Looking for lawyer to review commercial lease agreement. Property in Tel Aviv, need someone familiar with retail leases.",
+    visibility: "followers_only",
+    serviceType: "lawyer",
+    daysAgo: 29,
+    likeCount: 7,
+    commentCount: 3,
+    shareCount: 1,
+    saveCount: 2,
+  },
+];
+
+// Comment templates for seeding
+export type SeedComment = {
+  // Index into SEED_POSTS
+  postIndex: number;
+  // Index into SEED_SERVICE_PROVIDERS (null = use investor)
+  authorProviderIndex?: number;
+  content: string;
+  // Offset in hours from post creation
+  offsetHours: number;
+};
+
+// 100 seed comments
+export const SEED_COMMENTS: SeedComment[] = [
+  // Comments on property listing posts
+  { postIndex: 0, authorProviderIndex: 5, content: "Beautiful property! What's the estimated rental yield?", offsetHours: 2 },
+  { postIndex: 0, content: "I've been looking at this area. Is the price negotiable?", offsetHours: 4 },
+  { postIndex: 0, authorProviderIndex: 8, content: "Make sure to check the arnona (property tax) rates for this area.", offsetHours: 6 },
+  { postIndex: 0, authorProviderIndex: 1, content: "Great location! The Rothschild area always holds value.", offsetHours: 12 },
+  { postIndex: 1, content: "What's the building's financial status? Any special assessments?", offsetHours: 3 },
+  { postIndex: 1, authorProviderIndex: 6, content: "Dizengoff has excellent rental potential. Good choice for investors.", offsetHours: 8 },
+  { postIndex: 2, authorProviderIndex: 9, content: "Commercial properties require careful contract review. Happy to help.", offsetHours: 5 },
+  { postIndex: 2, content: "What's the current tenant situation?", offsetHours: 10 },
+  { postIndex: 3, authorProviderIndex: 5, content: "Rehavia properties are gold. This won't last long.", offsetHours: 4 },
+  { postIndex: 3, content: "Is there parking included?", offsetHours: 7 },
+  { postIndex: 3, authorProviderIndex: 8, content: "Jerusalem stone buildings have special maintenance considerations.", offsetHours: 15 },
+  { postIndex: 4, content: "German Colony is our first choice. When can we schedule a viewing?", offsetHours: 2 },
+  { postIndex: 4, authorProviderIndex: 6, content: "Great area for families. Schools and restaurants nearby.", offsetHours: 9 },
+  { postIndex: 5, content: "The marina views must be incredible!", offsetHours: 3 },
+  { postIndex: 5, authorProviderIndex: 7, content: "Herzliya Pituach has some of the highest appreciation rates.", offsetHours: 11 },
+  { postIndex: 6, authorProviderIndex: 9, content: "Tech park leases have specific requirements. I can advise.", offsetHours: 6 },
+  { postIndex: 7, content: "Haifa prices are so much more reasonable than Tel Aviv!", offsetHours: 4 },
+  { postIndex: 7, authorProviderIndex: 3, content: "The Carmel area is really developing nicely.", offsetHours: 8 },
+  { postIndex: 8, authorProviderIndex: 10, content: "Mixed-use requires understanding both commercial and residential law.", offsetHours: 5 },
+  { postIndex: 9, content: "Perfect for Airbnb! What are the building rules?", offsetHours: 2 },
+  { postIndex: 9, authorProviderIndex: 4, content: "Netanya beachfront always has strong demand.", offsetHours: 7 },
+  { postIndex: 10, content: "We're relocating with kids. How are the schools?", offsetHours: 3 },
+  { postIndex: 10, authorProviderIndex: 0, content: "Excellent school district. Happy to share more details.", offsetHours: 10 },
+  { postIndex: 11, content: "Ra'anana is our top choice! When is it available?", offsetHours: 4 },
+  { postIndex: 11, authorProviderIndex: 6, content: "Popular with English speakers. Good community.", offsetHours: 12 },
+  { postIndex: 12, authorProviderIndex: 5, content: "Ashdod marina area is growing fast.", offsetHours: 5 },
+  { postIndex: 13, content: "What's the cap rate on the student housing?", offsetHours: 3 },
+  { postIndex: 13, authorProviderIndex: 7, content: "Student housing is stable but requires active management.", offsetHours: 9 },
+  { postIndex: 14, content: "Tax-free Eilat is very appealing!", offsetHours: 4 },
+  { postIndex: 15, authorProviderIndex: 5, content: "Price reduction = opportunity. Don't wait too long.", offsetHours: 2 },
+  { postIndex: 15, content: "What's the new asking price?", offsetHours: 5 },
+  { postIndex: 16, content: "I'll be there! What documents should I bring?", offsetHours: 3 },
+  { postIndex: 16, content: "Can you do a virtual tour for overseas buyers?", offsetHours: 8 },
+  { postIndex: 17, authorProviderIndex: 6, content: "Following! Great property for the right buyer.", offsetHours: 4 },
+
+  // Comments on discussion posts
+  { postIndex: 20, content: "Agreed! The tech sector is definitely driving demand.", offsetHours: 1 },
+  { postIndex: 20, authorProviderIndex: 3, content: "Same pattern in Haifa with the tech expansion.", offsetHours: 3 },
+  { postIndex: 20, authorProviderIndex: 7, content: "Banks are still lending, which supports the market.", offsetHours: 6 },
+  { postIndex: 20, content: "What about the interest rate impact long-term?", offsetHours: 10 },
+  { postIndex: 21, content: "This is so helpful! Thank you for sharing.", offsetHours: 2 },
+  { postIndex: 21, authorProviderIndex: 9, content: "Absolutely right. Legal review is essential.", offsetHours: 5 },
+  { postIndex: 21, content: "Wish I knew this before my first purchase!", offsetHours: 8 },
+  { postIndex: 22, content: "What rates are you seeing specifically?", offsetHours: 1 },
+  { postIndex: 22, authorProviderIndex: 7, content: "We're seeing 4.5-5.5% for residential right now.", offsetHours: 4 },
+  { postIndex: 22, content: "Is fixed or variable better in current market?", offsetHours: 9 },
+  { postIndex: 23, authorProviderIndex: 5, content: "Critical information. Tax planning is essential.", offsetHours: 2 },
+  { postIndex: 23, content: "What about the double taxation treaty with the US?", offsetHours: 5 },
+  { postIndex: 23, authorProviderIndex: 9, content: "Each situation is unique. Always get personalized advice.", offsetHours: 11 },
+  { postIndex: 24, content: "Beer Sheva has really transformed in recent years.", offsetHours: 3 },
+  { postIndex: 24, authorProviderIndex: 4, content: "The high-speed rail connection will be a game changer.", offsetHours: 7 },
+  { postIndex: 25, content: "We use HomeAway management. Works well!", offsetHours: 2 },
+  { postIndex: 25, content: "Can recommend several. DM me for details.", offsetHours: 5 },
+  { postIndex: 25, authorProviderIndex: 0, content: "Happy to share our network of trusted managers.", offsetHours: 9 },
+  { postIndex: 26, content: "Haifa is definitely on our radar now.", offsetHours: 3 },
+  { postIndex: 26, authorProviderIndex: 7, content: "The numbers make sense there compared to central Israel.", offsetHours: 8 },
+  { postIndex: 27, content: "Saved this! Such a useful checklist.", offsetHours: 1 },
+  { postIndex: 27, authorProviderIndex: 10, content: "Would add: check for any pending litigation.", offsetHours: 4 },
+  { postIndex: 27, content: "How long does a typical title search take?", offsetHours: 7 },
+  { postIndex: 28, content: "Multiple offers already? Market is hot!", offsetHours: 2 },
+  { postIndex: 28, authorProviderIndex: 1, content: "Yes, quality properties are moving fast.", offsetHours: 6 },
+  { postIndex: 29, content: "50% down is significant. Any way to do less?", offsetHours: 3 },
+  { postIndex: 29, authorProviderIndex: 6, content: "For non-residents, 50% is standard. Residents can do less.", offsetHours: 8 },
+  { postIndex: 30, content: "Great tip! Never thought about payment scheduling.", offsetHours: 2 },
+  { postIndex: 30, authorProviderIndex: 8, content: "Can often negotiate 10/90 or 20/80 splits.", offsetHours: 5 },
+  { postIndex: 31, content: "How does the tax-free status work exactly?", offsetHours: 4 },
+  { postIndex: 31, authorProviderIndex: 4, content: "No VAT on new construction and various exemptions.", offsetHours: 9 },
+  { postIndex: 32, content: "Important update! Thanks for sharing.", offsetHours: 2 },
+  { postIndex: 32, authorProviderIndex: 9, content: "Tel Aviv has strict rules now. Check before investing.", offsetHours: 6 },
+  { postIndex: 33, content: "Good to know about Jerusalem stabilization.", offsetHours: 3 },
+  { postIndex: 33, authorProviderIndex: 2, content: "Still seeing activity in Baka and German Colony.", offsetHours: 8 },
+
+  // Comments on service request posts
+  { postIndex: 35, authorProviderIndex: 0, content: "I specialize in overseas investors. Happy to chat!", offsetHours: 1 },
+  { postIndex: 35, authorProviderIndex: 1, content: "Would love to help. DM me your requirements.", offsetHours: 4 },
+  { postIndex: 36, authorProviderIndex: 5, content: "US credit doesn't directly transfer, but we can work with it.", offsetHours: 2 },
+  { postIndex: 36, authorProviderIndex: 6, content: "Have helped many American buyers. Let's connect.", offsetHours: 5 },
+  { postIndex: 37, authorProviderIndex: 8, content: "German Colony contracts have specific considerations. Can help.", offsetHours: 3 },
+  { postIndex: 37, authorProviderIndex: 9, content: "Jerusalem real estate specialist here. Available to assist.", offsetHours: 7 },
+  { postIndex: 38, authorProviderIndex: 1, content: "Herzliya is my area of expertise. Let's talk!", offsetHours: 2 },
+  { postIndex: 39, authorProviderIndex: 7, content: "Commercial financing is my specialty. Reach out anytime.", offsetHours: 4 },
+  { postIndex: 40, authorProviderIndex: 8, content: "Cross-border transactions require careful planning. Happy to advise.", offsetHours: 3 },
+  { postIndex: 40, authorProviderIndex: 9, content: "Work with US and EU clients regularly on this.", offsetHours: 6 },
+  { postIndex: 41, authorProviderIndex: 0, content: "Love working with first-time buyers! Let's schedule a call.", offsetHours: 2 },
+  { postIndex: 41, authorProviderIndex: 1, content: "Relocation clients are my specialty. Would be happy to help.", offsetHours: 5 },
+  { postIndex: 42, authorProviderIndex: 7, content: "Refinancing has some good options right now. Let's discuss.", offsetHours: 3 },
+  { postIndex: 43, authorProviderIndex: 10, content: "Southern Israel is my territory. Available for quick turnaround.", offsetHours: 2 },
+  { postIndex: 43, authorProviderIndex: 9, content: "Can handle Ashdod closings. Reach out.", offsetHours: 6 },
+  { postIndex: 44, authorProviderIndex: 3, content: "Haifa market expert here. Happy to help you explore.", offsetHours: 4 },
+  { postIndex: 45, authorProviderIndex: 5, content: "French documents no problem! Je parle français.", offsetHours: 2 },
+  { postIndex: 45, authorProviderIndex: 7, content: "Also fluent in French. Can assist.", offsetHours: 5 },
+  { postIndex: 46, authorProviderIndex: 8, content: "Inheritance cases need careful handling. Experienced in this area.", offsetHours: 3 },
+  { postIndex: 47, authorProviderIndex: 4, content: "Eilat and south coast are my focus. Let's connect!", offsetHours: 2 },
+  { postIndex: 48, authorProviderIndex: 6, content: "UK income documentation is common. No issues working with it.", offsetHours: 4 },
+  { postIndex: 49, authorProviderIndex: 9, content: "Retail lease specialist. Happy to review.", offsetHours: 3 },
+
+  // Additional general comments to reach 100
+  { postIndex: 0, content: "Just sent you a DM with questions!", offsetHours: 24 },
+  { postIndex: 1, content: "Following this property!", offsetHours: 18 },
+  { postIndex: 2, content: "Commercial returns look solid here.", offsetHours: 14 },
+  { postIndex: 3, content: "Jerusalem stone is so beautiful.", offsetHours: 20 },
+  { postIndex: 4, content: "The renovation looks high quality.", offsetHours: 16 },
+  { postIndex: 5, content: "Marina living is the dream!", offsetHours: 22 },
+  { postIndex: 21, content: "Bookmarking this for reference.", offsetHours: 12 },
+  { postIndex: 22, content: "Very timely information!", offsetHours: 15 },
+  { postIndex: 23, content: "Tax planning saved me so much.", offsetHours: 19 },
+  { postIndex: 27, content: "Printing this checklist right now.", offsetHours: 13 },
+];
+
+// Follow relationships for seeding
+export type SeedFollow = {
+  // Index into SEED_SERVICE_PROVIDERS (null = investor user)
+  followerProviderIndex?: number;
+  // Index into SEED_SERVICE_PROVIDERS (null = investor user)
+  followingProviderIndex?: number;
+};
+
+// 50 follow relationships to create a connected network
+export const SEED_FOLLOWS: SeedFollow[] = [
+  // Brokers follow each other
+  { followerProviderIndex: 0, followingProviderIndex: 1 },
+  { followerProviderIndex: 0, followingProviderIndex: 2 },
+  { followerProviderIndex: 0, followingProviderIndex: 3 },
+  { followerProviderIndex: 1, followingProviderIndex: 0 },
+  { followerProviderIndex: 1, followingProviderIndex: 2 },
+  { followerProviderIndex: 1, followingProviderIndex: 4 },
+  { followerProviderIndex: 2, followingProviderIndex: 0 },
+  { followerProviderIndex: 2, followingProviderIndex: 3 },
+  { followerProviderIndex: 3, followingProviderIndex: 0 },
+  { followerProviderIndex: 3, followingProviderIndex: 1 },
+  { followerProviderIndex: 4, followingProviderIndex: 0 },
+  { followerProviderIndex: 4, followingProviderIndex: 3 },
+
+  // Mortgage advisors follow brokers and each other
+  { followerProviderIndex: 5, followingProviderIndex: 0 },
+  { followerProviderIndex: 5, followingProviderIndex: 1 },
+  { followerProviderIndex: 5, followingProviderIndex: 6 },
+  { followerProviderIndex: 5, followingProviderIndex: 7 },
+  { followerProviderIndex: 6, followingProviderIndex: 0 },
+  { followerProviderIndex: 6, followingProviderIndex: 1 },
+  { followerProviderIndex: 6, followingProviderIndex: 5 },
+  { followerProviderIndex: 7, followingProviderIndex: 0 },
+  { followerProviderIndex: 7, followingProviderIndex: 5 },
+  { followerProviderIndex: 7, followingProviderIndex: 6 },
+
+  // Lawyers follow brokers and mortgage advisors
+  { followerProviderIndex: 8, followingProviderIndex: 0 },
+  { followerProviderIndex: 8, followingProviderIndex: 1 },
+  { followerProviderIndex: 8, followingProviderIndex: 2 },
+  { followerProviderIndex: 8, followingProviderIndex: 5 },
+  { followerProviderIndex: 9, followingProviderIndex: 0 },
+  { followerProviderIndex: 9, followingProviderIndex: 1 },
+  { followerProviderIndex: 9, followingProviderIndex: 6 },
+  { followerProviderIndex: 10, followingProviderIndex: 3 },
+  { followerProviderIndex: 10, followingProviderIndex: 4 },
+  { followerProviderIndex: 10, followingProviderIndex: 7 },
+
+  // Brokers follow mortgage advisors and lawyers (for referral network)
+  { followerProviderIndex: 0, followingProviderIndex: 5 },
+  { followerProviderIndex: 0, followingProviderIndex: 8 },
+  { followerProviderIndex: 1, followingProviderIndex: 6 },
+  { followerProviderIndex: 1, followingProviderIndex: 8 },
+  { followerProviderIndex: 2, followingProviderIndex: 5 },
+  { followerProviderIndex: 2, followingProviderIndex: 8 },
+  { followerProviderIndex: 3, followingProviderIndex: 7 },
+  { followerProviderIndex: 3, followingProviderIndex: 9 },
+  { followerProviderIndex: 4, followingProviderIndex: 7 },
+  { followerProviderIndex: 4, followingProviderIndex: 10 },
+
+  // System investor follows all top providers
+  { followingProviderIndex: 0 },  // Follow David Cohen
+  { followingProviderIndex: 1 },  // Follow Sarah Levy
+  { followingProviderIndex: 2 },  // Follow Michael Azoulay
+  { followingProviderIndex: 5 },  // Follow Natan Goldberg
+  { followingProviderIndex: 8 },  // Follow Ruth Katz
+
+  // Top providers follow investor (for reciprocal engagement)
+  { followerProviderIndex: 0 },  // David Cohen follows investor
+  { followerProviderIndex: 1 },  // Sarah Levy follows investor
+  { followerProviderIndex: 5 },  // Natan Goldberg follows investor
+  { followerProviderIndex: 8 },  // Ruth Katz follows investor
+];

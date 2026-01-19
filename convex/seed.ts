@@ -1,5 +1,5 @@
 import { mutation } from "./_generated/server";
-import { SEED_PROPERTIES, SEED_NEIGHBORHOODS, SEED_PRICE_HISTORY, SEED_DEALS, SEED_SERVICE_PROVIDERS, SEED_DEAL_SCENARIOS, SEED_MESSAGE_TEMPLATES } from "./seedData";
+import { SEED_PROPERTIES, SEED_NEIGHBORHOODS, SEED_PRICE_HISTORY, SEED_DEALS, SEED_SERVICE_PROVIDERS, SEED_DEAL_SCENARIOS, SEED_MESSAGE_TEMPLATES, SEED_POSTS, SEED_COMMENTS, SEED_FOLLOWS } from "./seedData";
 import { Id } from "./_generated/dataModel";
 
 // Seed properties - inserts mock data into the database
@@ -916,6 +916,537 @@ export const seedDealFlow = mutation({
       success: true,
       results,
       message: `Seeded ${results.deals} deals, ${results.serviceRequests} service requests, ${results.dealActivity} activity logs, ${results.messages} messages`,
+    };
+  },
+});
+
+// Seed social feed data - posts, comments, likes, saves, and follows
+// Call from Convex dashboard or CLI: npx convex run seed:seedSocialData
+export const seedSocialData = mutation({
+  args: {},
+  handler: async (ctx) => {
+    const now = Date.now();
+    const results = {
+      posts: 0,
+      comments: 0,
+      likes: 0,
+      saves: 0,
+      follows: 0,
+    };
+
+    // Get or create a system investor user for seeding posts without authorProviderIndex
+    let investorId = await ctx.db
+      .query("users")
+      .filter((q) => q.eq(q.field("role"), "investor"))
+      .first()
+      .then((user) => user?._id);
+
+    if (!investorId) {
+      const adminUser = await ctx.db
+        .query("users")
+        .filter((q) => q.eq(q.field("role"), "admin"))
+        .first();
+      if (adminUser) {
+        investorId = adminUser._id;
+      } else {
+        investorId = await ctx.db.insert("users", {
+          clerkId: "seed_investor_social",
+          email: "investor@reos.dev",
+          name: "Seed Investor",
+          role: "investor",
+          onboardingComplete: true,
+          createdAt: now,
+          updatedAt: now,
+        });
+      }
+    }
+
+    // Build provider email to user ID map
+    const providerMap: Map<number, Id<"users">> = new Map();
+    for (let i = 0; i < SEED_SERVICE_PROVIDERS.length; i++) {
+      const provider = SEED_SERVICE_PROVIDERS[i];
+      const user = await ctx.db
+        .query("users")
+        .filter((q) => q.eq(q.field("email"), provider.email))
+        .first();
+      if (user) {
+        providerMap.set(i, user._id);
+      }
+    }
+
+    // Get all properties for property_listing posts
+    const properties = await ctx.db.query("properties").collect();
+
+    // Clear existing social data
+    const existingPosts = await ctx.db.query("posts").collect();
+    for (const post of existingPosts) {
+      await ctx.db.delete(post._id);
+    }
+
+    const existingComments = await ctx.db.query("postComments").collect();
+    for (const comment of existingComments) {
+      await ctx.db.delete(comment._id);
+    }
+
+    const existingLikes = await ctx.db.query("postLikes").collect();
+    for (const like of existingLikes) {
+      await ctx.db.delete(like._id);
+    }
+
+    const existingSaves = await ctx.db.query("postSaves").collect();
+    for (const save of existingSaves) {
+      await ctx.db.delete(save._id);
+    }
+
+    const existingFollows = await ctx.db.query("userFollows").collect();
+    for (const follow of existingFollows) {
+      await ctx.db.delete(follow._id);
+    }
+
+    // Create posts and store their IDs
+    const postIds: Id<"posts">[] = [];
+
+    for (const seedPost of SEED_POSTS) {
+      // Determine author
+      const authorId = seedPost.authorProviderIndex !== undefined
+        ? providerMap.get(seedPost.authorProviderIndex) || investorId
+        : investorId;
+
+      // Determine property for property_listing
+      let propertyId: Id<"properties"> | undefined;
+      if (seedPost.postType === "property_listing" && seedPost.propertyIndex !== undefined) {
+        if (seedPost.propertyIndex < properties.length) {
+          propertyId = properties[seedPost.propertyIndex]._id;
+        }
+      }
+
+      const createdAt = now - seedPost.daysAgo * 24 * 60 * 60 * 1000;
+
+      const postId = await ctx.db.insert("posts", {
+        authorId,
+        postType: seedPost.postType,
+        content: seedPost.content,
+        visibility: seedPost.visibility,
+        propertyId,
+        serviceType: seedPost.serviceType,
+        likeCount: seedPost.likeCount,
+        commentCount: seedPost.commentCount,
+        shareCount: seedPost.shareCount,
+        saveCount: seedPost.saveCount,
+        createdAt,
+        updatedAt: createdAt,
+      });
+
+      postIds.push(postId);
+      results.posts++;
+    }
+
+    // Create comments
+    for (const seedComment of SEED_COMMENTS) {
+      if (seedComment.postIndex >= postIds.length) continue;
+
+      const postId = postIds[seedComment.postIndex];
+      const post = await ctx.db.get(postId);
+      if (!post) continue;
+
+      const authorId = seedComment.authorProviderIndex !== undefined
+        ? providerMap.get(seedComment.authorProviderIndex) || investorId
+        : investorId;
+
+      const commentCreatedAt = post.createdAt + seedComment.offsetHours * 60 * 60 * 1000;
+
+      await ctx.db.insert("postComments", {
+        postId,
+        authorId,
+        content: seedComment.content,
+        createdAt: commentCreatedAt,
+      });
+      results.comments++;
+    }
+
+    // Create likes with realistic distribution
+    // Use a deterministic approach based on post index
+    const allUserIds = [investorId, ...Array.from(providerMap.values())];
+    for (let i = 0; i < postIds.length; i++) {
+      const postId = postIds[i];
+      const post = SEED_POSTS[i];
+      // Like from a subset of users based on likeCount
+      const likerCount = Math.min(post.likeCount, allUserIds.length);
+      for (let j = 0; j < likerCount; j++) {
+        const userIndex = (i + j) % allUserIds.length;
+        const userId = allUserIds[userIndex];
+
+        // Check for duplicates
+        const existing = await ctx.db
+          .query("postLikes")
+          .withIndex("by_post_and_user", (q) =>
+            q.eq("postId", postId).eq("userId", userId)
+          )
+          .unique();
+
+        if (!existing) {
+          await ctx.db.insert("postLikes", {
+            postId,
+            userId,
+            createdAt: now - Math.random() * 7 * 24 * 60 * 60 * 1000,
+          });
+          results.likes++;
+        }
+      }
+    }
+
+    // Create saves with realistic distribution
+    for (let i = 0; i < postIds.length; i++) {
+      const postId = postIds[i];
+      const post = SEED_POSTS[i];
+      // Save from a subset of users based on saveCount
+      const saverCount = Math.min(post.saveCount, allUserIds.length);
+      for (let j = 0; j < saverCount; j++) {
+        const userIndex = (i + j + 3) % allUserIds.length; // Offset to get different users than likes
+        const userId = allUserIds[userIndex];
+
+        // Check for duplicates
+        const existing = await ctx.db
+          .query("postSaves")
+          .withIndex("by_post_and_user", (q) =>
+            q.eq("postId", postId).eq("userId", userId)
+          )
+          .unique();
+
+        if (!existing) {
+          await ctx.db.insert("postSaves", {
+            postId,
+            userId,
+            createdAt: now - Math.random() * 7 * 24 * 60 * 60 * 1000,
+          });
+          results.saves++;
+        }
+      }
+    }
+
+    // Create follow relationships
+    for (const seedFollow of SEED_FOLLOWS) {
+      const followerId = seedFollow.followerProviderIndex !== undefined
+        ? providerMap.get(seedFollow.followerProviderIndex)
+        : investorId;
+
+      const followingId = seedFollow.followingProviderIndex !== undefined
+        ? providerMap.get(seedFollow.followingProviderIndex)
+        : investorId;
+
+      if (!followerId || !followingId || followerId === followingId) continue;
+
+      // Check for duplicate follows
+      const existing = await ctx.db
+        .query("userFollows")
+        .withIndex("by_follower_and_following", (q) =>
+          q.eq("followerId", followerId).eq("followingId", followingId)
+        )
+        .unique();
+
+      if (!existing) {
+        await ctx.db.insert("userFollows", {
+          followerId,
+          followingId,
+          createdAt: now - Math.random() * 30 * 24 * 60 * 60 * 1000,
+        });
+        results.follows++;
+      }
+    }
+
+    return {
+      success: true,
+      results,
+      message: `Seeded ${results.posts} posts, ${results.comments} comments, ${results.likes} likes, ${results.saves} saves, ${results.follows} follows`,
+    };
+  },
+});
+
+// Seed direct message conversations between users
+// Call from Convex dashboard or CLI: npx convex run seed:seedConversations
+export const seedConversations = mutation({
+  args: {},
+  handler: async (ctx) => {
+    const now = Date.now();
+    const results = {
+      conversations: 0,
+      messages: 0,
+    };
+
+    // Get existing users
+    const users = await ctx.db.query("users").collect();
+    if (users.length < 2) {
+      return {
+        success: false,
+        results,
+        message: "Need at least 2 users to create conversations. Please seed users first.",
+      };
+    }
+
+    // Clear existing conversations and direct messages
+    const existingConversations = await ctx.db.query("conversations").collect();
+    for (const conv of existingConversations) {
+      await ctx.db.delete(conv._id);
+    }
+
+    const existingDMs = await ctx.db.query("directMessages").collect();
+    for (const dm of existingDMs) {
+      await ctx.db.delete(dm._id);
+    }
+
+    // Get provider users by role
+    const brokers = users.filter(u => u.role === "broker");
+    const mortgageAdvisors = users.filter(u => u.role === "mortgage_advisor");
+    const lawyers = users.filter(u => u.role === "lawyer");
+    const investors = users.filter(u => u.role === "investor" || u.role === "admin");
+
+    // Sample conversation templates
+    const conversationTemplates = [
+      {
+        topic: "Investment inquiry",
+        messages: [
+          "Hi, I'm interested in learning more about investment opportunities in Tel Aviv.",
+          "Great to hear! I'd be happy to help. What's your budget range?",
+          "I'm looking at properties in the $500K - $800K range.",
+          "That's a great range for Tel Aviv. I have several properties to show you.",
+          "When can we schedule a call to discuss?",
+        ],
+      },
+      {
+        topic: "Mortgage question",
+        messages: [
+          "Hello, I need help with a mortgage for a property purchase.",
+          "Hi! I'd be glad to assist. Are you an Israeli resident?",
+          "No, I'm based in the US but looking to buy in Israel.",
+          "No problem. For non-residents, banks typically require 50% down. Let me explain the process.",
+          "That would be very helpful, thank you!",
+        ],
+      },
+      {
+        topic: "Legal consultation",
+        messages: [
+          "I need a lawyer to review a purchase contract.",
+          "Sure, I can help with that. When do you need it reviewed by?",
+          "The seller wants to close within 30 days.",
+          "That's manageable. Please send over the contract and I'll review it this week.",
+        ],
+      },
+      {
+        topic: "Market update",
+        messages: [
+          "Any updates on the Jerusalem market?",
+          "Yes! Prices have stabilized and there are some good opportunities in Baka.",
+          "Interesting, I've been watching that area.",
+          "I can send you some listings if you're interested.",
+          "Please do!",
+        ],
+      },
+      {
+        topic: "Referral follow-up",
+        messages: [
+          "Thanks for the referral to your mortgage advisor!",
+          "You're welcome! Did they help you out?",
+          "Yes, got pre-approved last week.",
+          "Excellent! Let me know when you're ready to look at properties.",
+        ],
+      },
+    ];
+
+    // Create 1-on-1 conversations between different user types
+    const conversationPairs: Array<{ user1: typeof users[0]; user2: typeof users[0] }> = [];
+
+    // Investor-Broker conversations
+    if (investors.length > 0 && brokers.length > 0) {
+      conversationPairs.push({ user1: investors[0], user2: brokers[0] });
+      if (brokers.length > 1) {
+        conversationPairs.push({ user1: investors[0], user2: brokers[1] });
+      }
+    }
+
+    // Investor-Mortgage Advisor conversations
+    if (investors.length > 0 && mortgageAdvisors.length > 0) {
+      conversationPairs.push({ user1: investors[0], user2: mortgageAdvisors[0] });
+    }
+
+    // Investor-Lawyer conversations
+    if (investors.length > 0 && lawyers.length > 0) {
+      conversationPairs.push({ user1: investors[0], user2: lawyers[0] });
+    }
+
+    // Broker-Broker conversations
+    if (brokers.length > 1) {
+      conversationPairs.push({ user1: brokers[0], user2: brokers[1] });
+    }
+
+    // Broker-Mortgage Advisor conversations
+    if (brokers.length > 0 && mortgageAdvisors.length > 0) {
+      conversationPairs.push({ user1: brokers[0], user2: mortgageAdvisors[0] });
+    }
+
+    // Broker-Lawyer conversations
+    if (brokers.length > 0 && lawyers.length > 0) {
+      conversationPairs.push({ user1: brokers[0], user2: lawyers[0] });
+    }
+
+    // Mortgage-Lawyer conversations
+    if (mortgageAdvisors.length > 0 && lawyers.length > 0) {
+      conversationPairs.push({ user1: mortgageAdvisors[0], user2: lawyers[0] });
+    }
+
+    // Create conversations with messages
+    for (let i = 0; i < conversationPairs.length; i++) {
+      const pair = conversationPairs[i];
+      const template = conversationTemplates[i % conversationTemplates.length];
+
+      // Create conversation
+      const conversationCreatedAt = now - (15 - i) * 24 * 60 * 60 * 1000;
+      const conversationId = await ctx.db.insert("conversations", {
+        type: "direct",
+        participantIds: [pair.user1._id, pair.user2._id],
+        createdBy: pair.user1._id,
+        createdAt: conversationCreatedAt,
+        updatedAt: now,
+      });
+      results.conversations++;
+
+      // Add messages
+      for (let j = 0; j < template.messages.length; j++) {
+        const senderId = j % 2 === 0 ? pair.user1._id : pair.user2._id;
+        const messageCreatedAt = conversationCreatedAt + j * 30 * 60 * 1000; // 30 min apart
+
+        await ctx.db.insert("directMessages", {
+          conversationId,
+          senderId,
+          content: template.messages[j],
+          status: "read",
+          readBy: [pair.user1._id, pair.user2._id],
+          createdAt: messageCreatedAt,
+        });
+        results.messages++;
+      }
+    }
+
+    // Create one group conversation if we have enough users
+    if (users.length >= 3) {
+      const groupParticipants = users.slice(0, Math.min(4, users.length));
+      const groupCreatedAt = now - 10 * 24 * 60 * 60 * 1000;
+
+      const groupId = await ctx.db.insert("conversations", {
+        type: "group",
+        name: "Deal Team - Tel Aviv Property",
+        participantIds: groupParticipants.map(u => u._id),
+        createdBy: groupParticipants[0]._id,
+        createdAt: groupCreatedAt,
+        updatedAt: now,
+      });
+      results.conversations++;
+
+      // Add group messages
+      const groupMessages = [
+        "Welcome everyone to the deal team!",
+        "Thanks for setting this up. Looking forward to working together.",
+        "I'll send over the property details shortly.",
+        "Great, I'll start on the financing options once I see the numbers.",
+        "I can begin the legal review as soon as we have a contract.",
+      ];
+
+      for (let j = 0; j < groupMessages.length; j++) {
+        const senderId = groupParticipants[j % groupParticipants.length]._id;
+        const messageCreatedAt = groupCreatedAt + j * 2 * 60 * 60 * 1000; // 2 hours apart
+
+        await ctx.db.insert("directMessages", {
+          conversationId: groupId,
+          senderId,
+          content: groupMessages[j],
+          status: "read",
+          readBy: groupParticipants.map(u => u._id),
+          createdAt: messageCreatedAt,
+        });
+        results.messages++;
+      }
+    }
+
+    return {
+      success: true,
+      results,
+      message: `Seeded ${results.conversations} conversations with ${results.messages} messages`,
+    };
+  },
+});
+
+// Clear all social data
+// Call from Convex dashboard or CLI: npx convex run seed:clearSocialData
+export const clearSocialData = mutation({
+  args: {},
+  handler: async (ctx) => {
+    let deletedPosts = 0;
+    let deletedComments = 0;
+    let deletedLikes = 0;
+    let deletedSaves = 0;
+    let deletedFollows = 0;
+    let deletedConversations = 0;
+    let deletedDMs = 0;
+
+    // Delete posts
+    const posts = await ctx.db.query("posts").collect();
+    for (const post of posts) {
+      await ctx.db.delete(post._id);
+      deletedPosts++;
+    }
+
+    // Delete comments
+    const comments = await ctx.db.query("postComments").collect();
+    for (const comment of comments) {
+      await ctx.db.delete(comment._id);
+      deletedComments++;
+    }
+
+    // Delete likes
+    const likes = await ctx.db.query("postLikes").collect();
+    for (const like of likes) {
+      await ctx.db.delete(like._id);
+      deletedLikes++;
+    }
+
+    // Delete saves
+    const saves = await ctx.db.query("postSaves").collect();
+    for (const save of saves) {
+      await ctx.db.delete(save._id);
+      deletedSaves++;
+    }
+
+    // Delete follows
+    const follows = await ctx.db.query("userFollows").collect();
+    for (const follow of follows) {
+      await ctx.db.delete(follow._id);
+      deletedFollows++;
+    }
+
+    // Delete conversations and direct messages
+    const conversations = await ctx.db.query("conversations").collect();
+    for (const conv of conversations) {
+      await ctx.db.delete(conv._id);
+      deletedConversations++;
+    }
+
+    const dms = await ctx.db.query("directMessages").collect();
+    for (const dm of dms) {
+      await ctx.db.delete(dm._id);
+      deletedDMs++;
+    }
+
+    return {
+      success: true,
+      deleted: {
+        posts: deletedPosts,
+        comments: deletedComments,
+        likes: deletedLikes,
+        saves: deletedSaves,
+        follows: deletedFollows,
+        conversations: deletedConversations,
+        directMessages: deletedDMs,
+      },
+      message: `Cleared all social data`,
     };
   },
 });
