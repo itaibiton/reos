@@ -8,7 +8,7 @@ Building an end-to-end real estate investment platform connecting US investors w
 
 - ✅ [v1.0 MVP](milestones/v1.0-ROADMAP.md) (Phases 1-8) — SHIPPED 2026-01-17
 - ✅ [v1.1 Investor Onboarding](milestones/v1.1-ROADMAP.md) (Phases 9-15) — SHIPPED 2026-01-18
-- 🚧 **v1.2 Provider Experience** — Phases 16-20 (in progress)
+- ✅ **v1.2 Provider Experience** (Phases 16-20) — SHIPPED 2026-01-19
 
 ## Completed Milestones
 
@@ -56,9 +56,10 @@ Building an end-to-end real estate investment platform connecting US investors w
 
 </details>
 
-## 🚧 v1.2 Provider Experience (In Progress)
+## ✅ v1.2 Provider Experience (Complete)
 
 **Milestone Goal:** Enhance the service provider experience with improved dashboards, client management, public profiles, analytics, and settings.
+**Shipped:** 2026-01-19
 
 ### Phase 16: Provider Dashboard Enhancement
 
@@ -152,12 +153,13 @@ Plans:
 **Goal**: Availability calendar, service area management, notification preferences
 **Depends on**: Phase 19
 **Research**: Unlikely (internal patterns)
-**Plans**: 1/2 complete
-**Status**: In Progress
+**Plans**: 2/2 complete
+**Status**: Complete
+**Completed**: 2026-01-19
 
 Plans:
 - [x] 20-01: Backend schema & queries (availability + notification preferences)
-- [ ] 20-02: Settings UI with Availability & Notifications tabs
+- [x] 20-02: Settings UI with Availability & Notifications tabs
 
 ## Progress
 
@@ -165,7 +167,7 @@ Plans:
 |-----------|--------|-------|--------|---------|
 | v1.0 MVP | 17 | 40 | Complete | 2026-01-17 |
 | v1.1 Investor Onboarding | 7 | 8 | Complete | 2026-01-18 |
-| v1.2 Provider Experience | 6 | 10/11 | In Progress | - |
+| v1.2 Provider Experience | 6 | 11/11 | Complete | 2026-01-19 |
 
 | Phase | Milestone | Plans | Status | Completed |
 |-------|-----------|-------|--------|-----------|
@@ -175,7 +177,7 @@ Plans:
 | 17. Client Management | v1.2 | 2/2 | Complete | 2026-01-18 |
 | 18. Service Provider Profiles | v1.2 | 2/2 | Complete | 2026-01-19 |
 | 19. Provider Analytics | v1.2 | 1/1 | Complete | 2026-01-19 |
-| 20. Provider Settings & Availability | v1.2 | 1/2 | In Progress | - |
+| 20. Provider Settings & Availability | v1.2 | 2/2 | Complete | 2026-01-19 |
 
 ---
 

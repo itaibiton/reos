@@ -9,20 +9,20 @@ See: .planning/PROJECT.md (updated 2026-01-17)
 
 ## Current Position
 
-Milestone: v1.2 Provider Experience
-Phase: 20 of 20 (Provider Settings & Availability) — IN PROGRESS
-Plan: 1 of 2 in current phase
-Status: Plan 01 Complete, Plan 02 Next
-Last activity: 2026-01-19 — Completed 20-01-PLAN.md (backend)
+Milestone: v1.2 Provider Experience — COMPLETE
+Phase: 20 of 20 (Provider Settings & Availability) — COMPLETE
+Plan: 2 of 2 in current phase
+Status: Complete
+Last activity: 2026-01-19 — Completed 20-02-PLAN.md (frontend)
 
-Progress: █████████░ 95% (1 plan remaining)
+Progress: ██████████ 100% (v1.2 milestone complete)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 52
-- Average duration: 7.4 min
-- Total execution time: 6.4 hours
+- Total plans completed: 54
+- Average duration: 7.3 min
+- Total execution time: 6.7 hours
 
 **By Phase:**
 
@@ -57,10 +57,11 @@ Progress: █████████░ 95% (1 plan remaining)
 | 17 | 2/2 | 10 min | 5 min |
 | 18 | 2/2 | 10 min | 5 min |
 | 19 | 1/1 | 12 min | 12 min |
+| 20 | 2/2 | 18 min | 9 min |
 
 **Recent Trend:**
-- Last 5 plans: 2 min, 8 min, 10 min, 12 min, 8 min
-- Trend: v1.2 progressing - Phase 20 plan 1 complete, 53 plans total
+- Last 5 plans: 10 min, 12 min, 8 min, 10 min
+- Trend: v1.2 COMPLETE - 54 plans total, milestone shipped
 
 ## Accumulated Context
 
@@ -192,6 +193,10 @@ Recent decisions affecting current work:
 - Phase 20: All notification preferences default to enabled
 - Phase 20: Dates stored as start-of-day timestamps (midnight UTC)
 - Phase 20: Duplicate blocked dates handled gracefully (returns existing record)
+- Phase 20: Settings tabs only shown for providers (investors see direct profile form)
+- Phase 20: Calendar disables past dates (only future dates can be blocked)
+- Phase 20: Notification toggles grouped by category with visual border-left indicator
+- Phase 20: ToggleRow helper component for consistent toggle UI pattern
 
 ### Deferred Issues
 
@@ -219,6 +224,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-19
-Stopped at: Completed Phase 20 Plan 01 (Provider Settings Backend)
+Stopped at: Completed v1.2 Provider Experience milestone
 Resume file: None
-Next: /gsd:execute-plan .planning/phases/20-provider-settings-availability/20-02-PLAN.md
+Next: /gsd:new-milestone or /gsd:discuss-milestone for v1.3
