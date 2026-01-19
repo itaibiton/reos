@@ -11,18 +11,18 @@ See: .planning/PROJECT.md (updated 2026-01-17)
 
 Milestone: v1.3 Social Feed & Global Community
 Phase: 22 of 27 (Post Creation UI)
-Plan: 1 of 2 complete
-Status: In progress
-Last activity: 2026-01-19 — Completed 22-01-PLAN.md
+Plan: 2 of 2 complete
+Status: Phase complete
+Last activity: 2026-01-19 — Completed 22-02-PLAN.md
 
-Progress: ████░░░░░░ 43% (3/7 plans)
+Progress: █████░░░░░ 57% (4/7 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 57
+- Total plans completed: 58
 - Average duration: 7.1 min
-- Total execution time: 6.84 hours
+- Total execution time: 6.89 hours
 
 **By Phase:**
 
@@ -60,11 +60,11 @@ Progress: ████░░░░░░ 43% (3/7 plans)
 | 20 | 2/2 | 18 min | 9 min |
 
 | 21 | 2/2 | 7 min | 3.5 min |
-| 22 | 1/2 | 1 min | 1 min |
+| 22 | 2/2 | 4 min | 2 min |
 
 **Recent Trend:**
-- Last 5 plans: 10 min, 3 min, 4 min, 1 min
-- Trend: Phase 22 in progress - 57 plans total
+- Last 5 plans: 3 min, 4 min, 1 min, 3 min
+- Trend: Phase 22 complete - 58 plans total
 
 ## Accumulated Context
 
@@ -210,9 +210,10 @@ Recent decisions affecting current work:
 - Phase 21: All status checks (isLikedByUser, isSavedByUser, isFollowing) return boolean
 - Phase 22: CreatePostDialog uses useState for form state (not React Hook Form for simple forms)
 - Phase 22: Tabbed interface with 3 post types (Property/Service Request/Discussion)
-- Phase 22: Property tab placeholder - PropertySelector deferred to Plan 02
 - Phase 22: Card-style RadioGroup with sr-only inputs for service type and visibility selection
 - Phase 22: Feed components barrel export from @/components/feed
+- Phase 22: PropertySelector follows DealSelector pattern (search, thumbnails, selection state)
+- Phase 22: Visibility selector shown for all post types (including property listings)
 
 ### Deferred Issues
 
@@ -241,6 +242,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-19
-Stopped at: Completed 22-01-PLAN.md
+Stopped at: Completed 22-02-PLAN.md (Phase 22 complete)
 Resume file: None
-Next: Plan 22-02 (PropertySelector component)
+Next: Phase 23 (Feed Display)
