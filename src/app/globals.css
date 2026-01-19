@@ -8,6 +8,13 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-inter), var(--font-heebo), system-ui, sans-serif;
   --font-mono: var(--font-mono);
+  --font-display: var(--font-bebas), system-ui, sans-serif;
+  --font-serif: var(--font-dm-serif), Georgia, serif;
+  /* Landing page colors */
+  --color-landing-primary: var(--landing-primary);
+  --color-landing-accent: var(--landing-accent);
+  --color-landing-bg: var(--landing-bg);
+  --color-landing-text: var(--landing-text);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -50,6 +57,11 @@
   --radius: 0.5rem;
   --background: oklch(0.985 0.002 247);
   --foreground: oklch(0.145 0.02 250);
+  /* Landing page - Midnight Teal & Burnished Copper palette */
+  --landing-primary: oklch(0.42 0.12 195);
+  --landing-accent: oklch(0.65 0.15 55);
+  --landing-bg: oklch(0.97 0.008 90);
+  --landing-text: oklch(0.18 0.02 260);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0.02 250);
   --popover: oklch(1 0 0);
@@ -84,6 +96,11 @@
 .dark {
   --background: oklch(0.13 0.028 261);
   --foreground: oklch(0.985 0.004 250);
+  /* Landing page dark mode - adjusted for dark backgrounds */
+  --landing-primary: oklch(0.55 0.14 195);
+  --landing-accent: oklch(0.70 0.16 55);
+  --landing-bg: oklch(0.15 0.02 260);
+  --landing-text: oklch(0.92 0.01 90);
   --card: oklch(0.17 0.03 260);
   --card-foreground: oklch(0.985 0.004 250);
   --popover: oklch(0.17 0.03 260);
@@ -187,4 +204,107 @@ html[data-scroll-locked] body {
   animation: spin-gradient 3s linear infinite;
   filter: blur(8px);
   opacity: 0.6;
+}
+
+/* ============================================================================
+   Landing Page - Geometric Utilities
+   ============================================================================ */
+
+/* Diagonal clip paths */
+.clip-diagonal-tl {
+  clip-path: polygon(0 0, 100% 8%, 100% 100%, 0 100%);
+}
+
+.clip-diagonal-tr {
+  clip-path: polygon(0 8%, 100% 0, 100% 100%, 0 100%);
+}
+
+.clip-diagonal-bl {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 92%);
+}
+
+.clip-diagonal-br {
+  clip-path: polygon(0 0, 100% 0, 100% 92%, 0 100%);
+}
+
+/* Stepped corner cuts */
+.clip-corner-cut-tr {
+  clip-path: polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 0 100%);
+}
+
+.clip-corner-cut-tl {
+  clip-path: polygon(24px 0, 100% 0, 100% 100%, 0 100%, 0 24px);
+}
+
+.clip-corner-cut-br {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 24px), calc(100% - 24px) 100%, 0 100%);
+}
+
+.clip-corner-cut-bl {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 24px 100%, 0 calc(100% - 24px));
+}
+
+/* Hexagonal badge */
+.clip-hexagon {
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+/* Octagonal avatar frame */
+.clip-octagon {
+  clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+}
+
+/* Chevron shapes */
+.clip-chevron-right {
+  clip-path: polygon(0 0, 75% 0, 100% 50%, 75% 100%, 0 100%, 25% 50%);
+}
+
+.clip-chevron-left {
+  clip-path: polygon(25% 0, 100% 0, 75% 50%, 100% 100%, 25% 100%, 0 50%);
+}
+
+/* Diagonal stripe pattern background */
+.bg-diagonal-stripes {
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 10px,
+    var(--landing-primary) 10px,
+    var(--landing-primary) 11px
+  );
+}
+
+.bg-diagonal-stripes-accent {
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 10px,
+    var(--landing-accent) 10px,
+    var(--landing-accent) 11px
+  );
+}
+
+/* Font family utilities for landing page */
+.font-display {
+  font-family: var(--font-bebas), system-ui, sans-serif;
+  letter-spacing: 0.05em;
+}
+
+.font-serif-display {
+  font-family: var(--font-dm-serif), Georgia, serif;
+}
+
+/* Landing section background */
+.landing-section-bg {
+  background-color: var(--landing-bg);
+  color: var(--landing-text);
+}
+
+/* 3D tilt hover effect base */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
 }

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono, Heebo } from "next/font/google";
+import { Inter, JetBrains_Mono, Heebo, Bebas_Neue, DM_Serif_Display } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
@@ -22,6 +22,22 @@ const jetbrainsMono = JetBrains_Mono({
 const heebo = Heebo({
   subsets: ["latin", "hebrew"],
   variable: "--font-heebo",
+  display: "swap",
+});
+
+// Bold geometric display font for headlines
+const bebasNeue = Bebas_Neue({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-bebas",
+  display: "swap",
+});
+
+// Elegant serif for accent subheadlines
+const dmSerifDisplay = DM_Serif_Display({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-dm-serif",
   display: "swap",
 });
 
@@ -54,7 +70,7 @@ export default async function LocaleLayout({ children, params }: Props) {
     <html
       lang={locale}
       dir={direction}
-      className={`${inter.variable} ${jetbrainsMono.variable} ${heebo.variable}`}
+      className={`${inter.variable} ${jetbrainsMono.variable} ${heebo.variable} ${bebasNeue.variable} ${dmSerifDisplay.variable}`}
     >
       <body className="font-sans antialiased">
         <ClerkProvider

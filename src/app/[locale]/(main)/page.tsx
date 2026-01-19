@@ -1,7 +1,14 @@
 import type { Metadata } from "next";
+import { LandingNav } from "@/components/landing/Navigation";
+import { Hero } from "@/components/landing/Hero";
 import { ServicesGrid } from "@/components/landing/ServicesGrid";
+import { FeatureDeepDive } from "@/components/landing/Features";
 import { ProcessSteps } from "@/components/landing/ProcessSteps";
+import { PricingPlans } from "@/components/landing/Pricing";
 import { TeamSection } from "@/components/landing/TeamSection";
+import { FAQAccordion } from "@/components/landing/FAQ";
+import { Footer } from "@/components/landing/Footer";
+import { GeometricDivider } from "@/components/landing/shared";
 
 export const metadata: Metadata = {
   title: "REOS - Property Management Made Simple",
@@ -11,15 +18,56 @@ export const metadata: Metadata = {
 
 export default function LandingPage() {
   return (
-    <main className="min-h-screen">
-      {/* Services Grid Section */}
-      <ServicesGrid className="bg-background" />
+    <>
+      {/* Sticky Navigation */}
+      <LandingNav />
 
-      {/* Process Steps Section */}
-      <ProcessSteps className="bg-muted/30" />
+      <main className="min-h-screen landing-section-bg">
+        {/* Hero Section */}
+        <Hero />
 
-      {/* Team Section */}
-      <TeamSection className="bg-background" />
-    </main>
+        {/* Services Grid Section */}
+        <ServicesGrid />
+
+        {/* Geometric Divider */}
+        <GeometricDivider
+          variant="diagonal-down"
+          height={60}
+          fillClassName="fill-muted/30"
+        />
+
+        {/* Feature Deep Dive Section */}
+        <FeatureDeepDive />
+
+        {/* Process Steps Section */}
+        <ProcessSteps />
+
+        {/* Geometric Divider */}
+        <GeometricDivider
+          variant="chevron-down"
+          height={50}
+          fillClassName="fill-background"
+        />
+
+        {/* Pricing Plans Section */}
+        <PricingPlans />
+
+        {/* Team Section */}
+        <TeamSection />
+
+        {/* Geometric Divider */}
+        <GeometricDivider
+          variant="diagonal-up"
+          height={60}
+          fillClassName="fill-muted/30"
+        />
+
+        {/* FAQ Section */}
+        <FAQAccordion />
+      </main>
+
+      {/* Footer */}
+      <Footer />
+    </>
   );
 }

@@ -5,7 +5,9 @@ import { motion, useInView, useReducedMotion } from "framer-motion";
 import { Linkedin, Twitter, Github, type LucideIcon } from "lucide-react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Card } from "@/components/ui/card";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
+import { SectionWrapper, SectionHeader } from "./shared/SectionWrapper";
 
 // ============================================================================
 // Types
@@ -216,8 +218,9 @@ const reducedMotionCardVariants = {
 // TeamMemberCard Component
 // ============================================================================
 
-function TeamMemberCard({ member, shouldReduceMotion }: TeamMemberCardProps) {
+function TeamMemberCard({ member, shouldReduceMotion, index }: TeamMemberCardProps & { index: number }) {
   const nameId = `${member.id}-name`;
+  const isEven = index % 2 === 0;
 
   return (
     <motion.article
@@ -230,33 +233,76 @@ function TeamMemberCard({ member, shouldReduceMotion }: TeamMemberCardProps) {
           "group relative flex h-full min-h-[400px] flex-col items-center p-6 text-center",
           "border border-border bg-card text-card-foreground",
           "transition-all duration-300 ease-out",
-          "hover:scale-105 hover:border-primary/20 hover:shadow-xl hover:z-10",
-          "sm:min-h-[420px]"
+          "hover:border-landing-primary/30 hover:shadow-xl hover:z-10",
+          "sm:min-h-[420px]",
+          "overflow-hidden"
         )}
       >
-        {/* Avatar */}
+        {/* Geometric corner accents */}
+        <div
+          className={cn(
+            "absolute top-0 right-0 w-20 h-20",
+            "transition-all duration-300",
+            isEven ? "bg-landing-primary/5" : "bg-landing-accent/5",
+            "group-hover:w-24 group-hover:h-24"
+          )}
+          style={{
+            clipPath: "polygon(100% 0, 100% 100%, 0 0)",
+          }}
+          aria-hidden="true"
+        />
+        <div
+          className={cn(
+            "absolute bottom-0 left-0 w-16 h-16",
+            "transition-all duration-300",
+            isEven ? "bg-landing-accent/5" : "bg-landing-primary/5",
+            "group-hover:w-20 group-hover:h-20"
+          )}
+          style={{
+            clipPath: "polygon(0 100%, 100% 100%, 0 0)",
+          }}
+          aria-hidden="true"
+        />
+
+        {/* Octagonal Avatar Frame */}
         <motion.div
           variants={
             shouldReduceMotion ? reducedMotionCardVariants : avatarVariants
           }
-          className="mb-4"
+          className="mb-4 relative"
         >
+          {/* Octagonal border frame */}
+          <div
+            className={cn(
+              "absolute -inset-2",
+              "transition-all duration-300",
+              isEven
+                ? "bg-gradient-to-br from-landing-primary/20 to-landing-accent/20"
+                : "bg-gradient-to-br from-landing-accent/20 to-landing-primary/20",
+              "clip-octagon",
+              "group-hover:from-landing-primary/40 group-hover:to-landing-accent/40"
+            )}
+          />
           <Avatar
             className={cn(
-              "h-28 w-28 ring-2 ring-primary/10",
+              "relative h-28 w-28",
+              "clip-octagon",
               "transition-all duration-300",
-              "group-hover:ring-primary/30 group-hover:scale-105",
+              "group-hover:scale-105",
               "sm:h-[120px] sm:w-[120px] lg:h-32 lg:w-32"
             )}
           >
             <AvatarImage
               src={member.photo}
               alt={member.photoAlt || `Headshot of ${member.name}`}
+              className="clip-octagon"
             />
             <AvatarFallback
               className={cn(
-                "text-2xl font-bold text-white",
-                member.avatarGradient
+                "text-2xl font-display tracking-wider text-white",
+                isEven
+                  ? "bg-gradient-to-br from-landing-primary to-landing-primary/80"
+                  : "bg-gradient-to-br from-landing-accent to-landing-accent/80"
               )}
               aria-label={member.name}
             >
@@ -268,20 +314,27 @@ function TeamMemberCard({ member, shouldReduceMotion }: TeamMemberCardProps) {
         {/* Name */}
         <h3
           id={nameId}
-          className="mb-2 text-lg font-semibold leading-tight text-foreground md:text-xl"
+          className="mb-2 text-lg font-semibold leading-tight text-landing-text md:text-xl"
         >
           {member.name}
         </h3>
 
-        {/* Role */}
-        <p className="mb-4 text-sm font-medium text-primary">{member.role}</p>
+        {/* Role with accent color */}
+        <p
+          className={cn(
+            "mb-4 text-sm font-medium",
+            isEven ? "text-landing-primary" : "text-landing-accent"
+          )}
+        >
+          {member.role}
+        </p>
 
         {/* Bio */}
         <p className="mb-6 flex-grow text-sm leading-relaxed text-muted-foreground">
           {member.bio}
         </p>
 
-        {/* Social Links */}
+        {/* Social Links with geometric shapes */}
         <div
           className="flex items-center justify-center gap-3"
           role="list"
@@ -297,11 +350,17 @@ function TeamMemberCard({ member, shouldReduceMotion }: TeamMemberCardProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={cn(
-                  "inline-flex h-10 w-10 items-center justify-center rounded-full",
+                  "inline-flex h-10 w-10 items-center justify-center",
                   "text-muted-foreground transition-all duration-200",
-                  "hover:bg-primary/10 hover:text-primary hover:scale-110",
-                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                  isEven
+                    ? "hover:bg-landing-primary/10 hover:text-landing-primary"
+                    : "hover:bg-landing-accent/10 hover:text-landing-accent",
+                  "hover:scale-110",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-landing-primary focus-visible:ring-offset-2"
                 )}
+                style={{
+                  clipPath: "polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)",
+                }}
               >
                 <Icon className="h-5 w-5" aria-hidden="true" />
               </a>
@@ -321,58 +380,49 @@ export function TeamSection({ className }: TeamSectionProps) {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
   const shouldReduceMotion = useReducedMotion();
+  const t = useTranslations("landing.team");
 
   return (
-    <section
+    <SectionWrapper
       ref={ref}
-      aria-labelledby="team-heading"
-      className={cn(
-        "bg-background py-12 md:py-14 lg:py-16",
-        "px-4 md:px-6 lg:px-8",
-        className
-      )}
+      id="team"
+      className={className}
+      ariaLabelledBy="team-heading"
+      animate={false}
     >
-      <div className="mx-auto max-w-7xl">
-        {/* Section Header */}
-        <div className="mb-10 text-center lg:mb-12">
-          <h2
-            id="team-heading"
-            className="mb-4 text-2xl font-bold text-foreground md:text-3xl lg:text-4xl"
-          >
-            The People Behind REOS
-          </h2>
-          <p className="mx-auto max-w-3xl text-base text-muted-foreground md:text-lg">
-            We started REOS because we believe property managers deserve better
-            tools. Our team combines real estate expertise with technical
-            innovation to build software that actually works for you.
-          </p>
-        </div>
+      {/* Section Header */}
+      <SectionHeader
+        title={t("title")}
+        titleId="team-heading"
+        subtitle={t("subtitle")}
+        centered
+      />
 
-        {/* Team Grid */}
-        <motion.div
-          variants={
-            shouldReduceMotion
-              ? reducedMotionContainerVariants
-              : containerVariants
-          }
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className={cn(
-            "grid",
-            "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4",
-            "gap-6 md:gap-8"
-          )}
-        >
-          {teamMembers.map((member) => (
-            <TeamMemberCard
-              key={member.id}
-              member={member}
-              shouldReduceMotion={shouldReduceMotion}
-            />
-          ))}
-        </motion.div>
-      </div>
-    </section>
+      {/* Team Grid */}
+      <motion.div
+        variants={
+          shouldReduceMotion
+            ? reducedMotionContainerVariants
+            : containerVariants
+        }
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+        className={cn(
+          "grid",
+          "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4",
+          "gap-6 md:gap-8"
+        )}
+      >
+        {teamMembers.map((member, index) => (
+          <TeamMemberCard
+            key={member.id}
+            member={member}
+            index={index}
+            shouldReduceMotion={shouldReduceMotion}
+          />
+        ))}
+      </motion.div>
+    </SectionWrapper>
   );
 }
 

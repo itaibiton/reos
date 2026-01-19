@@ -12,7 +12,9 @@ import {
   ArrowRight,
   type LucideIcon,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
+import { SectionWrapper, SectionHeader } from "./shared/SectionWrapper";
 
 // ============================================================================
 // Types
@@ -161,44 +163,90 @@ function ServiceCard({
   description,
   href,
   ctaText = "Learn More",
+  index,
   shouldReduceMotion,
 }: ServiceCardProps) {
   const titleId = `service-title-${id}`;
+  const isEven = index % 2 === 0;
 
   return (
     <motion.article
       variants={shouldReduceMotion ? reducedMotionCardVariants : cardVariants}
-      whileHover={shouldReduceMotion ? undefined : { scale: 1.05 }}
+      whileHover={shouldReduceMotion ? undefined : { scale: 1.02, y: -4 }}
       whileTap={shouldReduceMotion ? undefined : { scale: 1 }}
       aria-labelledby={titleId}
       className={cn(
         "group relative flex flex-col",
         "min-h-[260px] sm:min-h-[280px] p-6",
         "bg-card text-card-foreground",
-        "border border-border rounded-xl shadow-sm",
+        "border border-border",
+        "shadow-sm",
         "transition-all duration-300 ease-out",
-        "hover:shadow-lg hover:border-primary/30",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-        "cursor-pointer"
+        "hover:shadow-lg hover:border-landing-primary/30",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-landing-primary focus-visible:ring-offset-2",
+        "cursor-pointer",
+        "overflow-hidden"
       )}
+      style={{
+        clipPath: "polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px))",
+      }}
       tabIndex={0}
       role="article"
     >
-      {/* Icon Badge */}
+      {/* Geometric corner accent - top right */}
       <div
         className={cn(
+          "absolute top-0 right-0 w-16 h-16",
+          "transition-all duration-300",
+          isEven ? "bg-landing-primary/5" : "bg-landing-accent/5",
+          "group-hover:bg-landing-primary/10"
+        )}
+        style={{
+          clipPath: "polygon(100% 0, 100% 100%, 0 0)",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Diagonal stripe on hover */}
+      <div
+        className={cn(
+          "absolute inset-0 opacity-0 transition-opacity duration-300",
+          "group-hover:opacity-100",
+          "pointer-events-none"
+        )}
+        style={{
+          background: `repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 20px,
+            ${isEven ? "var(--landing-primary)" : "var(--landing-accent)"} 20px,
+            ${isEven ? "var(--landing-primary)" : "var(--landing-accent)"} 21px
+          )`,
+          opacity: 0.03,
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Icon Badge - Hexagonal */}
+      <div
+        className={cn(
+          "relative z-10",
           "flex items-center justify-center",
-          "w-10 h-10 sm:w-12 sm:h-12 mb-4",
-          "rounded-full bg-primary/10"
+          "w-12 h-12 sm:w-14 sm:h-14 mb-4",
+          "clip-hexagon",
+          isEven ? "bg-landing-primary/10" : "bg-landing-accent/10",
+          "transition-colors duration-300",
+          isEven ? "group-hover:bg-landing-primary/20" : "group-hover:bg-landing-accent/20"
         )}
         role="img"
         aria-label={`${title} icon`}
       >
         <Icon
           className={cn(
-            "w-5 h-5 sm:w-6 sm:h-6 text-primary",
+            "w-5 h-5 sm:w-6 sm:h-6",
+            isEven ? "text-landing-primary" : "text-landing-accent",
             "transition-transform duration-300",
-            !shouldReduceMotion && "group-hover:rotate-6"
+            !shouldReduceMotion && "group-hover:scale-110"
           )}
           aria-hidden="true"
         />
@@ -207,13 +255,13 @@ function ServiceCard({
       {/* Title */}
       <h3
         id={titleId}
-        className="mb-2 text-xl font-semibold leading-tight text-foreground"
+        className="relative z-10 mb-2 text-xl font-semibold leading-tight text-landing-text"
       >
         {title}
       </h3>
 
       {/* Description */}
-      <p className="mb-4 text-sm leading-relaxed text-muted-foreground flex-grow">
+      <p className="relative z-10 mb-4 text-sm leading-relaxed text-muted-foreground flex-grow">
         {description}
       </p>
 
@@ -222,8 +270,9 @@ function ServiceCard({
         <a
           href={href}
           className={cn(
-            "inline-flex items-center gap-1",
-            "text-sm font-medium text-primary",
+            "relative z-10 inline-flex items-center gap-1",
+            "text-sm font-medium",
+            isEven ? "text-landing-primary" : "text-landing-accent",
             "hover:underline",
             "focus-visible:outline-none focus-visible:underline",
             "mt-auto"
@@ -242,6 +291,20 @@ function ServiceCard({
           />
         </a>
       )}
+
+      {/* Bottom left corner accent */}
+      <div
+        className={cn(
+          "absolute bottom-0 left-0 w-8 h-8",
+          "transition-all duration-300",
+          isEven ? "bg-landing-accent/5" : "bg-landing-primary/5",
+          "group-hover:w-12 group-hover:h-12"
+        )}
+        style={{
+          clipPath: "polygon(0 100%, 0 0, 100% 100%)",
+        }}
+        aria-hidden="true"
+      />
     </motion.article>
   );
 }
@@ -254,59 +317,49 @@ export function ServicesGrid({ className }: ServicesGridProps) {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
   const shouldReduceMotion = useReducedMotion();
+  const t = useTranslations("landing.services");
 
   return (
-    <section
+    <SectionWrapper
       ref={ref}
-      className={cn(
-        "py-12 sm:py-14 lg:py-16",
-        "px-4 sm:px-6 lg:px-8",
-        className
-      )}
-      aria-labelledby="services-section-title"
+      id="services"
+      className={className}
+      ariaLabelledBy="services-section-title"
+      animate={false}
     >
-      <div className="max-w-7xl mx-auto">
-        {/* Section Header */}
-        <div className="text-center mb-10 lg:mb-12">
-          <h2
-            id="services-section-title"
-            className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-4"
-          >
-            Everything You Need, All in One Place
-          </h2>
-          <p className="text-base lg:text-lg text-muted-foreground max-w-2xl mx-auto">
-            Stop juggling multiple tools and systems. REOS brings property
-            management, tenant communication, and financial insights together so
-            you can run your portfolio with confidence.
-          </p>
-        </div>
+      {/* Section Header */}
+      <SectionHeader
+        title={t("title")}
+        titleId="services-section-title"
+        subtitle={t("subtitle")}
+        centered
+      />
 
-        {/* Services Grid */}
-        <motion.div
-          variants={
-            shouldReduceMotion
-              ? reducedMotionContainerVariants
-              : containerVariants
-          }
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className={cn(
-            "grid",
-            "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3",
-            "gap-4 sm:gap-6"
-          )}
-        >
-          {services.map((service, index) => (
-            <ServiceCard
-              key={service.id}
-              {...service}
-              index={index}
-              shouldReduceMotion={shouldReduceMotion}
-            />
-          ))}
-        </motion.div>
-      </div>
-    </section>
+      {/* Services Grid */}
+      <motion.div
+        variants={
+          shouldReduceMotion
+            ? reducedMotionContainerVariants
+            : containerVariants
+        }
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+        className={cn(
+          "grid",
+          "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3",
+          "gap-4 sm:gap-6"
+        )}
+      >
+        {services.map((service, index) => (
+          <ServiceCard
+            key={service.id}
+            {...service}
+            index={index}
+            shouldReduceMotion={shouldReduceMotion}
+          />
+        ))}
+      </motion.div>
+    </SectionWrapper>
   );
 }
 

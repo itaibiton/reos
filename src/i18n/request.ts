@@ -10,6 +10,6 @@ export default getRequestConfig(async ({ requestLocale }) => {
 
   return {
     locale,
-    // Messages will be added in Phase 31 (Translation Infrastructure)
+    messages: (await import(`../../messages/${locale}.json`)).default,
   }
 })
