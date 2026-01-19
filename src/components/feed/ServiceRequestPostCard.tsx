@@ -1,0 +1,115 @@
+"use client";
+
+import { Card, CardContent } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { HugeiconsIcon } from "@hugeicons/react";
+import {
+  FavouriteIcon,
+  Comment01Icon,
+  BookmarkAdd01Icon,
+  UserMultiple02Icon,
+} from "@hugeicons/core-free-icons";
+import { formatDistanceToNow } from "date-fns";
+import type { EnrichedPost } from "./PostCard";
+
+// Role label mapping
+const ROLE_LABELS: Record<string, string> = {
+  investor: "Investor",
+  broker: "Broker",
+  mortgage_advisor: "Mortgage Advisor",
+  lawyer: "Lawyer",
+};
+
+// Service type label mapping
+const SERVICE_TYPE_LABELS: Record<string, string> = {
+  broker: "Broker",
+  mortgage_advisor: "Mortgage Advisor",
+  lawyer: "Lawyer",
+};
+
+// Get initials from name
+function getInitials(name: string): string {
+  return name
+    .split(" ")
+    .map((n) => n[0])
+    .join("")
+    .toUpperCase()
+    .slice(0, 2);
+}
+
+interface ServiceRequestPostCardProps {
+  post: EnrichedPost;
+}
+
+export function ServiceRequestPostCard({ post }: ServiceRequestPostCardProps) {
+  const roleLabel = post.authorRole
+    ? ROLE_LABELS[post.authorRole] || post.authorRole
+    : undefined;
+
+  const serviceTypeLabel = post.serviceType
+    ? SERVICE_TYPE_LABELS[post.serviceType] || post.serviceType
+    : "Service Provider";
+
+  return (
+    <Card className="overflow-hidden">
+      <CardContent className="p-4 space-y-3">
+        {/* Service Type Badge */}
+        <div className="flex items-center gap-2">
+          <Badge variant="default" className="flex items-center gap-1">
+            <HugeiconsIcon
+              icon={UserMultiple02Icon}
+              size={14}
+              strokeWidth={1.5}
+            />
+            <span>Looking for {serviceTypeLabel}</span>
+          </Badge>
+        </div>
+
+        {/* Author Header */}
+        <div className="flex items-center gap-3">
+          <Avatar className="h-8 w-8">
+            <AvatarImage src={post.authorImageUrl} alt={post.authorName} />
+            <AvatarFallback className="text-xs">
+              {getInitials(post.authorName)}
+            </AvatarFallback>
+          </Avatar>
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2">
+              <span className="font-medium text-sm truncate">
+                {post.authorName}
+              </span>
+              {roleLabel && (
+                <Badge variant="secondary" className="text-xs">
+                  {roleLabel}
+                </Badge>
+              )}
+            </div>
+            <span className="text-xs text-muted-foreground">
+              {formatDistanceToNow(post.createdAt, { addSuffix: true })}
+            </span>
+          </div>
+        </div>
+
+        {/* Post Content (request details) */}
+        <p className="text-sm">{post.content}</p>
+
+        {/* Engagement Footer */}
+        <div className="flex items-center gap-4 text-sm text-muted-foreground pt-3 border-t">
+          <div className="flex items-center gap-1">
+            <HugeiconsIcon icon={FavouriteIcon} size={16} strokeWidth={1.5} />
+            <span>{post.likeCount}</span>
+          </div>
+          <div className="flex items-center gap-1">
+            <HugeiconsIcon icon={Comment01Icon} size={16} strokeWidth={1.5} />
+            <span>{post.commentCount}</span>
+          </div>
+          <div className="flex items-center gap-1">
+            <HugeiconsIcon icon={BookmarkAdd01Icon} size={16} strokeWidth={1.5} />
+            <span>{post.saveCount}</span>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
