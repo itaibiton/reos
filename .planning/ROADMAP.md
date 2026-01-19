@@ -10,6 +10,23 @@ Building an end-to-end real estate investment platform connecting US investors w
 - [v1.1 Investor Onboarding](milestones/v1.1-ROADMAP.md) (Phases 9-15) — SHIPPED 2026-01-18
 - [v1.2 Provider Experience](milestones/v1.2-ROADMAP.md) (Phases 16-20) — SHIPPED 2026-01-19
 - [v1.3 Social Feed & Global Community](milestones/v1.3-ROADMAP.md) (Phases 21-27.2) — SHIPPED 2026-01-19
+- [v1.4 Internationalization & RTL](milestones/v1.4-ROADMAP.md) (Phases 28-34) — IN PROGRESS
+
+## Active Milestone: v1.4 Internationalization & RTL Support
+
+**Goal:** Full internationalization with Hebrew/RTL support.
+
+| Phase | Name | Requirements | Status |
+|-------|------|--------------|--------|
+| 28 | i18n Infrastructure | INFRA-01, INFRA-02, INFRA-03, INFRA-04, RTL-01 | Pending |
+| 29 | CSS Logical Properties Migration | RTL-02 | Pending |
+| 30 | RTL Component Patches | RTL-03, RTL-04, RTL-05 | Pending |
+| 31 | Translation Infrastructure | TRANS-01, TRANS-03 | Pending |
+| 32 | Locale Formatting | FMT-01, FMT-02, FMT-03 | Pending |
+| 33 | Hebrew Translation | TRANS-02 | Pending |
+| 34 | Language Switcher & Polish | UX-01, UX-02, UX-03 | Pending |
+
+[Full details ->](milestones/v1.4-ROADMAP.md)
 
 ## Completed Milestones
 
@@ -36,7 +53,7 @@ Building an end-to-end real estate investment platform connecting US investors w
 - [x] Phase 7: Dashboards (3/3 plans) — completed 2026-01-17
 - [x] Phase 8: Real-time Features (2/2 plans) — completed 2026-01-17
 
-[Full details →](milestones/v1.0-ROADMAP.md)
+[Full details ->](milestones/v1.0-ROADMAP.md)
 
 </details>
 
@@ -53,7 +70,7 @@ Building an end-to-end real estate investment platform connecting US investors w
 - [x] Phase 14: AI Preferences & Service Selection (1/1 plan) — completed 2026-01-18
 - [x] Phase 15: Profile Display & Edit (2/2 plans) — completed 2026-01-18
 
-[Full details →](milestones/v1.1-ROADMAP.md)
+[Full details ->](milestones/v1.1-ROADMAP.md)
 
 </details>
 
@@ -70,7 +87,7 @@ Building an end-to-end real estate investment platform connecting US investors w
 - [x] Phase 19: Provider Analytics (1/1 plan) — completed 2026-01-19
 - [x] Phase 20: Provider Settings & Availability (2/2 plans) — completed 2026-01-19
 
-[Full details →](milestones/v1.2-ROADMAP.md)
+[Full details ->](milestones/v1.2-ROADMAP.md)
 
 </details>
 
@@ -88,7 +105,7 @@ Building an end-to-end real estate investment platform connecting US investors w
 - [x] Phase 27: Global Discovery (5/5 plans) — completed 2026-01-19
 - [x] Phase 27.2: Quick Actions & Pages in Search (1/1 plan) — completed 2026-01-19
 
-[Full details →](milestones/v1.3-ROADMAP.md)
+[Full details ->](milestones/v1.3-ROADMAP.md)
 
 </details>
 
@@ -100,8 +117,9 @@ Building an end-to-end real estate investment platform connecting US investors w
 | v1.1 Investor Onboarding | 7 | 8 | Complete | 2026-01-18 |
 | v1.2 Provider Experience | 6 | 11 | Complete | 2026-01-19 |
 | v1.3 Social Feed & Global Community | 8 | 20 | Complete | 2026-01-19 |
+| v1.4 Internationalization & RTL | 7 | TBD | In Progress | — |
 
-**Total: 38 phases, 79 plans shipped**
+**Total: 38 phases, 79 plans shipped + 7 phases pending**
 
 ---
 

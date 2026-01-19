@@ -2,24 +2,24 @@
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-01-17)
+See: .planning/PROJECT.md (updated 2026-01-19)
 
 **Core value:** Deal flow tracking from interest to close.
-**Current focus:** v1.3 Social Feed & Global Community — COMPLETE
+**Current focus:** v1.4 Internationalization & RTL Support
 
 ## Current Position
 
-Milestone: v1.3 Social Feed & Global Community — SHIPPED
-Phase: All phases complete (21-27.2)
-Status: Milestone archived, ready for next milestone
-Last activity: 2026-01-19 — v1.3 milestone shipped
+Milestone: v1.4 Internationalization & RTL Support
+Phase: 28 - i18n Infrastructure (not started)
+Status: Roadmap created, awaiting phase planning
+Last activity: 2026-01-19 — v1.4 roadmap created
 
-Progress: ██████████ 100% (79 total plans across 4 milestones)
+Progress: [----------] 0% (0/7 phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 70
+- Total plans completed: 79
 - Average duration: 6.1 min
 - Total execution time: 7.25 hours
 
@@ -57,7 +57,6 @@ Progress: ██████████ 100% (79 total plans across 4 milestone
 | 18 | 2/2 | 10 min | 5 min |
 | 19 | 1/1 | 12 min | 12 min |
 | 20 | 2/2 | 18 min | 9 min |
-
 | 21 | 2/2 | 7 min | 3.5 min |
 | 22 | 2/2 | 4 min | 2 min |
 | 23 | 2/2 | 3.5 min | 1.75 min |
@@ -69,7 +68,7 @@ Progress: ██████████ 100% (79 total plans across 4 milestone
 
 **Recent Trend:**
 - Last 5 plans: 2 min, 3 min, 3 min, 2 min, 3 min
-- Trend: Phase 27.2 complete - Quick Actions in global search
+- Trend: Starting v1.4 milestone
 
 ## Accumulated Context
 
@@ -129,10 +128,10 @@ Recent decisions affecting current work:
 - Phase 6: Provider recommendations match property city to provider serviceAreas
 - Phase 6: File categories: contract, id_document, financial, legal, other
 - Phase 6: File visibility: "all" (all participants) or "providers_only" (service providers only)
-- Phase 6: Convex storage pattern: generateUploadUrl → POST file → saveFile with storageId
+- Phase 6: Convex storage pattern: generateUploadUrl -> POST file -> saveFile with storageId
 - Phase 6: Activity log captures all deal events (stage_change, file_uploaded, handoffs)
 - Phase 6: Handoffs use existing serviceRequests for consistency
-- Phase 6: Stage-to-provider mapping: broker_assigned→broker, mortgage→mortgage_advisor, legal→lawyer
+- Phase 6: Stage-to-provider mapping: broker_assigned->broker, mortgage->mortgage_advisor, legal->lawyer
 - Phase 6: Stage progress as horizontal step indicator with completed/current/upcoming states
 - Phase 6: Deal cards show property image, title, city, price, stage badge, provider count
 - Phase 6: Four tabs on deal detail page: Overview, Providers, Files, Activity
@@ -272,6 +271,17 @@ Recent decisions affecting current work:
 - Phase 27.2: Keyword aliases in KEYWORD_MAPPINGS for common navigation terms
 - Phase 27.2: QuickAction type with flattenNavItem() for recursive navigation conversion
 
+### v1.4 Research Findings
+
+Key decisions from research (research/SUMMARY.md):
+- next-intl v4 for translation and routing (not next-i18next)
+- Tailwind v4 logical properties (no RTL plugin needed)
+- @radix-ui/react-direction for Radix/Shadcn RTL context
+- Heebo font for Hebrew-Latin support
+- Middleware composition: Clerk wraps outer, returns intlMiddleware
+- 255+ directional CSS classes need migration
+- Shadcn has no official RTL support (manual patches needed)
+
 ### Deferred Issues
 
 None yet.
@@ -296,10 +306,11 @@ None yet.
 - Phase 16.3 inserted after Phase 16.1: Shadcn Sidebar Layout (COMPLETE)
 - Milestone v1.3 created: Social Feed & Global Community, 7 phases (Phase 21-27)
 - Phase 27.2 inserted after Phase 27: Quick Actions & Pages in Search (COMPLETE)
+- Milestone v1.4 created: Internationalization & RTL, 7 phases (Phase 28-34)
 
 ## Session Continuity
 
 Last session: 2026-01-19
-Stopped at: v1.3 milestone archived
+Stopped at: v1.4 roadmap created
 Resume file: None
-Next: Start v1.4 milestone (run /gsd:new-milestone)
+Next: Run /gsd:plan-phase 28 to start i18n infrastructure

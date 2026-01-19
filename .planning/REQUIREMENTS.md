@@ -17,7 +17,7 @@ Requirements for v1.4 Internationalization & RTL Support. Each maps to roadmap p
 ### RTL Layout
 
 - [ ] **RTL-01**: HTML `dir` attribute set to `rtl` when locale is Hebrew
-- [ ] **RTL-02**: All directional CSS classes converted to logical properties (`ml-` → `ms-`, etc.)
+- [ ] **RTL-02**: All directional CSS classes converted to logical properties (`ml-` to `ms-`, etc.)
 - [ ] **RTL-03**: Shadcn Sidebar component works correctly in RTL mode
 - [ ] **RTL-04**: Shadcn Sheet, DropdownMenu, and other positioned components work in RTL
 - [ ] **RTL-05**: Directional icons (arrows, chevrons) flip appropriately in RTL mode
@@ -79,30 +79,30 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INFRA-01 | TBD | Pending |
-| INFRA-02 | TBD | Pending |
-| INFRA-03 | TBD | Pending |
-| INFRA-04 | TBD | Pending |
-| RTL-01 | TBD | Pending |
-| RTL-02 | TBD | Pending |
-| RTL-03 | TBD | Pending |
-| RTL-04 | TBD | Pending |
-| RTL-05 | TBD | Pending |
-| TRANS-01 | TBD | Pending |
-| TRANS-02 | TBD | Pending |
-| TRANS-03 | TBD | Pending |
-| FMT-01 | TBD | Pending |
-| FMT-02 | TBD | Pending |
-| FMT-03 | TBD | Pending |
-| UX-01 | TBD | Pending |
-| UX-02 | TBD | Pending |
-| UX-03 | TBD | Pending |
+| INFRA-01 | 28 | Pending |
+| INFRA-02 | 28 | Pending |
+| INFRA-03 | 28 | Pending |
+| INFRA-04 | 28 | Pending |
+| RTL-01 | 28 | Pending |
+| RTL-02 | 29 | Pending |
+| RTL-03 | 30 | Pending |
+| RTL-04 | 30 | Pending |
+| RTL-05 | 30 | Pending |
+| TRANS-01 | 31 | Pending |
+| TRANS-02 | 33 | Pending |
+| TRANS-03 | 31 | Pending |
+| FMT-01 | 32 | Pending |
+| FMT-02 | 32 | Pending |
+| FMT-03 | 32 | Pending |
+| UX-01 | 34 | Pending |
+| UX-02 | 34 | Pending |
+| UX-03 | 34 | Pending |
 
 **Coverage:**
 - v1 requirements: 18 total
-- Mapped to phases: 0
-- Unmapped: 18 (will be mapped during roadmap creation)
+- Mapped to phases: 18
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-01-19*
-*Last updated: 2026-01-19 after initial definition*
+*Last updated: 2026-01-19 after roadmap creation*
