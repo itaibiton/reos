@@ -11,18 +11,18 @@ See: .planning/PROJECT.md (updated 2026-01-19)
 
 Milestone: v1.4 Internationalization & RTL Support
 Phase: 29 - CSS Logical Properties Migration (in progress)
-Plan: 3 of 10 complete
+Plan: 4 of 10 complete
 Status: In progress
-Last activity: 2026-01-19 — Completed 29-03-PLAN.md (Remaining Shadcn UI Components)
+Last activity: 2026-01-19 — Completed 29-07-PLAN.md (Questionnaire Components)
 
-Progress: [██--------] 24% (1.7/7 phases)
+Progress: [██--------] 26% (1.8/7 phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 84
-- Average duration: 5.9 min
-- Total execution time: 7.57 hours
+- Total plans completed: 85
+- Average duration: 5.8 min
+- Total execution time: 7.60 hours
 
 **By Phase:**
 
@@ -67,11 +67,11 @@ Progress: [██--------] 24% (1.7/7 phases)
 | 27 | 5/5 | 12 min | 2.4 min |
 | 27.2 | 1/1 | 3 min | 3 min |
 | 28 | 2/2 | 8 min | 4 min |
-| 29 | 3/10 | 11 min | 3.7 min |
+| 29 | 4/10 | 13 min | 3.3 min |
 
 **Recent Trend:**
-- Last 5 plans: 4 min, 4 min, 3 min, 3 min, 5 min
-- Trend: CSS logical properties migration - Shadcn UI components complete
+- Last 5 plans: 4 min, 3 min, 3 min, 5 min, 2 min
+- Trend: CSS logical properties migration - questionnaire components complete
 
 ## Accumulated Context
 
@@ -290,6 +290,8 @@ Recent decisions affecting current work:
 - Phase 29: text-left -> text-start for accordion trigger text alignment
 - Phase 29: OTP input slots use border-e for right border, border-s for left (RTL-aware)
 - Phase 29: Button group children use rounded-s-none/rounded-e-none for first/last items
+- Phase 29: Questionnaire steps use space-x-* with rtl:space-x-reverse for radio/checkbox layouts
+- Phase 29: Keep slide-in-from-* animations for dedicated RTL-05 animation plan
 
 ### v1.4 Research Findings
 
@@ -331,6 +333,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-19
-Stopped at: Completed 29-03-PLAN.md
+Stopped at: Completed 29-07-PLAN.md
 Resume file: None
-Next: Run /gsd:execute-plan for 29-04 (Application Component Migrations) or continue with remaining plans
+Next: Run /gsd:execute-plan for 29-08 (Feed Component Migrations) or continue with remaining plans
