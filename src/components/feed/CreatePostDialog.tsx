@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useMutation } from "convex/react";
 import { api } from "../../../convex/_generated/api";
+import { Id } from "../../../convex/_generated/dataModel";
 import {
   Dialog,
   DialogContent,
@@ -25,6 +26,7 @@ import {
   Globe02Icon,
   UserGroupIcon,
 } from "@hugeicons/core-free-icons";
+import { PropertySelector } from "./PropertySelector";
 
 type PostType = "property_listing" | "service_request" | "discussion";
 type Visibility = "public" | "followers_only";
@@ -39,6 +41,7 @@ interface CreatePostDialogProps {
 interface ValidationErrors {
   content?: string;
   serviceType?: string;
+  propertyId?: string;
 }
 
 const SERVICE_TYPE_LABELS: Record<ServiceType, string> = {
@@ -57,18 +60,28 @@ export function CreatePostDialog({
   const [content, setContent] = useState("");
   const [visibility, setVisibility] = useState<Visibility>("public");
   const [serviceType, setServiceType] = useState<ServiceType>("broker");
+  const [selectedPropertyId, setSelectedPropertyId] = useState<Id<"properties"> | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<ValidationErrors>({});
 
   // Mutations
   const createDiscussionPost = useMutation(api.posts.createDiscussionPost);
   const createServiceRequestPost = useMutation(api.posts.createServiceRequestPost);
+  const createPropertyPost = useMutation(api.posts.createPropertyPost);
 
   function resetForm() {
     setPostType(defaultType);
     setContent("");
     setVisibility("public");
     setServiceType("broker");
+    setSelectedPropertyId(null);
+    setErrors({});
+  }
+
+  // Reset property selection when switching tabs
+  function handlePostTypeChange(value: string) {
+    setPostType(value as PostType);
+    setSelectedPropertyId(null);
     setErrors({});
   }
 
@@ -87,6 +100,11 @@ export function CreatePostDialog({
       newErrors.content = "Post content is required";
     }
 
+    // Property selection validation for property listings
+    if (postType === "property_listing" && !selectedPropertyId) {
+      newErrors.propertyId = "Please select a property to share";
+    }
+
     // Service type validation for service requests
     if (postType === "service_request" && !serviceType) {
       newErrors.serviceType = "Please select a service type";
@@ -101,15 +119,16 @@ export function CreatePostDialog({
       return;
     }
 
-    // Property listing is not yet implemented
-    if (postType === "property_listing") {
-      toast.error("Property listings will be available in the next update");
-      return;
-    }
-
     setIsSubmitting(true);
     try {
-      if (postType === "discussion") {
+      if (postType === "property_listing" && selectedPropertyId) {
+        await createPropertyPost({
+          propertyId: selectedPropertyId,
+          content: content.trim(),
+          visibility,
+        });
+        toast.success("Property post created!");
+      } else if (postType === "discussion") {
         await createDiscussionPost({
           content: content.trim(),
           visibility,
@@ -145,7 +164,7 @@ export function CreatePostDialog({
           {/* Post Type Tabs */}
           <Tabs
             value={postType}
-            onValueChange={(value) => setPostType(value as PostType)}
+            onValueChange={handlePostTypeChange}
           >
             <TabsList className="w-full grid grid-cols-3">
               <TabsTrigger value="property_listing" className="gap-2">
@@ -162,20 +181,34 @@ export function CreatePostDialog({
               </TabsTrigger>
             </TabsList>
 
-            {/* Property Listing Content - Placeholder */}
+            {/* Property Listing Content */}
             <TabsContent value="property_listing" className="space-y-4 mt-4">
-              <div className="rounded-lg border border-dashed border-muted-foreground/25 p-8 text-center">
-                <HugeiconsIcon
-                  icon={Home01Icon}
-                  size={40}
-                  className="mx-auto text-muted-foreground mb-3"
+              {/* Property Selector */}
+              <div className="space-y-2">
+                <Label>Select a property to share</Label>
+                <PropertySelector
+                  selectedPropertyId={selectedPropertyId}
+                  onSelect={setSelectedPropertyId}
                 />
-                <p className="text-muted-foreground text-sm">
-                  Property selector coming in next update
-                </p>
-                <p className="text-muted-foreground/75 text-xs mt-1">
-                  You&apos;ll be able to share properties from your listings
-                </p>
+                {errors.propertyId && (
+                  <p className="text-sm text-destructive">{errors.propertyId}</p>
+                )}
+              </div>
+
+              {/* Caption Input */}
+              <div className="space-y-2">
+                <Label htmlFor="property-content">Add a caption</Label>
+                <Textarea
+                  id="property-content"
+                  placeholder="What makes this property special..."
+                  value={content}
+                  onChange={(e) => setContent(e.target.value)}
+                  className="min-h-[100px] resize-none"
+                  disabled={isSubmitting}
+                />
+                {errors.content && (
+                  <p className="text-sm text-destructive">{errors.content}</p>
+                )}
               </div>
             </TabsContent>
 
@@ -250,9 +283,8 @@ export function CreatePostDialog({
             </TabsContent>
           </Tabs>
 
-          {/* Visibility Selector - shown for all active post types */}
-          {postType !== "property_listing" && (
-            <div className="space-y-2">
+          {/* Visibility Selector - shown for all post types */}
+          <div className="space-y-2">
               <Label>Who can see this post?</Label>
               <RadioGroup
                 value={visibility}
@@ -305,8 +337,7 @@ export function CreatePostDialog({
                   </div>
                 </Label>
               </RadioGroup>
-            </div>
-          )}
+          </div>
         </div>
 
         <DialogFooter>
@@ -315,7 +346,7 @@ export function CreatePostDialog({
           </Button>
           <Button
             onClick={handleSubmit}
-            disabled={isSubmitting || postType === "property_listing"}
+            disabled={isSubmitting}
           >
             {isSubmitting ? "Posting..." : "Post"}
           </Button>
