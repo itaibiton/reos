@@ -10,18 +10,19 @@ See: .planning/PROJECT.md (updated 2026-01-19)
 ## Current Position
 
 Milestone: v1.4 Internationalization & RTL Support
-Phase: 29 - CSS Logical Properties Migration (not started)
-Status: Phase 28 complete, awaiting phase 29 planning
-Last activity: 2026-01-19 — Phase 28 i18n Infrastructure complete (2/2 plans)
+Phase: 29 - CSS Logical Properties Migration (in progress)
+Plan: 2 of 5 complete
+Status: In progress
+Last activity: 2026-01-19 — Completed 29-02-PLAN.md (Medium-Priority Shadcn Components)
 
-Progress: [█---------] 14% (1/7 phases)
+Progress: [██--------] 21% (1.4/7 phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 81
-- Average duration: 6.1 min
-- Total execution time: 7.39 hours
+- Total plans completed: 83
+- Average duration: 6.0 min
+- Total execution time: 7.49 hours
 
 **By Phase:**
 
@@ -66,10 +67,11 @@ Progress: [█---------] 14% (1/7 phases)
 | 27 | 5/5 | 12 min | 2.4 min |
 | 27.2 | 1/1 | 3 min | 3 min |
 | 28 | 2/2 | 8 min | 4 min |
+| 29 | 2/5 | 6 min | 3 min |
 
 **Recent Trend:**
-- Last 5 plans: 3 min, 2 min, 3 min, 4 min, 4 min
-- Trend: Continuing v1.4 milestone - route structure migrated
+- Last 5 plans: 4 min, 4 min, 3 min, 3 min, 3 min
+- Trend: CSS logical properties migration in progress
 
 ## Accumulated Context
 
@@ -279,6 +281,10 @@ Recent decisions affecting current work:
 - Phase 28: ClerkProvider URLs include locale prefix for auth flows
 - Phase 28: Heebo font added as fallback in --font-sans for Hebrew text
 - Phase 28: Locale-aware navigation used in (app) layout for automatic prefix handling
+- Phase 29: Keep left-[50%] centering transforms as physical (mathematical centering, not directional)
+- Phase 29: Animation classes (slide-in-from-*) deferred to dedicated RTL-05 plan
+- Phase 29: Drawer direction variants use end-0/border-s for right, start-0/border-e for left
+- Phase 29: Calendar range selection uses rounded-s-md for start, rounded-e-md for end
 
 ### v1.4 Research Findings
 
@@ -320,6 +326,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-19
-Stopped at: Phase 28 complete
+Stopped at: Completed 29-02-PLAN.md
 Resume file: None
-Next: Run /gsd:discuss-phase 29 or /gsd:plan-phase 29 for CSS logical properties migration
+Next: Run /gsd:execute-plan for 29-03 (Low-Priority Components) or 29-04 (Custom Components)
