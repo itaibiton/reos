@@ -184,11 +184,13 @@ Plans:
 **Goal**: UI for creating posts - upload properties, request services, start discussions
 **Depends on**: Phase 21
 **Research**: Unlikely (internal patterns)
-**Plans**: 2 plans
+**Plans**: 2/2 complete
+**Status**: Complete
+**Completed**: 2026-01-19
 
 Plans:
-- [ ] 22-01: CreatePostDialog with tabbed interface for Discussion and Service Request posts
-- [ ] 22-02: PropertySelector component and property listing post creation
+- [x] 22-01: CreatePostDialog with tabbed interface for Discussion and Service Request posts
+- [x] 22-02: PropertySelector component and property listing post creation
 
 ### Phase 23: Feed Display
 
@@ -248,7 +250,7 @@ Plans:
 | v1.0 MVP | 17 | 40 | Complete | 2026-01-17 |
 | v1.1 Investor Onboarding | 7 | 8 | Complete | 2026-01-18 |
 | v1.2 Provider Experience | 6 | 11 | Complete | 2026-01-19 |
-| v1.3 Social Feed & Global Community | 7 | 4/? | In Progress | - |
+| v1.3 Social Feed & Global Community | 7 | 6/? | In Progress | - |
 
 | Phase | Milestone | Plans | Status | Completed |
 |-------|-----------|-------|--------|-----------|
@@ -260,7 +262,7 @@ Plans:
 | 19. Provider Analytics | v1.2 | 1/1 | Complete | 2026-01-19 |
 | 20. Provider Settings & Availability | v1.2 | 2/2 | Complete | 2026-01-19 |
 | 21. Feed Infrastructure | v1.3 | 2/2 | Complete | 2026-01-19 |
-| 22. Post Creation UI | v1.3 | 0/2 | Not started | - |
+| 22. Post Creation UI | v1.3 | 2/2 | Complete | 2026-01-19 |
 | 23. Feed Display | v1.3 | 0/? | Not started | - |
 | 24. Social Interactions | v1.3 | 0/? | Not started | - |
 | 25. User Following | v1.3 | 0/? | Not started | - |
