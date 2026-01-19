@@ -10,12 +10,12 @@ See: .planning/PROJECT.md (updated 2026-01-19)
 ## Current Position
 
 Milestone: v1.4 Internationalization & RTL Support
-Phase: 29 - CSS Logical Properties Migration (COMPLETE)
-Plan: 11 of 11 complete (including 1 gap closure)
-Status: Phase verified ✓
-Last activity: 2026-01-20 — Completed 29-11-PLAN.md (Gap Closure - Rounded Corners)
+Phase: 30 - RTL Component Patches (IN PROGRESS)
+Plan: 3 of 5 complete
+Status: In progress
+Last activity: 2026-01-20 — Completed 30-03-PLAN.md (Directional Icon Flipping)
 
-Progress: [████████--] 43% (3/7 phases)
+Progress: [████████--] 46% (3.6/7 phases)
 
 ## Performance Metrics
 
@@ -68,10 +68,11 @@ Progress: [████████--] 43% (3/7 phases)
 | 27.2 | 1/1 | 3 min | 3 min |
 | 28 | 2/2 | 8 min | 4 min |
 | 29 | 11/11 | 37 min | 3.4 min |
+| 30 | 3/5 | 3 min | 1 min |
 
 **Recent Trend:**
-- Last 5 plans: 3 min, 3 min, 3 min, 8 min, 3 min
-- Trend: Phase 29 gap closure complete - all rounded corners converted
+- Last 5 plans: 3 min, 3 min, 8 min, 3 min, 1 min
+- Trend: Phase 30 RTL component patches in progress - directional icons flipping complete
 
 ## Accumulated Context
 
@@ -307,6 +308,9 @@ Recent decisions affecting current work:
 - Phase 29: Landing page text-left preserved (marketing design, physical alignment intentional)
 - Phase 29: RTL-02 COMPLETE - all directional CSS converted to logical properties
 - Phase 29: Chat/questionnaire bubble corners: rounded-br-sm -> rounded-ee-sm, rounded-bl-sm -> rounded-es-sm, rounded-tl-sm -> rounded-ss-sm
+- Phase 30: rtl:-scale-x-100 pattern for directional icon flipping
+- Phase 30: Back arrows (ArrowLeft01Icon) flip to point RIGHT in RTL
+- Phase 30: Forward arrows (ArrowRight01Icon) flip to point LEFT in RTL
 
 ### v1.4 Research Findings
 
@@ -348,6 +352,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-20
-Stopped at: Completed 29-11-PLAN.md (Gap Closure - Rounded Corners)
+Stopped at: Completed 30-03-PLAN.md (Directional Icon Flipping)
 Resume file: None
-Next: Run /gsd:plan-phase for Phase 30 (RTL Animations) or Phase 31 (Translation Files)
+Next: Continue Phase 30 plans (30-04, 30-05) or run /gsd:plan-phase for remaining plans
