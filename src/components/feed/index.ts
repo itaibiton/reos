@@ -6,3 +6,5 @@ export { ServiceRequestPostCard } from "./ServiceRequestPostCard";
 export { DiscussionPostCard } from "./DiscussionPostCard";
 export { PostCardSkeleton } from "./PostCardSkeleton";
 export { EngagementFooter } from "./EngagementFooter";
+export { ShareButton } from "./ShareButton";
+export { CommentSection } from "./CommentSection";

@@ -115,6 +115,7 @@ export function PropertyPostCard({ post }: PropertyPostCardProps) {
           likeCount={post.likeCount}
           commentCount={post.commentCount}
           saveCount={post.saveCount}
+          shareCount={post.shareCount}
         />
       </CardContent>
     </Card>

@@ -10,12 +10,15 @@ import {
   Comment01Icon,
   BookmarkAdd01Icon,
 } from "@hugeicons/core-free-icons";
+import { ShareButton } from "./ShareButton";
+import { CommentSection } from "./CommentSection";
 
 interface EngagementFooterProps {
   postId: Id<"posts">;
   likeCount: number;
   commentCount: number;
   saveCount: number;
+  shareCount: number;
 }
 
 export function EngagementFooter({
@@ -23,6 +26,7 @@ export function EngagementFooter({
   likeCount,
   commentCount,
   saveCount,
+  shareCount,
 }: EngagementFooterProps) {
   // Query current user's like/save status
   const isLikedByUser = useQuery(api.posts.isLikedByUser, { postId });
@@ -43,6 +47,9 @@ export function EngagementFooter({
   // Pending states for disabling buttons during mutation
   const [isLikePending, setIsLikePending] = useState(false);
   const [isSavePending, setIsSavePending] = useState(false);
+
+  // Comment section visibility toggle
+  const [showComments, setShowComments] = useState(false);
 
   // Sync local state with server state when queries update
   useEffect(() => {
@@ -125,46 +132,58 @@ export function EngagementFooter({
   };
 
   return (
-    <div className="flex items-center gap-4 text-sm text-muted-foreground pt-3 border-t">
-      {/* Like Button */}
-      <button
-        onClick={handleLikeToggle}
-        disabled={isLikePending}
-        className="flex items-center gap-1 hover:text-foreground transition-colors disabled:opacity-50"
-        aria-label={isLiked ? "Unlike post" : "Like post"}
-      >
-        <HugeiconsIcon
-          icon={FavouriteIcon}
-          size={16}
-          strokeWidth={1.5}
-          fill={isLiked ? "currentColor" : "none"}
-          className={isLiked ? "text-red-500" : ""}
-        />
-        <span>{localLikeCount}</span>
-      </button>
+    <div>
+      <div className="flex items-center gap-4 text-sm text-muted-foreground pt-3 border-t">
+        {/* Like Button */}
+        <button
+          onClick={handleLikeToggle}
+          disabled={isLikePending}
+          className="flex items-center gap-1 hover:text-foreground transition-colors disabled:opacity-50"
+          aria-label={isLiked ? "Unlike post" : "Like post"}
+        >
+          <HugeiconsIcon
+            icon={FavouriteIcon}
+            size={16}
+            strokeWidth={1.5}
+            fill={isLiked ? "currentColor" : "none"}
+            className={isLiked ? "text-red-500" : ""}
+          />
+          <span>{localLikeCount}</span>
+        </button>
 
-      {/* Comment Button (static - links to comments in Plan 02) */}
-      <div className="flex items-center gap-1">
-        <HugeiconsIcon icon={Comment01Icon} size={16} strokeWidth={1.5} />
-        <span>{commentCount}</span>
+        {/* Comment Button - toggles comment section visibility */}
+        <button
+          onClick={() => setShowComments(!showComments)}
+          className="flex items-center gap-1 hover:text-foreground transition-colors"
+          aria-label={showComments ? "Hide comments" : "Show comments"}
+        >
+          <HugeiconsIcon icon={Comment01Icon} size={16} strokeWidth={1.5} />
+          <span>{commentCount}</span>
+        </button>
+
+        {/* Save Button */}
+        <button
+          onClick={handleSaveToggle}
+          disabled={isSavePending}
+          className="flex items-center gap-1 hover:text-foreground transition-colors disabled:opacity-50"
+          aria-label={isSaved ? "Unsave post" : "Save post"}
+        >
+          <HugeiconsIcon
+            icon={BookmarkAdd01Icon}
+            size={16}
+            strokeWidth={1.5}
+            fill={isSaved ? "currentColor" : "none"}
+            className={isSaved ? "text-primary" : ""}
+          />
+          <span>{localSaveCount}</span>
+        </button>
+
+        {/* Share Button */}
+        <ShareButton postId={postId} shareCount={shareCount} />
       </div>
 
-      {/* Save Button */}
-      <button
-        onClick={handleSaveToggle}
-        disabled={isSavePending}
-        className="flex items-center gap-1 hover:text-foreground transition-colors disabled:opacity-50"
-        aria-label={isSaved ? "Unsave post" : "Save post"}
-      >
-        <HugeiconsIcon
-          icon={BookmarkAdd01Icon}
-          size={16}
-          strokeWidth={1.5}
-          fill={isSaved ? "currentColor" : "none"}
-          className={isSaved ? "text-primary" : ""}
-        />
-        <span>{localSaveCount}</span>
-      </button>
+      {/* Comment Section - conditionally rendered */}
+      {showComments && <CommentSection postId={postId} />}
     </div>
   );
 }

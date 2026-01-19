@@ -96,6 +96,7 @@ export function ServiceRequestPostCard({ post }: ServiceRequestPostCardProps) {
           likeCount={post.likeCount}
           commentCount={post.commentCount}
           saveCount={post.saveCount}
+          shareCount={post.shareCount}
         />
       </CardContent>
     </Card>
