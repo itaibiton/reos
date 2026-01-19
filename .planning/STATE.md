@@ -232,6 +232,8 @@ Recent decisions affecting current work:
 - Phase 24: ShareButton uses client-side only tracking (no server mutation for MVP)
 - Phase 24: Share count increments once per session to avoid spam inflation
 - Phase 24: Share URL format: /feed/post/${postId}
+- Phase 24: CommentSection uses expandable toggle pattern (showComments state)
+- Phase 24: Comments load 5 initially with "Load more" pagination
 
 ### Deferred Issues
 
