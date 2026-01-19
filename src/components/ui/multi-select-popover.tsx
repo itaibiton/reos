@@ -64,10 +64,10 @@ export function MultiSelectPopover({
                 <Badge
                   key={option!.value}
                   variant="secondary"
-                  className="mr-1"
+                  className="me-1"
                 >
-                  {option!.flag && <span className="mr-1">{option!.flag}</span>}
-                  {option!.icon && <span className="mr-1">{option!.icon}</span>}
+                  {option!.flag && <span className="me-1">{option!.flag}</span>}
+                  {option!.icon && <span className="me-1">{option!.icon}</span>}
                   {option!.label}
                 </Badge>
               ))
@@ -75,7 +75,7 @@ export function MultiSelectPopover({
               <span className="text-muted-foreground">{placeholder}</span>
             )}
           </div>
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          <ChevronsUpDown className="ms-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent
