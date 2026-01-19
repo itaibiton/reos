@@ -4,13 +4,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { HugeiconsIcon } from "@hugeicons/react";
-import {
-  FavouriteIcon,
-  Comment01Icon,
-  BookmarkAdd01Icon,
-} from "@hugeicons/core-free-icons";
+import { Comment01Icon } from "@hugeicons/core-free-icons";
 import { formatDistanceToNow } from "date-fns";
 import type { EnrichedPost } from "./PostCard";
+import { EngagementFooter } from "./EngagementFooter";
 
 // Role label mapping
 const ROLE_LABELS: Record<string, string> = {
@@ -77,20 +74,12 @@ export function DiscussionPostCard({ post }: DiscussionPostCardProps) {
         <p className="text-sm">{post.content}</p>
 
         {/* Engagement Footer */}
-        <div className="flex items-center gap-4 text-sm text-muted-foreground pt-3 border-t">
-          <div className="flex items-center gap-1">
-            <HugeiconsIcon icon={FavouriteIcon} size={16} strokeWidth={1.5} />
-            <span>{post.likeCount}</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <HugeiconsIcon icon={Comment01Icon} size={16} strokeWidth={1.5} />
-            <span>{post.commentCount}</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <HugeiconsIcon icon={BookmarkAdd01Icon} size={16} strokeWidth={1.5} />
-            <span>{post.saveCount}</span>
-          </div>
-        </div>
+        <EngagementFooter
+          postId={post._id}
+          likeCount={post.likeCount}
+          commentCount={post.commentCount}
+          saveCount={post.saveCount}
+        />
       </CardContent>
     </Card>
   );
