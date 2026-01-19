@@ -534,4 +534,24 @@ export default defineSchema({
     createdAt: v.number(),
     updatedAt: v.number(),
   }).index("by_user", ["userId"]),
+
+  // Provider reviews - investors rate and review service providers after completed deals
+  // Constraint: One review per deal per reviewer (enforced in mutation)
+  providerReviews: defineTable({
+    // Provider being reviewed
+    providerId: v.id("users"),
+    // Investor leaving the review
+    reviewerId: v.id("users"),
+    // Deal this review relates to
+    dealId: v.id("deals"),
+    // Rating from 1-5 stars
+    rating: v.number(),
+    // Optional review text
+    reviewText: v.optional(v.string()),
+    // Timestamp
+    createdAt: v.number(),
+  })
+    .index("by_provider", ["providerId"])
+    .index("by_reviewer", ["reviewerId"])
+    .index("by_deal", ["dealId"]),
 });
