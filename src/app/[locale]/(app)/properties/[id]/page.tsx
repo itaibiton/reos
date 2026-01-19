@@ -227,7 +227,7 @@ export default function PropertyDetailPage() {
               </span>
             </div>
           </div>
-          <div className="text-left sm:text-right">
+          <div className="text-start sm:text-end">
             <p className="text-2xl font-bold">{formatUSD(priceUsd)}</p>
             <p className="text-muted-foreground text-sm">
               {formatILS(priceIls || priceUsd * USD_TO_ILS_RATE)}
@@ -246,7 +246,7 @@ export default function PropertyDetailPage() {
           {/* Property Type Badge */}
           <Badge
             variant="secondary"
-            className="absolute top-4 left-4 bg-background/90 backdrop-blur-sm z-10"
+            className="absolute top-4 start-4 bg-background/90 backdrop-blur-sm z-10"
           >
             {getPropertyTypeLabel(propertyType)}
           </Badge>
@@ -260,13 +260,13 @@ export default function PropertyDetailPage() {
           hasActiveDeal ? (
             <Link href={`/deals/${existingDeals?.find(d => d.stage !== "completed" && d.stage !== "cancelled")?._id}`}>
               <Button variant="secondary">
-                <HugeiconsIcon icon={Agreement01Icon} size={16} className="mr-2" />
+                <HugeiconsIcon icon={Agreement01Icon} size={16} className="me-2" />
                 View My Deal
               </Button>
             </Link>
           ) : (
             <Button onClick={handleStartDeal} disabled={isCreatingDeal}>
-              <HugeiconsIcon icon={Agreement01Icon} size={16} className="mr-2" />
+              <HugeiconsIcon icon={Agreement01Icon} size={16} className="me-2" />
               {isCreatingDeal ? "Creating..." : "Start Deal"}
             </Button>
           )

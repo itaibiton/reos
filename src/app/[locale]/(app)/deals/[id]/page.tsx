@@ -279,7 +279,7 @@ function ProviderCard({
           </div>
           {isAssigned && (
             <Badge variant="secondary" className="flex-shrink-0">
-              <HugeiconsIcon icon={CheckmarkCircle01Icon} size={12} className="mr-1" />
+              <HugeiconsIcon icon={CheckmarkCircle01Icon} size={12} className="me-1" />
               Assigned
             </Badge>
           )}
@@ -731,7 +731,7 @@ export default function DealDetailPage() {
                     <p className="text-sm text-muted-foreground mb-2">No broker assigned</p>
                     {isInvestor && !isTerminal && (
                       <Button variant="outline" size="sm" onClick={() => openRequestDialog("broker")}>
-                        <HugeiconsIcon icon={Add01Icon} size={14} className="mr-1" />
+                        <HugeiconsIcon icon={Add01Icon} size={14} className="me-1" />
                         Find a Broker
                       </Button>
                     )}
@@ -755,7 +755,7 @@ export default function DealDetailPage() {
                     <p className="text-sm text-muted-foreground mb-2">No mortgage advisor assigned</p>
                     {isInvestor && !isTerminal && (
                       <Button variant="outline" size="sm" onClick={() => openRequestDialog("mortgage_advisor")}>
-                        <HugeiconsIcon icon={Add01Icon} size={14} className="mr-1" />
+                        <HugeiconsIcon icon={Add01Icon} size={14} className="me-1" />
                         Find a Mortgage Advisor
                       </Button>
                     )}
@@ -779,7 +779,7 @@ export default function DealDetailPage() {
                     <p className="text-sm text-muted-foreground mb-2">No lawyer assigned</p>
                     {isInvestor && !isTerminal && (
                       <Button variant="outline" size="sm" onClick={() => openRequestDialog("lawyer")}>
-                        <HugeiconsIcon icon={Add01Icon} size={14} className="mr-1" />
+                        <HugeiconsIcon icon={Add01Icon} size={14} className="me-1" />
                         Find a Lawyer
                       </Button>
                     )}
@@ -812,7 +812,7 @@ export default function DealDetailPage() {
                             <AlertDialog>
                               <AlertDialogTrigger asChild>
                                 <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive">
-                                  <HugeiconsIcon icon={Cancel01Icon} size={14} className="mr-1" />
+                                  <HugeiconsIcon icon={Cancel01Icon} size={14} className="me-1" />
                                   Cancel
                                 </Button>
                               </AlertDialogTrigger>
