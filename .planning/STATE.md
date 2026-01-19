@@ -11,18 +11,18 @@ See: .planning/PROJECT.md (updated 2026-01-19)
 
 Milestone: v1.4 Internationalization & RTL Support
 Phase: 29 - CSS Logical Properties Migration (in progress)
-Plan: 6 of 10 complete
+Plan: 8 of 10 complete
 Status: In progress
-Last activity: 2026-01-20 — Completed 29-06-PLAN.md (Chat Components)
+Last activity: 2026-01-20 — Completed 29-08-PLAN.md (Feed, Profile, Settings, Landing)
 
-Progress: [███-------] 30% (2.1/7 phases)
+Progress: [████------] 34% (2.4/7 phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 87
+- Total plans completed: 88
 - Average duration: 5.7 min
-- Total execution time: 7.72 hours
+- Total execution time: 7.77 hours
 
 **By Phase:**
 
@@ -67,11 +67,11 @@ Progress: [███-------] 30% (2.1/7 phases)
 | 27 | 5/5 | 12 min | 2.4 min |
 | 27.2 | 1/1 | 3 min | 3 min |
 | 28 | 2/2 | 8 min | 4 min |
-| 29 | 6/10 | 20 min | 3.3 min |
+| 29 | 8/10 | 23 min | 2.9 min |
 
 **Recent Trend:**
-- Last 5 plans: 3 min, 5 min, 2 min, 4 min, 3 min
-- Trend: CSS logical properties migration - chat components complete
+- Last 5 plans: 5 min, 2 min, 4 min, 3 min, 3 min
+- Trend: CSS logical properties migration - feed/profile/landing components complete
 
 ## Accumulated Context
 
@@ -298,6 +298,10 @@ Recent decisions affecting current work:
 - Phase 29: Input currency prefix uses start-3/ps-7 for RTL-aware positioning
 - Phase 29: Chat message alignment uses ms-auto for own messages, me-auto for others
 - Phase 29: Stacked avatars use -ms-* for correct RTL overlap direction
+- Phase 29: ms-auto for end-aligned timestamps instead of ml-auto
+- Phase 29: Badge positioning uses -end-1 instead of -right-1
+- Phase 29: Mobile connectors/lines use start-* for RTL support
+- Phase 29: Grouped toggle sections use ps-* border-s-* for logical indentation
 
 ### v1.4 Research Findings
 
@@ -339,6 +343,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-20
-Stopped at: Completed 29-06-PLAN.md
+Stopped at: Completed 29-08-PLAN.md
 Resume file: None
-Next: Run /gsd:execute-plan for 29-08 (Feed and Profile Components) or continue with remaining plans
+Next: Run /gsd:execute-plan for 29-09 (Page Layout Migrations) or continue with remaining plans
