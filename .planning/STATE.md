@@ -10,12 +10,12 @@ See: .planning/PROJECT.md (updated 2026-01-17)
 ## Current Position
 
 Milestone: v1.2 Provider Experience
-Phase: 17 of 20 (Client Management)
-Plan: 2 of 2 in current phase
-Status: Complete
-Last activity: 2026-01-18 — Completed 17-02-PLAN.md
+Phase: 18 of 20 (Service Provider Profiles)
+Plan: 1 of 2 in current phase
+Status: In progress
+Last activity: 2026-01-19 — Completed 18-01-PLAN.md
 
-Progress: █████░░░░░ 66% (3/5 remaining phases)
+Progress: ██████░░░░ 70% (2.5/5 remaining phases)
 
 ## Performance Metrics
 
