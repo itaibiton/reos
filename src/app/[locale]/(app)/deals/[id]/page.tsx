@@ -542,7 +542,7 @@ export default function DealDetailPage() {
         href="/deals"
         className="inline-flex items-center gap-1 text-muted-foreground hover:text-foreground mb-4 text-sm"
       >
-        <HugeiconsIcon icon={ArrowLeft01Icon} size={16} strokeWidth={2} />
+        <HugeiconsIcon icon={ArrowLeft01Icon} size={16} strokeWidth={2} className="rtl:-scale-x-100" />
         Back to Deals
       </Link>
 

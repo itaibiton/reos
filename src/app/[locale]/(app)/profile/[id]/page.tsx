@@ -79,7 +79,7 @@ export default function ProfilePage() {
     <div className="p-6 space-y-6 max-w-4xl mx-auto">
       {/* Back button */}
       <Button variant="ghost" size="sm" onClick={() => router.back()}>
-        <HugeiconsIcon icon={ArrowLeft01Icon} size={16} className="me-1" />
+        <HugeiconsIcon icon={ArrowLeft01Icon} size={16} className="me-1 rtl:-scale-x-100" />
         Back
       </Button>
 

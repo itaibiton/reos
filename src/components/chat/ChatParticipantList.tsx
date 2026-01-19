@@ -204,7 +204,7 @@ export function ChatParticipantList({
   const header = onBack ? (
     <div className="flex items-center gap-3 px-4 h-14 border-b flex-shrink-0">
       <Button variant="ghost" size="icon" onClick={onBack}>
-        <HugeiconsIcon icon={ArrowLeft01Icon} size={20} />
+        <HugeiconsIcon icon={ArrowLeft01Icon} size={20} className="rtl:-scale-x-100" />
       </Button>
       <div className="flex-1 min-w-0">
         <p className="font-medium truncate">{dealTitle || "Select participant"}</p>

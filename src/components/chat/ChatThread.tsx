@@ -116,7 +116,7 @@ export function ChatThread({
               onClick={onBack}
               className="lg:hidden"
             >
-              <HugeiconsIcon icon={ArrowLeft01Icon} size={20} />
+              <HugeiconsIcon icon={ArrowLeft01Icon} size={20} className="rtl:-scale-x-100" />
             </Button>
           )}
           <Avatar className="h-8 w-8">

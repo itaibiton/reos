@@ -123,7 +123,7 @@ export function DirectChatThread({
             onClick={onBack}
             className="lg:hidden"
           >
-            <HugeiconsIcon icon={ArrowLeft01Icon} size={20} />
+            <HugeiconsIcon icon={ArrowLeft01Icon} size={20} className="rtl:-scale-x-100" />
           </Button>
         )}
         {isGroup ? (

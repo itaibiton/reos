@@ -309,7 +309,7 @@ export default function EditQuestionnairePage() {
           href="/profile/investor"
           className="text-sm text-muted-foreground hover:text-foreground inline-flex items-center gap-1"
         >
-          <HugeiconsIcon icon={ArrowLeft01Icon} size={16} />
+          <HugeiconsIcon icon={ArrowLeft01Icon} size={16} className="rtl:-scale-x-100" />
           Back to Profile
         </Link>
         <h1 className="text-2xl font-bold mt-2">Edit Investment Profile</h1>
