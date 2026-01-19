@@ -13,16 +13,16 @@ Milestone: v1.4 Internationalization & RTL Support
 Phase: 29 - CSS Logical Properties Migration (in progress)
 Plan: 3 of 10 complete
 Status: In progress
-Last activity: 2026-01-19 — Completed 29-01-PLAN.md (High-Priority Shadcn Components)
+Last activity: 2026-01-19 — Completed 29-03-PLAN.md (Remaining Shadcn UI Components)
 
-Progress: [██--------] 21% (1.4/7 phases)
+Progress: [██--------] 24% (1.7/7 phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 83
-- Average duration: 6.0 min
-- Total execution time: 7.49 hours
+- Total plans completed: 84
+- Average duration: 5.9 min
+- Total execution time: 7.57 hours
 
 **By Phase:**
 
@@ -67,11 +67,11 @@ Progress: [██--------] 21% (1.4/7 phases)
 | 27 | 5/5 | 12 min | 2.4 min |
 | 27.2 | 1/1 | 3 min | 3 min |
 | 28 | 2/2 | 8 min | 4 min |
-| 29 | 1/10 | 4 min | 4 min |
+| 29 | 3/10 | 11 min | 3.7 min |
 
 **Recent Trend:**
-- Last 5 plans: 4 min, 4 min, 4 min, 3 min, 3 min
-- Trend: CSS logical properties migration - high-priority components done
+- Last 5 plans: 4 min, 4 min, 3 min, 3 min, 5 min
+- Trend: CSS logical properties migration - Shadcn UI components complete
 
 ## Accumulated Context
 
@@ -286,6 +286,10 @@ Recent decisions affecting current work:
 - Phase 29: Drawer direction variants use end-0/border-s for right, start-0/border-e for left
 - Phase 29: Calendar range selection uses rounded-s-md for start, rounded-e-md for end
 - Phase 29: text-left converted to text-start in sidebar menu buttons for RTL alignment
+- Phase 29: scroll-area border-l -> border-s for logical scrollbar border
+- Phase 29: text-left -> text-start for accordion trigger text alignment
+- Phase 29: OTP input slots use border-e for right border, border-s for left (RTL-aware)
+- Phase 29: Button group children use rounded-s-none/rounded-e-none for first/last items
 
 ### v1.4 Research Findings
 
@@ -327,6 +331,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-19
-Stopped at: Completed 29-01-PLAN.md
+Stopped at: Completed 29-03-PLAN.md
 Resume file: None
-Next: Continue with remaining plans 29-02 through 29-10
+Next: Run /gsd:execute-plan for 29-04 (Application Component Migrations) or continue with remaining plans
