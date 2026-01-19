@@ -91,7 +91,7 @@ export function DealSelector({ selectedDealId, onSelect }: DealSelectorProps) {
                 key={deal._id}
                 onClick={() => onSelect(deal._id)}
                 className={cn(
-                  "w-full flex items-start gap-2.5 p-2 rounded-lg text-left transition-colors",
+                  "w-full flex items-start gap-2.5 p-2 rounded-lg text-start transition-colors",
                   isSelected
                     ? "bg-primary/10 ring-1 ring-primary/20"
                     : "hover:bg-muted/50"

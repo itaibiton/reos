@@ -121,7 +121,7 @@ export function RepostDialog({ post, open, onOpenChange }: RepostDialogProps) {
               maxLength={500}
               className="resize-none"
             />
-            <p className="text-xs text-muted-foreground text-right">
+            <p className="text-xs text-muted-foreground text-end">
               {comment.length}/500
             </p>
           </div>

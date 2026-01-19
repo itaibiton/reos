@@ -136,7 +136,7 @@ export function DirectChatThread({
               max={3}
               size="sm"
             />
-            <div className="flex-1 min-w-0 text-left">
+            <div className="flex-1 min-w-0 text-start">
               <p className="font-medium truncate">{displayName}</p>
               <p className="text-xs text-muted-foreground">
                 {conversation?.participants?.length} participants - Tap for settings

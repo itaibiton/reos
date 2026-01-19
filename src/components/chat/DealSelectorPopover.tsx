@@ -49,7 +49,7 @@ export function DealSelectorPopover({
   const triggerContent = (
     <>
       <HugeiconsIcon icon={Agreement01Icon} size={16} />
-      <span className="flex-1 text-left truncate">
+      <span className="flex-1 text-start truncate">
         {selectedDeal?.property?.title || "Select a deal"}
       </span>
       <HugeiconsIcon

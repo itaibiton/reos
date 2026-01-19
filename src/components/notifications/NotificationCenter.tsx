@@ -125,7 +125,7 @@ function NotificationItem({
   return (
     <button
       onClick={handleClick}
-      className={`w-full text-left p-3 hover:bg-muted/50 transition-colors border-b last:border-b-0 ${
+      className={`w-full text-start p-3 hover:bg-muted/50 transition-colors border-b last:border-b-0 ${
         !notification.read ? "bg-muted/30" : ""
       }`}
     >

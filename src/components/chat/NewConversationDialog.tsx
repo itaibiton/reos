@@ -242,7 +242,7 @@ export function NewConversationDialog({
                       <AvatarImage src={user.imageUrl} alt={user.name} />
                       <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
                     </Avatar>
-                    <div className="flex-1 min-w-0 text-left">
+                    <div className="flex-1 min-w-0 text-start">
                       <p className="text-sm font-medium truncate">{user.name}</p>
                       <p className="text-xs text-muted-foreground truncate">
                         {user.email}

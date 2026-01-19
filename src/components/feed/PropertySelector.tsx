@@ -132,7 +132,7 @@ export function PropertySelector({
                 type="button"
                 onClick={() => onSelect(property._id)}
                 className={cn(
-                  "w-full flex items-start gap-2.5 p-2 rounded-lg text-left transition-colors",
+                  "w-full flex items-start gap-2.5 p-2 rounded-lg text-start transition-colors",
                   isSelected
                     ? "border border-primary bg-primary/5"
                     : "hover:bg-muted/50"

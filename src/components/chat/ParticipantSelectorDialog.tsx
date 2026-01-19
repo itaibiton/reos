@@ -127,7 +127,7 @@ export function ParticipantSelectorDialog({
                         {getInitials(participant.name)}
                       </AvatarFallback>
                     </Avatar>
-                    <div className="flex-1 text-left min-w-0">
+                    <div className="flex-1 text-start min-w-0">
                       <p className="font-medium truncate">{participant.name}</p>
                       {participant.role && (
                         <Badge variant="secondary" className="text-xs mt-1">
