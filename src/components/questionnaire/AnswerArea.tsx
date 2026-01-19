@@ -28,7 +28,7 @@ export function AnswerArea({ children, className }: AnswerAreaProps) {
         className
       )}
     >
-      <div className="rounded-2xl rounded-br-sm border border-border bg-background p-5 shadow-sm">
+      <div className="rounded-2xl rounded-ee-sm border border-border bg-background p-5 shadow-sm">
         {children}
       </div>
     </div>

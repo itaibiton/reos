@@ -60,7 +60,7 @@ export function QuestionBubble({
       </div>
 
       {/* Bubble content */}
-      <div className="flex-1 rounded-2xl rounded-tl-sm bg-muted px-5 py-4 animate-in fade-in duration-200">
+      <div className="flex-1 rounded-2xl rounded-ss-sm bg-muted px-5 py-4 animate-in fade-in duration-200">
         <p className="text-lg font-medium text-foreground">
           <TypeWriter
             text={question}
