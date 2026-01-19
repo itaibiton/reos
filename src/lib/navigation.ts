@@ -17,6 +17,7 @@ import {
   MessageSquare,
   UserCircle,
   Settings,
+  BarChart3,
 } from "lucide-react";
 
 // All user roles in the system (extended for future roles)
@@ -81,6 +82,7 @@ const brokerNavigation: RoleNavigation = {
     {
       items: [
         { label: "Dashboard", href: "/dashboard", icon: Home },
+        { label: "Analytics", href: "/analytics", icon: BarChart3 },
       ],
     },
     {
@@ -117,6 +119,7 @@ const mortgageAdvisorNavigation: RoleNavigation = {
     {
       items: [
         { label: "Dashboard", href: "/dashboard", icon: Home },
+        { label: "Analytics", href: "/analytics", icon: BarChart3 },
       ],
     },
     {
@@ -152,6 +155,7 @@ const lawyerNavigation: RoleNavigation = {
     {
       items: [
         { label: "Dashboard", href: "/dashboard", icon: Home },
+        { label: "Analytics", href: "/analytics", icon: BarChart3 },
       ],
     },
     {
@@ -187,6 +191,7 @@ const accountantNavigation: RoleNavigation = {
     {
       items: [
         { label: "Dashboard", href: "/dashboard", icon: Home },
+        { label: "Analytics", href: "/analytics", icon: BarChart3 },
       ],
     },
     {
@@ -222,6 +227,7 @@ const notaryNavigation: RoleNavigation = {
     {
       items: [
         { label: "Dashboard", href: "/dashboard", icon: Home },
+        { label: "Analytics", href: "/analytics", icon: BarChart3 },
       ],
     },
     {
@@ -257,6 +263,7 @@ const taxConsultantNavigation: RoleNavigation = {
     {
       items: [
         { label: "Dashboard", href: "/dashboard", icon: Home },
+        { label: "Analytics", href: "/analytics", icon: BarChart3 },
       ],
     },
     {
@@ -292,6 +299,7 @@ const appraiserNavigation: RoleNavigation = {
     {
       items: [
         { label: "Dashboard", href: "/dashboard", icon: Home },
+        { label: "Analytics", href: "/analytics", icon: BarChart3 },
       ],
     },
     {
@@ -327,6 +335,7 @@ const adminNavigation: RoleNavigation = {
     {
       items: [
         { label: "Dashboard", href: "/dashboard", icon: Home },
+        { label: "Analytics", href: "/analytics", icon: BarChart3 },
       ],
     },
     {
