@@ -89,7 +89,7 @@
         "Icons from Lucide or HugeIcons"
       ],
       "dependencies": ["PRD-01"],
-      "pass": false
+      "pass": true
     },
     {
       "id": "UI-02",
