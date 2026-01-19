@@ -186,7 +186,7 @@ function HeroContent({ shouldReduceMotion }: { shouldReduceMotion: boolean | nul
           >
             <Link href={`/${locale}/sign-up`}>
               {t("ctaPrimary")}
-              <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
+              <ArrowRight className="ms-2 h-5 w-5" aria-hidden="true" />
             </Link>
           </Button>
         </motion.div>
@@ -206,7 +206,7 @@ function HeroContent({ shouldReduceMotion }: { shouldReduceMotion: boolean | nul
               "transition-all duration-200"
             )}
           >
-            <Play className="mr-2 h-5 w-5" aria-hidden="true" />
+            <Play className="me-2 h-5 w-5" aria-hidden="true" />
             {t("ctaSecondary")}
           </Button>
         </motion.div>

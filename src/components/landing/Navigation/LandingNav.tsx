@@ -344,7 +344,7 @@ export function LandingNav({ className }: LandingNavProps) {
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className={cn(
-              "lg:hidden p-2 -mr-2",
+              "lg:hidden p-2 -me-2",
               "text-landing-text hover:text-landing-primary",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-landing-primary focus-visible:ring-offset-2",
               "transition-colors duration-200"

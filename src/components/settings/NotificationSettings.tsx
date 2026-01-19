@@ -82,7 +82,7 @@ export function NotificationSettings() {
           {/* Messages Group */}
           <div>
             <h4 className="text-sm font-medium mb-3">Messages</h4>
-            <div className="space-y-4 pl-4 border-l-2 border-muted">
+            <div className="space-y-4 ps-4 border-s-2 border-muted">
               <ToggleRow
                 id="new-message"
                 label="New Messages"
@@ -96,7 +96,7 @@ export function NotificationSettings() {
           {/* Deals Group */}
           <div>
             <h4 className="text-sm font-medium mb-3">Deals</h4>
-            <div className="space-y-4 pl-4 border-l-2 border-muted">
+            <div className="space-y-4 ps-4 border-s-2 border-muted">
               <ToggleRow
                 id="deal-stage"
                 label="Deal Stage Changes"
@@ -117,7 +117,7 @@ export function NotificationSettings() {
           {/* Service Requests Group */}
           <div>
             <h4 className="text-sm font-medium mb-3">Service Requests</h4>
-            <div className="space-y-4 pl-4 border-l-2 border-muted">
+            <div className="space-y-4 ps-4 border-s-2 border-muted">
               <ToggleRow
                 id="request-received"
                 label="New Requests Received"

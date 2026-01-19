@@ -10,7 +10,9 @@ import {
   CheckCircle2,
   type LucideIcon,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
+import { SectionWrapper, SectionHeader } from "./shared/SectionWrapper";
 
 // ============================================================================
 // Types
@@ -211,49 +213,74 @@ function ProcessStepItem({
 }: ProcessStepItemProps) {
   const Icon = step.icon;
   const titleId = `step-${step.number}-title`;
+  const isOdd = step.number % 2 === 1;
 
   return (
     <motion.li
       variants={shouldReduceMotion ? reducedMotionStepVariants : stepVariants}
-      className="relative"
+      className="relative group"
     >
       <article
         aria-labelledby={titleId}
         className="flex flex-col items-center text-center"
       >
-        {/* Step Number Badge */}
+        {/* Hexagonal Step Number Badge */}
         <motion.div
           variants={shouldReduceMotion ? reducedMotionStepVariants : badgeVariants}
           className={cn(
             "relative z-10 mb-4",
             "flex items-center justify-center",
-            "w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16",
-            "rounded-full",
-            "bg-gradient-to-br from-primary to-primary/80",
-            "border-2 border-primary/20",
-            "shadow-md"
+            "w-14 h-14 md:w-16 md:h-16 lg:w-20 lg:h-20",
+            "clip-hexagon",
+            "transition-all duration-300",
+            isOdd
+              ? "bg-landing-primary group-hover:shadow-lg group-hover:shadow-landing-primary/30"
+              : "bg-landing-accent group-hover:shadow-lg group-hover:shadow-landing-accent/30"
           )}
         >
+          {/* Inner hexagon */}
+          <div
+            className={cn(
+              "absolute inset-1",
+              "clip-hexagon",
+              "bg-card"
+            )}
+          />
           <span
-            className="text-xl md:text-xl lg:text-2xl font-bold text-primary-foreground"
+            className={cn(
+              "relative z-10",
+              "font-display text-2xl md:text-3xl lg:text-4xl tracking-wide",
+              isOdd ? "text-landing-primary" : "text-landing-accent"
+            )}
             aria-hidden="true"
           >
             {step.number}
           </span>
         </motion.div>
 
-        {/* Icon */}
+        {/* Icon with geometric background */}
         <div
           role="img"
           aria-label={step.ariaLabel}
-          className="mb-4"
+          className="mb-4 relative"
         >
+          <div
+            className={cn(
+              "absolute inset-0 -m-2",
+              "bg-gradient-to-br opacity-10",
+              isOdd ? "from-landing-primary to-transparent" : "from-landing-accent to-transparent"
+            )}
+            style={{
+              clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)",
+            }}
+            aria-hidden="true"
+          />
           <Icon
             className={cn(
-              "w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8",
-              "text-primary",
+              "relative w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8",
+              isOdd ? "text-landing-primary" : "text-landing-accent",
               "transition-transform duration-300",
-              !shouldReduceMotion && "group-hover:rotate-6"
+              !shouldReduceMotion && "group-hover:scale-110"
             )}
             aria-hidden="true"
           />
@@ -262,7 +289,7 @@ function ProcessStepItem({
         {/* Title */}
         <h3
           id={titleId}
-          className="mb-3 text-lg md:text-xl lg:text-2xl font-semibold leading-tight text-foreground"
+          className="mb-3 text-lg md:text-xl lg:text-2xl font-semibold leading-tight text-landing-text"
         >
           {step.title}
         </h3>
@@ -272,14 +299,26 @@ function ProcessStepItem({
           {step.description}
         </p>
 
-        {/* Highlights */}
+        {/* Highlights with geometric checkmarks */}
         <ul className="space-y-2 text-left text-sm text-muted-foreground w-full">
           {step.highlights.map((highlight, i) => (
             <li key={i} className="flex items-start gap-2">
-              <CheckCircle2
-                className="mt-0.5 h-4 w-4 flex-shrink-0 text-primary"
-                aria-hidden="true"
-              />
+              <div
+                className={cn(
+                  "mt-0.5 flex-shrink-0 w-4 h-4",
+                  "flex items-center justify-center",
+                  "rotate-45",
+                  isOdd ? "bg-landing-primary/10" : "bg-landing-accent/10"
+                )}
+              >
+                <CheckCircle2
+                  className={cn(
+                    "h-3 w-3 -rotate-45",
+                    isOdd ? "text-landing-primary" : "text-landing-accent"
+                  )}
+                  aria-hidden="true"
+                />
+              </div>
               <span>{highlight}</span>
             </li>
           ))}
@@ -355,8 +394,8 @@ function MobileConnector({
       initial="hidden"
       animate={inView ? "visible" : "hidden"}
       className={cn(
-        "absolute left-6 top-16 bottom-16",
-        "w-0 border-l-2 border-dashed border-primary/30",
+        "absolute start-6 top-16 bottom-16",
+        "w-0 border-s-2 border-dashed border-primary/30",
         "lg:hidden",
         "origin-top"
       )}
@@ -374,73 +413,65 @@ export function ProcessSteps({ className }: ProcessStepsProps) {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
   const shouldReduceMotion = useReducedMotion();
+  const t = useTranslations("landing.process");
 
   return (
-    <section
+    <SectionWrapper
       ref={ref}
-      className={cn(
-        "py-12 md:py-16 lg:py-20",
-        "px-4 md:px-6 lg:px-8",
-        "bg-background",
-        className
-      )}
-      aria-labelledby="process-heading"
+      id="process"
+      background="muted"
+      className={className}
+      ariaLabelledBy="process-heading"
+      animate={false}
     >
-      <div className="max-w-7xl mx-auto">
-        {/* Section Header */}
-        <div className="text-center mb-10 lg:mb-12">
-          <h2
-            id="process-heading"
-            className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-4"
-          >
-            Up and Running in Minutes
-          </h2>
-          <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
-            Four simple steps to transform how you manage properties. No technical expertise required—just follow the path and start saving time today.
-          </p>
-        </div>
+      {/* Section Header */}
+      <SectionHeader
+        title={t("title")}
+        titleId="process-heading"
+        subtitle={t("subtitle")}
+        centered
+      />
 
-        {/* Steps Container with Connectors */}
-        <div className="relative">
-          {/* Desktop Horizontal Connectors */}
-          <DesktopConnectors
-            inView={isInView}
-            shouldReduceMotion={shouldReduceMotion}
-          />
+      {/* Steps Container with Connectors */}
+      <div className="relative">
+        {/* Desktop Horizontal Connectors */}
+        <DesktopConnectors
+          inView={isInView}
+          shouldReduceMotion={shouldReduceMotion}
+        />
 
-          {/* Mobile Vertical Connector */}
-          <MobileConnector
-            inView={isInView}
-            shouldReduceMotion={shouldReduceMotion}
-          />
+        {/* Mobile Vertical Connector */}
+        <MobileConnector
+          inView={isInView}
+          shouldReduceMotion={shouldReduceMotion}
+        />
 
-          {/* Steps Grid */}
-          <motion.ol
-            variants={
-              shouldReduceMotion
-                ? reducedMotionContainerVariants
-                : containerVariants
-            }
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-            className={cn(
-              "relative z-10",
-              "grid",
-              "grid-cols-1 md:grid-cols-2 lg:grid-cols-4",
-              "gap-8 md:gap-x-8 md:gap-y-12 lg:gap-12"
-            )}
-          >
-            {processSteps.map((step) => (
-              <ProcessStepItem
-                key={step.number}
-                step={step}
-                shouldReduceMotion={shouldReduceMotion}
-              />
-            ))}
-          </motion.ol>
-        </div>
+        {/* Steps Grid */}
+        <motion.ol
+          variants={
+            shouldReduceMotion
+              ? reducedMotionContainerVariants
+              : containerVariants
+          }
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          className={cn(
+            "relative z-10",
+            "grid",
+            "grid-cols-1 md:grid-cols-2 lg:grid-cols-4",
+            "gap-8 md:gap-x-8 md:gap-y-12 lg:gap-12"
+          )}
+        >
+          {processSteps.map((step) => (
+            <ProcessStepItem
+              key={step.number}
+              step={step}
+              shouldReduceMotion={shouldReduceMotion}
+            />
+          ))}
+        </motion.ol>
       </div>
-    </section>
+    </SectionWrapper>
   );
 }
 
