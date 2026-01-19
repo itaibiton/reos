@@ -142,6 +142,27 @@ const questionnaireStatus = v.union(
   v.literal("complete")
 );
 
+// Post type discriminator
+const postType = v.union(
+  v.literal("property_listing"),
+  v.literal("service_request"),
+  v.literal("discussion")
+);
+
+// Post visibility
+const postVisibility = v.union(
+  v.literal("public"),
+  v.literal("followers_only"),
+  v.literal("deal_participants")
+);
+
+// Service types for posts (reuse providerType pattern)
+const serviceTypeForPost = v.union(
+  v.literal("broker"),
+  v.literal("mortgage_advisor"),
+  v.literal("lawyer")
+);
+
 export default defineSchema({
   users: defineTable({
     // Clerk user ID (from JWT subject claim)
@@ -295,7 +316,8 @@ export default defineSchema({
     .index("by_city", ["city"])
     .index("by_property_type", ["propertyType"])
     .index("by_status", ["status"])
-    .index("by_price", ["priceUsd"]),
+    .index("by_price", ["priceUsd"])
+    .index("by_created_by", ["createdBy"]),
 
   // Neighborhood data for city/area statistics
   neighborhoods: defineTable({
@@ -621,4 +643,67 @@ export default defineSchema({
   })
     .index("by_provider", ["providerId"])
     .index("by_provider_and_date", ["providerId", "date"]),
+
+  // ============================================================================
+  // SOCIAL FEED TABLES (Phase 21)
+  // ============================================================================
+
+  // Posts - social feed content with discriminated union for post types
+  posts: defineTable({
+    // Author
+    authorId: v.id("users"),
+    // Post type discriminator (property_listing, service_request, discussion)
+    postType: postType,
+    // Main text content
+    content: v.string(),
+    // Visibility level
+    visibility: postVisibility,
+    // Type-specific references (optional based on postType)
+    propertyId: v.optional(v.id("properties")), // For property_listing
+    dealId: v.optional(v.id("deals")), // For deal_participants visibility
+    serviceType: v.optional(serviceTypeForPost), // For service_request
+    // Engagement counters (denormalized for performance)
+    likeCount: v.number(),
+    commentCount: v.number(),
+    shareCount: v.number(),
+    saveCount: v.number(),
+    // Timestamps
+    createdAt: v.number(),
+    updatedAt: v.number(),
+  })
+    .index("by_author", ["authorId"])
+    .index("by_author_and_time", ["authorId", "createdAt"])
+    .index("by_type", ["postType"])
+    .index("by_visibility_and_time", ["visibility", "createdAt"])
+    .index("by_property", ["propertyId"]),
+
+  // Post likes - who liked which post
+  postLikes: defineTable({
+    postId: v.id("posts"),
+    userId: v.id("users"),
+    createdAt: v.number(),
+  })
+    .index("by_post", ["postId"])
+    .index("by_user", ["userId"])
+    .index("by_post_and_user", ["postId", "userId"]),
+
+  // Post saves (bookmarks)
+  postSaves: defineTable({
+    postId: v.id("posts"),
+    userId: v.id("users"),
+    createdAt: v.number(),
+  })
+    .index("by_post", ["postId"])
+    .index("by_user", ["userId"])
+    .index("by_post_and_user", ["postId", "userId"]),
+
+  // User follows (for following feed)
+  userFollows: defineTable({
+    followerId: v.id("users"), // Who is following
+    followingId: v.id("users"), // Who is being followed
+    createdAt: v.number(),
+  })
+    .index("by_follower", ["followerId"])
+    .index("by_following", ["followingId"])
+    .index("by_follower_and_following", ["followerId", "followingId"]),
 });
