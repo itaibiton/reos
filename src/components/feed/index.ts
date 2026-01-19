@@ -8,3 +8,4 @@ export { PostCardSkeleton } from "./PostCardSkeleton";
 export { EngagementFooter } from "./EngagementFooter";
 export { ShareButton } from "./ShareButton";
 export { CommentSection } from "./CommentSection";
+export { FollowButton } from "./FollowButton";
