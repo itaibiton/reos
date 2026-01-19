@@ -235,7 +235,7 @@ export function PropertyFiltersPanel({
               Min Price (USD)
             </Label>
             <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+              <span className="absolute start-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
                 $
               </span>
               <Input
@@ -249,7 +249,7 @@ export function PropertyFiltersPanel({
                     e.target.value ? parseInt(e.target.value, 10) : undefined
                   )
                 }
-                className="pl-6"
+                className="ps-6"
               />
             </div>
           </div>
@@ -260,7 +260,7 @@ export function PropertyFiltersPanel({
               Max Price (USD)
             </Label>
             <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+              <span className="absolute start-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
                 $
               </span>
               <Input
@@ -274,7 +274,7 @@ export function PropertyFiltersPanel({
                     e.target.value ? parseInt(e.target.value, 10) : undefined
                   )
                 }
-                className="pl-6"
+                className="ps-6"
               />
             </div>
           </div>

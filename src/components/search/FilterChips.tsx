@@ -153,7 +153,7 @@ export function FilterChips({
         <Badge
           key={chip.key}
           variant="secondary"
-          className="gap-1.5 pl-3 pr-2 py-1.5 h-auto"
+          className="gap-1.5 ps-3 pe-2 py-1.5 h-auto"
         >
           <span className="text-xs">
             <span className="font-semibold">{chip.label}:</span> {chip.value}
@@ -161,7 +161,7 @@ export function FilterChips({
           <button
             type="button"
             onClick={() => onRemove(chip.key)}
-            className="ml-0.5 rounded-full hover:bg-secondary-foreground/10 p-0.5 transition-colors"
+            className="ms-0.5 rounded-full hover:bg-secondary-foreground/10 p-0.5 transition-colors"
             aria-label={`Remove ${chip.label} filter`}
           >
             <HugeiconsIcon

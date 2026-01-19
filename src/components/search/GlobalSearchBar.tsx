@@ -237,18 +237,18 @@ export function GlobalSearchBar() {
       {/* Search Trigger Button */}
       <Button
         variant="outline"
-        className="relative h-9 w-full justify-start rounded-md bg-muted/50 text-sm text-muted-foreground sm:pr-12 md:w-40 lg:w-64"
+        className="relative h-9 w-full justify-start rounded-md bg-muted/50 text-sm text-muted-foreground sm:pe-12 md:w-40 lg:w-64"
         onClick={() => setOpen(true)}
       >
         <HugeiconsIcon
           icon={Search01Icon}
           size={16}
           strokeWidth={1.5}
-          className="mr-2"
+          className="me-2"
         />
         <span className="hidden lg:inline-flex">Search...</span>
         <span className="inline-flex lg:hidden">Search...</span>
-        <kbd className="pointer-events-none absolute right-1.5 top-1.5 hidden h-6 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
+        <kbd className="pointer-events-none absolute end-1.5 top-1.5 hidden h-6 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
           <span className="text-xs">⌘</span>K
         </kbd>
       </Button>
@@ -346,9 +346,9 @@ export function GlobalSearchBar() {
                       value={`action:${action.href}`}
                       onSelect={handleSelect}
                     >
-                      <action.icon className="h-4 w-4 mr-2 text-muted-foreground" />
+                      <action.icon className="h-4 w-4 me-2 text-muted-foreground" />
                       <span className="flex-1">{action.label}</span>
-                      <Badge variant="outline" className="ml-auto text-xs">
+                      <Badge variant="outline" className="ms-auto text-xs">
                         Page
                       </Badge>
                     </CommandItem>
@@ -378,9 +378,9 @@ export function GlobalSearchBar() {
                       value={`action:${action.href}`}
                       onSelect={handleSelect}
                     >
-                      <action.icon className="h-4 w-4 mr-2 text-muted-foreground" />
+                      <action.icon className="h-4 w-4 me-2 text-muted-foreground" />
                       <span className="flex-1">{action.label}</span>
-                      <Badge variant="outline" className="ml-auto text-xs">
+                      <Badge variant="outline" className="ms-auto text-xs">
                         Page
                       </Badge>
                     </CommandItem>
@@ -401,7 +401,7 @@ export function GlobalSearchBar() {
                         value={`user:${user._id}`}
                         onSelect={handleSelect}
                       >
-                        <Avatar className="h-8 w-8 mr-2">
+                        <Avatar className="h-8 w-8 me-2">
                           {user.imageUrl ? (
                             <AvatarImage src={user.imageUrl} alt={displayName} />
                           ) : null}
@@ -441,7 +441,7 @@ export function GlobalSearchBar() {
                           value={`post:${post._id}`}
                           onSelect={handleSelect}
                         >
-                          <div className="flex items-center justify-center h-8 w-8 rounded-full bg-muted mr-2">
+                          <div className="flex items-center justify-center h-8 w-8 rounded-full bg-muted me-2">
                             <HugeiconsIcon
                               icon={PostIcon}
                               size={16}
@@ -477,7 +477,7 @@ export function GlobalSearchBar() {
                         value={`property:${property._id}`}
                         onSelect={handleSelect}
                       >
-                        <div className="h-10 w-10 rounded bg-muted flex items-center justify-center overflow-hidden flex-shrink-0 mr-2">
+                        <div className="h-10 w-10 rounded bg-muted flex items-center justify-center overflow-hidden flex-shrink-0 me-2">
                           {property.featuredImage ? (
                             <img
                               src={property.featuredImage}
@@ -524,7 +524,7 @@ export function GlobalSearchBar() {
                     icon={Search01Icon}
                     size={16}
                     strokeWidth={1.5}
-                    className="mr-2 text-muted-foreground"
+                    className="me-2 text-muted-foreground"
                   />
                   <span>
                     View all results for &ldquo;{inputValue}&rdquo;

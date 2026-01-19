@@ -49,7 +49,7 @@ export function SearchInput({
     <form onSubmit={handleSubmit} className={cn("relative", className)}>
       <div className="relative flex items-center">
         {/* Search Icon or Loading Spinner */}
-        <div className="absolute left-3 flex items-center pointer-events-none">
+        <div className="absolute start-3 flex items-center pointer-events-none">
           {isLoading ? (
             <Loader2Icon className="size-4 animate-spin text-muted-foreground" />
           ) : (
@@ -70,7 +70,7 @@ export function SearchInput({
           onChange={(e) => setQuery(e.target.value)}
           placeholder={placeholder}
           disabled={isLoading}
-          className="pl-10 pr-20"
+          className="ps-10 pe-20"
         />
 
         {/* Clear Button */}
@@ -80,7 +80,7 @@ export function SearchInput({
             variant="ghost"
             size="icon-sm"
             onClick={handleClear}
-            className="absolute right-12 hover:bg-transparent"
+            className="absolute end-12 hover:bg-transparent"
           >
             <HugeiconsIcon
               icon={Cancel01Icon}
@@ -97,7 +97,7 @@ export function SearchInput({
           type="submit"
           size="sm"
           disabled={!query.trim() || isLoading}
-          className="absolute right-1"
+          className="absolute end-1"
         >
           Search
         </Button>
