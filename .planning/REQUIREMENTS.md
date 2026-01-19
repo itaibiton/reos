@@ -17,10 +17,10 @@ Requirements for v1.4 Internationalization & RTL Support. Each maps to roadmap p
 ### RTL Layout
 
 - [x] **RTL-01**: HTML `dir` attribute set to `rtl` when locale is Hebrew
-- [ ] **RTL-02**: All directional CSS classes converted to logical properties (`ml-` to `ms-`, etc.)
-- [ ] **RTL-03**: Shadcn Sidebar component works correctly in RTL mode
-- [ ] **RTL-04**: Shadcn Sheet, DropdownMenu, and other positioned components work in RTL
-- [ ] **RTL-05**: Directional icons (arrows, chevrons) flip appropriately in RTL mode
+- [x] **RTL-02**: All directional CSS classes converted to logical properties (`ml-` to `ms-`, etc.)
+- [x] **RTL-03**: Shadcn Sidebar component works correctly in RTL mode
+- [x] **RTL-04**: Shadcn Sheet, DropdownMenu, and other positioned components work in RTL
+- [x] **RTL-05**: Directional icons (arrows, chevrons) flip appropriately in RTL mode
 
 ### Translation
 
@@ -84,10 +84,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | INFRA-03 | 28 | Complete |
 | INFRA-04 | 28 | Complete |
 | RTL-01 | 28 | Complete |
-| RTL-02 | 29 | Pending |
-| RTL-03 | 30 | Pending |
-| RTL-04 | 30 | Pending |
-| RTL-05 | 30 | Pending |
+| RTL-02 | 29 | Complete |
+| RTL-03 | 30 | Complete |
+| RTL-04 | 30 | Complete |
+| RTL-05 | 30 | Complete |
 | TRANS-01 | 31 | Pending |
 | TRANS-02 | 33 | Pending |
 | TRANS-03 | 31 | Pending |
