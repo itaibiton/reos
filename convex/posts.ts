@@ -768,3 +768,101 @@ export const getSavedPosts = query({
     };
   },
 });
+
+// ============================================================================
+// COMMENT MUTATIONS AND QUERIES
+// ============================================================================
+
+// Add a comment to a post
+export const addComment = mutation({
+  args: {
+    postId: v.id("posts"),
+    content: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Not authenticated");
+    }
+
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_clerk_id", (q) => q.eq("clerkId", identity.subject))
+      .unique();
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    // Validate post exists
+    const post = await ctx.db.get(args.postId);
+    if (!post) {
+      throw new Error("Post not found");
+    }
+
+    // Validate content is not empty
+    const trimmedContent = args.content.trim();
+    if (!trimmedContent) {
+      throw new Error("Comment cannot be empty");
+    }
+
+    // Limit comment length (1000 chars)
+    if (trimmedContent.length > 1000) {
+      throw new Error("Comment too long (max 1000 characters)");
+    }
+
+    // Insert comment
+    const commentId = await ctx.db.insert("postComments", {
+      postId: args.postId,
+      authorId: user._id,
+      content: trimmedContent,
+      createdAt: Date.now(),
+    });
+
+    // Increment commentCount on post
+    await ctx.db.patch(args.postId, {
+      commentCount: post.commentCount + 1,
+    });
+
+    return commentId;
+  },
+});
+
+// Get comments for a post (paginated, newest first)
+export const getComments = query({
+  args: {
+    postId: v.id("posts"),
+    paginationOpts: paginationOptsValidator,
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      return { page: [], isDone: true, continueCursor: "" };
+    }
+
+    // Get comments with pagination, newest first
+    const results = await ctx.db
+      .query("postComments")
+      .withIndex("by_post_and_time", (q) => q.eq("postId", args.postId))
+      .order("desc")
+      .paginate(args.paginationOpts);
+
+    // Enrich with author info
+    const enrichedPage = await Promise.all(
+      results.page.map(async (comment) => {
+        const author = await ctx.db.get(comment.authorId);
+        return {
+          ...comment,
+          authorName: author?.name || author?.email || "Unknown",
+          authorImageUrl: author?.imageUrl,
+          authorRole: author?.role,
+        };
+      })
+    );
+
+    return {
+      ...results,
+      page: enrichedPage,
+    };
+  },
+});
