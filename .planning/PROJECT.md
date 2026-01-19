@@ -8,20 +8,28 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 
 **Deal flow tracking from interest to close.** If the end-to-end process of connecting investors with properties AND moving them through service providers doesn't work seamlessly, nothing else matters.
 
-## Current State (v1.0 MVP)
+## Current State (v1.3)
 
-**Shipped:** 2026-01-17
-**LOC:** ~25,855 TypeScript
+**Latest Shipped:** 2026-01-19
+**Total Shipped:** 4 milestones (v1.0, v1.1, v1.2, v1.3)
+**LOC:** ~35,000+ TypeScript
 **Tech Stack:** Next.js 15, Convex, Clerk, Shadcn/ui, Tailwind v4, Hugeicons
 
 **What's Working:**
-- Full authentication with 5 roles (investor, broker, mortgage_advisor, lawyer, admin)
+- Full authentication with 8 roles (investor, broker, mortgage_advisor, lawyer, admin, accountant, notary, tax_consultant, appraiser)
 - Property marketplace with smart search (Claude AI) and traditional filters
 - Interactive property pages with carousel, map, amenities, mortgage calculator
 - 7-stage deal flow with service provider requests and handoffs
 - Multi-layout chat (single, split, quad) with drag-and-drop
 - Role-specific dashboards with recommendations
 - Real-time notifications for all events
+- Investor onboarding with conversational questionnaire
+- Client management and provider analytics
+- Public provider profiles with reviews and ratings
+- Social feed with posts, likes, comments, shares, saves
+- User following and personalized feeds
+- Global search with autocomplete and quick actions
+- Trending content and recommendations
 
 ## Requirements
 
@@ -102,4 +110,4 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 | Hardcoded USD/ILS rate | Quick MVP, live API in v1.1 | ⚠️ Revisit |
 
 ---
-*Last updated: 2026-01-17 after v1.0 milestone*
+*Last updated: 2026-01-19 after v1.3 milestone*
