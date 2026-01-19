@@ -135,7 +135,7 @@
         "CTA text for each service card"
       ],
       "dependencies": ["UI-01"],
-      "pass": false
+      "pass": true
     },
     {
       "id": "COPY-02",

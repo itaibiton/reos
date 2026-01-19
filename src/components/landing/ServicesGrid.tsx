@@ -44,54 +44,54 @@ const services: Service[] = [
   {
     id: "property-management",
     icon: Building2,
-    title: "Property Management",
+    title: "Complete Property Control",
     description:
-      "Centralize all property operations in one platform. Track units, leases, maintenance schedules, and occupancy rates with real-time dashboards and automated workflows.",
+      "See your entire portfolio at a glance. Monitor occupancy, track lease renewals, and automate routine tasks so you can focus on growing your business instead of chasing spreadsheets.",
     href: "/services/property-management",
-    ctaText: "Learn More",
+    ctaText: "Explore Features",
   },
   {
     id: "tenant-portal",
     icon: Users,
-    title: "Tenant Portal",
+    title: "Self-Service Tenant Portal",
     description:
-      "Empower tenants with self-service capabilities. Enable online rent payments, maintenance requests, document access, and direct communication with property managers through a modern portal.",
+      "Give your tenants the independence they want. Online rent payments, maintenance requests, and document access mean fewer phone calls for you and faster answers for them.",
     href: "/services/tenant-portal",
-    ctaText: "Learn More",
+    ctaText: "See the Portal",
   },
   {
     id: "maintenance-tracking",
     icon: Wrench,
-    title: "Maintenance & Work Orders",
+    title: "Faster Issue Resolution",
     description:
-      "Manage maintenance requests from submission to completion. Assign tasks, track progress, schedule preventive maintenance, and maintain detailed service history for every property.",
+      "Turn maintenance chaos into a smooth workflow. Tenants submit requests, you assign vendors, and everyone sees real-time progress. No more lost work orders or forgotten repairs.",
     href: "/services/maintenance",
-    ctaText: "Learn More",
+    ctaText: "View Workflow",
   },
   {
     id: "financial-analytics",
     icon: LineChart,
-    title: "Financial Analytics",
+    title: "Clear Financial Insights",
     description:
-      "Gain deep insights into property performance with comprehensive financial reporting. Track revenue, expenses, cash flow, and ROI across your entire portfolio with customizable dashboards.",
+      "Know exactly how your properties perform. Track revenue, expenses, and cash flow across your portfolio with dashboards that turn complex data into confident decisions.",
     href: "/services/analytics",
-    ctaText: "Learn More",
+    ctaText: "See Reports",
   },
   {
     id: "document-management",
     icon: FileText,
-    title: "Document Management",
+    title: "Organized Document Storage",
     description:
-      "Store, organize, and access all property-related documents securely in the cloud. Share leases, contracts, and compliance documents with team members while maintaining complete audit trails.",
+      "Find any lease, contract, or compliance document in seconds. Secure cloud storage keeps everything organized and accessible, with full audit trails for peace of mind.",
     href: "/services/documents",
-    ctaText: "Learn More",
+    ctaText: "Discover More",
   },
   {
     id: "communication-hub",
     icon: MessageSquare,
-    title: "Communication Hub",
+    title: "Unified Communication",
     description:
-      "Keep all stakeholder communication in one place. Message tenants, coordinate with vendors, notify teams, and maintain conversation history with built-in templates and automated notifications.",
+      "Keep every conversation in one place. Message tenants, coordinate with vendors, and update your team without switching between apps or losing important context.",
     href: "/services/communication",
     ctaText: "Learn More",
   },
@@ -272,11 +272,12 @@ export function ServicesGrid({ className }: ServicesGridProps) {
             id="services-section-title"
             className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-4"
           >
-            Everything You Need to Manage Properties
+            Everything You Need, All in One Place
           </h2>
           <p className="text-base lg:text-lg text-muted-foreground max-w-2xl mx-auto">
-            Comprehensive tools designed to streamline every aspect of real
-            estate operations, from tenant management to financial reporting.
+            Stop juggling multiple tools and systems. REOS brings property
+            management, tenant communication, and financial insights together so
+            you can run your portfolio with confidence.
           </p>
         </div>
 
