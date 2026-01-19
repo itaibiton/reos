@@ -132,7 +132,7 @@ function NotificationItem({
       <div className="flex gap-3">
         {/* Icon */}
         <div
-          className={`p-2 rounded-lg bg-muted shrink-0 ${getNotificationIconColor(notification.type)}`}
+          className={`p-2 rounded-lg bg-muted shrink-0 self-start ${getNotificationIconColor(notification.type)}`}
         >
           <HugeiconsIcon
             icon={getNotificationIcon(notification.type)}
