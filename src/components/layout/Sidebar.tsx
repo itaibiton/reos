@@ -104,7 +104,7 @@ export function AppSidebar() {
                               <SidebarMenuButton tooltip={item.label}>
                                 <item.icon />
                                 <span>{item.label}</span>
-                                <ChevronRight className="ms-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                                <ChevronRight className="ms-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90 rtl:-scale-x-100" />
                               </SidebarMenuButton>
                             </CollapsibleTrigger>
                             <CollapsibleContent>
