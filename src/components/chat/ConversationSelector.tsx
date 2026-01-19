@@ -109,14 +109,14 @@ export function ConversationSelector({
           <HugeiconsIcon
             icon={Search01Icon}
             size={16}
-            className="absolute left-2.5 top-1/2 -translate-y-1/2 text-muted-foreground"
+            className="absolute start-2.5 top-1/2 -translate-y-1/2 text-muted-foreground"
           />
           <Input
             type="text"
             placeholder="Search conversations..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-8 h-9"
+            className="ps-8 h-9"
           />
         </div>
         <div className="flex gap-2">
@@ -177,7 +177,7 @@ export function ConversationSelector({
                         size="sm"
                       />
                       {/* Group indicator badge */}
-                      <div className="absolute -bottom-0.5 -right-0.5 h-4 w-4 rounded-full bg-muted ring-2 ring-background flex items-center justify-center">
+                      <div className="absolute -bottom-0.5 -end-0.5 h-4 w-4 rounded-full bg-muted ring-2 ring-background flex items-center justify-center">
                         <HugeiconsIcon
                           icon={UserMultipleIcon}
                           size={10}
@@ -198,7 +198,7 @@ export function ConversationSelector({
                   )}
                   {/* Unread badge */}
                   {conv.unreadCount > 0 && (
-                    <span className="absolute -top-1 -right-1 h-5 min-w-5 px-1 rounded-full bg-destructive text-destructive-foreground text-[10px] font-medium flex items-center justify-center">
+                    <span className="absolute -top-1 -end-1 h-5 min-w-5 px-1 rounded-full bg-destructive text-destructive-foreground text-[10px] font-medium flex items-center justify-center">
                       {conv.unreadCount > 99 ? "99+" : conv.unreadCount}
                     </span>
                   )}

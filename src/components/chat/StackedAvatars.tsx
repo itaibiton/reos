@@ -33,9 +33,9 @@ const sizeClasses = {
 };
 
 const overlapClasses = {
-  sm: "-ml-2",
-  md: "-ml-3",
-  lg: "-ml-4",
+  sm: "-ms-2",
+  md: "-ms-3",
+  lg: "-ms-4",
 };
 
 export function StackedAvatars({

@@ -325,7 +325,7 @@ export function GroupSettingsDialog({
                   className="flex-1"
                   onClick={() => setDeleteOpen(true)}
                 >
-                  <HugeiconsIcon icon={Delete01Icon} size={16} className="mr-1" />
+                  <HugeiconsIcon icon={Delete01Icon} size={16} className="me-1" />
                   Delete
                 </Button>
               )}

@@ -175,7 +175,7 @@ export function NewConversationDialog({
                 <Badge
                   key={user._id}
                   variant="secondary"
-                  className="flex items-center gap-1 pr-1"
+                  className="flex items-center gap-1 pe-1"
                 >
                   <span>{user.name}</span>
                   <button
@@ -208,14 +208,14 @@ export function NewConversationDialog({
             <HugeiconsIcon
               icon={Search01Icon}
               size={16}
-              className="absolute left-2.5 top-1/2 -translate-y-1/2 text-muted-foreground"
+              className="absolute start-2.5 top-1/2 -translate-y-1/2 text-muted-foreground"
             />
             <Input
               type="text"
               placeholder="Search users..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-8 h-9"
+              className="ps-8 h-9"
             />
           </div>
 

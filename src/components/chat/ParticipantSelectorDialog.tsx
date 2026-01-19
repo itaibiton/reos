@@ -85,7 +85,7 @@ export function ParticipantSelectorDialog({
         </DialogHeader>
 
         <ScrollArea className="max-h-80">
-          <div className="space-y-1 pr-4">
+          <div className="space-y-1 pe-4">
             {isLoading ? (
               // Loading skeleton
               Array.from({ length: 3 }).map((_, i) => (
@@ -118,7 +118,7 @@ export function ParticipantSelectorDialog({
                     className="w-full justify-start h-auto py-3 px-3"
                     onClick={() => handleSelect(participant as Participant)}
                   >
-                    <Avatar className="h-10 w-10 mr-3 flex-shrink-0">
+                    <Avatar className="h-10 w-10 me-3 flex-shrink-0">
                       <AvatarImage
                         src={participant.imageUrl}
                         alt={participant.name}
