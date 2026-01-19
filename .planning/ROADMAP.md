@@ -6,10 +6,10 @@ Building an end-to-end real estate investment platform connecting US investors w
 
 ## Milestones
 
-- ✅ [v1.0 MVP](milestones/v1.0-ROADMAP.md) (Phases 1-8) — SHIPPED 2026-01-17
-- ✅ [v1.1 Investor Onboarding](milestones/v1.1-ROADMAP.md) (Phases 9-15) — SHIPPED 2026-01-18
-- ✅ **v1.2 Provider Experience** (Phases 16-20) — SHIPPED 2026-01-19
-- 🚧 **v1.3 Social Feed & Global Community** — Phases 21-27 (in progress)
+- [v1.0 MVP](milestones/v1.0-ROADMAP.md) (Phases 1-8) — SHIPPED 2026-01-17
+- [v1.1 Investor Onboarding](milestones/v1.1-ROADMAP.md) (Phases 9-15) — SHIPPED 2026-01-18
+- **v1.2 Provider Experience** (Phases 16-20) — SHIPPED 2026-01-19
+- **v1.3 Social Feed & Global Community** — Phases 21-27 (in progress)
 
 ## Completed Milestones
 
@@ -57,7 +57,7 @@ Building an end-to-end real estate investment platform connecting US investors w
 
 </details>
 
-## ✅ v1.2 Provider Experience (Complete)
+## v1.2 Provider Experience (Complete)
 
 **Milestone Goal:** Enhance the service provider experience with improved dashboards, client management, public profiles, analytics, and settings.
 **Shipped:** 2026-01-19
@@ -162,7 +162,7 @@ Plans:
 - [x] 20-01: Backend schema & queries (availability + notification preferences)
 - [x] 20-02: Settings UI with Availability & Notifications tabs
 
-## 🚧 v1.3 Social Feed & Global Community (In Progress)
+## v1.3 Social Feed & Global Community (In Progress)
 
 **Milestone Goal:** Transform REOS into a social real estate platform with a feed for sharing properties, service requests, and discussions. Enable likes, saves, shares, following users, and public profiles with activity streams. Make it the global all-in-one platform for real estate professionals and investors.
 
@@ -197,10 +197,11 @@ Plans:
 **Goal**: Main feed page with infinite scroll, post cards, filtering by post type
 **Depends on**: Phase 22
 **Research**: Unlikely (internal patterns)
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 23-01: TBD
+- [ ] 23-01-PLAN.md — Post card components (PropertyPostCard, ServiceRequestPostCard, DiscussionPostCard)
+- [ ] 23-02-PLAN.md — Feed page with infinite scroll, filtering, create button
 
 ### Phase 24: Social Interactions
 
@@ -263,7 +264,7 @@ Plans:
 | 20. Provider Settings & Availability | v1.2 | 2/2 | Complete | 2026-01-19 |
 | 21. Feed Infrastructure | v1.3 | 2/2 | Complete | 2026-01-19 |
 | 22. Post Creation UI | v1.3 | 2/2 | Complete | 2026-01-19 |
-| 23. Feed Display | v1.3 | 0/? | Not started | - |
+| 23. Feed Display | v1.3 | 0/2 | Not started | - |
 | 24. Social Interactions | v1.3 | 0/? | Not started | - |
 | 25. User Following | v1.3 | 0/? | Not started | - |
 | 26. User Profiles Revamp | v1.3 | 0/? | Not started | - |
