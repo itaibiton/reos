@@ -182,7 +182,7 @@ export default function FeedPage() {
           {/* Loading more indicator */}
           {status === "LoadingMore" && (
             <Button variant="outline" className="w-full" disabled>
-              <Loader2 className="h-4 w-4 animate-spin mr-2" />
+              <Loader2 className="h-4 w-4 animate-spin me-2" />
               Loading...
             </Button>
           )}

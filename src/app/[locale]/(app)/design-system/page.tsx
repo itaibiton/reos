@@ -171,14 +171,14 @@ function ButtonsInputsSection() {
         title="Checkbox"
         description="Toggle with label"
       >
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-2 rtl:space-x-reverse">
           <Checkbox id="terms" />
           <Label htmlFor="terms">Accept terms and conditions</Label>
         </div>
       </ShowcaseSection>
 
       <ShowcaseSection title="Switch" description="Toggle switch">
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-2 rtl:space-x-reverse">
           <Switch id="airplane-mode" />
           <Label htmlFor="airplane-mode">Airplane Mode</Label>
         </div>
@@ -186,11 +186,11 @@ function ButtonsInputsSection() {
 
       <ShowcaseSection title="Radio Group" description="Single selection">
         <RadioGroup defaultValue="option-one">
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 rtl:space-x-reverse">
             <RadioGroupItem value="option-one" id="option-one" />
             <Label htmlFor="option-one">Option One</Label>
           </div>
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 rtl:space-x-reverse">
             <RadioGroupItem value="option-two" id="option-two" />
             <Label htmlFor="option-two">Option Two</Label>
           </div>
@@ -314,7 +314,7 @@ function FeedbackSection() {
       </ShowcaseSection>
 
       <ShowcaseSection title="Skeleton" description="Loading placeholder">
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-4 rtl:space-x-reverse">
           <Skeleton className="h-12 w-12 rounded-full" />
           <div className="space-y-2">
             <Skeleton className="h-4 w-[250px]" />

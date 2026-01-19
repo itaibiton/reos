@@ -102,7 +102,7 @@ export default function OnboardingPage() {
             {roles.map((role) => (
               <div
                 key={role.value}
-                className="flex items-start space-x-3 rounded-lg border p-4 hover:bg-muted/50 cursor-pointer"
+                className="flex items-start space-x-3 rtl:space-x-reverse rounded-lg border p-4 hover:bg-muted/50 cursor-pointer"
                 onClick={() => setSelectedRole(role.value)}
               >
                 <RadioGroupItem value={role.value} id={role.value} className="mt-1" />
@@ -129,7 +129,7 @@ export default function OnboardingPage() {
           >
             {isSubmitting ? (
               <>
-                <Spinner className="mr-2 h-4 w-4" />
+                <Spinner className="me-2 h-4 w-4" />
                 Setting up...
               </>
             ) : (

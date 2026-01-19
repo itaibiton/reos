@@ -92,7 +92,7 @@ function StarRating({ rating }: { rating: number }) {
           }
         />
       ))}
-      <span className="ml-1 text-sm text-muted-foreground">
+      <span className="ms-1 text-sm text-muted-foreground">
         ({rating.toFixed(1)})
       </span>
     </div>
