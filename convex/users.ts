@@ -281,6 +281,211 @@ export const resetOnboarding = mutation({
   },
 });
 
+// List all users (for direct messaging user selection)
+// Returns all users except the current user, sorted by name
+export const listAll = query({
+  args: {
+    searchQuery: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      return [];
+    }
+
+    const currentUser = await ctx.db
+      .query("users")
+      .withIndex("by_clerk_id", (q) => q.eq("clerkId", identity.subject))
+      .unique();
+
+    if (!currentUser) {
+      return [];
+    }
+
+    // Get all users
+    let users = await ctx.db.query("users").collect();
+
+    // Filter out current user and users without roles (incomplete onboarding)
+    users = users.filter(
+      (user) => user._id !== currentUser._id && user.role && user.onboardingComplete
+    );
+
+    // Filter by search query if provided
+    if (args.searchQuery?.trim()) {
+      const query = args.searchQuery.toLowerCase();
+      users = users.filter(
+        (user) =>
+          user.name?.toLowerCase().includes(query) ||
+          user.email?.toLowerCase().includes(query)
+      );
+    }
+
+    // Sort by name
+    users.sort((a, b) => {
+      const nameA = a.name || a.email || "";
+      const nameB = b.name || b.email || "";
+      return nameA.localeCompare(nameB);
+    });
+
+    // Return simplified user info
+    return users.map((user) => ({
+      _id: user._id,
+      name: user.name || user.email || "Unknown",
+      email: user.email,
+      imageUrl: user.imageUrl,
+      role: user.role,
+    }));
+  },
+});
+
+// Get user profile with follow status and provider info
+// Used for /profile/[id] page - aggregates all data in single call
+export const getUserProfile = query({
+  args: {
+    userId: v.id("users"),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      return null;
+    }
+
+    // Get current user
+    const currentUser = await ctx.db
+      .query("users")
+      .withIndex("by_clerk_id", (q) => q.eq("clerkId", identity.subject))
+      .unique();
+
+    if (!currentUser) {
+      return null;
+    }
+
+    // Get target user
+    const targetUser = await ctx.db.get(args.userId);
+    if (!targetUser) {
+      return null;
+    }
+
+    // Check if current user follows this user
+    const follows = await ctx.db
+      .query("userFollows")
+      .withIndex("by_follower_and_following", (q) =>
+        q.eq("followerId", currentUser._id).eq("followingId", args.userId)
+      )
+      .unique();
+
+    const isFollowing = follows !== null;
+    const isOwnProfile = currentUser._id === args.userId;
+
+    // Check if target is a service provider
+    const isProvider =
+      targetUser.role === "broker" ||
+      targetUser.role === "mortgage_advisor" ||
+      targetUser.role === "lawyer";
+
+    let providerProfile = null;
+    let stats = null;
+    let portfolio = null;
+
+    if (isProvider) {
+      // Get service provider profile
+      const profile = await ctx.db
+        .query("serviceProviderProfiles")
+        .withIndex("by_user", (q) => q.eq("userId", args.userId))
+        .unique();
+
+      if (profile) {
+        providerProfile = {
+          companyName: profile.companyName,
+          licenseNumber: profile.licenseNumber,
+          yearsExperience: profile.yearsExperience,
+          specializations: profile.specializations,
+          serviceAreas: profile.serviceAreas,
+          languages: profile.languages,
+          bio: profile.bio,
+          phoneNumber: profile.phoneNumber,
+          preferredContact: profile.preferredContact,
+        };
+
+        // Get reviews for stats calculation
+        const allReviews = await ctx.db
+          .query("providerReviews")
+          .withIndex("by_provider", (q) => q.eq("providerId", args.userId))
+          .collect();
+
+        const totalReviews = allReviews.length;
+        const averageRating =
+          totalReviews > 0
+            ? Math.round(
+                (allReviews.reduce((sum, r) => sum + r.rating, 0) / totalReviews) *
+                  10
+              ) / 10
+            : 0;
+
+        // Count completed deals where this provider was assigned
+        const allCompletedDeals = await ctx.db
+          .query("deals")
+          .withIndex("by_stage", (q) => q.eq("stage", "completed"))
+          .collect();
+
+        const providerCompletedDeals = allCompletedDeals.filter(
+          (deal) =>
+            deal.brokerId === args.userId ||
+            deal.mortgageAdvisorId === args.userId ||
+            deal.lawyerId === args.userId
+        );
+
+        stats = {
+          averageRating,
+          totalReviews,
+          completedDeals: providerCompletedDeals.length,
+          yearsExperience: profile.yearsExperience ?? 0,
+        };
+
+        // Get last 5 completed deals for portfolio
+        const portfolioDeals = providerCompletedDeals
+          .sort((a, b) => b.updatedAt - a.updatedAt)
+          .slice(0, 5);
+
+        // Enrich portfolio with property info
+        portfolio = await Promise.all(
+          portfolioDeals.map(async (deal) => {
+            const property = await ctx.db.get(deal.propertyId);
+
+            return {
+              dealId: deal._id,
+              propertyId: deal.propertyId,
+              propertyTitle: property?.title,
+              propertyCity: property?.city,
+              propertyImage: property?.featuredImage ?? property?.images[0],
+              soldPrice: property?.soldPrice ?? deal.offerPrice ?? property?.priceUsd,
+              completedAt: deal.updatedAt,
+            };
+          })
+        );
+      }
+    }
+
+    return {
+      // User info
+      _id: targetUser._id,
+      name: targetUser.name,
+      email: targetUser.email,
+      imageUrl: targetUser.imageUrl,
+      role: targetUser.role,
+
+      // Follow state
+      isFollowing,
+      isOwnProfile,
+
+      // Provider-specific data (null for investors)
+      providerProfile,
+      stats,
+      portfolio,
+    };
+  },
+});
+
 // Set the role an admin is viewing as (for testing different perspectives)
 // Admin's actual role stays "admin", but viewingAsRole affects what they see
 export const setViewingAsRole = mutation({
