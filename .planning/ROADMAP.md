@@ -171,12 +171,13 @@ Plans:
 **Goal**: Create posts table, feed queries, and define post types (property listing, service request, discussion)
 **Depends on**: v1.2 complete
 **Research**: Complete (21-RESEARCH.md)
-**Plans**: 2 plans
-**Status**: Ready for execution
+**Plans**: 2/2 complete
+**Status**: Complete
+**Completed**: 2026-01-19
 
 Plans:
-- [ ] 21-01-PLAN.md — Schema + post creation mutations + feed queries (Wave 1)
-- [ ] 21-02-PLAN.md — Like/save/follow mutations with atomic counters (Wave 2)
+- [x] 21-01: Schema + post creation mutations + feed queries
+- [x] 21-02: Like/save/follow mutations with atomic counters
 
 ### Phase 22: Post Creation UI
 
@@ -246,7 +247,7 @@ Plans:
 | v1.0 MVP | 17 | 40 | Complete | 2026-01-17 |
 | v1.1 Investor Onboarding | 7 | 8 | Complete | 2026-01-18 |
 | v1.2 Provider Experience | 6 | 11 | Complete | 2026-01-19 |
-| v1.3 Social Feed & Global Community | 7 | 2/? | In Progress | - |
+| v1.3 Social Feed & Global Community | 7 | 4/? | In Progress | - |
 
 | Phase | Milestone | Plans | Status | Completed |
 |-------|-----------|-------|--------|-----------|
@@ -257,7 +258,7 @@ Plans:
 | 18. Service Provider Profiles | v1.2 | 2/2 | Complete | 2026-01-19 |
 | 19. Provider Analytics | v1.2 | 1/1 | Complete | 2026-01-19 |
 | 20. Provider Settings & Availability | v1.2 | 2/2 | Complete | 2026-01-19 |
-| 21. Feed Infrastructure | v1.3 | 0/2 | Planned | - |
+| 21. Feed Infrastructure | v1.3 | 2/2 | Complete | 2026-01-19 |
 | 22. Post Creation UI | v1.3 | 0/? | Not started | - |
 | 23. Feed Display | v1.3 | 0/? | Not started | - |
 | 24. Social Interactions | v1.3 | 0/? | Not started | - |
