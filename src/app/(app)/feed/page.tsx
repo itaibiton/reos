@@ -8,9 +8,10 @@ import { PostCard, PostCardSkeleton, CreatePostDialog } from "@/components/feed"
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Add01Icon, RssIcon } from "@hugeicons/core-free-icons";
+import { Add01Icon, RssIcon, UserMultiple02Icon } from "@hugeicons/core-free-icons";
 import { Loader2 } from "lucide-react";
 
+type FeedSource = "global" | "following";
 type PostTypeFilter = "all" | "property_listing" | "service_request" | "discussion";
 
 export default function FeedPage() {
@@ -18,21 +19,49 @@ export default function FeedPage() {
   const searchParams = useSearchParams();
   const [dialogOpen, setDialogOpen] = useState(false);
 
-  // Read filter from URL params
+  // Read source and type from URL params
+  const sourceParam = searchParams.get("source") as FeedSource | null;
+  const feedSource: FeedSource = sourceParam ?? "global";
   const typeParam = searchParams.get("type") as PostTypeFilter | null;
   const filterType: PostTypeFilter = typeParam ?? "all";
 
   // Map "all" to undefined for the query (no filter)
   const queryPostType = filterType === "all" ? undefined : filterType;
 
-  // Infinite scroll with usePaginatedQuery
-  const { results, status, loadMore } = usePaginatedQuery(
+  // Conditionally use different query based on source
+  const globalFeedResults = usePaginatedQuery(
     api.posts.globalFeed,
-    { postType: queryPostType },
+    feedSource === "global" ? { postType: queryPostType } : "skip",
     { initialNumItems: 10 }
   );
 
-  // Handle filter tab change
+  const followingFeedResults = usePaginatedQuery(
+    api.posts.followingFeed,
+    feedSource === "following" ? {} : "skip",
+    { initialNumItems: 10 }
+  );
+
+  // Active results based on source
+  const { results, status, loadMore } = feedSource === "global"
+    ? globalFeedResults
+    : followingFeedResults;
+
+  // Handle source tab change (Global/Following)
+  const handleSourceChange = (value: string) => {
+    if (value === "global") {
+      // Preserve type filter when switching to global
+      if (filterType !== "all") {
+        router.push(`/feed?type=${filterType}`);
+      } else {
+        router.push("/feed");
+      }
+    } else {
+      // Following feed doesn't support type filter
+      router.push("/feed?source=following");
+    }
+  };
+
+  // Handle filter tab change (type filters - only for global)
   const handleFilterChange = (value: string) => {
     if (value === "all") {
       router.push("/feed");
@@ -41,8 +70,11 @@ export default function FeedPage() {
     }
   };
 
-  // Get empty state message based on filter
+  // Get empty state message based on source and filter
   const getEmptyStateMessage = () => {
+    if (feedSource === "following") {
+      return "No posts from people you follow yet";
+    }
     switch (filterType) {
       case "property_listing":
         return "No property posts yet";
@@ -53,6 +85,14 @@ export default function FeedPage() {
       default:
         return "No posts yet";
     }
+  };
+
+  // Get empty state description based on source
+  const getEmptyStateDescription = () => {
+    if (feedSource === "following") {
+      return "Follow users to see their posts here.";
+    }
+    return "Be the first to share something with the community.";
   };
 
   return (
@@ -66,15 +106,25 @@ export default function FeedPage() {
         </Button>
       </div>
 
-      {/* Filter Tabs */}
-      <Tabs value={filterType} onValueChange={handleFilterChange}>
-        <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="all">All</TabsTrigger>
-          <TabsTrigger value="property_listing">Properties</TabsTrigger>
-          <TabsTrigger value="service_request">Services</TabsTrigger>
-          <TabsTrigger value="discussion">Discussions</TabsTrigger>
+      {/* Feed Source Tabs (Global/Following) */}
+      <Tabs value={feedSource} onValueChange={handleSourceChange}>
+        <TabsList>
+          <TabsTrigger value="global">Global</TabsTrigger>
+          <TabsTrigger value="following">Following</TabsTrigger>
         </TabsList>
       </Tabs>
+
+      {/* Post Type Filter Tabs (only for global feed) */}
+      {feedSource === "global" && (
+        <Tabs value={filterType} onValueChange={handleFilterChange}>
+          <TabsList className="grid w-full grid-cols-4">
+            <TabsTrigger value="all">All</TabsTrigger>
+            <TabsTrigger value="property_listing">Properties</TabsTrigger>
+            <TabsTrigger value="service_request">Services</TabsTrigger>
+            <TabsTrigger value="discussion">Discussions</TabsTrigger>
+          </TabsList>
+        </Tabs>
+      )}
 
       {/* Loading state (first page) */}
       {status === "LoadingFirstPage" && (
@@ -89,13 +139,19 @@ export default function FeedPage() {
       {status !== "LoadingFirstPage" && results.length === 0 && (
         <div className="flex flex-col items-center text-center py-12">
           <div className="rounded-full bg-muted p-4 mb-4 text-muted-foreground">
-            <HugeiconsIcon icon={RssIcon} size={48} strokeWidth={1.5} />
+            <HugeiconsIcon
+              icon={feedSource === "following" ? UserMultiple02Icon : RssIcon}
+              size={48}
+              strokeWidth={1.5}
+            />
           </div>
           <h2 className="text-xl font-semibold mb-2">{getEmptyStateMessage()}</h2>
           <p className="text-muted-foreground mb-6 max-w-md">
-            Be the first to share something with the community.
+            {getEmptyStateDescription()}
           </p>
-          <Button onClick={() => setDialogOpen(true)}>Create a Post</Button>
+          {feedSource === "global" && (
+            <Button onClick={() => setDialogOpen(true)}>Create a Post</Button>
+          )}
         </div>
       )}
 
