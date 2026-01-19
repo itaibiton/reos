@@ -11,11 +11,11 @@ See: .planning/PROJECT.md (updated 2026-01-17)
 
 Milestone: v1.3 Social Feed & Global Community
 Phase: 27 of 27 (Global Discovery)
-Plan: 2 of 5 complete
+Plan: 4 of 5 complete
 Status: In progress
-Last activity: 2026-01-19 — Completed 27-01-PLAN.md (Search Backend)
+Last activity: 2026-01-19 — Completed 27-04-PLAN.md (Search Results Page)
 
-Progress: █████████░ 93% (15/17 plans)
+Progress: █████████░ 95% (17/18 plans)
 
 ## Performance Metrics
 
@@ -65,11 +65,11 @@ Progress: █████████░ 93% (15/17 plans)
 | 24 | 3/3 | 7 min | 2.3 min |
 | 25 | 2/2 | 6 min | 3 min |
 | 26 | 2/2 | 4 min | 2 min |
-| 27 | 2/5 | 5 min | 2.5 min |
+| 27 | 4/5 | 10 min | 2.5 min |
 
 **Recent Trend:**
-- Last 5 plans: 4 min, 2 min, 2 min, 2 min, 3 min
-- Trend: Phase 27 plan 01 complete - 69 plans total
+- Last 5 plans: 2 min, 2 min, 3 min, 3 min, 5 min
+- Trend: Phase 27 plan 04 complete - 71 plans total
 
 ## Accumulated Context
 
@@ -257,6 +257,10 @@ Recent decisions affecting current work:
 - Phase 27: Properties scored by favorites + (deals * 2)
 - Phase 27: User recommendations: friends-of-friends (+2) and same-role (+1)
 - Phase 27: Post recommendations filtered to same-role users for relevance
+- Phase 27: SearchResultCard uses switch pattern for polymorphic user/post/property rendering
+- Phase 27: Search results tab state synced to URL via ?type param
+- Phase 27: Empty search results show trending content as discovery fallback
+- Phase 27: AnalyticsUpIcon for trending indicator (TrendUp01Icon not available in hugeicons)
 
 ### Deferred Issues
 
@@ -285,6 +289,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-19
-Stopped at: Completed 27-01-PLAN.md (Search Backend)
+Stopped at: Completed 27-04-PLAN.md (Search Results Page)
 Resume file: None
-Next: 27-03 (Discover Page UI)
+Next: 27-05 (Discover Page UI)
