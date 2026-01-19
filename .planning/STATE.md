@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-01-19)
 ## Current Position
 
 Milestone: v1.4 Internationalization & RTL Support
-Phase: 28 - i18n Infrastructure (not started)
-Status: Roadmap created, awaiting phase planning
-Last activity: 2026-01-19 — v1.4 roadmap created
+Phase: 28 - i18n Infrastructure (Plan 01 complete)
+Status: Plan 28-01 complete, ready for Plan 28-02
+Last activity: 2026-01-19 — Completed 28-01-PLAN.md (i18n core infrastructure)
 
-Progress: [----------] 0% (0/7 phases)
+Progress: [#---------] ~5% (1 plan of phase 28)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 79
+- Total plans completed: 80
 - Average duration: 6.1 min
-- Total execution time: 7.25 hours
+- Total execution time: 7.32 hours
 
 **By Phase:**
 
@@ -65,10 +65,11 @@ Progress: [----------] 0% (0/7 phases)
 | 26 | 2/2 | 4 min | 2 min |
 | 27 | 5/5 | 12 min | 2.4 min |
 | 27.2 | 1/1 | 3 min | 3 min |
+| 28 | 1/? | 4 min | 4 min |
 
 **Recent Trend:**
-- Last 5 plans: 2 min, 3 min, 3 min, 2 min, 3 min
-- Trend: Starting v1.4 milestone
+- Last 5 plans: 3 min, 3 min, 2 min, 3 min, 4 min
+- Trend: Starting v1.4 milestone - first plan complete
 
 ## Accumulated Context
 
@@ -270,6 +271,10 @@ Recent decisions affecting current work:
 - Phase 27.2: Match scoring: exact(100) > starts-with(80) > word-boundary(70) > contains(60) > keyword(50/40/30)
 - Phase 27.2: Keyword aliases in KEYWORD_MAPPINGS for common navigation terms
 - Phase 27.2: QuickAction type with flattenNavItem() for recursive navigation conversion
+- Phase 28: next-intl v4 with localePrefix: 'always' for en/he locale routing
+- Phase 28: Clerk middleware wraps outer, returns intlMiddleware from handler
+- Phase 28: Protected route patterns include :locale prefix for all (app) routes
+- Phase 28: i18n config files in src/i18n/ (routing.ts, navigation.ts, request.ts)
 
 ### v1.4 Research Findings
 
@@ -311,6 +316,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-19
-Stopped at: v1.4 roadmap created
+Stopped at: Completed 28-01-PLAN.md
 Resume file: None
-Next: Run /gsd:plan-phase 28 to start i18n infrastructure
+Next: Execute 28-02-PLAN.md (route structure migration to [locale] segment)
