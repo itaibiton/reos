@@ -11,9 +11,9 @@ See: .planning/PROJECT.md (updated 2026-01-19)
 
 Milestone: v1.4 Internationalization & RTL Support
 Phase: 29 - CSS Logical Properties Migration (in progress)
-Plan: 2 of 5 complete
+Plan: 3 of 10 complete
 Status: In progress
-Last activity: 2026-01-19 — Completed 29-02-PLAN.md (Medium-Priority Shadcn Components)
+Last activity: 2026-01-19 — Completed 29-01-PLAN.md (High-Priority Shadcn Components)
 
 Progress: [██--------] 21% (1.4/7 phases)
 
@@ -67,11 +67,11 @@ Progress: [██--------] 21% (1.4/7 phases)
 | 27 | 5/5 | 12 min | 2.4 min |
 | 27.2 | 1/1 | 3 min | 3 min |
 | 28 | 2/2 | 8 min | 4 min |
-| 29 | 2/5 | 6 min | 3 min |
+| 29 | 1/10 | 4 min | 4 min |
 
 **Recent Trend:**
-- Last 5 plans: 4 min, 4 min, 3 min, 3 min, 3 min
-- Trend: CSS logical properties migration in progress
+- Last 5 plans: 4 min, 4 min, 4 min, 3 min, 3 min
+- Trend: CSS logical properties migration - high-priority components done
 
 ## Accumulated Context
 
@@ -285,6 +285,7 @@ Recent decisions affecting current work:
 - Phase 29: Animation classes (slide-in-from-*) deferred to dedicated RTL-05 plan
 - Phase 29: Drawer direction variants use end-0/border-s for right, start-0/border-e for left
 - Phase 29: Calendar range selection uses rounded-s-md for start, rounded-e-md for end
+- Phase 29: text-left converted to text-start in sidebar menu buttons for RTL alignment
 
 ### v1.4 Research Findings
 
@@ -326,6 +327,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-19
-Stopped at: Completed 29-02-PLAN.md
+Stopped at: Completed 29-01-PLAN.md
 Resume file: None
-Next: Run /gsd:execute-plan for 29-03 (Low-Priority Components) or 29-04 (Custom Components)
+Next: Continue with remaining plans 29-02 through 29-10
