@@ -23,7 +23,7 @@ export function AnswerArea({ children, className }: AnswerAreaProps) {
   return (
     <div
       className={cn(
-        "ml-auto max-w-[85%] mt-6",
+        "ms-auto max-w-[85%] mt-6",
         !hasAnimated && "animate-in fade-in slide-in-from-right-4 duration-300",
         className
       )}

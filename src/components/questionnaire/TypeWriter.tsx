@@ -63,7 +63,7 @@ export function TypeWriter({
     <span className={className}>
       {displayedText}
       {showCursor && !isComplete && (
-        <span className="animate-pulse ml-0.5">|</span>
+        <span className="animate-pulse ms-0.5">|</span>
       )}
     </span>
   );
