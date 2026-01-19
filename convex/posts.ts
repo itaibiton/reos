@@ -7,6 +7,44 @@ import { Doc, Id } from "./_generated/dataModel";
 // HELPER FUNCTIONS
 // ============================================================================
 
+// Check if user can view a post based on visibility rules
+async function canViewPost(
+  ctx: QueryCtx,
+  post: Doc<"posts">,
+  viewerId: Id<"users">
+): Promise<boolean> {
+  // Author can always see own posts
+  if (post.authorId === viewerId) return true;
+
+  switch (post.visibility) {
+    case "public":
+      return true;
+
+    case "followers_only":
+      const follows = await ctx.db
+        .query("userFollows")
+        .withIndex("by_follower_and_following", (q) =>
+          q.eq("followerId", viewerId).eq("followingId", post.authorId)
+        )
+        .unique();
+      return follows !== null;
+
+    case "deal_participants":
+      if (!post.dealId) return false;
+      const deal = await ctx.db.get(post.dealId);
+      if (!deal) return false;
+      return (
+        deal.investorId === viewerId ||
+        deal.brokerId === viewerId ||
+        deal.mortgageAdvisorId === viewerId ||
+        deal.lawyerId === viewerId
+      );
+
+    default:
+      return false;
+  }
+}
+
 // Enrich post with author and property info
 async function enrichPost(ctx: QueryCtx, post: Doc<"posts">) {
   const author = await ctx.db.get(post.authorId);
@@ -301,5 +339,97 @@ export const userFeed = query({
       ...results,
       page: enrichedPage,
     };
+  },
+});
+
+// Following feed - posts from users the current user follows
+export const followingFeed = query({
+  args: {
+    paginationOpts: paginationOptsValidator,
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      return { page: [], isDone: true, continueCursor: "" };
+    }
+
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_clerk_id", (q) => q.eq("clerkId", identity.subject))
+      .unique();
+
+    if (!user) {
+      return { page: [], isDone: true, continueCursor: "" };
+    }
+
+    // Get list of users the current user follows
+    const follows = await ctx.db
+      .query("userFollows")
+      .withIndex("by_follower", (q) => q.eq("followerId", user._id))
+      .collect();
+
+    const followingIds = new Set(follows.map((f) => f.followingId.toString()));
+
+    // Query public posts, paginate
+    // Note: In-memory filtering after pagination is acceptable per research
+    // (Convex single-index constraint). Over-fetch slightly to account for filtering.
+    const results = await ctx.db
+      .query("posts")
+      .withIndex("by_visibility_and_time", (q) => q.eq("visibility", "public"))
+      .order("desc")
+      .paginate(args.paginationOpts);
+
+    // Filter to posts from followed users + own posts
+    const filteredPage = results.page.filter(
+      (post) =>
+        followingIds.has(post.authorId.toString()) || post.authorId === user._id
+    );
+
+    // Enrich with author and property info
+    const enrichedPage = await Promise.all(
+      filteredPage.map((post) => enrichPost(ctx, post))
+    );
+
+    return {
+      ...results,
+      page: enrichedPage,
+    };
+  },
+});
+
+// Get a single post by ID with visibility check
+export const getPost = query({
+  args: {
+    postId: v.id("posts"),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      return null;
+    }
+
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_clerk_id", (q) => q.eq("clerkId", identity.subject))
+      .unique();
+
+    if (!user) {
+      return null;
+    }
+
+    // Get the post
+    const post = await ctx.db.get(args.postId);
+    if (!post) {
+      return null;
+    }
+
+    // Check if current user can view this post
+    const canView = await canViewPost(ctx, post, user._id);
+    if (!canView) {
+      return null;
+    }
+
+    // Enrich and return
+    return enrichPost(ctx, post);
   },
 });
