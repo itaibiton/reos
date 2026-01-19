@@ -28,6 +28,7 @@ Build a services showcase landing page for REOS with three key sections:
 - [x] UI-02: Implement Process Steps Component
 - [x] UI-03: Implement Team Section Component
 - [x] COPY-01: Write Services Grid Copy
+- [x] COPY-02: Write Process Steps Copy
 
 ## Current Phase: Phase 3 - Copywriting
 
@@ -176,4 +177,22 @@ Polished marketing copy for Services Grid:
 - Focus: Outcomes over features, pain points addressed
 
 **Next:** COPY-02 (Process Steps) or COPY-03 (Team Section) can proceed.
+
+### 2026-01-19 - COPY-02 Complete
+**Task:** Write Process Steps Copy
+**Agent:** kohelet-copywriter
+**Output:** Updated `src/components/landing/ProcessSteps.tsx`
+
+Polished marketing copy for Process Steps:
+- Headline: "Up and Running in Minutes"
+- Subheadline: "Four simple steps to transform how you manage properties. No technical expertise required—just follow the path and start saving time today."
+- 4 process steps with journey-guiding copy:
+  - Step 1: Create Your Account (quick signup, no friction)
+  - Step 2: Add Your Properties (minutes not hours, smart import)
+  - Step 3: Configure Your Workspace (adapts to your workflow)
+  - Step 4: Start Managing Smarter (property management that runs itself)
+- Tone: Encouraging, reassuring, removes hesitation
+- Focus: Speed, ease, immediate value
+
+**Next:** COPY-03 (Team Section) can proceed.
 

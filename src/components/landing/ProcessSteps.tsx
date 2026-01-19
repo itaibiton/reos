@@ -44,11 +44,11 @@ const processSteps: ProcessStep[] = [
     icon: UserPlus,
     title: "Create Your Account",
     description:
-      "Get started in under 2 minutes with our streamlined signup process. No credit card required to explore the platform and see if REOS is the right fit for your needs.",
+      "Sign up in under 2 minutes and start exploring immediately. No credit card required, no lengthy forms—just enter your details and you're in. Your 14-day free trial begins the moment you're ready.",
     highlights: [
-      "Email or Google sign-in options",
-      "Guided profile setup wizard",
-      "14-day free trial included",
+      "Quick signup with email or Google",
+      "Step-by-step profile setup",
+      "Full access from day one",
     ],
     ariaLabel: "User registration icon",
   },
@@ -57,11 +57,11 @@ const processSteps: ProcessStep[] = [
     icon: Building2,
     title: "Add Your Properties",
     description:
-      "Import your portfolio in minutes through manual entry, spreadsheet upload, or API integration. Our intelligent data mapping ensures accuracy while saving you hours of setup time.",
+      "Bring your entire portfolio into REOS in minutes, not hours. Upload a spreadsheet, connect via API, or add properties one by one—our smart import handles the details so you don't have to.",
     highlights: [
-      "Bulk import via CSV/Excel",
-      "Auto-categorization and validation",
-      "Support for residential, commercial, and mixed-use",
+      "Bulk import from CSV or Excel",
+      "Automatic data validation",
+      "Residential, commercial, or mixed-use",
     ],
     ariaLabel: "Property building icon",
   },
@@ -70,24 +70,24 @@ const processSteps: ProcessStep[] = [
     icon: Settings,
     title: "Configure Your Workspace",
     description:
-      "Tailor REOS to your workflow with customizable dashboards, automated workflows, and role-based permissions. Invite team members and set up integrations with your existing tools.",
+      "Make REOS work the way you do. Choose from ready-made templates or customize your dashboards, set up team permissions, and connect the tools you already use. Everything adapts to your workflow.",
     highlights: [
-      "Pre-built templates for common workflows",
-      "Team collaboration and permissions",
-      "Integrations with accounting and payment systems",
+      "Pre-built workflow templates",
+      "Role-based team permissions",
+      "Accounting and payment integrations",
     ],
     ariaLabel: "Configuration settings icon",
   },
   {
     number: 4,
     icon: Rocket,
-    title: "Start Managing Properties",
+    title: "Start Managing Smarter",
     description:
-      "You're ready to go! Invite tenants to the portal, track maintenance requests, monitor financials in real-time, and leverage automated workflows to save 10+ hours per week on property management tasks.",
+      "You're all set. Invite tenants to their self-service portal, automate rent collection, and track everything from maintenance to financials in one place. Welcome to property management that runs itself.",
     highlights: [
-      "Tenant self-service portal",
-      "Automated rent collection and reminders",
-      "Real-time analytics and reporting",
+      "Tenant portal with self-service features",
+      "Automated payments and reminders",
+      "Real-time insights and reports",
     ],
     ariaLabel: "Launch rocket icon",
   },
@@ -393,10 +393,10 @@ export function ProcessSteps({ className }: ProcessStepsProps) {
             id="process-heading"
             className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-4"
           >
-            How REOS Works
+            Up and Running in Minutes
           </h2>
           <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
-            Get started with REOS in four simple steps
+            Four simple steps to transform how you manage properties. No technical expertise required—just follow the path and start saving time today.
           </p>
         </div>
 

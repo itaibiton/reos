@@ -150,7 +150,7 @@
         "Consistent with REOS tone"
       ],
       "dependencies": ["UI-02"],
-      "pass": false
+      "pass": true
     },
     {
       "id": "COPY-03",
