@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Heebo } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
-import { DirectionProvider } from "@radix-ui/react-direction";
-import { NextIntlClientProvider, hasLocale } from "next-intl";
+import { hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { ConvexClientProvider } from "./ConvexClientProvider";
+import { Providers } from "./Providers";
 import { Toaster } from "@/components/ui/sonner";
 import "../globals.css";
 
@@ -64,11 +64,7 @@ export default async function LocaleLayout({ children, params }: Props) {
           signUpFallbackRedirectUrl={`/${locale}/dashboard`}
         >
           <ConvexClientProvider>
-            <DirectionProvider dir={direction}>
-              <NextIntlClientProvider>
-                {children}
-              </NextIntlClientProvider>
-            </DirectionProvider>
+            <Providers direction={direction}>{children}</Providers>
           </ConvexClientProvider>
           <Toaster position="bottom-right" />
         </ClerkProvider>
