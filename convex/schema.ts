@@ -188,7 +188,11 @@ export default defineSchema({
   })
     .index("by_clerk_id", ["clerkId"])
     .index("by_email", ["email"])
-    .index("by_role", ["role"]),
+    .index("by_role", ["role"])
+    .searchIndex("search_name", {
+      searchField: "name",
+      filterFields: ["role", "onboardingComplete"],
+    }),
 
   // Investor investment preferences
   investorProfiles: defineTable({
@@ -317,7 +321,11 @@ export default defineSchema({
     .index("by_property_type", ["propertyType"])
     .index("by_status", ["status"])
     .index("by_price", ["priceUsd"])
-    .index("by_created_by", ["createdBy"]),
+    .index("by_created_by", ["createdBy"])
+    .searchIndex("search_title", {
+      searchField: "title",
+      filterFields: ["status", "city"],
+    }),
 
   // Neighborhood data for city/area statistics
   neighborhoods: defineTable({
@@ -675,7 +683,11 @@ export default defineSchema({
     .index("by_author_and_time", ["authorId", "createdAt"])
     .index("by_type", ["postType"])
     .index("by_visibility_and_time", ["visibility", "createdAt"])
-    .index("by_property", ["propertyId"]),
+    .index("by_property", ["propertyId"])
+    .searchIndex("search_content", {
+      searchField: "content",
+      filterFields: ["postType", "visibility"],
+    }),
 
   // Post likes - who liked which post
   postLikes: defineTable({
@@ -717,4 +729,14 @@ export default defineSchema({
     .index("by_post", ["postId"])
     .index("by_post_and_time", ["postId", "createdAt"])
     .index("by_author", ["authorId"]),
+
+  // Search history - user search queries for autocomplete
+  searchHistory: defineTable({
+    userId: v.id("users"),
+    query: v.string(),
+    resultCount: v.number(),
+    createdAt: v.number(),
+  })
+    .index("by_user", ["userId"])
+    .index("by_user_and_time", ["userId", "createdAt"]),
 });
