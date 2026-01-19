@@ -56,7 +56,20 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 
 ### Active
 
-(Planning for v1.1)
+**v1.4 Internationalization & RTL Support**
+
+- [ ] Full i18n infrastructure with next-intl or similar
+- [ ] URL-based locale routing (/he/, /en/)
+- [ ] Complete Hebrew translation for all system UI
+- [ ] Full RTL layout flip when locale is Hebrew
+- [ ] Directional icon handling (arrows, chevrons flip)
+- [ ] RTL-aware Shadcn components
+- [ ] Locale-aware date/time formatting
+- [ ] Locale-aware number formatting
+- [ ] Locale-aware currency display
+- [ ] Language switcher component
+- [ ] Locale auto-detection with persistence
+- [ ] Scalable architecture for future languages
 
 ### Out of Scope
 
@@ -65,7 +78,7 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 - **Payment processing / subscriptions** — all providers free during MVP
 - **Semantic search** — MVP uses NLP → filters only, semantic understanding in v2
 - **Property data auto-fetching** — manual property upload only for MVP
-- **Multi-language support** — English only for MVP
+- **Multi-language support** — ~~English only for MVP~~ → v1.4
 - **Offline mode** — real-time is core value
 
 ## Context
@@ -109,5 +122,16 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 | Claude AI for search parsing | Fast, accurate, cost-effective | ✓ Good |
 | Hardcoded USD/ILS rate | Quick MVP, live API in v1.1 | ⚠️ Revisit |
 
+## Current Milestone: v1.4 Internationalization & RTL
+
+**Goal:** Add full internationalization infrastructure with Hebrew as the first additional language, including complete RTL layout support and locale-aware formatting.
+
+**Target features:**
+- URL-based locale routing (`/he/`, `/en/`)
+- Full Hebrew UI translation
+- RTL layout flip (sidebar, text direction, icons)
+- Locale-aware formatting (dates, numbers, currency)
+- Scalable i18n architecture for future languages
+
 ---
-*Last updated: 2026-01-19 after v1.3 milestone*
+*Last updated: 2026-01-19 after v1.4 milestone planning*
