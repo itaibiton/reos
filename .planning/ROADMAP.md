@@ -184,10 +184,11 @@ Plans:
 **Goal**: UI for creating posts - upload properties, request services, start discussions
 **Depends on**: Phase 21
 **Research**: Unlikely (internal patterns)
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 22-01: TBD
+- [ ] 22-01: CreatePostDialog with tabbed interface for Discussion and Service Request posts
+- [ ] 22-02: PropertySelector component and property listing post creation
 
 ### Phase 23: Feed Display
 
@@ -259,7 +260,7 @@ Plans:
 | 19. Provider Analytics | v1.2 | 1/1 | Complete | 2026-01-19 |
 | 20. Provider Settings & Availability | v1.2 | 2/2 | Complete | 2026-01-19 |
 | 21. Feed Infrastructure | v1.3 | 2/2 | Complete | 2026-01-19 |
-| 22. Post Creation UI | v1.3 | 0/? | Not started | - |
+| 22. Post Creation UI | v1.3 | 0/2 | Not started | - |
 | 23. Feed Display | v1.3 | 0/? | Not started | - |
 | 24. Social Interactions | v1.3 | 0/? | Not started | - |
 | 25. User Following | v1.3 | 0/? | Not started | - |
