@@ -120,6 +120,12 @@ const messageStatus = v.union(
   v.literal("read")
 );
 
+// Conversation type for direct messaging
+const conversationType = v.union(
+  v.literal("direct"),  // 1-on-1 conversation
+  v.literal("group")    // Group conversation with multiple participants
+);
+
 // Notification types
 const notificationType = v.union(
   v.literal("new_message"),
@@ -221,6 +227,19 @@ export default defineSchema({
     // Contact preferences
     phoneNumber: v.optional(v.string()),
     preferredContact: v.optional(contactPreference),
+
+    // Availability - whether accepting new clients
+    acceptingNewClients: v.optional(v.boolean()),
+
+    // Notification preferences
+    notificationPreferences: v.optional(v.object({
+      emailNotifications: v.boolean(),
+      inAppNotifications: v.boolean(),
+      newMessageNotify: v.boolean(),
+      dealStageNotify: v.boolean(),
+      fileUploadedNotify: v.boolean(),
+      requestReceivedNotify: v.boolean(),
+    })),
 
     // Timestamps
     createdAt: v.number(),
@@ -489,6 +508,40 @@ export default defineSchema({
     .index("by_user_and_read", ["userId", "read"])
     .index("by_user_and_time", ["userId", "createdAt"]),
 
+  // Conversations - direct messaging conversations between users (outside of deals)
+  conversations: defineTable({
+    // Type of conversation
+    type: conversationType,
+    // Name for group chats (optional)
+    name: v.optional(v.string()),
+    // Participant user IDs
+    participantIds: v.array(v.id("users")),
+    // User who created the conversation
+    createdBy: v.id("users"),
+    // Timestamps
+    createdAt: v.number(),
+    updatedAt: v.number(),
+  })
+    .index("by_updated", ["updatedAt"]),
+
+  // Direct messages - messages in conversations (separate from deal messages)
+  directMessages: defineTable({
+    // Reference to conversation
+    conversationId: v.id("conversations"),
+    // Sender user ID
+    senderId: v.id("users"),
+    // Message content
+    content: v.string(),
+    // Status tracking
+    status: messageStatus,
+    // Users who have read this message
+    readBy: v.array(v.id("users")),
+    // Timestamp
+    createdAt: v.number(),
+  })
+    .index("by_conversation", ["conversationId"])
+    .index("by_conversation_and_time", ["conversationId", "createdAt"]),
+
   // Investor questionnaires - stores draft and completed questionnaire data
   investorQuestionnaires: defineTable({
     // Reference to user
@@ -554,4 +607,18 @@ export default defineSchema({
     .index("by_provider", ["providerId"])
     .index("by_reviewer", ["reviewerId"])
     .index("by_deal", ["dealId"]),
+
+  // Provider unavailable dates - specific dates when provider is not available
+  providerUnavailableDates: defineTable({
+    // Provider user ID
+    providerId: v.id("users"),
+    // Date stored as start-of-day timestamp (midnight UTC)
+    date: v.number(),
+    // Optional reason for unavailability
+    reason: v.optional(v.string()),
+    // Timestamp
+    createdAt: v.number(),
+  })
+    .index("by_provider", ["providerId"])
+    .index("by_provider_and_date", ["providerId", "date"]),
 });
