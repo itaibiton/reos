@@ -8,9 +8,12 @@ import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { ArrowLeft01Icon } from "@hugeicons/core-free-icons";
 
 export interface Participant {
   _id: Id<"users">;
@@ -25,6 +28,10 @@ interface ChatParticipantListProps {
   selectedParticipantId?: Id<"users">;
   onSelectParticipant: (participant: Participant) => void;
   enableDrag?: boolean;
+  /** Optional back handler for mobile navigation (shows header with back button) */
+  onBack?: () => void;
+  /** Optional deal title to show in mobile header */
+  dealTitle?: string;
 }
 
 // Format role for display
@@ -163,6 +170,8 @@ export function ChatParticipantList({
   selectedParticipantId,
   onSelectParticipant,
   enableDrag = false,
+  onBack,
+  dealTitle,
 }: ChatParticipantListProps) {
   const { user } = useCurrentUser();
 
@@ -191,49 +200,71 @@ export function ChatParticipantList({
 
   const isLoading = participants === undefined;
 
+  // Optional header for mobile navigation
+  const header = onBack ? (
+    <div className="flex items-center gap-3 px-4 h-14 border-b flex-shrink-0">
+      <Button variant="ghost" size="icon" onClick={onBack}>
+        <HugeiconsIcon icon={ArrowLeft01Icon} size={20} />
+      </Button>
+      <div className="flex-1 min-w-0">
+        <p className="font-medium truncate">{dealTitle || "Select participant"}</p>
+        <p className="text-xs text-muted-foreground">Choose who to chat with</p>
+      </div>
+    </div>
+  ) : null;
+
   if (isLoading) {
     return (
-      <div className="space-y-2 p-2">
-        {Array.from({ length: 3 }).map((_, i) => (
-          <div key={i} className="flex items-center gap-3 p-2">
-            <Skeleton className="h-8 w-8 rounded-full" />
-            <div className="flex-1 space-y-1">
-              <Skeleton className="h-4 w-24" />
-              <Skeleton className="h-3 w-16" />
+      <div className={onBack ? "flex flex-col h-full" : ""}>
+        {header}
+        <div className="space-y-2 p-2">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <div key={i} className="flex items-center gap-3 p-2">
+              <Skeleton className="h-8 w-8 rounded-full" />
+              <div className="flex-1 space-y-1">
+                <Skeleton className="h-4 w-24" />
+                <Skeleton className="h-3 w-16" />
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     );
   }
 
   if (!participants || participants.length === 0) {
     return (
-      <div className="p-4 text-center text-muted-foreground text-sm">
-        No participants to chat with in this deal
+      <div className={onBack ? "flex flex-col h-full" : ""}>
+        {header}
+        <div className="p-4 text-center text-muted-foreground text-sm">
+          No participants to chat with in this deal
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="space-y-1 p-2">
-      {participants.map((participant) => {
-        if (!participant) return null;
+    <div className={onBack ? "flex flex-col h-full" : ""}>
+      {header}
+      <div className="space-y-1 p-2 flex-1 overflow-y-auto">
+        {participants.map((participant) => {
+          if (!participant) return null;
 
-        const isSelected = selectedParticipantId === participant._id;
-        const unreadCount = unreadCounts[participant._id.toString()] || 0;
+          const isSelected = selectedParticipantId === participant._id;
+          const unreadCount = unreadCounts[participant._id.toString()] || 0;
 
-        return (
-          <DraggableParticipant
-            key={participant._id}
-            participant={participant as Participant}
-            isSelected={isSelected}
-            unreadCount={unreadCount}
-            onClick={() => onSelectParticipant(participant as Participant)}
-            enableDrag={enableDrag}
-          />
-        );
-      })}
+          return (
+            <DraggableParticipant
+              key={participant._id}
+              participant={participant as Participant}
+              isSelected={isSelected}
+              unreadCount={unreadCount}
+              onClick={() => onSelectParticipant(participant as Participant)}
+              enableDrag={enableDrag}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useRef, useEffect } from "react";
 import { useQuery, useMutation } from "convex/react";
 import { useRouter } from "next/navigation";
 import { api } from "../../../convex/_generated/api";
@@ -21,6 +22,7 @@ import {
   UserAdd01Icon,
   CheckmarkCircle01Icon,
   Cancel01Icon,
+  ArrowDown01Icon,
 } from "@hugeicons/core-free-icons";
 import type { IconSvgElement } from "@hugeicons/react";
 
@@ -177,6 +179,29 @@ export function NotificationCenter() {
   const markAsRead = useMutation(api.notifications.markAsRead);
   const markAllAsRead = useMutation(api.notifications.markAllAsRead);
 
+  // Scroll indicator state
+  const [showScrollIndicator, setShowScrollIndicator] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  // Check if content is scrollable and not at bottom
+  useEffect(() => {
+    const scrollEl = scrollRef.current?.querySelector(
+      "[data-radix-scroll-area-viewport]"
+    );
+    if (!scrollEl) return;
+
+    const checkScroll = () => {
+      const { scrollHeight, clientHeight, scrollTop } = scrollEl;
+      const isScrollable = scrollHeight > clientHeight;
+      const isAtBottom = scrollTop + clientHeight >= scrollHeight - 10;
+      setShowScrollIndicator(isScrollable && !isAtBottom);
+    };
+
+    checkScroll();
+    scrollEl.addEventListener("scroll", checkScroll);
+    return () => scrollEl.removeEventListener("scroll", checkScroll);
+  }, [notifications]);
+
   const handleMarkAsRead = async (notificationId: Id<"notifications">) => {
     try {
       await markAsRead({ notificationId });
@@ -236,37 +261,54 @@ export function NotificationCenter() {
         </div>
 
         {/* Notification list */}
-        <ScrollArea className="max-h-80">
-          {notifications === undefined ? (
-            // Loading state
-            <div className="p-4 text-center text-sm text-muted-foreground">
-              Loading...
-            </div>
-          ) : notifications.length > 0 ? (
-            notifications.map((notification) => (
-              <NotificationItem
-                key={notification._id}
-                notification={notification as NotificationItemProps["notification"]}
-                onMarkAsRead={handleMarkAsRead}
-                onNavigate={handleNavigate}
-              />
-            ))
-          ) : (
-            // Empty state
-            <div className="py-8 px-4 text-center">
+        <div className="relative" ref={scrollRef}>
+          <ScrollArea className="h-80">
+            {notifications === undefined ? (
+              // Loading state
+              <div className="p-4 text-center text-sm text-muted-foreground">
+                Loading...
+              </div>
+            ) : notifications.length > 0 ? (
+              notifications.map((notification) => (
+                <NotificationItem
+                  key={notification._id}
+                  notification={
+                    notification as NotificationItemProps["notification"]
+                  }
+                  onMarkAsRead={handleMarkAsRead}
+                  onNavigate={handleNavigate}
+                />
+              ))
+            ) : (
+              // Empty state
+              <div className="py-8 px-4 text-center">
+                <HugeiconsIcon
+                  icon={Notification01Icon}
+                  size={32}
+                  strokeWidth={1.5}
+                  className="mx-auto mb-2 text-muted-foreground opacity-50"
+                />
+                <p className="text-sm text-muted-foreground">
+                  No notifications
+                </p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  You&apos;re all caught up!
+                </p>
+              </div>
+            )}
+          </ScrollArea>
+
+          {/* Scroll indicator */}
+          {showScrollIndicator && (
+            <div className="absolute bottom-0 left-0 right-0 flex justify-center pb-1 pt-4 bg-gradient-to-t from-background to-transparent pointer-events-none">
               <HugeiconsIcon
-                icon={Notification01Icon}
-                size={32}
-                strokeWidth={1.5}
-                className="mx-auto mb-2 text-muted-foreground opacity-50"
+                icon={ArrowDown01Icon}
+                size={16}
+                className="text-muted-foreground animate-bounce"
               />
-              <p className="text-sm text-muted-foreground">No notifications</p>
-              <p className="text-xs text-muted-foreground mt-1">
-                You&apos;re all caught up!
-              </p>
             </div>
           )}
-        </ScrollArea>
+        </div>
       </PopoverContent>
     </Popover>
   );

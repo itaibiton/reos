@@ -205,6 +205,38 @@ export const create = mutation({
   },
 });
 
+// Get properties created by the current user (my listings)
+export const listMyListings = query({
+  args: {},
+  handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      return [];
+    }
+
+    // Get current user
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_clerk_id", (q) => q.eq("clerkId", identity.subject))
+      .unique();
+
+    if (!user) {
+      return [];
+    }
+
+    // Get properties created by this user
+    const properties = await ctx.db
+      .query("properties")
+      .withIndex("by_created_by", (q) => q.eq("createdBy", user._id))
+      .collect();
+
+    // Sort by createdAt descending (newest first)
+    properties.sort((a, b) => b.createdAt - a.createdAt);
+
+    return properties;
+  },
+});
+
 // Get sold properties in a city
 export const getSoldInCity = query({
   args: { city: v.string(), limit: v.optional(v.number()) },

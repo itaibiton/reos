@@ -91,6 +91,99 @@ export const list = query({
   },
 });
 
+// List deals with populated property data (for UI components that need both)
+export const listWithProperties = query({
+  args: {
+    limit: v.optional(v.number()),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      return [];
+    }
+
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_clerk_id", (q) => q.eq("clerkId", identity.subject))
+      .unique();
+
+    if (!user) {
+      return [];
+    }
+
+    const effectiveRole = user.role === "admin" && user.viewingAsRole
+      ? user.viewingAsRole
+      : user.role;
+
+    let deals;
+
+    switch (effectiveRole) {
+      case "investor":
+        deals = await ctx.db
+          .query("deals")
+          .withIndex("by_investor", (q) => q.eq("investorId", user._id))
+          .collect();
+        break;
+
+      case "broker":
+        deals = await ctx.db
+          .query("deals")
+          .withIndex("by_broker", (q) => q.eq("brokerId", user._id))
+          .collect();
+        break;
+
+      case "mortgage_advisor":
+        deals = await ctx.db
+          .query("deals")
+          .withIndex("by_mortgage_advisor", (q) => q.eq("mortgageAdvisorId", user._id))
+          .collect();
+        break;
+
+      case "lawyer":
+        deals = await ctx.db
+          .query("deals")
+          .withIndex("by_lawyer", (q) => q.eq("lawyerId", user._id))
+          .collect();
+        break;
+
+      case "admin":
+        deals = await ctx.db.query("deals").collect();
+        break;
+
+      default:
+        return [];
+    }
+
+    // Sort by most recent first
+    deals.sort((a, b) => b.createdAt - a.createdAt);
+
+    // Apply limit if specified
+    if (args.limit) {
+      deals = deals.slice(0, args.limit);
+    }
+
+    // Enrich each deal with property data
+    const enriched = await Promise.all(
+      deals.map(async (deal) => {
+        const property = await ctx.db.get(deal.propertyId);
+        return {
+          ...deal,
+          property: property ? {
+            title: property.title,
+            address: property.address,
+            city: property.city,
+            priceUsd: property.priceUsd,
+            featuredImage: property.featuredImage,
+            images: property.images,
+          } : null,
+        };
+      })
+    );
+
+    return enriched;
+  },
+});
+
 // Get a single deal by ID (with access check)
 export const get = query({
   args: {
