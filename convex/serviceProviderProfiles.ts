@@ -117,11 +117,22 @@ export const upsertProfile = mutation({
       });
       return existingProfile._id;
     } else {
-      // Create new profile
+      // Create new profile with default notification preferences
+      const defaultNotificationPreferences = {
+        emailNotifications: true,
+        inAppNotifications: true,
+        newMessageNotify: true,
+        dealStageNotify: true,
+        fileUploadedNotify: true,
+        requestReceivedNotify: true,
+      };
+
       return await ctx.db.insert("serviceProviderProfiles", {
         userId: user._id,
         providerType,
         ...args,
+        acceptingNewClients: true, // Default to accepting
+        notificationPreferences: defaultNotificationPreferences,
         createdAt: now,
         updatedAt: now,
       });
