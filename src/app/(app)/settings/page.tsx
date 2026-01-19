@@ -3,8 +3,11 @@
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { InvestorProfileForm } from "@/components/profile/InvestorProfileForm";
 import { ProviderProfileForm } from "@/components/profile/ProviderProfileForm";
+import { AvailabilitySettings } from "@/components/settings/AvailabilitySettings";
+import { NotificationSettings } from "@/components/settings/NotificationSettings";
 import { Spinner } from "@/components/ui/spinner";
 import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function SettingsPage() {
   const { user, isLoading, effectiveRole, isAdmin, isInvestor, isServiceProvider } = useCurrentUser();
@@ -39,8 +42,29 @@ export default function SettingsPage() {
         </p>
       </div>
 
+      {/* Investors see profile form directly (no tabs) */}
       {showInvestorProfile && <InvestorProfileForm />}
-      {showProviderProfile && <ProviderProfileForm />}
+
+      {/* Providers see tabbed interface */}
+      {showProviderProfile && (
+        <Tabs defaultValue="profile" className="w-full">
+          <TabsList>
+            <TabsTrigger value="profile">Profile</TabsTrigger>
+            <TabsTrigger value="availability">Availability</TabsTrigger>
+            <TabsTrigger value="notifications">Notifications</TabsTrigger>
+          </TabsList>
+          <TabsContent value="profile" className="mt-4">
+            <ProviderProfileForm />
+          </TabsContent>
+          <TabsContent value="availability" className="mt-4">
+            <AvailabilitySettings />
+          </TabsContent>
+          <TabsContent value="notifications" className="mt-4">
+            <NotificationSettings />
+          </TabsContent>
+        </Tabs>
+      )}
+
       {effectiveRole === "admin" && (
         <div className="rounded-lg border p-6">
           <h2 className="text-lg font-semibold mb-2">Admin Panel</h2>
