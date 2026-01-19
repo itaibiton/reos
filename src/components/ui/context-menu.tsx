@@ -72,7 +72,7 @@ function ContextMenuSubTrigger({
       {...props}
     >
       {children}
-      <ChevronRightIcon className="ms-auto" />
+      <ChevronRightIcon className="ms-auto rtl:-scale-x-100" />
     </ContextMenuPrimitive.SubTrigger>
   )
 }
