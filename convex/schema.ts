@@ -706,4 +706,15 @@ export default defineSchema({
     .index("by_follower", ["followerId"])
     .index("by_following", ["followingId"])
     .index("by_follower_and_following", ["followerId", "followingId"]),
+
+  // Post comments
+  postComments: defineTable({
+    postId: v.id("posts"),
+    authorId: v.id("users"),
+    content: v.string(),
+    createdAt: v.number(),
+  })
+    .index("by_post", ["postId"])
+    .index("by_post_and_time", ["postId", "createdAt"])
+    .index("by_author", ["authorId"]),
 });
