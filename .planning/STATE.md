@@ -10,19 +10,19 @@ See: .planning/PROJECT.md (updated 2026-01-17)
 ## Current Position
 
 Milestone: v1.3 Social Feed & Global Community
-Phase: 21 of 27 (Feed Infrastructure) — IN PROGRESS
-Plan: 1 of 2 complete
-Status: In progress
-Last activity: 2026-01-19 — Completed 21-01-PLAN.md
+Phase: 21 of 27 (Feed Infrastructure) — COMPLETE
+Plan: 2 of 2 complete
+Status: Phase complete
+Last activity: 2026-01-19 — Completed 21-02-PLAN.md
 
-Progress: ██░░░░░░░░ 14% (1/7 plans)
+Progress: ███░░░░░░░ 29% (2/7 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 55
+- Total plans completed: 56
 - Average duration: 7.2 min
-- Total execution time: 6.75 hours
+- Total execution time: 6.82 hours
 
 **By Phase:**
 
@@ -59,11 +59,11 @@ Progress: ██░░░░░░░░ 14% (1/7 plans)
 | 19 | 1/1 | 12 min | 12 min |
 | 20 | 2/2 | 18 min | 9 min |
 
-| 21 | 1/2 | 3 min | 3 min |
+| 21 | 2/2 | 7 min | 3.5 min |
 
 **Recent Trend:**
-- Last 5 plans: 12 min, 8 min, 10 min, 3 min
-- Trend: v1.3 started - 55 plans total
+- Last 5 plans: 8 min, 10 min, 3 min, 4 min
+- Trend: Phase 21 complete - 56 plans total
 
 ## Accumulated Context
 
@@ -204,6 +204,9 @@ Recent decisions affecting current work:
 - Phase 21: Denormalized counters (likeCount, commentCount, shareCount, saveCount) on post documents
 - Phase 21: In-memory filtering after pagination (Convex single-index constraint)
 - Phase 21: canViewPost helper for visibility enforcement with switch pattern
+- Phase 21: Idempotent mutations return early if already in target state
+- Phase 21: Math.max(0, count - 1) prevents negative counters on unlike/unsave
+- Phase 21: All status checks (isLikedByUser, isSavedByUser, isFollowing) return boolean
 
 ### Deferred Issues
 
@@ -232,6 +235,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-19
-Stopped at: Completed 21-01-PLAN.md
+Stopped at: Completed 21-02-PLAN.md (Phase 21 complete)
 Resume file: None
-Next: /gsd:execute-phase 21-02
+Next: Phase 22 - Post Creation UI
