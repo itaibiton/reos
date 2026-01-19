@@ -152,10 +152,12 @@ Plans:
 **Goal**: Availability calendar, service area management, notification preferences
 **Depends on**: Phase 19
 **Research**: Unlikely (internal patterns)
-**Plans**: TBD
+**Plans**: 1/2 complete
+**Status**: In Progress
 
 Plans:
-- [ ] 20-01: TBD
+- [x] 20-01: Backend schema & queries (availability + notification preferences)
+- [ ] 20-02: Settings UI with Availability & Notifications tabs
 
 ## Progress
 
@@ -163,7 +165,7 @@ Plans:
 |-----------|--------|-------|--------|---------|
 | v1.0 MVP | 17 | 40 | Complete | 2026-01-17 |
 | v1.1 Investor Onboarding | 7 | 8 | Complete | 2026-01-18 |
-| v1.2 Provider Experience | 6 | 9/? | In Progress | - |
+| v1.2 Provider Experience | 6 | 10/11 | In Progress | - |
 
 | Phase | Milestone | Plans | Status | Completed |
 |-------|-----------|-------|--------|-----------|
@@ -173,7 +175,7 @@ Plans:
 | 17. Client Management | v1.2 | 2/2 | Complete | 2026-01-18 |
 | 18. Service Provider Profiles | v1.2 | 2/2 | Complete | 2026-01-19 |
 | 19. Provider Analytics | v1.2 | 1/1 | Complete | 2026-01-19 |
-| 20. Provider Settings & Availability | v1.2 | 0/? | Not started | - |
+| 20. Provider Settings & Availability | v1.2 | 1/2 | In Progress | - |
 
 ---
 

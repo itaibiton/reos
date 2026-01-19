@@ -10,12 +10,12 @@ See: .planning/PROJECT.md (updated 2026-01-17)
 ## Current Position
 
 Milestone: v1.2 Provider Experience
-Phase: 19 of 20 (Provider Analytics) — COMPLETE
-Plan: 1 of 1 in current phase
-Status: Complete
-Last activity: 2026-01-19 — Completed 19-01-PLAN.md
+Phase: 20 of 20 (Provider Settings & Availability) — IN PROGRESS
+Plan: 1 of 2 in current phase
+Status: Plan 01 Complete, Plan 02 Next
+Last activity: 2026-01-19 — Completed 20-01-PLAN.md (backend)
 
-Progress: ████████░░ 90% (1/5 remaining phases)
+Progress: █████████░ 95% (1 plan remaining)
 
 ## Performance Metrics
 
@@ -59,8 +59,8 @@ Progress: ████████░░ 90% (1/5 remaining phases)
 | 19 | 1/1 | 12 min | 12 min |
 
 **Recent Trend:**
-- Last 5 plans: 2 min, 2 min, 8 min, 10 min, 12 min
-- Trend: v1.2 progressing - Phase 19 complete, 52 plans total
+- Last 5 plans: 2 min, 8 min, 10 min, 12 min, 8 min
+- Trend: v1.2 progressing - Phase 20 plan 1 complete, 53 plans total
 
 ## Accumulated Context
 
@@ -187,6 +187,11 @@ Recent decisions affecting current work:
 - Phase 19: Monthly trends show last 6 months of data
 - Phase 19: Deal value shown as total, with note about commission agreements
 - Phase 19: Response time auto-formats (minutes if <1hr, hours otherwise)
+- Phase 20: Availability uses simple boolean (acceptingNewClients) + blocked dates (no time slots for MVP)
+- Phase 20: Notification preferences stored as object field on serviceProviderProfiles (not separate table)
+- Phase 20: All notification preferences default to enabled
+- Phase 20: Dates stored as start-of-day timestamps (midnight UTC)
+- Phase 20: Duplicate blocked dates handled gracefully (returns existing record)
 
 ### Deferred Issues
 
@@ -214,6 +219,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-19
-Stopped at: Completed Phase 19 (Provider Analytics)
+Stopped at: Completed Phase 20 Plan 01 (Provider Settings Backend)
 Resume file: None
-Next: /gsd:plan-phase 20
+Next: /gsd:execute-plan .planning/phases/20-provider-settings-availability/20-02-PLAN.md
