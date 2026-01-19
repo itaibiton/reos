@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Home01Icon } from "@hugeicons/core-free-icons";
 import { formatDistanceToNow } from "date-fns";
+import Link from "next/link";
 import type { EnrichedPost } from "./PostCard";
 import { EngagementFooter } from "./EngagementFooter";
 import { FollowButton } from "./FollowButton";
@@ -88,17 +89,22 @@ export function PropertyPostCard({ post }: PropertyPostCardProps) {
       <CardContent className="p-4 space-y-3">
         {/* Author Header */}
         <div className="flex items-center gap-3">
-          <Avatar className="h-8 w-8">
-            <AvatarImage src={post.authorImageUrl} alt={post.authorName} />
-            <AvatarFallback className="text-xs">
-              {getInitials(post.authorName)}
-            </AvatarFallback>
-          </Avatar>
+          <Link href={`/profile/${post.authorId}`}>
+            <Avatar className="h-8 w-8 hover:opacity-80 transition-opacity">
+              <AvatarImage src={post.authorImageUrl} alt={post.authorName} />
+              <AvatarFallback className="text-xs">
+                {getInitials(post.authorName)}
+              </AvatarFallback>
+            </Avatar>
+          </Link>
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2">
-              <span className="font-medium text-sm truncate">
+              <Link
+                href={`/profile/${post.authorId}`}
+                className="font-medium text-sm truncate hover:underline"
+              >
                 {post.authorName}
-              </span>
+              </Link>
               {roleLabel && (
                 <Badge variant="secondary" className="text-xs">
                   {roleLabel}
