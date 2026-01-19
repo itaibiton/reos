@@ -10,19 +10,19 @@ See: .planning/PROJECT.md (updated 2026-01-17)
 ## Current Position
 
 Milestone: v1.2 Provider Experience
-Phase: 18 of 20 (Service Provider Profiles)
-Plan: 1 of 2 in current phase
-Status: In progress
-Last activity: 2026-01-19 — Completed 18-01-PLAN.md
+Phase: 18 of 20 (Service Provider Profiles) — COMPLETE
+Plan: 2 of 2 in current phase
+Status: Complete
+Last activity: 2026-01-19 — Completed 18-02-PLAN.md
 
-Progress: ██████░░░░ 70% (2.5/5 remaining phases)
+Progress: ███████░░░ 80% (2/5 remaining phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 49
-- Average duration: 7.4 min
-- Total execution time: 6.0 hours
+- Total plans completed: 51
+- Average duration: 7.3 min
+- Total execution time: 6.2 hours
 
 **By Phase:**
 
@@ -55,10 +55,11 @@ Progress: ██████░░░░ 70% (2.5/5 remaining phases)
 | 16 | 1/1 | 12 min | 12 min |
 | 16.3 | 2/2 | 7 min | 3.5 min |
 | 17 | 2/2 | 10 min | 5 min |
+| 18 | 2/2 | 10 min | 5 min |
 
 **Recent Trend:**
-- Last 5 plans: 12 min, 5 min, 2 min, 2 min, 8 min
-- Trend: v1.2 progressing - Phase 17 complete, 49 plans total
+- Last 5 plans: 5 min, 2 min, 2 min, 8 min, 10 min
+- Trend: v1.2 progressing - Phase 18 complete, 51 plans total
 
 ## Accumulated Context
 
@@ -173,6 +174,13 @@ Recent decisions affecting current work:
 - Phase 16.3: Extended UserRole type with 8 roles (including accountant, notary, tax_consultant, appraiser)
 - Phase 16.3: SidebarProvider wraps provider layout, cookie persistence automatic
 - Phase 16.3: ComingSoon component pattern for placeholder pages with Construction icon
+- Phase 18: One review per deal per provider enforced in mutation (not database constraint)
+- Phase 18: getPublicProfile returns all data in single query to minimize client roundtrips
+- Phase 18: Portfolio shows last 5 completed deals sorted by most recent
+- Phase 18: Provider listing uses tabs for type filtering (Broker/Mortgage/Lawyer)
+- Phase 18: Provider cards show truncated lists with "+N more" overflow indicators
+- Phase 18: Profile page two-column layout: About+Reviews (2/3) | Stats+Portfolio (1/3)
+- Phase 18: Star rating component uses lucide-react Star icon with fill states
 
 ### Deferred Issues
 
@@ -199,7 +207,7 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-18
-Stopped at: Completed Phase 17 (Client Management)
+Last session: 2026-01-19
+Stopped at: Completed Phase 18 (Service Provider Profiles)
 Resume file: None
-Next: /gsd:plan-phase 18
+Next: /gsd:plan-phase 19
