@@ -57,7 +57,7 @@ export function AppSidebar() {
                     strokeWidth={1.5}
                   />
                 </div>
-                <div className="grid flex-1 text-left text-sm leading-tight">
+                <div className="grid flex-1 text-start text-sm leading-tight">
                   <span className="truncate font-semibold">REOS</span>
                   <span className="truncate text-xs">Real Estate OS</span>
                 </div>
@@ -104,7 +104,7 @@ export function AppSidebar() {
                               <SidebarMenuButton tooltip={item.label}>
                                 <item.icon />
                                 <span>{item.label}</span>
-                                <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                                <ChevronRight className="ms-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                               </SidebarMenuButton>
                             </CollapsibleTrigger>
                             <CollapsibleContent>

@@ -295,8 +295,8 @@ export function AppShell({ children }: AppShellProps) {
         <header className="sticky top-0 z-50 flex h-16 shrink-0 items-center justify-between border-b bg-background px-4">
           {/* Left: Sidebar trigger + breadcrumbs */}
           <div className="flex items-center gap-2">
-            <SidebarTrigger className="-ml-1" />
-            <Separator orientation="vertical" className="mr-2 h-4" />
+            <SidebarTrigger className="-ms-1" />
+            <Separator orientation="vertical" className="me-2 h-4" />
             {/* Breadcrumbs */}
             <Breadcrumb>
               <BreadcrumbList>

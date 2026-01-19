@@ -287,7 +287,7 @@ export function InvestorSearchBar() {
         {inSheet && <Label className="text-xs font-medium">Price Range</Label>}
         <div className="grid grid-cols-2 gap-2">
           <div className="relative">
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+            <span className="absolute start-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
               $
             </span>
             <Input
@@ -300,11 +300,11 @@ export function InvestorSearchBar() {
                   e.target.value ? parseInt(e.target.value, 10) : undefined
                 )
               }
-              className={cn("pl-6 h-9", inSheet ? "w-full" : "w-[100px]")}
+              className={cn("ps-6 h-9", inSheet ? "w-full" : "w-[100px]")}
             />
           </div>
           <div className="relative">
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+            <span className="absolute start-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
               $
             </span>
             <Input
@@ -317,7 +317,7 @@ export function InvestorSearchBar() {
                   e.target.value ? parseInt(e.target.value, 10) : undefined
                 )
               }
-              className={cn("pl-6 h-9", inSheet ? "w-full" : "w-[100px]")}
+              className={cn("ps-6 h-9", inSheet ? "w-full" : "w-[100px]")}
             />
           </div>
         </div>
@@ -483,7 +483,7 @@ export function InvestorSearchBar() {
             className="flex items-center gap-2 flex-1"
           >
             <div className="relative flex-1">
-              <div className="absolute left-3 top-1/2 -translate-y-1/2 flex items-center pointer-events-none">
+              <div className="absolute start-3 top-1/2 -translate-y-1/2 flex items-center pointer-events-none">
                 {isSearching ? (
                   <Loader2Icon className="size-4 animate-spin text-muted-foreground" />
                 ) : (
@@ -503,8 +503,8 @@ export function InvestorSearchBar() {
                 placeholder="Try 'apartments in Tel Aviv under $500k'"
                 disabled={isSearching}
                 className={cn(
-                  "pl-10 h-9 w-full",
-                  searchQuery && "pr-8"
+                  "ps-10 h-9 w-full",
+                  searchQuery && "pe-8"
                 )}
               />
               {searchQuery && !isSearching && (
@@ -513,7 +513,7 @@ export function InvestorSearchBar() {
                   variant="ghost"
                   size="icon"
                   onClick={handleClearSearch}
-                  className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 hover:bg-transparent"
+                  className="absolute end-1 top-1/2 -translate-y-1/2 h-7 w-7 hover:bg-transparent"
                 >
                   <HugeiconsIcon
                     icon={Cancel01Icon}
@@ -570,7 +570,7 @@ export function InvestorSearchBar() {
                   <Label className="text-xs font-medium">AI-Powered Search</Label>
                   <form onSubmit={handleSmartSearch} className="flex gap-2">
                     <div className="relative flex-1">
-                      <div className="absolute left-3 top-1/2 -translate-y-1/2 flex items-center pointer-events-none">
+                      <div className="absolute start-3 top-1/2 -translate-y-1/2 flex items-center pointer-events-none">
                         {isSearching ? (
                           <Loader2Icon className="size-4 animate-spin text-muted-foreground" />
                         ) : (
@@ -588,7 +588,7 @@ export function InvestorSearchBar() {
                         onChange={(e) => setSearchQuery(e.target.value)}
                         placeholder="Try 'apartments in Tel Aviv under $500k'"
                         disabled={isSearching}
-                        className="pl-10"
+                        className="ps-10"
                       />
                     </div>
                     <Button type="submit" disabled={!searchQuery.trim() || isSearching}>

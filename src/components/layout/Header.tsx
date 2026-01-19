@@ -152,7 +152,7 @@ export function Header({
 
         {/* Top navigation for investor layout */}
         {showTopNav && (
-          <div className="hidden md:block ml-4">
+          <div className="hidden md:block ms-4">
             <TopNav />
           </div>
         )}
