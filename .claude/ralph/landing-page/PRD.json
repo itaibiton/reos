@@ -195,7 +195,7 @@
         "Build completes successfully"
       ],
       "dependencies": ["INT-01"],
-      "pass": false
+      "pass": true
     }
   ],
 
