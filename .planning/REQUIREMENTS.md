@@ -9,14 +9,14 @@ Requirements for v1.4 Internationalization & RTL Support. Each maps to roadmap p
 
 ### Infrastructure
 
-- [ ] **INFRA-01**: App supports URL-based locale routing with `/he/` and `/en/` path prefixes
-- [ ] **INFRA-02**: Middleware correctly chains Clerk auth with next-intl locale handling
-- [ ] **INFRA-03**: App wrapped with DirectionProvider for Radix/Shadcn RTL support
-- [ ] **INFRA-04**: Existing route groups `(app)`, `(auth)`, `(main)` preserved under `[locale]` segment
+- [x] **INFRA-01**: App supports URL-based locale routing with `/he/` and `/en/` path prefixes
+- [x] **INFRA-02**: Middleware correctly chains Clerk auth with next-intl locale handling
+- [x] **INFRA-03**: App wrapped with DirectionProvider for Radix/Shadcn RTL support
+- [x] **INFRA-04**: Existing route groups `(app)`, `(auth)`, `(main)` preserved under `[locale]` segment
 
 ### RTL Layout
 
-- [ ] **RTL-01**: HTML `dir` attribute set to `rtl` when locale is Hebrew
+- [x] **RTL-01**: HTML `dir` attribute set to `rtl` when locale is Hebrew
 - [ ] **RTL-02**: All directional CSS classes converted to logical properties (`ml-` to `ms-`, etc.)
 - [ ] **RTL-03**: Shadcn Sidebar component works correctly in RTL mode
 - [ ] **RTL-04**: Shadcn Sheet, DropdownMenu, and other positioned components work in RTL
@@ -79,11 +79,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INFRA-01 | 28 | Pending |
-| INFRA-02 | 28 | Pending |
-| INFRA-03 | 28 | Pending |
-| INFRA-04 | 28 | Pending |
-| RTL-01 | 28 | Pending |
+| INFRA-01 | 28 | Complete |
+| INFRA-02 | 28 | Complete |
+| INFRA-03 | 28 | Complete |
+| INFRA-04 | 28 | Complete |
+| RTL-01 | 28 | Complete |
 | RTL-02 | 29 | Pending |
 | RTL-03 | 30 | Pending |
 | RTL-04 | 30 | Pending |
