@@ -1,5 +1,7 @@
 "use client";
 
+import { useQuery } from "convex/react";
+import { api } from "../../../convex/_generated/api";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -8,6 +10,7 @@ import { UserMultiple02Icon } from "@hugeicons/core-free-icons";
 import { formatDistanceToNow } from "date-fns";
 import type { EnrichedPost } from "./PostCard";
 import { EngagementFooter } from "./EngagementFooter";
+import { FollowButton } from "./FollowButton";
 
 // Role label mapping
 const ROLE_LABELS: Record<string, string> = {
@@ -39,6 +42,10 @@ interface ServiceRequestPostCardProps {
 }
 
 export function ServiceRequestPostCard({ post }: ServiceRequestPostCardProps) {
+  // Query current user to check if this is own post
+  const currentUser = useQuery(api.users.getCurrentUser);
+  const isOwnPost = currentUser?._id === post.authorId;
+
   const roleLabel = post.authorRole
     ? ROLE_LABELS[post.authorRole] || post.authorRole
     : undefined;
@@ -85,6 +92,7 @@ export function ServiceRequestPostCard({ post }: ServiceRequestPostCardProps) {
               {formatDistanceToNow(post.createdAt, { addSuffix: true })}
             </span>
           </div>
+          <FollowButton userId={post.authorId} isOwnPost={isOwnPost} />
         </div>
 
         {/* Post Content (request details) */}
