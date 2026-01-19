@@ -44,6 +44,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import { NotificationCenter } from "@/components/notifications/NotificationCenter";
 import { IncompleteProfileReminder } from "@/components/IncompleteProfileReminder";
+import { GlobalSearchBar } from "@/components/search";
 
 // Breadcrumb config: maps paths to their group and label
 // Format: { group?: string, label: string }
@@ -105,6 +106,8 @@ const breadcrumbConfig: Record<string, BreadcrumbConfig> = {
   "/onboarding": { label: "Onboarding" },
   "/onboarding/questionnaire": { label: "Questionnaire" },
   "/design-system": { label: "Design System" },
+  "/search": { label: "Search" },
+  "/feed": { label: "Feed" },
 };
 
 interface AppShellProps {
@@ -275,11 +278,9 @@ export function AppShell({ children }: AppShellProps) {
   // Generate breadcrumbs
   const breadcrumbs = generateBreadcrumbs(pathname, searchParamsString);
 
-  // Show search bar on marketplace pages for investor
-  const isInvestorLayout = effectiveRole === "investor";
+  // Show search bar on marketplace/browse properties pages for all roles
   const showSearchBar =
-    isInvestorLayout &&
-    (pathname === "/properties" || pathname === "/properties/saved");
+    pathname === "/properties" || pathname === "/properties/saved";
 
   // Full-bleed pages (no padding wrapper)
   const isFullBleedPage = pathname === "/properties" || pathname === "/chat";
@@ -292,6 +293,7 @@ export function AppShell({ children }: AppShellProps) {
       <SidebarInset>
         {/* Header */}
         <header className="flex h-16 shrink-0 items-center justify-between border-b px-4">
+          {/* Left: Sidebar trigger + breadcrumbs */}
           <div className="flex items-center gap-2">
             <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="mr-2 h-4" />
@@ -321,7 +323,14 @@ export function AppShell({ children }: AppShellProps) {
             </Breadcrumb>
           </div>
 
-          {/* Auth section */}
+          {/* Center: Global search (authenticated only) */}
+          <Authenticated>
+            <div className="hidden md:flex flex-1 justify-center px-4">
+              <GlobalSearchBar />
+            </div>
+          </Authenticated>
+
+          {/* Right: Auth section */}
           <div className="flex items-center">
             <AuthLoading>
               <Skeleton className="h-8 w-8 rounded-full" />
