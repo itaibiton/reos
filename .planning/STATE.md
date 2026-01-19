@@ -11,18 +11,18 @@ See: .planning/PROJECT.md (updated 2026-01-19)
 
 Milestone: v1.4 Internationalization & RTL Support
 Phase: 29 - CSS Logical Properties Migration (COMPLETE)
-Plan: 10 of 10 complete
+Plan: 11 of 11 complete (gap closure)
 Status: Phase complete
-Last activity: 2026-01-20 — Completed 29-10-PLAN.md (Final Pages and Verification)
+Last activity: 2026-01-20 — Completed 29-11-PLAN.md (Gap Closure - Rounded Corners)
 
 Progress: [████████--] 43% (3/7 phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 88
+- Total plans completed: 89
 - Average duration: 5.7 min
-- Total execution time: 7.77 hours
+- Total execution time: 7.82 hours
 
 **By Phase:**
 
@@ -67,11 +67,11 @@ Progress: [████████--] 43% (3/7 phases)
 | 27 | 5/5 | 12 min | 2.4 min |
 | 27.2 | 1/1 | 3 min | 3 min |
 | 28 | 2/2 | 8 min | 4 min |
-| 29 | 10/10 | 34 min | 3.4 min |
+| 29 | 11/11 | 37 min | 3.4 min |
 
 **Recent Trend:**
-- Last 5 plans: 4 min, 3 min, 3 min, 3 min, 8 min
-- Trend: Phase 29 complete - RTL-02 requirement fulfilled
+- Last 5 plans: 3 min, 3 min, 3 min, 8 min, 3 min
+- Trend: Phase 29 gap closure complete - all rounded corners converted
 
 ## Accumulated Context
 
@@ -306,6 +306,7 @@ Recent decisions affecting current work:
 - Phase 29: text-end for character counts and numeric displays
 - Phase 29: Landing page text-left preserved (marketing design, physical alignment intentional)
 - Phase 29: RTL-02 COMPLETE - all directional CSS converted to logical properties
+- Phase 29: Chat/questionnaire bubble corners: rounded-br-sm -> rounded-ee-sm, rounded-bl-sm -> rounded-es-sm, rounded-tl-sm -> rounded-ss-sm
 
 ### v1.4 Research Findings
 
@@ -347,6 +348,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-20
-Stopped at: Completed 29-10-PLAN.md (Phase 29 complete)
+Stopped at: Completed 29-11-PLAN.md (Gap Closure - Rounded Corners)
 Resume file: None
 Next: Run /gsd:plan-phase for Phase 30 (RTL Animations) or Phase 31 (Translation Files)
