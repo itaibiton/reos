@@ -225,11 +225,13 @@ Plans:
 **Goal**: Follow users, follower/following counts, personalized following feed
 **Depends on**: Phase 24
 **Research**: Unlikely (internal patterns)
-**Plans**: 2 plans
+**Plans**: 2/2 complete
+**Status**: Complete
+**Completed**: 2026-01-19
 
 Plans:
-- [ ] 25-01-PLAN.md — FollowButton component + Following feed tab
-- [ ] 25-02-PLAN.md — FollowStats + FollowListDialog components
+- [x] 25-01: FollowButton component + Following feed tab
+- [x] 25-02: FollowStats + FollowListDialog components
 
 ### Phase 26: User Profiles Revamp
 
@@ -274,7 +276,7 @@ Plans:
 | 22. Post Creation UI | v1.3 | 2/2 | Complete | 2026-01-19 |
 | 23. Feed Display | v1.3 | 2/2 | Complete | 2026-01-19 |
 | 24. Social Interactions | v1.3 | 4/4 | Complete | 2026-01-19 |
-| 25. User Following | v1.3 | 0/2 | Not started | - |
+| 25. User Following | v1.3 | 2/2 | Complete | 2026-01-19 |
 | 26. User Profiles Revamp | v1.3 | 0/? | Not started | - |
 | 27. Global Discovery | v1.3 | 0/? | Not started | - |
 
