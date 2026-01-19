@@ -145,7 +145,7 @@ function ClientCard({ client, onViewDetails }: ClientCardProps) {
             className="flex-shrink-0"
           >
             View
-            <HugeiconsIcon icon={ArrowRight01Icon} size={14} className="ml-1" />
+            <HugeiconsIcon icon={ArrowRight01Icon} size={14} className="ms-1" />
           </Button>
         </div>
       </CardContent>
@@ -262,13 +262,13 @@ export default function ClientsPage() {
           <HugeiconsIcon
             icon={Search01Icon}
             size={16}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+            className="absolute start-3 top-1/2 -translate-y-1/2 text-muted-foreground"
           />
           <Input
             placeholder="Search by name or email..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-9"
+            className="ps-9"
           />
         </div>
       </div>

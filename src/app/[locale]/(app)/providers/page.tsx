@@ -169,7 +169,7 @@ function ProviderCard({ provider, onViewProfile }: ProviderCardProps) {
             className="flex-shrink-0"
           >
             View
-            <ArrowRight size={14} className="ml-1" />
+            <ArrowRight size={14} className="ms-1" />
           </Button>
         </div>
       </CardContent>
@@ -253,13 +253,13 @@ export default function ProvidersPage() {
         <div className="relative max-w-md">
           <Search
             size={16}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+            className="absolute start-3 top-1/2 -translate-y-1/2 text-muted-foreground"
           />
           <Input
             placeholder="Search by name, company, or location..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-9"
+            className="ps-9"
           />
         </div>
       </div>

@@ -227,7 +227,7 @@ export default function ClientDetailPage() {
     <div className="p-6 space-y-6">
       {/* Back button */}
       <Button variant="ghost" size="sm" onClick={() => router.push("/clients")}>
-        <HugeiconsIcon icon={ArrowLeft01Icon} size={16} className="mr-1" />
+        <HugeiconsIcon icon={ArrowLeft01Icon} size={16} className="me-1" />
         Back to Clients
       </Button>
 
@@ -274,7 +274,7 @@ export default function ClientDetailPage() {
         {/* Actions */}
         <Button asChild>
           <Link href={`/chat?client=${clientId}`}>
-            <HugeiconsIcon icon={Message01Icon} size={16} className="mr-2" />
+            <HugeiconsIcon icon={Message01Icon} size={16} className="me-2" />
             Start Chat
           </Link>
         </Button>
@@ -358,7 +358,7 @@ export default function ClientDetailPage() {
                           </Avatar>
                         )}
                         {deal.providers.mortgageAdvisor && (
-                          <Avatar className="h-5 w-5 -ml-1 border-2 border-background">
+                          <Avatar className="h-5 w-5 -ms-1 border-2 border-background">
                             <AvatarImage src={deal.providers.mortgageAdvisor.imageUrl} />
                             <AvatarFallback className="text-[8px]">
                               {getInitials(deal.providers.mortgageAdvisor.name)}
@@ -366,7 +366,7 @@ export default function ClientDetailPage() {
                           </Avatar>
                         )}
                         {deal.providers.lawyer && (
-                          <Avatar className="h-5 w-5 -ml-1 border-2 border-background">
+                          <Avatar className="h-5 w-5 -ms-1 border-2 border-background">
                             <AvatarImage src={deal.providers.lawyer.imageUrl} />
                             <AvatarFallback className="text-[8px]">
                               {getInitials(deal.providers.lawyer.name)}

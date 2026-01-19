@@ -170,7 +170,7 @@ export default function ProviderProfilePage() {
     <div className="p-6 space-y-6">
       {/* Back button */}
       <Button variant="ghost" size="sm" onClick={() => router.back()}>
-        <HugeiconsIcon icon={ArrowLeft01Icon} size={16} className="mr-1" />
+        <HugeiconsIcon icon={ArrowLeft01Icon} size={16} className="me-1" />
         Back
       </Button>
 
@@ -217,7 +217,7 @@ export default function ProviderProfilePage() {
 
         {/* Contact button */}
         <Button>
-          <HugeiconsIcon icon={Message01Icon} size={16} className="mr-2" />
+          <HugeiconsIcon icon={Message01Icon} size={16} className="me-2" />
           Contact
         </Button>
       </div>
