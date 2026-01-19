@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-01-19)
 ## Current Position
 
 Milestone: v1.4 Internationalization & RTL Support
-Phase: 28 - i18n Infrastructure (Plan 01 complete)
-Status: Plan 28-01 complete, ready for Plan 28-02
-Last activity: 2026-01-19 — Completed 28-01-PLAN.md (i18n core infrastructure)
+Phase: 28 - i18n Infrastructure (Plan 02 complete)
+Status: Plan 28-02 complete, ready for Plan 28-03
+Last activity: 2026-01-19 — Completed 28-02-PLAN.md (route structure migration)
 
-Progress: [#---------] ~5% (1 plan of phase 28)
+Progress: [##--------] ~10% (2 plans of phase 28)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 80
+- Total plans completed: 81
 - Average duration: 6.1 min
-- Total execution time: 7.32 hours
+- Total execution time: 7.39 hours
 
 **By Phase:**
 
@@ -65,11 +65,11 @@ Progress: [#---------] ~5% (1 plan of phase 28)
 | 26 | 2/2 | 4 min | 2 min |
 | 27 | 5/5 | 12 min | 2.4 min |
 | 27.2 | 1/1 | 3 min | 3 min |
-| 28 | 1/? | 4 min | 4 min |
+| 28 | 2/? | 8 min | 4 min |
 
 **Recent Trend:**
-- Last 5 plans: 3 min, 3 min, 2 min, 3 min, 4 min
-- Trend: Starting v1.4 milestone - first plan complete
+- Last 5 plans: 3 min, 2 min, 3 min, 4 min, 4 min
+- Trend: Continuing v1.4 milestone - route structure migrated
 
 ## Accumulated Context
 
@@ -275,6 +275,10 @@ Recent decisions affecting current work:
 - Phase 28: Clerk middleware wraps outer, returns intlMiddleware from handler
 - Phase 28: Protected route patterns include :locale prefix for all (app) routes
 - Phase 28: i18n config files in src/i18n/ (routing.ts, navigation.ts, request.ts)
+- Phase 28: DirectionProvider wraps children inside ConvexClientProvider
+- Phase 28: ClerkProvider URLs include locale prefix for auth flows
+- Phase 28: Heebo font added as fallback in --font-sans for Hebrew text
+- Phase 28: Locale-aware navigation used in (app) layout for automatic prefix handling
 
 ### v1.4 Research Findings
 
@@ -316,6 +320,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-19
-Stopped at: Completed 28-01-PLAN.md
+Stopped at: Completed 28-02-PLAN.md
 Resume file: None
-Next: Execute 28-02-PLAN.md (route structure migration to [locale] segment)
+Next: Execute 28-03-PLAN.md (RTL CSS migration)
