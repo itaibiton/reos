@@ -91,7 +91,7 @@ export function MortgageCalculator({ defaultPrice }: MortgageCalculatorProps) {
         <div className="space-y-2">
           <Label htmlFor="price">Property Price</Label>
           <div className="relative">
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
+            <span className="absolute start-3 top-1/2 -translate-y-1/2 text-muted-foreground">
               $
             </span>
             <Input
@@ -99,7 +99,7 @@ export function MortgageCalculator({ defaultPrice }: MortgageCalculatorProps) {
               type="text"
               value={formatNumber(price)}
               onChange={handlePriceChange}
-              className="pl-7"
+              className="ps-7"
             />
           </div>
         </div>

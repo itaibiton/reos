@@ -73,9 +73,9 @@ export function SoldPropertiesTable({ city }: SoldPropertiesTableProps) {
         <TableRow>
           <TableHead>Address</TableHead>
           <TableHead>Type</TableHead>
-          <TableHead className="text-right">Size (m&sup2;)</TableHead>
-          <TableHead className="text-right">Price (USD)</TableHead>
-          <TableHead className="text-right">Sold Date</TableHead>
+          <TableHead className="text-end">Size (m&sup2;)</TableHead>
+          <TableHead className="text-end">Price (USD)</TableHead>
+          <TableHead className="text-end">Sold Date</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -90,15 +90,15 @@ export function SoldPropertiesTable({ city }: SoldPropertiesTableProps) {
               </Link>
             </TableCell>
             <TableCell>{getPropertyTypeLabel(property.propertyType)}</TableCell>
-            <TableCell className="text-right">
+            <TableCell className="text-end">
               {property.squareMeters !== undefined
                 ? property.squareMeters
                 : "N/A"}
             </TableCell>
-            <TableCell className="text-right">
+            <TableCell className="text-end">
               {formatUSD(property.soldPrice ?? property.priceUsd)}
             </TableCell>
-            <TableCell className="text-right">
+            <TableCell className="text-end">
               {formatDate(property.soldDate ?? property.updatedAt)}
             </TableCell>
           </TableRow>

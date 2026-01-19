@@ -78,9 +78,9 @@ export function PropertyImageCarousel({
         }}
         className="w-full"
       >
-        <CarouselContent className="-ml-0">
+        <CarouselContent className="-ms-0">
           {images.map((image, index) => (
-            <CarouselItem key={index} className="pl-0">
+            <CarouselItem key={index} className="ps-0">
               <div className="aspect-video bg-muted rounded-lg overflow-hidden">
                 <img
                   src={image}
@@ -94,10 +94,10 @@ export function PropertyImageCarousel({
 
         {/* Navigation buttons inside the image */}
         <CarouselPrevious
-          className="absolute left-4 top-1/2 -translate-y-1/2 bg-background/80 backdrop-blur-sm hover:bg-background/90 border-0"
+          className="absolute start-4 top-1/2 -translate-y-1/2 bg-background/80 backdrop-blur-sm hover:bg-background/90 border-0"
         />
         <CarouselNext
-          className="absolute right-4 top-1/2 -translate-y-1/2 bg-background/80 backdrop-blur-sm hover:bg-background/90 border-0"
+          className="absolute end-4 top-1/2 -translate-y-1/2 bg-background/80 backdrop-blur-sm hover:bg-background/90 border-0"
         />
       </Carousel>
 

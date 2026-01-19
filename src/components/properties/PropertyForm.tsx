@@ -333,7 +333,7 @@ export function PropertyForm({
                 {PROPERTY_TYPES.map((type) => (
                   <div
                     key={type.value}
-                    className="flex items-center space-x-3 rounded-lg border p-3 hover:bg-muted/50 cursor-pointer"
+                    className="flex items-center gap-3 rounded-lg border p-3 hover:bg-muted/50 cursor-pointer"
                     onClick={() => setPropertyType(type.value as PropertyType)}
                   >
                     <RadioGroupItem value={type.value} id={`type-${type.value}`} />
@@ -442,7 +442,7 @@ export function PropertyForm({
                 {PROPERTY_STATUS.map((s) => (
                   <div
                     key={s.value}
-                    className="flex items-center space-x-2 rounded-lg border p-3 hover:bg-muted/50 cursor-pointer"
+                    className="flex items-center gap-2 rounded-lg border p-3 hover:bg-muted/50 cursor-pointer"
                     onClick={() => setStatus(s.value as PropertyStatus)}
                   >
                     <RadioGroupItem value={s.value} id={`status-${s.value}`} />
@@ -541,7 +541,7 @@ export function PropertyForm({
         <Button type="submit" disabled={isSubmitting} size="lg">
           {isSubmitting ? (
             <>
-              <Spinner className="mr-2 h-4 w-4" />
+              <Spinner className="me-2 h-4 w-4" />
               {buttonLoadingText}
             </>
           ) : (

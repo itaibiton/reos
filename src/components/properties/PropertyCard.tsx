@@ -103,16 +103,16 @@ export function PropertyCard({ property, onClick }: PropertyCardProps) {
           </div>
         )}
 
-        {/* Property Type Badge - top-left */}
+        {/* Property Type Badge - top-start */}
         <Badge
           variant="secondary"
-          className="absolute top-2 left-2 bg-background/90 backdrop-blur-sm"
+          className="absolute top-2 start-2 bg-background/90 backdrop-blur-sm"
         >
           {getPropertyTypeLabel(propertyType)}
         </Badge>
 
-        {/* Top-right area: Save button and status badge */}
-        <div className="absolute top-2 right-2 flex items-center gap-2">
+        {/* Top-end area: Save button and status badge */}
+        <div className="absolute top-2 end-2 flex items-center gap-2">
           {status !== "available" && (
             <Badge variant={getStatusBadgeVariant(status)}>
               {getStatusLabel(status)}
