@@ -32,7 +32,7 @@ export function ResidencyStep({ value, onChange }: ResidencyStepProps) {
           <div className="space-y-3">
             <label
               htmlFor="resident"
-              className="flex items-center space-x-3 rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
+              className="flex items-center space-x-3 rtl:space-x-reverse rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
             >
               <RadioGroupItem value="resident" id="resident" />
               <div className="flex-1">
@@ -46,7 +46,7 @@ export function ResidencyStep({ value, onChange }: ResidencyStepProps) {
             </label>
             <label
               htmlFor="returning_resident"
-              className="flex items-center space-x-3 rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
+              className="flex items-center space-x-3 rtl:space-x-reverse rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
             >
               <RadioGroupItem value="returning_resident" id="returning_resident" />
               <div className="flex-1">
@@ -60,7 +60,7 @@ export function ResidencyStep({ value, onChange }: ResidencyStepProps) {
             </label>
             <label
               htmlFor="non_resident"
-              className="flex items-center space-x-3 rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
+              className="flex items-center space-x-3 rtl:space-x-reverse rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
             >
               <RadioGroupItem value="non_resident" id="non_resident" />
               <div className="flex-1">
@@ -74,7 +74,7 @@ export function ResidencyStep({ value, onChange }: ResidencyStepProps) {
             </label>
             <label
               htmlFor="unsure"
-              className="flex items-center space-x-3 rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
+              className="flex items-center space-x-3 rtl:space-x-reverse rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
             >
               <RadioGroupItem value="unsure" id="unsure" />
               <div className="flex-1">

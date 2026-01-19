@@ -52,7 +52,7 @@ export function BudgetStep({
               Minimum Budget (USD)
             </Label>
             <div className="mt-2 flex items-center">
-              <span className="mr-2 text-muted-foreground">$</span>
+              <span className="me-2 text-muted-foreground">$</span>
               <Input
                 id="budgetMin"
                 type="text"
@@ -69,7 +69,7 @@ export function BudgetStep({
               Maximum Budget (USD)
             </Label>
             <div className="mt-2 flex items-center">
-              <span className="mr-2 text-muted-foreground">$</span>
+              <span className="me-2 text-muted-foreground">$</span>
               <Input
                 id="budgetMax"
                 type="text"

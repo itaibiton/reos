@@ -32,7 +32,7 @@ export function YieldStep({ value, onChange }: YieldStepProps) {
           <div className="space-y-3">
             <label
               htmlFor="rental_yield"
-              className="flex items-start space-x-3 rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
+              className="flex items-start space-x-3 rtl:space-x-reverse rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
             >
               <RadioGroupItem value="rental_yield" id="rental_yield" className="mt-0.5" />
               <div className="flex-1">
@@ -46,7 +46,7 @@ export function YieldStep({ value, onChange }: YieldStepProps) {
             </label>
             <label
               htmlFor="appreciation"
-              className="flex items-start space-x-3 rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
+              className="flex items-start space-x-3 rtl:space-x-reverse rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
             >
               <RadioGroupItem value="appreciation" id="appreciation" className="mt-0.5" />
               <div className="flex-1">
@@ -60,7 +60,7 @@ export function YieldStep({ value, onChange }: YieldStepProps) {
             </label>
             <label
               htmlFor="balanced"
-              className="flex items-start space-x-3 rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
+              className="flex items-start space-x-3 rtl:space-x-reverse rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
             >
               <RadioGroupItem value="balanced" id="balanced" className="mt-0.5" />
               <div className="flex-1">

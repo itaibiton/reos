@@ -59,7 +59,7 @@ export function ServicesStep({ value = [], onChange }: ServicesStepProps) {
             <label
               key={service.id}
               htmlFor={service.id}
-              className="flex items-start space-x-3 rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
+              className="flex items-start space-x-3 rtl:space-x-reverse rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
             >
               <Checkbox
                 id={service.id}

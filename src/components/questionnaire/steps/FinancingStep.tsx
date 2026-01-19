@@ -32,7 +32,7 @@ export function FinancingStep({ value, onChange }: FinancingStepProps) {
           <div className="space-y-3">
             <label
               htmlFor="cash"
-              className="flex items-start space-x-3 rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
+              className="flex items-start space-x-3 rtl:space-x-reverse rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
             >
               <RadioGroupItem value="cash" id="cash" className="mt-0.5" />
               <div className="flex-1">
@@ -46,7 +46,7 @@ export function FinancingStep({ value, onChange }: FinancingStepProps) {
             </label>
             <label
               htmlFor="mortgage"
-              className="flex items-start space-x-3 rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
+              className="flex items-start space-x-3 rtl:space-x-reverse rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
             >
               <RadioGroupItem value="mortgage" id="mortgage" className="mt-0.5" />
               <div className="flex-1">
@@ -60,7 +60,7 @@ export function FinancingStep({ value, onChange }: FinancingStepProps) {
             </label>
             <label
               htmlFor="exploring"
-              className="flex items-start space-x-3 rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
+              className="flex items-start space-x-3 rtl:space-x-reverse rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
             >
               <RadioGroupItem value="exploring" id="exploring" className="mt-0.5" />
               <div className="flex-1">

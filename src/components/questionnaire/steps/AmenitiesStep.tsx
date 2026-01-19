@@ -42,7 +42,7 @@ export function AmenitiesStep({ value = [], onChange }: AmenitiesStepProps) {
             <label
               key={amenity.value}
               htmlFor={amenity.value}
-              className="flex items-center space-x-2 rounded-lg border p-3 hover:bg-muted/50 cursor-pointer transition-colors"
+              className="flex items-center space-x-2 rtl:space-x-reverse rounded-lg border p-3 hover:bg-muted/50 cursor-pointer transition-colors"
             >
               <Checkbox
                 id={amenity.value}

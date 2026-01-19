@@ -32,7 +32,7 @@ export function InvestmentTypeStep({ value, onChange }: InvestmentTypeStepProps)
           <div className="space-y-3">
             <label
               htmlFor="residential"
-              className="flex items-center space-x-3 rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
+              className="flex items-center space-x-3 rtl:space-x-reverse rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
             >
               <RadioGroupItem value="residential" id="residential" />
               <div className="flex-1">
@@ -46,7 +46,7 @@ export function InvestmentTypeStep({ value, onChange }: InvestmentTypeStepProps)
             </label>
             <label
               htmlFor="investment"
-              className="flex items-center space-x-3 rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
+              className="flex items-center space-x-3 rtl:space-x-reverse rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
             >
               <RadioGroupItem value="investment" id="investment" />
               <div className="flex-1">

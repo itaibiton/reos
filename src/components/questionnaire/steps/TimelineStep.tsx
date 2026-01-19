@@ -32,7 +32,7 @@ export function TimelineStep({ value, onChange }: TimelineStepProps) {
           <div className="space-y-3">
             <label
               htmlFor="3_months"
-              className="flex items-start space-x-3 rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
+              className="flex items-start space-x-3 rtl:space-x-reverse rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
             >
               <RadioGroupItem value="3_months" id="3_months" className="mt-0.5" />
               <div className="flex-1">
@@ -46,7 +46,7 @@ export function TimelineStep({ value, onChange }: TimelineStepProps) {
             </label>
             <label
               htmlFor="6_months"
-              className="flex items-start space-x-3 rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
+              className="flex items-start space-x-3 rtl:space-x-reverse rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
             >
               <RadioGroupItem value="6_months" id="6_months" className="mt-0.5" />
               <div className="flex-1">
@@ -60,7 +60,7 @@ export function TimelineStep({ value, onChange }: TimelineStepProps) {
             </label>
             <label
               htmlFor="1_year"
-              className="flex items-start space-x-3 rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
+              className="flex items-start space-x-3 rtl:space-x-reverse rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
             >
               <RadioGroupItem value="1_year" id="1_year" className="mt-0.5" />
               <div className="flex-1">
@@ -74,7 +74,7 @@ export function TimelineStep({ value, onChange }: TimelineStepProps) {
             </label>
             <label
               htmlFor="exploring"
-              className="flex items-start space-x-3 rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
+              className="flex items-start space-x-3 rtl:space-x-reverse rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
             >
               <RadioGroupItem value="exploring" id="exploring" className="mt-0.5" />
               <div className="flex-1">

@@ -32,7 +32,7 @@ export function ExperienceStep({ value, onChange }: ExperienceStepProps) {
           <div className="space-y-3">
             <label
               htmlFor="none"
-              className="flex items-center space-x-3 rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
+              className="flex items-center space-x-3 rtl:space-x-reverse rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
             >
               <RadioGroupItem value="none" id="none" />
               <div className="flex-1">
@@ -46,7 +46,7 @@ export function ExperienceStep({ value, onChange }: ExperienceStepProps) {
             </label>
             <label
               htmlFor="some"
-              className="flex items-center space-x-3 rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
+              className="flex items-center space-x-3 rtl:space-x-reverse rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
             >
               <RadioGroupItem value="some" id="some" />
               <div className="flex-1">
@@ -60,7 +60,7 @@ export function ExperienceStep({ value, onChange }: ExperienceStepProps) {
             </label>
             <label
               htmlFor="experienced"
-              className="flex items-center space-x-3 rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
+              className="flex items-center space-x-3 rtl:space-x-reverse rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
             >
               <RadioGroupItem value="experienced" id="experienced" />
               <div className="flex-1">

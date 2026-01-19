@@ -64,7 +64,7 @@ export function GoalsStep({ value = [], onChange }: GoalsStepProps) {
             <label
               key={goal.id}
               htmlFor={goal.id}
-              className="flex items-start space-x-3 rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
+              className="flex items-start space-x-3 rtl:space-x-reverse rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
             >
               <Checkbox
                 id={goal.id}

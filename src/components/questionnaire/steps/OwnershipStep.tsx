@@ -39,7 +39,7 @@ export function OwnershipStep({ value, onChange }: OwnershipStepProps) {
           <div className="space-y-3">
             <label
               htmlFor="owns-yes"
-              className="flex items-center space-x-3 rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
+              className="flex items-center space-x-3 rtl:space-x-reverse rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
             >
               <RadioGroupItem value="yes" id="owns-yes" />
               <Label htmlFor="owns-yes" className="cursor-pointer flex-1">
@@ -48,7 +48,7 @@ export function OwnershipStep({ value, onChange }: OwnershipStepProps) {
             </label>
             <label
               htmlFor="owns-no"
-              className="flex items-center space-x-3 rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
+              className="flex items-center space-x-3 rtl:space-x-reverse rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
             >
               <RadioGroupItem value="no" id="owns-no" />
               <Label htmlFor="owns-no" className="cursor-pointer flex-1">

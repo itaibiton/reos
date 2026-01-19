@@ -32,7 +32,7 @@ export function CitizenshipStep({ value, onChange }: CitizenshipStepProps) {
             <div className="space-y-3">
               <label
                 htmlFor="israeli"
-                className="flex items-center space-x-3 rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
+                className="flex items-center space-x-3 rtl:space-x-reverse rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
               >
                 <RadioGroupItem value="israeli" id="israeli" />
                 <Label htmlFor="israeli" className="cursor-pointer flex-1">
@@ -41,7 +41,7 @@ export function CitizenshipStep({ value, onChange }: CitizenshipStepProps) {
               </label>
               <label
                 htmlFor="non_israeli"
-                className="flex items-center space-x-3 rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
+                className="flex items-center space-x-3 rtl:space-x-reverse rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
               >
                 <RadioGroupItem value="non_israeli" id="non_israeli" />
                 <Label htmlFor="non_israeli" className="cursor-pointer flex-1">

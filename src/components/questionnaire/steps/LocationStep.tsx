@@ -42,7 +42,7 @@ export function LocationStep({ value = [], onChange }: LocationStepProps) {
             <label
               key={location}
               htmlFor={location}
-              className="flex items-center space-x-3 rounded-lg border p-3 hover:bg-muted/50 cursor-pointer transition-colors"
+              className="flex items-center space-x-3 rtl:space-x-reverse rounded-lg border p-3 hover:bg-muted/50 cursor-pointer transition-colors"
             >
               <Checkbox
                 id={location}

@@ -32,7 +32,7 @@ export function HorizonStep({ value, onChange }: HorizonStepProps) {
           <div className="space-y-3">
             <label
               htmlFor="short_term"
-              className="flex items-start space-x-3 rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
+              className="flex items-start space-x-3 rtl:space-x-reverse rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
             >
               <RadioGroupItem value="short_term" id="short_term" className="mt-0.5" />
               <div className="flex-1">
@@ -46,7 +46,7 @@ export function HorizonStep({ value, onChange }: HorizonStepProps) {
             </label>
             <label
               htmlFor="medium_term"
-              className="flex items-start space-x-3 rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
+              className="flex items-start space-x-3 rtl:space-x-reverse rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
             >
               <RadioGroupItem value="medium_term" id="medium_term" className="mt-0.5" />
               <div className="flex-1">
@@ -60,7 +60,7 @@ export function HorizonStep({ value, onChange }: HorizonStepProps) {
             </label>
             <label
               htmlFor="long_term"
-              className="flex items-start space-x-3 rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
+              className="flex items-start space-x-3 rtl:space-x-reverse rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
             >
               <RadioGroupItem value="long_term" id="long_term" className="mt-0.5" />
               <div className="flex-1">
