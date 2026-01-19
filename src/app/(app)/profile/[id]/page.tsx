@@ -9,7 +9,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { ArrowLeft01Icon } from "@hugeicons/core-free-icons";
-import { ProfileHeader, UserPostsFeed } from "@/components/profile";
+import { ProfileHeader, UserPostsFeed, StatsRow, PortfolioSection } from "@/components/profile";
 
 // Skeleton for profile page loading state
 function ProfilePageSkeleton() {
@@ -86,15 +86,29 @@ export default function ProfilePage() {
       {/* Profile header */}
       <ProfileHeader profile={profile} />
 
+      {/* Stats row for service providers */}
+      {profile.stats && (
+        <StatsRow stats={profile.stats} />
+      )}
+
       {/* Tabs */}
       <Tabs defaultValue="posts" className="w-full">
         <TabsList>
           <TabsTrigger value="posts">Posts</TabsTrigger>
+          {profile.stats && (
+            <TabsTrigger value="portfolio">Portfolio</TabsTrigger>
+          )}
         </TabsList>
 
         <TabsContent value="posts" className="mt-4">
           <UserPostsFeed userId={profile._id} />
         </TabsContent>
+
+        {profile.stats && (
+          <TabsContent value="portfolio" className="mt-4">
+            <PortfolioSection portfolio={profile.portfolio || []} />
+          </TabsContent>
+        )}
       </Tabs>
     </div>
   );
