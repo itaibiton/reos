@@ -10,12 +10,12 @@ See: .planning/PROJECT.md (updated 2026-01-19)
 ## Current Position
 
 Milestone: v1.4 Internationalization & RTL Support
-Phase: 30 - RTL Component Patches (IN PROGRESS)
-Plan: 4 of 5 complete
-Status: In progress
-Last activity: 2026-01-20 — Completed 30-02-PLAN.md (Directional Elements)
+Phase: 30 - RTL Component Patches (COMPLETE)
+Plan: 3 of 3 complete
+Status: Phase complete
+Last activity: 2026-01-20 — Completed 30-01-PLAN.md (Direction-Aware Sidebar)
 
-Progress: [████████--] 48% (3.8/7 phases)
+Progress: [████████--] 57% (4/7 phases)
 
 ## Performance Metrics
 
@@ -68,11 +68,11 @@ Progress: [████████--] 48% (3.8/7 phases)
 | 27.2 | 1/1 | 3 min | 3 min |
 | 28 | 2/2 | 8 min | 4 min |
 | 29 | 11/11 | 37 min | 3.4 min |
-| 30 | 4/5 | 8 min | 2 min |
+| 30 | 3/3 | 12 min | 4 min |
 
 **Recent Trend:**
-- Last 5 plans: 3 min, 8 min, 3 min, 1 min, 5 min
-- Trend: Phase 30 RTL component patches - 4/5 plans complete, one remaining
+- Last 5 plans: 3 min, 8 min, 3 min, 5 min, 4 min
+- Trend: Phase 30 RTL component patches COMPLETE - sidebar, animations, icons all done
 
 ## Accumulated Context
 
@@ -315,6 +315,8 @@ Recent decisions affecting current work:
 - Phase 30: NavigationMenu uses rtl: modifiers for content animations
 - Phase 30: Carousel uses useDirection() + direction option for Embla RTL
 - Phase 30: All menu chevrons and breadcrumb separators flip in RTL
+- Phase 30: Sidebar uses useDirection() + effectiveSide pattern for auto-positioning (right in RTL, left in LTR)
+- Phase 30: TooltipContent side dynamically set (left in RTL, right in LTR) opposite of sidebar
 
 ### v1.4 Research Findings
 
@@ -356,6 +358,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-20
-Stopped at: Completed 30-02-PLAN.md (Directional Elements)
+Stopped at: Completed 30-01-PLAN.md (Direction-Aware Sidebar) - Phase 30 complete
 Resume file: None
-Next: Execute 30-04-PLAN.md or 30-05-PLAN.md to complete Phase 30
+Next: Run /gsd:plan-phase for Phase 31 (Translation Files) to continue v1.4 i18n work
