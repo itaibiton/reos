@@ -433,3 +433,145 @@ export const getPost = query({
     return enrichPost(ctx, post);
   },
 });
+
+// ============================================================================
+// LIKE/UNLIKE MUTATIONS
+// ============================================================================
+
+// Like a post (idempotent - liking twice has no additional effect)
+export const likePost = mutation({
+  args: {
+    postId: v.id("posts"),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Not authenticated");
+    }
+
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_clerk_id", (q) => q.eq("clerkId", identity.subject))
+      .unique();
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    // Validate post exists
+    const post = await ctx.db.get(args.postId);
+    if (!post) {
+      throw new Error("Post not found");
+    }
+
+    // Check if already liked using compound index
+    const existing = await ctx.db
+      .query("postLikes")
+      .withIndex("by_post_and_user", (q) =>
+        q.eq("postId", args.postId).eq("userId", user._id)
+      )
+      .unique();
+
+    // Idempotent: if already liked, return early
+    if (existing) {
+      return { success: true, alreadyLiked: true };
+    }
+
+    // Insert like record
+    await ctx.db.insert("postLikes", {
+      postId: args.postId,
+      userId: user._id,
+      createdAt: Date.now(),
+    });
+
+    // Atomically increment likeCount on post
+    await ctx.db.patch(args.postId, {
+      likeCount: post.likeCount + 1,
+    });
+
+    return { success: true, alreadyLiked: false };
+  },
+});
+
+// Unlike a post (idempotent - unliking a non-liked post has no effect)
+export const unlikePost = mutation({
+  args: {
+    postId: v.id("posts"),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Not authenticated");
+    }
+
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_clerk_id", (q) => q.eq("clerkId", identity.subject))
+      .unique();
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    // Validate post exists
+    const post = await ctx.db.get(args.postId);
+    if (!post) {
+      throw new Error("Post not found");
+    }
+
+    // Find existing like using compound index
+    const existing = await ctx.db
+      .query("postLikes")
+      .withIndex("by_post_and_user", (q) =>
+        q.eq("postId", args.postId).eq("userId", user._id)
+      )
+      .unique();
+
+    // Idempotent: if not liked, return early
+    if (!existing) {
+      return { success: true, wasLiked: false };
+    }
+
+    // Delete like record
+    await ctx.db.delete(existing._id);
+
+    // Atomically decrement likeCount (prevent negative)
+    await ctx.db.patch(args.postId, {
+      likeCount: Math.max(0, post.likeCount - 1),
+    });
+
+    return { success: true, wasLiked: true };
+  },
+});
+
+// Check if current user has liked a post
+export const isLikedByUser = query({
+  args: {
+    postId: v.id("posts"),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      return false;
+    }
+
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_clerk_id", (q) => q.eq("clerkId", identity.subject))
+      .unique();
+
+    if (!user) {
+      return false;
+    }
+
+    // Query using compound index
+    const like = await ctx.db
+      .query("postLikes")
+      .withIndex("by_post_and_user", (q) =>
+        q.eq("postId", args.postId).eq("userId", user._id)
+      )
+      .unique();
+
+    return like !== null;
+  },
+});
