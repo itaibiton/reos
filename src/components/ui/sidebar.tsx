@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
+import { useDirection } from "@radix-ui/react-direction"
 import { cva, type VariantProps } from "class-variance-authority"
 import { PanelLeftIcon } from "lucide-react"
 
@@ -152,7 +153,7 @@ function SidebarProvider({
 }
 
 function Sidebar({
-  side = "left",
+  side,
   variant = "sidebar",
   collapsible = "offcanvas",
   className,
@@ -164,6 +165,8 @@ function Sidebar({
   collapsible?: "offcanvas" | "icon" | "none"
 }) {
   const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
+  const direction = useDirection()
+  const effectiveSide = side ?? (direction === "rtl" ? "right" : "left")
 
   if (collapsible === "none") {
     return (
@@ -193,7 +196,7 @@ function Sidebar({
               "--sidebar-width": SIDEBAR_WIDTH_MOBILE,
             } as React.CSSProperties
           }
-          side={side}
+          side={effectiveSide}
         >
           <SheetHeader className="sr-only">
             <SheetTitle>Sidebar</SheetTitle>
@@ -211,7 +214,7 @@ function Sidebar({
       data-state={state}
       data-collapsible={state === "collapsed" ? collapsible : ""}
       data-variant={variant}
-      data-side={side}
+      data-side={effectiveSide}
       data-slot="sidebar"
     >
       {/* This is what handles the sidebar gap on desktop */}
@@ -230,7 +233,7 @@ function Sidebar({
         data-slot="sidebar-container"
         className={cn(
           "fixed inset-y-0 z-10 hidden h-svh w-(--sidebar-width) transition-[inset-inline-start,inset-inline-end,width] duration-200 ease-linear md:flex",
-          side === "left"
+          effectiveSide === "left"
             ? "start-0 group-data-[collapsible=offcanvas]:start-[calc(var(--sidebar-width)*-1)]"
             : "end-0 group-data-[collapsible=offcanvas]:end-[calc(var(--sidebar-width)*-1)]",
           // Adjust the padding for floating and inset variants.
@@ -510,6 +513,8 @@ function SidebarMenuButton({
 } & VariantProps<typeof sidebarMenuButtonVariants>) {
   const Comp = asChild ? Slot : "button"
   const { isMobile, state } = useSidebar()
+  const direction = useDirection()
+  const tooltipSide = direction === "rtl" ? "left" : "right"
 
   const button = (
     <Comp
@@ -536,7 +541,7 @@ function SidebarMenuButton({
     <Tooltip>
       <TooltipTrigger asChild>{button}</TooltipTrigger>
       <TooltipContent
-        side="right"
+        side={tooltipSide}
         align="center"
         hidden={state !== "collapsed" || isMobile}
         {...tooltip}
