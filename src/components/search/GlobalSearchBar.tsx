@@ -29,6 +29,11 @@ import {
   Search01Icon,
 } from "@hugeicons/core-free-icons";
 import { USER_ROLES } from "@/lib/constants";
+import {
+  getQuickActionsForRole,
+  filterQuickActions,
+} from "@/lib/search-actions";
+import type { UserRole } from "@/lib/navigation";
 
 // Format price compactly: $1.5M, $500K
 function formatCompactPrice(price: number): string {
@@ -93,6 +98,19 @@ export function GlobalSearchBar() {
   );
 
   const recentSearches = useQuery(api.searchHistory.getRecentSearches, {});
+  const currentUser = useQuery(api.users.getCurrentUser, {});
+
+  // Get quick actions for user's role
+  const quickActions = useMemo(() => {
+    const role = (currentUser?.role as UserRole) || "investor";
+    return getQuickActionsForRole(role);
+  }, [currentUser?.role]);
+
+  // Filter quick actions based on search query
+  const filteredQuickActions = useMemo(() => {
+    if (!inputValue || inputValue.length === 0) return [];
+    return filterQuickActions(quickActions, inputValue);
+  }, [quickActions, inputValue]);
 
   // Mutations
   const deleteSearch = useMutation(api.searchHistory.deleteSearch);
@@ -158,6 +176,10 @@ export function GlobalSearchBar() {
       setOpen(false);
 
       switch (type) {
+        case "action":
+          // Navigate to quick action page
+          router.push(id);
+          break;
         case "user":
           router.push(`/profile/${id}`);
           break;
@@ -208,6 +230,7 @@ export function GlobalSearchBar() {
       results.users.length > 0 ||
       results.properties.length > 0);
   const hasRecentSearches = recentSearches && recentSearches.length > 0;
+  const hasQuickActions = filteredQuickActions.length > 0;
 
   return (
     <>
@@ -312,22 +335,64 @@ export function GlobalSearchBar() {
             </>
           )}
 
-          {/* Has query but no results */}
+          {/* Has query but no results - show quick actions if available */}
           {!isLoading && hasQuery && !hasResults && (
-            <CommandEmpty>
-              <p>No results found for &ldquo;{searchQuery}&rdquo;</p>
-              <p className="text-xs text-muted-foreground mt-1">
-                Try a different search term
-              </p>
-            </CommandEmpty>
+            <>
+              {hasQuickActions && (
+                <CommandGroup heading="Quick Actions">
+                  {filteredQuickActions.slice(0, 5).map((action) => (
+                    <CommandItem
+                      key={action.href}
+                      value={`action:${action.href}`}
+                      onSelect={handleSelect}
+                    >
+                      <action.icon className="h-4 w-4 mr-2 text-muted-foreground" />
+                      <span className="flex-1">{action.label}</span>
+                      <Badge variant="outline" className="ml-auto text-xs">
+                        Page
+                      </Badge>
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              )}
+              {!hasQuickActions && (
+                <CommandEmpty>
+                  <p>No results found for &ldquo;{searchQuery}&rdquo;</p>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Try a different search term
+                  </p>
+                </CommandEmpty>
+              )}
+            </>
           )}
 
           {/* Show grouped results */}
           {!isLoading && hasQuery && hasResults && (
             <>
+              {/* Quick Actions Section */}
+              {hasQuickActions && (
+                <CommandGroup heading="Quick Actions">
+                  {filteredQuickActions.slice(0, 5).map((action) => (
+                    <CommandItem
+                      key={action.href}
+                      value={`action:${action.href}`}
+                      onSelect={handleSelect}
+                    >
+                      <action.icon className="h-4 w-4 mr-2 text-muted-foreground" />
+                      <span className="flex-1">{action.label}</span>
+                      <Badge variant="outline" className="ml-auto text-xs">
+                        Page
+                      </Badge>
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              )}
+
               {/* Users Section */}
               {results.users.length > 0 && (
-                <CommandGroup heading="Users">
+                <>
+                  {hasQuickActions && <CommandSeparator />}
+                  <CommandGroup heading="Users">
                   {results.users.map((user) => {
                     const displayName = user.name || "Unknown User";
                     return (
@@ -357,13 +422,16 @@ export function GlobalSearchBar() {
                       </CommandItem>
                     );
                   })}
-                </CommandGroup>
+                  </CommandGroup>
+                </>
               )}
 
               {/* Posts Section */}
               {results.posts.length > 0 && (
                 <>
-                  {results.users.length > 0 && <CommandSeparator />}
+                  {(hasQuickActions || results.users.length > 0) && (
+                    <CommandSeparator />
+                  )}
                   <CommandGroup heading="Posts">
                     {results.posts.map((post) => {
                       const PostIcon = getPostTypeIcon(post.postType);
@@ -399,9 +467,9 @@ export function GlobalSearchBar() {
               {/* Properties Section */}
               {results.properties.length > 0 && (
                 <>
-                  {(results.users.length > 0 || results.posts.length > 0) && (
-                    <CommandSeparator />
-                  )}
+                  {(hasQuickActions ||
+                    results.users.length > 0 ||
+                    results.posts.length > 0) && <CommandSeparator />}
                   <CommandGroup heading="Properties">
                     {results.properties.map((property) => (
                       <CommandItem
