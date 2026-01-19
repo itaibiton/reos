@@ -11,11 +11,11 @@ See: .planning/PROJECT.md (updated 2026-01-19)
 
 Milestone: v1.4 Internationalization & RTL Support
 Phase: 30 - RTL Component Patches (IN PROGRESS)
-Plan: 3 of 5 complete
+Plan: 4 of 5 complete
 Status: In progress
-Last activity: 2026-01-20 — Completed 30-03-PLAN.md (Directional Icon Flipping)
+Last activity: 2026-01-20 — Completed 30-02-PLAN.md (Directional Elements)
 
-Progress: [████████--] 46% (3.6/7 phases)
+Progress: [████████--] 48% (3.8/7 phases)
 
 ## Performance Metrics
 
@@ -68,11 +68,11 @@ Progress: [████████--] 46% (3.6/7 phases)
 | 27.2 | 1/1 | 3 min | 3 min |
 | 28 | 2/2 | 8 min | 4 min |
 | 29 | 11/11 | 37 min | 3.4 min |
-| 30 | 3/5 | 3 min | 1 min |
+| 30 | 4/5 | 8 min | 2 min |
 
 **Recent Trend:**
-- Last 5 plans: 3 min, 3 min, 8 min, 3 min, 1 min
-- Trend: Phase 30 RTL component patches in progress - directional icons flipping complete
+- Last 5 plans: 3 min, 8 min, 3 min, 1 min, 5 min
+- Trend: Phase 30 RTL component patches - 4/5 plans complete, one remaining
 
 ## Accumulated Context
 
@@ -311,6 +311,10 @@ Recent decisions affecting current work:
 - Phase 30: rtl:-scale-x-100 pattern for directional icon flipping
 - Phase 30: Back arrows (ArrowLeft01Icon) flip to point RIGHT in RTL
 - Phase 30: Forward arrows (ArrowRight01Icon) flip to point LEFT in RTL
+- Phase 30: Sheet uses logical animation classes (slide-in-from-end/start)
+- Phase 30: NavigationMenu uses rtl: modifiers for content animations
+- Phase 30: Carousel uses useDirection() + direction option for Embla RTL
+- Phase 30: All menu chevrons and breadcrumb separators flip in RTL
 
 ### v1.4 Research Findings
 
@@ -352,6 +356,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-20
-Stopped at: Completed 30-03-PLAN.md (Directional Icon Flipping)
+Stopped at: Completed 30-02-PLAN.md (Directional Elements)
 Resume file: None
-Next: Continue Phase 30 plans (30-04, 30-05) or run /gsd:plan-phase for remaining plans
+Next: Execute 30-04-PLAN.md or 30-05-PLAN.md to complete Phase 30
