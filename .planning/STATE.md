@@ -257,6 +257,9 @@ Recent decisions affecting current work:
 - Phase 27: Properties scored by favorites + (deals * 2)
 - Phase 27: User recommendations: friends-of-friends (+2) and same-role (+1)
 - Phase 27: Post recommendations filtered to same-role users for relevance
+- Phase 27: GlobalSearchBar positioned center in header with hidden md:flex for responsive layout
+- Phase 27: 300ms lodash.debounce for search input (not custom implementation)
+- Phase 27: SearchAutocomplete uses grouped sections with recent searches shown when empty
 - Phase 27: SearchResultCard uses switch pattern for polymorphic user/post/property rendering
 - Phase 27: Search results tab state synced to URL via ?type param
 - Phase 27: Empty search results show trending content as discovery fallback
