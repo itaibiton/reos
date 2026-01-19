@@ -9,7 +9,7 @@ Building an end-to-end real estate investment platform connecting US investors w
 - [v1.0 MVP](milestones/v1.0-ROADMAP.md) (Phases 1-8) — SHIPPED 2026-01-17
 - [v1.1 Investor Onboarding](milestones/v1.1-ROADMAP.md) (Phases 9-15) — SHIPPED 2026-01-18
 - **v1.2 Provider Experience** (Phases 16-20) — SHIPPED 2026-01-19
-- **v1.3 Social Feed & Global Community** — Phases 21-27 (in progress)
+- **v1.3 Social Feed & Global Community** (Phases 21-27.2) — SHIPPED 2026-01-19
 
 ## Completed Milestones
 
@@ -162,7 +162,7 @@ Plans:
 - [x] 20-01: Backend schema & queries (availability + notification preferences)
 - [x] 20-02: Settings UI with Availability & Notifications tabs
 
-## v1.3 Social Feed & Global Community (In Progress)
+## v1.3 Social Feed & Global Community (Complete)
 
 **Milestone Goal:** Transform REOS into a social real estate platform with a feed for sharing properties, service requests, and discussions. Enable likes, saves, shares, following users, and public profiles with activity streams. Make it the global all-in-one platform for real estate professionals and investors.
 
@@ -267,11 +267,12 @@ Plans:
 **Goal**: Add quick actions and page navigation to global search - when user searches "Set", show Settings page as first result before other content
 **Depends on**: Phase 27
 **Research**: None (UI enhancement using existing navigation config)
-**Plans**: 1 plan
-**Status**: Not started
+**Plans**: 1/1 complete
+**Status**: Complete
+**Completed**: 2026-01-19
 
 Plans:
-- [ ] 27.2-01-PLAN.md — Search-actions helper and GlobalSearchBar Quick Actions integration
+- [x] 27.2-01: Search-actions helper and GlobalSearchBar Quick Actions integration
 
 **Details:**
 - Create search-actions helper to flatten navigation items into searchable actions
@@ -287,7 +288,7 @@ Plans:
 | v1.0 MVP | 17 | 40 | Complete | 2026-01-17 |
 | v1.1 Investor Onboarding | 7 | 8 | Complete | 2026-01-18 |
 | v1.2 Provider Experience | 6 | 11 | Complete | 2026-01-19 |
-| v1.3 Social Feed & Global Community | 8 | 24/24 | In Progress | - |
+| v1.3 Social Feed & Global Community | 8 | 24/24 | Complete | 2026-01-19 |
 
 | Phase | Milestone | Plans | Status | Completed |
 |-------|-----------|-------|--------|-----------|
@@ -305,7 +306,7 @@ Plans:
 | 25. User Following | v1.3 | 2/2 | Complete | 2026-01-19 |
 | 26. User Profiles Revamp | v1.3 | 2/2 | Complete | 2026-01-19 |
 | 27. Global Discovery | v1.3 | 5/5 | Complete | 2026-01-19 |
-| 27.2 Quick Actions & Pages in Search | v1.3 | 0/1 | Not started | - |
+| 27.2 Quick Actions & Pages in Search | v1.3 | 1/1 | Complete | 2026-01-19 |
 
 ---
 
