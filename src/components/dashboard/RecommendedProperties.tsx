@@ -97,23 +97,23 @@ function RecommendedPropertyCard({ property, onClick }: RecommendedPropertyCardP
           </div>
         )}
 
-        {/* Property Type Badge - top-left */}
+        {/* Property Type Badge - top-start */}
         <Badge
           variant="secondary"
-          className="absolute top-2 left-2 bg-background/90 backdrop-blur-sm"
+          className="absolute top-2 start-2 bg-background/90 backdrop-blur-sm"
         >
           {getPropertyTypeLabel(propertyType)}
         </Badge>
 
-        {/* Match Score Badge - top-right */}
+        {/* Match Score Badge - top-end (before save button) */}
         <Badge
-          className={`absolute top-2 right-10 ${getMatchScoreColor(matchScore)} text-white`}
+          className={`absolute top-2 end-10 ${getMatchScoreColor(matchScore)} text-white`}
         >
           {matchScore}% match
         </Badge>
 
-        {/* Save button - top-right */}
-        <div className="absolute top-2 right-2">
+        {/* Save button - top-end */}
+        <div className="absolute top-2 end-2">
           <SaveButton propertyId={property._id} variant="overlay" />
         </div>
       </div>
