@@ -1578,6 +1578,127 @@
       "cannotUpload": "אין לך הרשאה להעלות קבצים",
       "cannotCancel": "אין לך הרשאה לבטל עסקה זו",
       "viewOnly": "הרשאת צפייה בלבד"
+    },
+
+    "questionnaire": {
+      "title": "פרופיל משקיע",
+      "noProfile": "אין פרופיל זמין",
+      "sections": {
+        "background": "רקע",
+        "investmentPreferences": "העדפות השקעה",
+        "propertyPreferences": "העדפות נכס",
+        "timelineServices": "לוח זמנים ושירותים"
+      },
+      "fields": {
+        "citizenship": "אזרחות",
+        "residencyStatus": "סטטוס תושבות",
+        "investmentExperience": "ניסיון בהשקעות",
+        "ownsProperty": "בעל נכס בישראל",
+        "investmentType": "סוג השקעה",
+        "budgetRange": "טווח תקציב",
+        "investmentHorizon": "אופק השקעה",
+        "goals": "מטרות",
+        "yieldPreference": "העדפת תשואה",
+        "financingApproach": "גישת מימון",
+        "propertyTypes": "סוגי נכסים",
+        "locations": "מיקומים",
+        "size": "גודל",
+        "amenities": "מתקנים",
+        "locationFlexibility": "גמישות מיקום",
+        "purchaseTimeline": "לוח זמנים לרכישה",
+        "servicesNeeded": "שירותים נדרשים",
+        "additionalPreferences": "העדפות נוספות"
+      },
+      "values": {
+        "notSpecified": "לא צוין",
+        "yes": "כן",
+        "no": "לא",
+        "from": "מ-{amount}",
+        "upTo": "עד {amount}",
+        "range": "{min} - {max}",
+        "bedroomsRange": "{min} - {max} חדרי שינה",
+        "bedroomsMin": "{min}+ חדרי שינה",
+        "bedroomsMax": "עד {max} חדרי שינה",
+        "areaRange": "{min} - {max} מ\"ר",
+        "areaMin": "{min}+ מ\"ר",
+        "areaMax": "עד {max} מ\"ר"
+      },
+      "citizenship": {
+        "israeli": "אזרח ישראלי",
+        "nonIsraeli": "אזרח לא ישראלי"
+      },
+      "residencyStatus": {
+        "resident": "תושב ישראל",
+        "returningResident": "תושב חוזר",
+        "nonResident": "לא תושב",
+        "unsure": "לא בטוח"
+      },
+      "experienceLevel": {
+        "none": "ללא ניסיון",
+        "some": "קצת ניסיון",
+        "experienced": "משקיע מנוסה"
+      },
+      "investmentType": {
+        "residential": "למגורים",
+        "investment": "נכס להשקעה"
+      },
+      "investmentHorizon": {
+        "shortTerm": "טווח קצר (פחות משנתיים)",
+        "mediumTerm": "טווח בינוני (2-5 שנים)",
+        "longTerm": "טווח ארוך (5+ שנים)"
+      },
+      "yieldPreference": {
+        "rentalYield": "התמקדות בתשואת שכירות",
+        "appreciation": "התמקדות בעליית ערך",
+        "balanced": "גישה מאוזנת"
+      },
+      "financingApproach": {
+        "cash": "רכישה במזומן",
+        "mortgage": "מימון משכנתא",
+        "exploring": "עדיין בוחן אפשרויות"
+      },
+      "purchaseTimeline": {
+        "threeMonths": "תוך 3 חודשים",
+        "sixMonths": "תוך 6 חודשים",
+        "oneYear": "תוך שנה",
+        "exploring": "רק מתעניין"
+      },
+      "locationFlexibility": {
+        "flexible": "גמיש במיקום",
+        "specific": "מיקומים ספציפיים בלבד",
+        "nearbyCities": "פתוח לערים סמוכות"
+      },
+      "goals": {
+        "appreciation": "עליית ערך הון",
+        "rentalIncome": "הכנסה משכירות",
+        "diversification": "פיזור תיק השקעות",
+        "taxBenefits": "הטבות מס"
+      },
+      "services": {
+        "broker": "מתווך נדל\"ן",
+        "mortgageAdvisor": "יועץ משכנתא",
+        "lawyer": "עורך דין"
+      },
+      "propertyTypes": {
+        "residential": "מגורים",
+        "commercial": "מסחרי",
+        "mixedUse": "שימוש מעורב",
+        "land": "קרקע"
+      },
+      "amenities": {
+        "parking": "חניה",
+        "elevator": "מעלית",
+        "balcony": "מרפסת",
+        "garden": "גינה",
+        "pool": "בריכה",
+        "gym": "חדר כושר",
+        "storage": "מחסן",
+        "security": "אבטחה 24/7",
+        "mamad": "ממ\"ד",
+        "centralAc": "מיזוג מרכזי",
+        "renovated": "משופץ לאחרונה",
+        "furnished": "מרוהט"
+      }
     }
   },
   "settings": {
