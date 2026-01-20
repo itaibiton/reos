@@ -11,17 +11,17 @@ See: .planning/PROJECT.md (updated 2026-01-19)
 
 Milestone: v1.4 Internationalization & RTL Support
 Phase: 32 - Locale Formatting
-Plan: 4 of 4 in current phase
+Plan: 5 of 5 in current phase (gap closure)
 Status: Phase complete
-Last activity: 2026-01-20 — Re-executed 32-03-PLAN.md (Core Page Formatting)
+Last activity: 2026-01-20 — Completed 32-05-PLAN.md (Gap Closure)
 
-Progress: [██████████] 100% (4/4 plans)
+Progress: [██████████] 100% (5/5 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 93
-- Average duration: 5.6 min
+- Total plans completed: 94
+- Average duration: 5.5 min
 - Total execution time: 8.1 hours
 
 **By Phase:**
@@ -70,11 +70,11 @@ Progress: [██████████] 100% (4/4 plans)
 | 29 | 11/11 | 37 min | 3.4 min |
 | 30 | 3/3 | 12 min | 4 min |
 | 31 | 12/12 | 60 min | 5 min |
-| 32 | 4/4 | 21 min | 5.3 min |
+| 32 | 5/5 | 22 min | 4.4 min |
 
 **Recent Trend:**
-- Last 5 plans: 31-12 (4 min), 32-01 (6 min), 32-02 (5 min), 32-03 (5 min), 32-04 (5 min)
-- Trend: Phase 32 Locale Formatting complete
+- Last 5 plans: 32-01 (6 min), 32-02 (5 min), 32-03 (5 min), 32-04 (5 min), 32-05 (1 min)
+- Trend: Phase 32 Locale Formatting gap closure complete
 
 ## Accumulated Context
 
@@ -351,6 +351,7 @@ Recent decisions affecting current work:
 - Phase 32: Calendar uses useLocale() + toLocaleString(locale, options) for month dropdown formatting
 - Phase 32: Move formatDate/formatPrice helpers inside component when they need format hook
 - Phase 32: GlobalSearchBar kept as-is - formatCompactPrice uses toLocaleString() which defaults to browser locale
+- Phase 32: Keep formatPercentChange as-is: percentage with sign prefix is specialized logic not handled by standard formatters
 
 ### v1.4 Research Findings
 
@@ -392,6 +393,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-20
-Stopped at: Completed 32-04-PLAN.md (Remaining Components)
+Stopped at: Completed 32-05-PLAN.md (Gap Closure)
 Resume file: None
-Next: Phase 32 complete, ready for next phase
+Next: Phase 32 gap closure complete, ready for next phase
