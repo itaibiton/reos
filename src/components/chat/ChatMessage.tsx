@@ -1,5 +1,6 @@
 "use client";
 
+import { useFormatter, useTranslations } from "next-intl";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 
@@ -23,32 +24,15 @@ function getInitials(name?: string | null) {
     .slice(0, 2);
 }
 
-// Format timestamp
-function formatMessageTime(timestamp: number) {
-  const date = new Date(timestamp);
-  const now = new Date();
-  const isToday = date.toDateString() === now.toDateString();
-  const isYesterday =
-    new Date(now.getTime() - 86400000).toDateString() === date.toDateString();
+// Helper to check if timestamp is today
+function isToday(date: Date, now: Date): boolean {
+  return date.toDateString() === now.toDateString();
+}
 
-  if (isToday) {
-    return date.toLocaleTimeString("en-US", {
-      hour: "numeric",
-      minute: "2-digit",
-    });
-  } else if (isYesterday) {
-    return `Yesterday ${date.toLocaleTimeString("en-US", {
-      hour: "numeric",
-      minute: "2-digit",
-    })}`;
-  } else {
-    return date.toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-      hour: "numeric",
-      minute: "2-digit",
-    });
-  }
+// Helper to check if timestamp is yesterday
+function isYesterday(date: Date, now: Date): boolean {
+  const yesterday = new Date(now.getTime() - 86400000);
+  return date.toDateString() === yesterday.toDateString();
 }
 
 export function ChatMessage({
@@ -59,6 +43,22 @@ export function ChatMessage({
   isOwn,
   status,
 }: ChatMessageProps) {
+  const format = useFormatter();
+  const t = useTranslations("chat");
+  const now = new Date();
+  const date = new Date(timestamp);
+
+  // Format time based on when the message was sent
+  const formatMessageTime = () => {
+    if (isToday(date, now)) {
+      return format.dateTime(date, 'time');
+    } else if (isYesterday(date, now)) {
+      return `${t('time.yesterday')} ${format.dateTime(date, 'time')}`;
+    } else {
+      return format.dateTime(date, 'dateTime');
+    }
+  };
+
   return (
     <div
       className={cn(
@@ -92,7 +92,7 @@ export function ChatMessage({
         {/* Timestamp and status */}
         <div className="flex items-center gap-1 mt-1">
           <span className="text-xs text-muted-foreground">
-            {formatMessageTime(timestamp)}
+            {formatMessageTime()}
           </span>
           {isOwn && status && (
             <span className="text-xs text-muted-foreground">

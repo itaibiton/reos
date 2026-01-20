@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { useQuery } from "convex/react";
+import { useFormatter, useNow } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 import { Input } from "@/components/ui/input";
@@ -44,22 +45,6 @@ function getInitials(name?: string | null) {
     .slice(0, 2);
 }
 
-// Format relative time
-function formatRelativeTime(timestamp: number) {
-  const now = Date.now();
-  const diff = now - timestamp;
-
-  const minutes = Math.floor(diff / (1000 * 60));
-  const hours = Math.floor(diff / (1000 * 60 * 60));
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-
-  if (minutes < 1) return "now";
-  if (minutes < 60) return `${minutes}m`;
-  if (hours < 24) return `${hours}h`;
-  if (days < 7) return `${days}d`;
-  return new Date(timestamp).toLocaleDateString();
-}
-
 export function ConversationSelector({
   selectedConversationId,
   onSelect,
@@ -67,6 +52,8 @@ export function ConversationSelector({
   onNewGroup,
 }: ConversationSelectorProps) {
   const [searchQuery, setSearchQuery] = useState("");
+  const format = useFormatter();
+  const now = useNow({ updateInterval: 1000 * 60 }); // Update every minute
 
   // Fetch conversations
   const conversations = useQuery(api.conversations.list, {});
@@ -217,7 +204,7 @@ export function ConversationSelector({
                     </div>
                     {conv.lastMessageTime && (
                       <span className="text-xs text-muted-foreground flex-shrink-0">
-                        {formatRelativeTime(conv.lastMessageTime)}
+                        {format.relativeTime(new Date(conv.lastMessageTime), now)}
                       </span>
                     )}
                   </div>

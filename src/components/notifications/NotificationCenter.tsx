@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useQuery, useMutation } from "convex/react";
 import { useRouter } from "next/navigation";
+import { useFormatter, useNow } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 import { Button } from "@/components/ui/button";
@@ -34,24 +35,6 @@ type NotificationType =
   | "request_received"
   | "request_accepted"
   | "request_declined";
-
-// Format relative time (same pattern as ProviderDashboard)
-function formatRelativeTime(timestamp: number) {
-  const now = Date.now();
-  const diff = now - timestamp;
-  const minutes = Math.floor(diff / 60000);
-  const hours = Math.floor(diff / 3600000);
-  const days = Math.floor(diff / 86400000);
-
-  if (minutes < 1) return "just now";
-  if (minutes < 60) return `${minutes}m ago`;
-  if (hours < 24) return `${hours}h ago`;
-  if (days < 7) return `${days}d ago`;
-  return new Date(timestamp).toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-  });
-}
 
 // Get icon for notification type
 function getNotificationIcon(type: NotificationType): IconSvgElement {
@@ -106,12 +89,16 @@ interface NotificationItemProps {
   };
   onMarkAsRead: (id: Id<"notifications">) => void;
   onNavigate: (link: string) => void;
+  format: ReturnType<typeof useFormatter>;
+  now: Date;
 }
 
 function NotificationItem({
   notification,
   onMarkAsRead,
   onNavigate,
+  format,
+  now,
 }: NotificationItemProps) {
   const handleClick = () => {
     if (!notification.read) {
@@ -160,7 +147,7 @@ function NotificationItem({
             {notification.message}
           </p>
           <p className="text-xs text-muted-foreground mt-1">
-            {formatRelativeTime(notification.createdAt)}
+            {format.relativeTime(new Date(notification.createdAt), now)}
           </p>
         </div>
       </div>
@@ -170,6 +157,8 @@ function NotificationItem({
 
 export function NotificationCenter() {
   const router = useRouter();
+  const format = useFormatter();
+  const now = useNow({ updateInterval: 1000 * 60 }); // Update every minute
 
   // Queries
   const notifications = useQuery(api.notifications.list, { limit: 20 });
@@ -277,6 +266,8 @@ export function NotificationCenter() {
                   }
                   onMarkAsRead={handleMarkAsRead}
                   onNavigate={handleNavigate}
+                  format={format}
+                  now={now}
                 />
               ))
             ) : (
