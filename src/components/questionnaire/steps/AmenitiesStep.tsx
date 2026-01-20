@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import { useTranslations } from "next-intl";
 import { QuestionBubble } from "../QuestionBubble";
 import { AnswerArea } from "../AnswerArea";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -13,6 +14,7 @@ interface AmenitiesStepProps {
 }
 
 export function AmenitiesStep({ value = [], onChange }: AmenitiesStepProps) {
+  const t = useTranslations("common.amenities");
   const [showAnswer, setShowAnswer] = useState(false);
 
   // Stable callback to prevent QuestionBubble re-renders
@@ -50,7 +52,7 @@ export function AmenitiesStep({ value = [], onChange }: AmenitiesStepProps) {
                 onCheckedChange={(checked) => handleToggle(amenity.value, checked === true)}
               />
               <Label htmlFor={amenity.value} className="cursor-pointer font-medium text-xs">
-                {amenity.label}
+                {t(amenity.value)}
               </Label>
             </label>
           ))}

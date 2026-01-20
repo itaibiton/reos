@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useTranslations } from "next-intl";
 import {
   Popover,
   PopoverContent,
@@ -44,10 +45,22 @@ export function PropertyFiltersPanel({
   onFiltersChange,
   className,
 }: PropertyFiltersPanelProps) {
+  const t = useTranslations("common.propertyTypes");
   const [isOpen, setIsOpen] = React.useState(false);
 
   // Draft state for filters (not applied until user clicks Apply)
   const [draftFilters, setDraftFilters] = React.useState<PropertyFilters>(filters);
+
+  // Get property type label using translations
+  const getPropertyTypeLabel = (value: string) => {
+    const labelMap: Record<string, string> = {
+      residential: t("residential"),
+      commercial: t("commercial"),
+      mixed_use: t("mixedUse"),
+      land: t("land"),
+    };
+    return labelMap[value] || value;
+  };
 
   // Sync draft with external filters when they change (e.g., from smart search)
   React.useEffect(() => {
@@ -167,7 +180,7 @@ export function PropertyFiltersPanel({
                 <SelectItem value={ANY_VALUE}>Any type</SelectItem>
                 {PROPERTY_TYPES.map((type) => (
                   <SelectItem key={type.value} value={type.value}>
-                    {type.label}
+                    {getPropertyTypeLabel(type.value)}
                   </SelectItem>
                 ))}
               </SelectContent>

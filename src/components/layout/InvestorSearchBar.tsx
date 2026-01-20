@@ -3,6 +3,7 @@
 import * as React from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { useAction } from "convex/react";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -47,10 +48,22 @@ interface Filters {
 }
 
 export function InvestorSearchBar() {
+  const t = useTranslations("common.propertyTypes");
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const parseSearchQuery = useAction(api.search.parseSearchQuery);
+
+  // Get translated property type labels
+  const getPropertyTypeLabel = (value: string) => {
+    const labelMap: Record<string, string> = {
+      residential: t("residential"),
+      commercial: t("commercial"),
+      mixed_use: t("mixedUse"),
+      land: t("land"),
+    };
+    return labelMap[value] || value;
+  };
 
   // Smart search state
   const [searchQuery, setSearchQuery] = React.useState("");
@@ -249,7 +262,7 @@ export function InvestorSearchBar() {
             <SelectItem value={ANY_VALUE}>All Types</SelectItem>
             {PROPERTY_TYPES.map((type) => (
               <SelectItem key={type.value} value={type.value}>
-                {type.label}
+                {getPropertyTypeLabel(type.value)}
               </SelectItem>
             ))}
           </SelectContent>

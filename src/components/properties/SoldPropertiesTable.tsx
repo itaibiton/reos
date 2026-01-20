@@ -1,6 +1,7 @@
 "use client";
 
 import { useQuery } from "convex/react";
+import { useTranslations } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import {
   Table,
@@ -11,8 +12,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Skeleton } from "@/components/ui/skeleton";
-import { PROPERTY_TYPES } from "@/lib/constants";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 
 // Format price for display
 const formatUSD = (price: number) => {
@@ -32,18 +32,24 @@ const formatDate = (timestamp: number) => {
   });
 };
 
-// Get property type label
-const getPropertyTypeLabel = (value: string) => {
-  const type = PROPERTY_TYPES.find((t) => t.value === value);
-  return type?.label || value;
-};
-
 interface SoldPropertiesTableProps {
   city: string;
 }
 
 export function SoldPropertiesTable({ city }: SoldPropertiesTableProps) {
+  const t = useTranslations("common.propertyTypes");
   const soldProperties = useQuery(api.properties.getSoldInCity, { city, limit: 5 });
+
+  // Get property type label using translations
+  const getPropertyTypeLabel = (value: string) => {
+    const labelMap: Record<string, string> = {
+      residential: t("residential"),
+      commercial: t("commercial"),
+      mixed_use: t("mixedUse"),
+      land: t("land"),
+    };
+    return labelMap[value] || value;
+  };
 
   // Loading state
   if (soldProperties === undefined) {

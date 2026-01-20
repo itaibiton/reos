@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useMutation } from "convex/react";
+import { useTranslations } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 import { toast } from "sonner";
@@ -62,6 +63,8 @@ export function PropertyForm({
   initialData,
 }: PropertyFormProps) {
   const router = useRouter();
+  const tPropertyTypes = useTranslations("common.propertyTypes");
+  const tPropertyStatus = useTranslations("common.propertyStatus");
   const createProperty = useMutation(api.properties.create);
   const updateProperty = useMutation(api.properties.update);
 
@@ -338,7 +341,10 @@ export function PropertyForm({
                   >
                     <RadioGroupItem value={type.value} id={`type-${type.value}`} />
                     <Label htmlFor={`type-${type.value}`} className="cursor-pointer font-medium">
-                      {type.label}
+                      {type.value === "residential" ? tPropertyTypes("residential") :
+                       type.value === "commercial" ? tPropertyTypes("commercial") :
+                       type.value === "mixed_use" ? tPropertyTypes("mixedUse") :
+                       tPropertyTypes("land")}
                     </Label>
                   </div>
                 ))}
@@ -447,7 +453,7 @@ export function PropertyForm({
                   >
                     <RadioGroupItem value={s.value} id={`status-${s.value}`} />
                     <Label htmlFor={`status-${s.value}`} className="cursor-pointer font-medium">
-                      {s.label}
+                      {tPropertyStatus(s.value)}
                     </Label>
                   </div>
                 ))}

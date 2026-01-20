@@ -615,7 +615,8 @@ export function ProviderDashboard({ userName }: ProviderDashboardProps) {
 }
 
 // Skeleton loader
-function ProviderDashboardSkeleton({ userName, t }: { userName?: string; t: (key: string, values?: Record<string, unknown>) => string }) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function ProviderDashboardSkeleton({ userName, t }: { userName?: string; t: ReturnType<typeof useTranslations<any>> }) {
   return (
     <div className="space-y-6">
       {/* Header */}

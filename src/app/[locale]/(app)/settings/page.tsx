@@ -31,7 +31,7 @@ export default function SettingsPage() {
       <div className="mb-6">
         <div className="flex items-center gap-3">
           <h1 className="text-2xl font-bold">{t("title")}</h1>
-          {isAdmin && effectiveRole !== "admin" && (
+          {isAdmin && effectiveRole !== "admin" && effectiveRole && (
             <Badge variant="outline" className="text-xs">
               {t("viewingAs", { role: effectiveRole })}
             </Badge>

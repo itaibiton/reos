@@ -9,7 +9,7 @@ import {
  * A quick action that can be searched and executed
  */
 export type QuickAction = {
-  label: string;
+  labelKey: string; // Translation key (e.g., "navigation.items.dashboard")
   href: string;
   icon: LucideIcon;
   keywords: string[];
@@ -17,38 +17,38 @@ export type QuickAction = {
 };
 
 /**
- * Keyword mappings for common navigation items
+ * Keyword mappings for common navigation items by labelKey
  * These provide alias terms that users might search for
  */
 const KEYWORD_MAPPINGS: Record<string, string[]> = {
-  Settings: ["preferences", "config", "account", "options"],
-  Profile: ["me", "account", "my profile", "user"],
-  Dashboard: ["home", "overview", "main"],
-  "Browse Properties": ["listings", "real estate", "homes", "search properties"],
-  "Saved Properties": ["favorites", "bookmarks", "saved", "liked"],
-  "Your Listings": ["my listings", "my properties"],
-  "Find Providers": ["professionals", "services", "experts"],
-  Chat: ["messages", "inbox", "conversations", "messaging"],
-  Feed: ["posts", "social", "news", "activity"],
-  Deals: ["transactions", "purchases", "sales"],
-  Analytics: ["stats", "metrics", "reports", "data"],
-  Clients: ["customers", "contacts", "leads"],
-  "Lead Management": ["leads", "prospects"],
-  "Property Tours": ["showings", "appointments", "visits"],
-  "New Applications": ["mortgage applications", "loan applications"],
-  "Pre-approvals": ["pre-approval", "preapproval"],
-  "Financing Deals": ["loans", "mortgages", "financing"],
-  "Consultation Requests": ["consultations", "appointments"],
-  "Contract Reviews": ["contracts", "agreements", "legal review"],
-  "Transaction Documents": ["documents", "paperwork"],
-  "Financial Analysis": ["analysis", "financial review"],
-  "Tax Planning": ["taxes", "tax advice"],
-  "Notarization Requests": ["notarize", "notary services"],
-  "Document Signings": ["signing", "signatures"],
-  "Tax Filing Requests": ["tax filing", "file taxes"],
-  "Appraisal Requests": ["appraisals", "valuations"],
-  "Property Valuations": ["valuations", "property value"],
-  "Valuation Reports": ["reports", "appraisal reports"],
+  "navigation.items.settings": ["preferences", "config", "account", "options"],
+  "navigation.items.profile": ["me", "account", "my profile", "user"],
+  "navigation.items.dashboard": ["home", "overview", "main"],
+  "navigation.items.browseProperties": ["listings", "real estate", "homes", "search properties"],
+  "navigation.items.savedProperties": ["favorites", "bookmarks", "saved", "liked"],
+  "navigation.items.yourListings": ["my listings", "my properties"],
+  "navigation.items.findProviders": ["professionals", "services", "experts"],
+  "navigation.items.chat": ["messages", "inbox", "conversations", "messaging"],
+  "navigation.items.feed": ["posts", "social", "news", "activity"],
+  "navigation.items.deals": ["transactions", "purchases", "sales"],
+  "navigation.items.analytics": ["stats", "metrics", "reports", "data"],
+  "navigation.items.clients": ["customers", "contacts", "leads"],
+  "navigation.items.leadManagement": ["leads", "prospects"],
+  "navigation.items.propertyTours": ["showings", "appointments", "visits"],
+  "navigation.items.newApplications": ["mortgage applications", "loan applications"],
+  "navigation.items.preApprovals": ["pre-approval", "preapproval"],
+  "navigation.items.financingDeals": ["loans", "mortgages", "financing"],
+  "navigation.items.consultationRequests": ["consultations", "appointments"],
+  "navigation.items.contractReviews": ["contracts", "agreements", "legal review"],
+  "navigation.items.transactionDocuments": ["documents", "paperwork"],
+  "navigation.items.financialAnalysis": ["analysis", "financial review"],
+  "navigation.items.taxPlanning": ["taxes", "tax advice"],
+  "navigation.items.notarizationRequests": ["notarize", "notary services"],
+  "navigation.items.documentSignings": ["signing", "signatures"],
+  "navigation.items.taxFilingRequests": ["tax filing", "file taxes"],
+  "navigation.items.appraisalRequests": ["appraisals", "valuations"],
+  "navigation.items.propertyValuations": ["valuations", "property value"],
+  "navigation.items.valuationReports": ["reports", "appraisal reports"],
 };
 
 /**
@@ -59,10 +59,10 @@ function flattenNavItem(item: NavItem): QuickAction[] {
 
   // Add the main item
   actions.push({
-    label: item.label,
+    labelKey: item.labelKey,
     href: item.href,
     icon: item.icon,
-    keywords: KEYWORD_MAPPINGS[item.label] || [],
+    keywords: KEYWORD_MAPPINGS[item.labelKey] || [],
     category: "page",
   });
 
@@ -104,10 +104,14 @@ export function getQuickActionsForRole(role: UserRole): QuickAction[] {
  * Calculate match score for a quick action against a query
  * Higher score = better match
  * Returns 0 for no match
+ *
+ * @param action The quick action to score
+ * @param query The search query
+ * @param translatedLabel The translated label text for matching
  */
-function getMatchScore(action: QuickAction, query: string): number {
+function getMatchScore(action: QuickAction, query: string, translatedLabel: string): number {
   const lowerQuery = query.toLowerCase();
-  const lowerLabel = action.label.toLowerCase();
+  const lowerLabel = translatedLabel.toLowerCase();
 
   // Exact match (highest priority)
   if (lowerLabel === lowerQuery) {
@@ -152,19 +156,27 @@ function getMatchScore(action: QuickAction, query: string): number {
 /**
  * Filter and sort quick actions based on a search query
  * Returns actions sorted by match quality (best matches first)
+ *
+ * @param actions The quick actions to filter
+ * @param query The search query
+ * @param getTranslatedLabel Function to get translated label from labelKey
  */
 export function filterQuickActions(
   actions: QuickAction[],
-  query: string
+  query: string,
+  getTranslatedLabel?: (labelKey: string) => string
 ): QuickAction[] {
   if (!query || query.length === 0) {
     return [];
   }
 
+  // Default to using labelKey as-is if no translation function provided
+  const translate = getTranslatedLabel || ((key: string) => key.split(".").pop() || key);
+
   const scored = actions
     .map((action) => ({
       action,
-      score: getMatchScore(action, query),
+      score: getMatchScore(action, query, translate(action.labelKey)),
     }))
     .filter(({ score }) => score > 0)
     .sort((a, b) => b.score - a.score);

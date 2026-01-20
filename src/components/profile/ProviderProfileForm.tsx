@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useQuery, useMutation } from "convex/react";
+import { useTranslations } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { toast } from "sonner";
@@ -65,14 +66,15 @@ const serviceAreaOptions = SERVICE_AREAS.map((area) => ({
   label: area,
 }));
 
-// Convert languages to options format with flags
-const languageOptions = LANGUAGE_OPTIONS.map((lang) => ({
-  value: lang.value,
-  label: lang.label,
-  flag: lang.flag,
-}));
-
 export function ProviderProfileForm() {
+  const t = useTranslations("common");
+
+  // Convert languages to options format with flags using translations
+  const languageOptions = LANGUAGE_OPTIONS.map((lang) => ({
+    value: lang.value,
+    label: t(`languages.${lang.value}`),
+    flag: lang.flag,
+  }));
   const { user } = useCurrentUser();
   const profile = useQuery(api.serviceProviderProfiles.getMyProfile);
   const upsertProfile = useMutation(api.serviceProviderProfiles.upsertProfile);
@@ -96,9 +98,22 @@ export function ProviderProfileForm() {
     ? getSpecializationsForType(user.role)
     : [];
 
+  // Get specialization label from translation key
+  const getSpecializationLabel = (labelKey: string) => {
+    // labelKey format: "common.specializations.broker.residential"
+    // Extract the last two parts for the translation key
+    const parts = labelKey.split(".");
+    if (parts.length >= 4) {
+      const providerType = parts[2];
+      const specValue = parts[3];
+      return t(`specializations.${providerType}.${specValue}`);
+    }
+    return labelKey;
+  };
+
   const specializationOptions = availableSpecializations.map((spec) => ({
     value: spec.value,
-    label: spec.label,
+    label: getSpecializationLabel(spec.labelKey),
     icon: SPEC_ICONS[spec.icon] ? (
       <HugeiconsIcon icon={SPEC_ICONS[spec.icon]} size={16} strokeWidth={1.5} />
     ) : undefined,
@@ -299,7 +314,7 @@ export function ProviderProfileForm() {
                     >
                       <RadioGroupItem value={option.value} id={`contact-${option.value}`} />
                       <Label htmlFor={`contact-${option.value}`} className="cursor-pointer">
-                        {option.label}
+                        {t(`contactPreferences.${option.value}`)}
                       </Label>
                     </div>
                   ))}

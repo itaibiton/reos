@@ -8,7 +8,7 @@ import {
   useQuery,
   useMutation,
 } from "convex/react";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
@@ -28,11 +28,13 @@ import {
 } from "@hugeicons/core-free-icons";
 import { api } from "../../../convex/_generated/api";
 import { USER_ROLES } from "@/lib/constants";
+import { Link } from "@/i18n/navigation";
 import { TopNav } from "./TopNav";
 import { NotificationCenter } from "@/components/notifications/NotificationCenter";
 
 // Separate component to use hooks inside Authenticated block
 function AuthenticatedContent() {
+  const t = useTranslations("common.roles");
   const currentUser = useQuery(api.users.getCurrentUser);
   const setViewingAsRole = useMutation(api.users.setViewingAsRole);
 
@@ -41,6 +43,18 @@ function AuthenticatedContent() {
 
   // The effective role being viewed (viewingAsRole if set, otherwise actual role)
   const effectiveRole = currentUser?.viewingAsRole ?? currentUser?.role;
+
+  // Get translated role label
+  const getRoleLabel = (roleValue: string) => {
+    const labelMap: Record<string, string> = {
+      investor: t("investor"),
+      broker: t("broker"),
+      mortgage_advisor: t("mortgageAdvisor"),
+      lawyer: t("lawyer"),
+      admin: t("admin"),
+    };
+    return labelMap[roleValue] || roleValue;
+  };
 
   const handleRoleChange = (role: string) => {
     setViewingAsRole({
@@ -65,8 +79,7 @@ function AuthenticatedContent() {
             <Button variant="outline" size="sm" className="h-8 text-xs gap-1.5">
               <span className="text-muted-foreground">View as:</span>
               <span className="font-medium">
-                {USER_ROLES.find((r) => r.value === effectiveRole)?.label ||
-                  "Admin"}
+                {effectiveRole ? getRoleLabel(effectiveRole) : t("admin")}
               </span>
             </Button>
           </DropdownMenuTrigger>
@@ -79,7 +92,7 @@ function AuthenticatedContent() {
                 onClick={() => handleRoleChange(role.value)}
                 className="flex items-center justify-between cursor-pointer"
               >
-                {role.label}
+                {getRoleLabel(role.value)}
                 {effectiveRole === role.value && (
                   <HugeiconsIcon
                     icon={CheckmarkCircle01Icon}

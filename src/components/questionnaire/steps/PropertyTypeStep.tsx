@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import { useTranslations } from "next-intl";
 import { QuestionBubble } from "../QuestionBubble";
 import { AnswerArea } from "../AnswerArea";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -13,6 +14,7 @@ interface PropertyTypeStepProps {
 }
 
 export function PropertyTypeStep({ value = [], onChange }: PropertyTypeStepProps) {
+  const t = useTranslations("common.propertyTypes");
   const [showAnswer, setShowAnswer] = useState(false);
 
   // Stable callback to prevent QuestionBubble re-renders
@@ -26,6 +28,17 @@ export function PropertyTypeStep({ value = [], onChange }: PropertyTypeStepProps
     } else {
       onChange(value.filter((v) => v !== typeValue));
     }
+  };
+
+  // Get property type label
+  const getLabel = (typeValue: string) => {
+    const labelMap: Record<string, string> = {
+      residential: t("residential"),
+      commercial: t("commercial"),
+      mixed_use: t("mixedUse"),
+      land: t("land"),
+    };
+    return labelMap[typeValue] || typeValue;
   };
 
   return (
@@ -52,7 +65,7 @@ export function PropertyTypeStep({ value = [], onChange }: PropertyTypeStepProps
               />
               <div className="flex-1">
                 <Label htmlFor={type.value} className="cursor-pointer font-medium">
-                  {type.label}
+                  {getLabel(type.value)}
                 </Label>
               </div>
             </label>

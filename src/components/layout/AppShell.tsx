@@ -2,7 +2,7 @@
 
 import React from "react";
 import { usePathname, useSearchParams } from "next/navigation";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { UserButton } from "@clerk/nextjs";
 import {
   Authenticated,
@@ -15,6 +15,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { CheckmarkCircle01Icon } from "@hugeicons/core-free-icons";
 import { api } from "../../../convex/_generated/api";
 import { USER_ROLES } from "@/lib/constants";
+import { Link } from "@/i18n/navigation";
 import { AppSidebar } from "./Sidebar";
 import { InvestorSearchBar } from "./InvestorSearchBar";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
@@ -197,6 +198,7 @@ function generateBreadcrumbs(pathname: string, searchParams: string) {
 
 // Inline authenticated content for provider header
 function ProviderHeaderContent() {
+  const t = useTranslations("common.roles");
   const currentUser = useQuery(api.users.getCurrentUser);
   const setViewingAsRole = useMutation(api.users.setViewingAsRole);
 
@@ -205,6 +207,18 @@ function ProviderHeaderContent() {
 
   // The effective role being viewed (viewingAsRole if set, otherwise actual role)
   const effectiveRole = currentUser?.viewingAsRole ?? currentUser?.role;
+
+  // Get translated role label
+  const getRoleLabel = (roleValue: string) => {
+    const labelMap: Record<string, string> = {
+      investor: t("investor"),
+      broker: t("broker"),
+      mortgage_advisor: t("mortgageAdvisor"),
+      lawyer: t("lawyer"),
+      admin: t("admin"),
+    };
+    return labelMap[roleValue] || roleValue;
+  };
 
   const handleRoleChange = (role: string) => {
     setViewingAsRole({
@@ -229,8 +243,7 @@ function ProviderHeaderContent() {
             <Button variant="outline" size="sm" className="h-8 text-xs gap-1.5">
               <span className="text-muted-foreground">View as:</span>
               <span className="font-medium">
-                {USER_ROLES.find((r) => r.value === effectiveRole)?.label ||
-                  "Admin"}
+                {effectiveRole ? getRoleLabel(effectiveRole) : t("admin")}
               </span>
             </Button>
           </DropdownMenuTrigger>
@@ -243,7 +256,7 @@ function ProviderHeaderContent() {
                 onClick={() => handleRoleChange(role.value)}
                 className="flex items-center justify-between cursor-pointer"
               >
-                {role.label}
+                {getRoleLabel(role.value)}
                 {effectiveRole === role.value && (
                   <HugeiconsIcon
                     icon={CheckmarkCircle01Icon}

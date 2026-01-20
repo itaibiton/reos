@@ -88,7 +88,8 @@ interface Client {
 interface ClientCardProps {
   client: Client;
   onViewDetails: (clientId: string) => void;
-  t: (key: string, values?: Record<string, unknown>) => string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  t: ReturnType<typeof useTranslations<any>>;
 }
 
 function ClientCard({ client, onViewDetails, t }: ClientCardProps) {

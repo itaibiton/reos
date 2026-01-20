@@ -2,6 +2,7 @@
 
 import { useQuery } from "convex/react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Doc } from "../../../convex/_generated/dataModel";
 import {
@@ -19,9 +20,9 @@ import {
   Square01Icon,
   UserIcon,
 } from "@hugeicons/core-free-icons";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { SaveButton } from "@/components/properties/SaveButton";
-import { USD_TO_ILS_RATE, PROPERTY_TYPES } from "@/lib/constants";
+import { USD_TO_ILS_RATE } from "@/lib/constants";
 
 // Property with match score from recommendations query
 type RecommendedProperty = Doc<"properties"> & { matchScore: number };
@@ -44,11 +45,19 @@ const formatILS = (amount: number) => {
   }).format(amount);
 };
 
-// Get property type label
-const getPropertyTypeLabel = (value: string) => {
-  const type = PROPERTY_TYPES.find((t) => t.value === value);
-  return type?.label || value;
-};
+// Get property type label helper used within translated context
+function usePropertyTypeLabel() {
+  const t = useTranslations("common.propertyTypes");
+  return (value: string) => {
+    const labelMap: Record<string, string> = {
+      residential: t("residential"),
+      commercial: t("commercial"),
+      mixed_use: t("mixedUse"),
+      land: t("land"),
+    };
+    return labelMap[value] || value;
+  };
+}
 
 // Get match score color class
 function getMatchScoreColor(score: number) {
@@ -63,6 +72,7 @@ interface RecommendedPropertyCardProps {
 }
 
 function RecommendedPropertyCard({ property, onClick }: RecommendedPropertyCardProps) {
+  const getPropertyTypeLabel = usePropertyTypeLabel();
   const {
     title,
     city,

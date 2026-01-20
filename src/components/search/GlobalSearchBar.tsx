@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useMemo, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import debounce from "lodash.debounce";
 import { useQuery, useMutation } from "convex/react";
 import { api } from "../../../convex/_generated/api";
@@ -28,7 +29,6 @@ import {
   Home01Icon,
   Search01Icon,
 } from "@hugeicons/core-free-icons";
-import { USER_ROLES } from "@/lib/constants";
 import {
   getQuickActionsForRole,
   filterQuickActions,
@@ -46,13 +46,6 @@ function formatCompactPrice(price: number): string {
     return `$${thousands.toFixed(0)}K`;
   }
   return `$${price.toLocaleString()}`;
-}
-
-// Get role label from value
-function getRoleLabel(role: string | undefined): string {
-  if (!role) return "";
-  const found = USER_ROLES.find((r) => r.value === role);
-  return found?.label || role;
 }
 
 // Truncate text with ellipsis
@@ -85,11 +78,31 @@ function getPostTypeIcon(postType: string) {
 
 export function GlobalSearchBar() {
   const router = useRouter();
+  const t = useTranslations("common.roles");
+  const tNav = useTranslations();
   const [open, setOpen] = useState(false);
 
   // State
   const [inputValue, setInputValue] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
+
+  // Get role label using translations
+  const getRoleLabel = (role: string | undefined): string => {
+    if (!role) return "";
+    const labelMap: Record<string, string> = {
+      investor: t("investor"),
+      broker: t("broker"),
+      mortgage_advisor: t("mortgageAdvisor"),
+      lawyer: t("lawyer"),
+      admin: t("admin"),
+    };
+    return labelMap[role] || role;
+  };
+
+  // Get translated label from navigation labelKey
+  const getNavLabel = useCallback((labelKey: string): string => {
+    return tNav(labelKey);
+  }, [tNav]);
 
   // Queries
   const results = useQuery(
@@ -109,8 +122,8 @@ export function GlobalSearchBar() {
   // Filter quick actions based on search query
   const filteredQuickActions = useMemo(() => {
     if (!inputValue || inputValue.length === 0) return [];
-    return filterQuickActions(quickActions, inputValue);
-  }, [quickActions, inputValue]);
+    return filterQuickActions(quickActions, inputValue, getNavLabel);
+  }, [quickActions, inputValue, getNavLabel]);
 
   // Mutations
   const deleteSearch = useMutation(api.searchHistory.deleteSearch);
@@ -347,7 +360,7 @@ export function GlobalSearchBar() {
                       onSelect={handleSelect}
                     >
                       <action.icon className="h-4 w-4 me-2 text-muted-foreground" />
-                      <span className="flex-1">{action.label}</span>
+                      <span className="flex-1">{getNavLabel(action.labelKey)}</span>
                       <Badge variant="outline" className="ms-auto text-xs">
                         Page
                       </Badge>
@@ -379,7 +392,7 @@ export function GlobalSearchBar() {
                       onSelect={handleSelect}
                     >
                       <action.icon className="h-4 w-4 me-2 text-muted-foreground" />
-                      <span className="flex-1">{action.label}</span>
+                      <span className="flex-1">{getNavLabel(action.labelKey)}</span>
                       <Badge variant="outline" className="ms-auto text-xs">
                         Page
                       </Badge>

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useQuery, useMutation } from "convex/react";
+import { useTranslations } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -29,11 +30,45 @@ const locationOptions = ISRAELI_LOCATIONS.map((loc) => ({
 }));
 
 export function InvestorProfileForm() {
+  const tPropertyTypes = useTranslations("common.propertyTypes");
+  const tRisk = useTranslations("common.riskTolerance");
+  const tTimeline = useTranslations("common.investmentTimeline");
   const profile = useQuery(api.investorProfiles.getMyProfile);
   const upsertProfile = useMutation(api.investorProfiles.upsertProfile);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+
+  // Get translated property type options
+  const propertyTypeOptions = PROPERTY_TYPES.map((type) => ({
+    value: type.value,
+    label: type.value === "residential" ? tPropertyTypes("residential") :
+           type.value === "commercial" ? tPropertyTypes("commercial") :
+           type.value === "mixed_use" ? tPropertyTypes("mixedUse") :
+           tPropertyTypes("land"),
+  }));
+
+  // Get translated risk tolerance options
+  const riskToleranceOptions = RISK_TOLERANCE_OPTIONS.map((option) => ({
+    value: option.value,
+    label: option.value === "conservative" ? tRisk("conservative.label") :
+           option.value === "moderate" ? tRisk("moderate.label") :
+           tRisk("aggressive.label"),
+    description: option.value === "conservative" ? tRisk("conservative.description") :
+                 option.value === "moderate" ? tRisk("moderate.description") :
+                 tRisk("aggressive.description"),
+  }));
+
+  // Get translated investment timeline options
+  const investmentTimelineOptions = INVESTMENT_TIMELINE_OPTIONS.map((option) => ({
+    value: option.value,
+    label: option.value === "short_term" ? tTimeline("shortTerm.label") :
+           option.value === "medium_term" ? tTimeline("mediumTerm.label") :
+           tTimeline("longTerm.label"),
+    description: option.value === "short_term" ? tTimeline("shortTerm.description") :
+                 option.value === "medium_term" ? tTimeline("mediumTerm.description") :
+                 tTimeline("longTerm.description"),
+  }));
 
   // Form state
   const [propertyTypes, setPropertyTypes] = useState<string[]>([]);
@@ -134,7 +169,7 @@ export function InvestorProfileForm() {
             <div className="space-y-2">
               <Label className="text-base font-medium">Property Types</Label>
               <MultiSelectPopover
-                options={PROPERTY_TYPES.map((t) => ({ value: t.value, label: t.label }))}
+                options={propertyTypeOptions}
                 selected={propertyTypes}
                 onChange={(selected) => {
                   setPropertyTypes(selected);
@@ -227,7 +262,7 @@ export function InvestorProfileForm() {
                 value={riskTolerance}
                 onValueChange={(value) => setRiskTolerance(value as RiskTolerance)}
               >
-                {RISK_TOLERANCE_OPTIONS.map((option) => (
+                {riskToleranceOptions.map((option) => (
                   <div
                     key={option.value}
                     className="flex items-start space-x-3 rtl:space-x-reverse rounded-lg border p-3 hover:bg-muted/50 cursor-pointer"
@@ -252,7 +287,7 @@ export function InvestorProfileForm() {
                 value={investmentTimeline}
                 onValueChange={(value) => setInvestmentTimeline(value as InvestmentTimeline)}
               >
-                {INVESTMENT_TIMELINE_OPTIONS.map((option) => (
+                {investmentTimelineOptions.map((option) => (
                   <div
                     key={option.value}
                     className="flex items-start space-x-3 rtl:space-x-reverse rounded-lg border p-3 hover:bg-muted/50 cursor-pointer"
