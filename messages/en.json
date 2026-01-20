@@ -152,6 +152,27 @@
       "bedrooms": "Bedrooms",
       "bathrooms": "Bathrooms",
       "floors": "Floors"
+    },
+    "specializations": {
+      "broker": {
+        "residential": "Residential",
+        "commercial": "Commercial",
+        "luxury": "Luxury Properties",
+        "newConstruction": "New Construction",
+        "investment": "Investment Properties"
+      },
+      "mortgageAdvisor": {
+        "firstTimeBuyers": "First Time Buyers",
+        "refinancing": "Refinancing",
+        "investmentProperties": "Investment Properties",
+        "foreignNationals": "Foreign Nationals"
+      },
+      "lawyer": {
+        "realEstateTransactions": "Real Estate Transactions",
+        "contracts": "Contract Review",
+        "dueDiligence": "Due Diligence",
+        "taxPlanning": "Tax Planning"
+      }
     }
   },
   "navigation": {
