@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { useTranslations } from "next-intl";
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
@@ -39,6 +40,8 @@ export function PropertySelector({
   selectedPropertyId,
   onSelect,
 }: PropertySelectorProps) {
+  const t = useTranslations("feed.propertySelector");
+  const tStatus = useTranslations("common.propertyStatus");
   const [searchQuery, setSearchQuery] = useState("");
 
   // Fetch user's properties
@@ -89,10 +92,10 @@ export function PropertySelector({
           className="mx-auto text-muted-foreground mb-3"
         />
         <p className="text-muted-foreground text-sm">
-          You haven&apos;t listed any properties yet
+          {t("noProperties")}
         </p>
         <p className="text-muted-foreground/75 text-xs mt-1">
-          Add a property listing first to share it in your feed
+          {t("addPropertyFirst")}
         </p>
       </div>
     );
@@ -109,7 +112,7 @@ export function PropertySelector({
         />
         <Input
           type="text"
-          placeholder="Search properties..."
+          placeholder={t("searchProperties")}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="ps-8 h-9"
@@ -120,7 +123,7 @@ export function PropertySelector({
       <div className="max-h-64 overflow-y-auto space-y-1.5">
         {filteredProperties.length === 0 ? (
           <p className="text-sm text-muted-foreground text-center py-4">
-            No properties match your search
+            {t("noMatch")}
           </p>
         ) : (
           filteredProperties.map((property) => {
@@ -161,7 +164,7 @@ export function PropertySelector({
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
                     <p className="font-medium text-sm truncate flex-1">
-                      {property.title || "Untitled Property"}
+                      {property.title || t("untitledProperty")}
                     </p>
                     {isSelected && (
                       <HugeiconsIcon
@@ -172,7 +175,7 @@ export function PropertySelector({
                     )}
                   </div>
                   <p className="text-xs text-muted-foreground truncate">
-                    {property.city || "Unknown"}
+                    {property.city || t("unknown")}
                     {property.priceUsd && (
                       <>
                         {" "}
@@ -187,7 +190,7 @@ export function PropertySelector({
                       STATUS_STYLES[property.status || "available"]
                     )}
                   >
-                    {property.status || "available"}
+                    {tStatus(property.status || "available")}
                   </Badge>
                 </div>
               </button>

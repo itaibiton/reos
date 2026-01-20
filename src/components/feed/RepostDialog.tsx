@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { useMutation } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
@@ -28,12 +29,12 @@ import { Home01Icon } from "@hugeicons/core-free-icons";
 import { formatDistanceToNow } from "date-fns";
 import type { EnrichedPost } from "./PostCard";
 
-// Role label mapping
-const ROLE_LABELS: Record<string, string> = {
-  investor: "Investor",
-  broker: "Broker",
-  mortgage_advisor: "Mortgage Advisor",
-  lawyer: "Lawyer",
+// Role key mapping for translations
+const roleKeyMap: Record<string, string> = {
+  investor: "investor",
+  broker: "broker",
+  mortgage_advisor: "mortgageAdvisor",
+  lawyer: "lawyer",
 };
 
 // Format price as compact USD ($1.5M, $500K)
@@ -64,6 +65,9 @@ interface RepostDialogProps {
 }
 
 export function RepostDialog({ post, open, onOpenChange }: RepostDialogProps) {
+  const t = useTranslations("feed.repost");
+  const tRoles = useTranslations("common.roles");
+  const tActions = useTranslations("common.actions");
   const [comment, setComment] = useState("");
   const [visibility, setVisibility] = useState<"public" | "followers_only">("public");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -98,23 +102,23 @@ export function RepostDialog({ post, open, onOpenChange }: RepostDialogProps) {
   };
 
   const roleLabel = post.authorRole
-    ? ROLE_LABELS[post.authorRole] || post.authorRole
+    ? tRoles(roleKeyMap[post.authorRole] || post.authorRole)
     : undefined;
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle>Repost</DialogTitle>
+          <DialogTitle>{t("title")}</DialogTitle>
         </DialogHeader>
 
         <div className="space-y-4">
           {/* Optional Comment */}
           <div className="space-y-2">
-            <Label htmlFor="repost-comment">Add a comment (optional)</Label>
+            <Label htmlFor="repost-comment">{t("addComment")}</Label>
             <Textarea
               id="repost-comment"
-              placeholder="Add your thoughts..."
+              placeholder={t("addThoughts")}
               value={comment}
               onChange={(e) => setComment(e.target.value)}
               rows={3}
@@ -128,21 +132,21 @@ export function RepostDialog({ post, open, onOpenChange }: RepostDialogProps) {
 
           {/* Visibility Selector */}
           <div className="space-y-2">
-            <Label>Who can see this repost?</Label>
+            <Label>{t("whoCanSee")}</Label>
             <Select value={visibility} onValueChange={(v) => setVisibility(v as typeof visibility)}>
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="public">Public - Everyone</SelectItem>
-                <SelectItem value="followers_only">Followers Only</SelectItem>
+                <SelectItem value="public">{t("publicEveryone")}</SelectItem>
+                <SelectItem value="followers_only">{t("followersOnly")}</SelectItem>
               </SelectContent>
             </Select>
           </div>
 
           {/* Original Post Preview */}
           <div className="space-y-2">
-            <Label className="text-muted-foreground">Original post</Label>
+            <Label className="text-muted-foreground">{t("originalPost")}</Label>
             <div className="border rounded-lg p-3 bg-muted/30 space-y-3">
               {/* Property image for property_listing */}
               {post.postType === "property_listing" && post.property && (
@@ -197,7 +201,7 @@ export function RepostDialog({ post, open, onOpenChange }: RepostDialogProps) {
               {/* Post Type Indicator */}
               {post.postType === "service_request" && (
                 <Badge variant="secondary" className="text-xs">
-                  Service Request
+                  {t("serviceRequest")}
                 </Badge>
               )}
 
@@ -216,10 +220,10 @@ export function RepostDialog({ post, open, onOpenChange }: RepostDialogProps) {
 
         <DialogFooter>
           <Button variant="outline" onClick={handleClose} disabled={isSubmitting}>
-            Cancel
+            {tActions("cancel")}
           </Button>
           <Button onClick={handleSubmit} disabled={isSubmitting}>
-            {isSubmitting ? "Reposting..." : "Repost"}
+            {isSubmitting ? t("reposting") : t("repost")}
           </Button>
         </DialogFooter>
       </DialogContent>
