@@ -846,5 +846,75 @@
       "saveSuccess": "הפרופיל עודכן בהצלחה!",
       "saveError": "שמירת הפרופיל נכשלה. אנא נסה שוב."
     }
+  },
+  "dashboard": {
+    "title": "לוח בקרה",
+    "welcome": "ברוך שובך, {name}",
+    "welcomeGeneric": "ברוך שובך",
+    "adminDashboard": "לוח בקרה מנהל",
+    "platformOverview": "סקירת פלטפורמה",
+    "stats": {
+      "title": "סקירה",
+      "activeDeals": "עסקאות פעילות",
+      "completedDeals": "עסקאות שהושלמו",
+      "totalValue": "סך ערך",
+      "availableProperties": "נכסים זמינים",
+      "avgRoi": "תשואה ממוצעת",
+      "cities": "ערים",
+      "pendingRequests": "בקשות ממתינות",
+      "activeClients": "לקוחות פעילים",
+      "totalClients": "סה\"כ לקוחות",
+      "activity7d": "פעילות (7 ימים)",
+      "responseTime": "זמן תגובה ממוצע",
+      "rating": "דירוג"
+    },
+    "sections": {
+      "recentDeals": "עסקאות אחרונות",
+      "myActiveDeals": "העסקאות הפעילות שלי",
+      "pendingRequests": "בקשות ממתינות",
+      "recentActivity": "פעילות אחרונה",
+      "upcomingTasks": "משימות קרובות",
+      "monthlyTrends": "מגמות חודשיות",
+      "yourProfile": "הפרופיל שלך",
+      "accountInfo": "פרטי חשבון"
+    },
+    "trends": {
+      "title": "מגמות ביצועים",
+      "deals": "עסקאות",
+      "revenue": "הכנסות",
+      "last6Months": "6 חודשים אחרונים"
+    },
+    "quickActions": {
+      "title": "פעולות מהירות",
+      "browse": "עיין בנכסים",
+      "saved": "נכסים שמורים",
+      "newListing": "הוסף נכס",
+      "viewDeals": "העסקאות שלי",
+      "viewClients": "צפה בלקוחות"
+    },
+    "profile": {
+      "email": "אימייל",
+      "role": "תפקיד",
+      "onboarding": "קליטה",
+      "complete": "הושלם",
+      "incomplete": "לא הושלם",
+      "notSet": "לא הוגדר"
+    },
+    "empty": {
+      "noDeals": "אין עסקאות פעילות",
+      "noActiveDeals": "בקשות לקוחות שהתקבלו יופיעו כאן",
+      "noRequests": "אין בקשות ממתינות",
+      "noRequestsDesc": "בדוק שוב בקרוב לבקשות לקוחות חדשות",
+      "noActivity": "אין פעילות אחרונה",
+      "getStarted": "התחל בעיון בנכסים"
+    },
+    "requests": {
+      "accept": "קבל",
+      "decline": "דחה",
+      "declineTitle": "לדחות בקשה זו?",
+      "declineDesc": "המשקיע יקבל הודעה ויוכל לבקש ספק אחר.",
+      "accepted": "הבקשה התקבלה! הוקצית לעסקה זו.",
+      "declined": "הבקשה נדחתה"
+    }
   }
 }
