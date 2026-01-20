@@ -1570,23 +1570,91 @@
       },
       "budget": {
         "title": "What is your budget range?",
-        "description": "Your budget helps us filter properties within your financial comfort zone."
+        "description": "Your budget helps us filter properties within your financial comfort zone.",
+        "options": {
+          "minimum": "Minimum Budget (USD)",
+          "maximum": "Maximum Budget (USD)",
+          "placeholder": {
+            "min": "e.g., 100,000",
+            "max": "e.g., 500,000"
+          }
+        }
       },
       "horizon": {
         "title": "What is your investment timeline?",
-        "description": "Your investment horizon affects the types of properties that make sense."
+        "description": "Your investment horizon affects the types of properties that make sense.",
+        "options": {
+          "shortTerm": {
+            "label": "Short-term (under 2 years)",
+            "description": "Quick flip or short-term rental"
+          },
+          "mediumTerm": {
+            "label": "Medium-term (2-5 years)",
+            "description": "Hold for appreciation"
+          },
+          "longTerm": {
+            "label": "Long-term (5+ years)",
+            "description": "Long-term wealth building"
+          }
+        }
       },
       "goals": {
         "title": "What are your investment goals?",
-        "description": "Select all that apply to help us understand your priorities."
+        "description": "Select all that apply to help us understand your priorities.",
+        "options": {
+          "appreciation": {
+            "label": "Capital appreciation",
+            "description": "Property value growth over time"
+          },
+          "rentalIncome": {
+            "label": "Rental income",
+            "description": "Regular cash flow from tenants"
+          },
+          "diversification": {
+            "label": "Portfolio diversification",
+            "description": "Spreading investment risk across asset classes"
+          },
+          "taxBenefits": {
+            "label": "Tax benefits",
+            "description": "Tax advantages from real estate ownership"
+          }
+        }
       },
       "yield": {
         "title": "What is your yield preference?",
-        "description": "This helps us balance rental income vs. appreciation potential."
+        "description": "This helps us balance rental income vs. appreciation potential.",
+        "options": {
+          "rentalYield": {
+            "label": "Rental yield focus",
+            "description": "Prioritize cash flow"
+          },
+          "appreciation": {
+            "label": "Appreciation focus",
+            "description": "Prioritize value growth"
+          },
+          "balanced": {
+            "label": "Balanced approach",
+            "description": "Both matter equally"
+          }
+        }
       },
       "financing": {
         "title": "How do you plan to finance your purchase?",
-        "description": "Your financing approach affects the deals and providers we recommend."
+        "description": "Your financing approach affects the deals and providers we recommend.",
+        "options": {
+          "cash": {
+            "label": "All cash",
+            "description": "No financing needed"
+          },
+          "mortgage": {
+            "label": "Mortgage/Financing",
+            "description": "Will need mortgage advisor"
+          },
+          "exploring": {
+            "label": "Still exploring options",
+            "description": "Not sure yet"
+          }
+        }
       },
       "propertyTypes": {
         "title": "What property types interest you?",
