@@ -487,10 +487,8 @@
     "editTitle": "עריכת נכס",
     "newDescription": "צור מודעת נכס חדשה למשקיעים לעיון.",
     "editDescription": "עדכן פרטי מודעת הנכס.",
-
     "count": "{count, plural, =0 {לא נמצאו נכסים} =1 {נכס אחד} other {# נכסים}} נמצאו",
     "listingsCount": "{count, plural, =0 {0 מודעות} =1 {מודעה אחת} other {# מודעות}}",
-
     "card": {
       "bedrooms": "{count} חדרים",
       "bathrooms": "{count} אמבטיות",
@@ -620,14 +618,12 @@
     "clearRecent": "נקה",
     "searchFor": "חפש משהו",
     "enterTerm": "הכנס מונח חיפוש כדי למצוא משתמשים, פוסטים ונכסים.",
-
     "tabs": {
       "all": "הכל",
       "users": "משתמשים",
       "posts": "פוסטים",
       "properties": "נכסים"
     },
-
     "results": {
       "title": "תוצאות חיפוש",
       "showing": "תוצאות עבור \"{query}\"",
@@ -637,12 +633,10 @@
       "noPostsFound": "לא נמצאו פוסטים התואמים ל\"{query}\"",
       "noPropertiesFound": "לא נמצאו נכסים התואמים ל\"{query}\""
     },
-
     "quickActions": {
       "title": "פעולות מהירות",
       "goTo": "עבור אל {page}"
     },
-
     "trending": {
       "title": "פופולרי",
       "discover": "גלה מה פופולרי",
@@ -652,7 +646,6 @@
       "thisWeek": "השבוע",
       "noPosts": "אין פוסטים פופולריים עדיין"
     },
-
     "suggestions": {
       "title": "מומלץ עבורך",
       "peopleToFollow": "אנשים לעקוב",
@@ -666,14 +659,12 @@
     "title": "נותני שירות",
     "findProviders": "מצא נותן שירות",
     "description": "עיין בנותני שירות שיעזרו לך בעסקת הנדל\"ן שלך",
-
     "tabs": {
       "all": "הכל",
       "brokers": "מתווכים",
       "mortgageAdvisors": "יועצי משכנתא",
       "lawyers": "עורכי דין"
     },
-
     "card": {
       "rating": "דירוג",
       "reviews": "{count, plural, =1 {ביקורת אחת} other {# ביקורות}}",
@@ -688,7 +679,6 @@
       "contact": "צור קשר",
       "more": "+{count} נוספים"
     },
-
     "profile": {
       "about": "אודות",
       "reviews": "ביקורות",
@@ -703,21 +693,18 @@
       "preferredContact": "דרך התקשרות מועדפת",
       "license": "רישיון"
     },
-
     "filters": {
       "serviceArea": "אזור שירות",
       "language": "שפה",
       "specialization": "התמחות",
       "minRating": "דירוג מינימלי"
     },
-
     "empty": {
       "noProviders": "אין {type} עדיין",
       "willAppear": "{type} יופיעו כאן לאחר שייצרו את הפרופילים שלהם.",
       "noMatch": "אין נותני שירות התואמים ל-\"{query}\"",
       "clearSearch": "נקה חיפוש"
     },
-
     "notFound": {
       "title": "נותן השירות לא נמצא",
       "description": "פרופיל נותן השירות אינו קיים או אינו זמין."
@@ -731,7 +718,6 @@
     "searchPlaceholder": "חפש לפי שם או אימייל...",
     "noMatch": "אין לקוחות התואמים ל\"{query}\"",
     "clearSearch": "נקה חיפוש",
-
     "list": {
       "name": "שם",
       "email": "אימייל",
@@ -745,7 +731,6 @@
       "deals": "{count} עסקאות",
       "active": "({count} פעילות)"
     },
-
     "detail": {
       "backToClients": "חזרה ללקוחות",
       "startChat": "התחל צ'אט",
@@ -763,7 +748,6 @@
       "completed": "הושלמו",
       "total": "סה\"כ"
     },
-
     "questionnaire": {
       "noProfile": "אין פרופיל השקעות זמין.",
       "notCompleted": "הלקוח טרם השלים את השאלון.",
@@ -784,12 +768,10 @@
       "additionalNotes": "הערות נוספות",
       "notSpecified": "לא צוין"
     },
-
     "empty": {
       "noClients": "אין לקוחות עדיין",
       "getStarted": "כשתקבל בקשות לקוח, הם יופיעו כאן."
     },
-
     "access": {
       "providerOnly": "גישה לנותני שירות בלבד",
       "providerOnlyDesc": "דף זה מיועד לנותני שירות לניהול הלקוחות שלהם.",
@@ -808,6 +790,61 @@
       "unauthorized": "אין לך גישה לדף זה",
       "generic": "משהו השתבש",
       "goBack": "חזור"
+    }
+  },
+  "onboarding": {
+    "title": "השלם את הפרופיל",
+    "subtitle": "בחר את התפקיד שלך כדי להתחיל עם REOS. זה עוזר לנו להתאים אישית את החוויה שלך.",
+    "settingUp": "מגדיר...",
+    "continue": "המשך",
+    "roles": {
+      "investor": {
+        "label": "משקיע",
+        "description": "מחפש להשקיע בנדל\"ן בישראל"
+      },
+      "broker": {
+        "label": "מתווך נדל\"ן",
+        "description": "מתווך מורשה שעוזר למשקיעים למצוא נכסים"
+      },
+      "mortgageAdvisor": {
+        "label": "יועץ משכנתא",
+        "description": "עוזר למשקיעים להשיג מימון לרכישות שלהם"
+      },
+      "lawyer": {
+        "label": "עורך דין נדל\"ן",
+        "description": "מספק שירותים משפטיים לעסקאות נכסים"
+      }
+    },
+    "questionnaire": {
+      "title": "שאלון השקעות",
+      "subtitle": "עזור לנו להבין את יעדי ההשקעה שלך",
+      "progress": "שלב {current} מתוך {total}",
+      "upNext": "הבא: {step}",
+      "next": "המשך",
+      "back": "חזור",
+      "skip": "דלג לעת עתה",
+      "complete": "סיום",
+      "saveChanges": "שמור שינויים",
+      "error": "משהו השתבש. אנא נסה לרענן את הדף."
+    },
+    "options": {
+      "bedrooms": "חדרים",
+      "area": "שטח (מ\"ר)",
+      "minimum": "מינימום",
+      "maximum": "מקסימום"
+    },
+    "complete": {
+      "title": "הכל מוכן!",
+      "subtitle": "הפרופיל שלך מוכן. התחל לעיין בנכסים.",
+      "cta": "עיון בנכסים"
+    },
+    "editProfile": {
+      "title": "עריכת פרופיל השקעות",
+      "backToProfile": "חזרה לפרופיל",
+      "noQuestionnaire": "לא נמצא שאלון. אנא השלם קודם את תהליך ההרשמה.",
+      "goToOnboarding": "עבור לתהליך הרשמה",
+      "saveSuccess": "הפרופיל עודכן בהצלחה!",
+      "saveError": "שמירת הפרופיל נכשלה. אנא נסה שוב."
     }
   }
 }
