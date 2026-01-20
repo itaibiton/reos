@@ -2,6 +2,7 @@
 
 import { useQuery, useMutation } from "convex/react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 import {
@@ -38,7 +39,7 @@ import {
   Agreement01Icon,
   Building05Icon,
 } from "@hugeicons/core-free-icons";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { toast } from "sonner";
 import { useState } from "react";
 
@@ -197,6 +198,8 @@ interface ProviderDashboardProps {
 }
 
 export function ProviderDashboard({ userName }: ProviderDashboardProps) {
+  const t = useTranslations("dashboard");
+  const tCommon = useTranslations("common.actions");
   const router = useRouter();
   const [respondingId, setRespondingId] = useState<Id<"serviceRequests"> | null>(null);
 
@@ -216,7 +219,7 @@ export function ProviderDashboard({ userName }: ProviderDashboardProps) {
     setRespondingId(requestId);
     try {
       await respondToRequest({ requestId, accept: true });
-      toast.success("Request accepted! You're now assigned to this deal.");
+      toast.success(t("requests.accepted"));
     } catch (error) {
       console.error("Error accepting request:", error);
       toast.error(error instanceof Error ? error.message : "Failed to accept request");
@@ -230,7 +233,7 @@ export function ProviderDashboard({ userName }: ProviderDashboardProps) {
     setRespondingId(requestId);
     try {
       await respondToRequest({ requestId, accept: false });
-      toast.success("Request declined");
+      toast.success(t("requests.declined"));
     } catch (error) {
       console.error("Error declining request:", error);
       toast.error(error instanceof Error ? error.message : "Failed to decline request");
@@ -240,7 +243,7 @@ export function ProviderDashboard({ userName }: ProviderDashboardProps) {
   }
 
   if (isLoading) {
-    return <ProviderDashboardSkeleton userName={userName} />;
+    return <ProviderDashboardSkeleton userName={userName} t={t} />;
   }
 
   // Handle non-provider or null stats
@@ -260,9 +263,9 @@ export function ProviderDashboard({ userName }: ProviderDashboardProps) {
     <div className="space-y-6 overflow-auto">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold">Dashboard</h1>
+        <h1 className="text-2xl font-bold">{t("title")}</h1>
         <p className="text-muted-foreground">
-          Welcome back{userName ? `, ${userName}` : ""}!
+          {userName ? t("welcome", { name: userName }) : t("welcomeGeneric")}!
         </p>
       </div>
 
@@ -282,7 +285,7 @@ export function ProviderDashboard({ userName }: ProviderDashboardProps) {
                 </div>
                 <div>
                   <p className="text-2xl font-bold">{providerStats.pendingRequests}</p>
-                  <p className="text-xs text-muted-foreground">Pending Requests</p>
+                  <p className="text-xs text-muted-foreground">{t("stats.pendingRequests")}</p>
                 </div>
               </div>
             </CardContent>
@@ -303,7 +306,7 @@ export function ProviderDashboard({ userName }: ProviderDashboardProps) {
                 </div>
                 <div>
                   <p className="text-2xl font-bold">{providerStats.activeClients}</p>
-                  <p className="text-xs text-muted-foreground">Active Clients</p>
+                  <p className="text-xs text-muted-foreground">{t("stats.activeClients")}</p>
                 </div>
               </div>
             </CardContent>
@@ -323,7 +326,7 @@ export function ProviderDashboard({ userName }: ProviderDashboardProps) {
               </div>
               <div>
                 <p className="text-2xl font-bold">{providerStats.totalClients}</p>
-                <p className="text-xs text-muted-foreground">Total Clients</p>
+                <p className="text-xs text-muted-foreground">{t("stats.totalClients")}</p>
               </div>
             </div>
           </CardContent>
@@ -342,7 +345,7 @@ export function ProviderDashboard({ userName }: ProviderDashboardProps) {
               </div>
               <div>
                 <p className="text-2xl font-bold">{providerStats.recentActivity}</p>
-                <p className="text-xs text-muted-foreground">Activity (7d)</p>
+                <p className="text-xs text-muted-foreground">{t("stats.activity7d")}</p>
               </div>
             </div>
           </CardContent>
@@ -353,12 +356,12 @@ export function ProviderDashboard({ userName }: ProviderDashboardProps) {
       <Card>
         <CardHeader className="pb-2">
           <div className="flex items-center justify-between">
-            <CardTitle className="text-base">My Active Deals</CardTitle>
+            <CardTitle className="text-base">{t("sections.myActiveDeals")}</CardTitle>
             <Link
               href="/deals"
               className="text-sm text-primary hover:underline flex items-center gap-1"
             >
-              View all
+              {tCommon("viewAll")}
               <HugeiconsIcon icon={ArrowRight01Icon} size={14} className="rtl:-scale-x-100" />
             </Link>
           </div>
@@ -391,8 +394,8 @@ export function ProviderDashboard({ userName }: ProviderDashboardProps) {
                 size={32}
                 className="mx-auto mb-2 opacity-50"
               />
-              <p className="text-sm">No active deals</p>
-              <p className="text-xs mt-1">Accepted client requests will appear here</p>
+              <p className="text-sm">{t("empty.noDeals")}</p>
+              <p className="text-xs mt-1">{t("empty.noActiveDeals")}</p>
             </div>
           )}
         </CardContent>
@@ -402,12 +405,12 @@ export function ProviderDashboard({ userName }: ProviderDashboardProps) {
       <Card>
         <CardHeader className="pb-2">
           <div className="flex items-center justify-between">
-            <CardTitle className="text-base">Pending Requests</CardTitle>
+            <CardTitle className="text-base">{t("sections.pendingRequests")}</CardTitle>
             <Link
               href="/clients"
               className="text-sm text-primary hover:underline flex items-center gap-1"
             >
-              View all
+              {tCommon("viewAll")}
               <HugeiconsIcon icon={ArrowRight01Icon} size={14} className="rtl:-scale-x-100" />
             </Link>
           </div>
@@ -481,18 +484,18 @@ export function ProviderDashboard({ userName }: ProviderDashboardProps) {
                     </AlertDialogTrigger>
                     <AlertDialogContent>
                       <AlertDialogHeader>
-                        <AlertDialogTitle>Decline this request?</AlertDialogTitle>
+                        <AlertDialogTitle>{t("requests.declineTitle")}</AlertDialogTitle>
                         <AlertDialogDescription>
-                          The investor will be notified and can request another provider.
+                          {t("requests.declineDesc")}
                         </AlertDialogDescription>
                       </AlertDialogHeader>
                       <AlertDialogFooter>
-                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogCancel>{tCommon("cancel")}</AlertDialogCancel>
                         <AlertDialogAction
                           onClick={() => handleDecline(request._id)}
                           className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                         >
-                          Decline
+                          {t("requests.decline")}
                         </AlertDialogAction>
                       </AlertDialogFooter>
                     </AlertDialogContent>
@@ -507,8 +510,8 @@ export function ProviderDashboard({ userName }: ProviderDashboardProps) {
                 size={32}
                 className="mx-auto mb-2 opacity-50"
               />
-              <p className="text-sm">No pending requests</p>
-              <p className="text-xs mt-1">Check back soon for new client requests</p>
+              <p className="text-sm">{t("empty.noRequests")}</p>
+              <p className="text-xs mt-1">{t("empty.noRequestsDesc")}</p>
             </div>
           )}
         </CardContent>
@@ -517,7 +520,7 @@ export function ProviderDashboard({ userName }: ProviderDashboardProps) {
       {/* Recent Activity Section */}
       <Card>
         <CardHeader className="pb-2">
-          <CardTitle className="text-base">Recent Activity</CardTitle>
+          <CardTitle className="text-base">{t("sections.recentActivity")}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
           {recentActivity === undefined ? (
@@ -575,7 +578,7 @@ export function ProviderDashboard({ userName }: ProviderDashboardProps) {
                 size={32}
                 className="mx-auto mb-2 opacity-50"
               />
-              <p className="text-sm">No recent activity</p>
+              <p className="text-sm">{t("empty.noActivity")}</p>
             </div>
           )}
         </CardContent>
@@ -584,26 +587,26 @@ export function ProviderDashboard({ userName }: ProviderDashboardProps) {
       {/* Quick Actions */}
       <Card>
         <CardHeader className="pb-2">
-          <CardTitle className="text-base">Quick Actions</CardTitle>
+          <CardTitle className="text-base">{t("quickActions.title")}</CardTitle>
         </CardHeader>
         <CardContent className="flex gap-2 flex-wrap">
           <Link
             href="/clients"
             className="text-sm bg-primary text-primary-foreground px-4 py-2 rounded-md hover:bg-primary/90 transition-colors"
           >
-            View Clients
+            {t("quickActions.viewClients")}
           </Link>
           <Link
             href="/deals"
             className="text-sm bg-muted text-foreground px-4 py-2 rounded-md hover:bg-muted/80 transition-colors"
           >
-            My Deals
+            {t("quickActions.viewDeals")}
           </Link>
           <Link
             href="/properties"
             className="text-sm bg-muted text-foreground px-4 py-2 rounded-md hover:bg-muted/80 transition-colors"
           >
-            Browse Properties
+            {t("quickActions.browse")}
           </Link>
         </CardContent>
       </Card>
@@ -612,14 +615,14 @@ export function ProviderDashboard({ userName }: ProviderDashboardProps) {
 }
 
 // Skeleton loader
-function ProviderDashboardSkeleton({ userName }: { userName?: string }) {
+function ProviderDashboardSkeleton({ userName, t }: { userName?: string; t: (key: string, values?: Record<string, unknown>) => string }) {
   return (
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold">Dashboard</h1>
+        <h1 className="text-2xl font-bold">{t("title")}</h1>
         <p className="text-muted-foreground">
-          Welcome back{userName ? `, ${userName}` : ""}!
+          {userName ? t("welcome", { name: userName }) : t("welcomeGeneric")}!
         </p>
       </div>
 
