@@ -10,19 +10,19 @@ See: .planning/PROJECT.md (updated 2026-01-19)
 ## Current Position
 
 Milestone: v1.4 Internationalization & RTL Support
-Phase: 31 - Translation Infrastructure
-Plan: 12 of 12 in current phase (gap closure plans complete)
-Status: Phase complete
-Last activity: 2026-01-20 — Completed 31-12-PLAN.md (Coming Soon Pages Default Translations)
+Phase: 32 - Locale Formatting
+Plan: 1 of 4 in current phase
+Status: In progress
+Last activity: 2026-01-20 — Completed 32-01-PLAN.md (Locale Formatting Infrastructure)
 
-Progress: [██████████] 100% (12/12 plans)
+Progress: [██░░░░░░░░] 25% (1/4 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 92
+- Total plans completed: 93
 - Average duration: 5.6 min
-- Total execution time: 8.0 hours
+- Total execution time: 8.1 hours
 
 **By Phase:**
 
@@ -70,10 +70,11 @@ Progress: [██████████] 100% (12/12 plans)
 | 29 | 11/11 | 37 min | 3.4 min |
 | 30 | 3/3 | 12 min | 4 min |
 | 31 | 12/12 | 60 min | 5 min |
+| 32 | 1/4 | 6 min | 6 min |
 
 **Recent Trend:**
-- Last 5 plans: 31-08 (4 min), 31-09 (4 min), 31-10 (4 min), 31-11 (6 min), 31-12 (4 min)
-- Trend: Phase 31 Translation Infrastructure - all 12 plans complete (includes 5 gap closure plans)
+- Last 5 plans: 31-10 (4 min), 31-11 (6 min), 31-12 (4 min), 32-01 (6 min)
+- Trend: Phase 32 Locale Formatting started
 
 ## Accumulated Context
 
@@ -344,6 +345,9 @@ Recent decisions affecting current work:
 - Phase 31: ROLE_KEY_MAP pattern converts snake_case DB values to camelCase translation keys
 - Phase 31: ComingSoon without props pattern for all placeholder pages to use default translations
 - Phase 31: Questionnaire step components use {step}KeyMap pattern (horizonKeyMap, goalKeyMap, yieldKeyMap) for option translations
+- Phase 32: Format presets in i18n/request.ts (6 dateTime + 4 number formats)
+- Phase 32: useFormatter() hook replaces hardcoded Intl.NumberFormat
+- Phase 32: format.number(amount, { style: 'currency', currency: 'USD/ILS', maximumFractionDigits: 0 }) pattern
 
 ### v1.4 Research Findings
 
@@ -385,6 +389,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-20
-Stopped at: Phase 31 verified complete - all 12 plans (7 original + 5 gap closure) executed
+Stopped at: Completed 32-01-PLAN.md (Locale Formatting Infrastructure)
 Resume file: None
-Next: Plan Phase 32 (Locale Formatting)
+Next: Execute 32-02-PLAN.md (Deal and Feed Components)
