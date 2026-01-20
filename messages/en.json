@@ -1499,24 +1499,74 @@
 
     "questions": {
       "citizenship": {
-        "title": "What is your citizenship status?",
-        "description": "This helps us understand which tax and legal rules apply to your investment."
+        "title": "Are you an Israeli citizen?",
+        "description": "This helps us understand the tax implications and legal requirements that may apply to your property purchase.",
+        "options": {
+          "israeli": "Yes, I am an Israeli citizen",
+          "nonIsraeli": "No, I am not an Israeli citizen"
+        }
       },
       "residency": {
-        "title": "What is your residency status?",
-        "description": "Residency affects mortgage eligibility and tax obligations."
+        "title": "What is your residency status in Israel?",
+        "description": "Your residency status determines applicable tax benefits and affects the property purchase process.",
+        "options": {
+          "resident": {
+            "label": "Israeli resident",
+            "description": "I live in Israel full-time"
+          },
+          "returningResident": {
+            "label": "Returning resident (Toshav Chozer)",
+            "description": "Planning to return or returned within the last 10 years"
+          },
+          "nonResident": {
+            "label": "Non-resident",
+            "description": "I do not live in Israel"
+          },
+          "unsure": {
+            "label": "I'm not sure",
+            "description": "I need guidance on this"
+          }
+        }
       },
       "experience": {
-        "title": "What is your investment experience?",
-        "description": "This helps us tailor recommendations to your comfort level."
+        "title": "How much experience do you have with Israeli real estate?",
+        "description": "This helps us tailor our recommendations and guidance to your knowledge level.",
+        "options": {
+          "none": {
+            "label": "No experience",
+            "description": "This would be my first investment in Israeli real estate"
+          },
+          "some": {
+            "label": "Some experience",
+            "description": "I've researched or made 1-2 investments"
+          },
+          "experienced": {
+            "label": "Experienced investor",
+            "description": "I've made multiple investments in Israeli real estate"
+          }
+        }
       },
       "ownsProperty": {
         "title": "Do you currently own property in Israel?",
-        "description": "Ownership status affects tax rates on additional properties."
+        "description": "This affects the tax treatment on additional property purchases, including purchase tax rates.",
+        "options": {
+          "yes": "Yes, I own property in Israel",
+          "no": "No, I don't own property in Israel"
+        }
       },
       "investmentType": {
-        "title": "What type of property are you looking for?",
-        "description": "This determines the type of properties we'll recommend."
+        "title": "What type of investment are you looking for?",
+        "description": "Understanding your goals helps us match you with the right properties and service providers.",
+        "options": {
+          "residential": {
+            "label": "Primary residence",
+            "description": "I plan to live in the property"
+          },
+          "investment": {
+            "label": "Investment property",
+            "description": "For rental income or appreciation"
+          }
+        }
       },
       "budget": {
         "title": "What is your budget range?",
@@ -1544,7 +1594,24 @@
       },
       "locations": {
         "title": "Which locations are you considering?",
-        "description": "Select the cities or areas you're interested in."
+        "description": "Select the cities or areas you're interested in.",
+        "cities": {
+          "Tel Aviv": "Tel Aviv",
+          "Jerusalem": "Jerusalem",
+          "Haifa": "Haifa",
+          "Netanya": "Netanya",
+          "Herzliya": "Herzliya",
+          "Ramat Gan": "Ramat Gan",
+          "Rishon LeZion": "Rishon LeZion",
+          "Petah Tikva": "Petah Tikva",
+          "Ashdod": "Ashdod",
+          "Beer Sheva": "Beer Sheva",
+          "Eilat": "Eilat",
+          "Rehovot": "Rehovot",
+          "Kfar Saba": "Kfar Saba",
+          "Ashkelon": "Ashkelon",
+          "Bat Yam": "Bat Yam"
+        }
       },
       "propertySize": {
         "title": "What size property are you looking for?",
@@ -1562,11 +1629,43 @@
       },
       "timeline": {
         "title": "When are you planning to purchase?",
-        "description": "This helps providers understand your timeline."
+        "description": "This helps providers understand your timeline.",
+        "options": {
+          "3months": {
+            "label": "Within 3 months",
+            "description": "Ready to move quickly on the right property"
+          },
+          "6months": {
+            "label": "Within 6 months",
+            "description": "Actively searching and comparing options"
+          },
+          "1year": {
+            "label": "Within 1 year",
+            "description": "Planning ahead for the right opportunity"
+          },
+          "exploring": {
+            "label": "Just exploring",
+            "description": "Learning about the market, no timeline yet"
+          }
+        }
       },
       "services": {
         "title": "Which services do you need?",
-        "description": "We'll connect you with the right professionals."
+        "description": "We'll connect you with the right professionals.",
+        "options": {
+          "broker": {
+            "label": "Broker",
+            "description": "Help finding and negotiating properties"
+          },
+          "mortgageAdvisor": {
+            "label": "Mortgage advisor",
+            "description": "Help with financing options"
+          },
+          "lawyer": {
+            "label": "Lawyer",
+            "description": "Legal assistance for purchase"
+          }
+        }
       },
       "additional": {
         "title": "Anything else we should know?",
