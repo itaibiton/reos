@@ -2,7 +2,7 @@
 
 import { useQuery } from "convex/react";
 import { useRouter, useParams } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useTranslations, useFormatter } from "next-intl";
 import { api } from "../../../../../../convex/_generated/api";
 import { Id } from "../../../../../../convex/_generated/dataModel";
 import { Button } from "@/components/ui/button";
@@ -26,24 +26,6 @@ import {
 } from "@hugeicons/core-free-icons";
 import { Link } from "@/i18n/navigation";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
-
-// Format date
-function formatDate(timestamp: number) {
-  return new Date(timestamp).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
-}
-
-// Currency formatter for USD
-function formatUSD(amount: number) {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  }).format(amount);
-}
 
 // Get initials from name
 function getInitials(name?: string | null) {
@@ -172,6 +154,7 @@ function ClientDetailSkeleton() {
 
 export default function ClientDetailPage() {
   const t = useTranslations("clients");
+  const format = useFormatter();
   const router = useRouter();
   const params = useParams();
   const { effectiveRole } = useCurrentUser();
@@ -268,7 +251,7 @@ export default function ClientDetailPage() {
             )}
             <Badge variant="outline" className="flex items-center gap-1">
               <HugeiconsIcon icon={Money01Icon} size={12} />
-              {formatUSD(stats.totalValue)} {t("detail.total")}
+              {format.number(stats.totalValue, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })} {t("detail.total")}
             </Badge>
           </div>
         </div>
@@ -341,12 +324,12 @@ export default function ClientDetailPage() {
                         <HugeiconsIcon icon={Location01Icon} size={12} />
                         <span>{deal.property?.city || "Unknown"}</span>
                         <span>•</span>
-                        <span>{formatUSD(deal.property?.priceUsd || 0)}</span>
+                        <span>{format.number(deal.property?.priceUsd || 0, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}</span>
                       </div>
 
                       <div className="flex items-center gap-1 text-xs text-muted-foreground mt-1">
                         <HugeiconsIcon icon={Calendar01Icon} size={12} />
-                        <span>{t("detail.started", { date: formatDate(deal.createdAt) })}</span>
+                        <span>{t("detail.started", { date: format.dateTime(new Date(deal.createdAt), 'short') })}</span>
                       </div>
 
                       {/* Providers */}
@@ -432,9 +415,9 @@ export default function ClientDetailPage() {
                       <div className="flex items-center gap-1 text-sm">
                         <HugeiconsIcon icon={Money01Icon} size={14} className="text-muted-foreground" />
                         <span>
-                          {questionnaire.budgetMin && formatUSD(questionnaire.budgetMin)}
+                          {questionnaire.budgetMin && format.number(questionnaire.budgetMin, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}
                           {questionnaire.budgetMin && questionnaire.budgetMax && " – "}
-                          {questionnaire.budgetMax && formatUSD(questionnaire.budgetMax)}
+                          {questionnaire.budgetMax && format.number(questionnaire.budgetMax, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}
                         </span>
                       </div>
                     </div>

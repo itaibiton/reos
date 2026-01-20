@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { useQuery, useMutation } from "convex/react";
 import { useParams, useRouter } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useTranslations, useFormatter } from "next-intl";
 import { api } from "../../../../../../convex/_generated/api";
 import { Id } from "../../../../../../convex/_generated/dataModel";
 import { Button } from "@/components/ui/button";
@@ -94,34 +94,6 @@ const FILE_CATEGORY_KEY_MAP: Record<string, string> = {
   legal: "legal",
   other: "other",
 };
-
-// Format date
-function formatDate(timestamp: number) {
-  return new Date(timestamp).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
-}
-
-function formatDateTime(timestamp: number) {
-  return new Date(timestamp).toLocaleString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-    hour: "numeric",
-    minute: "2-digit",
-  });
-}
-
-// Currency formatter
-function formatUSD(amount: number) {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  }).format(amount);
-}
 
 // Format file size
 function formatFileSize(bytes: number) {
@@ -327,6 +299,7 @@ function ActivityItem({
   };
 }) {
   const t = useTranslations("deals");
+  const format = useFormatter();
 
   const getActivityLabel = (activityType: string) => {
     const key = ACTIVITY_KEY_MAP[activityType];
@@ -360,7 +333,7 @@ function ActivityItem({
         <div className="flex items-center gap-2">
           <span className="text-sm font-medium">{activity.actorName}</span>
           <span className="text-xs text-muted-foreground">
-            {formatDateTime(activity.createdAt)}
+            {format.dateTime(new Date(activity.createdAt), 'dateTime')}
           </span>
         </div>
         <p className="text-sm text-muted-foreground">{label}</p>
@@ -467,6 +440,7 @@ export default function DealDetailPage() {
   const router = useRouter();
   const t = useTranslations("deals");
   const tCommon = useTranslations("common");
+  const format = useFormatter();
   const dealId = params.id as string;
   const { user, effectiveRole } = useCurrentUser();
 
@@ -630,13 +604,13 @@ export default function DealDetailPage() {
                   <HugeiconsIcon icon={Location01Icon} size={14} />
                   <span>{property.city}</span>
                   <span className="mx-1">•</span>
-                  <span>{formatUSD(property.priceUsd)}</span>
+                  <span>{format.number(property.priceUsd, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}</span>
                 </div>
               </>
             )}
             <div className="flex items-center gap-1 text-sm text-muted-foreground mt-1">
               <HugeiconsIcon icon={Calendar01Icon} size={14} />
-              <span>{t("card.started")} {formatDate(deal.createdAt)}</span>
+              <span>{t("card.started")} {format.dateTime(new Date(deal.createdAt), 'short')}</span>
             </div>
           </div>
 
@@ -675,7 +649,7 @@ export default function DealDetailPage() {
                   <p className="text-sm text-muted-foreground">
                     {property.address}, {property.city}
                   </p>
-                  <p className="text-lg font-semibold">{formatUSD(property.priceUsd)}</p>
+                  <p className="text-lg font-semibold">{format.number(property.priceUsd, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}</p>
                   <Link href={`/properties/${property._id}`}>
                     <Button variant="outline" size="sm" className="mt-2">
                       {t("detail.viewProperty")}
@@ -701,19 +675,19 @@ export default function DealDetailPage() {
               <Separator />
               <div className="flex justify-between">
                 <span className="text-muted-foreground">{t("card.started")}</span>
-                <span>{formatDate(deal.createdAt)}</span>
+                <span>{format.dateTime(new Date(deal.createdAt), 'short')}</span>
               </div>
               <Separator />
               <div className="flex justify-between">
                 <span className="text-muted-foreground">{t("detail.lastUpdated")}</span>
-                <span>{formatDate(deal.updatedAt)}</span>
+                <span>{format.dateTime(new Date(deal.updatedAt), 'short')}</span>
               </div>
               {deal.offerPrice && (
                 <>
                   <Separator />
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">{t("detail.offerPrice")}</span>
-                    <span className="font-medium">{formatUSD(deal.offerPrice)}</span>
+                    <span className="font-medium">{format.number(deal.offerPrice, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}</span>
                   </div>
                 </>
               )}

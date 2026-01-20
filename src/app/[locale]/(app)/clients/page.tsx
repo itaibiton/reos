@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import { useQuery } from "convex/react";
 import { useRouter } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useTranslations, useFormatter } from "next-intl";
 import { api } from "../../../../../convex/_generated/api";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -20,24 +20,6 @@ import {
   Money01Icon,
 } from "@hugeicons/core-free-icons";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
-
-// Format date
-function formatDate(timestamp: number) {
-  return new Date(timestamp).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
-}
-
-// Currency formatter for USD
-function formatUSD(amount: number) {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  }).format(amount);
-}
 
 // Get initials from name
 function getInitials(name?: string | null) {
@@ -93,6 +75,8 @@ interface ClientCardProps {
 }
 
 function ClientCard({ client, onViewDetails, t }: ClientCardProps) {
+  const format = useFormatter();
+
   return (
     <Card className="hover:shadow-md transition-shadow">
       <CardContent className="p-4">
@@ -133,11 +117,11 @@ function ClientCard({ client, onViewDetails, t }: ClientCardProps) {
               </div>
               <div className="flex items-center gap-1">
                 <HugeiconsIcon icon={Money01Icon} size={12} />
-                <span>{formatUSD(client.totalValue)}</span>
+                <span>{format.number(client.totalValue, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}</span>
               </div>
               <div className="flex items-center gap-1">
                 <HugeiconsIcon icon={Calendar01Icon} size={12} />
-                <span>{formatDate(client.lastActivityAt)}</span>
+                <span>{format.dateTime(new Date(client.lastActivityAt), 'short')}</span>
               </div>
             </div>
           </div>

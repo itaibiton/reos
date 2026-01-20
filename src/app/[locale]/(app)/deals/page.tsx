@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import { useQuery } from "convex/react";
 import { useRouter } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useTranslations, useFormatter } from "next-intl";
 import { api } from "../../../../../convex/_generated/api";
 import { Id } from "../../../../../convex/_generated/dataModel";
 import { Button } from "@/components/ui/button";
@@ -29,24 +29,6 @@ import {
 } from "@hugeicons/core-free-icons";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { DEAL_STAGES, DealStage } from "@/lib/deal-constants";
-
-// Format date
-function formatDate(timestamp: number) {
-  return new Date(timestamp).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
-}
-
-// Currency formatter for USD
-function formatUSD(amount: number) {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  }).format(amount);
-}
 
 // Skeleton loader for deal cards
 function DealCardSkeleton() {
@@ -103,6 +85,7 @@ interface DealCardProps {
 
 function DealCard({ deal, property, onClick }: DealCardProps) {
   const t = useTranslations("deals");
+  const format = useFormatter();
   const stageInfo = DEAL_STAGES[deal.stage];
   const providerCount = [deal.brokerId, deal.mortgageAdvisorId, deal.lawyerId].filter(Boolean).length;
 
@@ -163,14 +146,14 @@ function DealCard({ deal, property, onClick }: DealCardProps) {
                   <HugeiconsIcon icon={Location01Icon} size={14} />
                   <span>{property.city}</span>
                   <span className="mx-1">•</span>
-                  <span>{formatUSD(property.priceUsd)}</span>
+                  <span>{format.number(property.priceUsd, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}</span>
                 </div>
               </>
             )}
 
             <div className="flex items-center gap-1 text-sm text-muted-foreground">
               <HugeiconsIcon icon={Calendar01Icon} size={14} />
-              <span>{t("card.started")} {formatDate(deal.createdAt)}</span>
+              <span>{t("card.started")} {format.dateTime(new Date(deal.createdAt), 'short')}</span>
             </div>
 
             {providerCount > 0 && (
