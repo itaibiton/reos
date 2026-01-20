@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useDirection } from "@radix-ui/react-direction";
+import { useTranslations } from "next-intl";
 import { ChevronRight } from "lucide-react";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { BlackHoleIcon } from "@hugeicons/core-free-icons";
@@ -39,6 +40,7 @@ export function AppSidebar() {
   const { effectiveRole, isLoading } = useCurrentUser();
   const pathname = usePathname();
   const direction = useDirection();
+  const t = useTranslations();
   const sidebarSide = direction === "rtl" ? "right" : "left";
 
   // Get navigation for current role, cast to extended UserRole type
@@ -87,8 +89,8 @@ export function AppSidebar() {
         ) : (
           navigation.groups.map((group, groupIndex) => (
             <SidebarGroup key={groupIndex}>
-              {group.label && (
-                <SidebarGroupLabel>{group.label}</SidebarGroupLabel>
+              {group.labelKey && (
+                <SidebarGroupLabel>{t(group.labelKey)}</SidebarGroupLabel>
               )}
               <SidebarGroupContent>
                 <SidebarMenu>
@@ -104,9 +106,9 @@ export function AppSidebar() {
                             className="group/collapsible"
                           >
                             <CollapsibleTrigger asChild>
-                              <SidebarMenuButton tooltip={item.label}>
+                              <SidebarMenuButton tooltip={t(item.labelKey)}>
                                 <item.icon />
-                                <span>{item.label}</span>
+                                <span>{t(item.labelKey)}</span>
                                 <ChevronRight className="ms-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90 rtl:-scale-x-100" />
                               </SidebarMenuButton>
                             </CollapsibleTrigger>
@@ -124,7 +126,7 @@ export function AppSidebar() {
                                         isActive={isSubActive}
                                       >
                                         <Link href={subItem.href}>
-                                          <span>{subItem.label}</span>
+                                          <span>{t(subItem.labelKey)}</span>
                                         </Link>
                                       </SidebarMenuSubButton>
                                     </SidebarMenuSubItem>
@@ -138,11 +140,11 @@ export function AppSidebar() {
                           <SidebarMenuButton
                             asChild
                             isActive={isActive}
-                            tooltip={item.label}
+                            tooltip={t(item.labelKey)}
                           >
                             <Link href={item.href}>
                               <item.icon />
-                              <span>{item.label}</span>
+                              <span>{t(item.labelKey)}</span>
                             </Link>
                           </SidebarMenuButton>
                         )}
