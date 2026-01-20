@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import { useTranslations } from "next-intl";
 import { QuestionBubble } from "../QuestionBubble";
 import { AnswerArea } from "../AnswerArea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -12,6 +13,7 @@ interface OwnershipStepProps {
 }
 
 export function OwnershipStep({ value, onChange }: OwnershipStepProps) {
+  const t = useTranslations("onboarding.questions.ownsProperty");
   const [showAnswer, setShowAnswer] = useState(false);
 
   // Stable callback to prevent QuestionBubble re-renders
@@ -29,8 +31,8 @@ export function OwnershipStep({ value, onChange }: OwnershipStepProps) {
   return (
     <div className="space-y-6">
       <QuestionBubble
-        question="Do you currently own property in Israel?"
-        description="This affects the tax treatment on additional property purchases, including purchase tax rates."
+        question={t("title")}
+        description={t("description")}
         onTypingComplete={handleTypingComplete}
       />
       {showAnswer && (
@@ -43,7 +45,7 @@ export function OwnershipStep({ value, onChange }: OwnershipStepProps) {
             >
               <RadioGroupItem value="yes" id="owns-yes" />
               <Label htmlFor="owns-yes" className="cursor-pointer flex-1">
-                Yes, I own property in Israel
+                {t("options.yes")}
               </Label>
             </label>
             <label
@@ -52,7 +54,7 @@ export function OwnershipStep({ value, onChange }: OwnershipStepProps) {
             >
               <RadioGroupItem value="no" id="owns-no" />
               <Label htmlFor="owns-no" className="cursor-pointer flex-1">
-                No, I don&apos;t own property in Israel
+                {t("options.no")}
               </Label>
             </label>
           </div>

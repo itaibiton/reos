@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import { useTranslations } from "next-intl";
 import { QuestionBubble } from "../QuestionBubble";
 import { AnswerArea } from "../AnswerArea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -12,6 +13,7 @@ interface InvestmentTypeStepProps {
 }
 
 export function InvestmentTypeStep({ value, onChange }: InvestmentTypeStepProps) {
+  const t = useTranslations("onboarding.questions.investmentType");
   const [showAnswer, setShowAnswer] = useState(false);
 
   // Stable callback to prevent QuestionBubble re-renders
@@ -22,8 +24,8 @@ export function InvestmentTypeStep({ value, onChange }: InvestmentTypeStepProps)
   return (
     <div className="space-y-6">
       <QuestionBubble
-        question="What type of investment are you looking for?"
-        description="Understanding your goals helps us match you with the right properties and service providers."
+        question={t("title")}
+        description={t("description")}
         onTypingComplete={handleTypingComplete}
       />
       {showAnswer && (
@@ -37,10 +39,10 @@ export function InvestmentTypeStep({ value, onChange }: InvestmentTypeStepProps)
               <RadioGroupItem value="residential" id="residential" />
               <div className="flex-1">
                 <Label htmlFor="residential" className="cursor-pointer font-medium">
-                  Primary residence
+                  {t("options.residential.label")}
                 </Label>
                 <p className="text-sm text-muted-foreground mt-0.5">
-                  I plan to live in the property
+                  {t("options.residential.description")}
                 </p>
               </div>
             </label>
@@ -51,10 +53,10 @@ export function InvestmentTypeStep({ value, onChange }: InvestmentTypeStepProps)
               <RadioGroupItem value="investment" id="investment" />
               <div className="flex-1">
                 <Label htmlFor="investment" className="cursor-pointer font-medium">
-                  Investment property
+                  {t("options.investment.label")}
                 </Label>
                 <p className="text-sm text-muted-foreground mt-0.5">
-                  For rental income or appreciation
+                  {t("options.investment.description")}
                 </p>
               </div>
             </label>
