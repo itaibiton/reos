@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { useFormatter } from "next-intl";
+import { useFormatter, useTranslations } from "next-intl";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
@@ -20,6 +20,7 @@ interface MortgageCalculatorProps {
 
 export function MortgageCalculator({ defaultPrice }: MortgageCalculatorProps) {
   const format = useFormatter();
+  const t = useTranslations("properties.mortgage");
   const [price, setPrice] = useState(defaultPrice);
   const [downPaymentPercent, setDownPaymentPercent] = useState(25);
   const [interestRate, setInterestRate] = useState(5.5);
@@ -71,12 +72,12 @@ export function MortgageCalculator({ defaultPrice }: MortgageCalculatorProps) {
 
   return (
     <div className="border rounded-lg p-4 space-y-6">
-      <h3 className="font-semibold">Mortgage Calculator</h3>
+      <h3 className="font-semibold">{t("title")}</h3>
       {/* Input Fields */}
       <div className="space-y-4">
         {/* Property Price */}
         <div className="space-y-2">
-          <Label htmlFor="price">Property Price</Label>
+          <Label htmlFor="price">{t("propertyPrice")}</Label>
           <div className="relative">
             <span className="absolute start-3 top-1/2 -translate-y-1/2 text-muted-foreground">
               $
@@ -94,7 +95,7 @@ export function MortgageCalculator({ defaultPrice }: MortgageCalculatorProps) {
         {/* Down Payment */}
         <div className="space-y-2">
           <div className="flex justify-between">
-            <Label>Down Payment</Label>
+            <Label>{t("downPayment")}</Label>
             <span className="text-sm text-muted-foreground">
               {downPaymentPercent}% ({format.number(calculations.downPayment, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })})
             </span>
@@ -110,7 +111,7 @@ export function MortgageCalculator({ defaultPrice }: MortgageCalculatorProps) {
 
         {/* Interest Rate */}
         <div className="space-y-2">
-          <Label htmlFor="interestRate">Interest Rate (%)</Label>
+          <Label htmlFor="interestRate">{t("interestRate")}</Label>
           <Input
             id="interestRate"
             type="number"
@@ -124,19 +125,19 @@ export function MortgageCalculator({ defaultPrice }: MortgageCalculatorProps) {
 
         {/* Loan Term */}
         <div className="space-y-2">
-          <Label htmlFor="termYears">Loan Term</Label>
+          <Label htmlFor="termYears">{t("loanTerm")}</Label>
           <Select
             value={termYears.toString()}
             onValueChange={(value) => setTermYears(Number(value))}
           >
             <SelectTrigger id="termYears" className="w-full">
-              <SelectValue placeholder="Select term" />
+              <SelectValue placeholder={t("selectTerm")} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="15">15 years</SelectItem>
-              <SelectItem value="20">20 years</SelectItem>
-              <SelectItem value="25">25 years</SelectItem>
-              <SelectItem value="30">30 years</SelectItem>
+              <SelectItem value="15">{t("years", { count: 15 })}</SelectItem>
+              <SelectItem value="20">{t("years", { count: 20 })}</SelectItem>
+              <SelectItem value="25">{t("years", { count: 25 })}</SelectItem>
+              <SelectItem value="30">{t("years", { count: 30 })}</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -146,7 +147,7 @@ export function MortgageCalculator({ defaultPrice }: MortgageCalculatorProps) {
       <div className="pt-4 border-t space-y-4">
         {/* Monthly Payment - Prominent */}
         <div className="text-center p-4 bg-primary/10 rounded-lg">
-          <p className="text-sm text-muted-foreground mb-1">Monthly Payment</p>
+          <p className="text-sm text-muted-foreground mb-1">{t("monthlyPayment")}</p>
           <p className="text-3xl font-bold text-primary">
             {format.number(calculations.monthlyPayment, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}
           </p>
@@ -155,15 +156,15 @@ export function MortgageCalculator({ defaultPrice }: MortgageCalculatorProps) {
         {/* Other metrics */}
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-1">
-            <p className="text-sm text-muted-foreground">Loan Amount</p>
+            <p className="text-sm text-muted-foreground">{t("loanAmount")}</p>
             <p className="font-semibold">{format.number(calculations.principal, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}</p>
           </div>
           <div className="space-y-1">
-            <p className="text-sm text-muted-foreground">Total Interest</p>
+            <p className="text-sm text-muted-foreground">{t("totalInterest")}</p>
             <p className="font-semibold">{format.number(calculations.totalInterest, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}</p>
           </div>
           <div className="col-span-2 space-y-1">
-            <p className="text-sm text-muted-foreground">Total Payment</p>
+            <p className="text-sm text-muted-foreground">{t("totalPayment")}</p>
             <p className="font-semibold">{format.number(calculations.totalPayment, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}</p>
           </div>
         </div>
