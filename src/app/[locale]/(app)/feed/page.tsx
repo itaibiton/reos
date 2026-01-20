@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { usePaginatedQuery } from "convex/react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { api } from "../../../../../convex/_generated/api";
 import { PostCard, PostCardSkeleton, CreatePostDialog } from "@/components/feed";

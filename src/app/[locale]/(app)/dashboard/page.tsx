@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { useQuery } from "convex/react";
 import { useTranslations, useFormatter } from "next-intl";
 import { api } from "../../../../../convex/_generated/api";

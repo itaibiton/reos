@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter } from "@/i18n/navigation";
 import { useQuery } from "convex/react";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
