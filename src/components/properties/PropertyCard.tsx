@@ -1,9 +1,10 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Doc } from "../../../convex/_generated/dataModel";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { USD_TO_ILS_RATE, PROPERTY_TYPES, PROPERTY_STATUS } from "@/lib/constants";
+import { USD_TO_ILS_RATE } from "@/lib/constants";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
   Home01Icon,
@@ -35,12 +36,6 @@ const formatPercent = (value: number) => {
   return `${value.toFixed(1)}%`;
 };
 
-// Get property type label
-const getPropertyTypeLabel = (value: string) => {
-  const type = PROPERTY_TYPES.find((t) => t.value === value);
-  return type?.label || value;
-};
-
 // Get status badge variant
 const getStatusBadgeVariant = (status: string) => {
   switch (status) {
@@ -55,18 +50,15 @@ const getStatusBadgeVariant = (status: string) => {
   }
 };
 
-// Get status label
-const getStatusLabel = (value: string) => {
-  const status = PROPERTY_STATUS.find((s) => s.value === value);
-  return status?.label || value;
-};
-
 interface PropertyCardProps {
   property: Doc<"properties">;
   onClick?: () => void;
 }
 
 export function PropertyCard({ property, onClick }: PropertyCardProps) {
+  const t = useTranslations("properties");
+  const tCommon = useTranslations("common");
+
   const {
     title,
     city,
@@ -108,14 +100,14 @@ export function PropertyCard({ property, onClick }: PropertyCardProps) {
           variant="secondary"
           className="absolute top-2 start-2 bg-background/90 backdrop-blur-sm"
         >
-          {getPropertyTypeLabel(propertyType)}
+          {tCommon(`propertyTypes.${propertyType === "mixed_use" ? "mixedUse" : propertyType}`)}
         </Badge>
 
         {/* Top-end area: Save button and status badge */}
         <div className="absolute top-2 end-2 flex items-center gap-2">
           {status !== "available" && (
             <Badge variant={getStatusBadgeVariant(status)}>
-              {getStatusLabel(status)}
+              {tCommon(`propertyStatus.${status}`)}
             </Badge>
           )}
           <SaveButton propertyId={property._id} variant="overlay" />
@@ -143,20 +135,20 @@ export function PropertyCard({ property, onClick }: PropertyCardProps) {
         <div className="flex items-center gap-4 text-sm">
           {expectedRoi !== undefined && expectedRoi !== null && (
             <div>
-              <span className="text-muted-foreground">ROI: </span>
+              <span className="text-muted-foreground">{t("card.roi")}: </span>
               <span className="font-medium">{formatPercent(expectedRoi)}</span>
             </div>
           )}
           {capRate !== undefined && capRate !== null && (
             <div>
-              <span className="text-muted-foreground">Cap: </span>
+              <span className="text-muted-foreground">{t("card.cap")}: </span>
               <span className="font-medium">{formatPercent(capRate)}</span>
             </div>
           )}
           {monthlyRent !== undefined && monthlyRent !== null && (
             <div>
-              <span className="text-muted-foreground">Rent: </span>
-              <span className="font-medium">{formatUSD(monthlyRent)}/mo</span>
+              <span className="text-muted-foreground">{t("card.rent")}: </span>
+              <span className="font-medium">{formatUSD(monthlyRent)}{t("card.perMonth")}</span>
             </div>
           )}
         </div>
@@ -166,19 +158,19 @@ export function PropertyCard({ property, onClick }: PropertyCardProps) {
           {bedrooms !== undefined && bedrooms !== null && (
             <div className="flex items-center gap-1">
               <HugeiconsIcon icon={Home01Icon} size={16} strokeWidth={1.5} />
-              <span>{bedrooms} bed</span>
+              <span>{t("card.bedrooms", { count: bedrooms })}</span>
             </div>
           )}
           {bathrooms !== undefined && bathrooms !== null && (
             <div className="flex items-center gap-1">
               <HugeiconsIcon icon={Bathtub01Icon} size={16} strokeWidth={1.5} />
-              <span>{bathrooms} bath</span>
+              <span>{t("card.bathrooms", { count: bathrooms })}</span>
             </div>
           )}
           {squareMeters !== undefined && squareMeters !== null && (
             <div className="flex items-center gap-1">
               <HugeiconsIcon icon={Square01Icon} size={16} strokeWidth={1.5} />
-              <span>{squareMeters} m<sup>2</sup></span>
+              <span>{t("card.size", { size: squareMeters })}</span>
             </div>
           )}
         </div>

@@ -2,6 +2,7 @@
 
 import { useQuery, useMutation } from "convex/react";
 import { useAuth } from "@clerk/nextjs";
+import { useTranslations } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 import { Button } from "@/components/ui/button";
@@ -21,6 +22,7 @@ export function SaveButton({
   variant = "default",
   className,
 }: SaveButtonProps) {
+  const t = useTranslations("properties");
   const { isSignedIn } = useAuth();
   const isSaved = useQuery(api.favorites.isSaved, { propertyId });
   const toggleFavorite = useMutation(api.favorites.toggle);
@@ -62,7 +64,7 @@ export function SaveButton({
     return (
       <Button variant="outline" className={className} disabled>
         <HugeiconsIcon icon={FavouriteIcon} size={18} strokeWidth={1.5} />
-        Save Property
+        {t("save.saveProperty")}
       </Button>
     );
   }
@@ -77,7 +79,7 @@ export function SaveButton({
             className
           )}
           disabled
-          title="Sign in to save properties"
+          title={t("save.signInToSave")}
         >
           <HugeiconsIcon icon={FavouriteIcon} size={18} strokeWidth={1.5} />
         </button>
@@ -88,10 +90,10 @@ export function SaveButton({
         variant="outline"
         className={className}
         disabled
-        title="Sign in to save properties"
+        title={t("save.signInToSave")}
       >
         <HugeiconsIcon icon={FavouriteIcon} size={18} strokeWidth={1.5} />
-        Sign in to Save
+        {t("save.signInToSave")}
       </Button>
     );
   }
@@ -110,7 +112,7 @@ export function SaveButton({
           isLoading && "opacity-50 cursor-not-allowed",
           className
         )}
-        title={isSaved ? "Remove from saved" : "Save property"}
+        title={isSaved ? t("save.removeFromSaved") : t("save.saveProperty")}
       >
         <HugeiconsIcon
           icon={FavouriteIcon}
@@ -139,7 +141,7 @@ export function SaveButton({
         strokeWidth={1.5}
         fill={isSaved ? "currentColor" : "none"}
       />
-      {isSaved ? "Saved" : "Save Property"}
+      {isSaved ? t("save.saved") : t("save.saveProperty")}
     </Button>
   );
 }

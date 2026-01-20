@@ -1,6 +1,7 @@
 "use client";
 
 import { useQuery } from "convex/react";
+import { useTranslations } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -32,24 +33,13 @@ const formatPercentChange = (change: number) => {
   return `${prefix}${change.toFixed(1)}%`;
 };
 
-// Map amenity keys to display labels
-const AMENITY_LABELS: Record<string, string> = {
-  schools: "Schools",
-  parks: "Parks",
-  shopping: "Shopping",
-  transit: "Transit",
-  beaches: "Beaches",
-  hospitals: "Hospitals",
-  restaurants: "Restaurants",
-  nightlife: "Nightlife",
-  universities: "Universities",
-};
 
 interface NeighborhoodInfoProps {
   city: string;
 }
 
 export function NeighborhoodInfo({ city }: NeighborhoodInfoProps) {
+  const t = useTranslations("properties");
   const neighborhood = useQuery(api.neighborhoods.getByCity, { city });
 
   // Loading state
@@ -67,7 +57,7 @@ export function NeighborhoodInfo({ city }: NeighborhoodInfoProps) {
   if (neighborhood === null) {
     return (
       <p className="text-muted-foreground text-sm">
-        No neighborhood data available for this city
+        {t("neighborhood.noData")}
       </p>
     );
   }
@@ -93,7 +83,7 @@ export function NeighborhoodInfo({ city }: NeighborhoodInfoProps) {
                 size={16}
                 strokeWidth={1.5}
               />
-              <span className="text-xs">Population</span>
+              <span className="text-xs">{t("neighborhood.population")}</span>
             </div>
             <p className="font-semibold">{formatPopulation(population)}</p>
           </div>
@@ -103,7 +93,7 @@ export function NeighborhoodInfo({ city }: NeighborhoodInfoProps) {
         <div className="space-y-1">
           <div className="flex items-center gap-1.5 text-muted-foreground">
             <HugeiconsIcon icon={Money01Icon} size={16} strokeWidth={1.5} />
-            <span className="text-xs">Avg Price/m&sup2;</span>
+            <span className="text-xs">{t("neighborhood.avgPricePerSqm")}</span>
           </div>
           <p className="font-semibold">{formatPricePerSqm(avgPricePerSqm)}</p>
         </div>
@@ -120,7 +110,7 @@ export function NeighborhoodInfo({ city }: NeighborhoodInfoProps) {
                   priceChange1Year >= 0 ? "text-green-600" : "text-red-600"
                 }
               />
-              <span className="text-xs">1-Year Change</span>
+              <span className="text-xs">{t("neighborhood.yearChange")}</span>
             </div>
             <p
               className={`font-semibold ${
@@ -136,11 +126,11 @@ export function NeighborhoodInfo({ city }: NeighborhoodInfoProps) {
       {/* Nearby Amenities */}
       {nearbyAmenities && nearbyAmenities.length > 0 && (
         <div className="space-y-2">
-          <p className="text-sm text-muted-foreground">Nearby Amenities</p>
+          <p className="text-sm text-muted-foreground">{t("neighborhood.nearbyAmenities")}</p>
           <div className="flex flex-wrap gap-2">
             {nearbyAmenities.map((amenity) => (
               <Badge key={amenity} variant="secondary">
-                {AMENITY_LABELS[amenity] || amenity}
+                {t(`neighborhood.${amenity}`)}
               </Badge>
             ))}
           </div>

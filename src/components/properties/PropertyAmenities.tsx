@@ -1,6 +1,6 @@
 "use client";
 
-import { PROPERTY_AMENITIES } from "@/lib/constants";
+import { useTranslations } from "next-intl";
 import { HugeiconsIcon, IconSvgElement } from "@hugeicons/react";
 import {
   Fan01Icon,
@@ -44,32 +44,36 @@ interface PropertyAmenitiesProps {
 }
 
 export function PropertyAmenities({ amenities }: PropertyAmenitiesProps) {
+  const t = useTranslations("properties");
+  const tCommon = useTranslations("common");
+
   // Handle empty amenities
   if (!amenities || amenities.length === 0) {
     return (
-      <p className="text-muted-foreground text-sm">No amenities listed</p>
+      <p className="text-muted-foreground text-sm">{t("amenities.noAmenities")}</p>
     );
   }
 
   // Map amenity keys to their details
   const amenityDetails = amenities
     .map((amenityKey) => {
-      const amenityInfo = PROPERTY_AMENITIES.find((a) => a.value === amenityKey);
       const icon = AMENITY_ICONS[amenityKey];
-      return amenityInfo && icon
-        ? { key: amenityKey, label: amenityInfo.label, icon }
+      // Convert snake_case to camelCase for translation key
+      const translationKey = amenityKey.replace(/_([a-z])/g, (_, letter) => letter.toUpperCase());
+      return icon
+        ? { key: amenityKey, translationKey, icon }
         : null;
     })
     .filter(Boolean) as Array<{
       key: string;
-      label: string;
+      translationKey: string;
       icon: IconSvgElement;
     }>;
 
   // If no valid amenities found after mapping
   if (amenityDetails.length === 0) {
     return (
-      <p className="text-muted-foreground text-sm">No amenities listed</p>
+      <p className="text-muted-foreground text-sm">{t("amenities.noAmenities")}</p>
     );
   }
 
@@ -86,7 +90,7 @@ export function PropertyAmenities({ amenities }: PropertyAmenitiesProps) {
             strokeWidth={1.5}
             className="text-muted-foreground shrink-0"
           />
-          <span className="text-sm">{amenity.label}</span>
+          <span className="text-sm">{tCommon(`amenities.${amenity.translationKey}`)}</span>
         </div>
       ))}
     </div>
