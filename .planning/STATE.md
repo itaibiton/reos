@@ -11,18 +11,18 @@ See: .planning/PROJECT.md (updated 2026-01-19)
 
 Milestone: v1.4 Internationalization & RTL Support
 Phase: 31 - Translation Infrastructure
-Plan: 7 of 7 in current phase
+Plan: 12 of 12 in current phase (gap closure plans complete)
 Status: Phase complete
-Last activity: 2026-01-20 — Completed 31-07-PLAN.md (Discovery & Misc Page Translations)
+Last activity: 2026-01-20 — Completed 31-12-PLAN.md (Coming Soon Pages Default Translations)
 
-Progress: [██████████] 100% (7/7 phases)
+Progress: [██████████] 100% (12/12 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 91
+- Total plans completed: 92
 - Average duration: 5.6 min
-- Total execution time: 7.94 hours
+- Total execution time: 8.0 hours
 
 **By Phase:**
 
@@ -69,11 +69,11 @@ Progress: [██████████] 100% (7/7 phases)
 | 28 | 2/2 | 8 min | 4 min |
 | 29 | 11/11 | 37 min | 3.4 min |
 | 30 | 3/3 | 12 min | 4 min |
-| 31 | 7/7 | 56 min | 8 min |
+| 31 | 12/12 | 60 min | 5 min |
 
 **Recent Trend:**
-- Last 5 plans: 4 min, 3 min, 4 min, 12 min, 25 min
-- Trend: Phase 31 Translation Infrastructure - all 7 plans complete
+- Last 5 plans: 31-08 (4 min), 31-09 (4 min), 31-10 (4 min), 31-11 (6 min), 31-12 (4 min)
+- Trend: Phase 31 Translation Infrastructure - all 12 plans complete (includes 5 gap closure plans)
 
 ## Accumulated Context
 
@@ -342,6 +342,7 @@ Recent decisions affecting current work:
 - Phase 31: onboarding namespace with roles, questionnaire, questions, options, complete sections
 - Phase 31: misc namespace with comingSoon and error sections
 - Phase 31: ROLE_KEY_MAP pattern converts snake_case DB values to camelCase translation keys
+- Phase 31: ComingSoon without props pattern for all placeholder pages to use default translations
 
 ### v1.4 Research Findings
 
@@ -383,6 +384,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-20
-Stopped at: Completed 31-07-PLAN.md (Discovery & Misc Page Translations) - Phase 31 complete
+Stopped at: Completed 31-12-PLAN.md (Coming Soon Pages Default Translations) - Phase 31 gap closure complete
 Resume file: None
 Next: Execute Phase 32 (Hebrew Translation)
