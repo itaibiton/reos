@@ -11,18 +11,18 @@ See: .planning/PROJECT.md (updated 2026-01-19)
 
 Milestone: v1.4 Internationalization & RTL Support
 Phase: 31 - Translation Infrastructure
-Plan: 1 of 7 in current phase
+Plan: 2 of 7 in current phase
 Status: In progress
-Last activity: 2026-01-20 — Completed 31-01-PLAN.md (Common Namespace & Constants)
+Last activity: 2026-01-20 — Completed 31-02-PLAN.md (Navigation Namespace & Sidebar)
 
 Progress: [████████--] 57% (4/7 phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 90
+- Total plans completed: 91
 - Average duration: 5.6 min
-- Total execution time: 7.87 hours
+- Total execution time: 7.94 hours
 
 **By Phase:**
 
@@ -69,11 +69,11 @@ Progress: [████████--] 57% (4/7 phases)
 | 28 | 2/2 | 8 min | 4 min |
 | 29 | 11/11 | 37 min | 3.4 min |
 | 30 | 3/3 | 12 min | 4 min |
-| 31 | 1/7 | 3 min | 3 min |
+| 31 | 2/7 | 7 min | 3.5 min |
 
 **Recent Trend:**
-- Last 5 plans: 8 min, 3 min, 5 min, 4 min, 3 min
-- Trend: Phase 31 Translation Infrastructure started - common namespace complete
+- Last 5 plans: 3 min, 5 min, 4 min, 3 min, 4 min
+- Trend: Phase 31 Translation Infrastructure - navigation namespace complete
 
 ## Accumulated Context
 
@@ -321,6 +321,9 @@ Recent decisions affecting current work:
 - Phase 31: 16 categories in common namespace (actions, status, labels, propertyTypes, etc.)
 - Phase 31: labelKey pattern replaces hardcoded labels in constants.ts
 - Phase 31: descriptionKey for options with descriptions (riskTolerance, investmentTimeline)
+- Phase 31: Navigation namespace with groups (8) and items (30) for sidebar translation
+- Phase 31: NavItem/NavGroup types use labelKey for translation key storage
+- Phase 31: Sidebar uses useTranslations with t(item.labelKey) pattern for rendering
 
 ### v1.4 Research Findings
 
@@ -362,6 +365,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-20
-Stopped at: Completed 31-01-PLAN.md (Common Namespace & Constants)
+Stopped at: Completed 31-02-PLAN.md (Navigation Namespace & Sidebar)
 Resume file: None
-Next: Execute 31-02-PLAN.md (Page Namespaces)
+Next: Execute 31-03-PLAN.md (Properties Namespace)
