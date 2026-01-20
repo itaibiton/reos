@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useFormatter } from "next-intl";
 import { QuestionBubble } from "../QuestionBubble";
 import { AnswerArea } from "../AnswerArea";
 import { Input } from "@/components/ui/input";
@@ -30,6 +30,7 @@ export function PropertySizeStep({
 }: PropertySizeStepProps) {
   const t = useTranslations("onboarding.questions.propertySize");
   const tOptions = useTranslations("onboarding.options");
+  const format = useFormatter();
   const [showAnswer, setShowAnswer] = useState(false);
 
   // Stable callback to prevent QuestionBubble re-renders
@@ -45,7 +46,7 @@ export function PropertySizeStep({
 
   const formatNumber = (value: number | undefined): string => {
     if (value === undefined) return "";
-    return value.toLocaleString("en-US");
+    return format.number(value);
   };
 
   return (
