@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useQuery } from "convex/react";
+import { useTranslations } from "next-intl";
 import { api } from "../../../../../convex/_generated/api";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import {
@@ -22,7 +23,7 @@ import {
   ChartLineData02Icon,
   Money01Icon,
 } from "@hugeicons/core-free-icons";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 
 // Currency formatter for USD
 const formatUSD = (amount: number) => {
@@ -34,6 +35,7 @@ const formatUSD = (amount: number) => {
 };
 
 export default function DashboardPage() {
+  const t = useTranslations("dashboard");
   const router = useRouter();
   const { user, isLoading: userLoading, effectiveRole, isAdmin } = useCurrentUser();
   const properties = useQuery(api.properties.list, { status: "available" });
@@ -95,9 +97,9 @@ export default function DashboardPage() {
     <div className="p-6 space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold">Admin Dashboard</h1>
+        <h1 className="text-2xl font-bold">{t("adminDashboard")}</h1>
         <p className="text-muted-foreground">
-          Welcome back{user?.name ? `, ${user.name}` : ""}! Platform overview.
+          {user?.name ? t("welcome", { name: user.name }) : t("welcomeGeneric")}! {t("platformOverview")}.
         </p>
       </div>
 
@@ -116,7 +118,7 @@ export default function DashboardPage() {
               </div>
               <div>
                 <p className="text-2xl font-bold">{stats?.totalProperties || 0}</p>
-                <p className="text-xs text-muted-foreground">Available Properties</p>
+                <p className="text-xs text-muted-foreground">{t("stats.availableProperties")}</p>
               </div>
             </div>
           </CardContent>
@@ -137,7 +139,7 @@ export default function DashboardPage() {
                 <p className="text-2xl font-bold">
                   {stats ? formatUSD(stats.totalValue) : "$0"}
                 </p>
-                <p className="text-xs text-muted-foreground">Total Value</p>
+                <p className="text-xs text-muted-foreground">{t("stats.totalValue")}</p>
               </div>
             </div>
           </CardContent>
@@ -158,7 +160,7 @@ export default function DashboardPage() {
                 <p className="text-2xl font-bold">
                   {stats ? `${stats.avgRoi.toFixed(1)}%` : "0%"}
                 </p>
-                <p className="text-xs text-muted-foreground">Avg. ROI</p>
+                <p className="text-xs text-muted-foreground">{t("stats.avgRoi")}</p>
               </div>
             </div>
           </CardContent>
@@ -177,7 +179,7 @@ export default function DashboardPage() {
               </div>
               <div>
                 <p className="text-2xl font-bold">{stats?.cities || 0}</p>
-                <p className="text-xs text-muted-foreground">Cities</p>
+                <p className="text-xs text-muted-foreground">{t("stats.cities")}</p>
               </div>
             </div>
           </CardContent>
@@ -187,26 +189,26 @@ export default function DashboardPage() {
       {/* User Profile Card */}
       <Card>
         <CardHeader className="pb-2">
-          <CardTitle className="text-base">Your Profile</CardTitle>
-          <CardDescription>Account information</CardDescription>
+          <CardTitle className="text-base">{t("sections.yourProfile")}</CardTitle>
+          <CardDescription>{t("sections.accountInfo")}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-sm text-muted-foreground">Email</span>
+            <span className="text-sm text-muted-foreground">{t("profile.email")}</span>
             <span className="text-sm">{user?.email}</span>
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-sm text-muted-foreground">Role</span>
+            <span className="text-sm text-muted-foreground">{t("profile.role")}</span>
             {user?.role ? (
               <Badge variant="secondary">{user.role.replace("_", " ")}</Badge>
             ) : (
-              <Badge variant="outline">Not set</Badge>
+              <Badge variant="outline">{t("profile.notSet")}</Badge>
             )}
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-sm text-muted-foreground">Onboarding</span>
+            <span className="text-sm text-muted-foreground">{t("profile.onboarding")}</span>
             <Badge variant={user?.onboardingComplete ? "default" : "destructive"}>
-              {user?.onboardingComplete ? "Complete" : "Incomplete"}
+              {user?.onboardingComplete ? t("profile.complete") : t("profile.incomplete")}
             </Badge>
           </div>
         </CardContent>
@@ -215,26 +217,26 @@ export default function DashboardPage() {
       {/* Quick Actions */}
       <Card>
         <CardHeader className="pb-2">
-          <CardTitle className="text-base">Quick Actions</CardTitle>
+          <CardTitle className="text-base">{t("quickActions.title")}</CardTitle>
         </CardHeader>
         <CardContent className="flex gap-2 flex-wrap">
           <Link
             href="/properties"
             className="text-sm bg-primary text-primary-foreground px-4 py-2 rounded-md hover:bg-primary/90 transition-colors"
           >
-            Browse Properties
+            {t("quickActions.browse")}
           </Link>
           <Link
             href="/properties/saved"
             className="text-sm bg-muted text-foreground px-4 py-2 rounded-md hover:bg-muted/80 transition-colors"
           >
-            Saved Properties
+            {t("quickActions.saved")}
           </Link>
           <Link
             href="/properties/new"
             className="text-sm bg-muted text-foreground px-4 py-2 rounded-md hover:bg-muted/80 transition-colors"
           >
-            Add Property
+            {t("quickActions.newListing")}
           </Link>
         </CardContent>
       </Card>

@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { InvestorProfileForm } from "@/components/profile/InvestorProfileForm";
 import { ProviderProfileForm } from "@/components/profile/ProviderProfileForm";
@@ -10,6 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function SettingsPage() {
+  const t = useTranslations("settings");
   const { user, isLoading, effectiveRole, isAdmin, isInvestor, isServiceProvider } = useCurrentUser();
 
   if (isLoading || !user) {
@@ -28,17 +30,17 @@ export default function SettingsPage() {
     <div className="p-6">
       <div className="mb-6">
         <div className="flex items-center gap-3">
-          <h1 className="text-2xl font-bold">Settings</h1>
+          <h1 className="text-2xl font-bold">{t("title")}</h1>
           {isAdmin && effectiveRole !== "admin" && (
             <Badge variant="outline" className="text-xs">
-              Viewing as {effectiveRole}
+              {t("viewingAs", { role: effectiveRole })}
             </Badge>
           )}
         </div>
         <p className="text-muted-foreground">
           {effectiveRole === "admin"
-            ? "Admin settings and system configuration"
-            : "Manage your profile settings"}
+            ? t("adminSettings")
+            : t("manageProfile")}
         </p>
       </div>
 
@@ -49,9 +51,9 @@ export default function SettingsPage() {
       {showProviderProfile && (
         <Tabs defaultValue="profile" className="w-full">
           <TabsList>
-            <TabsTrigger value="profile">Profile</TabsTrigger>
-            <TabsTrigger value="availability">Availability</TabsTrigger>
-            <TabsTrigger value="notifications">Notifications</TabsTrigger>
+            <TabsTrigger value="profile">{t("tabs.profile")}</TabsTrigger>
+            <TabsTrigger value="availability">{t("tabs.availability")}</TabsTrigger>
+            <TabsTrigger value="notifications">{t("tabs.notifications")}</TabsTrigger>
           </TabsList>
           <TabsContent value="profile" className="mt-4">
             <ProviderProfileForm />
@@ -67,10 +69,9 @@ export default function SettingsPage() {
 
       {effectiveRole === "admin" && (
         <div className="rounded-lg border p-6">
-          <h2 className="text-lg font-semibold mb-2">Admin Panel</h2>
+          <h2 className="text-lg font-semibold mb-2">{t("admin.title")}</h2>
           <p className="text-muted-foreground text-sm">
-            Use the &quot;View as&quot; dropdown in the header to preview the app as different user types.
-            The sidebar and available features will change based on the selected role.
+            {t("admin.description")}
           </p>
         </div>
       )}

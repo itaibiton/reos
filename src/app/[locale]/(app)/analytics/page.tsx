@@ -1,6 +1,7 @@
 "use client";
 
 import { useQuery } from "convex/react";
+import { useTranslations } from "next-intl";
 import { api } from "../../../../../convex/_generated/api";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -144,17 +145,16 @@ function AnalyticsSkeleton() {
 }
 
 // Empty state component
-function EmptyState() {
+function EmptyState({ t }: { t: (key: string) => string }) {
   return (
     <div className="p-6">
       <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
         <div className="rounded-full bg-muted p-4 mb-4 text-muted-foreground">
           <BarChart3 size={48} strokeWidth={1.5} />
         </div>
-        <h2 className="text-xl font-semibold mb-2">No Analytics Data Yet</h2>
+        <h2 className="text-xl font-semibold mb-2">{t("empty.title")}</h2>
         <p className="text-muted-foreground mb-6 max-w-md">
-          Analytics will appear here once you start receiving service requests
-          and completing deals.
+          {t("empty.description")}
         </p>
       </div>
     </div>
@@ -162,6 +162,7 @@ function EmptyState() {
 }
 
 export default function AnalyticsPage() {
+  const t = useTranslations("analytics");
   const analytics = useQuery(api.providerAnalytics.getProviderAnalytics);
 
   // Loading state
@@ -171,7 +172,7 @@ export default function AnalyticsPage() {
 
   // Not a provider or no data
   if (analytics === null) {
-    return <EmptyState />;
+    return <EmptyState t={t} />;
   }
 
   // Check if there's any meaningful data
@@ -181,7 +182,7 @@ export default function AnalyticsPage() {
     analytics.activeDeals > 0;
 
   if (!hasData) {
-    return <EmptyState />;
+    return <EmptyState t={t} />;
   }
 
   // Prepare chart data
@@ -195,16 +196,16 @@ export default function AnalyticsPage() {
     <div className="p-6 space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold">Analytics</h1>
+        <h1 className="text-2xl font-bold">{t("title")}</h1>
         <p className="text-muted-foreground">
-          Track your performance metrics and business insights
+          {t("description")}
         </p>
       </div>
 
       {/* Top Stats Row */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
-          title="Completed Deals"
+          title={t("stats.completedDeals")}
           value={analytics.completedDeals}
           icon={<CheckCircle size={20} />}
           subtitle={
@@ -214,20 +215,20 @@ export default function AnalyticsPage() {
           }
         />
         <StatCard
-          title="Active Deals"
+          title={t("stats.activeDeals")}
           value={analytics.activeDeals}
           icon={<Briefcase size={20} />}
         />
         <StatCard
-          title="Conversion Rate"
+          title={t("stats.conversionRate")}
           value={`${analytics.conversionRate}%`}
           icon={<TrendingUp size={20} />}
-          subtitle={`${analytics.acceptedRequests} of ${analytics.totalRequests} requests`}
+          subtitle={t("stats.requestsOf", { accepted: analytics.acceptedRequests, total: analytics.totalRequests })}
         />
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">
-              Average Rating
+              {t("stats.avgRating")}
             </CardTitle>
             <Star size={20} className="text-muted-foreground" />
           </CardHeader>
@@ -236,11 +237,11 @@ export default function AnalyticsPage() {
               <>
                 <StarRating rating={analytics.avgRating} />
                 <p className="text-xs text-muted-foreground mt-1">
-                  {analytics.totalReviews} reviews
+                  {t("stats.reviews", { count: analytics.totalReviews })}
                 </p>
               </>
             ) : (
-              <p className="text-sm text-muted-foreground">No reviews yet</p>
+              <p className="text-sm text-muted-foreground">{t("stats.noReviews")}</p>
             )}
           </CardContent>
         </Card>
@@ -253,7 +254,7 @@ export default function AnalyticsPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <DollarSign size={20} />
-              Deal Value
+              {t("dealValue.title")}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -262,13 +263,13 @@ export default function AnalyticsPage() {
                 {formatCurrency(analytics.totalDealValue)}
               </p>
               <p className="text-sm text-muted-foreground">
-                Total value of completed deals
+                {t("dealValue.total")}
               </p>
             </div>
             <div className="pt-4 border-t">
               <div className="flex justify-between items-center">
                 <span className="text-sm text-muted-foreground">
-                  Average deal value
+                  {t("dealValue.average")}
                 </span>
                 <span className="font-semibold">
                   {formatCurrency(analytics.avgDealValue)}
@@ -276,7 +277,7 @@ export default function AnalyticsPage() {
               </div>
             </div>
             <p className="text-xs text-muted-foreground italic">
-              Note: Actual earnings depend on your commission agreements
+              {t("dealValue.commissionNote")}
             </p>
           </CardContent>
         </Card>
@@ -286,13 +287,13 @@ export default function AnalyticsPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Clock size={20} />
-              Performance
+              {t("performance.title")}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
               <p className="text-sm text-muted-foreground mb-1">
-                Average Response Time
+                {t("performance.avgResponseTime")}
               </p>
               <p className="text-2xl font-bold">
                 {analytics.avgResponseTimeHours < 1
@@ -301,24 +302,24 @@ export default function AnalyticsPage() {
               </p>
             </div>
             <div className="pt-4 border-t space-y-2">
-              <p className="text-sm font-medium">Request Breakdown</p>
+              <p className="text-sm font-medium">{t("performance.requestBreakdown")}</p>
               <div className="flex gap-4">
                 <div className="flex items-center gap-1.5">
                   <CheckCircle size={14} className="text-green-500" />
                   <span className="text-sm">
-                    {analytics.acceptedRequests} accepted
+                    {t("performance.accepted", { count: analytics.acceptedRequests })}
                   </span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <XCircle size={14} className="text-red-500" />
                   <span className="text-sm">
-                    {analytics.declinedRequests} declined
+                    {t("performance.declined", { count: analytics.declinedRequests })}
                   </span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <Hourglass size={14} className="text-yellow-500" />
                   <span className="text-sm">
-                    {analytics.pendingRequests} pending
+                    {t("performance.pending", { count: analytics.pendingRequests })}
                   </span>
                 </div>
               </div>
@@ -332,7 +333,7 @@ export default function AnalyticsPage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <BarChart3 size={20} />
-            Monthly Trends
+            {t("trends.title")}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -352,13 +353,13 @@ export default function AnalyticsPage() {
                 <Legend />
                 <Bar
                   dataKey="requests"
-                  name="Requests"
+                  name={t("trends.requests")}
                   fill="hsl(var(--primary))"
                   radius={[4, 4, 0, 0]}
                 />
                 <Bar
                   dataKey="deals"
-                  name="Completed Deals"
+                  name={t("trends.completedDeals")}
                   fill="hsl(142.1, 76.2%, 36.3%)"
                   radius={[4, 4, 0, 0]}
                 />
@@ -366,7 +367,7 @@ export default function AnalyticsPage() {
             </ResponsiveContainer>
           ) : (
             <div className="flex items-center justify-center h-64 text-muted-foreground">
-              No trend data available yet
+              {t("trends.noData")}
             </div>
           )}
         </CardContent>
