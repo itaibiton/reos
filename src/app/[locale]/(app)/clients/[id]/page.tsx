@@ -2,6 +2,7 @@
 
 import { useQuery } from "convex/react";
 import { useRouter, useParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { api } from "../../../../../../convex/_generated/api";
 import { Id } from "../../../../../../convex/_generated/dataModel";
 import { Button } from "@/components/ui/button";
@@ -23,7 +24,7 @@ import {
   Home01Icon,
   Clock01Icon,
 } from "@hugeicons/core-free-icons";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 
 // Format date
@@ -170,6 +171,7 @@ function ClientDetailSkeleton() {
 }
 
 export default function ClientDetailPage() {
+  const t = useTranslations("clients");
   const router = useRouter();
   const params = useParams();
   const { effectiveRole } = useCurrentUser();
@@ -191,11 +193,11 @@ export default function ClientDetailPage() {
     return (
       <div className="p-6">
         <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
-          <h2 className="text-xl font-semibold mb-2">Provider Access Only</h2>
+          <h2 className="text-xl font-semibold mb-2">{t("access.providerOnly")}</h2>
           <p className="text-muted-foreground mb-6 max-w-md">
-            This page is for service providers only.
+            {t("access.providerOnlyDesc")}
           </p>
-          <Button onClick={() => router.push("/")}>Go Home</Button>
+          <Button onClick={() => router.push("/")}>{t("access.goHome")}</Button>
         </div>
       </div>
     );
@@ -211,11 +213,11 @@ export default function ClientDetailPage() {
     return (
       <div className="p-6">
         <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
-          <h2 className="text-xl font-semibold mb-2">Client Not Found</h2>
+          <h2 className="text-xl font-semibold mb-2">{t("access.notFound")}</h2>
           <p className="text-muted-foreground mb-6 max-w-md">
-            This client doesn&apos;t exist or you don&apos;t have access to view their details.
+            {t("access.notFoundDesc")}
           </p>
-          <Button onClick={() => router.push("/clients")}>Back to Clients</Button>
+          <Button onClick={() => router.push("/clients")}>{t("detail.backToClients")}</Button>
         </div>
       </div>
     );
@@ -228,7 +230,7 @@ export default function ClientDetailPage() {
       {/* Back button */}
       <Button variant="ghost" size="sm" onClick={() => router.push("/clients")}>
         <HugeiconsIcon icon={ArrowLeft01Icon} size={16} className="me-1 rtl:-scale-x-100" />
-        Back to Clients
+        {t("detail.backToClients")}
       </Button>
 
       {/* Header */}
@@ -250,23 +252,23 @@ export default function ClientDetailPage() {
           <div className="flex flex-wrap gap-2 mt-3">
             <Badge variant="secondary" className="flex items-center gap-1">
               <HugeiconsIcon icon={Agreement01Icon} size={12} />
-              {stats.totalDeals} Deal{stats.totalDeals !== 1 ? "s" : ""}
+              {stats.totalDeals} {t("detail.total")}
             </Badge>
             {stats.activeDeals > 0 && (
               <Badge className="bg-green-100 text-green-800 flex items-center gap-1">
                 <HugeiconsIcon icon={Clock01Icon} size={12} />
-                {stats.activeDeals} Active
+                {stats.activeDeals} {t("detail.active")}
               </Badge>
             )}
             {stats.completedDeals > 0 && (
               <Badge className="bg-emerald-100 text-emerald-800 flex items-center gap-1">
                 <HugeiconsIcon icon={CheckmarkCircle01Icon} size={12} />
-                {stats.completedDeals} Completed
+                {stats.completedDeals} {t("detail.completed")}
               </Badge>
             )}
             <Badge variant="outline" className="flex items-center gap-1">
               <HugeiconsIcon icon={Money01Icon} size={12} />
-              {formatUSD(stats.totalValue)} Total
+              {formatUSD(stats.totalValue)} {t("detail.total")}
             </Badge>
           </div>
         </div>
@@ -275,7 +277,7 @@ export default function ClientDetailPage() {
         <Button asChild>
           <Link href={`/chat?client=${clientId}`}>
             <HugeiconsIcon icon={Message01Icon} size={16} className="me-2" />
-            Start Chat
+            {t("detail.startChat")}
           </Link>
         </Button>
       </div>
@@ -288,13 +290,13 @@ export default function ClientDetailPage() {
             <CardHeader>
               <CardTitle className="text-lg flex items-center gap-2">
                 <HugeiconsIcon icon={Agreement01Icon} size={20} />
-                Deal History
+                {t("detail.dealHistory")}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
               {deals.length === 0 ? (
                 <div className="text-center py-8 text-muted-foreground">
-                  <p>No deals with this client yet.</p>
+                  <p>{t("detail.noDeals")}</p>
                 </div>
               ) : (
                 deals.map((deal) => (
@@ -344,7 +346,7 @@ export default function ClientDetailPage() {
 
                       <div className="flex items-center gap-1 text-xs text-muted-foreground mt-1">
                         <HugeiconsIcon icon={Calendar01Icon} size={12} />
-                        <span>Started {formatDate(deal.createdAt)}</span>
+                        <span>{t("detail.started", { date: formatDate(deal.createdAt) })}</span>
                       </div>
 
                       {/* Providers */}
@@ -388,7 +390,7 @@ export default function ClientDetailPage() {
             <CardHeader>
               <CardTitle className="text-lg flex items-center gap-2">
                 <HugeiconsIcon icon={Target01Icon} size={20} />
-                Investment Profile
+                {t("detail.investmentProfile")}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -397,24 +399,24 @@ export default function ClientDetailPage() {
                   {/* Background */}
                   <div>
                     <h4 className="text-sm font-medium text-muted-foreground mb-2">
-                      Background
+                      {t("questionnaire.background")}
                     </h4>
                     <div className="space-y-1 text-sm">
                       <p>
-                        <span className="text-muted-foreground">Citizenship:</span>{" "}
+                        <span className="text-muted-foreground">{t("questionnaire.citizenship")}:</span>{" "}
                         {getLabel("citizenship", questionnaire.citizenship)}
                       </p>
                       <p>
-                        <span className="text-muted-foreground">Residency:</span>{" "}
+                        <span className="text-muted-foreground">{t("questionnaire.residency")}:</span>{" "}
                         {getLabel("residencyStatus", questionnaire.residencyStatus)}
                       </p>
                       <p>
-                        <span className="text-muted-foreground">Experience:</span>{" "}
+                        <span className="text-muted-foreground">{t("questionnaire.experience")}:</span>{" "}
                         {getLabel("experienceLevel", questionnaire.experienceLevel)}
                       </p>
                       {questionnaire.ownsPropertyInIsrael !== undefined && (
                         <p>
-                          <span className="text-muted-foreground">Owns Property:</span>{" "}
+                          <span className="text-muted-foreground">{t("questionnaire.ownsProperty")}:</span>{" "}
                           {questionnaire.ownsPropertyInIsrael ? "Yes" : "No"}
                         </p>
                       )}
@@ -425,7 +427,7 @@ export default function ClientDetailPage() {
                   {(questionnaire.budgetMin || questionnaire.budgetMax) && (
                     <div>
                       <h4 className="text-sm font-medium text-muted-foreground mb-2">
-                        Budget
+                        {t("questionnaire.budget")}
                       </h4>
                       <div className="flex items-center gap-1 text-sm">
                         <HugeiconsIcon icon={Money01Icon} size={14} className="text-muted-foreground" />
@@ -442,7 +444,7 @@ export default function ClientDetailPage() {
                   {questionnaire.investmentGoals && questionnaire.investmentGoals.length > 0 && (
                     <div>
                       <h4 className="text-sm font-medium text-muted-foreground mb-2">
-                        Goals
+                        {t("questionnaire.goals")}
                       </h4>
                       <div className="flex flex-wrap gap-1">
                         {questionnaire.investmentGoals.map((goal) => (
@@ -457,23 +459,23 @@ export default function ClientDetailPage() {
                   {/* Preferences */}
                   <div>
                     <h4 className="text-sm font-medium text-muted-foreground mb-2">
-                      Preferences
+                      {t("questionnaire.preferences")}
                     </h4>
                     <div className="space-y-1 text-sm">
                       <p>
-                        <span className="text-muted-foreground">Horizon:</span>{" "}
+                        <span className="text-muted-foreground">{t("questionnaire.horizon")}:</span>{" "}
                         {getLabel("investmentHorizon", questionnaire.investmentHorizon)}
                       </p>
                       <p>
-                        <span className="text-muted-foreground">Focus:</span>{" "}
+                        <span className="text-muted-foreground">{t("questionnaire.focus")}:</span>{" "}
                         {getLabel("yieldPreference", questionnaire.yieldPreference)}
                       </p>
                       <p>
-                        <span className="text-muted-foreground">Financing:</span>{" "}
+                        <span className="text-muted-foreground">{t("questionnaire.financing")}:</span>{" "}
                         {getLabel("financingApproach", questionnaire.financingApproach)}
                       </p>
                       <p>
-                        <span className="text-muted-foreground">Timeline:</span>{" "}
+                        <span className="text-muted-foreground">{t("questionnaire.timeline")}:</span>{" "}
                         {getLabel("purchaseTimeline", questionnaire.purchaseTimeline)}
                       </p>
                     </div>
@@ -483,7 +485,7 @@ export default function ClientDetailPage() {
                   {questionnaire.preferredPropertyTypes && questionnaire.preferredPropertyTypes.length > 0 && (
                     <div>
                       <h4 className="text-sm font-medium text-muted-foreground mb-2">
-                        Property Types
+                        {t("questionnaire.propertyTypes")}
                       </h4>
                       <div className="flex flex-wrap gap-1">
                         {questionnaire.preferredPropertyTypes.map((type) => (
@@ -500,7 +502,7 @@ export default function ClientDetailPage() {
                   {questionnaire.preferredLocations && questionnaire.preferredLocations.length > 0 && (
                     <div>
                       <h4 className="text-sm font-medium text-muted-foreground mb-2">
-                        Preferred Locations
+                        {t("questionnaire.preferredLocations")}
                       </h4>
                       <div className="flex flex-wrap gap-1">
                         {questionnaire.preferredLocations.map((location) => (
@@ -517,7 +519,7 @@ export default function ClientDetailPage() {
                   {questionnaire.additionalPreferences && (
                     <div>
                       <h4 className="text-sm font-medium text-muted-foreground mb-2">
-                        Additional Notes
+                        {t("questionnaire.additionalNotes")}
                       </h4>
                       <p className="text-sm text-muted-foreground italic">
                         &quot;{questionnaire.additionalPreferences}&quot;
@@ -527,9 +529,9 @@ export default function ClientDetailPage() {
                 </>
               ) : (
                 <div className="text-center py-6 text-muted-foreground">
-                  <p className="text-sm">No investment profile available.</p>
+                  <p className="text-sm">{t("questionnaire.noProfile")}</p>
                   <p className="text-xs mt-1">
-                    Client hasn&apos;t completed their questionnaire yet.
+                    {t("questionnaire.notCompleted")}
                   </p>
                 </div>
               )}

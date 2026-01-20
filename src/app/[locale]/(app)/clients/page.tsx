@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import { useQuery } from "convex/react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { api } from "../../../../../convex/_generated/api";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -87,9 +88,10 @@ interface Client {
 interface ClientCardProps {
   client: Client;
   onViewDetails: (clientId: string) => void;
+  t: (key: string, values?: Record<string, unknown>) => string;
 }
 
-function ClientCard({ client, onViewDetails }: ClientCardProps) {
+function ClientCard({ client, onViewDetails, t }: ClientCardProps) {
   return (
     <Card className="hover:shadow-md transition-shadow">
       <CardContent className="p-4">
@@ -118,11 +120,13 @@ function ClientCard({ client, onViewDetails }: ClientCardProps) {
               <div className="flex items-center gap-1">
                 <HugeiconsIcon icon={Agreement01Icon} size={12} />
                 <span>
-                  {client.totalDeals} deal{client.totalDeals !== 1 ? "s" : ""}
+                  {client.totalDeals === 1
+                    ? t("list.deal", { count: client.totalDeals })
+                    : t("list.deals", { count: client.totalDeals })}
                 </span>
                 {client.activeDeals > 0 && (
                   <span className="text-green-600 font-medium">
-                    ({client.activeDeals} active)
+                    {t("list.active", { count: client.activeDeals })}
                   </span>
                 )}
               </div>
@@ -144,7 +148,7 @@ function ClientCard({ client, onViewDetails }: ClientCardProps) {
             onClick={() => onViewDetails(client._id)}
             className="flex-shrink-0"
           >
-            View
+            {t("list.view")}
             <HugeiconsIcon icon={ArrowRight01Icon} size={14} className="ms-1 rtl:-scale-x-100" />
           </Button>
         </div>
@@ -154,6 +158,7 @@ function ClientCard({ client, onViewDetails }: ClientCardProps) {
 }
 
 export default function ClientsPage() {
+  const t = useTranslations("clients");
   const router = useRouter();
   const { effectiveRole } = useCurrentUser();
   const [searchQuery, setSearchQuery] = useState("");
@@ -195,9 +200,9 @@ export default function ClientsPage() {
           <div className="rounded-full bg-muted p-4 mb-4 text-muted-foreground">
             <HugeiconsIcon icon={UserMultiple02Icon} size={48} strokeWidth={1.5} />
           </div>
-          <h2 className="text-xl font-semibold mb-2">Provider Access Only</h2>
+          <h2 className="text-xl font-semibold mb-2">{t("access.providerOnly")}</h2>
           <p className="text-muted-foreground mb-6 max-w-md">
-            This page is for service providers to manage their clients.
+            {t("access.providerOnlyDesc")}
           </p>
         </div>
       </div>
@@ -237,9 +242,9 @@ export default function ClientsPage() {
           <div className="rounded-full bg-muted p-4 mb-4 text-muted-foreground">
             <HugeiconsIcon icon={UserMultiple02Icon} size={48} strokeWidth={1.5} />
           </div>
-          <h2 className="text-xl font-semibold mb-2">No clients yet</h2>
+          <h2 className="text-xl font-semibold mb-2">{t("empty.noClients")}</h2>
           <p className="text-muted-foreground mb-6 max-w-md">
-            When you accept client requests, they&apos;ll appear here.
+            {t("empty.getStarted")}
           </p>
         </div>
       </div>
@@ -250,9 +255,11 @@ export default function ClientsPage() {
     <div className="p-6">
       {/* Header */}
       <div className="mb-6">
-        <h1 className="text-2xl font-bold">Clients</h1>
+        <h1 className="text-2xl font-bold">{t("title")}</h1>
         <p className="text-muted-foreground">
-          {clients.length} client{clients.length !== 1 ? "s" : ""}
+          {clients.length === 1
+            ? t("clientCount", { count: clients.length })
+            : t("clientCountPlural", { count: clients.length })}
         </p>
       </div>
 
@@ -265,7 +272,7 @@ export default function ClientsPage() {
             className="absolute start-3 top-1/2 -translate-y-1/2 text-muted-foreground"
           />
           <Input
-            placeholder="Search by name or email..."
+            placeholder={t("searchPlaceholder")}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="ps-9"
@@ -277,10 +284,10 @@ export default function ClientsPage() {
       {filteredClients.length === 0 && searchQuery.trim() && (
         <div className="text-center py-12">
           <p className="text-muted-foreground mb-4">
-            No clients match &quot;{searchQuery}&quot;
+            {t("noMatch", { query: searchQuery })}
           </p>
           <Button variant="outline" onClick={() => setSearchQuery("")}>
-            Clear search
+            {t("clearSearch")}
           </Button>
         </div>
       )}
@@ -292,6 +299,7 @@ export default function ClientsPage() {
             key={client._id}
             client={client}
             onViewDetails={handleViewDetails}
+            t={t}
           />
         ))}
       </div>
