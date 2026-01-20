@@ -403,5 +403,274 @@
       },
       "copyright": "© 2024 REOS. All rights reserved."
     }
+  },
+  "deals": {
+    "title": "Deals",
+    "myDeals": "My Deals",
+    "activeDeal": "Active Deal",
+    "activeDeals": "Active Deals",
+    "completedDeals": "Completed Deals",
+
+    "stages": {
+      "interest": "Interest",
+      "brokerAssigned": "With Broker",
+      "mortgage": "Mortgage",
+      "legal": "Legal Review",
+      "closing": "Closing",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    },
+
+    "card": {
+      "started": "Started",
+      "stage": "Stage",
+      "providers": "Providers",
+      "investor": "Investor",
+      "property": "Property",
+      "value": "Deal Value",
+      "viewDetails": "View Details",
+      "providersAssigned": "{count, plural, =1 {# provider} other {# providers}} assigned"
+    },
+
+    "detail": {
+      "overview": "Overview",
+      "providers": "Providers",
+      "files": "Files",
+      "activity": "Activity",
+      "stageProgress": "Stage Progress",
+      "dealInfo": "Deal Information",
+      "propertyInfo": "Property Information",
+      "investorInfo": "Investor Information",
+      "status": "Status",
+      "lastUpdated": "Last Updated",
+      "offerPrice": "Offer Price",
+      "notes": "Notes",
+      "viewProperty": "View Property",
+      "team": "Team",
+      "teamDescription": "Service providers working on this deal",
+      "backToDeals": "Back to Deals",
+      "dealNotFound": "Deal not found",
+      "dealNotFoundDescription": "This deal doesn't exist or you don't have access to view it.",
+      "dealCancelled": "Deal Cancelled"
+    },
+
+    "providers": {
+      "title": "Service Providers",
+      "assigned": "Assigned",
+      "pending": "Pending",
+      "pendingRequests": "Pending Requests",
+      "recommended": "Recommended Providers",
+      "requestProvider": "Request Provider",
+      "broker": "Broker",
+      "mortgageAdvisor": "Mortgage Advisor",
+      "lawyer": "Lawyer",
+      "accept": "Accept",
+      "decline": "Decline",
+      "cancel": "Cancel Request",
+      "keepRequest": "Keep Request",
+      "notAssigned": "Not assigned",
+      "noProvider": "No {type} assigned",
+      "findProvider": "Find a {type}",
+      "requestDescription": "Request providers to help with your deal",
+      "assignedDescription": "Providers assigned to this deal",
+      "pendingResponse": "Pending response",
+      "cancelRequestTitle": "Cancel this request?",
+      "cancelRequestDescription": "This will cancel your request to {name}. You can send a new request to a different provider."
+    },
+
+    "files": {
+      "title": "Documents",
+      "upload": "Upload File",
+      "uploadDocument": "Upload Document",
+      "uploadDescription": "Upload documents related to this deal",
+      "noFiles": "No files uploaded yet",
+      "noDocuments": "No documents uploaded yet",
+      "filesCount": "{count, plural, =1 {# file} other {# files}} uploaded",
+      "dragDrop": "Drag and drop a file",
+      "dropHere": "Drop file here",
+      "orClick": "or click to browse",
+      "allowedTypes": "PDF, Word, JPEG, PNG (max 10MB)",
+      "uploading": "Uploading...",
+      "uploadingProgress": "Uploading... {progress}%",
+      "remove": "Remove",
+      "categories": {
+        "contract": "Contract",
+        "idDocument": "ID Document",
+        "financial": "Financial",
+        "legal": "Legal",
+        "other": "Other"
+      },
+      "visibility": {
+        "all": "All Participants",
+        "providersOnly": "Providers Only"
+      },
+      "providersOnlyLabel": "Service Providers Only",
+      "providersOnlyDescription": "Only service providers on this deal can view this file",
+      "category": "Category",
+      "selectCategory": "Select category",
+      "description": "Description (optional)",
+      "descriptionPlaceholder": "Add a description for this file...",
+      "deleteFile": "Delete file?",
+      "deleteFileDescription": "This will permanently delete \"{fileName}\". This action cannot be undone."
+    },
+
+    "activity": {
+      "title": "Activity Log",
+      "description": "Complete history of deal events",
+      "noActivity": "No activity yet",
+      "noActivityRecorded": "No activity recorded yet",
+      "stageChange": "Stage changed",
+      "fileUploaded": "File uploaded",
+      "fileDeleted": "File deleted",
+      "providerAssigned": "Provider assigned",
+      "providerRemoved": "Provider removed",
+      "noteAdded": "Note added",
+      "handoffInitiated": "Handoff initiated",
+      "handoffCompleted": "Handoff completed"
+    },
+
+    "empty": {
+      "noDeals": "No deals yet",
+      "startDeal": "Start a deal from a property page",
+      "noActiveDeals": "No active deals",
+      "noCompletedDeals": "No completed deals yet",
+      "investorMessage": "Start by browsing properties and requesting a broker to help you with a purchase.",
+      "providerMessage": "You don't have any assigned deals yet. Deals will appear here when investors request your services.",
+      "browseProperties": "Browse Properties"
+    },
+
+    "filters": {
+      "all": "All Deals",
+      "active": "Active",
+      "completed": "Completed",
+      "byStage": "By Stage",
+      "allStages": "All stages",
+      "matchingFilter": "matching filter",
+      "noMatchingDeals": "No deals match the selected filter",
+      "clearFilter": "Clear filter",
+      "newestFirst": "Newest first",
+      "oldestFirst": "Oldest first"
+    },
+
+    "questionnaire": {
+      "title": "Investor Profile",
+      "noProfile": "No profile available",
+      "sections": {
+        "background": "Background",
+        "investmentPreferences": "Investment Preferences",
+        "propertyPreferences": "Property Preferences",
+        "timelineServices": "Timeline & Services"
+      },
+      "fields": {
+        "citizenship": "Citizenship",
+        "residencyStatus": "Residency Status",
+        "investmentExperience": "Investment Experience",
+        "ownsProperty": "Owns Property in Israel",
+        "investmentType": "Investment Type",
+        "budgetRange": "Budget Range",
+        "investmentHorizon": "Investment Horizon",
+        "goals": "Goals",
+        "yieldPreference": "Yield Preference",
+        "financingApproach": "Financing Approach",
+        "propertyTypes": "Property Types",
+        "locations": "Locations",
+        "size": "Size",
+        "amenities": "Amenities",
+        "locationFlexibility": "Location Flexibility",
+        "purchaseTimeline": "Purchase Timeline",
+        "servicesNeeded": "Services Needed",
+        "additionalPreferences": "Additional Preferences"
+      },
+      "values": {
+        "notSpecified": "Not specified",
+        "yes": "Yes",
+        "no": "No",
+        "from": "From {amount}",
+        "upTo": "Up to {amount}",
+        "range": "{min} - {max}",
+        "bedroomsRange": "{min} - {max} bedrooms",
+        "bedroomsMin": "{min}+ bedrooms",
+        "bedroomsMax": "Up to {max} bedrooms",
+        "areaRange": "{min} - {max} sqm",
+        "areaMin": "{min}+ sqm",
+        "areaMax": "Up to {max} sqm"
+      },
+      "citizenship": {
+        "israeli": "Israeli Citizen",
+        "nonIsraeli": "Non-Israeli Citizen"
+      },
+      "residencyStatus": {
+        "resident": "Israeli Resident",
+        "returningResident": "Returning Resident",
+        "nonResident": "Non-Resident",
+        "unsure": "Unsure"
+      },
+      "experienceLevel": {
+        "none": "No experience",
+        "some": "Some experience",
+        "experienced": "Experienced investor"
+      },
+      "investmentType": {
+        "residential": "Residential (for living)",
+        "investment": "Investment property"
+      },
+      "investmentHorizon": {
+        "shortTerm": "Short-term (< 2 years)",
+        "mediumTerm": "Medium-term (2-5 years)",
+        "longTerm": "Long-term (5+ years)"
+      },
+      "yieldPreference": {
+        "rentalYield": "Rental yield focus",
+        "appreciation": "Appreciation focus",
+        "balanced": "Balanced approach"
+      },
+      "financingApproach": {
+        "cash": "Cash purchase",
+        "mortgage": "Mortgage financing",
+        "exploring": "Still exploring"
+      },
+      "purchaseTimeline": {
+        "threeMonths": "Within 3 months",
+        "sixMonths": "Within 6 months",
+        "oneYear": "Within 1 year",
+        "exploring": "Just exploring"
+      },
+      "locationFlexibility": {
+        "flexible": "Flexible on location",
+        "specific": "Specific locations only",
+        "nearbyCities": "Open to nearby cities"
+      },
+      "goals": {
+        "appreciation": "Capital appreciation",
+        "rentalIncome": "Rental income",
+        "diversification": "Portfolio diversification",
+        "taxBenefits": "Tax benefits"
+      },
+      "services": {
+        "broker": "Real Estate Broker",
+        "mortgageAdvisor": "Mortgage Advisor",
+        "lawyer": "Lawyer"
+      },
+      "propertyTypes": {
+        "residential": "Residential",
+        "commercial": "Commercial",
+        "mixedUse": "Mixed Use",
+        "land": "Land"
+      },
+      "amenities": {
+        "parking": "Parking",
+        "elevator": "Elevator",
+        "balcony": "Balcony",
+        "garden": "Garden",
+        "pool": "Pool",
+        "gym": "Gym",
+        "storage": "Storage Room",
+        "security": "24/7 Security",
+        "mamad": "Safe Room (Mamad)",
+        "centralAc": "Central A/C",
+        "renovated": "Newly Renovated",
+        "furnished": "Furnished"
+      }
+    }
   }
 }
