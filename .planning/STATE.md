@@ -327,6 +327,9 @@ Recent decisions affecting current work:
 - Phase 31: Deals namespace with nested questionnaire translations for 50+ keys
 - Phase 31: Key mapping objects convert snake_case DB values to camelCase translation keys
 - Phase 31: ICU plural syntax for count formatting: {count, plural, =1 {# file} other {# files}}
+- Phase 31: Properties namespace with 17 sections (card, details, form, empty, save, neighborhood, amenities)
+- Phase 31: tCommon('propertyTypes.x') pattern for shared property type/status labels
+- Phase 31: Locale-aware Link from i18n/navigation for internal property page links
 
 ### v1.4 Research Findings
 
