@@ -404,6 +404,143 @@
       "copyright": "© 2024 REOS. All rights reserved."
     }
   },
+  "properties": {
+    "title": "Properties",
+    "browseTitle": "Browse Properties",
+    "savedTitle": "Saved Properties",
+    "listingsTitle": "Your Listings",
+    "newTitle": "Add New Property",
+    "editTitle": "Edit Property",
+    "newDescription": "Create a new property listing for investors to browse.",
+    "editDescription": "Update property listing details.",
+
+    "count": "{count, plural, =0 {No properties} =1 {1 property} other {# properties}} found",
+    "listingsCount": "{count, plural, =0 {0 listings} =1 {1 listing} other {# listings}}",
+
+    "card": {
+      "bedrooms": "{count} bed",
+      "bathrooms": "{count} bath",
+      "size": "{size} m\u00b2",
+      "roi": "ROI",
+      "cap": "Cap",
+      "rent": "Rent",
+      "perMonth": "/mo"
+    },
+
+    "details": {
+      "description": "Description",
+      "noDescription": "No description available.",
+      "amenities": "Amenities",
+      "location": "Location",
+      "investment": "Investment",
+      "propertyDetails": "Property Details",
+      "bedrooms": "Bedrooms",
+      "bathrooms": "Bathrooms",
+      "size": "Size",
+      "yearBuilt": "Year Built",
+      "type": "Type",
+      "city": "City",
+      "expectedRoi": "Expected ROI",
+      "capRate": "Cap Rate",
+      "cashOnCash": "Cash-on-Cash",
+      "monthlyRent": "Monthly Rent",
+      "startDeal": "Start Deal",
+      "viewMyDeal": "View My Deal",
+      "creatingDeal": "Creating...",
+      "backToMarketplace": "Back to Marketplace",
+      "aboutCity": "About {city}"
+    },
+
+    "form": {
+      "title": "Title",
+      "titlePlaceholder": "e.g., Modern Apartment in Tel Aviv",
+      "titleRequired": "Title is required",
+      "description": "Description",
+      "descriptionPlaceholder": "Describe the property...",
+      "price": "Price",
+      "priceRequired": "Enter a valid price (must be positive)",
+      "priceUsd": "USD",
+      "priceIls": "ILS (auto-calculated)",
+      "address": "Address",
+      "addressPlaceholder": "e.g., 123 Rothschild Blvd",
+      "addressRequired": "Address is required",
+      "city": "City",
+      "cityPlaceholder": "Select a city",
+      "cityRequired": "City is required",
+      "propertyType": "Property Type",
+      "status": "Status",
+      "bedrooms": "Bedrooms",
+      "bathrooms": "Bathrooms",
+      "squareMeters": "Square Meters",
+      "yearBuilt": "Year Built",
+      "investmentMetrics": "Investment Metrics",
+      "expectedRoi": "Expected ROI %",
+      "capRate": "Cap Rate %",
+      "cashOnCash": "Cash-on-Cash %",
+      "monthlyRent": "Monthly Rent (USD)",
+      "propertyDetails": "Property Details",
+      "images": "Images",
+      "imageUrls": "Image URLs (comma-separated)",
+      "imageUrlsPlaceholder": "https://example.com/image1.jpg, https://example.com/image2.jpg",
+      "imageUrlsHelp": "Enter image URLs separated by commas. File upload coming soon.",
+      "featuredImage": "Featured Image URL",
+      "featuredImagePlaceholder": "https://example.com/featured.jpg",
+      "featuredImageHelp": "The main image displayed in property listings.",
+      "createProperty": "Create Property",
+      "creatingProperty": "Creating Property...",
+      "saveChanges": "Save Changes",
+      "savingChanges": "Saving...",
+      "createSuccess": "Property created successfully!",
+      "updateSuccess": "Property updated successfully!",
+      "createError": "Failed to create property. Please try again.",
+      "updateError": "Failed to update property. Please try again."
+    },
+
+    "empty": {
+      "noProperties": "No properties found",
+      "noPropertiesFiltered": "Try adjusting your filters.",
+      "noPropertiesEmpty": "Start building your marketplace by adding your first property listing.",
+      "clearFilters": "Clear Filters",
+      "addFirstProperty": "Add Your First Property",
+      "noSaved": "No saved properties yet",
+      "noListings": "No listings yet",
+      "noListingsDescription": "Create your first property listing to start connecting with potential buyers and investors.",
+      "addFirstListing": "Add Your First Listing",
+      "addListing": "Add Listing",
+      "notFound": "Property not found",
+      "notFoundDescription": "The property you're looking for doesn't exist or has been removed.",
+      "backToProperties": "Back to Properties"
+    },
+
+    "save": {
+      "saveProperty": "Save Property",
+      "saved": "Saved",
+      "removeFromSaved": "Remove from saved",
+      "signInToSave": "Sign in to Save"
+    },
+
+    "neighborhood": {
+      "title": "Neighborhood Info",
+      "noData": "No neighborhood data available for this city",
+      "population": "Population",
+      "avgPricePerSqm": "Avg Price/m\u00b2",
+      "yearChange": "1-Year Change",
+      "nearbyAmenities": "Nearby Amenities",
+      "schools": "Schools",
+      "parks": "Parks",
+      "shopping": "Shopping",
+      "transit": "Transit",
+      "beaches": "Beaches",
+      "hospitals": "Hospitals",
+      "restaurants": "Restaurants",
+      "nightlife": "Nightlife",
+      "universities": "Universities"
+    },
+
+    "amenities": {
+      "noAmenities": "No amenities listed"
+    }
+  },
   "deals": {
     "title": "Deals",
     "myDeals": "My Deals",
