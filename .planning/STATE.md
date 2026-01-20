@@ -334,6 +334,8 @@ Recent decisions affecting current work:
 - Phase 31: Feed namespace with tabs, filters, post, engagement, comments, share, follow, empty, card sub-sections
 - Phase 31: common.roles reused for service type labels in feed (broker, mortgageAdvisor, lawyer)
 - Phase 31: roleKeyMap pattern converts snake_case DB values to camelCase translation keys
+- Phase 31: ReturnType<typeof useTranslations<any>> for translator function prop typing
+- Phase 31: search-actions.ts updated to use labelKey with translation callback for filtering
 
 ### v1.4 Research Findings
 
@@ -375,6 +377,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-20
-Stopped at: Completed 31-06-PLAN.md (Chat & Feed Namespace)
+Stopped at: Completed 31-05-PLAN.md (Dashboard & Settings Namespace) and 31-06-PLAN.md (Chat & Feed Namespace)
 Resume file: None
 Next: Execute 31-07-PLAN.md (Settings & Profile Namespace)
