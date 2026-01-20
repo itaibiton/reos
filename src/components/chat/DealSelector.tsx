@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { useQuery } from "convex/react";
+import { useTranslations } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 import { Input } from "@/components/ui/input";
@@ -24,7 +25,20 @@ function formatPrice(amount: number) {
   return `$${(amount / 1000).toFixed(0)}K`;
 }
 
+// Stage key map for translations
+const stageKeyMap: Record<string, string> = {
+  interest: "interest",
+  broker_assigned: "brokerAssigned",
+  mortgage: "mortgage",
+  legal: "legal",
+  closing: "closing",
+  completed: "completed",
+  cancelled: "cancelled",
+};
+
 export function DealSelector({ selectedDealId, onSelect }: DealSelectorProps) {
+  const t = useTranslations("chat.dealSelector");
+  const tDeals = useTranslations("deals.stages");
   const [searchQuery, setSearchQuery] = useState("");
 
   // Fetch deals with property data
@@ -54,7 +68,7 @@ export function DealSelector({ selectedDealId, onSelect }: DealSelectorProps) {
   }, [activeDeals, searchQuery]);
 
   if (activeDeals.length === 0) {
-    return <p className="text-sm text-muted-foreground">No active deals</p>;
+    return <p className="text-sm text-muted-foreground">{t("noActiveDeals")}</p>;
   }
 
   return (
@@ -68,7 +82,7 @@ export function DealSelector({ selectedDealId, onSelect }: DealSelectorProps) {
         />
         <Input
           type="text"
-          placeholder="Search deals..."
+          placeholder={t("searchDeals")}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="ps-8 h-9"
@@ -79,7 +93,7 @@ export function DealSelector({ selectedDealId, onSelect }: DealSelectorProps) {
       <div className="space-y-1.5">
         {filteredDeals.length === 0 ? (
           <p className="text-sm text-muted-foreground text-center py-4">
-            No deals match your search
+            {t("noMatch")}
           </p>
         ) : (
           filteredDeals.map((deal) => {
@@ -102,7 +116,7 @@ export function DealSelector({ selectedDealId, onSelect }: DealSelectorProps) {
                   {deal.property?.featuredImage ? (
                     <img
                       src={deal.property.featuredImage}
-                      alt={deal.property.title || "Property"}
+                      alt={deal.property.title || t("property")}
                       className="h-full w-full object-cover"
                     />
                   ) : (
@@ -119,10 +133,10 @@ export function DealSelector({ selectedDealId, onSelect }: DealSelectorProps) {
                 {/* Deal info */}
                 <div className="flex-1 min-w-0">
                   <p className="font-medium text-sm truncate">
-                    {deal.property?.title || "Property"}
+                    {deal.property?.title || t("property")}
                   </p>
                   <p className="text-xs text-muted-foreground truncate">
-                    {deal.property?.city || "Unknown"}
+                    {deal.property?.city || t("unknown")}
                     {deal.property?.priceUsd && (
                       <>
                         {" "}
@@ -134,7 +148,7 @@ export function DealSelector({ selectedDealId, onSelect }: DealSelectorProps) {
                     variant="secondary"
                     className={cn("mt-1 text-[10px] px-1.5 py-0", stageInfo?.color)}
                   >
-                    {stageInfo?.label || deal.stage}
+                    {tDeals(stageKeyMap[deal.stage] || deal.stage)}
                   </Badge>
                 </div>
               </button>
