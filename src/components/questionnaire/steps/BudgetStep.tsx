@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import { useTranslations } from "next-intl";
 import { QuestionBubble } from "../QuestionBubble";
 import { AnswerArea } from "../AnswerArea";
 import { Input } from "@/components/ui/input";
@@ -19,6 +20,7 @@ export function BudgetStep({
   onBudgetMinChange,
   onBudgetMaxChange,
 }: BudgetStepProps) {
+  const t = useTranslations("onboarding.questions.budget");
   const [showAnswer, setShowAnswer] = useState(false);
 
   // Stable callback to prevent QuestionBubble re-renders
@@ -40,8 +42,8 @@ export function BudgetStep({
   return (
     <div className="space-y-6">
       <QuestionBubble
-        question="What's your investment budget range?"
-        description="This helps us show properties that match your financial capacity. All amounts are in USD."
+        question={t("title")}
+        description={t("description")}
         onTypingComplete={handleTypingComplete}
       />
       {showAnswer && (
@@ -49,7 +51,7 @@ export function BudgetStep({
         <div className="space-y-4">
           <div className="rounded-lg border p-4">
             <Label htmlFor="budgetMin" className="text-sm font-medium">
-              Minimum Budget (USD)
+              {t("options.minimum")}
             </Label>
             <div className="mt-2 flex items-center">
               <span className="me-2 text-muted-foreground">$</span>
@@ -57,7 +59,7 @@ export function BudgetStep({
                 id="budgetMin"
                 type="text"
                 inputMode="numeric"
-                placeholder="e.g., 100,000"
+                placeholder={t("options.placeholder.min")}
                 value={formatCurrency(budgetMin)}
                 onChange={(e) => onBudgetMinChange(parseCurrency(e.target.value))}
                 className="flex-1"
@@ -66,7 +68,7 @@ export function BudgetStep({
           </div>
           <div className="rounded-lg border p-4">
             <Label htmlFor="budgetMax" className="text-sm font-medium">
-              Maximum Budget (USD)
+              {t("options.maximum")}
             </Label>
             <div className="mt-2 flex items-center">
               <span className="me-2 text-muted-foreground">$</span>
@@ -74,7 +76,7 @@ export function BudgetStep({
                 id="budgetMax"
                 type="text"
                 inputMode="numeric"
-                placeholder="e.g., 500,000"
+                placeholder={t("options.placeholder.max")}
                 value={formatCurrency(budgetMax)}
                 onChange={(e) => onBudgetMaxChange(parseCurrency(e.target.value))}
                 className="flex-1"
