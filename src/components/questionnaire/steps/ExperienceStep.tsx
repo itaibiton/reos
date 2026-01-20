@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import { useTranslations } from "next-intl";
 import { QuestionBubble } from "../QuestionBubble";
 import { AnswerArea } from "../AnswerArea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -12,6 +13,7 @@ interface ExperienceStepProps {
 }
 
 export function ExperienceStep({ value, onChange }: ExperienceStepProps) {
+  const t = useTranslations("onboarding.questions.experience");
   const [showAnswer, setShowAnswer] = useState(false);
 
   // Stable callback to prevent QuestionBubble re-renders
@@ -22,8 +24,8 @@ export function ExperienceStep({ value, onChange }: ExperienceStepProps) {
   return (
     <div className="space-y-6">
       <QuestionBubble
-        question="How much experience do you have with Israeli real estate?"
-        description="This helps us tailor our recommendations and guidance to your knowledge level."
+        question={t("title")}
+        description={t("description")}
         onTypingComplete={handleTypingComplete}
       />
       {showAnswer && (
@@ -37,10 +39,10 @@ export function ExperienceStep({ value, onChange }: ExperienceStepProps) {
               <RadioGroupItem value="none" id="none" />
               <div className="flex-1">
                 <Label htmlFor="none" className="cursor-pointer font-medium">
-                  No experience
+                  {t("options.none.label")}
                 </Label>
                 <p className="text-sm text-muted-foreground mt-0.5">
-                  This would be my first investment in Israeli real estate
+                  {t("options.none.description")}
                 </p>
               </div>
             </label>
@@ -51,10 +53,10 @@ export function ExperienceStep({ value, onChange }: ExperienceStepProps) {
               <RadioGroupItem value="some" id="some" />
               <div className="flex-1">
                 <Label htmlFor="some" className="cursor-pointer font-medium">
-                  Some experience
+                  {t("options.some.label")}
                 </Label>
                 <p className="text-sm text-muted-foreground mt-0.5">
-                  I&apos;ve researched or made 1-2 investments
+                  {t("options.some.description")}
                 </p>
               </div>
             </label>
@@ -65,10 +67,10 @@ export function ExperienceStep({ value, onChange }: ExperienceStepProps) {
               <RadioGroupItem value="experienced" id="experienced" />
               <div className="flex-1">
                 <Label htmlFor="experienced" className="cursor-pointer font-medium">
-                  Experienced investor
+                  {t("options.experienced.label")}
                 </Label>
                 <p className="text-sm text-muted-foreground mt-0.5">
-                  I&apos;ve made multiple investments in Israeli real estate
+                  {t("options.experienced.description")}
                 </p>
               </div>
             </label>

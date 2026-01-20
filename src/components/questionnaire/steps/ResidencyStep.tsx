@@ -1,10 +1,19 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import { useTranslations } from "next-intl";
 import { QuestionBubble } from "../QuestionBubble";
 import { AnswerArea } from "../AnswerArea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
+
+// Map DB values to translation keys
+const OPTION_KEY_MAP: Record<string, string> = {
+  resident: "resident",
+  returning_resident: "returningResident",
+  non_resident: "nonResident",
+  unsure: "unsure",
+};
 
 interface ResidencyStepProps {
   value: string | undefined;
@@ -12,6 +21,7 @@ interface ResidencyStepProps {
 }
 
 export function ResidencyStep({ value, onChange }: ResidencyStepProps) {
+  const t = useTranslations("onboarding.questions.residency");
   const [showAnswer, setShowAnswer] = useState(false);
 
   // Stable callback to prevent QuestionBubble re-renders
@@ -22,8 +32,8 @@ export function ResidencyStep({ value, onChange }: ResidencyStepProps) {
   return (
     <div className="space-y-6">
       <QuestionBubble
-        question="What is your residency status in Israel?"
-        description="Your residency status determines applicable tax benefits and affects the property purchase process."
+        question={t("title")}
+        description={t("description")}
         onTypingComplete={handleTypingComplete}
       />
       {showAnswer && (
@@ -37,10 +47,10 @@ export function ResidencyStep({ value, onChange }: ResidencyStepProps) {
               <RadioGroupItem value="resident" id="resident" />
               <div className="flex-1">
                 <Label htmlFor="resident" className="cursor-pointer font-medium">
-                  Israeli resident
+                  {t(`options.${OPTION_KEY_MAP["resident"]}.label`)}
                 </Label>
                 <p className="text-sm text-muted-foreground mt-0.5">
-                  I live in Israel full-time
+                  {t(`options.${OPTION_KEY_MAP["resident"]}.description`)}
                 </p>
               </div>
             </label>
@@ -51,10 +61,10 @@ export function ResidencyStep({ value, onChange }: ResidencyStepProps) {
               <RadioGroupItem value="returning_resident" id="returning_resident" />
               <div className="flex-1">
                 <Label htmlFor="returning_resident" className="cursor-pointer font-medium">
-                  Returning resident (Toshav Chozer)
+                  {t(`options.${OPTION_KEY_MAP["returning_resident"]}.label`)}
                 </Label>
                 <p className="text-sm text-muted-foreground mt-0.5">
-                  Planning to return or returned within the last 10 years
+                  {t(`options.${OPTION_KEY_MAP["returning_resident"]}.description`)}
                 </p>
               </div>
             </label>
@@ -65,10 +75,10 @@ export function ResidencyStep({ value, onChange }: ResidencyStepProps) {
               <RadioGroupItem value="non_resident" id="non_resident" />
               <div className="flex-1">
                 <Label htmlFor="non_resident" className="cursor-pointer font-medium">
-                  Non-resident
+                  {t(`options.${OPTION_KEY_MAP["non_resident"]}.label`)}
                 </Label>
                 <p className="text-sm text-muted-foreground mt-0.5">
-                  I do not live in Israel
+                  {t(`options.${OPTION_KEY_MAP["non_resident"]}.description`)}
                 </p>
               </div>
             </label>
@@ -79,10 +89,10 @@ export function ResidencyStep({ value, onChange }: ResidencyStepProps) {
               <RadioGroupItem value="unsure" id="unsure" />
               <div className="flex-1">
                 <Label htmlFor="unsure" className="cursor-pointer font-medium">
-                  I&apos;m not sure
+                  {t(`options.${OPTION_KEY_MAP["unsure"]}.label`)}
                 </Label>
                 <p className="text-sm text-muted-foreground mt-0.5">
-                  I need guidance on this
+                  {t(`options.${OPTION_KEY_MAP["unsure"]}.description`)}
                 </p>
               </div>
             </label>

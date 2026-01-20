@@ -1,10 +1,17 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import { useTranslations } from "next-intl";
 import { QuestionBubble } from "../QuestionBubble";
 import { AnswerArea } from "../AnswerArea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
+
+// Map DB values to translation keys
+const OPTION_KEY_MAP: Record<string, string> = {
+  israeli: "israeli",
+  non_israeli: "nonIsraeli",
+};
 
 interface CitizenshipStepProps {
   value: string | undefined;
@@ -12,6 +19,7 @@ interface CitizenshipStepProps {
 }
 
 export function CitizenshipStep({ value, onChange }: CitizenshipStepProps) {
+  const t = useTranslations("onboarding.questions.citizenship");
   const [showAnswer, setShowAnswer] = useState(false);
 
   // Stable callback to prevent QuestionBubble re-renders
@@ -22,8 +30,8 @@ export function CitizenshipStep({ value, onChange }: CitizenshipStepProps) {
   return (
     <div className="space-y-6">
       <QuestionBubble
-        question="Are you an Israeli citizen?"
-        description="This helps us understand the tax implications and legal requirements that may apply to your property purchase."
+        question={t("title")}
+        description={t("description")}
         onTypingComplete={handleTypingComplete}
       />
       {showAnswer && (
@@ -36,7 +44,7 @@ export function CitizenshipStep({ value, onChange }: CitizenshipStepProps) {
               >
                 <RadioGroupItem value="israeli" id="israeli" />
                 <Label htmlFor="israeli" className="cursor-pointer flex-1">
-                  Yes, I am an Israeli citizen
+                  {t(`options.${OPTION_KEY_MAP["israeli"]}`)}
                 </Label>
               </label>
               <label
@@ -45,7 +53,7 @@ export function CitizenshipStep({ value, onChange }: CitizenshipStepProps) {
               >
                 <RadioGroupItem value="non_israeli" id="non_israeli" />
                 <Label htmlFor="non_israeli" className="cursor-pointer flex-1">
-                  No, I am not an Israeli citizen
+                  {t(`options.${OPTION_KEY_MAP["non_israeli"]}`)}
                 </Label>
               </label>
             </div>
