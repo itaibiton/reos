@@ -681,6 +681,19 @@
     "amenities": {
       "noAmenities": "אין מתקנים רשומים"
     },
+    "mortgage": {
+      "title": "מחשבון משכנתא",
+      "propertyPrice": "מחיר הנכס",
+      "downPayment": "הון עצמי",
+      "interestRate": "ריבית (%)",
+      "loanTerm": "תקופת ההלוואה",
+      "years": "{count} שנים",
+      "selectTerm": "בחר תקופה",
+      "monthlyPayment": "תשלום חודשי",
+      "loanAmount": "סכום ההלוואה",
+      "totalInterest": "סה\"כ ריבית",
+      "totalPayment": "סה\"כ תשלום"
+    },
     "filters": {
       "city": "עיר",
       "allCities": "כל הערים",

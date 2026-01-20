@@ -1353,6 +1353,26 @@
       "lookingFor": "Looking for",
       "discussion": "Discussion"
     },
+    "propertySelector": {
+      "noProperties": "You haven't listed any properties yet",
+      "addPropertyFirst": "Add a property listing first to share it in your feed",
+      "searchProperties": "Search properties...",
+      "noMatch": "No properties match your search",
+      "untitledProperty": "Untitled Property",
+      "unknown": "Unknown"
+    },
+    "repost": {
+      "title": "Repost",
+      "addComment": "Add a comment (optional)",
+      "addThoughts": "Add your thoughts...",
+      "whoCanSee": "Who can see this repost?",
+      "publicEveryone": "Public - Everyone",
+      "followersOnly": "Followers Only",
+      "originalPost": "Original post",
+      "serviceRequest": "Service Request",
+      "reposting": "Reposting...",
+      "repost": "Repost"
+    },
     "loadMore": "Load more",
     "loading": "Loading..."
   },
