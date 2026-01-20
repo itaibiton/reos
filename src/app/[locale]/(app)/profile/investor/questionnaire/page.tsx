@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "../../../../../../../convex/_generated/api";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
@@ -37,6 +37,7 @@ import {
 export default function EditQuestionnairePage() {
   const { user, isLoading: isUserLoading, effectiveRole } = useCurrentUser();
   const router = useRouter();
+  const t = useTranslations("onboarding.editProfile");
   const questionnaire = useQuery(api.investorQuestionnaires.getByUser);
   const updateStep = useMutation(api.investorQuestionnaires.updateStep);
   const saveAnswers = useMutation(api.investorQuestionnaires.saveAnswers);
@@ -264,11 +265,11 @@ export default function EditQuestionnairePage() {
     setIsSubmitting(true);
     try {
       await saveProgress();
-      toast.success("Profile updated successfully!");
+      toast.success(t("saveSuccess"));
       setIsSubmitting(false);
     } catch (error) {
       console.error("Failed to save profile:", error);
-      toast.error("Failed to save profile. Please try again.");
+      toast.error(t("saveError"));
       setIsSubmitting(false);
     }
   };
@@ -291,10 +292,10 @@ export default function EditQuestionnairePage() {
       <div className="flex min-h-[80vh] items-center justify-center">
         <div className="text-center">
           <p className="text-muted-foreground">
-            No questionnaire found. Please complete onboarding first.
+            {t("noQuestionnaire")}
           </p>
           <Link href="/onboarding" className="text-primary hover:underline mt-2 inline-block">
-            Go to Onboarding
+            {t("goToOnboarding")}
           </Link>
         </div>
       </div>
@@ -310,9 +311,9 @@ export default function EditQuestionnairePage() {
           className="text-sm text-muted-foreground hover:text-foreground inline-flex items-center gap-1"
         >
           <HugeiconsIcon icon={ArrowLeft01Icon} size={16} className="rtl:-scale-x-100" />
-          Back to Profile
+          {t("backToProfile")}
         </Link>
-        <h1 className="text-2xl font-bold mt-2">Edit Investment Profile</h1>
+        <h1 className="text-2xl font-bold mt-2">{t("title")}</h1>
       </div>
 
       {/* Questionnaire Wizard in edit mode */}
