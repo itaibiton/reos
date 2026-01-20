@@ -194,9 +194,9 @@ export function DirectChatThread({
           ) : messages.length === 0 ? (
             // Empty state
             <div className="flex flex-col items-center justify-center py-12 text-center">
-              <p className="text-muted-foreground">No messages yet</p>
+              <p className="text-muted-foreground">{t("empty.noMessages")}</p>
               <p className="text-sm text-muted-foreground mt-1">
-                Send a message to start the conversation
+                {t("directChat.sendMessage")}
               </p>
             </div>
           ) : (
@@ -217,7 +217,7 @@ export function DirectChatThread({
       </ScrollArea>
 
       {/* Input area */}
-      <ChatInput onSend={handleSend} placeholder={`Message ${displayName}...`} />
+      <ChatInput onSend={handleSend} placeholder={t("directChat.messagePlaceholder", { name: displayName })} />
 
       {/* Group Settings Dialog */}
       {isGroup && conversation && (
