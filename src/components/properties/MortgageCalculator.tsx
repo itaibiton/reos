@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { useFormatter } from "next-intl";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
@@ -12,27 +13,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-// Currency formatter for USD
-const formatUSD = (amount: number) => {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  }).format(amount);
-};
-
-// Number formatter without currency
-const formatNumber = (amount: number) => {
-  return new Intl.NumberFormat("en-US", {
-    maximumFractionDigits: 0,
-  }).format(amount);
-};
 
 interface MortgageCalculatorProps {
   defaultPrice: number;
 }
 
 export function MortgageCalculator({ defaultPrice }: MortgageCalculatorProps) {
+  const format = useFormatter();
   const [price, setPrice] = useState(defaultPrice);
   const [downPaymentPercent, setDownPaymentPercent] = useState(25);
   const [interestRate, setInterestRate] = useState(5.5);
@@ -97,7 +84,7 @@ export function MortgageCalculator({ defaultPrice }: MortgageCalculatorProps) {
             <Input
               id="price"
               type="text"
-              value={formatNumber(price)}
+              value={format.number(price, { maximumFractionDigits: 0 })}
               onChange={handlePriceChange}
               className="ps-7"
             />
@@ -109,7 +96,7 @@ export function MortgageCalculator({ defaultPrice }: MortgageCalculatorProps) {
           <div className="flex justify-between">
             <Label>Down Payment</Label>
             <span className="text-sm text-muted-foreground">
-              {downPaymentPercent}% ({formatUSD(calculations.downPayment)})
+              {downPaymentPercent}% ({format.number(calculations.downPayment, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })})
             </span>
           </div>
           <Slider
@@ -161,7 +148,7 @@ export function MortgageCalculator({ defaultPrice }: MortgageCalculatorProps) {
         <div className="text-center p-4 bg-primary/10 rounded-lg">
           <p className="text-sm text-muted-foreground mb-1">Monthly Payment</p>
           <p className="text-3xl font-bold text-primary">
-            {formatUSD(calculations.monthlyPayment)}
+            {format.number(calculations.monthlyPayment, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}
           </p>
         </div>
 
@@ -169,15 +156,15 @@ export function MortgageCalculator({ defaultPrice }: MortgageCalculatorProps) {
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-1">
             <p className="text-sm text-muted-foreground">Loan Amount</p>
-            <p className="font-semibold">{formatUSD(calculations.principal)}</p>
+            <p className="font-semibold">{format.number(calculations.principal, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}</p>
           </div>
           <div className="space-y-1">
             <p className="text-sm text-muted-foreground">Total Interest</p>
-            <p className="font-semibold">{formatUSD(calculations.totalInterest)}</p>
+            <p className="font-semibold">{format.number(calculations.totalInterest, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}</p>
           </div>
           <div className="col-span-2 space-y-1">
             <p className="text-sm text-muted-foreground">Total Payment</p>
-            <p className="font-semibold">{formatUSD(calculations.totalPayment)}</p>
+            <p className="font-semibold">{format.number(calculations.totalPayment, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}</p>
           </div>
         </div>
       </div>

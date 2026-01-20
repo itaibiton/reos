@@ -2,16 +2,7 @@
 
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Building05Icon, Location01Icon } from "@hugeicons/core-free-icons";
-import { useTranslations } from "next-intl";
-
-// Currency formatter for USD
-function formatUSD(amount: number) {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  }).format(amount);
-}
+import { useTranslations, useFormatter } from "next-intl";
 
 interface PortfolioItem {
   dealId: string;
@@ -27,6 +18,7 @@ interface PortfolioSectionProps {
 
 export function PortfolioSection({ portfolio }: PortfolioSectionProps) {
   const t = useTranslations("providers");
+  const format = useFormatter();
 
   if (portfolio.length === 0) {
     return (
@@ -74,7 +66,7 @@ export function PortfolioSection({ portfolio }: PortfolioSectionProps) {
             </div>
             {deal.soldPrice && (
               <p className="text-xs font-medium text-green-600 mt-0.5">
-                {formatUSD(deal.soldPrice)}
+                {format.number(deal.soldPrice, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}
               </p>
             )}
           </div>
