@@ -59,6 +59,16 @@ export default getRequestConfig(async ({ requestLocale }) => {
         percent: {
           style: 'percent',
           minimumFractionDigits: 1
+        },
+        currencyUSD: {
+          style: 'currency',
+          currency: 'USD',
+          maximumFractionDigits: 0
+        },
+        currencyILS: {
+          style: 'currency',
+          currency: 'ILS',
+          maximumFractionDigits: 0
         }
       }
     }
