@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { usePathname } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { UserButton } from "@clerk/nextjs";
 import {
@@ -48,77 +49,79 @@ import { IncompleteProfileReminder } from "@/components/IncompleteProfileReminde
 import { GlobalSearchBar } from "@/components/search";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
 
-// Breadcrumb config: maps paths to their group and label
-// Format: { group?: string, label: string }
+// Breadcrumb config: maps paths to their group and label translation keys
+// Format: { groupKey?: string, labelKey: string }
 type BreadcrumbConfig = {
-  group?: string;
-  label: string;
+  groupKey?: string;
+  labelKey: string;
 };
 
 const breadcrumbConfig: Record<string, BreadcrumbConfig> = {
   // Marketplace items
-  "/properties": { group: "Marketplace", label: "Browse" },
-  "/properties?favorites=true": { group: "Marketplace", label: "Saved" },
-  "/deals": { group: "Marketplace", label: "Deals" },
-  "/properties/listings": { group: "Marketplace", label: "Your Listings" },
+  "/properties": { groupKey: "breadcrumbs.groups.marketplace", labelKey: "breadcrumbs.browse" },
+  "/properties?favorites=true": { groupKey: "breadcrumbs.groups.marketplace", labelKey: "breadcrumbs.saved" },
+  "/deals": { groupKey: "breadcrumbs.groups.marketplace", labelKey: "breadcrumbs.deals" },
+  "/properties/listings": { groupKey: "breadcrumbs.groups.marketplace", labelKey: "breadcrumbs.yourListings" },
 
   // Property Management
-  "/properties/tours": { group: "Property Management", label: "Property Tours" },
-  "/leads": { group: "Property Management", label: "Lead Management" },
+  "/properties/tours": { groupKey: "breadcrumbs.groups.propertyManagement", labelKey: "breadcrumbs.propertyTours" },
+  "/leads": { groupKey: "breadcrumbs.groups.propertyManagement", labelKey: "breadcrumbs.leadManagement" },
 
   // Mortgage Requests
-  "/mortgage/applications": { group: "Mortgage Requests", label: "New Applications" },
-  "/mortgage/pre-approvals": { group: "Mortgage Requests", label: "Pre-approvals" },
-  "/mortgage/deals": { group: "Mortgage Requests", label: "Financing Deals" },
+  "/mortgage/applications": { groupKey: "breadcrumbs.groups.mortgageRequests", labelKey: "breadcrumbs.newApplications" },
+  "/mortgage/pre-approvals": { groupKey: "breadcrumbs.groups.mortgageRequests", labelKey: "breadcrumbs.preApprovals" },
+  "/mortgage/deals": { groupKey: "breadcrumbs.groups.mortgageRequests", labelKey: "breadcrumbs.financingDeals" },
 
   // Legal Services
-  "/legal/consultations": { group: "Legal Services", label: "Consultations" },
-  "/legal/contracts": { group: "Legal Services", label: "Contract Reviews" },
-  "/legal/documents": { group: "Legal Services", label: "Documents" },
+  "/legal/consultations": { groupKey: "breadcrumbs.groups.legalServices", labelKey: "breadcrumbs.consultations" },
+  "/legal/contracts": { groupKey: "breadcrumbs.groups.legalServices", labelKey: "breadcrumbs.contractReviews" },
+  "/legal/documents": { groupKey: "breadcrumbs.groups.legalServices", labelKey: "breadcrumbs.documents" },
 
   // Accounting Services
-  "/accounting/consultations": { group: "Accounting Services", label: "Consultations" },
-  "/accounting/analysis": { group: "Accounting Services", label: "Financial Analysis" },
-  "/accounting/tax-planning": { group: "Accounting Services", label: "Tax Planning" },
+  "/accounting/consultations": { groupKey: "breadcrumbs.groups.accountingServices", labelKey: "breadcrumbs.consultations" },
+  "/accounting/analysis": { groupKey: "breadcrumbs.groups.accountingServices", labelKey: "breadcrumbs.financialAnalysis" },
+  "/accounting/tax-planning": { groupKey: "breadcrumbs.groups.accountingServices", labelKey: "breadcrumbs.taxPlanning" },
 
   // Notarization Services
-  "/notary/requests": { group: "Notarization Services", label: "Requests" },
-  "/notary/signings": { group: "Notarization Services", label: "Document Signings" },
-  "/notary/transactions": { group: "Notarization Services", label: "Transactions" },
+  "/notary/requests": { groupKey: "breadcrumbs.groups.notarizationServices", labelKey: "breadcrumbs.requests" },
+  "/notary/signings": { groupKey: "breadcrumbs.groups.notarizationServices", labelKey: "breadcrumbs.documentSignings" },
+  "/notary/transactions": { groupKey: "breadcrumbs.groups.notarizationServices", labelKey: "breadcrumbs.transactions" },
 
   // Tax Services
-  "/tax/consultations": { group: "Tax Services", label: "Consultations" },
-  "/tax/filings": { group: "Tax Services", label: "Tax Filings" },
-  "/tax/planning": { group: "Tax Services", label: "Tax Planning" },
+  "/tax/consultations": { groupKey: "breadcrumbs.groups.taxServices", labelKey: "breadcrumbs.consultations" },
+  "/tax/filings": { groupKey: "breadcrumbs.groups.taxServices", labelKey: "breadcrumbs.taxFilings" },
+  "/tax/planning": { groupKey: "breadcrumbs.groups.taxServices", labelKey: "breadcrumbs.taxPlanning" },
 
   // Appraisal Services
-  "/appraisal/requests": { group: "Appraisal Services", label: "Requests" },
-  "/appraisal/valuations": { group: "Appraisal Services", label: "Property Valuations" },
-  "/appraisal/reports": { group: "Appraisal Services", label: "Valuation Reports" },
+  "/appraisal/requests": { groupKey: "breadcrumbs.groups.appraisalServices", labelKey: "breadcrumbs.requests" },
+  "/appraisal/valuations": { groupKey: "breadcrumbs.groups.appraisalServices", labelKey: "breadcrumbs.propertyValuations" },
+  "/appraisal/reports": { groupKey: "breadcrumbs.groups.appraisalServices", labelKey: "breadcrumbs.valuationReports" },
 
   // Single items (no group)
-  "/dashboard": { label: "Dashboard" },
-  "/chat": { label: "Chat" },
-  "/clients": { label: "Clients" },
-  "/settings": { label: "Settings" },
-  "/profile/investor": { label: "Profile" },
-  "/profile/provider": { label: "Profile" },
-  "/profile/investor/questionnaire": { label: "Edit Questionnaire" },
-  "/properties/new": { group: "Marketplace", label: "New Property" },
-  "/onboarding": { label: "Onboarding" },
-  "/onboarding/questionnaire": { label: "Questionnaire" },
-  "/design-system": { label: "Design System" },
-  "/search": { label: "Search" },
-  "/feed": { label: "Feed" },
+  "/dashboard": { labelKey: "breadcrumbs.dashboard" },
+  "/chat": { labelKey: "breadcrumbs.chat" },
+  "/clients": { labelKey: "breadcrumbs.clients" },
+  "/settings": { labelKey: "breadcrumbs.settings" },
+  "/profile/investor": { labelKey: "breadcrumbs.profile" },
+  "/profile/provider": { labelKey: "breadcrumbs.profile" },
+  "/profile/investor/questionnaire": { labelKey: "breadcrumbs.editQuestionnaire" },
+  "/properties/new": { groupKey: "breadcrumbs.groups.marketplace", labelKey: "breadcrumbs.newProperty" },
+  "/onboarding": { labelKey: "breadcrumbs.onboarding" },
+  "/onboarding/questionnaire": { labelKey: "breadcrumbs.questionnaire" },
+  "/design-system": { labelKey: "breadcrumbs.designSystem" },
+  "/search": { labelKey: "breadcrumbs.search" },
+  "/feed": { labelKey: "breadcrumbs.feed" },
+  "/providers": { labelKey: "breadcrumbs.providers" },
+  "/analytics": { labelKey: "breadcrumbs.analytics" },
 };
 
 interface AppShellProps {
   children: React.ReactNode;
 }
 
-// Generate breadcrumb items from pathname
+// Generate breadcrumb items from pathname (returns translation keys)
 function generateBreadcrumbs(pathname: string, searchParams: string) {
-  const breadcrumbs: { label: string; href?: string }[] = [];
+  const breadcrumbs: { labelKey: string; href?: string }[] = [];
 
   // Build full path with query params if present
   const fullPath = searchParams ? `${pathname}?${searchParams}` : pathname;
@@ -134,11 +137,11 @@ function generateBreadcrumbs(pathname: string, searchParams: string) {
   // If we have a config, use it
   if (config) {
     // Add group as first breadcrumb (non-clickable)
-    if (config.group) {
-      breadcrumbs.push({ label: config.group });
+    if (config.groupKey) {
+      breadcrumbs.push({ labelKey: config.groupKey });
     }
     // Add the page label as the last breadcrumb
-    breadcrumbs.push({ label: config.label });
+    breadcrumbs.push({ labelKey: config.labelKey });
     return breadcrumbs;
   }
 
@@ -151,47 +154,39 @@ function generateBreadcrumbs(pathname: string, searchParams: string) {
 
     if (baseConfig) {
       // Add group if present
-      if (baseConfig.group) {
-        breadcrumbs.push({ label: baseConfig.group });
+      if (baseConfig.groupKey) {
+        breadcrumbs.push({ labelKey: baseConfig.groupKey });
       }
 
       // Add base route as clickable link
-      breadcrumbs.push({ label: baseConfig.label, href: baseRoute });
+      breadcrumbs.push({ labelKey: baseConfig.labelKey, href: baseRoute });
 
       // Check if second segment is an ID (dynamic route)
       const isId = /^[a-z0-9]{10,}$/i.test(segments[1]);
       if (isId) {
         // Check for /edit suffix
         if (segments[2] === "edit") {
-          breadcrumbs.push({ label: "Edit" });
+          breadcrumbs.push({ labelKey: "breadcrumbs.edit" });
         } else {
-          breadcrumbs.push({ label: "Details" });
+          breadcrumbs.push({ labelKey: "breadcrumbs.details" });
         }
       } else {
         // Not an ID, try to find config for the full path
         const subConfig = breadcrumbConfig[pathname];
         if (subConfig) {
-          breadcrumbs.push({ label: subConfig.label });
+          breadcrumbs.push({ labelKey: subConfig.labelKey });
         } else {
-          // Fallback: format the segment
-          const label = segments[segments.length - 1]
-            .split("-")
-            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-            .join(" ");
-          breadcrumbs.push({ label });
+          // Fallback: use segment as key (will show key if no translation)
+          breadcrumbs.push({ labelKey: `breadcrumbs.${segments[segments.length - 1]}` });
         }
       }
       return breadcrumbs;
     }
   }
 
-  // Fallback: just show the path segments
+  // Fallback: use path segments as keys
   segments.forEach((segment) => {
-    const label = segment
-      .split("-")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
-    breadcrumbs.push({ label });
+    breadcrumbs.push({ labelKey: `breadcrumbs.${segment}` });
   });
 
   return breadcrumbs;
@@ -199,7 +194,8 @@ function generateBreadcrumbs(pathname: string, searchParams: string) {
 
 // Inline authenticated content for provider header
 function ProviderHeaderContent() {
-  const t = useTranslations("common.roles");
+  const tRoles = useTranslations("common.roles");
+  const tHeader = useTranslations("header");
   const currentUser = useQuery(api.users.getCurrentUser);
   const setViewingAsRole = useMutation(api.users.setViewingAsRole);
 
@@ -212,11 +208,11 @@ function ProviderHeaderContent() {
   // Get translated role label
   const getRoleLabel = (roleValue: string) => {
     const labelMap: Record<string, string> = {
-      investor: t("investor"),
-      broker: t("broker"),
-      mortgage_advisor: t("mortgageAdvisor"),
-      lawyer: t("lawyer"),
-      admin: t("admin"),
+      investor: tRoles("investor"),
+      broker: tRoles("broker"),
+      mortgage_advisor: tRoles("mortgageAdvisor"),
+      lawyer: tRoles("lawyer"),
+      admin: tRoles("admin"),
     };
     return labelMap[roleValue] || roleValue;
   };
@@ -245,14 +241,14 @@ function ProviderHeaderContent() {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" size="sm" className="h-8 text-xs gap-1.5">
-              <span className="text-muted-foreground">View as:</span>
+              <span className="text-muted-foreground">{tHeader("viewAs")}</span>
               <span className="font-medium">
-                {effectiveRole ? getRoleLabel(effectiveRole) : t("admin")}
+                {effectiveRole ? getRoleLabel(effectiveRole) : tRoles("admin")}
               </span>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-48">
-            <DropdownMenuLabel>Switch View</DropdownMenuLabel>
+            <DropdownMenuLabel>{tHeader("switchView")}</DropdownMenuLabel>
             <DropdownMenuSeparator />
             {USER_ROLES.map((role) => (
               <DropdownMenuItem
@@ -291,6 +287,7 @@ export function AppShell({ children }: AppShellProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const searchParamsString = searchParams.toString();
+  const t = useTranslations();
 
   // Generate breadcrumbs
   const breadcrumbs = generateBreadcrumbs(pathname, searchParamsString);
@@ -319,17 +316,18 @@ export function AppShell({ children }: AppShellProps) {
               <BreadcrumbList>
                 {breadcrumbs.map((crumb, index) => {
                   const isLast = index === breadcrumbs.length - 1;
+                  const label = t(crumb.labelKey);
                   return (
-                    <React.Fragment key={`${crumb.label}-${index}`}>
+                    <React.Fragment key={`${crumb.labelKey}-${index}`}>
                       <BreadcrumbItem>
                         {isLast ? (
-                          <BreadcrumbPage>{crumb.label}</BreadcrumbPage>
+                          <BreadcrumbPage>{label}</BreadcrumbPage>
                         ) : crumb.href ? (
                           <BreadcrumbLink asChild>
-                            <Link href={crumb.href}>{crumb.label}</Link>
+                            <Link href={crumb.href}>{label}</Link>
                           </BreadcrumbLink>
                         ) : (
-                          <span className="text-muted-foreground">{crumb.label}</span>
+                          <span className="text-muted-foreground">{label}</span>
                         )}
                       </BreadcrumbItem>
                       {!isLast && <BreadcrumbSeparator />}
@@ -359,7 +357,7 @@ export function AppShell({ children }: AppShellProps) {
 
             <Unauthenticated>
               <Button asChild variant="outline" size="sm">
-                <Link href="/sign-in">Sign In</Link>
+                <Link href="/sign-in">{t("header.signIn")}</Link>
               </Button>
             </Unauthenticated>
           </div>

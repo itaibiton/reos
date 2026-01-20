@@ -228,7 +228,6 @@
     "welcomeGeneric": "Welcome back",
     "adminDashboard": "Admin Dashboard",
     "platformOverview": "Platform overview",
-
     "stats": {
       "title": "Overview",
       "activeDeals": "Active Deals",
@@ -244,7 +243,6 @@
       "responseTime": "Avg Response Time",
       "rating": "Rating"
     },
-
     "sections": {
       "recentDeals": "Recent Deals",
       "myActiveDeals": "My Active Deals",
@@ -255,14 +253,12 @@
       "yourProfile": "Your Profile",
       "accountInfo": "Account information"
     },
-
     "trends": {
       "title": "Performance Trends",
       "deals": "Deals",
       "revenue": "Revenue",
       "last6Months": "Last 6 months"
     },
-
     "quickActions": {
       "title": "Quick Actions",
       "browse": "Browse Properties",
@@ -271,7 +267,6 @@
       "viewDeals": "My Deals",
       "viewClients": "View Clients"
     },
-
     "profile": {
       "email": "Email",
       "role": "Role",
@@ -280,7 +275,6 @@
       "incomplete": "Incomplete",
       "notSet": "Not set"
     },
-
     "empty": {
       "noDeals": "No active deals",
       "noActiveDeals": "Accepted client requests will appear here",
@@ -289,7 +283,6 @@
       "noActivity": "No recent activity",
       "getStarted": "Get started by browsing properties"
     },
-
     "requests": {
       "accept": "Accept",
       "decline": "Decline",
@@ -304,14 +297,12 @@
     "adminSettings": "Admin settings and system configuration",
     "manageProfile": "Manage your profile settings",
     "viewingAs": "Viewing as {role}",
-
     "tabs": {
       "profile": "Profile",
       "availability": "Availability",
       "notifications": "Notifications",
       "preferences": "Preferences"
     },
-
     "profile": {
       "title": "Profile Settings",
       "personalInfo": "Personal Information",
@@ -336,7 +327,6 @@
       "completeYourProfile": "Complete your investor profile",
       "unlockRecommendations": "Unlock personalized recommendations and connect with service providers."
     },
-
     "availability": {
       "title": "Availability Settings",
       "acceptingClients": "Accepting New Clients",
@@ -355,7 +345,6 @@
       "failedToUnblock": "Failed to unblock date",
       "failedToUpdate": "Failed to update availability"
     },
-
     "notifications": {
       "title": "Notification Preferences",
       "channels": "Notification Channels",
@@ -386,7 +375,6 @@
         "tips": "Tips & best practices"
       }
     },
-
     "admin": {
       "title": "Admin Panel",
       "description": "Use the \"View as\" dropdown in the header to preview the app as different user types. The sidebar and available features will change based on the selected role."
@@ -400,7 +388,6 @@
     "searchPlaceholder": "Search by name or email...",
     "noMatch": "No clients match \"{query}\"",
     "clearSearch": "Clear search",
-
     "list": {
       "name": "Name",
       "email": "Email",
@@ -414,7 +401,6 @@
       "deals": "{count} deals",
       "active": "({count} active)"
     },
-
     "detail": {
       "backToClients": "Back to Clients",
       "startChat": "Start Chat",
@@ -432,7 +418,6 @@
       "completed": "Completed",
       "total": "Total"
     },
-
     "questionnaire": {
       "noProfile": "No investment profile available.",
       "notCompleted": "Client hasn't completed their questionnaire yet.",
@@ -453,12 +438,10 @@
       "additionalNotes": "Additional Notes",
       "notSpecified": "Not specified"
     },
-
     "empty": {
       "noClients": "No clients yet",
       "getStarted": "When you accept client requests, they'll appear here."
     },
-
     "access": {
       "providerOnly": "Provider Access Only",
       "providerOnlyDesc": "This page is for service providers to manage their clients.",
@@ -470,7 +453,6 @@
   "analytics": {
     "title": "Analytics",
     "description": "Track your performance metrics and business insights",
-
     "stats": {
       "completedDeals": "Completed Deals",
       "activeDeals": "Active Deals",
@@ -480,14 +462,12 @@
       "reviews": "{count} reviews",
       "requestsOf": "{accepted} of {total} requests"
     },
-
     "dealValue": {
       "title": "Deal Value",
       "total": "Total value of completed deals",
       "average": "Average deal value",
       "commissionNote": "Note: Actual earnings depend on your commission agreements"
     },
-
     "performance": {
       "title": "Performance",
       "avgResponseTime": "Average Response Time",
@@ -496,14 +476,12 @@
       "declined": "{count} declined",
       "pending": "{count} pending"
     },
-
     "trends": {
       "title": "Monthly Trends",
       "requests": "Requests",
       "completedDeals": "Completed Deals",
       "noData": "No trend data available yet"
     },
-
     "empty": {
       "title": "No Analytics Data Yet",
       "description": "Analytics will appear here once you start receiving service requests and completing deals."
@@ -704,20 +682,17 @@
     "editTitle": "Edit Property",
     "newDescription": "Create a new property listing for investors to browse.",
     "editDescription": "Update property listing details.",
-
     "count": "{count, plural, =0 {No properties} =1 {1 property} other {# properties}} found",
     "listingsCount": "{count, plural, =0 {0 listings} =1 {1 listing} other {# listings}}",
-
     "card": {
       "bedrooms": "{count} bed",
       "bathrooms": "{count} bath",
-      "size": "{size} m\u00b2",
+      "size": "{size} m²",
       "roi": "ROI",
       "cap": "Cap",
       "rent": "Rent",
       "perMonth": "/mo"
     },
-
     "details": {
       "description": "Description",
       "noDescription": "No description available.",
@@ -741,7 +716,6 @@
       "backToMarketplace": "Back to Marketplace",
       "aboutCity": "About {city}"
     },
-
     "form": {
       "title": "Title",
       "titlePlaceholder": "e.g., Modern Apartment in Tel Aviv",
@@ -786,7 +760,6 @@
       "createError": "Failed to create property. Please try again.",
       "updateError": "Failed to update property. Please try again."
     },
-
     "empty": {
       "noProperties": "No properties found",
       "noPropertiesFiltered": "Try adjusting your filters.",
@@ -802,14 +775,12 @@
       "notFoundDescription": "The property you're looking for doesn't exist or has been removed.",
       "backToProperties": "Back to Properties"
     },
-
     "save": {
       "saveProperty": "Save Property",
       "saved": "Saved",
       "removeFromSaved": "Remove from saved",
       "signInToSave": "Sign in to Save"
     },
-
     "saved": {
       "title": "Saved Properties",
       "count": "{count} saved {count, plural, =1 {property} other {properties}}",
@@ -819,12 +790,11 @@
         "cta": "Browse Marketplace"
       }
     },
-
     "neighborhood": {
       "title": "Neighborhood Info",
       "noData": "No neighborhood data available for this city",
       "population": "Population",
-      "avgPricePerSqm": "Avg Price/m\u00b2",
+      "avgPricePerSqm": "Avg Price/m²",
       "yearChange": "1-Year Change",
       "nearbyAmenities": "Nearby Amenities",
       "schools": "Schools",
@@ -837,7 +807,6 @@
       "nightlife": "Nightlife",
       "universities": "Universities"
     },
-
     "amenities": {
       "noAmenities": "No amenities listed"
     }
@@ -848,7 +817,6 @@
     "activeDeal": "Active Deal",
     "activeDeals": "Active Deals",
     "completedDeals": "Completed Deals",
-
     "stages": {
       "interest": "Interest",
       "brokerAssigned": "With Broker",
@@ -858,7 +826,6 @@
       "completed": "Completed",
       "cancelled": "Cancelled"
     },
-
     "card": {
       "started": "Started",
       "stage": "Stage",
@@ -869,7 +836,6 @@
       "viewDetails": "View Details",
       "providersAssigned": "{count, plural, =1 {# provider} other {# providers}} assigned"
     },
-
     "detail": {
       "overview": "Overview",
       "providers": "Providers",
@@ -891,7 +857,6 @@
       "dealNotFoundDescription": "This deal doesn't exist or you don't have access to view it.",
       "dealCancelled": "Deal Cancelled"
     },
-
     "providers": {
       "title": "Service Providers",
       "assigned": "Assigned",
@@ -915,7 +880,6 @@
       "cancelRequestTitle": "Cancel this request?",
       "cancelRequestDescription": "This will cancel your request to {name}. You can send a new request to a different provider."
     },
-
     "files": {
       "title": "Documents",
       "upload": "Upload File",
@@ -951,7 +915,6 @@
       "deleteFile": "Delete file?",
       "deleteFileDescription": "This will permanently delete \"{fileName}\". This action cannot be undone."
     },
-
     "activity": {
       "title": "Activity Log",
       "description": "Complete history of deal events",
@@ -966,7 +929,6 @@
       "handoffInitiated": "Handoff initiated",
       "handoffCompleted": "Handoff completed"
     },
-
     "empty": {
       "noDeals": "No deals yet",
       "startDeal": "Start a deal from a property page",
@@ -976,7 +938,6 @@
       "providerMessage": "You don't have any assigned deals yet. Deals will appear here when investors request your services.",
       "browseProperties": "Browse Properties"
     },
-
     "filters": {
       "all": "All Deals",
       "active": "Active",
@@ -989,7 +950,6 @@
       "newestFirst": "Newest first",
       "oldestFirst": "Oldest first"
     },
-
     "questionnaire": {
       "title": "Investor Profile",
       "noProfile": "No profile available",
@@ -1301,14 +1261,12 @@
     "title": "Service Providers",
     "findProviders": "Find a Provider",
     "description": "Browse service providers to help with your real estate transaction",
-
     "tabs": {
       "all": "All",
       "brokers": "Brokers",
       "mortgageAdvisors": "Mortgage Advisors",
       "lawyers": "Lawyers"
     },
-
     "card": {
       "rating": "Rating",
       "reviews": "{count, plural, =1 {# review} other {# reviews}}",
@@ -1323,7 +1281,6 @@
       "contact": "Contact",
       "more": "+{count} more"
     },
-
     "profile": {
       "about": "About",
       "reviews": "Reviews",
@@ -1338,21 +1295,18 @@
       "preferredContact": "Preferred contact method",
       "license": "License"
     },
-
     "filters": {
       "serviceArea": "Service Area",
       "language": "Language",
       "specialization": "Specialization",
       "minRating": "Minimum Rating"
     },
-
     "empty": {
       "noProviders": "No {type} yet",
       "willAppear": "{type} will appear here once they create their profiles.",
       "noMatch": "No providers match \"{query}\"",
       "clearSearch": "Clear search"
     },
-
     "notFound": {
       "title": "Provider Not Found",
       "description": "This provider profile doesn't exist or is not available."
@@ -1363,7 +1317,6 @@
     "editProfile": "Edit Profile",
     "viewPublicProfile": "View Public Profile",
     "back": "Back",
-
     "tabs": {
       "posts": "Posts",
       "reposts": "Reposts",
@@ -1371,7 +1324,6 @@
       "reviews": "Reviews",
       "portfolio": "Portfolio"
     },
-
     "stats": {
       "followers": "Followers",
       "following": "Following",
@@ -1382,7 +1334,6 @@
       "dealsCompleted": "Deals Completed",
       "yearsExperience": "Years Experience"
     },
-
     "sections": {
       "bio": "Bio",
       "contactInfo": "Contact Information",
@@ -1390,25 +1341,21 @@
       "serviceAreas": "Service Areas",
       "languages": "Languages"
     },
-
     "investor": {
       "title": "Investor Profile",
       "questionnaire": "Investment Preferences",
       "editQuestionnaire": "Edit Preferences"
     },
-
     "provider": {
       "title": "Provider Profile",
       "portfolio": "Portfolio",
       "recentDeals": "Recent Deals"
     },
-
     "empty": {
       "noPosts": "No posts yet",
       "noReposts": "No reposts yet",
       "noBio": "No bio provided"
     },
-
     "notFound": {
       "title": "User Not Found",
       "description": "This user profile doesn't exist or is not available."
@@ -1421,14 +1368,12 @@
     "clearRecent": "Clear",
     "searchFor": "Search for something",
     "enterTerm": "Enter a search term to find users, posts, and properties.",
-
     "tabs": {
       "all": "All",
       "users": "Users",
       "posts": "Posts",
       "properties": "Properties"
     },
-
     "results": {
       "title": "Search Results",
       "showing": "Showing results for \"{query}\"",
@@ -1438,12 +1383,10 @@
       "noPostsFound": "No posts found matching \"{query}\"",
       "noPropertiesFound": "No properties found matching \"{query}\""
     },
-
     "quickActions": {
       "title": "Quick Actions",
       "goTo": "Go to {page}"
     },
-
     "trending": {
       "title": "Trending",
       "discover": "Discover what's trending",
@@ -1453,7 +1396,6 @@
       "thisWeek": "This Week",
       "noPosts": "No trending posts yet"
     },
-
     "suggestions": {
       "title": "Suggested for you",
       "peopleToFollow": "People to Follow",
@@ -1468,7 +1410,6 @@
     "subtitle": "Select your role to get started with REOS. This helps us personalize your experience.",
     "settingUp": "Setting up...",
     "continue": "Continue",
-
     "roles": {
       "investor": {
         "label": "Investor",
@@ -1487,7 +1428,6 @@
         "description": "Providing legal services for property transactions"
       }
     },
-
     "questionnaire": {
       "title": "Investment Questionnaire",
       "subtitle": "Help us understand your investment goals",
@@ -1500,7 +1440,6 @@
       "saveChanges": "Save Changes",
       "error": "Something went wrong. Please try refreshing the page."
     },
-
     "questions": {
       "citizenship": {
         "title": "Are you an Israeli citizen?",
@@ -1746,20 +1685,17 @@
         "charCount": "{count}/{max} characters"
       }
     },
-
     "options": {
       "bedrooms": "Bedrooms",
       "area": "Area (sqm)",
       "minimum": "Minimum",
       "maximum": "Maximum"
     },
-
     "complete": {
       "title": "You're all set!",
       "subtitle": "Your profile is ready. Start exploring properties.",
       "cta": "Browse Properties"
     },
-
     "editProfile": {
       "title": "Edit Investment Profile",
       "backToProfile": "Back to Profile",
@@ -1780,5 +1716,58 @@
       "generic": "Something went wrong",
       "goBack": "Go Back"
     }
+  },
+  "header": {
+    "viewAs": "View as:",
+    "switchView": "Switch View",
+    "signIn": "Sign In"
+  },
+  "breadcrumbs": {
+    "groups": {
+      "marketplace": "Marketplace",
+      "propertyManagement": "Property Management",
+      "mortgageRequests": "Mortgage Requests",
+      "legalServices": "Legal Services",
+      "accountingServices": "Accounting Services",
+      "notarizationServices": "Notarization Services",
+      "taxServices": "Tax Services",
+      "appraisalServices": "Appraisal Services"
+    },
+    "browse": "Browse",
+    "saved": "Saved",
+    "deals": "Deals",
+    "yourListings": "Your Listings",
+    "propertyTours": "Property Tours",
+    "leadManagement": "Lead Management",
+    "newApplications": "New Applications",
+    "preApprovals": "Pre-approvals",
+    "financingDeals": "Financing Deals",
+    "consultations": "Consultations",
+    "contractReviews": "Contract Reviews",
+    "documents": "Documents",
+    "financialAnalysis": "Financial Analysis",
+    "taxPlanning": "Tax Planning",
+    "requests": "Requests",
+    "documentSignings": "Document Signings",
+    "transactions": "Transactions",
+    "taxFilings": "Tax Filings",
+    "propertyValuations": "Property Valuations",
+    "valuationReports": "Valuation Reports",
+    "dashboard": "Dashboard",
+    "chat": "Chat",
+    "clients": "Clients",
+    "settings": "Settings",
+    "profile": "Profile",
+    "editQuestionnaire": "Edit Questionnaire",
+    "newProperty": "New Property",
+    "onboarding": "Onboarding",
+    "questionnaire": "Questionnaire",
+    "designSystem": "Design System",
+    "search": "Search",
+    "feed": "Feed",
+    "providers": "Providers",
+    "analytics": "Analytics",
+    "details": "Details",
+    "edit": "Edit"
   }
 }

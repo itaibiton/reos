@@ -1530,7 +1530,6 @@
         "actual": "משך בפועל: {days} ימים"
       }
     },
-
     "empty": {
       "noDeals": "אין עסקאות",
       "noDealsYet": "אין עסקאות עדיין",
@@ -1547,7 +1546,6 @@
       "noDealFound": "העסקה לא נמצאה",
       "noDealFoundDescription": "העסקה שחיפשת לא קיימת או שאין לך גישה אליה"
     },
-
     "validation": {
       "propertyRequired": "נדרש לבחור נכס",
       "investorRequired": "נדרש משקיע",
@@ -1562,7 +1560,6 @@
       "fileTypeNotAllowed": "סוג הקובץ אינו נתמך",
       "invalidStageTransition": "לא ניתן לעבור לשלב זה"
     },
-
     "notifications": {
       "dealCreated": "העסקה נוצרה בהצלחה",
       "dealUpdated": "העסקה עודכנה בהצלחה",
@@ -1581,7 +1578,6 @@
       "errorGeneric": "אירעה שגיאה. נסה שוב.",
       "errorNetwork": "בעיית תקשורת. בדוק את החיבור לאינטרנט."
     },
-
     "filters": {
       "title": "סינון עסקאות",
       "all": "כל העסקאות",
@@ -1611,7 +1607,6 @@
       "noMatch": "לא נמצאו עסקאות התואמות לחיפוש",
       "resultsCount": "{count, plural, =0 {אין תוצאות} =1 {תוצאה אחת} other {# תוצאות}}"
     },
-
     "summary": {
       "title": "סיכום עסקה",
       "dealValue": "ערך העסקה",
@@ -1622,7 +1617,6 @@
       "filesCount": "מספר קבצים",
       "lastActivity": "פעילות אחרונה"
     },
-
     "permissions": {
       "cannotEdit": "אין לך הרשאה לערוך עסקה זו",
       "cannotDelete": "אין לך הרשאה למחוק עסקה זו",
@@ -1630,7 +1624,6 @@
       "cannotCancel": "אין לך הרשאה לבטל עסקה זו",
       "viewOnly": "הרשאת צפייה בלבד"
     },
-
     "questionnaire": {
       "title": "פרופיל משקיע",
       "noProfile": "אין פרופיל זמין",
@@ -1888,5 +1881,58 @@
       "title": "משתמש לא נמצא",
       "description": "פרופיל משתמש זה אינו קיים או אינו זמין."
     }
+  },
+  "header": {
+    "viewAs": "הצג כ:",
+    "switchView": "החלף תצוגה",
+    "signIn": "התחבר"
+  },
+  "breadcrumbs": {
+    "groups": {
+      "marketplace": "שוק",
+      "propertyManagement": "ניהול נכסים",
+      "mortgageRequests": "בקשות משכנתא",
+      "legalServices": "שירותים משפטיים",
+      "accountingServices": "שירותי חשבונאות",
+      "notarizationServices": "שירותי נוטריון",
+      "taxServices": "שירותי מס",
+      "appraisalServices": "שירותי שמאות"
+    },
+    "browse": "עיון",
+    "saved": "שמורים",
+    "deals": "עסקאות",
+    "yourListings": "הנכסים שלך",
+    "propertyTours": "סיורי נכסים",
+    "leadManagement": "ניהול לידים",
+    "newApplications": "בקשות חדשות",
+    "preApprovals": "אישורים מוקדמים",
+    "financingDeals": "עסקאות מימון",
+    "consultations": "ייעוצים",
+    "contractReviews": "בדיקת חוזים",
+    "documents": "מסמכים",
+    "financialAnalysis": "ניתוח פיננסי",
+    "taxPlanning": "תכנון מס",
+    "requests": "בקשות",
+    "documentSignings": "חתימת מסמכים",
+    "transactions": "עסקאות",
+    "taxFilings": "הגשות מס",
+    "propertyValuations": "הערכות שווי נכסים",
+    "valuationReports": "דוחות הערכה",
+    "dashboard": "לוח בקרה",
+    "chat": "צ׳אט",
+    "clients": "לקוחות",
+    "settings": "הגדרות",
+    "profile": "פרופיל",
+    "editQuestionnaire": "עריכת שאלון",
+    "newProperty": "נכס חדש",
+    "onboarding": "הצטרפות",
+    "questionnaire": "שאלון",
+    "designSystem": "מערכת עיצוב",
+    "search": "חיפוש",
+    "feed": "פיד",
+    "providers": "נותני שירות",
+    "analytics": "אנליטיקס",
+    "details": "פרטים",
+    "edit": "עריכה"
   }
 }
