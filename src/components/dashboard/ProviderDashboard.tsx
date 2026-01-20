@@ -2,7 +2,7 @@
 
 import { useQuery, useMutation } from "convex/react";
 import { useRouter } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useTranslations, useFormatter, useNow } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 import {
@@ -42,38 +42,6 @@ import {
 import { Link } from "@/i18n/navigation";
 import { toast } from "sonner";
 import { useState } from "react";
-
-// Format date
-function formatDate(timestamp: number) {
-  return new Date(timestamp).toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-  });
-}
-
-// Format relative time
-function formatRelativeTime(timestamp: number) {
-  const now = Date.now();
-  const diff = now - timestamp;
-  const minutes = Math.floor(diff / 60000);
-  const hours = Math.floor(diff / 3600000);
-  const days = Math.floor(diff / 86400000);
-
-  if (minutes < 1) return "just now";
-  if (minutes < 60) return `${minutes}m ago`;
-  if (hours < 24) return `${hours}h ago`;
-  if (days < 7) return `${days}d ago`;
-  return formatDate(timestamp);
-}
-
-// Format USD
-function formatUSD(amount: number) {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  }).format(amount);
-}
 
 // Get initials from name
 function getInitials(name?: string | null) {
@@ -129,9 +97,10 @@ interface ActiveDealCardProps {
       imageUrl?: string;
     } | null;
   };
+  format: ReturnType<typeof useFormatter>;
 }
 
-function ActiveDealCard({ deal }: ActiveDealCardProps) {
+function ActiveDealCard({ deal, format }: ActiveDealCardProps) {
   const router = useRouter();
 
   return (
@@ -167,7 +136,7 @@ function ActiveDealCard({ deal }: ActiveDealCardProps) {
           <HugeiconsIcon icon={Location01Icon} size={12} />
           <span>{deal.property?.city || "Unknown"}</span>
           <span>•</span>
-          <span>{formatUSD(deal.property?.priceUsd || 0)}</span>
+          <span>{format.number(deal.property?.priceUsd || 0, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}</span>
         </div>
 
         {/* Investor + Stage */}
@@ -201,6 +170,8 @@ export function ProviderDashboard({ userName }: ProviderDashboardProps) {
   const t = useTranslations("dashboard");
   const tCommon = useTranslations("common.actions");
   const router = useRouter();
+  const format = useFormatter();
+  const now = useNow({ updateInterval: 1000 * 60 }); // Update every minute
   const [respondingId, setRespondingId] = useState<Id<"serviceRequests"> | null>(null);
 
   const stats = useQuery(api.dashboard.getStats);
@@ -384,7 +355,7 @@ export function ProviderDashboard({ userName }: ProviderDashboardProps) {
           ) : activeDeals.length > 0 ? (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
               {activeDeals.map((deal) => (
-                <ActiveDealCard key={deal._id} deal={deal} />
+                <ActiveDealCard key={deal._id} deal={deal} format={format} />
               ))}
             </div>
           ) : (
@@ -456,7 +427,7 @@ export function ProviderDashboard({ userName }: ProviderDashboardProps) {
                         <span>•</span>
                       </>
                     )}
-                    <span>{formatDate(request.createdAt)}</span>
+                    <span>{format.dateTime(new Date(request.createdAt), 'monthDay')}</span>
                   </div>
                 </div>
 
@@ -566,7 +537,7 @@ export function ProviderDashboard({ userName }: ProviderDashboardProps) {
                     )}
                   </p>
                   <p className="text-xs text-muted-foreground">
-                    {formatRelativeTime(activity.createdAt)}
+                    {format.relativeTime(new Date(activity.createdAt), now)}
                   </p>
                 </div>
               </div>
