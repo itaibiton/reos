@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { useQuery, useMutation } from "convex/react";
+import { useTranslations } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -26,18 +27,14 @@ interface ChatThreadProps {
   hideHeader?: boolean;
 }
 
-// Format role for display
-function formatRole(role?: string) {
-  if (!role) return null;
-  const labels: Record<string, string> = {
-    investor: "Investor",
-    broker: "Broker",
-    mortgage_advisor: "Mortgage Advisor",
-    lawyer: "Lawyer",
-    admin: "Admin",
-  };
-  return labels[role] || role;
-}
+// Role key map for translations
+const roleKeyMap: Record<string, string> = {
+  investor: "investor",
+  broker: "broker",
+  mortgage_advisor: "mortgageAdvisor",
+  lawyer: "lawyer",
+  admin: "admin",
+};
 
 // Get initials from name
 function getInitials(name?: string | null) {
@@ -61,6 +58,8 @@ export function ChatThread({
 }: ChatThreadProps) {
   const { user } = useCurrentUser();
   const scrollRef = useRef<HTMLDivElement>(null);
+  const t = useTranslations("chat");
+  const tRoles = useTranslations("common.roles");
 
   // Fetch messages for this conversation
   const messages = useQuery(api.messages.listConversation, {
@@ -98,7 +97,7 @@ export function ChatThread({
       });
     } catch (error) {
       console.error("Failed to send message:", error);
-      toast.error("Failed to send message");
+      toast.error(t("thread.sendFailed"));
     }
   };
 
@@ -127,7 +126,7 @@ export function ChatThread({
             <p className="font-medium truncate">{participantName}</p>
             {participantRole && (
               <Badge variant="secondary" className="text-xs">
-                {formatRole(participantRole)}
+                {tRoles(roleKeyMap[participantRole] || participantRole)}
               </Badge>
             )}
           </div>
@@ -155,9 +154,9 @@ export function ChatThread({
           ) : messages.length === 0 ? (
             // Empty state
             <div className="flex flex-col items-center justify-center py-12 text-center">
-              <p className="text-muted-foreground">No messages yet</p>
+              <p className="text-muted-foreground">{t("empty.noMessages")}</p>
               <p className="text-sm text-muted-foreground mt-1">
-                Send a message to start the conversation
+                {t("thread.startConversation")}
               </p>
             </div>
           ) : (
@@ -178,7 +177,7 @@ export function ChatThread({
       </ScrollArea>
 
       {/* Input area */}
-      <ChatInput onSend={handleSend} placeholder={`Message ${participantName}...`} />
+      <ChatInput onSend={handleSend} placeholder={t("directChat.messagePlaceholder", { name: participantName })} />
     </div>
   );
 }

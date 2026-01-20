@@ -32,35 +32,39 @@ type QuestionnaireData = {
   servicesNeeded?: string[];
 };
 
-function calculateCompleteness(q: QuestionnaireData | null): { percent: number; missing: string[] } {
-  if (!q) return { percent: 0, missing: ["Not started"] };
+// Field keys for completeness calculation
+const COMPLETENESS_FIELDS: { key: keyof QuestionnaireData; labelKey: string }[] = [
+  { key: "citizenship", labelKey: "citizenship" },
+  { key: "residencyStatus", labelKey: "residencyStatus" },
+  { key: "experienceLevel", labelKey: "experienceLevel" },
+  { key: "ownsPropertyInIsrael", labelKey: "propertyOwnership" },
+  { key: "investmentType", labelKey: "investmentType" },
+  { key: "budgetMin", labelKey: "budget" },
+  { key: "budgetMax", labelKey: "budget" },
+  { key: "investmentHorizon", labelKey: "investmentHorizon" },
+  { key: "investmentGoals", labelKey: "investmentGoals" },
+  { key: "yieldPreference", labelKey: "yieldPreference" },
+  { key: "financingApproach", labelKey: "financingApproach" },
+  { key: "preferredPropertyTypes", labelKey: "propertyTypes" },
+  { key: "preferredLocations", labelKey: "preferredLocations" },
+  { key: "purchaseTimeline", labelKey: "purchaseTimeline" },
+  { key: "servicesNeeded", labelKey: "servicesNeeded" },
+];
 
-  // Required fields for completeness calculation
-  const fields: { key: keyof QuestionnaireData; label: string }[] = [
-    { key: "citizenship", label: "Citizenship" },
-    { key: "residencyStatus", label: "Residency Status" },
-    { key: "experienceLevel", label: "Experience Level" },
-    { key: "ownsPropertyInIsrael", label: "Property Ownership" },
-    { key: "investmentType", label: "Investment Type" },
-    { key: "budgetMin", label: "Budget" },
-    { key: "budgetMax", label: "Budget" },
-    { key: "investmentHorizon", label: "Investment Horizon" },
-    { key: "investmentGoals", label: "Investment Goals" },
-    { key: "yieldPreference", label: "Yield Preference" },
-    { key: "financingApproach", label: "Financing Approach" },
-    { key: "preferredPropertyTypes", label: "Property Types" },
-    { key: "preferredLocations", label: "Preferred Locations" },
-    { key: "purchaseTimeline", label: "Purchase Timeline" },
-    { key: "servicesNeeded", label: "Services Needed" },
-  ];
+function calculateCompleteness(
+  q: QuestionnaireData | null,
+  t: (key: string) => string
+): { percent: number; missing: string[] } {
+  if (!q) return { percent: 0, missing: [t("fields.notStarted")] };
 
   const missing: string[] = [];
   let filled = 0;
 
-  for (const { key, label } of fields) {
+  for (const { key, labelKey } of COMPLETENESS_FIELDS) {
     const value = q[key];
     const isFilled = value !== undefined && value !== null &&
       (Array.isArray(value) ? value.length > 0 : true);
+    const label = t(`fields.${labelKey}`);
     if (isFilled) {
       filled++;
     } else if (!missing.includes(label)) {
@@ -68,11 +72,12 @@ function calculateCompleteness(q: QuestionnaireData | null): { percent: number; 
     }
   }
 
-  return { percent: Math.round((filled / fields.length) * 100), missing };
+  return { percent: Math.round((filled / COMPLETENESS_FIELDS.length) * 100), missing };
 }
 
 export function ProfileCompletenessCard({ className }: ProfileCompletenessCardProps) {
   const t = useTranslations("settings.profile");
+  const tCompleteness = useTranslations("profile.completeness");
   const questionnaire = useQuery(api.investorQuestionnaires.getByUser);
 
   // Loading state
@@ -89,7 +94,7 @@ export function ProfileCompletenessCard({ className }: ProfileCompletenessCardPr
     );
   }
 
-  const { percent, missing } = calculateCompleteness(questionnaire);
+  const { percent, missing } = calculateCompleteness(questionnaire, tCompleteness);
   const isComplete = percent === 100;
 
   return (

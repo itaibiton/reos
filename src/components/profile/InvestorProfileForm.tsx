@@ -30,6 +30,7 @@ const locationOptions = ISRAELI_LOCATIONS.map((loc) => ({
 }));
 
 export function InvestorProfileForm() {
+  const t = useTranslations("profile.investorForm");
   const tPropertyTypes = useTranslations("common.propertyTypes");
   const tRisk = useTranslations("common.riskTolerance");
   const tTimeline = useTranslations("common.investmentTimeline");
@@ -98,26 +99,26 @@ export function InvestorProfileForm() {
     const newErrors: Record<string, string> = {};
 
     if (propertyTypes.length === 0) {
-      newErrors.propertyTypes = "Select at least one property type";
+      newErrors.propertyTypes = t("errors.selectPropertyType");
     }
 
     if (targetLocations.length === 0) {
-      newErrors.targetLocations = "Select at least one location";
+      newErrors.targetLocations = t("errors.selectLocation");
     }
 
     const minBudget = parseFloat(budgetMin);
     const maxBudget = parseFloat(budgetMax);
 
     if (!budgetMin || isNaN(minBudget) || minBudget < 0) {
-      newErrors.budgetMin = "Enter a valid minimum budget";
+      newErrors.budgetMin = t("errors.validMinBudget");
     }
 
     if (!budgetMax || isNaN(maxBudget) || maxBudget < 0) {
-      newErrors.budgetMax = "Enter a valid maximum budget";
+      newErrors.budgetMax = t("errors.validMaxBudget");
     }
 
     if (minBudget >= maxBudget) {
-      newErrors.budgetMax = "Maximum must be greater than minimum";
+      newErrors.budgetMax = t("errors.maxGreaterThanMin");
     }
 
     setErrors(newErrors);
@@ -141,10 +142,10 @@ export function InvestorProfileForm() {
         investmentTimeline: investmentTimeline || undefined,
         notes: notes || undefined,
       });
-      toast.success("Profile saved successfully!");
+      toast.success(t("toast.saved"));
     } catch (error) {
       console.error("Failed to save profile:", error);
-      toast.error("Failed to save profile. Please try again.");
+      toast.error(t("toast.saveFailed"));
     } finally {
       setIsSubmitting(false);
     }
@@ -167,7 +168,7 @@ export function InvestorProfileForm() {
           <div className="space-y-6">
             {/* Property Types */}
             <div className="space-y-2">
-              <Label className="text-base font-medium">Property Types</Label>
+              <Label className="text-base font-medium">{t("labels.propertyTypes")}</Label>
               <MultiSelectPopover
                 options={propertyTypeOptions}
                 selected={propertyTypes}
@@ -175,7 +176,7 @@ export function InvestorProfileForm() {
                   setPropertyTypes(selected);
                   setErrors((prev) => ({ ...prev, propertyTypes: "" }));
                 }}
-                placeholder="Select property types..."
+                placeholder={t("placeholders.selectPropertyTypes")}
               />
               {errors.propertyTypes && (
                 <p className="text-sm text-destructive">{errors.propertyTypes}</p>
@@ -184,7 +185,7 @@ export function InvestorProfileForm() {
 
             {/* Target Locations */}
             <div className="space-y-2">
-              <Label className="text-base font-medium">Target Locations</Label>
+              <Label className="text-base font-medium">{t("labels.targetLocations")}</Label>
               <MultiSelectPopover
                 options={locationOptions}
                 selected={targetLocations}
@@ -192,7 +193,7 @@ export function InvestorProfileForm() {
                   setTargetLocations(selected);
                   setErrors((prev) => ({ ...prev, targetLocations: "" }));
                 }}
-                placeholder="Select locations..."
+                placeholder={t("placeholders.selectLocations")}
               />
               {errors.targetLocations && (
                 <p className="text-sm text-destructive">{errors.targetLocations}</p>
@@ -201,10 +202,10 @@ export function InvestorProfileForm() {
 
             {/* Budget Range */}
             <div className="space-y-3">
-              <Label className="text-base font-medium">Budget Range (USD)</Label>
+              <Label className="text-base font-medium">{t("labels.budgetRange")}</Label>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="budgetMin">Minimum</Label>
+                  <Label htmlFor="budgetMin">{t("labels.minimum")}</Label>
                   <Input
                     id="budgetMin"
                     type="number"
@@ -220,7 +221,7 @@ export function InvestorProfileForm() {
                   )}
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="budgetMax">Maximum</Label>
+                  <Label htmlFor="budgetMax">{t("labels.maximum")}</Label>
                   <Input
                     id="budgetMax"
                     type="number"
@@ -241,7 +242,7 @@ export function InvestorProfileForm() {
             {/* Target ROI */}
             <div className="space-y-2">
               <Label htmlFor="targetRoiMin" className="text-base font-medium">
-                Minimum Target ROI % (Optional)
+                {t("labels.targetRoi")}
               </Label>
               <Input
                 id="targetRoiMin"
@@ -257,7 +258,7 @@ export function InvestorProfileForm() {
           <div className="flex flex-col gap-6">
             {/* Risk Tolerance */}
             <div className="space-y-3">
-              <Label className="text-base font-medium">Risk Tolerance</Label>
+              <Label className="text-base font-medium">{t("labels.riskTolerance")}</Label>
               <RadioGroup
                 value={riskTolerance}
                 onValueChange={(value) => setRiskTolerance(value as RiskTolerance)}
@@ -282,7 +283,7 @@ export function InvestorProfileForm() {
 
             {/* Investment Timeline */}
             <div className="space-y-3">
-              <Label className="text-base font-medium">Investment Timeline (Optional)</Label>
+              <Label className="text-base font-medium">{t("labels.investmentTimeline")}</Label>
               <RadioGroup
                 value={investmentTimeline}
                 onValueChange={(value) => setInvestmentTimeline(value as InvestmentTimeline)}
@@ -308,11 +309,11 @@ export function InvestorProfileForm() {
             {/* Notes */}
             <div className="flex-1 flex flex-col gap-2">
               <Label htmlFor="notes" className="text-base font-medium">
-                Additional Notes (Optional)
+                {t("labels.notes")}
               </Label>
               <Textarea
                 id="notes"
-                placeholder="Any specific requirements or preferences..."
+                placeholder={t("placeholders.notes")}
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 className="flex-1 min-h-[100px] resize-none"
@@ -327,10 +328,10 @@ export function InvestorProfileForm() {
             {isSubmitting ? (
               <>
                 <Spinner className="me-2 h-4 w-4" />
-                Saving...
+                {t("buttons.saving")}
               </>
             ) : (
-              "Save Profile"
+              t("buttons.saveProfile")
             )}
           </Button>
         </div>

@@ -38,10 +38,11 @@ import {
 type Language = "english" | "hebrew" | "russian" | "french" | "spanish";
 type ContactPreference = "email" | "phone" | "whatsapp";
 
-const ROLE_LABELS: Record<string, string> = {
-  broker: "Real Estate Broker",
-  mortgage_advisor: "Mortgage Advisor",
-  lawyer: "Real Estate Lawyer",
+// Role key map for translations
+const roleKeyMap: Record<string, string> = {
+  broker: "broker",
+  mortgage_advisor: "mortgageAdvisor",
+  lawyer: "lawyer",
 };
 
 // Icon mapping for specializations
@@ -68,6 +69,8 @@ const serviceAreaOptions = SERVICE_AREAS.map((area) => ({
 
 export function ProviderProfileForm() {
   const t = useTranslations("common");
+  const tForm = useTranslations("profile.providerForm");
+  const tRoles = useTranslations("common.roles");
 
   // Convert languages to options format with flags using translations
   const languageOptions = LANGUAGE_OPTIONS.map((lang) => ({
@@ -138,11 +141,11 @@ export function ProviderProfileForm() {
     const newErrors: Record<string, string> = {};
 
     if (serviceAreas.length === 0) {
-      newErrors.serviceAreas = "Select at least one service area";
+      newErrors.serviceAreas = tForm("errors.selectServiceArea");
     }
 
     if (languages.length === 0) {
-      newErrors.languages = "Select at least one language";
+      newErrors.languages = tForm("errors.selectLanguage");
     }
 
     setErrors(newErrors);
@@ -167,10 +170,10 @@ export function ProviderProfileForm() {
         phoneNumber: phoneNumber || undefined,
         preferredContact: preferredContact || undefined,
       });
-      toast.success("Profile saved successfully!");
+      toast.success(tForm("toast.saved"));
     } catch (error) {
       console.error("Failed to save profile:", error);
-      toast.error("Failed to save profile. Please try again.");
+      toast.error(tForm("toast.saveFailed"));
     } finally {
       setIsSubmitting(false);
     }
@@ -185,7 +188,9 @@ export function ProviderProfileForm() {
     );
   }
 
-  const roleLabel = user.role ? ROLE_LABELS[user.role] : "Service Provider";
+  const roleLabel = user.role && roleKeyMap[user.role]
+    ? tRoles(roleKeyMap[user.role])
+    : tForm("labels.serviceProvider");
 
   return (
     <div>
@@ -196,11 +201,11 @@ export function ProviderProfileForm() {
             {/* Company Name */}
             <div className="space-y-2">
               <Label htmlFor="companyName" className="text-base font-medium">
-                Company Name (Optional)
+                {tForm("labels.companyName")}
               </Label>
               <Input
                 id="companyName"
-                placeholder="Your company or firm name"
+                placeholder={tForm("placeholders.companyName")}
                 value={companyName}
                 onChange={(e) => setCompanyName(e.target.value)}
               />
@@ -209,11 +214,11 @@ export function ProviderProfileForm() {
             {/* License Number */}
             <div className="space-y-2">
               <Label htmlFor="licenseNumber" className="text-base font-medium">
-                License Number (Optional)
+                {tForm("labels.licenseNumber")}
               </Label>
               <Input
                 id="licenseNumber"
-                placeholder="Professional license number"
+                placeholder={tForm("placeholders.licenseNumber")}
                 value={licenseNumber}
                 onChange={(e) => setLicenseNumber(e.target.value)}
               />
@@ -222,7 +227,7 @@ export function ProviderProfileForm() {
             {/* Years of Experience */}
             <div className="space-y-2">
               <Label htmlFor="yearsExperience" className="text-base font-medium">
-                Years of Experience (Optional)
+                {tForm("labels.yearsExperience")}
               </Label>
               <Input
                 id="yearsExperience"
@@ -236,19 +241,19 @@ export function ProviderProfileForm() {
             {/* Specializations */}
             {specializationOptions.length > 0 && (
               <div className="space-y-2">
-                <Label className="text-base font-medium">Specializations</Label>
+                <Label className="text-base font-medium">{tForm("labels.specializations")}</Label>
                 <MultiSelectPopover
                   options={specializationOptions}
                   selected={specializations}
                   onChange={setSpecializations}
-                  placeholder="Select specializations..."
+                  placeholder={tForm("placeholders.selectSpecializations")}
                 />
               </div>
             )}
 
             {/* Service Areas */}
             <div className="space-y-2">
-              <Label className="text-base font-medium">Service Areas</Label>
+              <Label className="text-base font-medium">{tForm("labels.serviceAreas")}</Label>
               <MultiSelectPopover
                 options={serviceAreaOptions}
                 selected={serviceAreas}
@@ -256,7 +261,7 @@ export function ProviderProfileForm() {
                   setServiceAreas(selected);
                   setErrors((prev) => ({ ...prev, serviceAreas: "" }));
                 }}
-                placeholder="Select service areas..."
+                placeholder={tForm("placeholders.selectServiceAreas")}
               />
               {errors.serviceAreas && (
                 <p className="text-sm text-destructive">{errors.serviceAreas}</p>
@@ -268,7 +273,7 @@ export function ProviderProfileForm() {
           <div className="flex flex-col gap-6">
             {/* Languages */}
             <div className="space-y-2">
-              <Label className="text-base font-medium">Languages Spoken</Label>
+              <Label className="text-base font-medium">{tForm("labels.languagesSpoken")}</Label>
               <MultiSelectPopover
                 options={languageOptions}
                 selected={languages}
@@ -276,7 +281,7 @@ export function ProviderProfileForm() {
                   setLanguages(selected);
                   setErrors((prev) => ({ ...prev, languages: "" }));
                 }}
-                placeholder="Select languages..."
+                placeholder={tForm("placeholders.selectLanguages")}
               />
               {errors.languages && (
                 <p className="text-sm text-destructive">{errors.languages}</p>
@@ -286,7 +291,7 @@ export function ProviderProfileForm() {
             {/* Phone Number */}
             <div className="space-y-2">
               <Label htmlFor="phoneNumber" className="text-base font-medium">
-                Phone Number (Optional)
+                {tForm("labels.phoneNumber")}
               </Label>
               <Input
                 id="phoneNumber"
@@ -300,7 +305,7 @@ export function ProviderProfileForm() {
             {/* Preferred Contact Method */}
             <div className="space-y-3">
               <Label className="text-base font-medium">
-                Preferred Contact Method (Optional)
+                {tForm("labels.preferredContact")}
               </Label>
               <RadioGroup
                 value={preferredContact}
@@ -325,11 +330,11 @@ export function ProviderProfileForm() {
             {/* Bio */}
             <div className="flex-1 flex flex-col gap-2">
               <Label htmlFor="bio" className="text-base font-medium">
-                Professional Bio (Optional)
+                {tForm("labels.bio")}
               </Label>
               <Textarea
                 id="bio"
-                placeholder="Tell investors about your experience and expertise..."
+                placeholder={tForm("placeholders.bio")}
                 value={bio}
                 onChange={(e) => setBio(e.target.value)}
                 className="flex-1 min-h-[100px] resize-none"
@@ -344,10 +349,10 @@ export function ProviderProfileForm() {
             {isSubmitting ? (
               <>
                 <Spinner className="me-2 h-4 w-4" />
-                Saving...
+                {tForm("buttons.saving")}
               </>
             ) : (
-              "Save Profile"
+              tForm("buttons.saveProfile")
             )}
           </Button>
         </div>

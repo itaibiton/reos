@@ -1118,6 +1118,33 @@
   "chat": {
     "title": "Chat",
     "messages": "Messages",
+    "toggle": {
+      "deals": "Deals",
+      "direct": "Direct"
+    },
+    "message": {
+      "statusRead": "Read",
+      "statusDelivered": "Delivered"
+    },
+    "thread": {
+      "sendFailed": "Failed to send message",
+      "startConversation": "Send a message to start the conversation"
+    },
+    "participantList": {
+      "selectParticipant": "Select participant",
+      "chooseWho": "Choose who to chat with",
+      "noParticipants": "No participants to chat with in this deal"
+    },
+    "participantSelector": {
+      "title": "Select Participant",
+      "description": "Choose a participant to chat with in this pane",
+      "allAssigned": "All participants are already assigned to panes",
+      "noParticipants": "No participants available for this deal"
+    },
+    "dealSelectorPopover": {
+      "selectDeal": "Select a deal",
+      "title": "Select Deal"
+    },
     "dealSelector": {
       "searchDeals": "Search deals...",
       "noActiveDeals": "No active deals",
@@ -1166,7 +1193,19 @@
       "groupNameUpdated": "Group name updated",
       "memberRemoved": "Member removed",
       "membersAdded": "Members added",
-      "leaveGroup": "Leave Group"
+      "leaveGroup": "Leave Group",
+      "nameCannotBeEmpty": "Group name cannot be empty",
+      "updateNameFailed": "Failed to update group name",
+      "removeMemberFailed": "Failed to remove member"
+    },
+    "addMembers": {
+      "title": "Add Members",
+      "description": "Select users to add to this group",
+      "noUsersToAdd": "No users available to add",
+      "adding": "Adding...",
+      "addCount": "Add ({count})",
+      "selectAtLeastOne": "Please select at least one user",
+      "addFailed": "Failed to add members"
     },
     "directChat": {
       "participants": "{count} participants - Tap for settings",
@@ -1436,6 +1475,92 @@
     "editProfile": "Edit Profile",
     "viewPublicProfile": "View Public Profile",
     "back": "Back",
+    "investorForm": {
+      "labels": {
+        "propertyTypes": "Property Types",
+        "targetLocations": "Target Locations",
+        "budgetRange": "Budget Range (USD)",
+        "minimum": "Minimum",
+        "maximum": "Maximum",
+        "targetRoi": "Minimum Target ROI % (Optional)",
+        "riskTolerance": "Risk Tolerance",
+        "investmentTimeline": "Investment Timeline (Optional)",
+        "notes": "Additional Notes (Optional)"
+      },
+      "placeholders": {
+        "selectPropertyTypes": "Select property types...",
+        "selectLocations": "Select locations...",
+        "notes": "Any specific requirements or preferences..."
+      },
+      "errors": {
+        "selectPropertyType": "Select at least one property type",
+        "selectLocation": "Select at least one location",
+        "validMinBudget": "Enter a valid minimum budget",
+        "validMaxBudget": "Enter a valid maximum budget",
+        "maxGreaterThanMin": "Maximum must be greater than minimum"
+      },
+      "toast": {
+        "saved": "Profile saved successfully!",
+        "saveFailed": "Failed to save profile. Please try again."
+      },
+      "buttons": {
+        "saving": "Saving...",
+        "saveProfile": "Save Profile"
+      }
+    },
+    "providerForm": {
+      "labels": {
+        "serviceProvider": "Service Provider",
+        "companyName": "Company Name (Optional)",
+        "licenseNumber": "License Number (Optional)",
+        "yearsExperience": "Years of Experience (Optional)",
+        "specializations": "Specializations",
+        "serviceAreas": "Service Areas",
+        "languagesSpoken": "Languages Spoken",
+        "phoneNumber": "Phone Number (Optional)",
+        "preferredContact": "Preferred Contact Method (Optional)",
+        "bio": "Professional Bio (Optional)"
+      },
+      "placeholders": {
+        "companyName": "Your company or firm name",
+        "licenseNumber": "Professional license number",
+        "selectSpecializations": "Select specializations...",
+        "selectServiceAreas": "Select service areas...",
+        "selectLanguages": "Select languages...",
+        "bio": "Tell investors about your experience and expertise..."
+      },
+      "errors": {
+        "selectServiceArea": "Select at least one service area",
+        "selectLanguage": "Select at least one language"
+      },
+      "toast": {
+        "saved": "Profile saved successfully!",
+        "saveFailed": "Failed to save profile. Please try again."
+      },
+      "buttons": {
+        "saving": "Saving...",
+        "saveProfile": "Save Profile"
+      }
+    },
+    "completeness": {
+      "fields": {
+        "notStarted": "Not started",
+        "citizenship": "Citizenship",
+        "residencyStatus": "Residency Status",
+        "experienceLevel": "Experience Level",
+        "propertyOwnership": "Property Ownership",
+        "investmentType": "Investment Type",
+        "budget": "Budget",
+        "investmentHorizon": "Investment Horizon",
+        "investmentGoals": "Investment Goals",
+        "yieldPreference": "Yield Preference",
+        "financingApproach": "Financing Approach",
+        "propertyTypes": "Property Types",
+        "preferredLocations": "Preferred Locations",
+        "purchaseTimeline": "Purchase Timeline",
+        "servicesNeeded": "Services Needed"
+      }
+    },
     "tabs": {
       "posts": "Posts",
       "reposts": "Reposts",

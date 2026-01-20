@@ -1,6 +1,7 @@
 "use client";
 
 import { useQuery } from "convex/react";
+import { useTranslations } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 import {
@@ -25,18 +26,14 @@ interface ParticipantSelectorDialogProps {
   onSelect: (participant: Participant) => void;
 }
 
-// Format role for display
-function formatRole(role?: string) {
-  if (!role) return null;
-  const labels: Record<string, string> = {
-    investor: "Investor",
-    broker: "Broker",
-    mortgage_advisor: "Mortgage Advisor",
-    lawyer: "Lawyer",
-    admin: "Admin",
-  };
-  return labels[role] || role;
-}
+// Role key map for translations
+const roleKeyMap: Record<string, string> = {
+  investor: "investor",
+  broker: "broker",
+  mortgage_advisor: "mortgageAdvisor",
+  lawyer: "lawyer",
+  admin: "admin",
+};
 
 // Get initials from name
 function getInitials(name?: string | null) {
@@ -56,6 +53,9 @@ export function ParticipantSelectorDialog({
   excludeIds,
   onSelect,
 }: ParticipantSelectorDialogProps) {
+  const t = useTranslations("chat.participantSelector");
+  const tRoles = useTranslations("common.roles");
+
   // Fetch participants for this deal
   const participants = useQuery(
     api.messages.getDealParticipants,
@@ -78,9 +78,9 @@ export function ParticipantSelectorDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Select Participant</DialogTitle>
+          <DialogTitle>{t("title")}</DialogTitle>
           <DialogDescription>
-            Choose a participant to chat with in this pane
+            {t("description")}
           </DialogDescription>
         </DialogHeader>
 
@@ -102,8 +102,8 @@ export function ParticipantSelectorDialog({
               <div className="py-8 text-center">
                 <p className="text-muted-foreground text-sm">
                   {participants && participants.length > 0
-                    ? "All participants are already assigned to panes"
-                    : "No participants available for this deal"}
+                    ? t("allAssigned")
+                    : t("noParticipants")}
                 </p>
               </div>
             ) : (
@@ -131,7 +131,7 @@ export function ParticipantSelectorDialog({
                       <p className="font-medium truncate">{participant.name}</p>
                       {participant.role && (
                         <Badge variant="secondary" className="text-xs mt-1">
-                          {formatRole(participant.role)}
+                          {tRoles(roleKeyMap[participant.role] || participant.role)}
                         </Badge>
                       )}
                     </div>

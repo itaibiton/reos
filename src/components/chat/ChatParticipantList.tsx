@@ -2,6 +2,7 @@
 
 import { useMemo } from "react";
 import { useQuery } from "convex/react";
+import { useTranslations } from "next-intl";
 import { useDraggable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
 import { api } from "../../../convex/_generated/api";
@@ -34,18 +35,14 @@ interface ChatParticipantListProps {
   dealTitle?: string;
 }
 
-// Format role for display
-function formatRole(role?: string) {
-  if (!role) return null;
-  const labels: Record<string, string> = {
-    investor: "Investor",
-    broker: "Broker",
-    mortgage_advisor: "Mortgage Advisor",
-    lawyer: "Lawyer",
-    admin: "Admin",
-  };
-  return labels[role] || role;
-}
+// Role key map for translations
+const roleKeyMap: Record<string, string> = {
+  investor: "investor",
+  broker: "broker",
+  mortgage_advisor: "mortgageAdvisor",
+  lawyer: "lawyer",
+  admin: "admin",
+};
 
 // Get initials from name
 function getInitials(name?: string | null) {
@@ -65,6 +62,7 @@ interface DraggableParticipantProps {
   unreadCount: number;
   onClick: () => void;
   enableDrag: boolean;
+  tRoles: (key: string) => string;
 }
 
 function DraggableParticipant({
@@ -73,6 +71,7 @@ function DraggableParticipant({
   unreadCount,
   onClick,
   enableDrag,
+  tRoles,
 }: DraggableParticipantProps) {
   const { attributes, listeners, setNodeRef, transform, isDragging } =
     useDraggable({
@@ -124,7 +123,7 @@ function DraggableParticipant({
         <p className="font-medium text-sm truncate">{participant.name}</p>
         {participant.role && (
           <Badge variant="secondary" className="text-xs">
-            {formatRole(participant.role)}
+            {tRoles(roleKeyMap[participant.role] || participant.role)}
           </Badge>
         )}
       </div>
@@ -145,6 +144,8 @@ export function ParticipantDragPreview({
 }: {
   participant: Participant;
 }) {
+  const tRoles = useTranslations("common.roles");
+
   return (
     <div className="flex items-center gap-3 p-2 rounded-lg bg-background border shadow-lg w-64">
       <Avatar className="h-8 w-8 flex-shrink-0">
@@ -157,7 +158,7 @@ export function ParticipantDragPreview({
         <p className="font-medium text-sm truncate">{participant.name}</p>
         {participant.role && (
           <Badge variant="secondary" className="text-xs">
-            {formatRole(participant.role)}
+            {tRoles(roleKeyMap[participant.role] || participant.role)}
           </Badge>
         )}
       </div>
@@ -174,6 +175,8 @@ export function ChatParticipantList({
   dealTitle,
 }: ChatParticipantListProps) {
   const { user } = useCurrentUser();
+  const t = useTranslations("chat");
+  const tRoles = useTranslations("common.roles");
 
   // Fetch participants for this deal
   const participants = useQuery(api.messages.getDealParticipants, { dealId });
@@ -207,8 +210,8 @@ export function ChatParticipantList({
         <HugeiconsIcon icon={ArrowLeft01Icon} size={20} className="rtl:-scale-x-100" />
       </Button>
       <div className="flex-1 min-w-0">
-        <p className="font-medium truncate">{dealTitle || "Select participant"}</p>
-        <p className="text-xs text-muted-foreground">Choose who to chat with</p>
+        <p className="font-medium truncate">{dealTitle || t("participantList.selectParticipant")}</p>
+        <p className="text-xs text-muted-foreground">{t("participantList.chooseWho")}</p>
       </div>
     </div>
   ) : null;
@@ -237,7 +240,7 @@ export function ChatParticipantList({
       <div className={onBack ? "flex flex-col h-full" : ""}>
         {header}
         <div className="p-4 text-center text-muted-foreground text-sm">
-          No participants to chat with in this deal
+          {t("participantList.noParticipants")}
         </div>
       </div>
     );
@@ -261,6 +264,7 @@ export function ChatParticipantList({
               unreadCount={unreadCount}
               onClick={() => onSelectParticipant(participant as Participant)}
               enableDrag={enableDrag}
+              tRoles={tRoles}
             />
           );
         })}

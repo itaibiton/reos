@@ -1,6 +1,7 @@
 "use client";
 
 import { usePaginatedQuery } from "convex/react";
+import { useTranslations } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 import { PostCard, PostCardSkeleton } from "@/components/feed";
@@ -11,6 +12,8 @@ interface UserRepostsFeedProps {
 }
 
 export function UserRepostsFeed({ userId }: UserRepostsFeedProps) {
+  const t = useTranslations("profile");
+  const tCommon = useTranslations("common");
   const { results, status, loadMore } = usePaginatedQuery(
     api.posts.getUserReposts,
     { userId },
@@ -32,7 +35,7 @@ export function UserRepostsFeed({ userId }: UserRepostsFeedProps) {
   if (results.length === 0) {
     return (
       <div className="text-center py-12 text-muted-foreground">
-        No reposts yet.
+        {t("empty.noReposts")}
       </div>
     );
   }
@@ -47,7 +50,7 @@ export function UserRepostsFeed({ userId }: UserRepostsFeedProps) {
       {status === "CanLoadMore" && (
         <div className="flex justify-center pt-4">
           <Button variant="outline" onClick={() => loadMore(10)}>
-            Load more
+            {tCommon("actions.loadMore")}
           </Button>
         </div>
       )}
@@ -55,7 +58,7 @@ export function UserRepostsFeed({ userId }: UserRepostsFeedProps) {
       {/* Loading more indicator */}
       {status === "LoadingMore" && (
         <div className="flex justify-center pt-4">
-          <div className="text-sm text-muted-foreground">Loading...</div>
+          <div className="text-sm text-muted-foreground">{tCommon("status.loading")}...</div>
         </div>
       )}
     </div>

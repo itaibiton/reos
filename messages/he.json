@@ -454,7 +454,9 @@
       "description": "בחר משתמשים להוספה לקבוצה",
       "noUsersToAdd": "אין משתמשים זמינים להוספה",
       "adding": "מוסיף...",
-      "addCount": "הוסף ({count})"
+      "addCount": "הוסף ({count})",
+      "selectAtLeastOne": "נא לבחור לפחות משתמש אחד",
+      "addFailed": "הוספת המשתתפים נכשלה"
     },
     "groupSettings": {
       "title": "הגדרות קבוצה",
@@ -466,7 +468,10 @@
       "groupNameUpdated": "שם הקבוצה עודכן",
       "memberRemoved": "משתתף הוסר",
       "membersAdded": "משתתפים נוספו",
-      "leaveGroup": "עזוב קבוצה"
+      "leaveGroup": "עזוב קבוצה",
+      "nameCannotBeEmpty": "שם הקבוצה לא יכול להיות ריק",
+      "updateNameFailed": "עדכון שם הקבוצה נכשל",
+      "removeMemberFailed": "הסרת המשתתף נכשלה"
     },
     "directChat": {
       "participants": "{count} משתתפים - לחץ להגדרות",
@@ -542,6 +547,33 @@
       "hoursAgo": "לפני {count} שעות",
       "yesterday": "אתמול",
       "daysAgo": "לפני {count} ימים"
+    },
+    "toggle": {
+      "deals": "עסקאות",
+      "direct": "ישיר"
+    },
+    "message": {
+      "statusRead": "נקרא",
+      "statusDelivered": "נמסר"
+    },
+    "thread": {
+      "sendFailed": "שליחת ההודעה נכשלה",
+      "startConversation": "שלח הודעה להתחלת השיחה"
+    },
+    "participantList": {
+      "selectParticipant": "בחר משתתף",
+      "chooseWho": "בחר עם מי לשוחח",
+      "noParticipants": "אין משתתפים לשוחח איתם בעסקה זו"
+    },
+    "participantSelector": {
+      "title": "בחר משתתף",
+      "description": "בחר משתתף לשיחה בחלונית זו",
+      "allAssigned": "כל המשתתפים כבר הוקצו לחלוניות",
+      "noParticipants": "אין משתתפים זמינים לעסקה זו"
+    },
+    "dealSelectorPopover": {
+      "selectDeal": "בחר עסקה",
+      "title": "בחירת עסקה"
     }
   },
   "properties": {
@@ -2007,6 +2039,92 @@
     "notFound": {
       "title": "משתמש לא נמצא",
       "description": "פרופיל משתמש זה אינו קיים או אינו זמין."
+    },
+    "investorForm": {
+      "labels": {
+        "propertyTypes": "סוגי נכסים",
+        "targetLocations": "מיקומי יעד",
+        "budgetRange": "טווח תקציב (דולר)",
+        "minimum": "מינימום",
+        "maximum": "מקסימום",
+        "targetRoi": "תשואה מינימלית % (אופציונלי)",
+        "riskTolerance": "סיבולת סיכון",
+        "investmentTimeline": "אופק השקעה (אופציונלי)",
+        "notes": "הערות נוספות (אופציונלי)"
+      },
+      "placeholders": {
+        "selectPropertyTypes": "בחר סוגי נכסים...",
+        "selectLocations": "בחר מיקומים...",
+        "notes": "דרישות או העדפות ספציפיות..."
+      },
+      "errors": {
+        "selectPropertyType": "בחר לפחות סוג נכס אחד",
+        "selectLocation": "בחר לפחות מיקום אחד",
+        "validMinBudget": "הכנס תקציב מינימלי תקף",
+        "validMaxBudget": "הכנס תקציב מקסימלי תקף",
+        "maxGreaterThanMin": "המקסימום חייב להיות גדול מהמינימום"
+      },
+      "toast": {
+        "saved": "הפרופיל נשמר בהצלחה!",
+        "saveFailed": "שמירת הפרופיל נכשלה. נסה שוב."
+      },
+      "buttons": {
+        "saving": "שומר...",
+        "saveProfile": "שמור פרופיל"
+      }
+    },
+    "providerForm": {
+      "labels": {
+        "serviceProvider": "נותן שירות",
+        "companyName": "שם החברה (אופציונלי)",
+        "licenseNumber": "מספר רישיון (אופציונלי)",
+        "yearsExperience": "שנות ניסיון (אופציונלי)",
+        "specializations": "התמחויות",
+        "serviceAreas": "אזורי שירות",
+        "languagesSpoken": "שפות מדוברות",
+        "phoneNumber": "מספר טלפון (אופציונלי)",
+        "preferredContact": "אמצעי קשר מועדף (אופציונלי)",
+        "bio": "תיאור מקצועי (אופציונלי)"
+      },
+      "placeholders": {
+        "companyName": "שם החברה או המשרד שלך",
+        "licenseNumber": "מספר רישיון מקצועי",
+        "selectSpecializations": "בחר התמחויות...",
+        "selectServiceAreas": "בחר אזורי שירות...",
+        "selectLanguages": "בחר שפות...",
+        "bio": "ספר למשקיעים על הניסיון והמומחיות שלך..."
+      },
+      "errors": {
+        "selectServiceArea": "בחר לפחות אזור שירות אחד",
+        "selectLanguage": "בחר לפחות שפה אחת"
+      },
+      "toast": {
+        "saved": "הפרופיל נשמר בהצלחה!",
+        "saveFailed": "שמירת הפרופיל נכשלה. נסה שוב."
+      },
+      "buttons": {
+        "saving": "שומר...",
+        "saveProfile": "שמור פרופיל"
+      }
+    },
+    "completeness": {
+      "fields": {
+        "notStarted": "לא התחיל",
+        "citizenship": "אזרחות",
+        "residencyStatus": "סטטוס תושבות",
+        "experienceLevel": "רמת ניסיון",
+        "propertyOwnership": "בעלות על נכס",
+        "investmentType": "סוג השקעה",
+        "budget": "תקציב",
+        "investmentHorizon": "אופק השקעה",
+        "investmentGoals": "יעדי השקעה",
+        "yieldPreference": "העדפת תשואה",
+        "financingApproach": "גישת מימון",
+        "propertyTypes": "סוגי נכסים",
+        "preferredLocations": "מיקומים מועדפים",
+        "purchaseTimeline": "לוח זמנים לרכישה",
+        "servicesNeeded": "שירותים נדרשים"
+      }
     }
   },
   "header": {

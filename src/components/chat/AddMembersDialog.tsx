@@ -96,7 +96,7 @@ export function AddMembersDialog({
 
   const handleAdd = async () => {
     if (selectedUserIds.length === 0) {
-      toast.error("Please select at least one user");
+      toast.error(t("addMembers.selectAtLeastOne"));
       return;
     }
 
@@ -115,7 +115,7 @@ export function AddMembersDialog({
       onOpenChange(false);
     } catch (error) {
       console.error("Failed to add members:", error);
-      toast.error("Failed to add members");
+      toast.error(t("addMembers.addFailed"));
     } finally {
       setIsAdding(false);
     }

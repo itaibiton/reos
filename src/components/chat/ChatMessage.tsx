@@ -96,8 +96,8 @@ export function ChatMessage({
           </span>
           {isOwn && status && (
             <span className="text-xs text-muted-foreground">
-              {status === "read" && " - Read"}
-              {status === "delivered" && " - Delivered"}
+              {status === "read" && ` - ${t("message.statusRead")}`}
+              {status === "delivered" && ` - ${t("message.statusDelivered")}`}
             </span>
           )}
         </div>

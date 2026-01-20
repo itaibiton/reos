@@ -105,7 +105,7 @@ export function GroupSettingsDialog({
 
   const handleSaveName = async () => {
     if (!editedName.trim()) {
-      toast.error("Group name cannot be empty");
+      toast.error(t("groupSettings.nameCannotBeEmpty"));
       return;
     }
 
@@ -119,7 +119,7 @@ export function GroupSettingsDialog({
       toast.success(t("groupSettings.groupNameUpdated"));
     } catch (error) {
       console.error("Failed to update group name:", error);
-      toast.error("Failed to update group name");
+      toast.error(t("groupSettings.updateNameFailed"));
     } finally {
       setIsSaving(false);
     }
@@ -140,7 +140,7 @@ export function GroupSettingsDialog({
       toast.success(t("groupSettings.memberRemoved"));
     } catch (error) {
       console.error("Failed to remove member:", error);
-      toast.error("Failed to remove member");
+      toast.error(t("groupSettings.removeMemberFailed"));
     } finally {
       setRemovingMemberId(null);
     }

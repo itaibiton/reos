@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useQuery } from "convex/react";
+import { useTranslations } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 import { Button } from "@/components/ui/button";
@@ -35,6 +36,7 @@ export function DealSelectorPopover({
 }: DealSelectorPopoverProps) {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [sheetOpen, setSheetOpen] = useState(false);
+  const t = useTranslations("chat.dealSelectorPopover");
 
   // Fetch selected deal info for trigger button display
   const dealsWithProperties = useQuery(api.deals.listWithProperties, {});
@@ -50,7 +52,7 @@ export function DealSelectorPopover({
     <>
       <HugeiconsIcon icon={Agreement01Icon} size={16} />
       <span className="flex-1 text-start truncate">
-        {selectedDeal?.property?.title || "Select a deal"}
+        {selectedDeal?.property?.title || t("selectDeal")}
       </span>
       <HugeiconsIcon
         icon={ArrowDown01Icon}
@@ -75,7 +77,7 @@ export function DealSelectorPopover({
           </DialogTrigger>
           <DialogContent className="sm:max-w-md">
             <DialogHeader>
-              <DialogTitle>Select Deal</DialogTitle>
+              <DialogTitle>{t("title")}</DialogTitle>
             </DialogHeader>
             <ScrollArea className="h-[400px] -mx-6 px-6">
               <DealSelector selectedDealId={selectedDealId} onSelect={handleSelect} />
@@ -97,7 +99,7 @@ export function DealSelectorPopover({
           </SheetTrigger>
           <SheetContent side="bottom" className="h-[70vh] rounded-t-xl">
             <SheetHeader>
-              <SheetTitle>Select Deal</SheetTitle>
+              <SheetTitle>{t("title")}</SheetTitle>
             </SheetHeader>
             <div className="mt-4">
               <ScrollArea className="h-[calc(70vh-100px)]">

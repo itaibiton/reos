@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Home01Icon, Message02Icon } from "@hugeicons/core-free-icons";
@@ -17,6 +18,8 @@ export function ChatModeToggle({
   onModeChange,
   directUnreadCount = 0,
 }: ChatModeToggleProps) {
+  const t = useTranslations("chat.toggle");
+
   return (
     <ToggleGroup
       type="single"
@@ -29,11 +32,11 @@ export function ChatModeToggle({
     >
       <ToggleGroupItem value="deals" className="flex-1 gap-1.5">
         <HugeiconsIcon icon={Home01Icon} size={16} />
-        <span>Deals</span>
+        <span>{t("deals")}</span>
       </ToggleGroupItem>
       <ToggleGroupItem value="direct" className="flex-1 gap-1.5 relative">
         <HugeiconsIcon icon={Message02Icon} size={16} />
-        <span>Direct</span>
+        <span>{t("direct")}</span>
         {directUnreadCount > 0 && (
           <span className="absolute -top-1 -end-1 h-4 min-w-4 px-1 rounded-full bg-destructive text-destructive-foreground text-[10px] font-medium flex items-center justify-center">
             {directUnreadCount > 99 ? "99+" : directUnreadCount}
