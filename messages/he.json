@@ -1,4 +1,223 @@
 {
+  "common": {
+    "actions": {
+      "save": "שמור",
+      "cancel": "ביטול",
+      "edit": "ערוך",
+      "delete": "מחק",
+      "create": "צור",
+      "update": "עדכן",
+      "submit": "שלח",
+      "close": "סגור",
+      "confirm": "אשר",
+      "back": "חזור",
+      "next": "הבא",
+      "previous": "הקודם",
+      "search": "חיפוש",
+      "clear": "נקה",
+      "apply": "החל",
+      "reset": "איפוס",
+      "viewAll": "הצג הכל",
+      "viewDetails": "הצג פרטים",
+      "showMore": "הצג עוד",
+      "showLess": "הצג פחות",
+      "loadMore": "טען עוד"
+    },
+    "status": {
+      "loading": "טוען",
+      "error": "שגיאה",
+      "success": "הצלחה",
+      "pending": "ממתין",
+      "active": "פעיל",
+      "inactive": "לא פעיל",
+      "available": "זמין",
+      "unavailable": "לא זמין",
+      "completed": "הושלם",
+      "cancelled": "בוטל"
+    },
+    "labels": {
+      "email": "אימייל",
+      "phone": "טלפון",
+      "name": "שם",
+      "firstName": "שם פרטי",
+      "lastName": "שם משפחה",
+      "password": "סיסמה",
+      "address": "כתובת",
+      "city": "עיר",
+      "country": "מדינה",
+      "description": "תיאור",
+      "title": "כותרת",
+      "date": "תאריך",
+      "time": "שעה"
+    },
+    "empty": {
+      "noResults": "לא נמצאו תוצאות",
+      "noData": "אין נתונים זמינים",
+      "noItems": "אין פריטים",
+      "notFound": "לא נמצא"
+    },
+    "errors": {
+      "required": "שדה חובה",
+      "invalid": "ערך לא תקין",
+      "tooShort": "קצר מדי",
+      "tooLong": "ארוך מדי",
+      "generic": "אירעה שגיאה"
+    },
+    "confirm": {
+      "areYouSure": "האם אתה בטוח?",
+      "deleteConfirm": "האם אתה בטוח שברצונך למחוק?",
+      "cancelConfirm": "האם אתה בטוח שברצונך לבטל?"
+    },
+    "propertyTypes": {
+      "residential": "מגורים",
+      "commercial": "מסחרי",
+      "mixedUse": "שימוש מעורב",
+      "land": "קרקע"
+    },
+    "propertyStatus": {
+      "available": "זמין",
+      "pending": "ממתין",
+      "sold": "נמכר"
+    },
+    "roles": {
+      "investor": "משקיע",
+      "broker": "מתווך",
+      "mortgageAdvisor": "יועץ משכנתא",
+      "lawyer": "עורך דין",
+      "accountant": "רואה חשבון",
+      "notary": "נוטריון",
+      "taxConsultant": "יועץ מס",
+      "appraiser": "שמאי",
+      "admin": "מנהל"
+    },
+    "amenities": {
+      "airConditioning": "מיזוג אוויר",
+      "elevator": "מעלית",
+      "parking": "חניה",
+      "storage": "מחסן",
+      "balcony": "מרפסת",
+      "security": "אבטחה",
+      "gym": "חדר כושר",
+      "pool": "בריכה",
+      "garden": "גינה",
+      "renovated": "משופץ",
+      "furnished": "מרוהט",
+      "petFriendly": "ידידותי לחיות",
+      "accessible": "נגיש",
+      "safeRoom": "ממ\"ד",
+      "solar": "סולארי"
+    },
+    "riskTolerance": {
+      "conservative": {
+        "label": "שמרני",
+        "description": "סיכון נמוך, תשואות יציבות"
+      },
+      "moderate": {
+        "label": "מאוזן",
+        "description": "סיכון ותשואות מאוזנים"
+      },
+      "aggressive": {
+        "label": "אגרסיבי",
+        "description": "סיכון גבוה, פוטנציאל תשואות גבוה"
+      }
+    },
+    "investmentTimeline": {
+      "shortTerm": {
+        "label": "טווח קצר",
+        "description": "פחות משנתיים"
+      },
+      "mediumTerm": {
+        "label": "טווח בינוני",
+        "description": "2-5 שנים"
+      },
+      "longTerm": {
+        "label": "טווח ארוך",
+        "description": "5+ שנים"
+      }
+    },
+    "languages": {
+      "english": "אנגלית",
+      "hebrew": "עברית",
+      "russian": "רוסית",
+      "french": "צרפתית",
+      "spanish": "ספרדית"
+    },
+    "contactPreferences": {
+      "email": "אימייל",
+      "phone": "טלפון",
+      "whatsapp": "וואטסאפ"
+    },
+    "units": {
+      "sqm": "מ\"ר",
+      "bedrooms": "חדרים",
+      "bathrooms": "חדרי רחצה",
+      "floors": "קומות"
+    },
+    "specializations": {
+      "broker": {
+        "residential": "מגורים",
+        "commercial": "מסחרי",
+        "luxury": "נכסי יוקרה",
+        "newConstruction": "בנייה חדשה",
+        "investment": "נכסי השקעה"
+      },
+      "mortgageAdvisor": {
+        "firstTimeBuyers": "רוכשים ראשונים",
+        "refinancing": "מחזור משכנתא",
+        "investmentProperties": "נכסי השקעה",
+        "foreignNationals": "תושבי חוץ"
+      },
+      "lawyer": {
+        "realEstateTransactions": "עסקאות נדל\"ן",
+        "contracts": "בדיקת חוזים",
+        "dueDiligence": "בדיקת נאותות",
+        "taxPlanning": "תכנון מס"
+      }
+    }
+  },
+  "navigation": {
+    "groups": {
+      "marketplace": "שוק",
+      "propertyManagement": "ניהול נכסים",
+      "mortgageRequests": "בקשות משכנתא",
+      "legalServices": "שירותים משפטיים",
+      "accountingServices": "שירותי חשבונאות",
+      "notarizationServices": "שירותי נוטריון",
+      "taxServices": "שירותי מס",
+      "appraisalServices": "שירותי שמאות"
+    },
+    "items": {
+      "dashboard": "לוח בקרה",
+      "analytics": "אנליטיקה",
+      "browseProperties": "עיון בנכסים",
+      "savedProperties": "נכסים שמורים",
+      "yourListings": "הנכסים שלך",
+      "findProviders": "מצא ספקים",
+      "deals": "עסקאות",
+      "propertyTours": "סיורי נכסים",
+      "leadManagement": "ניהול לידים",
+      "newApplications": "בקשות חדשות",
+      "preApprovals": "אישורים מקדמיים",
+      "financingDeals": "עסקאות מימון",
+      "consultationRequests": "בקשות ייעוץ",
+      "contractReviews": "בדיקת חוזים",
+      "transactionDocuments": "מסמכי עסקה",
+      "financialAnalysis": "ניתוח פיננסי",
+      "taxPlanning": "תכנון מס",
+      "notarizationRequests": "בקשות נוטריון",
+      "documentSignings": "חתימת מסמכים",
+      "transactionNotarizations": "אימות עסקאות",
+      "taxFilingRequests": "בקשות הגשת מס",
+      "appraisalRequests": "בקשות שמאות",
+      "propertyValuations": "הערכות נכסים",
+      "valuationReports": "דוחות שמאות",
+      "clients": "לקוחות",
+      "feed": "פיד",
+      "chat": "צ'אט",
+      "profile": "פרופיל",
+      "settings": "הגדרות"
+    }
+  },
   "landing": {
     "nav": {
       "services": "שירותים",
@@ -184,5 +403,191 @@
       },
       "copyright": "© 2024 REOS. כל הזכויות שמורות."
     }
+  },
+  "chat": {
+    "title": "צ'אט",
+    "messages": "הודעות",
+    "modes": {
+      "deals": "צ'אט עסקאות",
+      "direct": "הודעות ישירות",
+      "groups": "קבוצות"
+    },
+    "input": {
+      "placeholder": "הקלד הודעה...",
+      "send": "שלח",
+      "sendMessage": "שלח הודעה"
+    },
+    "layout": {
+      "single": "צ'אט יחיד",
+      "split": "תצוגה מפוצלת",
+      "quad": "ארבעה צ'אטים",
+      "selectMode": "בחר תצוגה"
+    },
+    "pane": {
+      "selectDeal": "בחר עסקה לצפייה במשתתפים",
+      "selectConversation": "בחר שיחה",
+      "dragHere": "גרור משתתף לכאן",
+      "dropToAssign": "שחרר להקצאה",
+      "clickBelow": "או לחץ על הכפתור למטה",
+      "selectParticipant": "בחר משתתף",
+      "emptyPane": "חלונית ריקה",
+      "dragParticipants": "גרור משתתפים לחלוניות הצ'אט"
+    },
+    "participants": {
+      "title": "משתתפים",
+      "online": "מחובר",
+      "offline": "לא מחובר",
+      "typing": "מקליד...",
+      "unread": "{count} לא נקראו"
+    },
+    "group": {
+      "create": "צור קבוצה",
+      "name": "שם הקבוצה",
+      "addMembers": "הוסף חברים",
+      "leave": "עזוב קבוצה",
+      "leaveTitle": "לעזוב את \"{groupName}\"?",
+      "leaveConfirm": "לא תוכל לראות יותר הודעות מקבוצה זו. חבר אחר יכול להוסיף אותך בחזרה.",
+      "leaving": "עוזב...",
+      "leftSuccess": "עזבת את הקבוצה",
+      "leftError": "עזיבת הקבוצה נכשלה",
+      "delete": "מחק קבוצה",
+      "deleteTitle": "למחוק את \"{groupName}\"?",
+      "deleteConfirm": "פעולה זו תמחק לצמיתות את הקבוצה ואת כל ההודעות עבור כל החברים. לא ניתן לבטל פעולה זו.",
+      "deleting": "מוחק...",
+      "deletedSuccess": "הקבוצה נמחקה",
+      "deletedError": "מחיקת הקבוצה נכשלה"
+    },
+    "empty": {
+      "noMessages": "אין הודעות עדיין",
+      "startConversation": "התחל שיחה",
+      "noChats": "אין צ'אטים עדיין",
+      "noDeals": "אין עסקאות עדיין",
+      "noDealsDescription": "התחל עסקה בנכס כדי לשוחח עם נותני שירות",
+      "selectDeal": "בחר עסקה",
+      "selectDealDescription": "בחר עסקה מהרשימה לראות עם מי אפשר לשוחח",
+      "selectChat": "בחר שיחה",
+      "selectChatDescription": "בחר שיחה מהרשימה או התחל צ'אט חדש",
+      "selectConversation": "בחר שיחה",
+      "selectConversationDescription": "בחר משתתף מהרשימה להתחיל לשלוח הודעות"
+    },
+    "time": {
+      "justNow": "עכשיו",
+      "minutesAgo": "לפני {count} דקות",
+      "hoursAgo": "לפני {count} שעות",
+      "yesterday": "אתמול",
+      "daysAgo": "לפני {count} ימים"
+    }
+  },
+  "feed": {
+    "title": "פיד",
+    "createPost": "צור פוסט",
+    "tabs": {
+      "global": "גלובלי",
+      "following": "עוקבים"
+    },
+    "filters": {
+      "all": "הכל",
+      "properties": "נכסים",
+      "services": "שירותים",
+      "discussions": "דיונים"
+    },
+    "post": {
+      "types": {
+        "property": "נכס",
+        "serviceRequest": "שירות",
+        "discussion": "דיון"
+      },
+      "selectProperty": "בחר נכס לשיתוף",
+      "propertyRequired": "אנא בחר נכס לשיתוף",
+      "serviceType": "איזה סוג שירות אתה צריך?",
+      "serviceTypeRequired": "אנא בחר סוג שירות",
+      "visibility": "מי יכול לראות את הפוסט?",
+      "visibilityOptions": {
+        "public": "ציבורי",
+        "publicDescription": "כולם יכולים לראות",
+        "followersOnly": "עוקבים",
+        "followersOnlyDescription": "רק עוקבים",
+        "dealParticipants": "משתתפי העסקה"
+      },
+      "content": "תוכן",
+      "contentRequired": "תוכן הפוסט נדרש",
+      "contentPlaceholder": "מה עובר לך בראש?",
+      "propertyCaption": "הוסף כיתוב",
+      "propertyCaptionPlaceholder": "מה מיוחד בנכס הזה...",
+      "serviceDescription": "תאר מה אתה מחפש",
+      "serviceDescriptionPlaceholder": "אני מחפש מתווך שמתמחה ב...",
+      "discussionPlaceholder": "שתף את המחשבות שלך, שאל שאלות, או התחל שיחה...",
+      "post": "פרסם",
+      "posting": "מפרסם...",
+      "propertyPostCreated": "פוסט הנכס נוצר!",
+      "discussionPostCreated": "פוסט הדיון נוצר!",
+      "serviceRequestPosted": "בקשת השירות פורסמה!",
+      "createError": "יצירת הפוסט נכשלה"
+    },
+    "engagement": {
+      "like": "אהבתי",
+      "liked": "אהבתי",
+      "unlikePost": "הסר לייק",
+      "likePost": "עשה לייק",
+      "comment": "תגובה",
+      "comments": "תגובות",
+      "hideComments": "הסתר תגובות",
+      "showComments": "הצג תגובות",
+      "share": "שתף",
+      "sharePost": "שתף פוסט",
+      "save": "שמור",
+      "saved": "נשמר",
+      "unsavePost": "הסר משמורים",
+      "savePost": "שמור פוסט",
+      "repost": "שתף מחדש",
+      "alreadyReposted": "כבר שותף מחדש",
+      "repostedTooltip": "כבר שיתפת את הפוסט הזה"
+    },
+    "comments": {
+      "title": "תגובות",
+      "placeholder": "כתוב תגובה...",
+      "post": "פרסם",
+      "loadMore": "טען עוד תגובות",
+      "noComments": "אין תגובות עדיין. היה הראשון להגיב!",
+      "beFirst": "היה הראשון להגיב",
+      "addedSuccess": "התגובה נוספה",
+      "addedError": "הוספת התגובה נכשלה"
+    },
+    "share": {
+      "title": "שתף",
+      "copyLink": "העתק קישור",
+      "copied": "הקישור הועתק ללוח",
+      "copyError": "העתקת הקישור נכשלה",
+      "shareOn": "שתף ב"
+    },
+    "follow": {
+      "follow": "עקוב",
+      "following": "עוקב",
+      "unfollow": "הפסק לעקוב",
+      "followers": "עוקבים",
+      "followersCount": "{count} עוקבים",
+      "followingCount": "{count} עוקב אחרי"
+    },
+    "empty": {
+      "noPosts": "אין פוסטים עדיין",
+      "noPostsDescription": "היה הראשון לשתף משהו עם הקהילה.",
+      "noPropertyPosts": "אין פוסטי נכסים עדיין",
+      "noServicePosts": "אין בקשות שירות עדיין",
+      "noDiscussionPosts": "אין דיונים עדיין",
+      "noFollowingPosts": "אין פוסטים מאנשים שאתה עוקב אחריהם",
+      "noFollowingDescription": "עקוב אחרי משתמשים כדי לראות את הפוסטים שלהם כאן.",
+      "followMore": "עקוב אחרי עוד אנשים כדי לראות את הפוסטים שלהם",
+      "createFirst": "היה הראשון לפרסם",
+      "createAPost": "צור פוסט"
+    },
+    "card": {
+      "viewProperty": "צפה בנכס",
+      "viewDetails": "צפה בפרטים",
+      "postedBy": "פורסם על ידי",
+      "lookingFor": "מחפש",
+      "discussion": "דיון"
+    },
+    "loadMore": "טען עוד",
+    "loading": "טוען..."
   }
 }
