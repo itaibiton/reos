@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuery } from "convex/react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useFormatter } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -13,21 +13,7 @@ import {
   AnalyticsDownIcon,
 } from "@hugeicons/core-free-icons";
 
-// Format population with commas
-const formatPopulation = (population: number) => {
-  return new Intl.NumberFormat("en-US").format(population);
-};
-
-// Format price per square meter
-const formatPricePerSqm = (price: number) => {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  }).format(price);
-};
-
-// Format percentage change
+// Format percentage change (kept as-is: percentage formatting with sign prefix is specialized logic)
 const formatPercentChange = (change: number) => {
   const prefix = change >= 0 ? "+" : "";
   return `${prefix}${change.toFixed(1)}%`;
@@ -40,6 +26,7 @@ interface NeighborhoodInfoProps {
 
 export function NeighborhoodInfo({ city }: NeighborhoodInfoProps) {
   const t = useTranslations("properties");
+  const format = useFormatter();
   const neighborhood = useQuery(api.neighborhoods.getByCity, { city });
 
   // Loading state
@@ -85,7 +72,7 @@ export function NeighborhoodInfo({ city }: NeighborhoodInfoProps) {
               />
               <span className="text-xs">{t("neighborhood.population")}</span>
             </div>
-            <p className="font-semibold">{formatPopulation(population)}</p>
+            <p className="font-semibold">{format.number(population)}</p>
           </div>
         )}
 
@@ -95,7 +82,7 @@ export function NeighborhoodInfo({ city }: NeighborhoodInfoProps) {
             <HugeiconsIcon icon={Money01Icon} size={16} strokeWidth={1.5} />
             <span className="text-xs">{t("neighborhood.avgPricePerSqm")}</span>
           </div>
-          <p className="font-semibold">{formatPricePerSqm(avgPricePerSqm)}</p>
+          <p className="font-semibold">{format.number(avgPricePerSqm, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}</p>
         </div>
 
         {/* 1-Year Price Change */}
