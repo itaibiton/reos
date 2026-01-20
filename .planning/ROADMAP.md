@@ -23,7 +23,7 @@ Building an end-to-end real estate investment platform connecting US investors w
 | 30 | RTL Component Patches | RTL-03, RTL-04, RTL-05 | Complete |
 | 31 | Translation Infrastructure | TRANS-01, TRANS-03 | Complete |
 | 32 | Locale Formatting | FMT-01, FMT-02, FMT-03 | Complete |
-| 33 | Hebrew Translation | TRANS-02 | Pending |
+| 33 | Hebrew Translation | TRANS-02 | Complete |
 | 34 | Language Switcher & Polish | UX-01, UX-02, UX-03 | Pending |
 
 [Full details ->](milestones/v1.4-ROADMAP.md)

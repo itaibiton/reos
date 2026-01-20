@@ -25,7 +25,7 @@ Requirements for v1.4 Internationalization & RTL Support. Each maps to roadmap p
 ### Translation
 
 - [x] **TRANS-01**: All UI strings extracted to JSON translation files
-- [ ] **TRANS-02**: Hebrew translations provided for all extracted UI strings
+- [x] **TRANS-02**: Hebrew translations provided for all extracted UI strings
 - [x] **TRANS-03**: Translation files organized by namespace/feature
 
 ### Formatting
@@ -89,7 +89,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | RTL-04 | 30 | Complete |
 | RTL-05 | 30 | Complete |
 | TRANS-01 | 31 | Complete |
-| TRANS-02 | 33 | Pending |
+| TRANS-02 | 33 | Complete |
 | TRANS-03 | 31 | Complete |
 | FMT-01 | 32 | Complete |
 | FMT-02 | 32 | Complete |
@@ -105,4 +105,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-01-19*
-*Last updated: 2026-01-19 after roadmap creation*
+*Last updated: 2026-01-20 after Phase 33 completion*
