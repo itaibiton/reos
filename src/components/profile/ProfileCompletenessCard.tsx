@@ -1,12 +1,13 @@
 "use client";
 
-import Link from "next/link";
 import { useQuery } from "convex/react";
+import { useTranslations } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
+import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
 interface ProfileCompletenessCardProps {
@@ -71,6 +72,7 @@ function calculateCompleteness(q: QuestionnaireData | null): { percent: number; 
 }
 
 export function ProfileCompletenessCard({ className }: ProfileCompletenessCardProps) {
+  const t = useTranslations("settings.profile");
   const questionnaire = useQuery(api.investorQuestionnaires.getByUser);
 
   // Loading state
@@ -78,7 +80,7 @@ export function ProfileCompletenessCard({ className }: ProfileCompletenessCardPr
     return (
       <Card className={cn("", className)}>
         <CardHeader>
-          <CardTitle>Profile Completeness</CardTitle>
+          <CardTitle>{t("completeness")}</CardTitle>
         </CardHeader>
         <CardContent className="flex justify-center py-4">
           <Spinner className="h-6 w-6" />
@@ -93,21 +95,21 @@ export function ProfileCompletenessCard({ className }: ProfileCompletenessCardPr
   return (
     <Card className={cn("", className)}>
       <CardHeader>
-        <CardTitle>Profile Completeness</CardTitle>
+        <CardTitle>{t("completeness")}</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         {/* Progress bar */}
         <div className="space-y-2">
           <Progress value={percent} className="h-2" />
           <p className="text-sm font-medium">
-            {percent}% complete
+            {percent}{t("complete")}
           </p>
         </div>
 
         {/* Missing fields list */}
         {!isComplete && missing.length > 0 && (
           <div className="text-sm text-muted-foreground">
-            <span className="font-medium">Missing: </span>
+            <span className="font-medium">{t("missing")} </span>
             {missing.join(", ")}
           </div>
         )}
@@ -115,7 +117,7 @@ export function ProfileCompletenessCard({ className }: ProfileCompletenessCardPr
         {/* Edit link */}
         <Button asChild variant={isComplete ? "outline" : "default"} className="w-full">
           <Link href="/profile/investor/questionnaire">
-            {isComplete ? "Review Profile" : "Complete Profile"}
+            {isComplete ? t("reviewProfile") : t("completeProfile")}
           </Link>
         </Button>
       </CardContent>

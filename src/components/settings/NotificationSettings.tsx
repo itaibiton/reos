@@ -1,6 +1,7 @@
 "use client";
 
 import { useQuery, useMutation } from "convex/react";
+import { useTranslations } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Switch } from "@/components/ui/switch";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -18,6 +19,7 @@ type NotificationPreferences = {
 };
 
 export function NotificationSettings() {
+  const t = useTranslations("settings.notifications");
   const preferences = useQuery(api.notificationPreferences.getMyNotificationPreferences);
   const updatePreferences = useMutation(api.notificationPreferences.updateNotificationPreferences);
 
@@ -38,7 +40,7 @@ export function NotificationSettings() {
         preferences: { [key]: value },
       });
     } catch (error) {
-      toast.error("Failed to update notification preferences");
+      toast.error(t("failedToUpdate"));
     }
   };
 
@@ -47,23 +49,23 @@ export function NotificationSettings() {
       {/* Notification Channels */}
       <Card>
         <CardHeader>
-          <CardTitle>Notification Channels</CardTitle>
+          <CardTitle>{t("channels")}</CardTitle>
           <CardDescription>
-            Choose how you want to receive notifications
+            {t("channelsDesc")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <ToggleRow
             id="email-notifications"
-            label="Email Notifications"
-            description="Receive notifications via email"
+            label={t("emailNotifications")}
+            description={t("emailNotificationsDesc")}
             checked={preferences.emailNotifications}
             onCheckedChange={(checked) => handleToggle("emailNotifications", checked)}
           />
           <ToggleRow
             id="inapp-notifications"
-            label="In-App Notifications"
-            description="Receive notifications within the app"
+            label={t("inAppNotifications")}
+            description={t("inAppNotificationsDesc")}
             checked={preferences.inAppNotifications}
             onCheckedChange={(checked) => handleToggle("inAppNotifications", checked)}
           />
@@ -73,20 +75,20 @@ export function NotificationSettings() {
       {/* Notification Types */}
       <Card>
         <CardHeader>
-          <CardTitle>Notification Types</CardTitle>
+          <CardTitle>{t("types")}</CardTitle>
           <CardDescription>
-            Choose which events trigger notifications
+            {t("typesDesc")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           {/* Messages Group */}
           <div>
-            <h4 className="text-sm font-medium mb-3">Messages</h4>
+            <h4 className="text-sm font-medium mb-3">{t("categories.messages")}</h4>
             <div className="space-y-4 ps-4 border-s-2 border-muted">
               <ToggleRow
                 id="new-message"
-                label="New Messages"
-                description="When you receive a new message"
+                label={t("options.newMessage")}
+                description={t("options.newMessageDesc")}
                 checked={preferences.newMessageNotify}
                 onCheckedChange={(checked) => handleToggle("newMessageNotify", checked)}
               />
@@ -95,19 +97,19 @@ export function NotificationSettings() {
 
           {/* Deals Group */}
           <div>
-            <h4 className="text-sm font-medium mb-3">Deals</h4>
+            <h4 className="text-sm font-medium mb-3">{t("categories.deals")}</h4>
             <div className="space-y-4 ps-4 border-s-2 border-muted">
               <ToggleRow
                 id="deal-stage"
-                label="Deal Stage Changes"
-                description="When a deal moves to a new stage"
+                label={t("options.dealStage")}
+                description={t("options.dealStageDesc")}
                 checked={preferences.dealStageNotify}
                 onCheckedChange={(checked) => handleToggle("dealStageNotify", checked)}
               />
               <ToggleRow
                 id="file-uploaded"
-                label="Files Uploaded"
-                description="When files are uploaded to your deals"
+                label={t("options.fileUploaded")}
+                description={t("options.fileUploadedDesc")}
                 checked={preferences.fileUploadedNotify}
                 onCheckedChange={(checked) => handleToggle("fileUploadedNotify", checked)}
               />
@@ -116,12 +118,12 @@ export function NotificationSettings() {
 
           {/* Service Requests Group */}
           <div>
-            <h4 className="text-sm font-medium mb-3">Service Requests</h4>
+            <h4 className="text-sm font-medium mb-3">{t("categories.requests")}</h4>
             <div className="space-y-4 ps-4 border-s-2 border-muted">
               <ToggleRow
                 id="request-received"
-                label="New Requests Received"
-                description="When investors request your services"
+                label={t("options.requestReceived")}
+                description={t("options.requestReceivedDesc")}
                 checked={preferences.requestReceivedNotify}
                 onCheckedChange={(checked) => handleToggle("requestReceivedNotify", checked)}
               />

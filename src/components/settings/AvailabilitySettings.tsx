@@ -1,6 +1,7 @@
 "use client";
 
 import { useQuery, useMutation } from "convex/react";
+import { useTranslations } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 import { Switch } from "@/components/ui/switch";
@@ -12,6 +13,7 @@ import { X } from "lucide-react";
 import { toast } from "sonner";
 
 export function AvailabilitySettings() {
+  const t = useTranslations("settings.availability");
   const availability = useQuery(api.providerAvailability.getMyAvailability);
   const setAccepting = useMutation(api.providerAvailability.setAcceptingNewClients);
   const addDate = useMutation(api.providerAvailability.addUnavailableDate);
@@ -31,9 +33,9 @@ export function AvailabilitySettings() {
   const handleAcceptingChange = async (checked: boolean) => {
     try {
       await setAccepting({ accepting: checked });
-      toast.success(checked ? "Now accepting new clients" : "Not accepting new clients");
+      toast.success(checked ? t("nowAccepting") : t("notAccepting"));
     } catch (error) {
-      toast.error("Failed to update availability");
+      toast.error(t("failedToUpdate"));
     }
   };
 
@@ -49,8 +51,9 @@ export function AvailabilitySettings() {
       if (!currentTimestamps.has(timestamp)) {
         try {
           await addDate({ date: timestamp });
+          toast.success(t("dateBlocked"));
         } catch (error) {
-          toast.error("Failed to block date");
+          toast.error(t("failedToBlock"));
         }
       }
     }
@@ -61,7 +64,7 @@ export function AvailabilitySettings() {
         try {
           await removeDate({ dateId: unavailable._id as Id<"providerUnavailableDates"> });
         } catch (error) {
-          toast.error("Failed to unblock date");
+          toast.error(t("failedToUnblock"));
         }
       }
     }
@@ -70,9 +73,9 @@ export function AvailabilitySettings() {
   const handleRemoveDate = async (dateId: Id<"providerUnavailableDates">) => {
     try {
       await removeDate({ dateId });
-      toast.success("Date unblocked");
+      toast.success(t("dateUnblocked"));
     } catch (error) {
-      toast.error("Failed to unblock date");
+      toast.error(t("failedToUnblock"));
     }
   };
 
@@ -83,9 +86,9 @@ export function AvailabilitySettings() {
         <CardHeader>
           <div className="flex items-center justify-between">
             <div>
-              <CardTitle>Accepting New Clients</CardTitle>
+              <CardTitle>{t("acceptingClients")}</CardTitle>
               <CardDescription>
-                Visible to investors on your profile
+                {t("acceptingClientsDesc")}
               </CardDescription>
             </div>
             <Switch
@@ -99,9 +102,9 @@ export function AvailabilitySettings() {
       {/* Blocked Dates Section */}
       <Card>
         <CardHeader>
-          <CardTitle>Blocked Dates</CardTitle>
+          <CardTitle>{t("blockedDates")}</CardTitle>
           <CardDescription>
-            Mark dates when you&apos;re unavailable. Click on a date to toggle.
+            {t("blockedDatesDesc")}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -120,11 +123,11 @@ export function AvailabilitySettings() {
             {/* Blocked Dates List */}
             <div>
               <h4 className="text-sm font-medium mb-3">
-                Blocked Dates ({availability.unavailableDates.length})
+                {t("blockedDatesCount", { count: availability.unavailableDates.length })}
               </h4>
               {availability.unavailableDates.length === 0 ? (
                 <p className="text-sm text-muted-foreground">
-                  No blocked dates. Click on the calendar to block dates.
+                  {t("noBlockedDates")}
                 </p>
               ) : (
                 <div className="space-y-2 max-h-[280px] overflow-y-auto">
@@ -145,7 +148,7 @@ export function AvailabilitySettings() {
                           onClick={() => handleRemoveDate(unavailable._id as Id<"providerUnavailableDates">)}
                         >
                           <X className="h-4 w-4" />
-                          <span className="sr-only">Remove</span>
+                          <span className="sr-only">{t("removeDate")}</span>
                         </Button>
                       </div>
                     ))}
