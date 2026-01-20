@@ -10,19 +10,19 @@ See: .planning/PROJECT.md (updated 2026-01-19)
 ## Current Position
 
 Milestone: v1.4 Internationalization & RTL Support
-Phase: 33 - Hebrew Translation (COMPLETE)
-Plan: 8/8 complete
-Status: Verified
-Last activity: 2026-01-20 — Phase 33 complete - all 120 missing deals namespace keys added
+Phase: 34 - Language Switcher & Polish
+Plan: 1/3 complete
+Status: In progress
+Last activity: 2026-01-20 — Completed 34-01-PLAN.md (LocaleSwitcher component)
 
-Progress: [██████████] 100% (8/8 plans including gap closure)
+Progress: [███░░░░░░░] 33% (1/3 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 96
-- Average duration: 5.5 min
-- Total execution time: 8.2 hours
+- Total plans completed: 97
+- Average duration: 5.4 min
+- Total execution time: 8.22 hours
 
 **By Phase:**
 
@@ -72,10 +72,11 @@ Progress: [██████████] 100% (8/8 plans including gap closure
 | 31 | 12/12 | 60 min | 5 min |
 | 32 | 5/5 | 22 min | 4.4 min |
 | 33 | 8/8 | 25 min | 3.1 min |
+| 34 | 1/3 | 1 min | 1 min |
 
 **Recent Trend:**
-- Last 5 plans: 33-05 (3 min), 33-06 (3 min), 33-07 (2.5 min), 33-08 (4 min)
-- Trend: Phase 33 Hebrew Translation COMPLETE
+- Last 5 plans: 33-06 (3 min), 33-07 (2.5 min), 33-08 (4 min), 34-01 (1 min)
+- Trend: Phase 34 Language Switcher started
 
 ## Accumulated Context
 
@@ -353,6 +354,9 @@ Recent decisions affecting current work:
 - Phase 32: Move formatDate/formatPrice helpers inside component when they need format hook
 - Phase 32: GlobalSearchBar kept as-is - formatCompactPrice uses toLocaleString() which defaults to browser locale
 - Phase 32: Keep formatPercentChange as-is: percentage with sign prefix is specialized logic not handled by standard formatters
+- Phase 34: localeCookie config with 1-year maxAge for persistent locale preferences
+- Phase 34: Native script pattern for language names (English/Hebrew in Hebrew script)
+- Phase 34: routing.locales for dynamic locale list in LocaleSwitcher (not hardcoded)
 
 ### v1.4 Research Findings
 
@@ -394,6 +398,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-20
-Stopped at: Phase 33 COMPLETE - Hebrew Translation verified (16/16 must-haves)
+Stopped at: Completed 34-01-PLAN.md (LocaleSwitcher component)
 Resume file: None
-Next: Phase 34 - Language Switcher & Polish
+Next: 34-02-PLAN.md (Header Integration)
