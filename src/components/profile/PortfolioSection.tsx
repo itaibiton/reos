@@ -2,6 +2,7 @@
 
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Building05Icon, Location01Icon } from "@hugeicons/core-free-icons";
+import { useTranslations } from "next-intl";
 
 // Currency formatter for USD
 function formatUSD(amount: number) {
@@ -25,11 +26,13 @@ interface PortfolioSectionProps {
 }
 
 export function PortfolioSection({ portfolio }: PortfolioSectionProps) {
+  const t = useTranslations("providers");
+
   if (portfolio.length === 0) {
     return (
       <div className="text-center py-8 text-muted-foreground">
         <HugeiconsIcon icon={Building05Icon} size={32} className="mx-auto mb-2 opacity-50" />
-        <p>No completed deals yet.</p>
+        <p>{t("profile.noDeals")}</p>
       </div>
     );
   }

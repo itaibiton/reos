@@ -2,6 +2,7 @@
 
 import { useQuery } from "convex/react";
 import { useRouter, useParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { api } from "../../../../../../convex/_generated/api";
 import { Id } from "../../../../../../convex/_generated/dataModel";
 import { Button } from "@/components/ui/button";
@@ -48,6 +49,8 @@ export default function ProfilePage() {
   const router = useRouter();
   const params = useParams();
   const userId = params.id as string;
+  const t = useTranslations("profile");
+  const tCommon = useTranslations("common");
 
   // Fetch user profile
   const profile = useQuery(
@@ -65,11 +68,11 @@ export default function ProfilePage() {
     return (
       <div className="p-6">
         <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
-          <h2 className="text-xl font-semibold mb-2">User Not Found</h2>
+          <h2 className="text-xl font-semibold mb-2">{t("notFound.title")}</h2>
           <p className="text-muted-foreground mb-6 max-w-md">
-            This user profile doesn&apos;t exist or is not available.
+            {t("notFound.description")}
           </p>
-          <Button onClick={() => router.back()}>Go Back</Button>
+          <Button onClick={() => router.back()}>{tCommon("actions.back")}</Button>
         </div>
       </div>
     );
@@ -80,7 +83,7 @@ export default function ProfilePage() {
       {/* Back button */}
       <Button variant="ghost" size="sm" onClick={() => router.back()}>
         <HugeiconsIcon icon={ArrowLeft01Icon} size={16} className="me-1 rtl:-scale-x-100" />
-        Back
+        {tCommon("actions.back")}
       </Button>
 
       {/* Profile header */}
@@ -94,10 +97,10 @@ export default function ProfilePage() {
       {/* Tabs */}
       <Tabs defaultValue="posts" className="w-full">
         <TabsList>
-          <TabsTrigger value="posts">Posts</TabsTrigger>
-          <TabsTrigger value="reposts">Reposts</TabsTrigger>
+          <TabsTrigger value="posts">{t("tabs.posts")}</TabsTrigger>
+          <TabsTrigger value="reposts">{t("tabs.reposts")}</TabsTrigger>
           {profile.stats && (
-            <TabsTrigger value="portfolio">Portfolio</TabsTrigger>
+            <TabsTrigger value="portfolio">{t("tabs.portfolio")}</TabsTrigger>
           )}
         </TabsList>
 

@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import { useQuery } from "convex/react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { api } from "../../../../../convex/_generated/api";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -21,22 +22,17 @@ import { Search, Users, Briefcase, Calculator, Scale, ArrowRight } from "lucide-
 // Provider type options
 type ProviderType = "broker" | "mortgage_advisor" | "lawyer";
 
-const PROVIDER_TYPE_LABELS: Record<ProviderType, string> = {
-  broker: "Brokers",
-  mortgage_advisor: "Mortgage Advisors",
-  lawyer: "Lawyers",
+// Tab key mapping for translations
+const PROVIDER_TAB_KEYS: Record<ProviderType, string> = {
+  broker: "brokers",
+  mortgage_advisor: "mortgageAdvisors",
+  lawyer: "lawyers",
 };
 
 const PROVIDER_TYPE_ICONS: Record<ProviderType, typeof Briefcase> = {
   broker: Briefcase,
   mortgage_advisor: Calculator,
   lawyer: Scale,
-};
-
-const ROLE_LABELS: Record<string, string> = {
-  broker: "Real Estate Broker",
-  mortgage_advisor: "Mortgage Advisor",
-  lawyer: "Real Estate Lawyer",
 };
 
 // Get initials from name
@@ -91,9 +87,10 @@ interface Provider {
 interface ProviderCardProps {
   provider: Provider;
   onViewProfile: (userId: string) => void;
+  t: ReturnType<typeof useTranslations<"providers">>;
 }
 
-function ProviderCard({ provider, onViewProfile }: ProviderCardProps) {
+function ProviderCard({ provider, onViewProfile, t }: ProviderCardProps) {
   return (
     <Card className="hover:shadow-md transition-shadow">
       <CardContent className="p-4">
@@ -121,7 +118,7 @@ function ProviderCard({ provider, onViewProfile }: ProviderCardProps) {
             {provider.yearsExperience !== undefined && provider.yearsExperience > 0 && (
               <div className="flex items-center gap-1 text-xs text-muted-foreground mt-1">
                 <HugeiconsIcon icon={Calendar01Icon} size={12} />
-                <span>{provider.yearsExperience} years experience</span>
+                <span>{t("card.yearsExperience", { count: provider.yearsExperience })}</span>
               </div>
             )}
 
@@ -137,7 +134,7 @@ function ProviderCard({ provider, onViewProfile }: ProviderCardProps) {
                   ))}
                   {provider.serviceAreas.length > 3 && (
                     <span className="text-xs text-muted-foreground">
-                      +{provider.serviceAreas.length - 3} more
+                      {t("card.more", { count: provider.serviceAreas.length - 3 })}
                     </span>
                   )}
                 </div>
@@ -154,7 +151,7 @@ function ProviderCard({ provider, onViewProfile }: ProviderCardProps) {
                 ))}
                 {provider.specializations.length > 2 && (
                   <span className="text-xs text-muted-foreground">
-                    +{provider.specializations.length - 2} more
+                    {t("card.more", { count: provider.specializations.length - 2 })}
                   </span>
                 )}
               </div>
@@ -168,7 +165,7 @@ function ProviderCard({ provider, onViewProfile }: ProviderCardProps) {
             onClick={() => onViewProfile(provider.userId)}
             className="flex-shrink-0"
           >
-            View
+            {t("card.view")}
             <ArrowRight size={14} className="ms-1" />
           </Button>
         </div>
@@ -179,6 +176,7 @@ function ProviderCard({ provider, onViewProfile }: ProviderCardProps) {
 
 export default function ProvidersPage() {
   const router = useRouter();
+  const t = useTranslations("providers");
   const [providerType, setProviderType] = useState<ProviderType>("broker");
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -215,14 +213,15 @@ export default function ProvidersPage() {
   }
 
   const TypeIcon = PROVIDER_TYPE_ICONS[providerType];
+  const typeLabel = t(`tabs.${PROVIDER_TAB_KEYS[providerType]}`);
 
   return (
     <div className="p-6">
       {/* Header */}
       <div className="mb-6">
-        <h1 className="text-2xl font-bold">Find a Provider</h1>
+        <h1 className="text-2xl font-bold">{t("findProviders")}</h1>
         <p className="text-muted-foreground">
-          Browse service providers to help with your real estate transaction
+          {t("description")}
         </p>
       </div>
 
@@ -235,15 +234,15 @@ export default function ProvidersPage() {
         <TabsList className="grid w-full max-w-md grid-cols-3">
           <TabsTrigger value="broker" className="flex items-center gap-1.5">
             <Briefcase size={14} />
-            <span className="hidden sm:inline">Brokers</span>
+            <span className="hidden sm:inline">{t("tabs.brokers")}</span>
           </TabsTrigger>
           <TabsTrigger value="mortgage_advisor" className="flex items-center gap-1.5">
             <Calculator size={14} />
-            <span className="hidden sm:inline">Mortgage</span>
+            <span className="hidden sm:inline">{t("tabs.mortgageAdvisors")}</span>
           </TabsTrigger>
           <TabsTrigger value="lawyer" className="flex items-center gap-1.5">
             <Scale size={14} />
-            <span className="hidden sm:inline">Lawyers</span>
+            <span className="hidden sm:inline">{t("tabs.lawyers")}</span>
           </TabsTrigger>
         </TabsList>
       </Tabs>
@@ -256,7 +255,7 @@ export default function ProvidersPage() {
             className="absolute start-3 top-1/2 -translate-y-1/2 text-muted-foreground"
           />
           <Input
-            placeholder="Search by name, company, or location..."
+            placeholder={t("filters.serviceArea") + "..."}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="ps-9"
@@ -280,10 +279,10 @@ export default function ProvidersPage() {
             <TypeIcon size={48} strokeWidth={1.5} />
           </div>
           <h2 className="text-xl font-semibold mb-2">
-            No {PROVIDER_TYPE_LABELS[providerType].toLowerCase()} yet
+            {t("empty.noProviders", { type: typeLabel.toLowerCase() })}
           </h2>
           <p className="text-muted-foreground mb-6 max-w-md">
-            {PROVIDER_TYPE_LABELS[providerType]} will appear here once they create their profiles.
+            {t("empty.willAppear", { type: typeLabel })}
           </p>
         </div>
       )}
@@ -295,10 +294,10 @@ export default function ProvidersPage() {
         searchQuery.trim() && (
           <div className="text-center py-12">
             <p className="text-muted-foreground mb-4">
-              No providers match &quot;{searchQuery}&quot;
+              {t("empty.noMatch", { query: searchQuery })}
             </p>
             <Button variant="outline" onClick={() => setSearchQuery("")}>
-              Clear search
+              {t("empty.clearSearch")}
             </Button>
           </div>
         )}
@@ -307,7 +306,7 @@ export default function ProvidersPage() {
       {filteredProviders.length > 0 && (
         <>
           <p className="text-sm text-muted-foreground mb-4">
-            {filteredProviders.length} {PROVIDER_TYPE_LABELS[providerType].toLowerCase()}
+            {filteredProviders.length} {typeLabel.toLowerCase()}
             {searchQuery.trim() && ` matching "${searchQuery}"`}
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -316,6 +315,7 @@ export default function ProvidersPage() {
                 key={provider._id}
                 provider={provider}
                 onViewProfile={handleViewProfile}
+                t={t}
               />
             ))}
           </div>

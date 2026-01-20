@@ -5,14 +5,15 @@ import { Badge } from "@/components/ui/badge";
 import { FollowStats, FollowButton } from "@/components/feed";
 import { Id } from "../../../convex/_generated/dataModel";
 import { Briefcase } from "lucide-react";
+import { useTranslations } from "next-intl";
 
-// Role display mapping
-const ROLE_LABELS: Record<string, string> = {
-  investor: "Investor",
-  broker: "Broker",
-  mortgage_advisor: "Mortgage Advisor",
-  lawyer: "Lawyer",
-  admin: "Admin",
+// Role key mapping for translations
+const ROLE_KEY_MAP: Record<string, string> = {
+  investor: "investor",
+  broker: "broker",
+  mortgage_advisor: "mortgageAdvisor",
+  lawyer: "lawyer",
+  admin: "admin",
 };
 
 // Get initials from name
@@ -42,7 +43,9 @@ interface ProfileHeaderProps {
 }
 
 export function ProfileHeader({ profile }: ProfileHeaderProps) {
+  const tCommon = useTranslations("common");
   const displayName = profile.name || profile.email || "Unknown User";
+  const roleKey = profile.role ? ROLE_KEY_MAP[profile.role] || profile.role : null;
 
   return (
     <div className="flex flex-col sm:flex-row sm:items-start gap-4">
@@ -58,9 +61,9 @@ export function ProfileHeader({ profile }: ProfileHeaderProps) {
       <div className="flex-1 min-w-0">
         <div className="flex flex-wrap items-center gap-2">
           <h1 className="text-2xl font-bold">{displayName}</h1>
-          {profile.role && (
+          {roleKey && (
             <Badge variant="secondary">
-              {ROLE_LABELS[profile.role] || profile.role}
+              {tCommon(`roles.${roleKey}`)}
             </Badge>
           )}
         </div>

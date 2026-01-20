@@ -2,6 +2,7 @@
 
 import { useQuery } from "convex/react";
 import { useRouter, useParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { api } from "../../../../../../convex/_generated/api";
 import { Id } from "../../../../../../convex/_generated/dataModel";
 import { Button } from "@/components/ui/button";
@@ -49,27 +50,27 @@ function getInitials(name?: string | null) {
     .slice(0, 2);
 }
 
-// Role display mapping
-const ROLE_LABELS: Record<string, string> = {
-  broker: "Real Estate Broker",
-  mortgage_advisor: "Mortgage Advisor",
-  lawyer: "Real Estate Lawyer",
+// Role key mapping for translations
+const ROLE_KEY_MAP: Record<string, string> = {
+  broker: "broker",
+  mortgage_advisor: "mortgageAdvisor",
+  lawyer: "lawyer",
 };
 
-// Language display mapping
-const LANGUAGE_LABELS: Record<string, string> = {
-  english: "English",
-  hebrew: "Hebrew",
-  russian: "Russian",
-  french: "French",
-  spanish: "Spanish",
+// Language key mapping for translations
+const LANGUAGE_KEY_MAP: Record<string, string> = {
+  english: "english",
+  hebrew: "hebrew",
+  russian: "russian",
+  french: "french",
+  spanish: "spanish",
 };
 
-// Contact preference labels
-const CONTACT_LABELS: Record<string, string> = {
-  email: "Email",
-  phone: "Phone",
-  whatsapp: "WhatsApp",
+// Contact preference key mapping
+const CONTACT_KEY_MAP: Record<string, string> = {
+  email: "email",
+  phone: "phone",
+  whatsapp: "whatsapp",
 };
 
 // Star rating display
@@ -137,6 +138,9 @@ export default function ProviderProfilePage() {
   const router = useRouter();
   const params = useParams();
   const providerId = params.id as string;
+  const t = useTranslations("providers");
+  const tCommon = useTranslations("common");
+  const tProfile = useTranslations("profile");
 
   // Fetch public profile
   const profile = useQuery(
@@ -154,24 +158,25 @@ export default function ProviderProfilePage() {
     return (
       <div className="p-6">
         <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
-          <h2 className="text-xl font-semibold mb-2">Provider Not Found</h2>
+          <h2 className="text-xl font-semibold mb-2">{t("notFound.title")}</h2>
           <p className="text-muted-foreground mb-6 max-w-md">
-            This provider profile doesn&apos;t exist or is not available.
+            {t("notFound.description")}
           </p>
-          <Button onClick={() => router.back()}>Go Back</Button>
+          <Button onClick={() => router.back()}>{tCommon("actions.back")}</Button>
         </div>
       </div>
     );
   }
 
   const { stats, reviews, portfolio } = profile;
+  const roleKey = ROLE_KEY_MAP[profile.role || ""] || profile.role;
 
   return (
     <div className="p-6 space-y-6">
       {/* Back button */}
       <Button variant="ghost" size="sm" onClick={() => router.back()}>
         <HugeiconsIcon icon={ArrowLeft01Icon} size={16} className="me-1 rtl:-scale-x-100" />
-        Back
+        {tCommon("actions.back")}
       </Button>
 
       {/* Header */}
@@ -187,7 +192,7 @@ export default function ProviderProfilePage() {
           <div className="flex flex-wrap items-center gap-2">
             <h1 className="text-2xl font-bold">{profile.name || "Unknown Provider"}</h1>
             <Badge variant="secondary">
-              {ROLE_LABELS[profile.role || ""] || profile.role}
+              {roleKey ? tCommon(`roles.${roleKey}`) : profile.role}
             </Badge>
           </div>
 
@@ -203,14 +208,14 @@ export default function ProviderProfilePage() {
             <StarRating rating={Math.round(stats.averageRating)} />
             <span className="font-medium">{stats.averageRating.toFixed(1)}</span>
             <span className="text-muted-foreground text-sm">
-              ({stats.totalReviews} review{stats.totalReviews !== 1 ? "s" : ""})
+              ({t("card.reviews", { count: stats.totalReviews })})
             </span>
           </div>
 
           {/* License number */}
           {profile.licenseNumber && (
             <p className="text-sm text-muted-foreground mt-1">
-              License: {profile.licenseNumber}
+              {t("profile.license")}: {profile.licenseNumber}
             </p>
           )}
         </div>
@@ -218,7 +223,7 @@ export default function ProviderProfilePage() {
         {/* Contact button */}
         <Button>
           <HugeiconsIcon icon={Message01Icon} size={16} className="me-2" />
-          Contact
+          {t("card.contact")}
         </Button>
       </div>
 
@@ -230,7 +235,7 @@ export default function ProviderProfilePage() {
               <Star size={20} />
               <span className="text-2xl font-bold">{stats.averageRating.toFixed(1)}</span>
             </div>
-            <p className="text-sm text-muted-foreground">Avg Rating</p>
+            <p className="text-sm text-muted-foreground">{tProfile("stats.avgRating")}</p>
           </CardContent>
         </Card>
 
@@ -240,7 +245,7 @@ export default function ProviderProfilePage() {
               <User size={20} />
               <span className="text-2xl font-bold">{stats.totalReviews}</span>
             </div>
-            <p className="text-sm text-muted-foreground">Reviews</p>
+            <p className="text-sm text-muted-foreground">{tProfile("stats.reviews")}</p>
           </CardContent>
         </Card>
 
@@ -250,7 +255,7 @@ export default function ProviderProfilePage() {
               <HugeiconsIcon icon={CheckmarkCircle01Icon} size={20} />
               <span className="text-2xl font-bold">{stats.completedDeals}</span>
             </div>
-            <p className="text-sm text-muted-foreground">Deals Completed</p>
+            <p className="text-sm text-muted-foreground">{tProfile("stats.dealsCompleted")}</p>
           </CardContent>
         </Card>
 
@@ -260,7 +265,7 @@ export default function ProviderProfilePage() {
               <HugeiconsIcon icon={Calendar01Icon} size={20} />
               <span className="text-2xl font-bold">{stats.yearsExperience}</span>
             </div>
-            <p className="text-sm text-muted-foreground">Years Experience</p>
+            <p className="text-sm text-muted-foreground">{tProfile("stats.yearsExperience")}</p>
           </CardContent>
         </Card>
       </div>
@@ -272,20 +277,20 @@ export default function ProviderProfilePage() {
           {/* About Section */}
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">About</CardTitle>
+              <CardTitle className="text-lg">{t("profile.about")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               {/* Bio */}
               <div>
                 <p className="text-muted-foreground">
-                  {profile.bio || "No bio provided."}
+                  {profile.bio || t("profile.noBio")}
                 </p>
               </div>
 
               {/* Specializations */}
               {profile.specializations && profile.specializations.length > 0 && (
                 <div>
-                  <h4 className="text-sm font-medium mb-2">Specializations</h4>
+                  <h4 className="text-sm font-medium mb-2">{tProfile("sections.specializations")}</h4>
                   <div className="flex flex-wrap gap-2">
                     {profile.specializations.map((spec) => (
                       <Badge key={spec} variant="secondary">
@@ -299,7 +304,7 @@ export default function ProviderProfilePage() {
               {/* Service Areas */}
               {profile.serviceAreas && profile.serviceAreas.length > 0 && (
                 <div>
-                  <h4 className="text-sm font-medium mb-2">Service Areas</h4>
+                  <h4 className="text-sm font-medium mb-2">{tProfile("sections.serviceAreas")}</h4>
                   <div className="flex flex-wrap gap-2">
                     {profile.serviceAreas.map((area) => (
                       <Badge key={area} variant="outline" className="flex items-center gap-1">
@@ -314,14 +319,17 @@ export default function ProviderProfilePage() {
               {/* Languages */}
               {profile.languages && profile.languages.length > 0 && (
                 <div>
-                  <h4 className="text-sm font-medium mb-2">Languages</h4>
+                  <h4 className="text-sm font-medium mb-2">{tProfile("sections.languages")}</h4>
                   <div className="flex flex-wrap gap-2">
-                    {profile.languages.map((lang) => (
-                      <Badge key={lang} variant="outline" className="flex items-center gap-1">
-                        <Globe size={12} />
-                        {LANGUAGE_LABELS[lang] || lang}
-                      </Badge>
-                    ))}
+                    {profile.languages.map((lang) => {
+                      const langKey = LANGUAGE_KEY_MAP[lang] || lang;
+                      return (
+                        <Badge key={lang} variant="outline" className="flex items-center gap-1">
+                          <Globe size={12} />
+                          {tCommon(`languages.${langKey}`)}
+                        </Badge>
+                      );
+                    })}
                   </div>
                 </div>
               )}
@@ -333,7 +341,7 @@ export default function ProviderProfilePage() {
             <CardHeader>
               <CardTitle className="text-lg flex items-center gap-2">
                 <Star size={20} />
-                Reviews
+                {t("profile.reviews")}
                 {stats.totalReviews > 0 && (
                   <span className="text-sm font-normal text-muted-foreground">
                     ({stats.totalReviews})
@@ -345,7 +353,7 @@ export default function ProviderProfilePage() {
               {reviews.length === 0 ? (
                 <div className="text-center py-8 text-muted-foreground">
                   <Star size={32} className="mx-auto mb-2 opacity-50" />
-                  <p>No reviews yet.</p>
+                  <p>{t("profile.noReviews")}</p>
                 </div>
               ) : (
                 reviews.map((review) => (
@@ -389,10 +397,10 @@ export default function ProviderProfilePage() {
             <CardHeader>
               <CardTitle className="text-lg flex items-center gap-2">
                 <HugeiconsIcon icon={Building05Icon} size={20} />
-                Portfolio
+                {t("profile.portfolio")}
                 {portfolio.length > 0 && (
                   <span className="text-sm font-normal text-muted-foreground">
-                    ({stats.completedDeals} deals)
+                    ({t("card.dealsCompleted", { count: stats.completedDeals })})
                   </span>
                 )}
               </CardTitle>
@@ -401,7 +409,7 @@ export default function ProviderProfilePage() {
               {portfolio.length === 0 ? (
                 <div className="text-center py-8 text-muted-foreground">
                   <HugeiconsIcon icon={Building05Icon} size={32} className="mx-auto mb-2 opacity-50" />
-                  <p>No completed deals yet.</p>
+                  <p>{t("profile.noDeals")}</p>
                 </div>
               ) : (
                 portfolio.map((deal) => (
@@ -452,7 +460,7 @@ export default function ProviderProfilePage() {
           {/* Contact Info Card */}
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Contact Information</CardTitle>
+              <CardTitle className="text-lg">{t("profile.contactInfo")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
               {profile.email && (
@@ -469,7 +477,7 @@ export default function ProviderProfilePage() {
               )}
               {profile.preferredContact && (
                 <p className="text-xs text-muted-foreground mt-2">
-                  Preferred contact method: {CONTACT_LABELS[profile.preferredContact] || profile.preferredContact}
+                  {t("profile.preferredContact")}: {tCommon(`contactPreferences.${CONTACT_KEY_MAP[profile.preferredContact]}`)}
                 </p>
               )}
             </CardContent>

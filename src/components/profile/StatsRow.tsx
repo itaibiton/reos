@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { CheckmarkCircle01Icon, Calendar01Icon } from "@hugeicons/core-free-icons";
 import { Star, User } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface StatsRowProps {
   stats: {
@@ -15,6 +16,8 @@ interface StatsRowProps {
 }
 
 export function StatsRow({ stats }: StatsRowProps) {
+  const t = useTranslations("profile");
+
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
       <Card>
@@ -23,7 +26,7 @@ export function StatsRow({ stats }: StatsRowProps) {
             <Star size={20} />
             <span className="text-2xl font-bold">{stats.averageRating.toFixed(1)}</span>
           </div>
-          <p className="text-sm text-muted-foreground">Avg Rating</p>
+          <p className="text-sm text-muted-foreground">{t("stats.avgRating")}</p>
         </CardContent>
       </Card>
 
@@ -33,7 +36,7 @@ export function StatsRow({ stats }: StatsRowProps) {
             <User size={20} />
             <span className="text-2xl font-bold">{stats.totalReviews}</span>
           </div>
-          <p className="text-sm text-muted-foreground">Reviews</p>
+          <p className="text-sm text-muted-foreground">{t("stats.reviews")}</p>
         </CardContent>
       </Card>
 
@@ -43,7 +46,7 @@ export function StatsRow({ stats }: StatsRowProps) {
             <HugeiconsIcon icon={CheckmarkCircle01Icon} size={20} />
             <span className="text-2xl font-bold">{stats.completedDeals}</span>
           </div>
-          <p className="text-sm text-muted-foreground">Deals Completed</p>
+          <p className="text-sm text-muted-foreground">{t("stats.dealsCompleted")}</p>
         </CardContent>
       </Card>
 
@@ -53,7 +56,7 @@ export function StatsRow({ stats }: StatsRowProps) {
             <HugeiconsIcon icon={Calendar01Icon} size={20} />
             <span className="text-2xl font-bold">{stats.yearsExperience}</span>
           </div>
-          <p className="text-sm text-muted-foreground">Years Experience</p>
+          <p className="text-sm text-muted-foreground">{t("stats.yearsExperience")}</p>
         </CardContent>
       </Card>
     </div>

@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { InvestorProfileForm } from "@/components/profile/InvestorProfileForm";
 import { ProfileCompletenessCard } from "@/components/profile/ProfileCompletenessCard";
@@ -10,6 +11,7 @@ import { Spinner } from "@/components/ui/spinner";
 export default function InvestorProfilePage() {
   const { isLoading, effectiveRole } = useCurrentUser();
   const router = useRouter();
+  const t = useTranslations("profile");
 
   // Redirect non-investors away from this page
   useEffect(() => {
@@ -29,14 +31,14 @@ export default function InvestorProfilePage() {
 
   return (
     <div className="p-6 space-y-6">
-      <h1 className="text-2xl font-bold">Investor Profile</h1>
+      <h1 className="text-2xl font-bold">{t("investor.title")}</h1>
 
       {/* Profile Completeness Card */}
       <ProfileCompletenessCard className="max-w-md" />
 
       {/* Investment Preferences Form (existing) */}
       <div className="max-w-2xl">
-        <h2 className="text-lg font-semibold mb-4">Investment Preferences</h2>
+        <h2 className="text-lg font-semibold mb-4">{t("investor.questionnaire")}</h2>
         <InvestorProfileForm />
       </div>
     </div>
