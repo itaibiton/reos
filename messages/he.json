@@ -72,6 +72,13 @@
       "switchLanguage": "החלף שפה",
       "currentLanguage": "שפה נוכחית"
     },
+    "notifications": {
+      "title": "התראות",
+      "markAllRead": "סמן הכל כנקרא",
+      "loading": "טוען...",
+      "empty": "אין התראות",
+      "caughtUp": "הכל נקרא!"
+    },
     "propertyTypes": {
       "residential": "מגורים",
       "commercial": "מסחרי",
@@ -411,6 +418,61 @@
   "chat": {
     "title": "צ'אט",
     "messages": "הודעות",
+    "dealSelector": {
+      "searchDeals": "חיפוש עסקאות...",
+      "noActiveDeals": "אין עסקאות פעילות",
+      "noMatch": "לא נמצאו עסקאות תואמות",
+      "property": "נכס",
+      "unknown": "לא ידוע"
+    },
+    "conversations": {
+      "search": "חיפוש שיחות...",
+      "newChat": "צ'אט חדש",
+      "newGroup": "קבוצה חדשה",
+      "noConversations": "אין שיחות עדיין",
+      "noMatch": "לא נמצאו שיחות תואמות",
+      "noMessages": "אין הודעות עדיין"
+    },
+    "newConversation": {
+      "title": "שיחה חדשה",
+      "titleGroup": "קבוצה חדשה",
+      "selectUserDirect": "בחר משתמש להתחלת שיחה",
+      "selectUsersGroup": "בחר משתמשים ליצירת קבוצה",
+      "groupNameOptional": "שם הקבוצה (אופציונלי)",
+      "groupNamePlaceholder": "הכנס שם קבוצה...",
+      "searchUsers": "חיפוש משתמשים...",
+      "noUsersMatch": "לא נמצאו משתמשים תואמים",
+      "noUsersAvailable": "אין משתמשים זמינים",
+      "creating": "יוצר...",
+      "startChat": "התחל צ'אט",
+      "createGroup": "צור קבוצה",
+      "selectAtLeastOne": "נא לבחור לפחות משתמש אחד",
+      "selectAtLeastTwo": "נא לבחור לפחות 2 משתמשים לקבוצה"
+    },
+    "addMembers": {
+      "title": "הוסף משתתפים",
+      "description": "בחר משתמשים להוספה לקבוצה",
+      "noUsersToAdd": "אין משתמשים זמינים להוספה",
+      "adding": "מוסיף...",
+      "addCount": "הוסף ({count})"
+    },
+    "groupSettings": {
+      "title": "הגדרות קבוצה",
+      "groupName": "שם הקבוצה",
+      "members": "משתתפים ({count})",
+      "add": "הוסף",
+      "you": "(אתה)",
+      "creator": "יוצר",
+      "groupNameUpdated": "שם הקבוצה עודכן",
+      "memberRemoved": "משתתף הוסר",
+      "membersAdded": "משתתפים נוספו",
+      "leaveGroup": "עזוב קבוצה"
+    },
+    "directChat": {
+      "participants": "{count} משתתפים - לחץ להגדרות",
+      "sendMessage": "שלח הודעה להתחלת השיחה",
+      "messagePlaceholder": "הודעה ל{name}..."
+    },
     "modes": {
       "deals": "צ'אט עסקאות",
       "direct": "הודעות ישירות",

@@ -72,6 +72,13 @@
       "switchLanguage": "Switch language",
       "currentLanguage": "Current language"
     },
+    "notifications": {
+      "title": "Notifications",
+      "markAllRead": "Mark all read",
+      "loading": "Loading...",
+      "empty": "No notifications",
+      "caughtUp": "You're all caught up!"
+    },
     "propertyTypes": {
       "residential": "Residential",
       "commercial": "Commercial",
@@ -810,6 +817,19 @@
     "amenities": {
       "noAmenities": "No amenities listed"
     },
+    "mortgage": {
+      "title": "Mortgage Calculator",
+      "propertyPrice": "Property Price",
+      "downPayment": "Down Payment",
+      "interestRate": "Interest Rate (%)",
+      "loanTerm": "Loan Term",
+      "years": "{count} years",
+      "selectTerm": "Select term",
+      "monthlyPayment": "Monthly Payment",
+      "loanAmount": "Loan Amount",
+      "totalInterest": "Total Interest",
+      "totalPayment": "Total Payment"
+    },
     "filters": {
       "city": "City",
       "allCities": "All Cities",
@@ -1098,6 +1118,61 @@
   "chat": {
     "title": "Chat",
     "messages": "Messages",
+    "dealSelector": {
+      "searchDeals": "Search deals...",
+      "noActiveDeals": "No active deals",
+      "noMatch": "No deals match your search",
+      "property": "Property",
+      "unknown": "Unknown"
+    },
+    "conversations": {
+      "search": "Search conversations...",
+      "newChat": "New Chat",
+      "newGroup": "New Group",
+      "noConversations": "No conversations yet",
+      "noMatch": "No conversations match your search",
+      "noMessages": "No messages yet"
+    },
+    "newConversation": {
+      "title": "New Conversation",
+      "titleGroup": "New Group",
+      "selectUserDirect": "Select a user to start a conversation",
+      "selectUsersGroup": "Select users to create a new group",
+      "groupNameOptional": "Group Name (optional)",
+      "groupNamePlaceholder": "Enter group name...",
+      "searchUsers": "Search users...",
+      "noUsersMatch": "No users match your search",
+      "noUsersAvailable": "No users available",
+      "creating": "Creating...",
+      "startChat": "Start Chat",
+      "createGroup": "Create Group",
+      "selectAtLeastOne": "Please select at least one user",
+      "selectAtLeastTwo": "Please select at least 2 users for a group"
+    },
+    "addMembers": {
+      "title": "Add Members",
+      "description": "Select users to add to this group",
+      "noUsersToAdd": "No users available to add",
+      "adding": "Adding...",
+      "addCount": "Add ({count})"
+    },
+    "groupSettings": {
+      "title": "Group Settings",
+      "groupName": "Group Name",
+      "members": "Members ({count})",
+      "add": "Add",
+      "you": "(You)",
+      "creator": "Creator",
+      "groupNameUpdated": "Group name updated",
+      "memberRemoved": "Member removed",
+      "membersAdded": "Members added",
+      "leaveGroup": "Leave Group"
+    },
+    "directChat": {
+      "participants": "{count} participants - Tap for settings",
+      "sendMessage": "Send a message to start the conversation",
+      "messagePlaceholder": "Message {name}..."
+    },
     "modes": {
       "deals": "Deal Chats",
       "direct": "Direct Messages",
