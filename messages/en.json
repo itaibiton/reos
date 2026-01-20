@@ -1,4 +1,47 @@
 {
+  "navigation": {
+    "groups": {
+      "marketplace": "Marketplace",
+      "propertyManagement": "Property Management",
+      "mortgageRequests": "Mortgage Requests",
+      "legalServices": "Legal Services",
+      "accountingServices": "Accounting Services",
+      "notarizationServices": "Notarization Services",
+      "taxServices": "Tax Services",
+      "appraisalServices": "Appraisal Services"
+    },
+    "items": {
+      "dashboard": "Dashboard",
+      "analytics": "Analytics",
+      "browseProperties": "Browse Properties",
+      "savedProperties": "Saved Properties",
+      "yourListings": "Your Listings",
+      "findProviders": "Find Providers",
+      "deals": "Deals",
+      "propertyTours": "Property Tours",
+      "leadManagement": "Lead Management",
+      "newApplications": "New Applications",
+      "preApprovals": "Pre-approvals",
+      "financingDeals": "Financing Deals",
+      "consultationRequests": "Consultation Requests",
+      "contractReviews": "Contract Reviews",
+      "transactionDocuments": "Transaction Documents",
+      "financialAnalysis": "Financial Analysis",
+      "taxPlanning": "Tax Planning",
+      "notarizationRequests": "Notarization Requests",
+      "documentSignings": "Document Signings",
+      "transactionNotarizations": "Transaction Notarizations",
+      "taxFilingRequests": "Tax Filing Requests",
+      "appraisalRequests": "Appraisal Requests",
+      "propertyValuations": "Property Valuations",
+      "valuationReports": "Valuation Reports",
+      "clients": "Clients",
+      "feed": "Feed",
+      "chat": "Chat",
+      "profile": "Profile",
+      "settings": "Settings"
+    }
+  },
   "landing": {
     "nav": {
       "services": "Services",
