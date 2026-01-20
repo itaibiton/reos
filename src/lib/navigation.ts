@@ -35,7 +35,7 @@ export type UserRole =
 
 // Navigation item type
 export type NavItem = {
-  label: string;
+  labelKey: string; // Translation key (e.g., "navigation.items.dashboard")
   href: string;
   icon: LucideIcon;
   items?: NavItem[]; // For sub-items in collapsible groups
@@ -43,7 +43,7 @@ export type NavItem = {
 
 // Navigation group type
 export type NavGroup = {
-  label?: string; // Optional group label (e.g., "Marketplace", "Property Management")
+  labelKey?: string; // Optional group label translation key (e.g., "navigation.groups.marketplace")
   items: NavItem[];
 };
 
@@ -59,21 +59,21 @@ export type NavigationConfig = Record<UserRole, RoleNavigation>;
 const investorNavigation: RoleNavigation = {
   groups: [
     {
-      label: "Marketplace",
+      labelKey: "navigation.groups.marketplace",
       items: [
-        { label: "Browse Properties", href: "/properties", icon: Building2 },
-        { label: "Saved Properties", href: "/properties/saved", icon: Heart },
-        { label: "Your Listings", href: "/properties/listings", icon: Building },
-        { label: "Find Providers", href: "/providers", icon: UserSearch },
-        { label: "Deals", href: "/deals", icon: Handshake },
+        { labelKey: "navigation.items.browseProperties", href: "/properties", icon: Building2 },
+        { labelKey: "navigation.items.savedProperties", href: "/properties/saved", icon: Heart },
+        { labelKey: "navigation.items.yourListings", href: "/properties/listings", icon: Building },
+        { labelKey: "navigation.items.findProviders", href: "/providers", icon: UserSearch },
+        { labelKey: "navigation.items.deals", href: "/deals", icon: Handshake },
       ],
     },
     {
       items: [
-        { label: "Feed", href: "/feed", icon: Rss },
-        { label: "Chat", href: "/chat", icon: MessageSquare },
-        { label: "Profile", href: "/profile/investor", icon: UserCircle },
-        { label: "Settings", href: "/settings", icon: Settings },
+        { labelKey: "navigation.items.feed", href: "/feed", icon: Rss },
+        { labelKey: "navigation.items.chat", href: "/chat", icon: MessageSquare },
+        { labelKey: "navigation.items.profile", href: "/profile/investor", icon: UserCircle },
+        { labelKey: "navigation.items.settings", href: "/settings", icon: Settings },
       ],
     },
   ],
@@ -84,33 +84,33 @@ const brokerNavigation: RoleNavigation = {
   groups: [
     {
       items: [
-        { label: "Dashboard", href: "/dashboard", icon: Home },
-        { label: "Analytics", href: "/analytics", icon: BarChart3 },
+        { labelKey: "navigation.items.dashboard", href: "/dashboard", icon: Home },
+        { labelKey: "navigation.items.analytics", href: "/analytics", icon: BarChart3 },
       ],
     },
     {
-      label: "Marketplace",
+      labelKey: "navigation.groups.marketplace",
       items: [
-        { label: "Browse Properties", href: "/properties", icon: Building2 },
-        { label: "Saved Properties", href: "/properties/saved", icon: Heart },
-        { label: "Your Listings", href: "/properties/listings", icon: Building },
-        { label: "Deals", href: "/deals", icon: Handshake },
+        { labelKey: "navigation.items.browseProperties", href: "/properties", icon: Building2 },
+        { labelKey: "navigation.items.savedProperties", href: "/properties/saved", icon: Heart },
+        { labelKey: "navigation.items.yourListings", href: "/properties/listings", icon: Building },
+        { labelKey: "navigation.items.deals", href: "/deals", icon: Handshake },
       ],
     },
     {
-      label: "Property Management",
+      labelKey: "navigation.groups.propertyManagement",
       items: [
-        { label: "Property Tours", href: "/properties/tours", icon: CalendarDays },
-        { label: "Lead Management", href: "/leads", icon: Users },
+        { labelKey: "navigation.items.propertyTours", href: "/properties/tours", icon: CalendarDays },
+        { labelKey: "navigation.items.leadManagement", href: "/leads", icon: Users },
       ],
     },
     {
       items: [
-        { label: "Clients", href: "/clients", icon: Users },
-        { label: "Feed", href: "/feed", icon: Rss },
-        { label: "Chat", href: "/chat", icon: MessageSquare },
-        { label: "Profile", href: "/profile/provider", icon: UserCircle },
-        { label: "Settings", href: "/settings", icon: Settings },
+        { labelKey: "navigation.items.clients", href: "/clients", icon: Users },
+        { labelKey: "navigation.items.feed", href: "/feed", icon: Rss },
+        { labelKey: "navigation.items.chat", href: "/chat", icon: MessageSquare },
+        { labelKey: "navigation.items.profile", href: "/profile/provider", icon: UserCircle },
+        { labelKey: "navigation.items.settings", href: "/settings", icon: Settings },
       ],
     },
   ],
@@ -121,33 +121,33 @@ const mortgageAdvisorNavigation: RoleNavigation = {
   groups: [
     {
       items: [
-        { label: "Dashboard", href: "/dashboard", icon: Home },
-        { label: "Analytics", href: "/analytics", icon: BarChart3 },
+        { labelKey: "navigation.items.dashboard", href: "/dashboard", icon: Home },
+        { labelKey: "navigation.items.analytics", href: "/analytics", icon: BarChart3 },
       ],
     },
     {
-      label: "Marketplace",
+      labelKey: "navigation.groups.marketplace",
       items: [
-        { label: "Browse Properties", href: "/properties", icon: Building2 },
-        { label: "Saved Properties", href: "/properties/saved", icon: Heart },
-        { label: "Deals", href: "/deals", icon: Handshake },
+        { labelKey: "navigation.items.browseProperties", href: "/properties", icon: Building2 },
+        { labelKey: "navigation.items.savedProperties", href: "/properties/saved", icon: Heart },
+        { labelKey: "navigation.items.deals", href: "/deals", icon: Handshake },
       ],
     },
     {
-      label: "Mortgage Requests",
+      labelKey: "navigation.groups.mortgageRequests",
       items: [
-        { label: "New Applications", href: "/mortgage/applications", icon: FileText },
-        { label: "Pre-approvals", href: "/mortgage/pre-approvals", icon: ClipboardCheck },
-        { label: "Financing Deals", href: "/mortgage/deals", icon: Calculator },
+        { labelKey: "navigation.items.newApplications", href: "/mortgage/applications", icon: FileText },
+        { labelKey: "navigation.items.preApprovals", href: "/mortgage/pre-approvals", icon: ClipboardCheck },
+        { labelKey: "navigation.items.financingDeals", href: "/mortgage/deals", icon: Calculator },
       ],
     },
     {
       items: [
-        { label: "Clients", href: "/clients", icon: Users },
-        { label: "Feed", href: "/feed", icon: Rss },
-        { label: "Chat", href: "/chat", icon: MessageSquare },
-        { label: "Profile", href: "/profile/provider", icon: UserCircle },
-        { label: "Settings", href: "/settings", icon: Settings },
+        { labelKey: "navigation.items.clients", href: "/clients", icon: Users },
+        { labelKey: "navigation.items.feed", href: "/feed", icon: Rss },
+        { labelKey: "navigation.items.chat", href: "/chat", icon: MessageSquare },
+        { labelKey: "navigation.items.profile", href: "/profile/provider", icon: UserCircle },
+        { labelKey: "navigation.items.settings", href: "/settings", icon: Settings },
       ],
     },
   ],
@@ -158,33 +158,33 @@ const lawyerNavigation: RoleNavigation = {
   groups: [
     {
       items: [
-        { label: "Dashboard", href: "/dashboard", icon: Home },
-        { label: "Analytics", href: "/analytics", icon: BarChart3 },
+        { labelKey: "navigation.items.dashboard", href: "/dashboard", icon: Home },
+        { labelKey: "navigation.items.analytics", href: "/analytics", icon: BarChart3 },
       ],
     },
     {
-      label: "Marketplace",
+      labelKey: "navigation.groups.marketplace",
       items: [
-        { label: "Browse Properties", href: "/properties", icon: Building2 },
-        { label: "Saved Properties", href: "/properties/saved", icon: Heart },
-        { label: "Deals", href: "/deals", icon: Handshake },
+        { labelKey: "navigation.items.browseProperties", href: "/properties", icon: Building2 },
+        { labelKey: "navigation.items.savedProperties", href: "/properties/saved", icon: Heart },
+        { labelKey: "navigation.items.deals", href: "/deals", icon: Handshake },
       ],
     },
     {
-      label: "Legal Services",
+      labelKey: "navigation.groups.legalServices",
       items: [
-        { label: "Consultation Requests", href: "/legal/consultations", icon: FileText },
-        { label: "Contract Reviews", href: "/legal/contracts", icon: Scale },
-        { label: "Transaction Documents", href: "/legal/documents", icon: FileText },
+        { labelKey: "navigation.items.consultationRequests", href: "/legal/consultations", icon: FileText },
+        { labelKey: "navigation.items.contractReviews", href: "/legal/contracts", icon: Scale },
+        { labelKey: "navigation.items.transactionDocuments", href: "/legal/documents", icon: FileText },
       ],
     },
     {
       items: [
-        { label: "Clients", href: "/clients", icon: Users },
-        { label: "Feed", href: "/feed", icon: Rss },
-        { label: "Chat", href: "/chat", icon: MessageSquare },
-        { label: "Profile", href: "/profile/provider", icon: UserCircle },
-        { label: "Settings", href: "/settings", icon: Settings },
+        { labelKey: "navigation.items.clients", href: "/clients", icon: Users },
+        { labelKey: "navigation.items.feed", href: "/feed", icon: Rss },
+        { labelKey: "navigation.items.chat", href: "/chat", icon: MessageSquare },
+        { labelKey: "navigation.items.profile", href: "/profile/provider", icon: UserCircle },
+        { labelKey: "navigation.items.settings", href: "/settings", icon: Settings },
       ],
     },
   ],
@@ -195,33 +195,33 @@ const accountantNavigation: RoleNavigation = {
   groups: [
     {
       items: [
-        { label: "Dashboard", href: "/dashboard", icon: Home },
-        { label: "Analytics", href: "/analytics", icon: BarChart3 },
+        { labelKey: "navigation.items.dashboard", href: "/dashboard", icon: Home },
+        { labelKey: "navigation.items.analytics", href: "/analytics", icon: BarChart3 },
       ],
     },
     {
-      label: "Marketplace",
+      labelKey: "navigation.groups.marketplace",
       items: [
-        { label: "Browse Properties", href: "/properties", icon: Building2 },
-        { label: "Saved Properties", href: "/properties/saved", icon: Heart },
-        { label: "Deals", href: "/deals", icon: Handshake },
+        { labelKey: "navigation.items.browseProperties", href: "/properties", icon: Building2 },
+        { labelKey: "navigation.items.savedProperties", href: "/properties/saved", icon: Heart },
+        { labelKey: "navigation.items.deals", href: "/deals", icon: Handshake },
       ],
     },
     {
-      label: "Accounting Services",
+      labelKey: "navigation.groups.accountingServices",
       items: [
-        { label: "Consultation Requests", href: "/accounting/consultations", icon: FileText },
-        { label: "Financial Analysis", href: "/accounting/analysis", icon: Calculator },
-        { label: "Tax Planning", href: "/accounting/tax-planning", icon: Receipt },
+        { labelKey: "navigation.items.consultationRequests", href: "/accounting/consultations", icon: FileText },
+        { labelKey: "navigation.items.financialAnalysis", href: "/accounting/analysis", icon: Calculator },
+        { labelKey: "navigation.items.taxPlanning", href: "/accounting/tax-planning", icon: Receipt },
       ],
     },
     {
       items: [
-        { label: "Clients", href: "/clients", icon: Users },
-        { label: "Feed", href: "/feed", icon: Rss },
-        { label: "Chat", href: "/chat", icon: MessageSquare },
-        { label: "Profile", href: "/profile/provider", icon: UserCircle },
-        { label: "Settings", href: "/settings", icon: Settings },
+        { labelKey: "navigation.items.clients", href: "/clients", icon: Users },
+        { labelKey: "navigation.items.feed", href: "/feed", icon: Rss },
+        { labelKey: "navigation.items.chat", href: "/chat", icon: MessageSquare },
+        { labelKey: "navigation.items.profile", href: "/profile/provider", icon: UserCircle },
+        { labelKey: "navigation.items.settings", href: "/settings", icon: Settings },
       ],
     },
   ],
@@ -232,33 +232,33 @@ const notaryNavigation: RoleNavigation = {
   groups: [
     {
       items: [
-        { label: "Dashboard", href: "/dashboard", icon: Home },
-        { label: "Analytics", href: "/analytics", icon: BarChart3 },
+        { labelKey: "navigation.items.dashboard", href: "/dashboard", icon: Home },
+        { labelKey: "navigation.items.analytics", href: "/analytics", icon: BarChart3 },
       ],
     },
     {
-      label: "Marketplace",
+      labelKey: "navigation.groups.marketplace",
       items: [
-        { label: "Browse Properties", href: "/properties", icon: Building2 },
-        { label: "Saved Properties", href: "/properties/saved", icon: Heart },
-        { label: "Deals", href: "/deals", icon: Handshake },
+        { labelKey: "navigation.items.browseProperties", href: "/properties", icon: Building2 },
+        { labelKey: "navigation.items.savedProperties", href: "/properties/saved", icon: Heart },
+        { labelKey: "navigation.items.deals", href: "/deals", icon: Handshake },
       ],
     },
     {
-      label: "Notarization Services",
+      labelKey: "navigation.groups.notarizationServices",
       items: [
-        { label: "Notarization Requests", href: "/notary/requests", icon: FileText },
-        { label: "Document Signings", href: "/notary/signings", icon: Stamp },
-        { label: "Transaction Notarizations", href: "/notary/transactions", icon: FileText },
+        { labelKey: "navigation.items.notarizationRequests", href: "/notary/requests", icon: FileText },
+        { labelKey: "navigation.items.documentSignings", href: "/notary/signings", icon: Stamp },
+        { labelKey: "navigation.items.transactionNotarizations", href: "/notary/transactions", icon: FileText },
       ],
     },
     {
       items: [
-        { label: "Clients", href: "/clients", icon: Users },
-        { label: "Feed", href: "/feed", icon: Rss },
-        { label: "Chat", href: "/chat", icon: MessageSquare },
-        { label: "Profile", href: "/profile/provider", icon: UserCircle },
-        { label: "Settings", href: "/settings", icon: Settings },
+        { labelKey: "navigation.items.clients", href: "/clients", icon: Users },
+        { labelKey: "navigation.items.feed", href: "/feed", icon: Rss },
+        { labelKey: "navigation.items.chat", href: "/chat", icon: MessageSquare },
+        { labelKey: "navigation.items.profile", href: "/profile/provider", icon: UserCircle },
+        { labelKey: "navigation.items.settings", href: "/settings", icon: Settings },
       ],
     },
   ],
@@ -269,33 +269,33 @@ const taxConsultantNavigation: RoleNavigation = {
   groups: [
     {
       items: [
-        { label: "Dashboard", href: "/dashboard", icon: Home },
-        { label: "Analytics", href: "/analytics", icon: BarChart3 },
+        { labelKey: "navigation.items.dashboard", href: "/dashboard", icon: Home },
+        { labelKey: "navigation.items.analytics", href: "/analytics", icon: BarChart3 },
       ],
     },
     {
-      label: "Marketplace",
+      labelKey: "navigation.groups.marketplace",
       items: [
-        { label: "Browse Properties", href: "/properties", icon: Building2 },
-        { label: "Saved Properties", href: "/properties/saved", icon: Heart },
-        { label: "Deals", href: "/deals", icon: Handshake },
+        { labelKey: "navigation.items.browseProperties", href: "/properties", icon: Building2 },
+        { labelKey: "navigation.items.savedProperties", href: "/properties/saved", icon: Heart },
+        { labelKey: "navigation.items.deals", href: "/deals", icon: Handshake },
       ],
     },
     {
-      label: "Tax Services",
+      labelKey: "navigation.groups.taxServices",
       items: [
-        { label: "Consultation Requests", href: "/tax/consultations", icon: FileText },
-        { label: "Tax Filing Requests", href: "/tax/filings", icon: Receipt },
-        { label: "Tax Planning", href: "/tax/planning", icon: Calculator },
+        { labelKey: "navigation.items.consultationRequests", href: "/tax/consultations", icon: FileText },
+        { labelKey: "navigation.items.taxFilingRequests", href: "/tax/filings", icon: Receipt },
+        { labelKey: "navigation.items.taxPlanning", href: "/tax/planning", icon: Calculator },
       ],
     },
     {
       items: [
-        { label: "Clients", href: "/clients", icon: Users },
-        { label: "Feed", href: "/feed", icon: Rss },
-        { label: "Chat", href: "/chat", icon: MessageSquare },
-        { label: "Profile", href: "/profile/provider", icon: UserCircle },
-        { label: "Settings", href: "/settings", icon: Settings },
+        { labelKey: "navigation.items.clients", href: "/clients", icon: Users },
+        { labelKey: "navigation.items.feed", href: "/feed", icon: Rss },
+        { labelKey: "navigation.items.chat", href: "/chat", icon: MessageSquare },
+        { labelKey: "navigation.items.profile", href: "/profile/provider", icon: UserCircle },
+        { labelKey: "navigation.items.settings", href: "/settings", icon: Settings },
       ],
     },
   ],
@@ -306,33 +306,33 @@ const appraiserNavigation: RoleNavigation = {
   groups: [
     {
       items: [
-        { label: "Dashboard", href: "/dashboard", icon: Home },
-        { label: "Analytics", href: "/analytics", icon: BarChart3 },
+        { labelKey: "navigation.items.dashboard", href: "/dashboard", icon: Home },
+        { labelKey: "navigation.items.analytics", href: "/analytics", icon: BarChart3 },
       ],
     },
     {
-      label: "Marketplace",
+      labelKey: "navigation.groups.marketplace",
       items: [
-        { label: "Browse Properties", href: "/properties", icon: Building2 },
-        { label: "Saved Properties", href: "/properties/saved", icon: Heart },
-        { label: "Deals", href: "/deals", icon: Handshake },
+        { labelKey: "navigation.items.browseProperties", href: "/properties", icon: Building2 },
+        { labelKey: "navigation.items.savedProperties", href: "/properties/saved", icon: Heart },
+        { labelKey: "navigation.items.deals", href: "/deals", icon: Handshake },
       ],
     },
     {
-      label: "Appraisal Services",
+      labelKey: "navigation.groups.appraisalServices",
       items: [
-        { label: "Appraisal Requests", href: "/appraisal/requests", icon: FileText },
-        { label: "Property Valuations", href: "/appraisal/valuations", icon: ClipboardCheck },
-        { label: "Valuation Reports", href: "/appraisal/reports", icon: FileText },
+        { labelKey: "navigation.items.appraisalRequests", href: "/appraisal/requests", icon: FileText },
+        { labelKey: "navigation.items.propertyValuations", href: "/appraisal/valuations", icon: ClipboardCheck },
+        { labelKey: "navigation.items.valuationReports", href: "/appraisal/reports", icon: FileText },
       ],
     },
     {
       items: [
-        { label: "Clients", href: "/clients", icon: Users },
-        { label: "Feed", href: "/feed", icon: Rss },
-        { label: "Chat", href: "/chat", icon: MessageSquare },
-        { label: "Profile", href: "/profile/provider", icon: UserCircle },
-        { label: "Settings", href: "/settings", icon: Settings },
+        { labelKey: "navigation.items.clients", href: "/clients", icon: Users },
+        { labelKey: "navigation.items.feed", href: "/feed", icon: Rss },
+        { labelKey: "navigation.items.chat", href: "/chat", icon: MessageSquare },
+        { labelKey: "navigation.items.profile", href: "/profile/provider", icon: UserCircle },
+        { labelKey: "navigation.items.settings", href: "/settings", icon: Settings },
       ],
     },
   ],
@@ -343,33 +343,33 @@ const adminNavigation: RoleNavigation = {
   groups: [
     {
       items: [
-        { label: "Dashboard", href: "/dashboard", icon: Home },
-        { label: "Analytics", href: "/analytics", icon: BarChart3 },
+        { labelKey: "navigation.items.dashboard", href: "/dashboard", icon: Home },
+        { labelKey: "navigation.items.analytics", href: "/analytics", icon: BarChart3 },
       ],
     },
     {
-      label: "Marketplace",
+      labelKey: "navigation.groups.marketplace",
       items: [
-        { label: "Browse Properties", href: "/properties", icon: Building2 },
-        { label: "Saved Properties", href: "/properties/saved", icon: Heart },
-        { label: "Your Listings", href: "/properties/listings", icon: Building },
-        { label: "Deals", href: "/deals", icon: Handshake },
+        { labelKey: "navigation.items.browseProperties", href: "/properties", icon: Building2 },
+        { labelKey: "navigation.items.savedProperties", href: "/properties/saved", icon: Heart },
+        { labelKey: "navigation.items.yourListings", href: "/properties/listings", icon: Building },
+        { labelKey: "navigation.items.deals", href: "/deals", icon: Handshake },
       ],
     },
     {
-      label: "Property Management",
+      labelKey: "navigation.groups.propertyManagement",
       items: [
-        { label: "Property Tours", href: "/properties/tours", icon: CalendarDays },
-        { label: "Lead Management", href: "/leads", icon: Users },
+        { labelKey: "navigation.items.propertyTours", href: "/properties/tours", icon: CalendarDays },
+        { labelKey: "navigation.items.leadManagement", href: "/leads", icon: Users },
       ],
     },
     {
       items: [
-        { label: "Clients", href: "/clients", icon: Users },
-        { label: "Feed", href: "/feed", icon: Rss },
-        { label: "Chat", href: "/chat", icon: MessageSquare },
-        { label: "Profile", href: "/profile/provider", icon: UserCircle },
-        { label: "Settings", href: "/settings", icon: Settings },
+        { labelKey: "navigation.items.clients", href: "/clients", icon: Users },
+        { labelKey: "navigation.items.feed", href: "/feed", icon: Rss },
+        { labelKey: "navigation.items.chat", href: "/chat", icon: MessageSquare },
+        { labelKey: "navigation.items.profile", href: "/profile/provider", icon: UserCircle },
+        { labelKey: "navigation.items.settings", href: "/settings", icon: Settings },
       ],
     },
   ],
