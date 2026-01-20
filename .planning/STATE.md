@@ -5,7 +5,7 @@
 See: .planning/PROJECT.md (updated 2026-01-19)
 
 **Core value:** Deal flow tracking from interest to close.
-**Current focus:** v1.4 Internationalization & RTL Support
+**Current focus:** v1.4 Internationalization & RTL Support (SHIPPED 2026-01-20)
 
 ## Current Position
 

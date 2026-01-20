@@ -36,9 +36,9 @@ Requirements for v1.4 Internationalization & RTL Support. Each maps to roadmap p
 
 ### User Experience
 
-- [ ] **UX-01**: Language switcher component available in UI
-- [ ] **UX-02**: User locale preference persisted across sessions
-- [ ] **UX-03**: Locale auto-detected on first visit based on browser settings
+- [x] **UX-01**: Language switcher component available in UI
+- [x] **UX-02**: User locale preference persisted across sessions
+- [x] **UX-03**: Locale auto-detected on first visit based on browser settings
 
 ## v2 Requirements
 
@@ -94,9 +94,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | FMT-01 | 32 | Complete |
 | FMT-02 | 32 | Complete |
 | FMT-03 | 32 | Complete |
-| UX-01 | 34 | Pending |
-| UX-02 | 34 | Pending |
-| UX-03 | 34 | Pending |
+| UX-01 | 34 | Complete |
+| UX-02 | 34 | Complete |
+| UX-03 | 34 | Complete |
 
 **Coverage:**
 - v1 requirements: 18 total

@@ -10,23 +10,7 @@ Building an end-to-end real estate investment platform connecting US investors w
 - [v1.1 Investor Onboarding](milestones/v1.1-ROADMAP.md) (Phases 9-15) — SHIPPED 2026-01-18
 - [v1.2 Provider Experience](milestones/v1.2-ROADMAP.md) (Phases 16-20) — SHIPPED 2026-01-19
 - [v1.3 Social Feed & Global Community](milestones/v1.3-ROADMAP.md) (Phases 21-27.2) — SHIPPED 2026-01-19
-- [v1.4 Internationalization & RTL](milestones/v1.4-ROADMAP.md) (Phases 28-34) — IN PROGRESS
-
-## Active Milestone: v1.4 Internationalization & RTL Support
-
-**Goal:** Full internationalization with Hebrew/RTL support.
-
-| Phase | Name | Requirements | Status |
-|-------|------|--------------|--------|
-| 28 | i18n Infrastructure | INFRA-01, INFRA-02, INFRA-03, INFRA-04, RTL-01 | Complete |
-| 29 | CSS Logical Properties Migration | RTL-02 | Complete |
-| 30 | RTL Component Patches | RTL-03, RTL-04, RTL-05 | Complete |
-| 31 | Translation Infrastructure | TRANS-01, TRANS-03 | Complete |
-| 32 | Locale Formatting | FMT-01, FMT-02, FMT-03 | Complete |
-| 33 | Hebrew Translation | TRANS-02 | Complete |
-| 34 | Language Switcher & Polish | UX-01, UX-02, UX-03 | Pending |
-
-[Full details ->](milestones/v1.4-ROADMAP.md)
+- [v1.4 Internationalization & RTL](milestones/v1.4-ROADMAP.md) (Phases 28-34) — SHIPPED 2026-01-20
 
 ## Completed Milestones
 
@@ -109,6 +93,23 @@ Building an end-to-end real estate investment platform connecting US investors w
 
 </details>
 
+<details>
+<summary>v1.4 Internationalization & RTL (Phases 28-34) — SHIPPED 2026-01-20</summary>
+
+**7 phases, 43 plans**
+
+- [x] Phase 28: i18n Infrastructure (2/2 plans) — completed 2026-01-19
+- [x] Phase 29: CSS Logical Properties Migration (11/11 plans) — completed 2026-01-19
+- [x] Phase 30: RTL Component Patches (3/3 plans) — completed 2026-01-19
+- [x] Phase 31: Translation Infrastructure (12/12 plans) — completed 2026-01-19
+- [x] Phase 32: Locale Formatting (5/5 plans) — completed 2026-01-19
+- [x] Phase 33: Hebrew Translation (8/8 plans) — completed 2026-01-20
+- [x] Phase 34: Language Switcher & Polish (2/2 plans) — completed 2026-01-20
+
+[Full details ->](milestones/v1.4-ROADMAP.md)
+
+</details>
+
 ## Progress
 
 | Milestone | Phases | Plans | Status | Shipped |
@@ -117,9 +118,9 @@ Building an end-to-end real estate investment platform connecting US investors w
 | v1.1 Investor Onboarding | 7 | 8 | Complete | 2026-01-18 |
 | v1.2 Provider Experience | 6 | 11 | Complete | 2026-01-19 |
 | v1.3 Social Feed & Global Community | 8 | 20 | Complete | 2026-01-19 |
-| v1.4 Internationalization & RTL | 7 | TBD | In Progress | — |
+| v1.4 Internationalization & RTL | 7 | 43 | Complete | 2026-01-20 |
 
-**Total: 38 phases, 79 plans shipped + 7 phases pending**
+**Total: 45 phases, 122 plans shipped**
 
 ---
 
