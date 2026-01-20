@@ -1282,5 +1282,307 @@
     },
     "loadMore": "Load more",
     "loading": "Loading..."
+  },
+  "providers": {
+    "title": "Service Providers",
+    "findProviders": "Find a Provider",
+    "description": "Browse service providers to help with your real estate transaction",
+
+    "tabs": {
+      "all": "All",
+      "brokers": "Brokers",
+      "mortgageAdvisors": "Mortgage Advisors",
+      "lawyers": "Lawyers"
+    },
+
+    "card": {
+      "rating": "Rating",
+      "reviews": "{count, plural, =1 {# review} other {# reviews}}",
+      "noReviews": "No reviews yet",
+      "dealsCompleted": "{count} deals",
+      "yearsExperience": "{count} years experience",
+      "serviceAreas": "Service Areas",
+      "languages": "Languages",
+      "specializations": "Specializations",
+      "viewProfile": "View Profile",
+      "view": "View",
+      "contact": "Contact",
+      "more": "+{count} more"
+    },
+
+    "profile": {
+      "about": "About",
+      "reviews": "Reviews",
+      "portfolio": "Portfolio",
+      "stats": "Stats",
+      "writeReview": "Write a Review",
+      "requestService": "Request Service",
+      "noBio": "No bio provided.",
+      "noReviews": "No reviews yet.",
+      "noDeals": "No completed deals yet.",
+      "contactInfo": "Contact Information",
+      "preferredContact": "Preferred contact method",
+      "license": "License"
+    },
+
+    "filters": {
+      "serviceArea": "Service Area",
+      "language": "Language",
+      "specialization": "Specialization",
+      "minRating": "Minimum Rating"
+    },
+
+    "empty": {
+      "noProviders": "No {type} yet",
+      "willAppear": "{type} will appear here once they create their profiles.",
+      "noMatch": "No providers match \"{query}\"",
+      "clearSearch": "Clear search"
+    },
+
+    "notFound": {
+      "title": "Provider Not Found",
+      "description": "This provider profile doesn't exist or is not available."
+    }
+  },
+  "profile": {
+    "title": "Profile",
+    "editProfile": "Edit Profile",
+    "viewPublicProfile": "View Public Profile",
+    "back": "Back",
+
+    "tabs": {
+      "posts": "Posts",
+      "reposts": "Reposts",
+      "about": "About",
+      "reviews": "Reviews",
+      "portfolio": "Portfolio"
+    },
+
+    "stats": {
+      "followers": "Followers",
+      "following": "Following",
+      "posts": "Posts",
+      "deals": "Deals",
+      "avgRating": "Avg Rating",
+      "reviews": "Reviews",
+      "dealsCompleted": "Deals Completed",
+      "yearsExperience": "Years Experience"
+    },
+
+    "sections": {
+      "bio": "Bio",
+      "contactInfo": "Contact Information",
+      "specializations": "Specializations",
+      "serviceAreas": "Service Areas",
+      "languages": "Languages"
+    },
+
+    "investor": {
+      "title": "Investor Profile",
+      "questionnaire": "Investment Preferences",
+      "editQuestionnaire": "Edit Preferences"
+    },
+
+    "provider": {
+      "title": "Provider Profile",
+      "portfolio": "Portfolio",
+      "recentDeals": "Recent Deals"
+    },
+
+    "empty": {
+      "noPosts": "No posts yet",
+      "noReposts": "No reposts yet",
+      "noBio": "No bio provided"
+    },
+
+    "notFound": {
+      "title": "User Not Found",
+      "description": "This user profile doesn't exist or is not available."
+    }
+  },
+  "search": {
+    "title": "Search Results",
+    "placeholder": "Search properties, people, posts...",
+    "recentSearches": "Recent Searches",
+    "clearRecent": "Clear",
+    "searchFor": "Search for something",
+    "enterTerm": "Enter a search term to find users, posts, and properties.",
+
+    "tabs": {
+      "all": "All",
+      "users": "Users",
+      "posts": "Posts",
+      "properties": "Properties"
+    },
+
+    "results": {
+      "title": "Search Results",
+      "showing": "Showing results for \"{query}\"",
+      "noResults": "No results found for \"{query}\"",
+      "tryDifferent": "Try checking your spelling or using different keywords.",
+      "noUsersFound": "No users found matching \"{query}\"",
+      "noPostsFound": "No posts found matching \"{query}\"",
+      "noPropertiesFound": "No properties found matching \"{query}\""
+    },
+
+    "quickActions": {
+      "title": "Quick Actions",
+      "goTo": "Go to {page}"
+    },
+
+    "trending": {
+      "title": "Trending",
+      "discover": "Discover what's trending",
+      "posts": "Trending Posts",
+      "properties": "Trending Properties",
+      "today": "Today",
+      "thisWeek": "This Week",
+      "noPosts": "No trending posts yet"
+    },
+
+    "suggestions": {
+      "title": "Suggested for you",
+      "peopleToFollow": "People to Follow",
+      "similarProperties": "Similar Properties",
+      "relatedPosts": "Related Posts",
+      "noSuggestions": "No suggestions right now",
+      "checkBack": "Check back later"
+    }
+  },
+  "onboarding": {
+    "title": "Complete Your Profile",
+    "subtitle": "Select your role to get started with REOS. This helps us personalize your experience.",
+    "settingUp": "Setting up...",
+    "continue": "Continue",
+
+    "roles": {
+      "investor": {
+        "label": "Investor",
+        "description": "Looking to invest in Israeli real estate properties"
+      },
+      "broker": {
+        "label": "Real Estate Broker",
+        "description": "Licensed broker helping investors find properties"
+      },
+      "mortgageAdvisor": {
+        "label": "Mortgage Advisor",
+        "description": "Helping investors secure financing for their purchases"
+      },
+      "lawyer": {
+        "label": "Real Estate Lawyer",
+        "description": "Providing legal services for property transactions"
+      }
+    },
+
+    "questionnaire": {
+      "title": "Investment Questionnaire",
+      "subtitle": "Help us understand your investment goals",
+      "progress": "Step {current} of {total}",
+      "upNext": "Up next: {step}",
+      "next": "Continue",
+      "back": "Back",
+      "skip": "Skip for now",
+      "complete": "Complete",
+      "saveChanges": "Save Changes",
+      "error": "Something went wrong. Please try refreshing the page."
+    },
+
+    "questions": {
+      "citizenship": {
+        "title": "What is your citizenship status?",
+        "description": "This helps us understand which tax and legal rules apply to your investment."
+      },
+      "residency": {
+        "title": "What is your residency status?",
+        "description": "Residency affects mortgage eligibility and tax obligations."
+      },
+      "experience": {
+        "title": "What is your investment experience?",
+        "description": "This helps us tailor recommendations to your comfort level."
+      },
+      "ownsProperty": {
+        "title": "Do you currently own property in Israel?",
+        "description": "Ownership status affects tax rates on additional properties."
+      },
+      "investmentType": {
+        "title": "What type of property are you looking for?",
+        "description": "This determines the type of properties we'll recommend."
+      },
+      "budget": {
+        "title": "What is your budget range?",
+        "description": "Your budget helps us filter properties within your financial comfort zone."
+      },
+      "horizon": {
+        "title": "What is your investment timeline?",
+        "description": "Your investment horizon affects the types of properties that make sense."
+      },
+      "goals": {
+        "title": "What are your investment goals?",
+        "description": "Select all that apply to help us understand your priorities."
+      },
+      "yield": {
+        "title": "What is your yield preference?",
+        "description": "This helps us balance rental income vs. appreciation potential."
+      },
+      "financing": {
+        "title": "How do you plan to finance your purchase?",
+        "description": "Your financing approach affects the deals and providers we recommend."
+      },
+      "propertyTypes": {
+        "title": "What property types interest you?",
+        "description": "Select all that apply."
+      },
+      "locations": {
+        "title": "Which locations are you considering?",
+        "description": "Select the cities or areas you're interested in."
+      },
+      "propertySize": {
+        "title": "What size property are you looking for?",
+        "description": "This helps us filter properties that match your space requirements."
+      },
+      "amenities": {
+        "title": "Which amenities are important to you?",
+        "description": "Select the features that matter most."
+      },
+      "timeline": {
+        "title": "When are you planning to purchase?",
+        "description": "This helps providers understand your timeline."
+      },
+      "services": {
+        "title": "Which services do you need?",
+        "description": "We'll connect you with the right professionals."
+      },
+      "additional": {
+        "title": "Anything else we should know?",
+        "description": "Share any preferences not covered above. Our AI uses this to find better matches.",
+        "placeholder": "e.g., I prefer properties near good schools, looking for a quiet neighborhood, interested in new construction...",
+        "charCount": "{count}/{max} characters"
+      }
+    },
+
+    "options": {
+      "bedrooms": "Bedrooms",
+      "area": "Area (sqm)",
+      "minimum": "Minimum",
+      "maximum": "Maximum"
+    },
+
+    "complete": {
+      "title": "You're all set!",
+      "subtitle": "Your profile is ready. Start exploring properties.",
+      "cta": "Browse Properties"
+    }
+  },
+  "misc": {
+    "comingSoon": {
+      "title": "Coming Soon",
+      "description": "This feature is coming soon. We're working hard to bring you this functionality."
+    },
+    "error": {
+      "notFound": "Page not found",
+      "unauthorized": "You don't have access to this page",
+      "generic": "Something went wrong",
+      "goBack": "Go Back"
+    }
   }
 }
