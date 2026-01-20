@@ -478,6 +478,29 @@
       "daysAgo": "לפני {count} ימים"
     }
   },
+  "properties": {
+    "title": "נכסים",
+    "browseTitle": "עיון בנכסים",
+    "savedTitle": "נכסים שמורים",
+    "listingsTitle": "הנכסים שלך",
+    "newTitle": "הוספת נכס חדש",
+    "editTitle": "עריכת נכס",
+    "newDescription": "צור מודעת נכס חדשה למשקיעים לעיון.",
+    "editDescription": "עדכן פרטי מודעת הנכס.",
+
+    "count": "{count, plural, =0 {לא נמצאו נכסים} =1 {נכס אחד} other {# נכסים}} נמצאו",
+    "listingsCount": "{count, plural, =0 {0 מודעות} =1 {מודעה אחת} other {# מודעות}}",
+
+    "card": {
+      "bedrooms": "{count} חדרים",
+      "bathrooms": "{count} אמבטיות",
+      "size": "{size} מ\"ר",
+      "roi": "תשואה",
+      "cap": "היוון",
+      "rent": "שכירות",
+      "perMonth": "/חודש"
+    }
+  },
   "feed": {
     "title": "פיד",
     "createPost": "צור פוסט",
