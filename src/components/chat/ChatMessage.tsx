@@ -51,11 +51,11 @@ export function ChatMessage({
   // Format time based on when the message was sent
   const formatMessageTime = () => {
     if (isToday(date, now)) {
-      return format.dateTime(date, 'time');
+      return format.dateTime(date, { hour: 'numeric', minute: '2-digit' });
     } else if (isYesterday(date, now)) {
-      return `${t('time.yesterday')} ${format.dateTime(date, 'time')}`;
+      return `${t('time.yesterday')} ${format.dateTime(date, { hour: 'numeric', minute: '2-digit' })}`;
     } else {
-      return format.dateTime(date, 'dateTime');
+      return format.dateTime(date, { day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' });
     }
   };
 
