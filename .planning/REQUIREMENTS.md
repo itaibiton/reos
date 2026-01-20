@@ -30,9 +30,9 @@ Requirements for v1.4 Internationalization & RTL Support. Each maps to roadmap p
 
 ### Formatting
 
-- [ ] **FMT-01**: Dates displayed in locale-appropriate format
-- [ ] **FMT-02**: Numbers displayed with locale-appropriate separators
-- [ ] **FMT-03**: Currency displayed with locale-appropriate symbol and format
+- [x] **FMT-01**: Dates displayed in locale-appropriate format
+- [x] **FMT-02**: Numbers displayed with locale-appropriate separators
+- [x] **FMT-03**: Currency displayed with locale-appropriate symbol and format
 
 ### User Experience
 
@@ -91,9 +91,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | TRANS-01 | 31 | Complete |
 | TRANS-02 | 33 | Pending |
 | TRANS-03 | 31 | Complete |
-| FMT-01 | 32 | Pending |
-| FMT-02 | 32 | Pending |
-| FMT-03 | 32 | Pending |
+| FMT-01 | 32 | Complete |
+| FMT-02 | 32 | Complete |
+| FMT-03 | 32 | Complete |
 | UX-01 | 34 | Pending |
 | UX-02 | 34 | Pending |
 | UX-03 | 34 | Pending |
