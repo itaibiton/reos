@@ -5,17 +5,17 @@
 See: .planning/PROJECT.md (updated 2026-01-19)
 
 **Core value:** Deal flow tracking from interest to close.
-**Current focus:** v1.4 Internationalization & RTL Support (SHIPPED 2026-01-20)
+**Current focus:** v1.4 Internationalization & RTL Support (IN PROGRESS)
 
 ## Current Position
 
 Milestone: v1.4 Internationalization & RTL Support
-Phase: 34 - Language Switcher & Polish
-Plan: 2/2 complete
-Status: Phase complete - Milestone complete
-Last activity: 2026-01-20 — Completed 34-02-PLAN.md (Header Integration)
+Phase: 34.1 - Translate All Pages & Content (INSERTED)
+Plan: 0/3 — planned, ready for execution
+Status: Phase planned with 3 plans
+Last activity: 2026-01-20 — Planned Phase 34.1 (3 plans in 1 wave)
 
-Progress: [██████████] 100% (2/2 plans)
+Progress: [░░░░░░░░░░] 0% (0/3 plans)
 
 ## Performance Metrics
 
@@ -396,10 +396,11 @@ None yet.
 - Milestone v1.3 created: Social Feed & Global Community, 7 phases (Phase 21-27)
 - Phase 27.2 inserted after Phase 27: Quick Actions & Pages in Search (COMPLETE)
 - Milestone v1.4 created: Internationalization & RTL, 7 phases (Phase 28-34)
+- Phase 34.1 inserted after Phase 34: Translate All Pages & Content (URGENT)
 
 ## Session Continuity
 
 Last session: 2026-01-20
-Stopped at: Completed 34-02-PLAN.md (Header Integration)
+Stopped at: Inserted Phase 34.1 for translation fixes
 Resume file: None
-Next: v1.4 Milestone Complete - ready for `/gsd:complete-milestone`
+Next: Plan Phase 34.1 - run `/gsd:plan-phase 34.1`
