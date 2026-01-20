@@ -68,6 +68,10 @@
       "deleteConfirm": "האם אתה בטוח שברצונך למחוק?",
       "cancelConfirm": "האם אתה בטוח שברצונך לבטל?"
     },
+    "language": {
+      "switchLanguage": "החלף שפה",
+      "currentLanguage": "שפה נוכחית"
+    },
     "propertyTypes": {
       "residential": "מגורים",
       "commercial": "מסחרי",

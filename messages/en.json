@@ -68,6 +68,10 @@
       "deleteConfirm": "Are you sure you want to delete this?",
       "cancelConfirm": "Are you sure you want to cancel?"
     },
+    "language": {
+      "switchLanguage": "Switch language",
+      "currentLanguage": "Current language"
+    },
     "propertyTypes": {
       "residential": "Residential",
       "commercial": "Commercial",
