@@ -1,11 +1,12 @@
 "use client";
 
 import { useQuery } from "convex/react";
+import { useTranslations } from "next-intl";
 import { api } from "../../../../../../../convex/_generated/api";
 import { Id } from "../../../../../../../convex/_generated/dataModel";
 import { PropertyForm } from "@/components/properties/PropertyForm";
 import { Spinner } from "@/components/ui/spinner";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { use } from "react";
 
 interface EditPropertyPageProps {
@@ -13,6 +14,7 @@ interface EditPropertyPageProps {
 }
 
 export default function EditPropertyPage({ params }: EditPropertyPageProps) {
+  const t = useTranslations("properties");
   const resolvedParams = use(params);
   const propertyId = resolvedParams.id as Id<"properties">;
 
@@ -33,16 +35,16 @@ export default function EditPropertyPage({ params }: EditPropertyPageProps) {
       <div className="p-6">
         <div className="text-center py-12">
           <h1 className="text-2xl font-bold text-destructive">
-            Property Not Found
+            {t("empty.notFound")}
           </h1>
           <p className="text-muted-foreground mt-2">
-            The property you&apos;re looking for doesn&apos;t exist or has been removed.
+            {t("empty.notFoundDescription")}
           </p>
           <Link
             href="/properties"
             className="text-primary hover:underline mt-4 inline-block"
           >
-            ← Back to Properties
+            {t("empty.backToProperties")}
           </Link>
         </div>
       </div>
@@ -52,9 +54,9 @@ export default function EditPropertyPage({ params }: EditPropertyPageProps) {
   return (
     <div className="p-6">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold">Edit Property</h1>
+        <h1 className="text-2xl font-bold">{t("editTitle")}</h1>
         <p className="text-muted-foreground">
-          Update property listing details.
+          {t("editDescription")}
         </p>
       </div>
       <PropertyForm

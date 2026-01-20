@@ -3,12 +3,13 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "convex/react";
 import { useParams, useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { api } from "../../../../../../convex/_generated/api";
 import { Id } from "../../../../../../convex/_generated/dataModel";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { USD_TO_ILS_RATE, PROPERTY_TYPES, PROPERTY_STATUS } from "@/lib/constants";
+import { USD_TO_ILS_RATE } from "@/lib/constants";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
   Home01Icon,
@@ -20,7 +21,7 @@ import {
   Location01Icon,
   Agreement01Icon,
 } from "@hugeicons/core-free-icons";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { SaveButton } from "@/components/properties/SaveButton";
 import { PropertyImageCarousel } from "@/components/properties/PropertyImageCarousel";
 import { PropertyMap } from "@/components/properties/PropertyMap";
@@ -55,12 +56,6 @@ const formatPercent = (value: number) => {
   return `${value.toFixed(1)}%`;
 };
 
-// Get property type label
-const getPropertyTypeLabel = (value: string) => {
-  const type = PROPERTY_TYPES.find((t) => t.value === value);
-  return type?.label || value;
-};
-
 // Get status badge variant
 const getStatusBadgeVariant = (status: string) => {
   switch (status) {
@@ -73,12 +68,6 @@ const getStatusBadgeVariant = (status: string) => {
     default:
       return "outline";
   }
-};
-
-// Get status label
-const getStatusLabel = (value: string) => {
-  const status = PROPERTY_STATUS.find((s) => s.value === value);
-  return status?.label || value;
 };
 
 // Loading skeleton for the detail page
@@ -106,19 +95,19 @@ function DetailPageSkeleton() {
 }
 
 // Not found component
-function PropertyNotFound() {
+function PropertyNotFound({ t }: { t: (key: string) => string }) {
   return (
     <div className="p-6">
       <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
         <div className="rounded-full bg-muted p-4 mb-4 text-muted-foreground">
           <HugeiconsIcon icon={Building02Icon} size={48} strokeWidth={1.5} />
         </div>
-        <h2 className="text-xl font-semibold mb-2">Property not found</h2>
+        <h2 className="text-xl font-semibold mb-2">{t("empty.notFound")}</h2>
         <p className="text-muted-foreground mb-6 max-w-md">
-          The property you&apos;re looking for doesn&apos;t exist or has been removed.
+          {t("empty.notFoundDescription")}
         </p>
         <Link href="/properties">
-          <Button>Back to Marketplace</Button>
+          <Button>{t("details.backToMarketplace")}</Button>
         </Link>
       </div>
     </div>
@@ -126,6 +115,8 @@ function PropertyNotFound() {
 }
 
 export default function PropertyDetailPage() {
+  const t = useTranslations("properties");
+  const tCommon = useTranslations("common");
   const params = useParams();
   const router = useRouter();
   const propertyId = params.id as string;
@@ -171,7 +162,7 @@ export default function PropertyDetailPage() {
 
   // Not found state
   if (property === null) {
-    return <PropertyNotFound />;
+    return <PropertyNotFound t={t} />;
   }
 
   const {
@@ -208,7 +199,7 @@ export default function PropertyDetailPage() {
           className="inline-flex items-center gap-1 text-muted-foreground hover:text-foreground mb-4 text-sm"
         >
           <HugeiconsIcon icon={ArrowLeft01Icon} size={16} strokeWidth={2} className="rtl:-scale-x-100" />
-          Back to Marketplace
+          {t("details.backToMarketplace")}
         </Link>
 
         {/* Title, Address, Price */}
@@ -217,7 +208,7 @@ export default function PropertyDetailPage() {
             <div className="flex items-center gap-2 mb-1">
               <h1 className="text-2xl font-bold">{title}</h1>
               <Badge variant={getStatusBadgeVariant(status)}>
-                {getStatusLabel(status)}
+                {tCommon(`propertyStatus.${status}`)}
               </Badge>
             </div>
             <div className="flex items-center gap-2 text-muted-foreground">
@@ -248,7 +239,7 @@ export default function PropertyDetailPage() {
             variant="secondary"
             className="absolute top-4 start-4 bg-background/90 backdrop-blur-sm z-10"
           >
-            {getPropertyTypeLabel(propertyType)}
+            {tCommon(`propertyTypes.${propertyType === "mixed_use" ? "mixedUse" : propertyType}`)}
           </Badge>
         </div>
       </div>
@@ -261,13 +252,13 @@ export default function PropertyDetailPage() {
             <Link href={`/deals/${existingDeals?.find(d => d.stage !== "completed" && d.stage !== "cancelled")?._id}`}>
               <Button variant="secondary">
                 <HugeiconsIcon icon={Agreement01Icon} size={16} className="me-2" />
-                View My Deal
+                {t("details.viewMyDeal")}
               </Button>
             </Link>
           ) : (
             <Button onClick={handleStartDeal} disabled={isCreatingDeal}>
               <HugeiconsIcon icon={Agreement01Icon} size={16} className="me-2" />
-              {isCreatingDeal ? "Creating..." : "Start Deal"}
+              {isCreatingDeal ? t("details.creatingDeal") : t("details.startDeal")}
             </Button>
           )
         )}
@@ -275,7 +266,7 @@ export default function PropertyDetailPage() {
 
       {/* Property Details */}
       <section className="mb-8">
-        <h2 className="text-lg font-semibold mb-4">Property Details</h2>
+        <h2 className="text-lg font-semibold mb-4">{t("details.propertyDetails")}</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
           <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
             <HugeiconsIcon
@@ -285,7 +276,7 @@ export default function PropertyDetailPage() {
               className="text-muted-foreground"
             />
             <div>
-              <p className="text-xs text-muted-foreground">Bedrooms</p>
+              <p className="text-xs text-muted-foreground">{t("details.bedrooms")}</p>
               <p className="font-medium">
                 {bedrooms !== undefined && bedrooms !== null ? bedrooms : "N/A"}
               </p>
@@ -299,7 +290,7 @@ export default function PropertyDetailPage() {
               className="text-muted-foreground"
             />
             <div>
-              <p className="text-xs text-muted-foreground">Bathrooms</p>
+              <p className="text-xs text-muted-foreground">{t("details.bathrooms")}</p>
               <p className="font-medium">
                 {bathrooms !== undefined && bathrooms !== null ? bathrooms : "N/A"}
               </p>
@@ -313,7 +304,7 @@ export default function PropertyDetailPage() {
               className="text-muted-foreground"
             />
             <div>
-              <p className="text-xs text-muted-foreground">Size</p>
+              <p className="text-xs text-muted-foreground">{t("details.size")}</p>
               <p className="font-medium">
                 {squareMeters !== undefined && squareMeters !== null
                   ? `${squareMeters} m²`
@@ -329,7 +320,7 @@ export default function PropertyDetailPage() {
               className="text-muted-foreground"
             />
             <div>
-              <p className="text-xs text-muted-foreground">Year Built</p>
+              <p className="text-xs text-muted-foreground">{t("details.yearBuilt")}</p>
               <p className="font-medium">
                 {yearBuilt !== undefined && yearBuilt !== null ? yearBuilt : "N/A"}
               </p>
@@ -343,8 +334,8 @@ export default function PropertyDetailPage() {
               className="text-muted-foreground"
             />
             <div>
-              <p className="text-xs text-muted-foreground">Type</p>
-              <p className="font-medium">{getPropertyTypeLabel(propertyType)}</p>
+              <p className="text-xs text-muted-foreground">{t("details.type")}</p>
+              <p className="font-medium">{tCommon(`propertyTypes.${propertyType === "mixed_use" ? "mixedUse" : propertyType}`)}</p>
             </div>
           </div>
           <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
@@ -355,7 +346,7 @@ export default function PropertyDetailPage() {
               className="text-muted-foreground"
             />
             <div>
-              <p className="text-xs text-muted-foreground">City</p>
+              <p className="text-xs text-muted-foreground">{t("details.city")}</p>
               <p className="font-medium">{city}</p>
             </div>
           </div>
@@ -364,24 +355,24 @@ export default function PropertyDetailPage() {
 
       {/* Description */}
       <section className="mb-8">
-        <h2 className="text-lg font-semibold mb-4">Description</h2>
+        <h2 className="text-lg font-semibold mb-4">{t("details.description")}</h2>
         <p className="text-muted-foreground whitespace-pre-wrap leading-relaxed">
-          {description || "No description available."}
+          {description || t("details.noDescription")}
         </p>
       </section>
 
       {/* Amenities */}
       <section className="mb-8">
-        <h2 className="text-lg font-semibold mb-4">Amenities</h2>
+        <h2 className="text-lg font-semibold mb-4">{t("details.amenities")}</h2>
         <PropertyAmenities amenities={amenities} />
       </section>
 
       {/* Investment Metrics */}
       <section className="mb-8">
-        <h2 className="text-lg font-semibold mb-4">Investment</h2>
+        <h2 className="text-lg font-semibold mb-4">{t("details.investment")}</h2>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
           <div className="p-4 rounded-lg bg-muted/50 text-center">
-            <p className="text-xs text-muted-foreground mb-1">Expected ROI</p>
+            <p className="text-xs text-muted-foreground mb-1">{t("details.expectedRoi")}</p>
             <p className="text-xl font-semibold">
               {expectedRoi !== undefined && expectedRoi !== null
                 ? formatPercent(expectedRoi)
@@ -389,13 +380,13 @@ export default function PropertyDetailPage() {
             </p>
           </div>
           <div className="p-4 rounded-lg bg-muted/50 text-center">
-            <p className="text-xs text-muted-foreground mb-1">Cap Rate</p>
+            <p className="text-xs text-muted-foreground mb-1">{t("details.capRate")}</p>
             <p className="text-xl font-semibold">
               {capRate !== undefined && capRate !== null ? formatPercent(capRate) : "N/A"}
             </p>
           </div>
           <div className="p-4 rounded-lg bg-muted/50 text-center">
-            <p className="text-xs text-muted-foreground mb-1">Cash-on-Cash</p>
+            <p className="text-xs text-muted-foreground mb-1">{t("details.cashOnCash")}</p>
             <p className="text-xl font-semibold">
               {cashOnCash !== undefined && cashOnCash !== null
                 ? formatPercent(cashOnCash)
@@ -403,7 +394,7 @@ export default function PropertyDetailPage() {
             </p>
           </div>
           <div className="p-4 rounded-lg bg-muted/50 text-center">
-            <p className="text-xs text-muted-foreground mb-1">Monthly Rent</p>
+            <p className="text-xs text-muted-foreground mb-1">{t("details.monthlyRent")}</p>
             <p className="text-xl font-semibold">
               {monthlyRent !== undefined && monthlyRent !== null
                 ? formatUSD(monthlyRent)
@@ -416,7 +407,7 @@ export default function PropertyDetailPage() {
 
       {/* Map */}
       <section className="mb-8">
-        <h2 className="text-lg font-semibold mb-4">Location</h2>
+        <h2 className="text-lg font-semibold mb-4">{t("details.location")}</h2>
         <PropertyMap
           latitude={latitude}
           longitude={longitude}
@@ -430,7 +421,7 @@ export default function PropertyDetailPage() {
 
       {/* Area Info */}
       <section className="mb-8">
-        <h2 className="text-lg font-semibold mb-4">About {city}</h2>
+        <h2 className="text-lg font-semibold mb-4">{t("details.aboutCity", { city })}</h2>
         <div className="space-y-6">
           <NeighborhoodInfo city={city} />
           <ValueHistoryChart city={city} />

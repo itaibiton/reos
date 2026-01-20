@@ -2,13 +2,14 @@
 
 import { useQuery } from "convex/react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { api } from "../../../../../../convex/_generated/api";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { PropertyCard } from "@/components/properties/PropertyCard";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Building02Icon, Add01Icon } from "@hugeicons/core-free-icons";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 
 // Skeleton loader for property cards
 function PropertyCardSkeleton() {
@@ -40,6 +41,7 @@ function PropertyCardSkeleton() {
 }
 
 export default function YourListingsPage() {
+  const t = useTranslations("properties");
   const router = useRouter();
   const properties = useQuery(api.properties.listMyListings, {});
 
@@ -73,13 +75,13 @@ export default function YourListingsPage() {
         {/* Header with Add button */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold">Your Listings</h1>
-            <p className="text-muted-foreground">0 listings</p>
+            <h1 className="text-2xl font-bold">{t("listingsTitle")}</h1>
+            <p className="text-muted-foreground">{t("listingsCount", { count: 0 })}</p>
           </div>
           <Link href="/properties/new">
             <Button className="gap-2">
               <HugeiconsIcon icon={Add01Icon} size={16} />
-              Add Listing
+              {t("empty.addListing")}
             </Button>
           </Link>
         </div>
@@ -89,14 +91,14 @@ export default function YourListingsPage() {
           <div className="rounded-full bg-muted p-4 mb-4 text-muted-foreground">
             <HugeiconsIcon icon={Building02Icon} size={48} strokeWidth={1.5} />
           </div>
-          <h2 className="text-xl font-semibold mb-2">No listings yet</h2>
+          <h2 className="text-xl font-semibold mb-2">{t("empty.noListings")}</h2>
           <p className="text-muted-foreground mb-6 max-w-md">
-            Create your first property listing to start connecting with potential buyers and investors.
+            {t("empty.noListingsDescription")}
           </p>
           <Link href="/properties/new">
             <Button className="gap-2">
               <HugeiconsIcon icon={Add01Icon} size={16} />
-              Add Your First Listing
+              {t("empty.addFirstListing")}
             </Button>
           </Link>
         </div>
@@ -109,15 +111,15 @@ export default function YourListingsPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold">Your Listings</h1>
+          <h1 className="text-2xl font-bold">{t("listingsTitle")}</h1>
           <p className="text-muted-foreground">
-            {properties.length} {properties.length === 1 ? "listing" : "listings"}
+            {t("listingsCount", { count: properties.length })}
           </p>
         </div>
         <Link href="/properties/new">
           <Button className="gap-2">
             <HugeiconsIcon icon={Add01Icon} size={16} />
-            Add Listing
+            {t("empty.addListing")}
           </Button>
         </Link>
       </div>

@@ -2,6 +2,7 @@
 
 import { useQuery } from "convex/react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { api } from "../../../../../convex/_generated/api";
 import { Skeleton } from "@/components/ui/skeleton";
 import { PropertyCard } from "@/components/properties/PropertyCard";
@@ -9,7 +10,7 @@ import { DashboardMap } from "@/components/dashboard/DashboardMap";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Building02Icon } from "@hugeicons/core-free-icons";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import type { PropertyFilters } from "../../../../../convex/search";
 
 // Skeleton loader for property cards
@@ -42,6 +43,7 @@ function PropertyCardSkeleton() {
 }
 
 export default function PropertiesPage() {
+  const t = useTranslations("properties");
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -116,19 +118,19 @@ export default function PropertiesPage() {
               strokeWidth={1.5}
             />
           </div>
-          <h2 className="text-xl font-semibold mb-2">No properties found</h2>
+          <h2 className="text-xl font-semibold mb-2">{t("empty.noProperties")}</h2>
           <p className="text-muted-foreground mb-6 max-w-md">
             {Object.keys(filters).length > 0
-              ? "Try adjusting your filters."
-              : "Start building your marketplace by adding your first property listing."}
+              ? t("empty.noPropertiesFiltered")
+              : t("empty.noPropertiesEmpty")}
           </p>
           {Object.keys(filters).length > 0 ? (
             <Button onClick={() => router.push("/properties")} variant="outline">
-              Clear Filters
+              {t("empty.clearFilters")}
             </Button>
           ) : (
             <Link href="/properties/new">
-              <Button>Add Your First Property</Button>
+              <Button>{t("empty.addFirstProperty")}</Button>
             </Link>
           )}
         </div>
@@ -141,7 +143,7 @@ export default function PropertiesPage() {
       {/* Left side - Property Cards */}
       <div className="flex-1 p-6 overflow-auto">
         <p className="text-sm text-muted-foreground mb-4">
-          {properties.length} {properties.length === 1 ? "property" : "properties"} found
+          {t("count", { count: properties.length })}
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {properties.map((property) => (
