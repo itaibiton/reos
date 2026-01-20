@@ -11,9 +11,9 @@ See: .planning/PROJECT.md (updated 2026-01-19)
 
 Milestone: v1.4 Internationalization & RTL Support
 Phase: 31 - Translation Infrastructure
-Plan: 2 of 7 in current phase
+Plan: 4 of 7 in current phase
 Status: In progress
-Last activity: 2026-01-20 — Completed 31-02-PLAN.md (Navigation Namespace & Sidebar)
+Last activity: 2026-01-20 — Completed 31-04-PLAN.md (Deals Namespace)
 
 Progress: [████████--] 57% (4/7 phases)
 
@@ -69,7 +69,7 @@ Progress: [████████--] 57% (4/7 phases)
 | 28 | 2/2 | 8 min | 4 min |
 | 29 | 11/11 | 37 min | 3.4 min |
 | 30 | 3/3 | 12 min | 4 min |
-| 31 | 2/7 | 7 min | 3.5 min |
+| 31 | 4/7 | 19 min | 4.75 min |
 
 **Recent Trend:**
 - Last 5 plans: 3 min, 5 min, 4 min, 3 min, 4 min
@@ -324,6 +324,9 @@ Recent decisions affecting current work:
 - Phase 31: Navigation namespace with groups (8) and items (30) for sidebar translation
 - Phase 31: NavItem/NavGroup types use labelKey for translation key storage
 - Phase 31: Sidebar uses useTranslations with t(item.labelKey) pattern for rendering
+- Phase 31: Deals namespace with nested questionnaire translations for 50+ keys
+- Phase 31: Key mapping objects convert snake_case DB values to camelCase translation keys
+- Phase 31: ICU plural syntax for count formatting: {count, plural, =1 {# file} other {# files}}
 
 ### v1.4 Research Findings
 
@@ -365,6 +368,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-20
-Stopped at: Completed 31-02-PLAN.md (Navigation Namespace & Sidebar)
+Stopped at: Completed 31-04-PLAN.md (Deals Namespace)
 Resume file: None
-Next: Execute 31-03-PLAN.md (Properties Namespace)
+Next: Execute 31-05-PLAN.md (Feed & Social Namespace)
