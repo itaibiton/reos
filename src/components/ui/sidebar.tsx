@@ -153,7 +153,7 @@ function SidebarProvider({
 }
 
 function Sidebar({
-  side,
+  side = "left",
   variant = "sidebar",
   collapsible = "offcanvas",
   className,
@@ -165,8 +165,9 @@ function Sidebar({
   collapsible?: "offcanvas" | "icon" | "none"
 }) {
   const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
-  const direction = useDirection()
-  const effectiveSide = side ?? (direction === "rtl" ? "right" : "left")
+  // CSS logical properties (start-0, end-0) handle RTL automatically
+  // side="left" uses start-0 which is left in LTR, right in RTL
+  const effectiveSide = side
 
   if (collapsible === "none") {
     return (

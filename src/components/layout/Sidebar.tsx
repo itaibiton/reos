@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useDirection } from "@radix-ui/react-direction";
 import { useTranslations } from "next-intl";
 import { ChevronRight } from "lucide-react";
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -39,9 +38,7 @@ import {
 export function AppSidebar() {
   const { effectiveRole, isLoading } = useCurrentUser();
   const pathname = usePathname();
-  const direction = useDirection();
   const t = useTranslations();
-  const sidebarSide = direction === "rtl" ? "right" : "left";
 
   // Get navigation for current role, cast to extended UserRole type
   // Default to investor for loading state
@@ -49,7 +46,7 @@ export function AppSidebar() {
   const navigation = getNavigationForRole(role);
 
   return (
-    <Sidebar side={sidebarSide} collapsible="icon">
+    <Sidebar collapsible="icon">
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
