@@ -809,6 +809,30 @@
     },
     "amenities": {
       "noAmenities": "No amenities listed"
+    },
+    "filters": {
+      "city": "City",
+      "allCities": "All Cities",
+      "propertyType": "Property Type",
+      "type": "Type",
+      "allTypes": "All Types",
+      "bedrooms": "Bedrooms",
+      "beds": "Beds",
+      "priceRange": "Price Range",
+      "min": "Min",
+      "max": "Max",
+      "bathrooms": "Bathrooms",
+      "any": "Any",
+      "sizeM2": "Size (m²)",
+      "more": "More",
+      "minSizeM2": "Min Size (m²)",
+      "maxSizeM2": "Max Size (m²)",
+      "smartSearchPlaceholder": "Try: '3 bedroom apartment in Tel Aviv under $500K'",
+      "searchAndFilter": "Search & Filter",
+      "activeCount": "{count} active",
+      "searchAndFilters": "Search & Filters",
+      "aiPoweredSearch": "AI-powered search",
+      "clearAllFilters": "Clear All Filters"
     }
   },
   "deals": {
@@ -1362,12 +1386,20 @@
     }
   },
   "search": {
-    "title": "Search Results",
+    "title": "Search",
+    "description": "Search across all content",
     "placeholder": "Search properties, people, posts...",
+    "inputPlaceholder": "Type to search...",
     "recentSearches": "Recent Searches",
     "clearRecent": "Clear",
     "searchFor": "Search for something",
     "enterTerm": "Enter a search term to find users, posts, and properties.",
+    "startTyping": "Start typing to search...",
+    "quickActions": "Quick Actions",
+    "page": "Page",
+    "noResults": "No results found for \"{query}\"",
+    "tryDifferent": "Try different keywords or check your spelling",
+    "viewAllResults": "View all results for \"{query}\"",
     "tabs": {
       "all": "All",
       "users": "Users",

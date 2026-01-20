@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback, useMemo, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import debounce from "lodash.debounce";
 import { useQuery, useMutation } from "convex/react";
@@ -78,7 +78,8 @@ function getPostTypeIcon(postType: string) {
 
 export function GlobalSearchBar() {
   const router = useRouter();
-  const t = useTranslations("common.roles");
+  const tRoles = useTranslations("common.roles");
+  const tSearch = useTranslations("search");
   const tNav = useTranslations();
   const [open, setOpen] = useState(false);
 
@@ -90,11 +91,11 @@ export function GlobalSearchBar() {
   const getRoleLabel = (role: string | undefined): string => {
     if (!role) return "";
     const labelMap: Record<string, string> = {
-      investor: t("investor"),
-      broker: t("broker"),
-      mortgage_advisor: t("mortgageAdvisor"),
-      lawyer: t("lawyer"),
-      admin: t("admin"),
+      investor: tRoles("investor"),
+      broker: tRoles("broker"),
+      mortgage_advisor: tRoles("mortgageAdvisor"),
+      lawyer: tRoles("lawyer"),
+      admin: tRoles("admin"),
     };
     return labelMap[role] || role;
   };
@@ -259,8 +260,8 @@ export function GlobalSearchBar() {
           strokeWidth={1.5}
           className="me-2"
         />
-        <span className="hidden lg:inline-flex">Search...</span>
-        <span className="inline-flex lg:hidden">Search...</span>
+        <span className="hidden lg:inline-flex">{tSearch("placeholder")}</span>
+        <span className="inline-flex lg:hidden">{tSearch("placeholder")}</span>
         <kbd className="pointer-events-none absolute end-1.5 top-1.5 hidden h-6 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
           <span className="text-xs">⌘</span>K
         </kbd>
@@ -270,12 +271,12 @@ export function GlobalSearchBar() {
       <CommandDialog
         open={open}
         onOpenChange={setOpen}
-        title="Search"
-        description="Search for users, posts, and properties"
+        title={tSearch("title")}
+        description={tSearch("description")}
         shouldFilter={false}
       >
         <CommandInput
-          placeholder="Search users, posts, properties..."
+          placeholder={tSearch("inputPlaceholder")}
           value={inputValue}
           onValueChange={handleValueChange}
         />
@@ -299,7 +300,7 @@ export function GlobalSearchBar() {
           {!isLoading && !hasQuery && (
             <>
               {hasRecentSearches ? (
-                <CommandGroup heading="Recent Searches">
+                <CommandGroup heading={tSearch("recentSearches")}>
                   {recentSearches?.map((search) => (
                     <CommandItem
                       key={search._id}
@@ -340,7 +341,7 @@ export function GlobalSearchBar() {
                       className="text-muted-foreground/50 mb-3"
                     />
                     <p className="text-sm text-muted-foreground">
-                      Start typing to search
+                      {tSearch("startTyping")}
                     </p>
                   </div>
                 </CommandEmpty>
@@ -352,7 +353,7 @@ export function GlobalSearchBar() {
           {!isLoading && hasQuery && !hasResults && (
             <>
               {hasQuickActions && (
-                <CommandGroup heading="Quick Actions">
+                <CommandGroup heading={tSearch("quickActions")}>
                   {filteredQuickActions.slice(0, 5).map((action) => (
                     <CommandItem
                       key={action.href}
@@ -362,7 +363,7 @@ export function GlobalSearchBar() {
                       <action.icon className="h-4 w-4 me-2 text-muted-foreground" />
                       <span className="flex-1">{getNavLabel(action.labelKey)}</span>
                       <Badge variant="outline" className="ms-auto text-xs">
-                        Page
+                        {tSearch("page")}
                       </Badge>
                     </CommandItem>
                   ))}
@@ -370,9 +371,9 @@ export function GlobalSearchBar() {
               )}
               {!hasQuickActions && (
                 <CommandEmpty>
-                  <p>No results found for &ldquo;{searchQuery}&rdquo;</p>
+                  <p>{tSearch("noResults", { query: searchQuery })}</p>
                   <p className="text-xs text-muted-foreground mt-1">
-                    Try a different search term
+                    {tSearch("tryDifferent")}
                   </p>
                 </CommandEmpty>
               )}
@@ -384,7 +385,7 @@ export function GlobalSearchBar() {
             <>
               {/* Quick Actions Section */}
               {hasQuickActions && (
-                <CommandGroup heading="Quick Actions">
+                <CommandGroup heading={tSearch("quickActions")}>
                   {filteredQuickActions.slice(0, 5).map((action) => (
                     <CommandItem
                       key={action.href}
@@ -394,7 +395,7 @@ export function GlobalSearchBar() {
                       <action.icon className="h-4 w-4 me-2 text-muted-foreground" />
                       <span className="flex-1">{getNavLabel(action.labelKey)}</span>
                       <Badge variant="outline" className="ms-auto text-xs">
-                        Page
+                        {tSearch("page")}
                       </Badge>
                     </CommandItem>
                   ))}
@@ -405,7 +406,7 @@ export function GlobalSearchBar() {
               {results.users.length > 0 && (
                 <>
                   {hasQuickActions && <CommandSeparator />}
-                  <CommandGroup heading="Users">
+                  <CommandGroup heading={tSearch("tabs.users")}>
                   {results.users.map((user) => {
                     const displayName = user.name || "Unknown User";
                     return (
@@ -445,7 +446,7 @@ export function GlobalSearchBar() {
                   {(hasQuickActions || results.users.length > 0) && (
                     <CommandSeparator />
                   )}
-                  <CommandGroup heading="Posts">
+                  <CommandGroup heading={tSearch("tabs.posts")}>
                     {results.posts.map((post) => {
                       const PostIcon = getPostTypeIcon(post.postType);
                       return (
@@ -483,7 +484,7 @@ export function GlobalSearchBar() {
                   {(hasQuickActions ||
                     results.users.length > 0 ||
                     results.posts.length > 0) && <CommandSeparator />}
-                  <CommandGroup heading="Properties">
+                  <CommandGroup heading={tSearch("tabs.properties")}>
                     {results.properties.map((property) => (
                       <CommandItem
                         key={property._id}
@@ -540,7 +541,7 @@ export function GlobalSearchBar() {
                     className="me-2 text-muted-foreground"
                   />
                   <span>
-                    View all results for &ldquo;{inputValue}&rdquo;
+                    {tSearch("viewAllResults", { query: inputValue })}
                   </span>
                 </CommandItem>
               </CommandGroup>

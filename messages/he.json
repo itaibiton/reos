@@ -618,6 +618,30 @@
     },
     "amenities": {
       "noAmenities": "אין מתקנים רשומים"
+    },
+    "filters": {
+      "city": "עיר",
+      "allCities": "כל הערים",
+      "propertyType": "סוג נכס",
+      "type": "סוג",
+      "allTypes": "כל הסוגים",
+      "bedrooms": "חדרי שינה",
+      "beds": "חדרים",
+      "priceRange": "טווח מחירים",
+      "min": "מינימום",
+      "max": "מקסימום",
+      "bathrooms": "חדרי אמבטיה",
+      "any": "כל",
+      "sizeM2": "גודל (מ\"ר)",
+      "more": "עוד",
+      "minSizeM2": "גודל מינימלי (מ\"ר)",
+      "maxSizeM2": "גודל מקסימלי (מ\"ר)",
+      "smartSearchPlaceholder": "נסה: 'דירת 3 חדרים בתל אביב מתחת ל-$500K'",
+      "searchAndFilter": "חיפוש וסינון",
+      "activeCount": "{count} פעיל",
+      "searchAndFilters": "חיפוש וסינונים",
+      "aiPoweredSearch": "חיפוש בינה מלאכותית",
+      "clearAllFilters": "נקה את כל הסינונים"
     }
   },
   "feed": {
@@ -733,12 +757,20 @@
     "loading": "טוען..."
   },
   "search": {
-    "title": "תוצאות חיפוש",
+    "title": "חיפוש",
+    "description": "חפש בכל התוכן",
     "placeholder": "חפש נכסים, אנשים, פוסטים...",
+    "inputPlaceholder": "הקלד לחיפוש...",
     "recentSearches": "חיפושים אחרונים",
     "clearRecent": "נקה",
     "searchFor": "חפש משהו",
     "enterTerm": "הכנס מונח חיפוש כדי למצוא משתמשים, פוסטים ונכסים.",
+    "startTyping": "התחל להקליד לחיפוש...",
+    "quickActions": "פעולות מהירות",
+    "page": "עמוד",
+    "noResults": "לא נמצאו תוצאות עבור \"{query}\"",
+    "tryDifferent": "נסה מילות מפתח אחרות או בדוק את האיות",
+    "viewAllResults": "הצג את כל התוצאות עבור \"{query}\"",
     "tabs": {
       "all": "הכל",
       "users": "משתמשים",

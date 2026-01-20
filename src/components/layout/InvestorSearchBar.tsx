@@ -1,7 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useRouter, usePathname } from "@/i18n/navigation";
 import { useAction } from "convex/react";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
@@ -48,7 +49,9 @@ interface Filters {
 }
 
 export function InvestorSearchBar() {
-  const t = useTranslations("common.propertyTypes");
+  const tTypes = useTranslations("common.propertyTypes");
+  const tFilters = useTranslations("properties.filters");
+  const tActions = useTranslations("common.actions");
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -57,10 +60,10 @@ export function InvestorSearchBar() {
   // Get translated property type labels
   const getPropertyTypeLabel = (value: string) => {
     const labelMap: Record<string, string> = {
-      residential: t("residential"),
-      commercial: t("commercial"),
-      mixed_use: t("mixedUse"),
-      land: t("land"),
+      residential: tTypes("residential"),
+      commercial: tTypes("commercial"),
+      mixed_use: tTypes("mixedUse"),
+      land: tTypes("land"),
     };
     return labelMap[value] || value;
   };
@@ -225,7 +228,7 @@ export function InvestorSearchBar() {
     <div className={cn("flex items-center gap-3", inSheet && "flex-col items-stretch")}>
       {/* City Filter */}
       <div className={cn(inSheet && "space-y-1.5")}>
-        {inSheet && <Label className="text-xs font-medium">City</Label>}
+        {inSheet && <Label className="text-xs font-medium">{tFilters("city")}</Label>}
         <Select
           value={filters.city || ANY_VALUE}
           onValueChange={(value) =>
@@ -233,10 +236,10 @@ export function InvestorSearchBar() {
           }
         >
           <SelectTrigger className={cn(inSheet ? "w-full" : "w-[140px]")}>
-            <SelectValue placeholder="City" />
+            <SelectValue placeholder={tFilters("city")} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value={ANY_VALUE}>All Cities</SelectItem>
+            <SelectItem value={ANY_VALUE}>{tFilters("allCities")}</SelectItem>
             {ISRAELI_LOCATIONS.map((location) => (
               <SelectItem key={location} value={location}>
                 {location}
@@ -248,7 +251,7 @@ export function InvestorSearchBar() {
 
       {/* Property Type Filter */}
       <div className={cn(inSheet && "space-y-1.5")}>
-        {inSheet && <Label className="text-xs font-medium">Property Type</Label>}
+        {inSheet && <Label className="text-xs font-medium">{tFilters("propertyType")}</Label>}
         <Select
           value={filters.propertyType || ANY_VALUE}
           onValueChange={(value) =>
@@ -256,10 +259,10 @@ export function InvestorSearchBar() {
           }
         >
           <SelectTrigger className={cn(inSheet ? "w-full" : "w-[130px]")}>
-            <SelectValue placeholder="Type" />
+            <SelectValue placeholder={tFilters("type")} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value={ANY_VALUE}>All Types</SelectItem>
+            <SelectItem value={ANY_VALUE}>{tFilters("allTypes")}</SelectItem>
             {PROPERTY_TYPES.map((type) => (
               <SelectItem key={type.value} value={type.value}>
                 {getPropertyTypeLabel(type.value)}
@@ -271,7 +274,7 @@ export function InvestorSearchBar() {
 
       {/* Bedrooms Filter */}
       <div className={cn(inSheet && "space-y-1.5")}>
-        {inSheet && <Label className="text-xs font-medium">Bedrooms</Label>}
+        {inSheet && <Label className="text-xs font-medium">{tFilters("bedrooms")}</Label>}
         <Select
           value={filters.bedroomsMin?.toString() || ANY_VALUE}
           onValueChange={(value) =>
@@ -282,10 +285,10 @@ export function InvestorSearchBar() {
           }
         >
           <SelectTrigger className={cn(inSheet ? "w-full" : "w-[100px]")}>
-            <SelectValue placeholder="Beds" />
+            <SelectValue placeholder={tFilters("beds")} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value={ANY_VALUE}>Beds</SelectItem>
+            <SelectItem value={ANY_VALUE}>{tFilters("beds")}</SelectItem>
             <SelectItem value="1">1+</SelectItem>
             <SelectItem value="2">2+</SelectItem>
             <SelectItem value="3">3+</SelectItem>
@@ -297,7 +300,7 @@ export function InvestorSearchBar() {
 
       {/* Price Range */}
       <div className={cn(inSheet && "space-y-1.5")}>
-        {inSheet && <Label className="text-xs font-medium">Price Range</Label>}
+        {inSheet && <Label className="text-xs font-medium">{tFilters("priceRange")}</Label>}
         <div className="grid grid-cols-2 gap-2">
           <div className="relative">
             <span className="absolute start-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
@@ -305,7 +308,7 @@ export function InvestorSearchBar() {
             </span>
             <Input
               type="number"
-              placeholder="Min"
+              placeholder={tFilters("min")}
               value={filters.priceMin ?? ""}
               onChange={(e) =>
                 handleFilterChange(
@@ -322,7 +325,7 @@ export function InvestorSearchBar() {
             </span>
             <Input
               type="number"
-              placeholder="Max"
+              placeholder={tFilters("max")}
               value={filters.priceMax ?? ""}
               onChange={(e) =>
                 handleFilterChange(
@@ -341,7 +344,7 @@ export function InvestorSearchBar() {
         <>
           {/* Bathrooms */}
           <div className="space-y-1.5">
-            <Label className="text-xs font-medium">Bathrooms</Label>
+            <Label className="text-xs font-medium">{tFilters("bathrooms")}</Label>
             <Select
               value={filters.bathroomsMin?.toString() || ANY_VALUE}
               onValueChange={(value) =>
@@ -352,10 +355,10 @@ export function InvestorSearchBar() {
               }
             >
               <SelectTrigger className="w-full">
-                <SelectValue placeholder="Any" />
+                <SelectValue placeholder={tFilters("any")} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value={ANY_VALUE}>Any</SelectItem>
+                <SelectItem value={ANY_VALUE}>{tFilters("any")}</SelectItem>
                 <SelectItem value="1">1+</SelectItem>
                 <SelectItem value="2">2+</SelectItem>
                 <SelectItem value="3">3+</SelectItem>
@@ -366,11 +369,11 @@ export function InvestorSearchBar() {
 
           {/* Size Range */}
           <div className="space-y-1.5">
-            <Label className="text-xs font-medium">Size (m²)</Label>
+            <Label className="text-xs font-medium">{tFilters("sizeM2")}</Label>
             <div className="grid grid-cols-2 gap-2">
               <Input
                 type="number"
-                placeholder="Min"
+                placeholder={tFilters("min")}
                 value={filters.squareMetersMin ?? ""}
                 onChange={(e) =>
                   handleFilterChange(
@@ -381,7 +384,7 @@ export function InvestorSearchBar() {
               />
               <Input
                 type="number"
-                placeholder="Max"
+                placeholder={tFilters("max")}
                 value={filters.squareMetersMax ?? ""}
                 onChange={(e) =>
                   handleFilterChange(
@@ -401,7 +404,7 @@ export function InvestorSearchBar() {
           <PopoverTrigger asChild>
             <Button variant="outline" size="sm" className="gap-1.5 h-9">
               <HugeiconsIcon icon={FilterIcon} size={16} strokeWidth={1.5} />
-              <span>More</span>
+              <span>{tFilters("more")}</span>
               {advancedFilterCount > 0 && (
                 <span className="rounded-full bg-primary text-primary-foreground text-xs px-1.5 py-0.5 min-w-5 text-center">
                   {advancedFilterCount}
@@ -417,7 +420,7 @@ export function InvestorSearchBar() {
             <div className="space-y-4">
               {/* Bathrooms */}
               <div className="space-y-1.5">
-                <Label className="text-xs font-medium">Bathrooms</Label>
+                <Label className="text-xs font-medium">{tFilters("bathrooms")}</Label>
                 <Select
                   value={advancedDraft.bathroomsMin?.toString() || ANY_VALUE}
                   onValueChange={(value) =>
@@ -428,10 +431,10 @@ export function InvestorSearchBar() {
                   }
                 >
                   <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Any" />
+                    <SelectValue placeholder={tFilters("any")} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value={ANY_VALUE}>Any</SelectItem>
+                    <SelectItem value={ANY_VALUE}>{tFilters("any")}</SelectItem>
                     <SelectItem value="1">1+</SelectItem>
                     <SelectItem value="2">2+</SelectItem>
                     <SelectItem value="3">3+</SelectItem>
@@ -443,7 +446,7 @@ export function InvestorSearchBar() {
               {/* Size Range */}
               <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1.5">
-                  <Label className="text-xs font-medium">Min Size (m²)</Label>
+                  <Label className="text-xs font-medium">{tFilters("minSizeM2")}</Label>
                   <Input
                     type="number"
                     placeholder="0"
@@ -457,10 +460,10 @@ export function InvestorSearchBar() {
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <Label className="text-xs font-medium">Max Size (m²)</Label>
+                  <Label className="text-xs font-medium">{tFilters("maxSizeM2")}</Label>
                   <Input
                     type="number"
-                    placeholder="Any"
+                    placeholder={tFilters("any")}
                     value={advancedDraft.squareMetersMax ?? ""}
                     onChange={(e) =>
                       updateAdvancedDraft(
@@ -476,7 +479,7 @@ export function InvestorSearchBar() {
             {/* Apply Button */}
             <div className="flex justify-end mt-4 pt-4 border-t">
               <Button size="sm" onClick={handleApplyAdvanced} disabled={!hasAdvancedChanges}>
-                Apply
+                {tActions("apply")}
               </Button>
             </div>
           </PopoverContent>
@@ -513,7 +516,7 @@ export function InvestorSearchBar() {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Try 'apartments in Tel Aviv under $500k'"
+                placeholder={tFilters("smartSearchPlaceholder")}
                 disabled={isSearching}
                 className={cn(
                   "ps-10 h-9 w-full",
@@ -543,7 +546,7 @@ export function InvestorSearchBar() {
               disabled={!searchQuery.trim() || isSearching}
               className="h-9"
             >
-              Search
+              {tActions("search")}
             </Button>
           </form>
 
@@ -562,11 +565,11 @@ export function InvestorSearchBar() {
               <Button variant="outline" className="w-full justify-between h-10">
                 <div className="flex items-center gap-2">
                   <HugeiconsIcon icon={Search01Icon} size={18} strokeWidth={1.5} />
-                  <span className="text-muted-foreground">Search & Filter</span>
+                  <span className="text-muted-foreground">{tFilters("searchAndFilter")}</span>
                 </div>
                 {activeFilterCount > 0 && (
                   <span className="rounded-full bg-primary text-primary-foreground text-xs px-2 py-0.5">
-                    {activeFilterCount} active
+                    {tFilters("activeCount", { count: activeFilterCount })}
                   </span>
                 )}
               </Button>
@@ -574,13 +577,13 @@ export function InvestorSearchBar() {
 
             <SheetContent side="bottom" className="h-[85vh] rounded-t-xl px-6">
               <SheetHeader className="pb-4">
-                <SheetTitle>Search & Filters</SheetTitle>
+                <SheetTitle>{tFilters("searchAndFilters")}</SheetTitle>
               </SheetHeader>
 
               <div className="space-y-6 overflow-auto pb-20 px-1">
                 {/* Smart Search in sheet */}
                 <div className="space-y-1.5">
-                  <Label className="text-xs font-medium">AI-Powered Search</Label>
+                  <Label className="text-xs font-medium">{tFilters("aiPoweredSearch")}</Label>
                   <form onSubmit={handleSmartSearch} className="flex gap-2">
                     <div className="relative flex-1">
                       <div className="absolute start-3 top-1/2 -translate-y-1/2 flex items-center pointer-events-none">
@@ -599,13 +602,13 @@ export function InvestorSearchBar() {
                         type="text"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        placeholder="Try 'apartments in Tel Aviv under $500k'"
+                        placeholder={tFilters("smartSearchPlaceholder")}
                         disabled={isSearching}
                         className="ps-10"
                       />
                     </div>
                     <Button type="submit" disabled={!searchQuery.trim() || isSearching}>
-                      Search
+                      {tActions("search")}
                     </Button>
                   </form>
                 </div>
@@ -626,7 +629,7 @@ export function InvestorSearchBar() {
                       setIsMobileSheetOpen(false);
                     }}
                   >
-                    Clear All Filters
+                    {tFilters("clearAllFilters")}
                   </Button>
                 )}
               </div>
