@@ -46,6 +46,7 @@ import {
 import { NotificationCenter } from "@/components/notifications/NotificationCenter";
 import { IncompleteProfileReminder } from "@/components/IncompleteProfileReminder";
 import { GlobalSearchBar } from "@/components/search";
+import { LocaleSwitcher } from "@/components/LocaleSwitcher";
 
 // Breadcrumb config: maps paths to their group and label
 // Format: { group?: string, label: string }
@@ -233,6 +234,9 @@ function ProviderHeaderContent() {
 
   return (
     <div className="flex items-center gap-3">
+      {/* Language switcher */}
+      <LocaleSwitcher />
+
       {/* Notification center */}
       <NotificationCenter />
 
