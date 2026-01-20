@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useMutation } from "convex/react";
+import { useTranslations } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 import {
@@ -44,17 +45,13 @@ interface ValidationErrors {
   propertyId?: string;
 }
 
-const SERVICE_TYPE_LABELS: Record<ServiceType, string> = {
-  broker: "Broker",
-  mortgage_advisor: "Mortgage Advisor",
-  lawyer: "Lawyer",
-};
-
 export function CreatePostDialog({
   open,
   onOpenChange,
   defaultType = "discussion",
 }: CreatePostDialogProps) {
+  const t = useTranslations("feed");
+  const tCommon = useTranslations("common");
   // Form state
   const [postType, setPostType] = useState<PostType>(defaultType);
   const [content, setContent] = useState("");
@@ -97,17 +94,17 @@ export function CreatePostDialog({
 
     // Content validation
     if (!content.trim()) {
-      newErrors.content = "Post content is required";
+      newErrors.content = t("post.contentRequired");
     }
 
     // Property selection validation for property listings
     if (postType === "property_listing" && !selectedPropertyId) {
-      newErrors.propertyId = "Please select a property to share";
+      newErrors.propertyId = t("post.propertyRequired");
     }
 
     // Service type validation for service requests
     if (postType === "service_request" && !serviceType) {
-      newErrors.serviceType = "Please select a service type";
+      newErrors.serviceType = t("post.serviceTypeRequired");
     }
 
     setErrors(newErrors);
@@ -127,37 +124,44 @@ export function CreatePostDialog({
           content: content.trim(),
           visibility,
         });
-        toast.success("Property post created!");
+        toast.success(t("post.propertyPostCreated"));
       } else if (postType === "discussion") {
         await createDiscussionPost({
           content: content.trim(),
           visibility,
         });
-        toast.success("Discussion post created!");
+        toast.success(t("post.discussionPostCreated"));
       } else if (postType === "service_request") {
         await createServiceRequestPost({
           content: content.trim(),
           serviceType,
           visibility,
         });
-        toast.success("Service request posted!");
+        toast.success(t("post.serviceRequestPosted"));
       }
 
       onOpenChange(false);
       resetForm();
     } catch (error) {
       console.error("Error creating post:", error);
-      toast.error(error instanceof Error ? error.message : "Failed to create post");
+      toast.error(error instanceof Error ? error.message : t("post.createError"));
     } finally {
       setIsSubmitting(false);
     }
   }
 
+  // Service type labels using translations
+  const serviceTypes: { value: ServiceType; labelKey: "broker" | "mortgageAdvisor" | "lawyer" }[] = [
+    { value: "broker", labelKey: "broker" },
+    { value: "mortgage_advisor", labelKey: "mortgageAdvisor" },
+    { value: "lawyer", labelKey: "lawyer" },
+  ];
+
   return (
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>Create Post</DialogTitle>
+          <DialogTitle>{t("createPost")}</DialogTitle>
         </DialogHeader>
 
         <div className="space-y-4 py-4">
@@ -169,15 +173,15 @@ export function CreatePostDialog({
             <TabsList className="w-full grid grid-cols-3">
               <TabsTrigger value="property_listing" className="gap-2">
                 <HugeiconsIcon icon={Home01Icon} size={16} />
-                <span className="hidden sm:inline">Property</span>
+                <span className="hidden sm:inline">{t("post.types.property")}</span>
               </TabsTrigger>
               <TabsTrigger value="service_request" className="gap-2">
                 <HugeiconsIcon icon={UserMultiple02Icon} size={16} />
-                <span className="hidden sm:inline">Service</span>
+                <span className="hidden sm:inline">{t("post.types.serviceRequest")}</span>
               </TabsTrigger>
               <TabsTrigger value="discussion" className="gap-2">
                 <HugeiconsIcon icon={Comment01Icon} size={16} />
-                <span className="hidden sm:inline">Discussion</span>
+                <span className="hidden sm:inline">{t("post.types.discussion")}</span>
               </TabsTrigger>
             </TabsList>
 
@@ -185,7 +189,7 @@ export function CreatePostDialog({
             <TabsContent value="property_listing" className="space-y-4 mt-4">
               {/* Property Selector */}
               <div className="space-y-2">
-                <Label>Select a property to share</Label>
+                <Label>{t("post.selectProperty")}</Label>
                 <PropertySelector
                   selectedPropertyId={selectedPropertyId}
                   onSelect={setSelectedPropertyId}
@@ -197,10 +201,10 @@ export function CreatePostDialog({
 
               {/* Caption Input */}
               <div className="space-y-2">
-                <Label htmlFor="property-content">Add a caption</Label>
+                <Label htmlFor="property-content">{t("post.propertyCaption")}</Label>
                 <Textarea
                   id="property-content"
-                  placeholder="What makes this property special..."
+                  placeholder={t("post.propertyCaptionPlaceholder")}
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
                   className="min-h-[100px] resize-none"
@@ -216,14 +220,13 @@ export function CreatePostDialog({
             <TabsContent value="service_request" className="space-y-4 mt-4">
               {/* Service Type Selection */}
               <div className="space-y-2">
-                <Label>What type of service do you need?</Label>
+                <Label>{t("post.serviceType")}</Label>
                 <RadioGroup
                   value={serviceType}
                   onValueChange={(value) => setServiceType(value as ServiceType)}
                   className="grid grid-cols-3 gap-2"
                 >
-                  {(Object.entries(SERVICE_TYPE_LABELS) as [ServiceType, string][]).map(
-                    ([value, label]) => (
+                  {serviceTypes.map(({ value, labelKey }) => (
                       <Label
                         key={value}
                         htmlFor={`service-${value}`}
@@ -237,7 +240,7 @@ export function CreatePostDialog({
                           id={`service-${value}`}
                           className="sr-only"
                         />
-                        <span className="text-sm font-medium">{label}</span>
+                        <span className="text-sm font-medium">{tCommon(`roles.${labelKey}`)}</span>
                       </Label>
                     )
                   )}
@@ -249,10 +252,10 @@ export function CreatePostDialog({
 
               {/* Content Input */}
               <div className="space-y-2">
-                <Label htmlFor="service-content">Describe what you&apos;re looking for</Label>
+                <Label htmlFor="service-content">{t("post.serviceDescription")}</Label>
                 <Textarea
                   id="service-content"
-                  placeholder="I'm looking for a broker who specializes in..."
+                  placeholder={t("post.serviceDescriptionPlaceholder")}
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
                   className="min-h-[120px] resize-none"
@@ -267,10 +270,10 @@ export function CreatePostDialog({
             {/* Discussion Content */}
             <TabsContent value="discussion" className="space-y-4 mt-4">
               <div className="space-y-2">
-                <Label htmlFor="discussion-content">What&apos;s on your mind?</Label>
+                <Label htmlFor="discussion-content">{t("post.contentPlaceholder")}</Label>
                 <Textarea
                   id="discussion-content"
-                  placeholder="Share your thoughts, ask questions, or start a conversation..."
+                  placeholder={t("post.discussionPlaceholder")}
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
                   className="min-h-[120px] resize-none"
@@ -285,7 +288,7 @@ export function CreatePostDialog({
 
           {/* Visibility Selector - shown for all post types */}
           <div className="space-y-2">
-              <Label>Who can see this post?</Label>
+              <Label>{t("post.visibility")}</Label>
               <RadioGroup
                 value={visibility}
                 onValueChange={(value) => setVisibility(value as Visibility)}
@@ -309,8 +312,8 @@ export function CreatePostDialog({
                     className="text-muted-foreground"
                   />
                   <div>
-                    <p className="text-sm font-medium">Public</p>
-                    <p className="text-xs text-muted-foreground">Everyone can see</p>
+                    <p className="text-sm font-medium">{t("post.visibilityOptions.public")}</p>
+                    <p className="text-xs text-muted-foreground">{t("post.visibilityOptions.publicDescription")}</p>
                   </div>
                 </Label>
 
@@ -332,8 +335,8 @@ export function CreatePostDialog({
                     className="text-muted-foreground"
                   />
                   <div>
-                    <p className="text-sm font-medium">Followers</p>
-                    <p className="text-xs text-muted-foreground">Only followers</p>
+                    <p className="text-sm font-medium">{t("post.visibilityOptions.followersOnly")}</p>
+                    <p className="text-xs text-muted-foreground">{t("post.visibilityOptions.followersOnlyDescription")}</p>
                   </div>
                 </Label>
               </RadioGroup>
@@ -342,13 +345,13 @@ export function CreatePostDialog({
 
         <DialogFooter>
           <Button variant="outline" onClick={handleClose} disabled={isSubmitting}>
-            Cancel
+            {tCommon("actions.cancel")}
           </Button>
           <Button
             onClick={handleSubmit}
             disabled={isSubmitting}
           >
-            {isSubmitting ? "Posting..." : "Post"}
+            {isSubmitting ? t("post.posting") : t("post.post")}
           </Button>
         </DialogFooter>
       </DialogContent>

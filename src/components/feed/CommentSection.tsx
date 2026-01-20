@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useMutation } from "convex/react";
 import { usePaginatedQuery } from "convex/react";
+import { useTranslations } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -27,6 +28,7 @@ function getInitials(name: string): string {
 }
 
 export function CommentSection({ postId }: CommentSectionProps) {
+  const t = useTranslations("feed");
   const [commentText, setCommentText] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -46,9 +48,9 @@ export function CommentSection({ postId }: CommentSectionProps) {
     try {
       await addComment({ postId, content: commentText });
       setCommentText("");
-      toast.success("Comment added");
+      toast.success(t("comments.addedSuccess"));
     } catch (error) {
-      toast.error("Failed to add comment");
+      toast.error(t("comments.addedError"));
     } finally {
       setIsSubmitting(false);
     }
@@ -70,7 +72,7 @@ export function CommentSection({ postId }: CommentSectionProps) {
           value={commentText}
           onChange={(e) => setCommentText(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Write a comment..."
+          placeholder={t("comments.placeholder")}
           className="min-h-[80px] resize-none"
           maxLength={1000}
         />
@@ -82,7 +84,7 @@ export function CommentSection({ postId }: CommentSectionProps) {
           {isSubmitting ? (
             <Loader2 className="h-4 w-4 animate-spin" />
           ) : (
-            "Post"
+            t("comments.post")
           )}
         </Button>
       </div>
@@ -126,7 +128,7 @@ export function CommentSection({ postId }: CommentSectionProps) {
           className="w-full text-muted-foreground"
           onClick={() => loadMore(5)}
         >
-          Load more comments
+          {t("comments.loadMore")}
         </Button>
       )}
 
@@ -139,7 +141,7 @@ export function CommentSection({ postId }: CommentSectionProps) {
       {/* Empty state */}
       {status !== "LoadingFirstPage" && comments.length === 0 && (
         <p className="text-sm text-muted-foreground text-center py-2">
-          No comments yet. Be the first to comment!
+          {t("comments.noComments")}
         </p>
       )}
     </div>

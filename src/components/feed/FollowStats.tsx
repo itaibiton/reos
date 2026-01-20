@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useQuery } from "convex/react";
+import { useTranslations } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 import { FollowListDialog } from "./FollowListDialog";
@@ -11,15 +12,16 @@ interface FollowStatsProps {
 }
 
 export function FollowStats({ userId }: FollowStatsProps) {
+  const t = useTranslations("feed");
   const counts = useQuery(api.userFollows.getFollowCounts, { userId });
   const [dialogType, setDialogType] = useState<"followers" | "following" | null>(null);
 
   if (counts === undefined) {
     return (
       <div className="flex items-center gap-3 text-sm text-muted-foreground">
-        <span>-- followers</span>
+        <span>-- {t("follow.followers")}</span>
         <span>|</span>
-        <span>-- following</span>
+        <span>-- {t("follow.following")}</span>
       </div>
     );
   }
@@ -32,7 +34,7 @@ export function FollowStats({ userId }: FollowStatsProps) {
           className="hover:underline"
         >
           <span className="font-semibold">{counts.followerCount}</span>{" "}
-          <span className="text-muted-foreground">followers</span>
+          <span className="text-muted-foreground">{t("follow.followers")}</span>
         </button>
         <span className="text-muted-foreground">|</span>
         <button
@@ -40,7 +42,7 @@ export function FollowStats({ userId }: FollowStatsProps) {
           className="hover:underline"
         >
           <span className="font-semibold">{counts.followingCount}</span>{" "}
-          <span className="text-muted-foreground">following</span>
+          <span className="text-muted-foreground">{t("follow.following")}</span>
         </button>
       </div>
 

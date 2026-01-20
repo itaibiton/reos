@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { usePaginatedQuery } from "convex/react";
 import { useSearchParams, useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { api } from "../../../../../convex/_generated/api";
 import { PostCard, PostCardSkeleton, CreatePostDialog } from "@/components/feed";
 import { TrendingSection, PeopleToFollow } from "@/components/discovery";
@@ -16,6 +17,7 @@ type FeedSource = "global" | "following";
 type PostTypeFilter = "all" | "property_listing" | "service_request" | "discussion";
 
 export default function FeedPage() {
+  const t = useTranslations("feed");
   const router = useRouter();
   const searchParams = useSearchParams();
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -74,26 +76,26 @@ export default function FeedPage() {
   // Get empty state message based on source and filter
   const getEmptyStateMessage = () => {
     if (feedSource === "following") {
-      return "No posts from people you follow yet";
+      return t("empty.noFollowingPosts");
     }
     switch (filterType) {
       case "property_listing":
-        return "No property posts yet";
+        return t("empty.noPropertyPosts");
       case "service_request":
-        return "No service request posts yet";
+        return t("empty.noServicePosts");
       case "discussion":
-        return "No discussion posts yet";
+        return t("empty.noDiscussionPosts");
       default:
-        return "No posts yet";
+        return t("empty.noPosts");
     }
   };
 
   // Get empty state description based on source
   const getEmptyStateDescription = () => {
     if (feedSource === "following") {
-      return "Follow users to see their posts here.";
+      return t("empty.noFollowingDescription");
     }
-    return "Be the first to share something with the community.";
+    return t("empty.noPostsDescription");
   };
 
   return (
@@ -103,18 +105,18 @@ export default function FeedPage() {
         <div className="flex-1 space-y-6">
           {/* Header */}
           <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-bold">Feed</h1>
+            <h1 className="text-2xl font-bold">{t("title")}</h1>
             <Button onClick={() => setDialogOpen(true)} className="gap-2">
               <HugeiconsIcon icon={Add01Icon} size={16} />
-              Create Post
+              {t("createPost")}
             </Button>
           </div>
 
           {/* Feed Source Tabs (Global/Following) */}
           <Tabs value={feedSource} onValueChange={handleSourceChange}>
             <TabsList>
-              <TabsTrigger value="global">Global</TabsTrigger>
-              <TabsTrigger value="following">Following</TabsTrigger>
+              <TabsTrigger value="global">{t("tabs.global")}</TabsTrigger>
+              <TabsTrigger value="following">{t("tabs.following")}</TabsTrigger>
             </TabsList>
           </Tabs>
 
@@ -122,10 +124,10 @@ export default function FeedPage() {
           {feedSource === "global" && (
             <Tabs value={filterType} onValueChange={handleFilterChange}>
               <TabsList className="grid w-full grid-cols-4">
-                <TabsTrigger value="all">All</TabsTrigger>
-                <TabsTrigger value="property_listing">Properties</TabsTrigger>
-                <TabsTrigger value="service_request">Services</TabsTrigger>
-                <TabsTrigger value="discussion">Discussions</TabsTrigger>
+                <TabsTrigger value="all">{t("filters.all")}</TabsTrigger>
+                <TabsTrigger value="property_listing">{t("filters.properties")}</TabsTrigger>
+                <TabsTrigger value="service_request">{t("filters.services")}</TabsTrigger>
+                <TabsTrigger value="discussion">{t("filters.discussions")}</TabsTrigger>
               </TabsList>
             </Tabs>
           )}
@@ -154,7 +156,7 @@ export default function FeedPage() {
                 {getEmptyStateDescription()}
               </p>
               {feedSource === "global" && (
-                <Button onClick={() => setDialogOpen(true)}>Create a Post</Button>
+                <Button onClick={() => setDialogOpen(true)}>{t("empty.createAPost")}</Button>
               )}
             </div>
           )}
@@ -175,7 +177,7 @@ export default function FeedPage() {
               className="w-full"
               onClick={() => loadMore(10)}
             >
-              Load more
+              {t("loadMore")}
             </Button>
           )}
 
@@ -183,7 +185,7 @@ export default function FeedPage() {
           {status === "LoadingMore" && (
             <Button variant="outline" className="w-full" disabled>
               <Loader2 className="h-4 w-4 animate-spin me-2" />
-              Loading...
+              {t("loading")}
             </Button>
           )}
         </div>

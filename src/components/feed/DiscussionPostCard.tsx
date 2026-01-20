@@ -1,6 +1,7 @@
 "use client";
 
 import { useQuery } from "convex/react";
+import { useTranslations } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -12,14 +13,6 @@ import Link from "next/link";
 import type { EnrichedPost } from "./PostCard";
 import { EngagementFooter } from "./EngagementFooter";
 import { FollowButton } from "./FollowButton";
-
-// Role label mapping
-const ROLE_LABELS: Record<string, string> = {
-  investor: "Investor",
-  broker: "Broker",
-  mortgage_advisor: "Mortgage Advisor",
-  lawyer: "Lawyer",
-};
 
 // Get initials from name
 function getInitials(name: string): string {
@@ -36,12 +29,23 @@ interface DiscussionPostCardProps {
 }
 
 export function DiscussionPostCard({ post }: DiscussionPostCardProps) {
+  const t = useTranslations("feed");
+  const tCommon = useTranslations("common");
+
   // Query current user to check if this is own post
   const currentUser = useQuery(api.users.getCurrentUser);
   const isOwnPost = currentUser?._id === post.authorId;
 
+  // Map role values to translation keys
+  const roleKeyMap: Record<string, string> = {
+    investor: "investor",
+    broker: "broker",
+    mortgage_advisor: "mortgageAdvisor",
+    lawyer: "lawyer",
+  };
+
   const roleLabel = post.authorRole
-    ? ROLE_LABELS[post.authorRole] || post.authorRole
+    ? tCommon(`roles.${roleKeyMap[post.authorRole] || post.authorRole}`)
     : undefined;
 
   return (
@@ -50,7 +54,7 @@ export function DiscussionPostCard({ post }: DiscussionPostCardProps) {
         {/* Discussion indicator (muted icon) */}
         <div className="flex items-center gap-2 text-muted-foreground">
           <HugeiconsIcon icon={Comment01Icon} size={14} strokeWidth={1.5} />
-          <span className="text-xs">Discussion</span>
+          <span className="text-xs">{t("card.discussion")}</span>
         </div>
 
         {/* Author Header */}

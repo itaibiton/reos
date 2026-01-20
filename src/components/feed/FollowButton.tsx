@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useMutation, useQuery } from "convex/react";
+import { useTranslations } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 import { Button } from "@/components/ui/button";
@@ -12,6 +13,8 @@ interface FollowButtonProps {
 }
 
 export function FollowButton({ userId, isOwnPost }: FollowButtonProps) {
+  const t = useTranslations("feed");
+
   // Don't show follow button for own posts
   if (isOwnPost) return null;
 
@@ -68,7 +71,7 @@ export function FollowButton({ userId, isOwnPost }: FollowButtonProps) {
       onClick={handleToggle}
       disabled={isPending}
     >
-      {isFollowing ? "Following" : "Follow"}
+      {isFollowing ? t("follow.following") : t("follow.follow")}
     </Button>
   );
 }

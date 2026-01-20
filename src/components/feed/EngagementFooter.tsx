@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useMutation, useQuery } from "convex/react";
+import { useTranslations } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -37,6 +38,8 @@ export function EngagementFooter({
   post,
   isRepost = false,
 }: EngagementFooterProps) {
+  const t = useTranslations("feed");
+
   // Query current user's like/save/repost status
   const isLikedByUser = useQuery(api.posts.isLikedByUser, { postId });
   const isSavedByUser = useQuery(api.posts.isSavedByUser, { postId });
@@ -165,7 +168,7 @@ export function EngagementFooter({
           onClick={handleLikeToggle}
           disabled={isLikePending}
           className="flex items-center gap-1 hover:text-foreground transition-colors disabled:opacity-50"
-          aria-label={isLiked ? "Unlike post" : "Like post"}
+          aria-label={isLiked ? t("engagement.unlikePost") : t("engagement.likePost")}
         >
           <HugeiconsIcon
             icon={FavouriteIcon}
@@ -181,7 +184,7 @@ export function EngagementFooter({
         <button
           onClick={() => setShowComments(!showComments)}
           className="flex items-center gap-1 hover:text-foreground transition-colors"
-          aria-label={showComments ? "Hide comments" : "Show comments"}
+          aria-label={showComments ? t("engagement.hideComments") : t("engagement.showComments")}
         >
           <HugeiconsIcon icon={Comment01Icon} size={16} strokeWidth={1.5} />
           <span>{commentCount}</span>
@@ -192,7 +195,7 @@ export function EngagementFooter({
           onClick={handleSaveToggle}
           disabled={isSavePending}
           className="flex items-center gap-1 hover:text-foreground transition-colors disabled:opacity-50"
-          aria-label={isSaved ? "Unsave post" : "Save post"}
+          aria-label={isSaved ? t("engagement.unsavePost") : t("engagement.savePost")}
         >
           <HugeiconsIcon
             icon={BookmarkAdd01Icon}
@@ -212,8 +215,8 @@ export function EngagementFooter({
             className={`flex items-center gap-1 hover:text-foreground transition-colors ${
               isReposted ? "text-green-500" : ""
             }`}
-            aria-label={isReposted ? "Already reposted" : "Repost"}
-            title={isReposted ? "You've already reposted this" : "Repost"}
+            aria-label={isReposted ? t("engagement.alreadyReposted") : t("engagement.repost")}
+            title={isReposted ? t("engagement.repostedTooltip") : t("engagement.repost")}
           >
             <HugeiconsIcon
               icon={RefreshIcon}

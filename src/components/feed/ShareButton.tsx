@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Id } from "../../../convex/_generated/dataModel";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Share01Icon } from "@hugeicons/core-free-icons";
@@ -12,6 +13,7 @@ interface ShareButtonProps {
 }
 
 export function ShareButton({ postId, shareCount }: ShareButtonProps) {
+  const t = useTranslations("feed");
   const [localCount, setLocalCount] = useState(shareCount);
   const [hasShared, setHasShared] = useState(false);
 
@@ -21,7 +23,7 @@ export function ShareButton({ postId, shareCount }: ShareButtonProps) {
 
     try {
       await navigator.clipboard.writeText(url);
-      toast.success("Link copied to clipboard");
+      toast.success(t("share.copied"));
 
       // Only increment once per session to avoid spam
       if (!hasShared) {
@@ -33,7 +35,7 @@ export function ShareButton({ postId, shareCount }: ShareButtonProps) {
       }
     } catch (error) {
       // Fallback for browsers that don't support clipboard API
-      toast.error("Failed to copy link");
+      toast.error(t("share.copyError"));
     }
   };
 
@@ -41,7 +43,7 @@ export function ShareButton({ postId, shareCount }: ShareButtonProps) {
     <button
       onClick={handleShare}
       className="flex items-center gap-1 hover:text-foreground transition-colors"
-      aria-label="Share post"
+      aria-label={t("engagement.sharePost")}
     >
       <HugeiconsIcon icon={Share01Icon} size={16} strokeWidth={1.5} />
       <span>{localCount}</span>
