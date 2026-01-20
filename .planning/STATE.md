@@ -10,19 +10,19 @@ See: .planning/PROJECT.md (updated 2026-01-19)
 ## Current Position
 
 Milestone: v1.4 Internationalization & RTL Support
-Phase: 30 - RTL Component Patches (COMPLETE)
-Plan: 3 of 3 complete
-Status: Phase verified ✓
-Last activity: 2026-01-20 — Completed 30-01-PLAN.md (Direction-Aware Sidebar)
+Phase: 31 - Translation Infrastructure
+Plan: 1 of 7 in current phase
+Status: In progress
+Last activity: 2026-01-20 — Completed 31-01-PLAN.md (Common Namespace & Constants)
 
 Progress: [████████--] 57% (4/7 phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 89
-- Average duration: 5.7 min
-- Total execution time: 7.82 hours
+- Total plans completed: 90
+- Average duration: 5.6 min
+- Total execution time: 7.87 hours
 
 **By Phase:**
 
@@ -69,10 +69,11 @@ Progress: [████████--] 57% (4/7 phases)
 | 28 | 2/2 | 8 min | 4 min |
 | 29 | 11/11 | 37 min | 3.4 min |
 | 30 | 3/3 | 12 min | 4 min |
+| 31 | 1/7 | 3 min | 3 min |
 
 **Recent Trend:**
-- Last 5 plans: 3 min, 8 min, 3 min, 5 min, 4 min
-- Trend: Phase 30 RTL component patches COMPLETE - sidebar, animations, icons all done
+- Last 5 plans: 8 min, 3 min, 5 min, 4 min, 3 min
+- Trend: Phase 31 Translation Infrastructure started - common namespace complete
 
 ## Accumulated Context
 
@@ -317,6 +318,9 @@ Recent decisions affecting current work:
 - Phase 30: All menu chevrons and breadcrumb separators flip in RTL
 - Phase 30: Sidebar uses useDirection() + effectiveSide pattern for auto-positioning (right in RTL, left in LTR)
 - Phase 30: TooltipContent side dynamically set (left in RTL, right in LTR) opposite of sidebar
+- Phase 31: 16 categories in common namespace (actions, status, labels, propertyTypes, etc.)
+- Phase 31: labelKey pattern replaces hardcoded labels in constants.ts
+- Phase 31: descriptionKey for options with descriptions (riskTolerance, investmentTimeline)
 
 ### v1.4 Research Findings
 
@@ -358,6 +362,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-20
-Stopped at: Completed Phase 30 - RTL Component Patches (3/3 plans, verified ✓)
+Stopped at: Completed 31-01-PLAN.md (Common Namespace & Constants)
 Resume file: None
-Next: Run /gsd:discuss-phase 31 for Translation Infrastructure
+Next: Execute 31-02-PLAN.md (Page Namespaces)
