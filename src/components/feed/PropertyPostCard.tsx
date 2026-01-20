@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Home01Icon } from "@hugeicons/core-free-icons";
 import { formatDistanceToNow } from "date-fns";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import type { EnrichedPost } from "./PostCard";
 import { EngagementFooter } from "./EngagementFooter";
 import { FollowButton } from "./FollowButton";

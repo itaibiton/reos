@@ -24,7 +24,7 @@ import {
   Home01Icon,
   Building02Icon,
 } from "@hugeicons/core-free-icons";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 
 // Deal stage info for display
 const DEAL_STAGES = {

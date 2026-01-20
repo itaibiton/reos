@@ -17,7 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
   Agreement01Icon,
