@@ -218,6 +218,293 @@
       "settings": "Settings"
     }
   },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome back, {name}",
+    "welcomeGeneric": "Welcome back",
+    "adminDashboard": "Admin Dashboard",
+    "platformOverview": "Platform overview",
+
+    "stats": {
+      "title": "Overview",
+      "activeDeals": "Active Deals",
+      "completedDeals": "Completed Deals",
+      "totalValue": "Total Value",
+      "availableProperties": "Available Properties",
+      "avgRoi": "Avg. ROI",
+      "cities": "Cities",
+      "pendingRequests": "Pending Requests",
+      "activeClients": "Active Clients",
+      "totalClients": "Total Clients",
+      "activity7d": "Activity (7d)",
+      "responseTime": "Avg Response Time",
+      "rating": "Rating"
+    },
+
+    "sections": {
+      "recentDeals": "Recent Deals",
+      "myActiveDeals": "My Active Deals",
+      "pendingRequests": "Pending Requests",
+      "recentActivity": "Recent Activity",
+      "upcomingTasks": "Upcoming Tasks",
+      "monthlyTrends": "Monthly Trends",
+      "yourProfile": "Your Profile",
+      "accountInfo": "Account information"
+    },
+
+    "trends": {
+      "title": "Performance Trends",
+      "deals": "Deals",
+      "revenue": "Revenue",
+      "last6Months": "Last 6 months"
+    },
+
+    "quickActions": {
+      "title": "Quick Actions",
+      "browse": "Browse Properties",
+      "saved": "Saved Properties",
+      "newListing": "Add Property",
+      "viewDeals": "My Deals",
+      "viewClients": "View Clients"
+    },
+
+    "profile": {
+      "email": "Email",
+      "role": "Role",
+      "onboarding": "Onboarding",
+      "complete": "Complete",
+      "incomplete": "Incomplete",
+      "notSet": "Not set"
+    },
+
+    "empty": {
+      "noDeals": "No active deals",
+      "noActiveDeals": "Accepted client requests will appear here",
+      "noRequests": "No pending requests",
+      "noRequestsDesc": "Check back soon for new client requests",
+      "noActivity": "No recent activity",
+      "getStarted": "Get started by browsing properties"
+    },
+
+    "requests": {
+      "accept": "Accept",
+      "decline": "Decline",
+      "declineTitle": "Decline this request?",
+      "declineDesc": "The investor will be notified and can request another provider.",
+      "accepted": "Request accepted! You're now assigned to this deal.",
+      "declined": "Request declined"
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "adminSettings": "Admin settings and system configuration",
+    "manageProfile": "Manage your profile settings",
+    "viewingAs": "Viewing as {role}",
+
+    "tabs": {
+      "profile": "Profile",
+      "availability": "Availability",
+      "notifications": "Notifications",
+      "preferences": "Preferences"
+    },
+
+    "profile": {
+      "title": "Profile Settings",
+      "personalInfo": "Personal Information",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "phone": "Phone",
+      "bio": "Bio",
+      "bioPlaceholder": "Tell us about yourself...",
+      "specializations": "Specializations",
+      "serviceAreas": "Service Areas",
+      "languages": "Languages",
+      "contactPreference": "Preferred Contact Method",
+      "save": "Save Changes",
+      "saved": "Changes saved",
+      "completeness": "Profile Completeness",
+      "complete": "% complete",
+      "missing": "Missing",
+      "reviewProfile": "Review Profile",
+      "completeProfile": "Complete Profile",
+      "completeNow": "Complete Now",
+      "completeYourProfile": "Complete your investor profile",
+      "unlockRecommendations": "Unlock personalized recommendations and connect with service providers."
+    },
+
+    "availability": {
+      "title": "Availability Settings",
+      "acceptingClients": "Accepting New Clients",
+      "acceptingClientsDesc": "Visible to investors on your profile",
+      "nowAccepting": "Now accepting new clients",
+      "notAccepting": "Not accepting new clients",
+      "blockedDates": "Blocked Dates",
+      "blockedDatesDesc": "Mark dates when you're unavailable. Click on a date to toggle.",
+      "blockedDatesCount": "Blocked Dates ({count})",
+      "addBlockedDate": "Add Blocked Date",
+      "removeDate": "Remove",
+      "noBlockedDates": "No blocked dates. Click on the calendar to block dates.",
+      "dateBlocked": "Date blocked",
+      "dateUnblocked": "Date unblocked",
+      "failedToBlock": "Failed to block date",
+      "failedToUnblock": "Failed to unblock date",
+      "failedToUpdate": "Failed to update availability"
+    },
+
+    "notifications": {
+      "title": "Notification Preferences",
+      "channels": "Notification Channels",
+      "channelsDesc": "Choose how you want to receive notifications",
+      "types": "Notification Types",
+      "typesDesc": "Choose which events trigger notifications",
+      "emailNotifications": "Email Notifications",
+      "emailNotificationsDesc": "Receive notifications via email",
+      "inAppNotifications": "In-App Notifications",
+      "inAppNotificationsDesc": "Receive notifications within the app",
+      "failedToUpdate": "Failed to update notification preferences",
+      "categories": {
+        "messages": "Messages",
+        "deals": "Deals",
+        "requests": "Service Requests",
+        "marketing": "Marketing & Updates"
+      },
+      "options": {
+        "newMessage": "New Messages",
+        "newMessageDesc": "When you receive a new message",
+        "dealStage": "Deal Stage Changes",
+        "dealStageDesc": "When a deal moves to a new stage",
+        "fileUploaded": "Files Uploaded",
+        "fileUploadedDesc": "When files are uploaded to your deals",
+        "requestReceived": "New Requests Received",
+        "requestReceivedDesc": "When investors request your services",
+        "newsletter": "Newsletter",
+        "tips": "Tips & best practices"
+      }
+    },
+
+    "admin": {
+      "title": "Admin Panel",
+      "description": "Use the \"View as\" dropdown in the header to preview the app as different user types. The sidebar and available features will change based on the selected role."
+    }
+  },
+  "clients": {
+    "title": "Clients",
+    "myClients": "My Clients",
+    "clientCount": "{count} client",
+    "clientCountPlural": "{count} clients",
+    "searchPlaceholder": "Search by name or email...",
+    "noMatch": "No clients match \"{query}\"",
+    "clearSearch": "Clear search",
+
+    "list": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "activeDeals": "Active Deals",
+      "totalDeals": "Total Deals",
+      "lastActivity": "Last Activity",
+      "viewProfile": "View Profile",
+      "view": "View",
+      "deal": "{count} deal",
+      "deals": "{count} deals",
+      "active": "({count} active)"
+    },
+
+    "detail": {
+      "backToClients": "Back to Clients",
+      "startChat": "Start Chat",
+      "overview": "Overview",
+      "deals": "Deals",
+      "documents": "Documents",
+      "notes": "Notes",
+      "contactInfo": "Contact Information",
+      "investorProfile": "Investor Profile",
+      "investmentProfile": "Investment Profile",
+      "dealHistory": "Deal History",
+      "noDeals": "No deals with this client yet.",
+      "started": "Started {date}",
+      "active": "Active",
+      "completed": "Completed",
+      "total": "Total"
+    },
+
+    "questionnaire": {
+      "noProfile": "No investment profile available.",
+      "notCompleted": "Client hasn't completed their questionnaire yet.",
+      "background": "Background",
+      "citizenship": "Citizenship",
+      "residency": "Residency",
+      "experience": "Experience",
+      "ownsProperty": "Owns Property",
+      "budget": "Budget",
+      "goals": "Goals",
+      "preferences": "Preferences",
+      "horizon": "Horizon",
+      "focus": "Focus",
+      "financing": "Financing",
+      "timeline": "Timeline",
+      "propertyTypes": "Property Types",
+      "preferredLocations": "Preferred Locations",
+      "additionalNotes": "Additional Notes",
+      "notSpecified": "Not specified"
+    },
+
+    "empty": {
+      "noClients": "No clients yet",
+      "getStarted": "When you accept client requests, they'll appear here."
+    },
+
+    "access": {
+      "providerOnly": "Provider Access Only",
+      "providerOnlyDesc": "This page is for service providers to manage their clients.",
+      "notFound": "Client Not Found",
+      "notFoundDesc": "This client doesn't exist or you don't have access to view their details.",
+      "goHome": "Go Home"
+    }
+  },
+  "analytics": {
+    "title": "Analytics",
+    "description": "Track your performance metrics and business insights",
+
+    "stats": {
+      "completedDeals": "Completed Deals",
+      "activeDeals": "Active Deals",
+      "conversionRate": "Conversion Rate",
+      "avgRating": "Average Rating",
+      "noReviews": "No reviews yet",
+      "reviews": "{count} reviews",
+      "requestsOf": "{accepted} of {total} requests"
+    },
+
+    "dealValue": {
+      "title": "Deal Value",
+      "total": "Total value of completed deals",
+      "average": "Average deal value",
+      "commissionNote": "Note: Actual earnings depend on your commission agreements"
+    },
+
+    "performance": {
+      "title": "Performance",
+      "avgResponseTime": "Average Response Time",
+      "requestBreakdown": "Request Breakdown",
+      "accepted": "{count} accepted",
+      "declined": "{count} declined",
+      "pending": "{count} pending"
+    },
+
+    "trends": {
+      "title": "Monthly Trends",
+      "requests": "Requests",
+      "completedDeals": "Completed Deals",
+      "noData": "No trend data available yet"
+    },
+
+    "empty": {
+      "title": "No Analytics Data Yet",
+      "description": "Analytics will appear here once you start receiving service requests and completing deals."
+    }
+  },
   "landing": {
     "nav": {
       "services": "Services",
