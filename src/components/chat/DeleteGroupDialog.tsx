@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useMutation } from "convex/react";
+import { useTranslations } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 import {
@@ -31,6 +32,8 @@ export function DeleteGroupDialog({
   groupName,
   onDeleted,
 }: DeleteGroupDialogProps) {
+  const t = useTranslations("chat");
+  const tCommon = useTranslations("common");
   const [isDeleting, setIsDeleting] = useState(false);
 
   const deleteGroup = useMutation(api.conversations.deleteGroup);
@@ -39,11 +42,11 @@ export function DeleteGroupDialog({
     setIsDeleting(true);
     try {
       await deleteGroup({ conversationId });
-      toast.success("Group deleted");
+      toast.success(t("group.deletedSuccess"));
       onDeleted();
     } catch (error) {
       console.error("Failed to delete group:", error);
-      toast.error("Failed to delete group");
+      toast.error(t("group.deletedError"));
     } finally {
       setIsDeleting(false);
       onOpenChange(false);
@@ -54,20 +57,19 @@ export function DeleteGroupDialog({
     <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Delete "{groupName}"?</AlertDialogTitle>
+          <AlertDialogTitle>{t("group.deleteTitle", { groupName })}</AlertDialogTitle>
           <AlertDialogDescription>
-            This will permanently delete the group and all messages for all
-            members. This action cannot be undone.
+            {t("group.deleteConfirm")}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel disabled={isDeleting}>Cancel</AlertDialogCancel>
+          <AlertDialogCancel disabled={isDeleting}>{tCommon("actions.cancel")}</AlertDialogCancel>
           <AlertDialogAction
             onClick={handleDelete}
             disabled={isDeleting}
             className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
           >
-            {isDeleting ? "Deleting..." : "Delete Group"}
+            {isDeleting ? t("group.deleting") : t("group.delete")}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

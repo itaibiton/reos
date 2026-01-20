@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useMutation } from "convex/react";
+import { useTranslations } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 import {
@@ -31,6 +32,8 @@ export function LeaveGroupDialog({
   groupName,
   onLeft,
 }: LeaveGroupDialogProps) {
+  const t = useTranslations("chat");
+  const tCommon = useTranslations("common");
   const [isLeaving, setIsLeaving] = useState(false);
 
   const leaveGroup = useMutation(api.conversations.leave);
@@ -39,11 +42,11 @@ export function LeaveGroupDialog({
     setIsLeaving(true);
     try {
       await leaveGroup({ conversationId });
-      toast.success("Left group");
+      toast.success(t("group.leftSuccess"));
       onLeft();
     } catch (error) {
       console.error("Failed to leave group:", error);
-      toast.error("Failed to leave group");
+      toast.error(t("group.leftError"));
     } finally {
       setIsLeaving(false);
       onOpenChange(false);
@@ -54,20 +57,19 @@ export function LeaveGroupDialog({
     <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Leave "{groupName}"?</AlertDialogTitle>
+          <AlertDialogTitle>{t("group.leaveTitle", { groupName })}</AlertDialogTitle>
           <AlertDialogDescription>
-            You won't be able to see messages from this group anymore. You can
-            be added back by another member.
+            {t("group.leaveConfirm")}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel disabled={isLeaving}>Cancel</AlertDialogCancel>
+          <AlertDialogCancel disabled={isLeaving}>{tCommon("actions.cancel")}</AlertDialogCancel>
           <AlertDialogAction
             onClick={handleLeave}
             disabled={isLeaving}
             className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
           >
-            {isLeaving ? "Leaving..." : "Leave Group"}
+            {isLeaving ? t("group.leaving") : t("group.leave")}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

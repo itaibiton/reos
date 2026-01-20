@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import {
   Tooltip,
@@ -131,6 +132,8 @@ export function LayoutModeSelector({
   mode,
   onModeChange,
 }: LayoutModeSelectorProps) {
+  const t = useTranslations("chat");
+
   const handleValueChange = (value: string) => {
     if (value) {
       onModeChange(value as LayoutMode);
@@ -148,34 +151,34 @@ export function LayoutModeSelector({
       >
         <Tooltip>
           <TooltipTrigger asChild>
-            <ToggleGroupItem value="single" aria-label="Single chat view">
+            <ToggleGroupItem value="single" aria-label={t("layout.single")}>
               <SingleLayoutIcon />
             </ToggleGroupItem>
           </TooltipTrigger>
           <TooltipContent side="bottom">
-            <p>Single chat</p>
+            <p>{t("layout.single")}</p>
           </TooltipContent>
         </Tooltip>
 
         <Tooltip>
           <TooltipTrigger asChild>
-            <ToggleGroupItem value="split" aria-label="Split view (2 chats)">
+            <ToggleGroupItem value="split" aria-label={t("layout.split")}>
               <SplitLayoutIcon />
             </ToggleGroupItem>
           </TooltipTrigger>
           <TooltipContent side="bottom">
-            <p>Split view</p>
+            <p>{t("layout.split")}</p>
           </TooltipContent>
         </Tooltip>
 
         <Tooltip>
           <TooltipTrigger asChild>
-            <ToggleGroupItem value="quad" aria-label="Quad view (4 chats)">
+            <ToggleGroupItem value="quad" aria-label={t("layout.quad")}>
               <QuadLayoutIcon />
             </ToggleGroupItem>
           </TooltipTrigger>
           <TooltipContent side="bottom">
-            <p>Quad view</p>
+            <p>{t("layout.quad")}</p>
           </TooltipContent>
         </Tooltip>
       </ToggleGroup>

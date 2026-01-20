@@ -1,6 +1,7 @@
 "use client";
 
 import { useDroppable } from "@dnd-kit/core";
+import { useTranslations } from "next-intl";
 import { Id } from "../../../convex/_generated/dataModel";
 import { Button } from "@/components/ui/button";
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -26,6 +27,7 @@ export function ChatPane({
   onSelectParticipant,
   compact = false,
 }: ChatPaneProps) {
+  const t = useTranslations("chat");
   const { setNodeRef, isOver } = useDroppable({
     id: paneId,
   });
@@ -65,10 +67,10 @@ export function ChatPane({
                 isOver ? "text-primary" : "text-muted-foreground"
               )}
             >
-              {isOver ? "Drop to assign" : "Drag a participant here"}
+              {isOver ? t("pane.dropToAssign") : t("pane.dragHere")}
             </p>
             <p className="text-xs text-muted-foreground">
-              or click the button below
+              {t("pane.clickBelow")}
             </p>
           </div>
           <Button
@@ -77,7 +79,7 @@ export function ChatPane({
             onClick={onSelectParticipant}
             className="mt-2"
           >
-            Select Participant
+            {t("pane.selectParticipant")}
           </Button>
         </div>
       </div>

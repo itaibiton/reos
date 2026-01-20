@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useCallback, KeyboardEvent } from "react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { SentIcon } from "@hugeicons/core-free-icons";
@@ -15,8 +16,10 @@ interface ChatInputProps {
 export function ChatInput({
   onSend,
   disabled = false,
-  placeholder = "Type a message...",
+  placeholder,
 }: ChatInputProps) {
+  const t = useTranslations("chat");
+  const inputPlaceholder = placeholder ?? t("input.placeholder");
   const [value, setValue] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -65,7 +68,7 @@ export function ChatInput({
         value={value}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
-        placeholder={placeholder}
+        placeholder={inputPlaceholder}
         disabled={disabled}
         rows={1}
         className={cn(

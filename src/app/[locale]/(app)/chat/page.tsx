@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useCallback } from "react";
 import { useQuery } from "convex/react";
+import { useTranslations } from "next-intl";
 import {
   DndContext,
   DragEndEvent,
@@ -44,6 +45,8 @@ import {
 } from "@/components/ui/empty";
 
 export default function ChatPage() {
+  const t = useTranslations("chat");
+
   // Chat mode: deals or direct
   const [chatMode, setChatMode] = useState<ChatMode>("deals");
 
@@ -346,7 +349,7 @@ export default function ChatPage() {
                     {isMultiLayout && (
                       <div className="p-2 border-b bg-muted/30">
                         <p className="text-xs text-muted-foreground text-center">
-                          Drag participants to chat panes
+                          {t("pane.dragParticipants")}
                         </p>
                       </div>
                     )}
@@ -363,7 +366,7 @@ export default function ChatPage() {
                   </>
                 ) : (
                   <div className="p-4 text-center text-muted-foreground text-sm">
-                    Select a deal to see participants
+                    {t("pane.selectDeal")}
                   </div>
                 )}
               </div>
@@ -471,12 +474,12 @@ export default function ChatPage() {
                         <HugeiconsIcon icon={Message02Icon} size={24} />
                       </EmptyMedia>
                       <EmptyTitle>
-                        {!hasDeals ? "No deals yet" : "Select a deal"}
+                        {!hasDeals ? t("empty.noDeals") : t("empty.selectDeal")}
                       </EmptyTitle>
                       <EmptyDescription>
                         {!hasDeals
-                          ? "Start a deal on a property to chat with service providers"
-                          : "Choose a deal from the dropdown to see who you can chat with"}
+                          ? t("empty.noDealsDescription")
+                          : t("empty.selectDealDescription")}
                       </EmptyDescription>
                     </EmptyHeader>
                   </Empty>
@@ -497,9 +500,9 @@ export default function ChatPage() {
                         <EmptyMedia variant="icon">
                           <HugeiconsIcon icon={Message02Icon} size={24} />
                         </EmptyMedia>
-                        <EmptyTitle>Select a conversation</EmptyTitle>
+                        <EmptyTitle>{t("empty.selectConversation")}</EmptyTitle>
                         <EmptyDescription>
-                          Choose a participant from the list to start messaging
+                          {t("empty.selectConversationDescription")}
                         </EmptyDescription>
                       </EmptyHeader>
                     </Empty>
@@ -529,9 +532,9 @@ export default function ChatPage() {
                     <EmptyMedia variant="icon">
                       <HugeiconsIcon icon={Message02Icon} size={24} />
                     </EmptyMedia>
-                    <EmptyTitle>Select a conversation</EmptyTitle>
+                    <EmptyTitle>{t("empty.selectChat")}</EmptyTitle>
                     <EmptyDescription>
-                      Choose a conversation from the list or start a new chat
+                      {t("empty.selectChatDescription")}
                     </EmptyDescription>
                   </EmptyHeader>
                 </Empty>
