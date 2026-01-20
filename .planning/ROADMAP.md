@@ -10,7 +10,7 @@ Building an end-to-end real estate investment platform connecting US investors w
 - [v1.1 Investor Onboarding](milestones/v1.1-ROADMAP.md) (Phases 9-15) — SHIPPED 2026-01-18
 - [v1.2 Provider Experience](milestones/v1.2-ROADMAP.md) (Phases 16-20) — SHIPPED 2026-01-19
 - [v1.3 Social Feed & Global Community](milestones/v1.3-ROADMAP.md) (Phases 21-27.2) — SHIPPED 2026-01-19
-- [v1.4 Internationalization & RTL](milestones/v1.4-ROADMAP.md) (Phases 28-34.1) — IN PROGRESS
+- [v1.4 Internationalization & RTL](milestones/v1.4-ROADMAP.md) (Phases 28-34.1) — SHIPPED 2026-01-20
 
 ## Completed Milestones
 
@@ -94,7 +94,7 @@ Building an end-to-end real estate investment platform connecting US investors w
 </details>
 
 <details>
-<summary>v1.4 Internationalization & RTL (Phases 28-34.1) — IN PROGRESS</summary>
+<summary>v1.4 Internationalization & RTL (Phases 28-34.1) — SHIPPED 2026-01-20</summary>
 
 **8 phases, 46 plans**
 
@@ -105,7 +105,7 @@ Building an end-to-end real estate investment platform connecting US investors w
 - [x] Phase 32: Locale Formatting (5/5 plans) — completed 2026-01-19
 - [x] Phase 33: Hebrew Translation (8/8 plans) — completed 2026-01-20
 - [x] Phase 34: Language Switcher & Polish (2/2 plans) — completed 2026-01-20
-- [ ] Phase 34.1: Translate All Pages & Content (0/3 plans) — not started (INSERTED)
+- [x] Phase 34.1: Translate All Pages & Content (3/3 plans) — completed 2026-01-20 (INSERTED)
 
 [Full details ->](milestones/v1.4-ROADMAP.md)
 
@@ -119,9 +119,9 @@ Building an end-to-end real estate investment platform connecting US investors w
 | v1.1 Investor Onboarding | 7 | 8 | Complete | 2026-01-18 |
 | v1.2 Provider Experience | 6 | 11 | Complete | 2026-01-19 |
 | v1.3 Social Feed & Global Community | 8 | 20 | Complete | 2026-01-19 |
-| v1.4 Internationalization & RTL | 8 | 46 | In Progress | - |
+| v1.4 Internationalization & RTL | 8 | 46 | Complete | 2026-01-20 |
 
-**Total: 45 phases, 122 plans shipped + v1.4 in progress**
+**Total: 46 phases, 125 plans shipped**
 
 ---
 
