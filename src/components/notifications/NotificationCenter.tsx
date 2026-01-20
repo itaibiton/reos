@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useQuery, useMutation } from "convex/react";
 import { useRouter } from "next/navigation";
-import { useFormatter, useNow } from "next-intl";
+import { useFormatter, useNow, useTranslations } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 import { Button } from "@/components/ui/button";
@@ -159,6 +159,7 @@ export function NotificationCenter() {
   const router = useRouter();
   const format = useFormatter();
   const now = useNow({ updateInterval: 1000 * 60 }); // Update every minute
+  const t = useTranslations("common");
 
   // Queries
   const notifications = useQuery(api.notifications.list, { limit: 20 });
@@ -229,14 +230,14 @@ export function NotificationCenter() {
               {unreadCount > 99 ? "99+" : unreadCount}
             </Badge>
           )}
-          <span className="sr-only">Notifications</span>
+          <span className="sr-only">{t("notifications.title")}</span>
         </Button>
       </PopoverTrigger>
 
       <PopoverContent align="end" className="w-80 p-0">
         {/* Header */}
         <div className="flex items-center justify-between p-3 border-b">
-          <h3 className="font-semibold text-sm">Notifications</h3>
+          <h3 className="font-semibold text-sm">{t("notifications.title")}</h3>
           {unreadCount !== undefined && unreadCount > 0 && (
             <Button
               variant="ghost"
@@ -244,7 +245,7 @@ export function NotificationCenter() {
               className="h-auto py-1 px-2 text-xs text-muted-foreground hover:text-foreground"
               onClick={handleMarkAllAsRead}
             >
-              Mark all read
+              {t("notifications.markAllRead")}
             </Button>
           )}
         </div>
@@ -255,7 +256,7 @@ export function NotificationCenter() {
             {notifications === undefined ? (
               // Loading state
               <div className="p-4 text-center text-sm text-muted-foreground">
-                Loading...
+                {t("notifications.loading")}
               </div>
             ) : notifications.length > 0 ? (
               notifications.map((notification) => (
@@ -280,10 +281,10 @@ export function NotificationCenter() {
                   className="mx-auto mb-2 text-muted-foreground opacity-50"
                 />
                 <p className="text-sm text-muted-foreground">
-                  No notifications
+                  {t("notifications.empty")}
                 </p>
                 <p className="text-xs text-muted-foreground mt-1">
-                  You&apos;re all caught up!
+                  {t("notifications.caughtUp")}
                 </p>
               </div>
             )}
