@@ -875,7 +875,7 @@ export default function DealDetailPage() {
                                 <AlertDialogHeader>
                                   <AlertDialogTitle>{t("providers.cancelRequestTitle")}</AlertDialogTitle>
                                   <AlertDialogDescription>
-                                    {t("providers.cancelRequestDescription", { name: request.provider?.name })}
+                                    {t("providers.cancelRequestDescription", { name: request.provider?.name || "" })}
                                   </AlertDialogDescription>
                                 </AlertDialogHeader>
                                 <AlertDialogFooter>

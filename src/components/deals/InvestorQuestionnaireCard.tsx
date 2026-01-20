@@ -1,6 +1,7 @@
 "use client";
 
 import { useQuery } from "convex/react";
+import { useTranslations } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -11,94 +12,85 @@ interface InvestorQuestionnaireCardProps {
   investorId: Id<"users">;
 }
 
-// Label mappings for questionnaire values
-const QUESTIONNAIRE_LABELS: Record<string, Record<string, string>> = {
+// Key mappings from snake_case database values to camelCase translation keys
+const VALUE_KEY_MAPPINGS: Record<string, Record<string, string>> = {
   citizenship: {
-    israeli: "Israeli Citizen",
-    non_israeli: "Non-Israeli Citizen",
+    israeli: "israeli",
+    non_israeli: "nonIsraeli",
   },
   residencyStatus: {
-    resident: "Israeli Resident",
-    returning_resident: "Returning Resident",
-    non_resident: "Non-Resident",
-    unsure: "Unsure",
+    resident: "resident",
+    returning_resident: "returningResident",
+    non_resident: "nonResident",
+    unsure: "unsure",
   },
   experienceLevel: {
-    none: "No experience",
-    some: "Some experience",
-    experienced: "Experienced investor",
+    none: "none",
+    some: "some",
+    experienced: "experienced",
   },
   investmentType: {
-    residential: "Residential (for living)",
-    investment: "Investment property",
+    residential: "residential",
+    investment: "investment",
   },
   investmentHorizon: {
-    short_term: "Short-term (< 2 years)",
-    medium_term: "Medium-term (2-5 years)",
-    long_term: "Long-term (5+ years)",
+    short_term: "shortTerm",
+    medium_term: "mediumTerm",
+    long_term: "longTerm",
   },
   yieldPreference: {
-    rental_yield: "Rental yield focus",
-    appreciation: "Appreciation focus",
-    balanced: "Balanced approach",
+    rental_yield: "rentalYield",
+    appreciation: "appreciation",
+    balanced: "balanced",
   },
   financingApproach: {
-    cash: "Cash purchase",
-    mortgage: "Mortgage financing",
-    exploring: "Still exploring",
+    cash: "cash",
+    mortgage: "mortgage",
+    exploring: "exploring",
   },
   purchaseTimeline: {
-    "3_months": "Within 3 months",
-    "6_months": "Within 6 months",
-    "1_year": "Within 1 year",
-    exploring: "Just exploring",
+    "3_months": "threeMonths",
+    "6_months": "sixMonths",
+    "1_year": "oneYear",
+    exploring: "exploring",
   },
   locationFlexibility: {
-    flexible: "Flexible on location",
-    specific: "Specific locations only",
-    nearby_cities: "Open to nearby cities",
+    flexible: "flexible",
+    specific: "specific",
+    nearby_cities: "nearbyCities",
   },
-  // Goals (array items)
   goals: {
-    appreciation: "Capital appreciation",
-    rental_income: "Rental income",
-    diversification: "Portfolio diversification",
-    tax_benefits: "Tax benefits",
+    appreciation: "appreciation",
+    rental_income: "rentalIncome",
+    diversification: "diversification",
+    tax_benefits: "taxBenefits",
   },
-  // Services (array items)
   services: {
-    broker: "Real Estate Broker",
-    mortgage_advisor: "Mortgage Advisor",
-    lawyer: "Lawyer",
+    broker: "broker",
+    mortgage_advisor: "mortgageAdvisor",
+    lawyer: "lawyer",
   },
-  // Property types (array items)
   propertyTypes: {
-    residential: "Residential",
-    commercial: "Commercial",
-    mixed_use: "Mixed Use",
-    land: "Land",
+    residential: "residential",
+    commercial: "commercial",
+    mixed_use: "mixedUse",
+    land: "land",
   },
-  // Amenities (array items)
   amenities: {
-    parking: "Parking",
-    elevator: "Elevator",
-    balcony: "Balcony",
-    garden: "Garden",
-    pool: "Pool",
-    gym: "Gym",
-    storage: "Storage Room",
-    security: "24/7 Security",
-    mamad: "Safe Room (Mamad)",
-    central_ac: "Central A/C",
-    renovated: "Newly Renovated",
-    furnished: "Furnished",
+    parking: "parking",
+    elevator: "elevator",
+    balcony: "balcony",
+    garden: "garden",
+    pool: "pool",
+    gym: "gym",
+    storage: "storage",
+    security: "security",
+    mamad: "mamad",
+    central_ac: "centralAc",
+    renovated: "renovated",
+    furnished: "furnished",
   },
 };
-
-// Helper to get label or return raw value
-function getLabel(category: string, value: string): string {
-  return QUESTIONNAIRE_LABELS[category]?.[value] || value;
-}
 
 // Format currency
 function formatUSD(amount: number): string {
@@ -109,27 +101,20 @@ function formatUSD(amount: number): string {
   }).format(amount);
 }
 
-// Format array values with labels
-function formatArray(
-  values: string[] | undefined,
-  category: string
-): string {
-  if (!values || values.length === 0) return "Not specified";
-  return values.map((v) => getLabel(category, v)).join(", ");
-}
-
 // Field display component
 function Field({
   label,
   value,
+  fallback,
 }: {
   label: string;
   value: string | React.ReactNode;
+  fallback: string;
 }) {
   return (
     <div className="space-y-1">
       <p className="text-sm text-muted-foreground">{label}</p>
-      <p className="font-medium">{value || "Not specified"}</p>
+      <p className="font-medium">{value || fallback}</p>
     </div>
   );
 }
@@ -153,16 +138,37 @@ function Section({
 export function InvestorQuestionnaireCard({
   investorId,
 }: InvestorQuestionnaireCardProps) {
+  const t = useTranslations("deals.questionnaire");
   const questionnaire = useQuery(api.investorQuestionnaires.getByInvestorId, {
     investorId,
   });
+
+  // Helper to get translated label for a value
+  const getLabel = (category: string, value: string): string => {
+    if (!value) return t("values.notSpecified");
+    const keyMapping = VALUE_KEY_MAPPINGS[category];
+    const key = keyMapping?.[value] || value;
+    // Try to get translation, fallback to value itself
+    const translationKey = `${category}.${key}`;
+    try {
+      return t(translationKey);
+    } catch {
+      return value;
+    }
+  };
+
+  // Format array values with labels
+  const formatArray = (values: string[] | undefined, category: string): string => {
+    if (!values || values.length === 0) return t("values.notSpecified");
+    return values.map((v) => getLabel(category, v)).join(", ");
+  };
 
   // Loading state
   if (questionnaire === undefined) {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Investor Profile</CardTitle>
+          <CardTitle>{t("title")}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -183,158 +189,171 @@ export function InvestorQuestionnaireCard({
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Investor Profile</CardTitle>
+          <CardTitle>{t("title")}</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-muted-foreground">No profile available</p>
+          <p className="text-muted-foreground">{t("noProfile")}</p>
         </CardContent>
       </Card>
     );
   }
 
-  // Format budget range
-  const budgetRange =
-    questionnaire.budgetMin && questionnaire.budgetMax
-      ? `${formatUSD(questionnaire.budgetMin)} - ${formatUSD(questionnaire.budgetMax)}`
-      : questionnaire.budgetMin
-        ? `From ${formatUSD(questionnaire.budgetMin)}`
-        : questionnaire.budgetMax
-          ? `Up to ${formatUSD(questionnaire.budgetMax)}`
-          : "Not specified";
+  // Format budget range using translations
+  const getBudgetRange = () => {
+    if (questionnaire.budgetMin && questionnaire.budgetMax) {
+      return t("values.range", {
+        min: formatUSD(questionnaire.budgetMin),
+        max: formatUSD(questionnaire.budgetMax)
+      });
+    }
+    if (questionnaire.budgetMin) {
+      return t("values.from", { amount: formatUSD(questionnaire.budgetMin) });
+    }
+    if (questionnaire.budgetMax) {
+      return t("values.upTo", { amount: formatUSD(questionnaire.budgetMax) });
+    }
+    return t("values.notSpecified");
+  };
 
-  // Format size range
-  const bedroomRange =
-    questionnaire.minBedrooms !== undefined &&
-    questionnaire.maxBedrooms !== undefined
-      ? `${questionnaire.minBedrooms} - ${questionnaire.maxBedrooms} bedrooms`
-      : questionnaire.minBedrooms !== undefined
-        ? `${questionnaire.minBedrooms}+ bedrooms`
-        : questionnaire.maxBedrooms !== undefined
-          ? `Up to ${questionnaire.maxBedrooms} bedrooms`
-          : null;
+  // Format bedroom range using translations
+  const getBedroomRange = () => {
+    if (questionnaire.minBedrooms !== undefined && questionnaire.maxBedrooms !== undefined) {
+      return t("values.bedroomsRange", { min: questionnaire.minBedrooms, max: questionnaire.maxBedrooms });
+    }
+    if (questionnaire.minBedrooms !== undefined) {
+      return t("values.bedroomsMin", { min: questionnaire.minBedrooms });
+    }
+    if (questionnaire.maxBedrooms !== undefined) {
+      return t("values.bedroomsMax", { max: questionnaire.maxBedrooms });
+    }
+    return null;
+  };
 
-  const areaRange =
-    questionnaire.minArea !== undefined && questionnaire.maxArea !== undefined
-      ? `${questionnaire.minArea} - ${questionnaire.maxArea} sqm`
-      : questionnaire.minArea !== undefined
-        ? `${questionnaire.minArea}+ sqm`
-        : questionnaire.maxArea !== undefined
-          ? `Up to ${questionnaire.maxArea} sqm`
-          : null;
+  // Format area range using translations
+  const getAreaRange = () => {
+    if (questionnaire.minArea !== undefined && questionnaire.maxArea !== undefined) {
+      return t("values.areaRange", { min: questionnaire.minArea, max: questionnaire.maxArea });
+    }
+    if (questionnaire.minArea !== undefined) {
+      return t("values.areaMin", { min: questionnaire.minArea });
+    }
+    if (questionnaire.maxArea !== undefined) {
+      return t("values.areaMax", { max: questionnaire.maxArea });
+    }
+    return null;
+  };
+
+  const budgetRange = getBudgetRange();
+  const bedroomRange = getBedroomRange();
+  const areaRange = getAreaRange();
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Investor Profile</CardTitle>
+        <CardTitle>{t("title")}</CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
         {/* Background Section */}
-        <Section title="Background">
+        <Section title={t("sections.background")}>
           <Field
-            label="Citizenship"
+            label={t("fields.citizenship")}
             value={getLabel("citizenship", questionnaire.citizenship || "")}
+            fallback={t("values.notSpecified")}
           />
           <Field
-            label="Residency Status"
-            value={getLabel(
-              "residencyStatus",
-              questionnaire.residencyStatus || ""
-            )}
+            label={t("fields.residencyStatus")}
+            value={getLabel("residencyStatus", questionnaire.residencyStatus || "")}
+            fallback={t("values.notSpecified")}
           />
           <Field
-            label="Investment Experience"
-            value={getLabel(
-              "experienceLevel",
-              questionnaire.experienceLevel || ""
-            )}
+            label={t("fields.investmentExperience")}
+            value={getLabel("experienceLevel", questionnaire.experienceLevel || "")}
+            fallback={t("values.notSpecified")}
           />
           <Field
-            label="Owns Property in Israel"
+            label={t("fields.ownsProperty")}
             value={
               questionnaire.ownsPropertyInIsrael !== undefined
                 ? questionnaire.ownsPropertyInIsrael
-                  ? "Yes"
-                  : "No"
-                : "Not specified"
+                  ? t("values.yes")
+                  : t("values.no")
+                : t("values.notSpecified")
             }
+            fallback={t("values.notSpecified")}
           />
         </Section>
 
         <Separator />
 
         {/* Investment Preferences Section */}
-        <Section title="Investment Preferences">
+        <Section title={t("sections.investmentPreferences")}>
           <Field
-            label="Investment Type"
-            value={getLabel(
-              "investmentType",
-              questionnaire.investmentType || ""
-            )}
-          />
-          <Field label="Budget Range" value={budgetRange} />
-          <Field
-            label="Investment Horizon"
-            value={getLabel(
-              "investmentHorizon",
-              questionnaire.investmentHorizon || ""
-            )}
+            label={t("fields.investmentType")}
+            value={getLabel("investmentType", questionnaire.investmentType || "")}
+            fallback={t("values.notSpecified")}
           />
           <Field
-            label="Goals"
+            label={t("fields.budgetRange")}
+            value={budgetRange}
+            fallback={t("values.notSpecified")}
+          />
+          <Field
+            label={t("fields.investmentHorizon")}
+            value={getLabel("investmentHorizon", questionnaire.investmentHorizon || "")}
+            fallback={t("values.notSpecified")}
+          />
+          <Field
+            label={t("fields.goals")}
             value={formatArray(questionnaire.investmentGoals, "goals")}
+            fallback={t("values.notSpecified")}
           />
           <Field
-            label="Yield Preference"
-            value={getLabel(
-              "yieldPreference",
-              questionnaire.yieldPreference || ""
-            )}
+            label={t("fields.yieldPreference")}
+            value={getLabel("yieldPreference", questionnaire.yieldPreference || "")}
+            fallback={t("values.notSpecified")}
           />
           <Field
-            label="Financing Approach"
-            value={getLabel(
-              "financingApproach",
-              questionnaire.financingApproach || ""
-            )}
+            label={t("fields.financingApproach")}
+            value={getLabel("financingApproach", questionnaire.financingApproach || "")}
+            fallback={t("values.notSpecified")}
           />
         </Section>
 
         <Separator />
 
         {/* Property Preferences Section */}
-        <Section title="Property Preferences">
+        <Section title={t("sections.propertyPreferences")}>
           <Field
-            label="Property Types"
-            value={formatArray(
-              questionnaire.preferredPropertyTypes,
-              "propertyTypes"
-            )}
+            label={t("fields.propertyTypes")}
+            value={formatArray(questionnaire.preferredPropertyTypes, "propertyTypes")}
+            fallback={t("values.notSpecified")}
           />
           <Field
-            label="Locations"
+            label={t("fields.locations")}
             value={
               questionnaire.preferredLocations?.length
                 ? questionnaire.preferredLocations.join(", ")
-                : "Not specified"
+                : t("values.notSpecified")
             }
+            fallback={t("values.notSpecified")}
           />
           {(bedroomRange || areaRange) && (
             <Field
-              label="Size"
+              label={t("fields.size")}
               value={[bedroomRange, areaRange].filter(Boolean).join(", ")}
+              fallback={t("values.notSpecified")}
             />
           )}
           <Field
-            label="Amenities"
+            label={t("fields.amenities")}
             value={formatArray(questionnaire.preferredAmenities, "amenities")}
+            fallback={t("values.notSpecified")}
           />
           {questionnaire.locationFlexibility && (
             <Field
-              label="Location Flexibility"
-              value={getLabel(
-                "locationFlexibility",
-                questionnaire.locationFlexibility
-              )}
+              label={t("fields.locationFlexibility")}
+              value={getLabel("locationFlexibility", questionnaire.locationFlexibility)}
+              fallback={t("values.notSpecified")}
             />
           )}
         </Section>
@@ -342,23 +361,23 @@ export function InvestorQuestionnaireCard({
         <Separator />
 
         {/* Timeline & Services Section */}
-        <Section title="Timeline & Services">
+        <Section title={t("sections.timelineServices")}>
           <Field
-            label="Purchase Timeline"
-            value={getLabel(
-              "purchaseTimeline",
-              questionnaire.purchaseTimeline || ""
-            )}
+            label={t("fields.purchaseTimeline")}
+            value={getLabel("purchaseTimeline", questionnaire.purchaseTimeline || "")}
+            fallback={t("values.notSpecified")}
           />
           <Field
-            label="Services Needed"
+            label={t("fields.servicesNeeded")}
             value={formatArray(questionnaire.servicesNeeded, "services")}
+            fallback={t("values.notSpecified")}
           />
           {questionnaire.additionalPreferences && (
             <div className="col-span-full">
               <Field
-                label="Additional Preferences"
+                label={t("fields.additionalPreferences")}
                 value={questionnaire.additionalPreferences}
+                fallback={t("values.notSpecified")}
               />
             </div>
           )}

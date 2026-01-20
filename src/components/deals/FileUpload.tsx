@@ -2,6 +2,7 @@
 
 import { useState, useRef, useCallback } from "react";
 import { useMutation } from "convex/react";
+import { useTranslations } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 import { toast } from "sonner";
@@ -55,15 +56,17 @@ const ALLOWED_EXTENSIONS = [".pdf", ".doc", ".docx", ".jpg", ".jpeg", ".png"];
 // Max file size: 10MB
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
 
-const CATEGORY_LABELS: Record<FileCategory, string> = {
-  contract: "Contract",
-  id_document: "ID Document",
-  financial: "Financial",
-  legal: "Legal",
-  other: "Other",
+// Category key mapping for translations
+const CATEGORY_KEY_MAP: Record<FileCategory, string> = {
+  contract: "contract",
+  id_document: "idDocument",
+  financial: "financial",
+  legal: "legal",
+  other: "other",
 };
 
 export function FileUpload({ dealId, onUploadComplete }: FileUploadProps) {
+  const t = useTranslations("deals");
   const [file, setFile] = useState<File | null>(null);
   const [category, setCategory] = useState<FileCategory>("other");
   const [description, setDescription] = useState("");
@@ -216,10 +219,15 @@ export function FileUpload({ dealId, onUploadComplete }: FileUploadProps) {
     return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
   };
 
+  // Get translated category label
+  const getCategoryLabel = (cat: FileCategory) => {
+    return t(`files.categories.${CATEGORY_KEY_MAP[cat]}`);
+  };
+
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Upload Document</CardTitle>
+        <CardTitle>{t("files.uploadDocument")}</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         {/* Drag and drop zone */}
@@ -269,7 +277,7 @@ export function FileUpload({ dealId, onUploadComplete }: FileUploadProps) {
                 disabled={isUploading}
               >
                 <HugeiconsIcon icon={Cancel01Icon} size={16} />
-                Remove
+                {t("files.remove")}
               </Button>
             </div>
           ) : (
@@ -277,12 +285,12 @@ export function FileUpload({ dealId, onUploadComplete }: FileUploadProps) {
               <HugeiconsIcon icon={CloudUploadIcon} size={40} />
               <div className="text-center">
                 <p className="font-medium">
-                  {isDragging ? "Drop file here" : "Drag and drop a file"}
+                  {isDragging ? t("files.dropHere") : t("files.dragDrop")}
                 </p>
-                <p className="text-sm">or click to browse</p>
+                <p className="text-sm">{t("files.orClick")}</p>
               </div>
               <p className="text-xs">
-                PDF, Word, JPEG, PNG (max 10MB)
+                {t("files.allowedTypes")}
               </p>
             </div>
           )}
@@ -293,26 +301,26 @@ export function FileUpload({ dealId, onUploadComplete }: FileUploadProps) {
           <div className="space-y-2">
             <Progress value={uploadProgress} />
             <p className="text-sm text-center text-muted-foreground">
-              Uploading... {uploadProgress}%
+              {t("files.uploadingProgress", { progress: uploadProgress })}
             </p>
           </div>
         )}
 
         {/* Category selector */}
         <div className="space-y-2">
-          <Label htmlFor="category">Category</Label>
+          <Label htmlFor="category">{t("files.category")}</Label>
           <Select
             value={category}
             onValueChange={(value) => setCategory(value as FileCategory)}
             disabled={isUploading}
           >
             <SelectTrigger id="category" className="w-full">
-              <SelectValue placeholder="Select category" />
+              <SelectValue placeholder={t("files.selectCategory")} />
             </SelectTrigger>
             <SelectContent>
-              {Object.entries(CATEGORY_LABELS).map(([value, label]) => (
+              {Object.keys(CATEGORY_KEY_MAP).map((value) => (
                 <SelectItem key={value} value={value}>
-                  {label}
+                  {getCategoryLabel(value as FileCategory)}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -321,12 +329,12 @@ export function FileUpload({ dealId, onUploadComplete }: FileUploadProps) {
 
         {/* Description */}
         <div className="space-y-2">
-          <Label htmlFor="description">Description (optional)</Label>
+          <Label htmlFor="description">{t("files.description")}</Label>
           <Textarea
             id="description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            placeholder="Add a description for this file..."
+            placeholder={t("files.descriptionPlaceholder")}
             disabled={isUploading}
             className="resize-none"
           />
@@ -335,9 +343,9 @@ export function FileUpload({ dealId, onUploadComplete }: FileUploadProps) {
         {/* Visibility toggle */}
         <div className="flex items-center justify-between rounded-lg border p-3">
           <div className="space-y-0.5">
-            <Label htmlFor="providers-only">Service Providers Only</Label>
+            <Label htmlFor="providers-only">{t("files.providersOnlyLabel")}</Label>
             <p className="text-sm text-muted-foreground">
-              Only service providers on this deal can view this file
+              {t("files.providersOnlyDescription")}
             </p>
           </div>
           <Switch
@@ -355,11 +363,11 @@ export function FileUpload({ dealId, onUploadComplete }: FileUploadProps) {
           className="w-full"
         >
           {isUploading ? (
-            "Uploading..."
+            t("files.uploading")
           ) : (
             <>
               <HugeiconsIcon icon={CloudUploadIcon} size={18} />
-              Upload File
+              {t("files.upload")}
             </>
           )}
         </Button>
