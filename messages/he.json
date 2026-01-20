@@ -828,6 +828,26 @@
       "lookingFor": "מחפש",
       "discussion": "דיון"
     },
+    "propertySelector": {
+      "noProperties": "עדיין לא פרסמת נכסים",
+      "addPropertyFirst": "הוסף פרסום נכס כדי לשתף אותו בפיד",
+      "searchProperties": "חיפוש נכסים...",
+      "noMatch": "לא נמצאו נכסים תואמים",
+      "untitledProperty": "נכס ללא שם",
+      "unknown": "לא ידוע"
+    },
+    "repost": {
+      "title": "שתף מחדש",
+      "addComment": "הוסף תגובה (אופציונלי)",
+      "addThoughts": "הוסף את המחשבות שלך...",
+      "whoCanSee": "מי יכול לראות את השיתוף?",
+      "publicEveryone": "ציבורי - כולם",
+      "followersOnly": "עוקבים בלבד",
+      "originalPost": "פוסט מקורי",
+      "serviceRequest": "בקשת שירות",
+      "reposting": "משתף מחדש...",
+      "repost": "שתף מחדש"
+    },
     "loadMore": "טען עוד",
     "loading": "טוען..."
   },
