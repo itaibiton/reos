@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useTranslations, useFormatter } from "next-intl";
 import { Doc } from "../../../convex/_generated/dataModel";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -12,24 +12,6 @@ import {
   Square01Icon,
 } from "@hugeicons/core-free-icons";
 import { SaveButton } from "./SaveButton";
-
-// Currency formatter for USD
-const formatUSD = (amount: number) => {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  }).format(amount);
-};
-
-// Currency formatter for ILS
-const formatILS = (amount: number) => {
-  return new Intl.NumberFormat("he-IL", {
-    style: "currency",
-    currency: "ILS",
-    maximumFractionDigits: 0,
-  }).format(amount);
-};
 
 // Percentage formatter
 const formatPercent = (value: number) => {
@@ -58,6 +40,7 @@ interface PropertyCardProps {
 export function PropertyCard({ property, onClick }: PropertyCardProps) {
   const t = useTranslations("properties");
   const tCommon = useTranslations("common");
+  const format = useFormatter();
 
   const {
     title,
@@ -125,9 +108,9 @@ export function PropertyCard({ property, onClick }: PropertyCardProps) {
 
         {/* Price Section */}
         <div>
-          <p className="text-xl font-bold">{formatUSD(priceUsd)}</p>
+          <p className="text-xl font-bold">{format.number(priceUsd, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}</p>
           <p className="text-sm text-muted-foreground">
-            {formatILS(priceIls || priceUsd * USD_TO_ILS_RATE)}
+            {format.number(priceIls || priceUsd * USD_TO_ILS_RATE, { style: 'currency', currency: 'ILS', maximumFractionDigits: 0 })}
           </p>
         </div>
 
@@ -148,7 +131,7 @@ export function PropertyCard({ property, onClick }: PropertyCardProps) {
           {monthlyRent !== undefined && monthlyRent !== null && (
             <div>
               <span className="text-muted-foreground">{t("card.rent")}: </span>
-              <span className="font-medium">{formatUSD(monthlyRent)}{t("card.perMonth")}</span>
+              <span className="font-medium">{format.number(monthlyRent, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}{t("card.perMonth")}</span>
             </div>
           )}
         </div>
