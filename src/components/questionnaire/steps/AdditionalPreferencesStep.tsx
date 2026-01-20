@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import { useTranslations } from "next-intl";
 import { QuestionBubble } from "../QuestionBubble";
 import { AnswerArea } from "../AnswerArea";
 import { Textarea } from "@/components/ui/textarea";
@@ -13,6 +14,7 @@ interface AdditionalPreferencesStepProps {
 const MAX_LENGTH = 2000;
 
 export function AdditionalPreferencesStep({ value = "", onChange }: AdditionalPreferencesStepProps) {
+  const t = useTranslations("onboarding.questions.additional");
   const [showAnswer, setShowAnswer] = useState(false);
 
   // Stable callback to prevent QuestionBubble re-renders
@@ -32,8 +34,8 @@ export function AdditionalPreferencesStep({ value = "", onChange }: AdditionalPr
   return (
     <div className="space-y-6">
       <QuestionBubble
-        question="Anything else we should know?"
-        description="Share any preferences not covered above. Our AI uses this to find better matches."
+        question={t("title")}
+        description={t("description")}
         onTypingComplete={handleTypingComplete}
       />
       {showAnswer && (
@@ -42,12 +44,12 @@ export function AdditionalPreferencesStep({ value = "", onChange }: AdditionalPr
           <Textarea
             value={value}
             onChange={handleChange}
-            placeholder="e.g., I prefer properties near good schools, looking for a quiet neighborhood, interested in new construction..."
+            placeholder={t("placeholder")}
             className="min-h-[150px] resize-none"
           />
           <div className="flex justify-end">
             <span className="text-xs text-muted-foreground">
-              {charCount}/{MAX_LENGTH} characters
+              {t("charCount", { count: charCount, max: MAX_LENGTH })}
             </span>
           </div>
         </div>
