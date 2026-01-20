@@ -2,6 +2,7 @@
 
 import { useQuery } from "convex/react";
 import { useRouter } from "next/navigation";
+import { useFormatter } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 import {
@@ -38,20 +39,13 @@ const DEAL_STAGES = {
 
 type DealStage = keyof typeof DEAL_STAGES;
 
-// Format date
-function formatDate(timestamp: number) {
-  return new Date(timestamp).toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-  });
-}
-
 interface InvestorDashboardProps {
   userName?: string;
 }
 
 export function InvestorDashboard({ userName }: InvestorDashboardProps) {
   const router = useRouter();
+  const format = useFormatter();
   const stats = useQuery(api.dashboard.getStats);
   const deals = useQuery(api.deals.list, { limit: 3 });
   const properties = useQuery(api.properties.list, { status: "available" });
@@ -214,7 +208,7 @@ export function InvestorDashboard({ userName }: InvestorDashboardProps) {
                     {property?.title || "Property"}
                   </p>
                   <p className="text-xs text-muted-foreground">
-                    {formatDate(deal.createdAt)}
+                    {format.dateTime(new Date(deal.createdAt), 'monthDay')}
                   </p>
                 </div>
 

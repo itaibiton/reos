@@ -2,7 +2,7 @@
 
 import { useQuery } from "convex/react";
 import { useRouter } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useTranslations, useFormatter } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Doc } from "../../../convex/_generated/dataModel";
 import {
@@ -26,24 +26,6 @@ import { USD_TO_ILS_RATE } from "@/lib/constants";
 
 // Property with match score from recommendations query
 type RecommendedProperty = Doc<"properties"> & { matchScore: number };
-
-// Currency formatter for USD
-const formatUSD = (amount: number) => {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  }).format(amount);
-};
-
-// Currency formatter for ILS
-const formatILS = (amount: number) => {
-  return new Intl.NumberFormat("he-IL", {
-    style: "currency",
-    currency: "ILS",
-    maximumFractionDigits: 0,
-  }).format(amount);
-};
 
 // Get property type label helper used within translated context
 function usePropertyTypeLabel() {
@@ -69,9 +51,10 @@ function getMatchScoreColor(score: number) {
 interface RecommendedPropertyCardProps {
   property: RecommendedProperty;
   onClick: () => void;
+  format: ReturnType<typeof useFormatter>;
 }
 
-function RecommendedPropertyCard({ property, onClick }: RecommendedPropertyCardProps) {
+function RecommendedPropertyCard({ property, onClick, format }: RecommendedPropertyCardProps) {
   const getPropertyTypeLabel = usePropertyTypeLabel();
   const {
     title,
@@ -139,9 +122,9 @@ function RecommendedPropertyCard({ property, onClick }: RecommendedPropertyCardP
 
         {/* Price Section */}
         <div>
-          <p className="text-lg font-bold">{formatUSD(priceUsd)}</p>
+          <p className="text-lg font-bold">{format.number(priceUsd, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}</p>
           <p className="text-xs text-muted-foreground">
-            {formatILS(priceIls || priceUsd * USD_TO_ILS_RATE)}
+            {format.number(priceIls || priceUsd * USD_TO_ILS_RATE, { style: 'currency', currency: 'ILS', maximumFractionDigits: 0 })}
           </p>
         </div>
 
@@ -201,6 +184,7 @@ function PropertyCardSkeleton() {
 
 export function RecommendedProperties() {
   const router = useRouter();
+  const format = useFormatter();
   const recommendations = useQuery(api.dashboard.getRecommendedProperties);
 
   const isLoading = recommendations === undefined;
@@ -254,6 +238,7 @@ export function RecommendedProperties() {
                   key={property._id}
                   property={property}
                   onClick={() => router.push(`/properties/${property._id}`)}
+                  format={format}
                 />
               ))}
             </div>

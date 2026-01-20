@@ -3,6 +3,7 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { Icon } from "leaflet";
 import { useRouter } from "next/navigation";
+import { useFormatter } from "next-intl";
 import "leaflet/dist/leaflet.css";
 
 interface PropertyMarker {
@@ -20,15 +21,6 @@ interface PropertyMarker {
 interface DashboardMapClientProps {
   properties: PropertyMarker[];
 }
-
-// Currency formatter for USD
-const formatUSD = (amount: number) => {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  }).format(amount);
-};
 
 // Property type labels
 const PROPERTY_TYPE_LABELS: Record<string, string> = {
@@ -51,6 +43,7 @@ const defaultIcon = new Icon({
 
 export function DashboardMapClient({ properties }: DashboardMapClientProps) {
   const router = useRouter();
+  const format = useFormatter();
 
   // Calculate bounds center from all properties
   const validProperties = properties.filter(
@@ -123,7 +116,7 @@ export function DashboardMapClient({ properties }: DashboardMapClientProps) {
               </p>
               <div className="flex items-center justify-between mb-2">
                 <span className="font-bold text-primary">
-                  {formatUSD(property.priceUsd)}
+                  {format.number(property.priceUsd, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}
                 </span>
                 <span className="text-xs bg-muted px-2 py-0.5 rounded">
                   {PROPERTY_TYPE_LABELS[property.propertyType] || property.propertyType}
