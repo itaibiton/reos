@@ -968,6 +968,127 @@
             "description": "יתרונות מיסויים מבעלות על נדל\"ן"
           }
         }
+      },
+      "yield": {
+        "title": "מהי העדפת התשואה שלך?",
+        "description": "זה עוזר לנו לאזן בין הכנסה משכירות לפוטנציאל עליית ערך.",
+        "options": {
+          "rentalYield": {
+            "label": "התמקדות בתשואת שכירות",
+            "description": "עדיפות לתזרים מזומנים"
+          },
+          "appreciation": {
+            "label": "התמקדות בעליית ערך",
+            "description": "עדיפות לצמיחת הערך"
+          },
+          "balanced": {
+            "label": "גישה מאוזנת",
+            "description": "שניהם חשובים באותה מידה"
+          }
+        }
+      },
+      "financing": {
+        "title": "איך אתה מתכנן לממן את הרכישה?",
+        "description": "גישת המימון שלך משפיעה על העסקאות והספקים שאנו ממליצים.",
+        "options": {
+          "cash": {
+            "label": "רכישה במזומן",
+            "description": "לא נדרש מימון"
+          },
+          "mortgage": {
+            "label": "משכנתא/מימון",
+            "description": "יהיה צורך ביועץ משכנתא"
+          },
+          "exploring": {
+            "label": "עדיין בוחן אפשרויות",
+            "description": "עדיין לא בטוח"
+          }
+        }
+      },
+      "propertyTypes": {
+        "title": "אילו סוגי נכסים מעניינים אותך?",
+        "description": "בחר את כל מה שרלוונטי."
+      },
+      "locations": {
+        "title": "אילו מיקומים אתה שוקל?",
+        "description": "בחר את הערים או האזורים שמעניינים אותך.",
+        "cities": {
+          "Tel Aviv": "תל אביב",
+          "Jerusalem": "ירושלים",
+          "Haifa": "חיפה",
+          "Netanya": "נתניה",
+          "Herzliya": "הרצליה",
+          "Ramat Gan": "רמת גן",
+          "Rishon LeZion": "ראשון לציון",
+          "Petah Tikva": "פתח תקווה",
+          "Ashdod": "אשדוד",
+          "Beer Sheva": "באר שבע",
+          "Eilat": "אילת",
+          "Rehovot": "רחובות",
+          "Kfar Saba": "כפר סבא",
+          "Ashkelon": "אשקלון",
+          "Bat Yam": "בת ים"
+        }
+      },
+      "propertySize": {
+        "title": "באיזה גודל נכס אתה מחפש?",
+        "description": "זה עוזר לנו לסנן נכסים שמתאימים לדרישות השטח שלך.",
+        "placeholder": {
+          "minBedrooms": "לדוגמה, 2",
+          "maxBedrooms": "לדוגמה, 5",
+          "minArea": "לדוגמה, 80",
+          "maxArea": "לדוגמה, 200"
+        }
+      },
+      "amenities": {
+        "title": "אילו תכונות חשובות לך?",
+        "description": "בחר את המאפיינים שהכי משנים לך."
+      },
+      "timeline": {
+        "title": "מתי אתה מתכנן לרכוש?",
+        "description": "זה עוזר לספקים להבין את לוח הזמנים שלך.",
+        "options": {
+          "3months": {
+            "label": "תוך 3 חודשים",
+            "description": "מוכן לפעול מהר על הנכס המתאים"
+          },
+          "6months": {
+            "label": "תוך 6 חודשים",
+            "description": "מחפש באופן פעיל ומשווה אפשרויות"
+          },
+          "1year": {
+            "label": "תוך שנה",
+            "description": "מתכנן קדימה להזדמנות הנכונה"
+          },
+          "exploring": {
+            "label": "רק חוקר",
+            "description": "לומד על השוק, עדיין בלי לוח זמנים"
+          }
+        }
+      },
+      "services": {
+        "title": "לאילו שירותים אתה זקוק?",
+        "description": "נחבר אותך לאנשי המקצוע הנכונים.",
+        "options": {
+          "broker": {
+            "label": "מתווך",
+            "description": "עזרה במציאת ומשא ומתן על נכסים"
+          },
+          "mortgageAdvisor": {
+            "label": "יועץ משכנתא",
+            "description": "עזרה באפשרויות מימון"
+          },
+          "lawyer": {
+            "label": "עורך דין",
+            "description": "סיוע משפטי לרכישה"
+          }
+        }
+      },
+      "additional": {
+        "title": "משהו נוסף שכדאי לנו לדעת?",
+        "description": "שתף העדפות שלא נכללו למעלה. הבינה המלאכותית שלנו משתמשת בזה כדי למצוא התאמות טובות יותר.",
+        "placeholder": "לדוגמה, אני מעדיף נכסים ליד בתי ספר טובים, מחפש שכונה שקטה, מתעניין בבנייה חדשה...",
+        "charCount": "{count}/{max} תווים"
       }
     }
   },
@@ -1076,6 +1197,76 @@
     "empty": {
       "title": "אין נתוני אנליטיקה עדיין",
       "description": "אנליטיקה תופיע כאן כשתתחיל לקבל בקשות שירות ולהשלים עסקאות."
+    }
+  },
+  "deals": {
+    "title": "עסקאות",
+    "myDeals": "העסקאות שלי",
+    "activeDeal": "עסקה פעילה",
+    "activeDeals": "עסקאות פעילות",
+    "completedDeals": "עסקאות שהושלמו",
+    "stages": {
+      "interest": "התעניינות",
+      "brokerAssigned": "אצל המתווך",
+      "mortgage": "משכנתא",
+      "legal": "בדיקה משפטית",
+      "closing": "סגירה",
+      "completed": "הושלם",
+      "cancelled": "בוטל"
+    },
+    "card": {
+      "started": "התחיל",
+      "stage": "שלב",
+      "providers": "ספקים",
+      "investor": "משקיע",
+      "property": "נכס",
+      "value": "ערך העסקה",
+      "viewDetails": "הצג פרטים",
+      "providersAssigned": "{count, plural, =1 {ספק אחד} other {# ספקים}} מוקצים"
+    },
+    "detail": {
+      "overview": "סקירה",
+      "providers": "ספקים",
+      "files": "קבצים",
+      "activity": "פעילות",
+      "stageProgress": "התקדמות השלב",
+      "dealInfo": "פרטי העסקה",
+      "propertyInfo": "פרטי הנכס",
+      "investorInfo": "פרטי המשקיע",
+      "status": "סטטוס",
+      "lastUpdated": "עדכון אחרון",
+      "offerPrice": "מחיר הצעה",
+      "notes": "הערות",
+      "viewProperty": "צפה בנכס",
+      "team": "צוות",
+      "teamDescription": "נותני השירות העובדים על העסקה",
+      "backToDeals": "חזרה לעסקאות",
+      "dealNotFound": "העסקה לא נמצאה",
+      "dealNotFoundDescription": "העסקה הזו לא קיימת או שאין לך הרשאה לצפות בה.",
+      "dealCancelled": "העסקה בוטלה"
+    },
+    "providers": {
+      "title": "נותני שירות",
+      "assigned": "מוקצה",
+      "pending": "ממתין",
+      "pendingRequests": "בקשות ממתינות",
+      "recommended": "ספקים מומלצים",
+      "requestProvider": "בקש ספק",
+      "broker": "מתווך",
+      "mortgageAdvisor": "יועץ משכנתא",
+      "lawyer": "עורך דין",
+      "accept": "אשר",
+      "decline": "דחה",
+      "cancel": "בטל בקשה",
+      "keepRequest": "השאר בקשה",
+      "notAssigned": "לא מוקצה",
+      "noProvider": "אין {type} מוקצה",
+      "findProvider": "מצא {type}",
+      "requestDescription": "בקש ספקים לעזור בעסקה שלך",
+      "assignedDescription": "ספקים שהוקצו לעסקה זו",
+      "pendingResponse": "ממתין לתשובה",
+      "cancelRequestTitle": "לבטל את הבקשה?",
+      "cancelRequestDescription": "פעולה זו תבטל את הבקשה שלך ל-{name}. תוכל לשלוח בקשה חדשה לספק אחר."
     }
   }
 }
