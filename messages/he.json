@@ -661,5 +661,141 @@
       "noSuggestions": "אין הצעות כרגע",
       "checkBack": "בדוק שוב מאוחר יותר"
     }
+  },
+  "providers": {
+    "title": "נותני שירות",
+    "findProviders": "מצא נותן שירות",
+    "description": "עיין בנותני שירות שיעזרו לך בעסקת הנדל\"ן שלך",
+
+    "tabs": {
+      "all": "הכל",
+      "brokers": "מתווכים",
+      "mortgageAdvisors": "יועצי משכנתא",
+      "lawyers": "עורכי דין"
+    },
+
+    "card": {
+      "rating": "דירוג",
+      "reviews": "{count, plural, =1 {ביקורת אחת} other {# ביקורות}}",
+      "noReviews": "אין ביקורות עדיין",
+      "dealsCompleted": "{count} עסקאות",
+      "yearsExperience": "{count} שנות ניסיון",
+      "serviceAreas": "אזורי שירות",
+      "languages": "שפות",
+      "specializations": "התמחויות",
+      "viewProfile": "צפה בפרופיל",
+      "view": "צפה",
+      "contact": "צור קשר",
+      "more": "+{count} נוספים"
+    },
+
+    "profile": {
+      "about": "אודות",
+      "reviews": "ביקורות",
+      "portfolio": "תיק עבודות",
+      "stats": "נתונים",
+      "writeReview": "כתוב ביקורת",
+      "requestService": "בקש שירות",
+      "noBio": "לא סופק תיאור.",
+      "noReviews": "אין ביקורות עדיין.",
+      "noDeals": "אין עסקאות שהושלמו עדיין.",
+      "contactInfo": "פרטי התקשרות",
+      "preferredContact": "דרך התקשרות מועדפת",
+      "license": "רישיון"
+    },
+
+    "filters": {
+      "serviceArea": "אזור שירות",
+      "language": "שפה",
+      "specialization": "התמחות",
+      "minRating": "דירוג מינימלי"
+    },
+
+    "empty": {
+      "noProviders": "אין {type} עדיין",
+      "willAppear": "{type} יופיעו כאן לאחר שייצרו את הפרופילים שלהם.",
+      "noMatch": "אין נותני שירות התואמים ל-\"{query}\"",
+      "clearSearch": "נקה חיפוש"
+    },
+
+    "notFound": {
+      "title": "נותן השירות לא נמצא",
+      "description": "פרופיל נותן השירות אינו קיים או אינו זמין."
+    }
+  },
+  "clients": {
+    "title": "לקוחות",
+    "myClients": "הלקוחות שלי",
+    "clientCount": "{count} לקוח",
+    "clientCountPlural": "{count} לקוחות",
+    "searchPlaceholder": "חפש לפי שם או אימייל...",
+    "noMatch": "אין לקוחות התואמים ל\"{query}\"",
+    "clearSearch": "נקה חיפוש",
+
+    "list": {
+      "name": "שם",
+      "email": "אימייל",
+      "phone": "טלפון",
+      "activeDeals": "עסקאות פעילות",
+      "totalDeals": "סה\"כ עסקאות",
+      "lastActivity": "פעילות אחרונה",
+      "viewProfile": "צפה בפרופיל",
+      "view": "צפה",
+      "deal": "{count} עסקה",
+      "deals": "{count} עסקאות",
+      "active": "({count} פעילות)"
+    },
+
+    "detail": {
+      "backToClients": "חזרה ללקוחות",
+      "startChat": "התחל צ'אט",
+      "overview": "סקירה",
+      "deals": "עסקאות",
+      "documents": "מסמכים",
+      "notes": "הערות",
+      "contactInfo": "פרטי התקשרות",
+      "investorProfile": "פרופיל משקיע",
+      "investmentProfile": "פרופיל השקעות",
+      "dealHistory": "היסטוריית עסקאות",
+      "noDeals": "אין עסקאות עם לקוח זה עדיין.",
+      "started": "התחיל {date}",
+      "active": "פעילות",
+      "completed": "הושלמו",
+      "total": "סה\"כ"
+    },
+
+    "questionnaire": {
+      "noProfile": "אין פרופיל השקעות זמין.",
+      "notCompleted": "הלקוח טרם השלים את השאלון.",
+      "background": "רקע",
+      "citizenship": "אזרחות",
+      "residency": "תושבות",
+      "experience": "ניסיון",
+      "ownsProperty": "בעל נכס",
+      "budget": "תקציב",
+      "goals": "מטרות",
+      "preferences": "העדפות",
+      "horizon": "אופק השקעה",
+      "focus": "מיקוד",
+      "financing": "מימון",
+      "timeline": "לוח זמנים",
+      "propertyTypes": "סוגי נכסים",
+      "preferredLocations": "מיקומים מועדפים",
+      "additionalNotes": "הערות נוספות",
+      "notSpecified": "לא צוין"
+    },
+
+    "empty": {
+      "noClients": "אין לקוחות עדיין",
+      "getStarted": "כשתקבל בקשות לקוח, הם יופיעו כאן."
+    },
+
+    "access": {
+      "providerOnly": "גישה לנותני שירות בלבד",
+      "providerOnlyDesc": "דף זה מיועד לנותני שירות לניהול הלקוחות שלהם.",
+      "notFound": "לקוח לא נמצא",
+      "notFoundDesc": "לקוח זה לא קיים או שאין לך גישה לצפות בפרטיו.",
+      "goHome": "לדף הבית"
+    }
   }
 }
