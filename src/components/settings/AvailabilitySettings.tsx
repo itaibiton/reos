@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuery, useMutation } from "convex/react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useFormatter } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 import { Switch } from "@/components/ui/switch";
@@ -14,6 +14,7 @@ import { toast } from "sonner";
 
 export function AvailabilitySettings() {
   const t = useTranslations("settings.availability");
+  const format = useFormatter();
   const availability = useQuery(api.providerAvailability.getMyAvailability);
   const setAccepting = useMutation(api.providerAvailability.setAcceptingNewClients);
   const addDate = useMutation(api.providerAvailability.addUnavailableDate);
@@ -139,7 +140,12 @@ export function AvailabilitySettings() {
                         className="flex items-center justify-between rounded-md border px-3 py-2"
                       >
                         <span className="text-sm">
-                          {formatDate(new Date(unavailable.date))}
+                          {format.dateTime(new Date(unavailable.date), {
+                            weekday: "short",
+                            year: "numeric",
+                            month: "short",
+                            day: "numeric",
+                          })}
                         </span>
                         <Button
                           variant="ghost"
@@ -167,14 +173,4 @@ function startOfDay(date: Date): Date {
   const d = new Date(date);
   d.setUTCHours(0, 0, 0, 0);
   return d;
-}
-
-// Helper to format date for display
-function formatDate(date: Date): string {
-  return date.toLocaleDateString("en-US", {
-    weekday: "short",
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
 }

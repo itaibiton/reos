@@ -1,6 +1,7 @@
 "use client";
 
 import { useQuery } from "convex/react";
+import { useFormatter } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
@@ -10,21 +11,6 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { Area, AreaChart, XAxis, YAxis } from "recharts";
-
-// Format date for chart axis
-const formatDate = (timestamp: number) => {
-  const date = new Date(timestamp);
-  return date.toLocaleDateString("en-US", { month: "short", year: "2-digit" });
-};
-
-// Format price for display
-const formatPrice = (value: number) => {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  }).format(value);
-};
 
 // Calculate percentage change
 const calculateChange = (data: Array<{ priceUsd: number }>) => {
@@ -47,7 +33,22 @@ interface ValueHistoryChartProps {
 }
 
 export function ValueHistoryChart({ city }: ValueHistoryChartProps) {
+  const format = useFormatter();
   const priceHistory = useQuery(api.priceHistory.getByCity, { city });
+
+  // Format date for chart axis using locale
+  const formatDate = (timestamp: number) => {
+    return format.dateTime(new Date(timestamp), { month: "short", year: "2-digit" });
+  };
+
+  // Format price for display using locale
+  const formatPrice = (value: number) => {
+    return format.number(value, {
+      style: "currency",
+      currency: "USD",
+      maximumFractionDigits: 0,
+    });
+  };
 
   // Loading state
   if (priceHistory === undefined) {
