@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import { useTranslations } from "next-intl";
 import { QuestionBubble } from "../QuestionBubble";
 import { AnswerArea } from "../AnswerArea";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -13,6 +14,7 @@ interface LocationStepProps {
 }
 
 export function LocationStep({ value = [], onChange }: LocationStepProps) {
+  const t = useTranslations("onboarding.questions.locations");
   const [showAnswer, setShowAnswer] = useState(false);
 
   // Stable callback to prevent QuestionBubble re-renders
@@ -31,8 +33,8 @@ export function LocationStep({ value = [], onChange }: LocationStepProps) {
   return (
     <div className="space-y-6">
       <QuestionBubble
-        question="Which cities or areas interest you?"
-        description="Select all locations you'd consider for investment."
+        question={t("title")}
+        description={t("description")}
         onTypingComplete={handleTypingComplete}
       />
       {showAnswer && (
@@ -50,7 +52,7 @@ export function LocationStep({ value = [], onChange }: LocationStepProps) {
                 onCheckedChange={(checked) => handleToggle(location, checked === true)}
               />
               <Label htmlFor={location} className="cursor-pointer font-medium text-sm">
-                {location}
+                {t(`cities.${location}`)}
               </Label>
             </label>
           ))}

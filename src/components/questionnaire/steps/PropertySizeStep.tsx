@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import { useTranslations } from "next-intl";
 import { QuestionBubble } from "../QuestionBubble";
 import { AnswerArea } from "../AnswerArea";
 import { Input } from "@/components/ui/input";
@@ -27,6 +28,8 @@ export function PropertySizeStep({
   onMinAreaChange,
   onMaxAreaChange,
 }: PropertySizeStepProps) {
+  const t = useTranslations("onboarding.questions.propertySize");
+  const tOptions = useTranslations("onboarding.options");
   const [showAnswer, setShowAnswer] = useState(false);
 
   // Stable callback to prevent QuestionBubble re-renders
@@ -48,8 +51,8 @@ export function PropertySizeStep({
   return (
     <div className="space-y-6">
       <QuestionBubble
-        question="What size property are you looking for?"
-        description="This helps us filter properties that match your space requirements."
+        question={t("title")}
+        description={t("description")}
         onTypingComplete={handleTypingComplete}
       />
       {showAnswer && (
@@ -57,17 +60,17 @@ export function PropertySizeStep({
         <div className="space-y-6">
           {/* Bedrooms section */}
           <div className="space-y-3">
-            <h3 className="text-sm font-medium text-muted-foreground">Bedrooms</h3>
+            <h3 className="text-sm font-medium text-muted-foreground">{tOptions("bedrooms")}</h3>
             <div className="grid grid-cols-2 gap-4">
               <div className="rounded-lg border p-4">
                 <Label htmlFor="minBedrooms" className="text-sm font-medium">
-                  Minimum
+                  {tOptions("minimum")}
                 </Label>
                 <Input
                   id="minBedrooms"
                   type="text"
                   inputMode="numeric"
-                  placeholder="e.g., 2"
+                  placeholder={t("placeholder.minBedrooms")}
                   value={minBedrooms ?? ""}
                   onChange={(e) => onMinBedroomsChange(parseNumber(e.target.value))}
                   className="mt-2"
@@ -75,13 +78,13 @@ export function PropertySizeStep({
               </div>
               <div className="rounded-lg border p-4">
                 <Label htmlFor="maxBedrooms" className="text-sm font-medium">
-                  Maximum
+                  {tOptions("maximum")}
                 </Label>
                 <Input
                   id="maxBedrooms"
                   type="text"
                   inputMode="numeric"
-                  placeholder="e.g., 5"
+                  placeholder={t("placeholder.maxBedrooms")}
                   value={maxBedrooms ?? ""}
                   onChange={(e) => onMaxBedroomsChange(parseNumber(e.target.value))}
                   className="mt-2"
@@ -92,17 +95,17 @@ export function PropertySizeStep({
 
           {/* Area section */}
           <div className="space-y-3">
-            <h3 className="text-sm font-medium text-muted-foreground">Area (sqm)</h3>
+            <h3 className="text-sm font-medium text-muted-foreground">{tOptions("area")}</h3>
             <div className="grid grid-cols-2 gap-4">
               <div className="rounded-lg border p-4">
                 <Label htmlFor="minArea" className="text-sm font-medium">
-                  Minimum
+                  {tOptions("minimum")}
                 </Label>
                 <Input
                   id="minArea"
                   type="text"
                   inputMode="numeric"
-                  placeholder="e.g., 80"
+                  placeholder={t("placeholder.minArea")}
                   value={formatNumber(minArea)}
                   onChange={(e) => onMinAreaChange(parseNumber(e.target.value))}
                   className="mt-2"
@@ -110,13 +113,13 @@ export function PropertySizeStep({
               </div>
               <div className="rounded-lg border p-4">
                 <Label htmlFor="maxArea" className="text-sm font-medium">
-                  Maximum
+                  {tOptions("maximum")}
                 </Label>
                 <Input
                   id="maxArea"
                   type="text"
                   inputMode="numeric"
-                  placeholder="e.g., 200"
+                  placeholder={t("placeholder.maxArea")}
                   value={formatNumber(maxArea)}
                   onChange={(e) => onMaxAreaChange(parseNumber(e.target.value))}
                   className="mt-2"
