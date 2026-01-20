@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import { useQuery } from "convex/react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { api } from "../../../../../convex/_generated/api";
 import { Id } from "../../../../../convex/_generated/dataModel";
 import { Button } from "@/components/ui/button";
@@ -101,8 +102,23 @@ interface DealCardProps {
 }
 
 function DealCard({ deal, property, onClick }: DealCardProps) {
+  const t = useTranslations("deals");
   const stageInfo = DEAL_STAGES[deal.stage];
   const providerCount = [deal.brokerId, deal.mortgageAdvisorId, deal.lawyerId].filter(Boolean).length;
+
+  // Helper to get stage label from translations
+  const getStageLabel = (stage: string) => {
+    const stageKeyMap: Record<string, string> = {
+      interest: "interest",
+      broker_assigned: "brokerAssigned",
+      mortgage: "mortgage",
+      legal: "legal",
+      closing: "closing",
+      completed: "completed",
+      cancelled: "cancelled",
+    };
+    return t(`stages.${stageKeyMap[stage] || stage}`);
+  };
 
   return (
     <Card
@@ -134,10 +150,10 @@ function DealCard({ deal, property, onClick }: DealCardProps) {
           <div className="flex-1 min-w-0 space-y-2">
             <div className="flex items-start justify-between gap-2">
               <h3 className="font-semibold truncate">
-                {property?.title || "Property"}
+                {property?.title || t("card.property")}
               </h3>
               <Badge className={stageInfo.color}>
-                {stageInfo.label}
+                {getStageLabel(deal.stage)}
               </Badge>
             </div>
 
@@ -154,13 +170,13 @@ function DealCard({ deal, property, onClick }: DealCardProps) {
 
             <div className="flex items-center gap-1 text-sm text-muted-foreground">
               <HugeiconsIcon icon={Calendar01Icon} size={14} />
-              <span>Started {formatDate(deal.createdAt)}</span>
+              <span>{t("card.started")} {formatDate(deal.createdAt)}</span>
             </div>
 
             {providerCount > 0 && (
               <div className="flex items-center gap-1 text-sm text-muted-foreground">
                 <HugeiconsIcon icon={UserIcon} size={14} />
-                <span>{providerCount} provider{providerCount > 1 ? "s" : ""} assigned</span>
+                <span>{t("card.providersAssigned", { count: providerCount })}</span>
               </div>
             )}
           </div>
@@ -172,6 +188,7 @@ function DealCard({ deal, property, onClick }: DealCardProps) {
 
 export default function DealsPage() {
   const router = useRouter();
+  const t = useTranslations("deals");
   const { effectiveRole } = useCurrentUser();
   const [stageFilter, setStageFilter] = useState<string>("__all__");
   const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
@@ -245,15 +262,15 @@ export default function DealsPage() {
           <div className="rounded-full bg-muted p-4 mb-4 text-muted-foreground">
             <HugeiconsIcon icon={Agreement01Icon} size={48} strokeWidth={1.5} />
           </div>
-          <h2 className="text-xl font-semibold mb-2">No deals yet</h2>
+          <h2 className="text-xl font-semibold mb-2">{t("empty.noDeals")}</h2>
           <p className="text-muted-foreground mb-6 max-w-md">
             {isInvestor
-              ? "Start by browsing properties and requesting a broker to help you with a purchase."
-              : "You don't have any assigned deals yet. Deals will appear here when investors request your services."}
+              ? t("empty.investorMessage")
+              : t("empty.providerMessage")}
           </p>
           {isInvestor && (
             <Link href="/properties">
-              <Button>Browse Properties</Button>
+              <Button>{t("empty.browseProperties")}</Button>
             </Link>
           )}
         </div>
@@ -261,14 +278,28 @@ export default function DealsPage() {
     );
   }
 
+  // Helper to get stage label from translations
+  const getStageLabel = (stage: string) => {
+    const stageKeyMap: Record<string, string> = {
+      interest: "interest",
+      broker_assigned: "brokerAssigned",
+      mortgage: "mortgage",
+      legal: "legal",
+      closing: "closing",
+      completed: "completed",
+      cancelled: "cancelled",
+    };
+    return t(`stages.${stageKeyMap[stage] || stage}`);
+  };
+
   return (
     <div className="p-6">
       {/* Header */}
       <div className="mb-6">
-        <h1 className="text-2xl font-bold">My Deals</h1>
+        <h1 className="text-2xl font-bold">{t("myDeals")}</h1>
         <p className="text-muted-foreground">
-          {filteredDeals.length} {filteredDeals.length === 1 ? "deal" : "deals"}
-          {stageFilter !== "__all__" && " matching filter"}
+          {filteredDeals.length} {filteredDeals.length === 1 ? t("activeDeal").toLowerCase() : t("title").toLowerCase()}
+          {stageFilter !== "__all__" && ` ${t("filters.matchingFilter")}`}
         </p>
       </div>
 
@@ -277,13 +308,13 @@ export default function DealsPage() {
         {/* Stage filter */}
         <Select value={stageFilter} onValueChange={setStageFilter}>
           <SelectTrigger className="w-[160px]">
-            <SelectValue placeholder="All stages" />
+            <SelectValue placeholder={t("filters.allStages")} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="__all__">All stages</SelectItem>
-            {Object.entries(DEAL_STAGES).map(([value, info]) => (
+            <SelectItem value="__all__">{t("filters.allStages")}</SelectItem>
+            {Object.entries(DEAL_STAGES).map(([value]) => (
               <SelectItem key={value} value={value}>
-                {info.label}
+                {getStageLabel(value)}
               </SelectItem>
             ))}
           </SelectContent>
@@ -298,12 +329,12 @@ export default function DealsPage() {
           {sortOrder === "newest" ? (
             <>
               <HugeiconsIcon icon={ArrowDown01Icon} size={16} />
-              Newest first
+              {t("filters.newestFirst")}
             </>
           ) : (
             <>
               <HugeiconsIcon icon={ArrowUp01Icon} size={16} />
-              Oldest first
+              {t("filters.oldestFirst")}
             </>
           )}
         </Button>
@@ -313,10 +344,10 @@ export default function DealsPage() {
       {filteredDeals.length === 0 && deals.length > 0 && (
         <div className="text-center py-12">
           <p className="text-muted-foreground mb-4">
-            No deals match the selected filter
+            {t("filters.noMatchingDeals")}
           </p>
           <Button variant="outline" onClick={() => setStageFilter("__all__")}>
-            Clear filter
+            {t("filters.clearFilter")}
           </Button>
         </div>
       )}
