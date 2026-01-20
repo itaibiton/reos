@@ -12,6 +12,7 @@ import {
   isActivePath,
   type UserRole,
 } from "@/lib/navigation";
+import { LocaleSwitcher } from "@/components/LocaleSwitcher";
 import {
   Collapsible,
   CollapsibleContent,
@@ -155,7 +156,15 @@ export function AppSidebar() {
         )}
       </SidebarContent>
 
-      <SidebarFooter>{/* User info + logout can go here in future */}</SidebarFooter>
+      <SidebarFooter>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <div className="flex items-center justify-center py-2">
+              <LocaleSwitcher />
+            </div>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarFooter>
 
       <SidebarRail />
     </Sidebar>
