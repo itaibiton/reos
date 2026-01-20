@@ -1,4 +1,159 @@
 {
+  "common": {
+    "actions": {
+      "save": "Save",
+      "cancel": "Cancel",
+      "edit": "Edit",
+      "delete": "Delete",
+      "create": "Create",
+      "update": "Update",
+      "submit": "Submit",
+      "close": "Close",
+      "confirm": "Confirm",
+      "back": "Back",
+      "next": "Next",
+      "previous": "Previous",
+      "search": "Search",
+      "clear": "Clear",
+      "apply": "Apply",
+      "reset": "Reset",
+      "viewAll": "View All",
+      "viewDetails": "View Details",
+      "showMore": "Show More",
+      "showLess": "Show Less",
+      "loadMore": "Load More"
+    },
+    "status": {
+      "loading": "Loading",
+      "error": "Error",
+      "success": "Success",
+      "pending": "Pending",
+      "active": "Active",
+      "inactive": "Inactive",
+      "available": "Available",
+      "unavailable": "Unavailable",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    },
+    "labels": {
+      "email": "Email",
+      "phone": "Phone",
+      "name": "Name",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "password": "Password",
+      "address": "Address",
+      "city": "City",
+      "country": "Country",
+      "description": "Description",
+      "title": "Title",
+      "date": "Date",
+      "time": "Time"
+    },
+    "empty": {
+      "noResults": "No results found",
+      "noData": "No data available",
+      "noItems": "No items",
+      "notFound": "Not found"
+    },
+    "errors": {
+      "required": "This field is required",
+      "invalid": "Invalid value",
+      "tooShort": "Too short",
+      "tooLong": "Too long",
+      "generic": "An error occurred"
+    },
+    "confirm": {
+      "areYouSure": "Are you sure?",
+      "deleteConfirm": "Are you sure you want to delete this?",
+      "cancelConfirm": "Are you sure you want to cancel?"
+    },
+    "propertyTypes": {
+      "residential": "Residential",
+      "commercial": "Commercial",
+      "mixedUse": "Mixed Use",
+      "land": "Land"
+    },
+    "propertyStatus": {
+      "available": "Available",
+      "pending": "Pending",
+      "sold": "Sold"
+    },
+    "roles": {
+      "investor": "Investor",
+      "broker": "Broker",
+      "mortgageAdvisor": "Mortgage Advisor",
+      "lawyer": "Lawyer",
+      "accountant": "Accountant",
+      "notary": "Notary",
+      "taxConsultant": "Tax Consultant",
+      "appraiser": "Appraiser",
+      "admin": "Admin"
+    },
+    "amenities": {
+      "airConditioning": "Air Conditioning",
+      "elevator": "Elevator",
+      "parking": "Parking",
+      "storage": "Storage",
+      "balcony": "Balcony",
+      "security": "Security",
+      "gym": "Gym",
+      "pool": "Pool",
+      "garden": "Garden",
+      "renovated": "Renovated",
+      "furnished": "Furnished",
+      "petFriendly": "Pet Friendly",
+      "accessible": "Accessible",
+      "safeRoom": "Safe Room",
+      "solar": "Solar"
+    },
+    "riskTolerance": {
+      "conservative": {
+        "label": "Conservative",
+        "description": "Lower risk, stable returns"
+      },
+      "moderate": {
+        "label": "Moderate",
+        "description": "Balanced risk and returns"
+      },
+      "aggressive": {
+        "label": "Aggressive",
+        "description": "Higher risk, higher potential returns"
+      }
+    },
+    "investmentTimeline": {
+      "shortTerm": {
+        "label": "Short Term",
+        "description": "Less than 2 years"
+      },
+      "mediumTerm": {
+        "label": "Medium Term",
+        "description": "2-5 years"
+      },
+      "longTerm": {
+        "label": "Long Term",
+        "description": "5+ years"
+      }
+    },
+    "languages": {
+      "english": "English",
+      "hebrew": "Hebrew",
+      "russian": "Russian",
+      "french": "French",
+      "spanish": "Spanish"
+    },
+    "contactPreferences": {
+      "email": "Email",
+      "phone": "Phone",
+      "whatsapp": "WhatsApp"
+    },
+    "units": {
+      "sqm": "sqm",
+      "bedrooms": "Bedrooms",
+      "bathrooms": "Bathrooms",
+      "floors": "Floors"
+    }
+  },
   "navigation": {
     "groups": {
       "marketplace": "Marketplace",
