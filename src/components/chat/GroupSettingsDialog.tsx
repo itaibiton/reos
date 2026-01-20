@@ -92,6 +92,7 @@ export function GroupSettingsDialog({
 
   const t = useTranslations("chat");
   const tRoles = useTranslations("common.roles");
+  const tActions = useTranslations("common.actions");
 
   const updateGroup = useMutation(api.conversations.updateGroup);
 
@@ -326,7 +327,7 @@ export function GroupSettingsDialog({
                   onClick={() => setDeleteOpen(true)}
                 >
                   <HugeiconsIcon icon={Delete01Icon} size={16} className="me-1" />
-                  Delete
+                  {tActions("delete")}
                 </Button>
               )}
             </div>
