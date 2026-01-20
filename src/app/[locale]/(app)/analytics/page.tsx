@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuery } from "convex/react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useFormatter, useLocale } from "next-intl";
 import { api } from "../../../../../convex/_generated/api";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -27,24 +27,6 @@ import {
   Hourglass,
   BarChart3,
 } from "lucide-react";
-
-// Format currency
-function formatCurrency(amount: number): string {
-  if (amount >= 1000000) {
-    return `$${(amount / 1000000).toFixed(1)}M`;
-  }
-  if (amount >= 1000) {
-    return `$${(amount / 1000).toFixed(0)}K`;
-  }
-  return `$${amount.toLocaleString()}`;
-}
-
-// Format month label
-function formatMonth(monthStr: string): string {
-  const [year, month] = monthStr.split("-");
-  const date = new Date(parseInt(year), parseInt(month) - 1);
-  return date.toLocaleDateString("en-US", { month: "short" });
-}
 
 // Stat card component
 interface StatCardProps {
@@ -163,7 +145,27 @@ function EmptyState({ t }: { t: (key: string) => string }) {
 
 export default function AnalyticsPage() {
   const t = useTranslations("analytics");
+  const format = useFormatter();
+  const locale = useLocale();
   const analytics = useQuery(api.providerAnalytics.getProviderAnalytics);
+
+  // Format currency with abbreviated suffix for large values
+  const formatCurrency = (amount: number): string => {
+    if (amount >= 1000000) {
+      return `${format.number(amount / 1000000, { style: 'decimal', maximumFractionDigits: 1 })}M`;
+    }
+    if (amount >= 1000) {
+      return `${format.number(amount / 1000, { style: 'decimal', maximumFractionDigits: 0 })}K`;
+    }
+    return format.number(amount, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+  };
+
+  // Format month label using locale
+  const formatMonth = (monthStr: string): string => {
+    const [year, month] = monthStr.split("-");
+    const date = new Date(parseInt(year), parseInt(month) - 1);
+    return format.dateTime(date, { month: 'short' });
+  };
 
   // Loading state
   if (analytics === undefined) {

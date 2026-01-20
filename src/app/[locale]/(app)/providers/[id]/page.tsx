@@ -2,7 +2,7 @@
 
 import { useQuery } from "convex/react";
 import { useRouter, useParams } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useTranslations, useFormatter } from "next-intl";
 import { api } from "../../../../../../convex/_generated/api";
 import { Id } from "../../../../../../convex/_generated/dataModel";
 import { Button } from "@/components/ui/button";
@@ -20,24 +20,6 @@ import {
   Message01Icon,
 } from "@hugeicons/core-free-icons";
 import { Star, User, Briefcase, Globe, Phone, Mail } from "lucide-react";
-
-// Format date
-function formatDate(timestamp: number) {
-  return new Date(timestamp).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
-}
-
-// Currency formatter for USD
-function formatUSD(amount: number) {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  }).format(amount);
-}
 
 // Get initials from name
 function getInitials(name?: string | null) {
@@ -141,6 +123,7 @@ export default function ProviderProfilePage() {
   const t = useTranslations("providers");
   const tCommon = useTranslations("common");
   const tProfile = useTranslations("profile");
+  const format = useFormatter();
 
   // Fetch public profile
   const profile = useQuery(
@@ -369,7 +352,7 @@ export default function ProviderProfilePage() {
                         <div className="flex items-center justify-between">
                           <p className="font-medium">{review.reviewerName || "Anonymous"}</p>
                           <span className="text-xs text-muted-foreground">
-                            {formatDate(review.createdAt)}
+                            {format.dateTime(new Date(review.createdAt), 'short')}
                           </span>
                         </div>
                         <StarRating rating={review.rating} size={14} />
@@ -447,7 +430,7 @@ export default function ProviderProfilePage() {
                       </div>
                       {deal.soldPrice && (
                         <p className="text-xs font-medium text-green-600 mt-0.5">
-                          {formatUSD(deal.soldPrice)}
+                          {format.number(deal.soldPrice, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}
                         </p>
                       )}
                     </div>

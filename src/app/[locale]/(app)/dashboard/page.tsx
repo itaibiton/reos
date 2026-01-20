@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useQuery } from "convex/react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useFormatter } from "next-intl";
 import { api } from "../../../../../convex/_generated/api";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import {
@@ -25,17 +25,9 @@ import {
 } from "@hugeicons/core-free-icons";
 import { Link } from "@/i18n/navigation";
 
-// Currency formatter for USD
-const formatUSD = (amount: number) => {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  }).format(amount);
-};
-
 export default function DashboardPage() {
   const t = useTranslations("dashboard");
+  const format = useFormatter();
   const router = useRouter();
   const { user, isLoading: userLoading, effectiveRole, isAdmin } = useCurrentUser();
   const properties = useQuery(api.properties.list, { status: "available" });
@@ -137,7 +129,7 @@ export default function DashboardPage() {
               </div>
               <div>
                 <p className="text-2xl font-bold">
-                  {stats ? formatUSD(stats.totalValue) : "$0"}
+                  {stats ? format.number(stats.totalValue, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }) : "$0"}
                 </p>
                 <p className="text-xs text-muted-foreground">{t("stats.totalValue")}</p>
               </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuery } from "convex/react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useFormatter } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import {
   Table,
@@ -14,30 +14,13 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { Link } from "@/i18n/navigation";
 
-// Format price for display
-const formatUSD = (price: number) => {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  }).format(price);
-};
-
-// Format date for display
-const formatDate = (timestamp: number) => {
-  return new Date(timestamp).toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  });
-};
-
 interface SoldPropertiesTableProps {
   city: string;
 }
 
 export function SoldPropertiesTable({ city }: SoldPropertiesTableProps) {
   const t = useTranslations("common.propertyTypes");
+  const format = useFormatter();
   const soldProperties = useQuery(api.properties.getSoldInCity, { city, limit: 5 });
 
   // Get property type label using translations
@@ -102,10 +85,10 @@ export function SoldPropertiesTable({ city }: SoldPropertiesTableProps) {
                 : "N/A"}
             </TableCell>
             <TableCell className="text-end">
-              {formatUSD(property.soldPrice ?? property.priceUsd)}
+              {format.number(property.soldPrice ?? property.priceUsd, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}
             </TableCell>
             <TableCell className="text-end">
-              {formatDate(property.soldDate ?? property.updatedAt)}
+              {format.dateTime(new Date(property.soldDate ?? property.updatedAt), 'short')}
             </TableCell>
           </TableRow>
         ))}

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "convex/react";
 import { useParams, useRouter } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useTranslations, useFormatter } from "next-intl";
 import { api } from "../../../../../../convex/_generated/api";
 import { Id } from "../../../../../../convex/_generated/dataModel";
 import { Button } from "@/components/ui/button";
@@ -33,25 +33,7 @@ import { SoldPropertiesTable } from "@/components/properties/SoldPropertiesTable
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { toast } from "sonner";
 
-// Currency formatter for USD
-const formatUSD = (amount: number) => {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  }).format(amount);
-};
-
-// Currency formatter for ILS
-const formatILS = (amount: number) => {
-  return new Intl.NumberFormat("he-IL", {
-    style: "currency",
-    currency: "ILS",
-    maximumFractionDigits: 0,
-  }).format(amount);
-};
-
-// Percentage formatter
+// Percentage formatter (simple display, doesn't need locale-specific formatting for MVP)
 const formatPercent = (value: number) => {
   return `${value.toFixed(1)}%`;
 };
@@ -117,6 +99,7 @@ function PropertyNotFound({ t }: { t: (key: string) => string }) {
 export default function PropertyDetailPage() {
   const t = useTranslations("properties");
   const tCommon = useTranslations("common");
+  const format = useFormatter();
   const params = useParams();
   const router = useRouter();
   const propertyId = params.id as string;
@@ -219,9 +202,9 @@ export default function PropertyDetailPage() {
             </div>
           </div>
           <div className="text-start sm:text-end">
-            <p className="text-2xl font-bold">{formatUSD(priceUsd)}</p>
+            <p className="text-2xl font-bold">{format.number(priceUsd, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}</p>
             <p className="text-muted-foreground text-sm">
-              {formatILS(priceIls || priceUsd * USD_TO_ILS_RATE)}
+              {format.number(priceIls || priceUsd * USD_TO_ILS_RATE, { style: 'currency', currency: 'ILS', maximumFractionDigits: 0 })}
             </p>
           </div>
         </div>
@@ -397,7 +380,7 @@ export default function PropertyDetailPage() {
             <p className="text-xs text-muted-foreground mb-1">{t("details.monthlyRent")}</p>
             <p className="text-xl font-semibold">
               {monthlyRent !== undefined && monthlyRent !== null
-                ? formatUSD(monthlyRent)
+                ? format.number(monthlyRent, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })
                 : "N/A"}
             </p>
           </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuery } from "convex/react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useFormatter } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -13,6 +13,9 @@ interface InvestorQuestionnaireCardProps {
 }
 
 // Key mappings from snake_case database values to camelCase translation keys
+// Format currency helper (using useFormatter inside the component)
+// We define this interface to match the Intl.NumberFormat options used
+
 const VALUE_KEY_MAPPINGS: Record<string, Record<string, string>> = {
   citizenship: {
     israeli: "israeli",
@@ -92,15 +95,6 @@ const VALUE_KEY_MAPPINGS: Record<string, Record<string, string>> = {
   },
 };
 
-// Format currency
-function formatUSD(amount: number): string {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  }).format(amount);
-}
-
 // Field display component
 function Field({
   label,
@@ -139,9 +133,15 @@ export function InvestorQuestionnaireCard({
   investorId,
 }: InvestorQuestionnaireCardProps) {
   const t = useTranslations("deals.questionnaire");
+  const format = useFormatter();
   const questionnaire = useQuery(api.investorQuestionnaires.getByInvestorId, {
     investorId,
   });
+
+  // Helper function to format currency using the locale-aware formatter
+  const formatUSD = (amount: number): string => {
+    return format.number(amount, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+  };
 
   // Helper to get translated label for a value
   const getLabel = (category: string, value: string): string => {
