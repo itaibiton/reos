@@ -343,6 +343,7 @@ Recent decisions affecting current work:
 - Phase 31: misc namespace with comingSoon and error sections
 - Phase 31: ROLE_KEY_MAP pattern converts snake_case DB values to camelCase translation keys
 - Phase 31: ComingSoon without props pattern for all placeholder pages to use default translations
+- Phase 31: Questionnaire step components use {step}KeyMap pattern (horizonKeyMap, goalKeyMap, yieldKeyMap) for option translations
 
 ### v1.4 Research Findings
 
