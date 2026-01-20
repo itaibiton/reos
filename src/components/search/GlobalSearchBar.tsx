@@ -251,16 +251,16 @@ export function GlobalSearchBar() {
       {/* Search Trigger Button */}
       <Button
         variant="outline"
-        className="relative h-9 justify-start rounded-md bg-muted/50 text-sm text-muted-foreground pe-12"
+        className="relative h-9 w-auto justify-start rounded-md bg-muted/50 text-sm text-muted-foreground pe-12 whitespace-nowrap"
         onClick={() => setOpen(true)}
       >
         <HugeiconsIcon
           icon={Search01Icon}
           size={16}
           strokeWidth={1.5}
-          className="me-2"
+          className="me-2 shrink-0"
         />
-        <span>{tSearch("placeholder")}</span>
+        <span className="shrink-0">{tSearch("placeholder")}</span>
         <kbd className="pointer-events-none absolute end-1.5 top-1.5 hidden h-6 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
           <span className="text-xs">⌘</span>K
         </kbd>
