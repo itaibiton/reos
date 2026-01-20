@@ -11,11 +11,11 @@ See: .planning/PROJECT.md (updated 2026-01-19)
 
 Milestone: v1.4 Internationalization & RTL Support
 Phase: 34.1 - Translate All Pages & Content (INSERTED)
-Plan: 2/3 — executing
-Status: Plan 02 complete (MortgageCalculator, PropertySelector, RepostDialog)
-Last activity: 2026-01-20 — Completed 34.1-02 (28 translation keys, 3 components)
+Plan: 3/3 — complete
+Status: Phase 34.1 COMPLETE
+Last activity: 2026-01-20 — Completed 34.1-03 (5 translation keys, DealSelector + 5 bug fixes)
 
-Progress: [██████░░░░] 67% (2/3 plans)
+Progress: [██████████] 100% (3/3 plans)
 
 ## Performance Metrics
 
@@ -359,6 +359,8 @@ Recent decisions affecting current work:
 - Phase 34: routing.locales for dynamic locale list in LocaleSwitcher (not hardcoded)
 - Phase 34: LocaleSwitcher placed before NotificationCenter in header for quick access
 - Phase 34: Sidebar footer as secondary access point for language switching
+- Phase 34.1: stageKeyMap pattern for DealSelector stage label translations
+- Phase 34.1: roleKeyMap + tRoles pattern standardized across all chat dialog components for role translations
 
 ### v1.4 Research Findings
 
@@ -401,6 +403,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-20
-Stopped at: Completed 34.1-02-PLAN.md
+Stopped at: Completed 34.1-03-PLAN.md (Phase 34.1 COMPLETE)
 Resume file: None
-Next: Execute Phase 34.1 Plan 03 - run `/gsd:execute-phase 34.1-03`
+Next: Phase 34.1 complete - continue with next milestone or phase as needed
