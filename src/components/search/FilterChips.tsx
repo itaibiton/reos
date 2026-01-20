@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Cancel01Icon } from "@hugeicons/core-free-icons";
 import { cn } from "@/lib/utils";
+import { useFormatter } from "next-intl";
 import type { PropertyFilters } from "../../../convex/search";
 
 // Keys that can be removed from filters
@@ -40,14 +41,11 @@ export function FilterChips({
   onClearAll,
   className,
 }: FilterChipsProps) {
-  // Format price with USD currency
+  const format = useFormatter();
+
+  // Format price with USD currency (locale-aware)
   const formatPrice = (price: number): string => {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(price);
+    return format.number(price, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
   };
 
   // Format property type for display
