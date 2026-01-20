@@ -11,11 +11,11 @@ See: .planning/PROJECT.md (updated 2026-01-19)
 
 Milestone: v1.4 Internationalization & RTL Support
 Phase: 32 - Locale Formatting
-Plan: 1 of 4 in current phase
-Status: In progress
-Last activity: 2026-01-20 — Completed 32-01-PLAN.md (Locale Formatting Infrastructure)
+Plan: 4 of 4 in current phase
+Status: Phase complete
+Last activity: 2026-01-20 — Completed 32-04-PLAN.md (Remaining Components)
 
-Progress: [██░░░░░░░░] 25% (1/4 plans)
+Progress: [██████████] 100% (4/4 plans)
 
 ## Performance Metrics
 
@@ -70,11 +70,11 @@ Progress: [██░░░░░░░░] 25% (1/4 plans)
 | 29 | 11/11 | 37 min | 3.4 min |
 | 30 | 3/3 | 12 min | 4 min |
 | 31 | 12/12 | 60 min | 5 min |
-| 32 | 1/4 | 6 min | 6 min |
+| 32 | 4/4 | 21 min | 5.3 min |
 
 **Recent Trend:**
-- Last 5 plans: 31-10 (4 min), 31-11 (6 min), 31-12 (4 min), 32-01 (6 min)
-- Trend: Phase 32 Locale Formatting started
+- Last 5 plans: 31-12 (4 min), 32-01 (6 min), 32-02 (5 min), 32-03 (5 min), 32-04 (5 min)
+- Trend: Phase 32 Locale Formatting complete
 
 ## Accumulated Context
 
@@ -348,6 +348,9 @@ Recent decisions affecting current work:
 - Phase 32: Format presets in i18n/request.ts (6 dateTime + 4 number formats)
 - Phase 32: useFormatter() hook replaces hardcoded Intl.NumberFormat
 - Phase 32: format.number(amount, { style: 'currency', currency: 'USD/ILS', maximumFractionDigits: 0 }) pattern
+- Phase 32: Calendar uses useLocale() + toLocaleString(locale, options) for month dropdown formatting
+- Phase 32: Move formatDate/formatPrice helpers inside component when they need format hook
+- Phase 32: GlobalSearchBar kept as-is - formatCompactPrice uses toLocaleString() which defaults to browser locale
 
 ### v1.4 Research Findings
 
@@ -389,6 +392,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-20
-Stopped at: Completed 32-01-PLAN.md (Locale Formatting Infrastructure)
+Stopped at: Completed 32-04-PLAN.md (Remaining Components)
 Resume file: None
-Next: Execute 32-02-PLAN.md (Deal and Feed Components)
+Next: Phase 32 complete, ready for next phase
