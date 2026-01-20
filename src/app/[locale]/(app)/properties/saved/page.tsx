@@ -1,7 +1,8 @@
 "use client";
 
 import { useQuery } from "convex/react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { api } from "../../../../../../convex/_generated/api";
 import { Skeleton } from "@/components/ui/skeleton";
 import { PropertyCard } from "@/components/properties/PropertyCard";
@@ -41,6 +42,7 @@ function PropertyCardSkeleton() {
 
 export default function SavedPropertiesPage() {
   const router = useRouter();
+  const t = useTranslations("properties.saved");
   const properties = useQuery(api.favorites.listMyFavorites, {});
 
   // Transform properties for map
@@ -92,12 +94,12 @@ export default function SavedPropertiesPage() {
               strokeWidth={1.5}
             />
           </div>
-          <h2 className="text-xl font-semibold mb-2">No saved properties</h2>
+          <h2 className="text-xl font-semibold mb-2">{t("empty.title")}</h2>
           <p className="text-muted-foreground mb-6 max-w-md">
-            Browse the marketplace and save properties you&apos;re interested in to view them here.
+            {t("empty.description")}
           </p>
           <Button onClick={() => router.push("/properties")} variant="outline">
-            Browse Marketplace
+            {t("empty.cta")}
           </Button>
         </div>
       </div>
@@ -109,7 +111,7 @@ export default function SavedPropertiesPage() {
       {/* Left side - Property Cards */}
       <div className="flex-1 p-6 overflow-auto">
         <p className="text-sm text-muted-foreground mb-4">
-          {properties.length} saved {properties.length === 1 ? "property" : "properties"}
+          {t("count", { count: properties.length })}
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {properties.map((property) => (
