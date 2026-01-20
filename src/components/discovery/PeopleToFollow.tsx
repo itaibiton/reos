@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useQuery } from "convex/react";
+import { useTranslations } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -10,31 +11,36 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { UserPlus } from "lucide-react";
 import { FollowButton } from "@/components/feed";
 
-function formatRole(role?: string) {
-  const labels: Record<string, string> = {
-    investor: "Investor",
-    broker: "Broker",
-    mortgage_advisor: "Mortgage Advisor",
-    lawyer: "Lawyer",
-    accountant: "Accountant",
-    notary: "Notary",
-    tax_consultant: "Tax Consultant",
-    appraiser: "Appraiser",
-  };
-  return labels[role || ""] || "User";
-}
+// Role key mapping for translations
+const ROLE_KEY_MAP: Record<string, string> = {
+  investor: "investor",
+  broker: "broker",
+  mortgage_advisor: "mortgageAdvisor",
+  lawyer: "lawyer",
+  accountant: "accountant",
+  notary: "notary",
+  tax_consultant: "taxConsultant",
+  appraiser: "appraiser",
+};
 
 export function PeopleToFollow() {
+  const t = useTranslations("search");
+  const tCommon = useTranslations("common");
   const suggestedUsers = useQuery(api.recommendations.suggestedUsers, {
     limit: 3,
   });
+
+  const formatRole = (role?: string) => {
+    const key = role ? ROLE_KEY_MAP[role] : null;
+    return key ? tCommon(`roles.${key}`) : tCommon("roles.investor");
+  };
 
   return (
     <Card>
       <CardHeader className="pb-3">
         <CardTitle className="text-base font-semibold flex items-center gap-2">
           <UserPlus className="h-4 w-4" />
-          Suggested for you
+          {t("suggestions.title")}
         </CardTitle>
       </CardHeader>
       <CardContent className="pt-0">
@@ -60,10 +66,10 @@ export function PeopleToFollow() {
         {suggestedUsers !== undefined && suggestedUsers.length === 0 && (
           <div className="py-4 text-center">
             <p className="text-sm text-muted-foreground">
-              No suggestions right now
+              {t("suggestions.noSuggestions")}
             </p>
             <p className="text-xs text-muted-foreground mt-1">
-              Check back later
+              {t("suggestions.checkBack")}
             </p>
           </div>
         )}

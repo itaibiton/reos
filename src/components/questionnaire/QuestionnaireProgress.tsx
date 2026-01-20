@@ -1,6 +1,7 @@
 "use client";
 
 import { Progress } from "@/components/ui/progress";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 
 export interface StepConfig {
@@ -19,6 +20,7 @@ export function QuestionnaireProgress({
   currentStep,
   className,
 }: QuestionnaireProgressProps) {
+  const t = useTranslations("onboarding.questionnaire");
   const totalSteps = steps.length;
   const progressPercent = ((currentStep - 1) / (totalSteps - 1)) * 100;
   const currentStepConfig = steps[currentStep - 1];
@@ -29,7 +31,7 @@ export function QuestionnaireProgress({
       {/* Step counter */}
       <div className="flex items-center justify-between text-sm">
         <span className="font-medium text-foreground">
-          Step {currentStep} of {totalSteps}
+          {t("progress", { current: currentStep, total: totalSteps })}
         </span>
         {currentStepConfig && (
           <span className="text-muted-foreground transition-opacity duration-200">
@@ -47,7 +49,7 @@ export function QuestionnaireProgress({
       {/* Next step preview */}
       {nextStepConfig && (
         <p className="text-xs text-muted-foreground transition-opacity duration-200">
-          Up next: {nextStepConfig.title}
+          {t("upNext", { step: nextStepConfig.title })}
         </p>
       )}
     </div>

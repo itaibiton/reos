@@ -2,6 +2,7 @@
 
 import { useQuery } from "convex/react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { SearchResultCard, SearchResult } from "./SearchResultCard";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
@@ -44,6 +45,7 @@ function SearchResultSkeleton() {
 // ============================================================================
 
 function TrendingSuggestions() {
+  const t = useTranslations("search");
   const trendingPosts = useQuery(api.trending.getTrendingPosts, {
     timeWindow: "week",
     limit: 3,
@@ -105,12 +107,12 @@ function TrendingSuggestions() {
     <div className="space-y-4 mt-6">
       <div className="flex items-center gap-2 text-muted-foreground">
         <HugeiconsIcon icon={AnalyticsUpIcon} size={16} strokeWidth={1.5} />
-        <span className="text-sm font-medium">Discover what&apos;s trending</span>
+        <span className="text-sm font-medium">{t("trending.discover")}</span>
       </div>
 
       {postResults.length > 0 && (
         <div className="space-y-2">
-          <h4 className="text-sm font-medium">Trending Posts</h4>
+          <h4 className="text-sm font-medium">{t("trending.posts")}</h4>
           {postResults.map((result) => (
             <SearchResultCard key={result._id} result={result} />
           ))}
@@ -119,7 +121,7 @@ function TrendingSuggestions() {
 
       {propertyResults.length > 0 && (
         <div className="space-y-2">
-          <h4 className="text-sm font-medium">Trending Properties</h4>
+          <h4 className="text-sm font-medium">{t("trending.properties")}</h4>
           {propertyResults.map((result) => (
             <SearchResultCard key={result._id} result={result} />
           ))}
@@ -136,6 +138,7 @@ function TrendingSuggestions() {
 export function SearchResults({ query, initialType = "all" }: SearchResultsProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const t = useTranslations("search");
   const activeTab = (searchParams.get("type") as TabValue) ?? initialType;
 
   // Query full search results
@@ -186,10 +189,10 @@ export function SearchResults({ query, initialType = "all" }: SearchResultsProps
       <div className="space-y-4">
         <Tabs value={activeTab}>
           <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="all">All</TabsTrigger>
-            <TabsTrigger value="user">Users</TabsTrigger>
-            <TabsTrigger value="post">Posts</TabsTrigger>
-            <TabsTrigger value="property">Properties</TabsTrigger>
+            <TabsTrigger value="all">{t("tabs.all")}</TabsTrigger>
+            <TabsTrigger value="user">{t("tabs.users")}</TabsTrigger>
+            <TabsTrigger value="post">{t("tabs.posts")}</TabsTrigger>
+            <TabsTrigger value="property">{t("tabs.properties")}</TabsTrigger>
           </TabsList>
         </Tabs>
         <div className="space-y-3">
@@ -207,10 +210,10 @@ export function SearchResults({ query, initialType = "all" }: SearchResultsProps
       <div className="space-y-4">
         <Tabs value={activeTab} onValueChange={handleTabChange}>
           <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="all">All</TabsTrigger>
-            <TabsTrigger value="user">Users</TabsTrigger>
-            <TabsTrigger value="post">Posts</TabsTrigger>
-            <TabsTrigger value="property">Properties</TabsTrigger>
+            <TabsTrigger value="all">{t("tabs.all")}</TabsTrigger>
+            <TabsTrigger value="user">{t("tabs.users")}</TabsTrigger>
+            <TabsTrigger value="post">{t("tabs.posts")}</TabsTrigger>
+            <TabsTrigger value="property">{t("tabs.properties")}</TabsTrigger>
           </TabsList>
         </Tabs>
 
@@ -218,9 +221,9 @@ export function SearchResults({ query, initialType = "all" }: SearchResultsProps
           <div className="rounded-full bg-muted p-4 mb-4 text-muted-foreground">
             <HugeiconsIcon icon={Search01Icon} size={48} strokeWidth={1.5} />
           </div>
-          <h2 className="text-xl font-semibold mb-2">No results found for &quot;{query}&quot;</h2>
+          <h2 className="text-xl font-semibold mb-2">{t("results.noResults", { query })}</h2>
           <p className="text-muted-foreground max-w-md">
-            Try checking your spelling or using different keywords.
+            {t("results.tryDifferent")}
           </p>
         </div>
 
@@ -234,16 +237,16 @@ export function SearchResults({ query, initialType = "all" }: SearchResultsProps
     <Tabs value={activeTab} onValueChange={handleTabChange}>
       <TabsList className="grid w-full grid-cols-4">
         <TabsTrigger value="all">
-          All {totalCount > 0 && `(${totalCount})`}
+          {t("tabs.all")} {totalCount > 0 && `(${totalCount})`}
         </TabsTrigger>
         <TabsTrigger value="user">
-          Users {userCount > 0 && `(${userCount})`}
+          {t("tabs.users")} {userCount > 0 && `(${userCount})`}
         </TabsTrigger>
         <TabsTrigger value="post">
-          Posts {postCount > 0 && `(${postCount})`}
+          {t("tabs.posts")} {postCount > 0 && `(${postCount})`}
         </TabsTrigger>
         <TabsTrigger value="property">
-          Properties {propertyCount > 0 && `(${propertyCount})`}
+          {t("tabs.properties")} {propertyCount > 0 && `(${propertyCount})`}
         </TabsTrigger>
       </TabsList>
 
@@ -251,7 +254,7 @@ export function SearchResults({ query, initialType = "all" }: SearchResultsProps
       <TabsContent value="all" className="space-y-6 mt-4">
         {userCount > 0 && (
           <div className="space-y-2">
-            <h3 className="text-sm font-medium text-muted-foreground">Users</h3>
+            <h3 className="text-sm font-medium text-muted-foreground">{t("tabs.users")}</h3>
             <div className="space-y-2">
               {userResults.map((result) => (
                 <SearchResultCard key={result._id} result={result} />
@@ -261,7 +264,7 @@ export function SearchResults({ query, initialType = "all" }: SearchResultsProps
         )}
         {postCount > 0 && (
           <div className="space-y-2">
-            <h3 className="text-sm font-medium text-muted-foreground">Posts</h3>
+            <h3 className="text-sm font-medium text-muted-foreground">{t("tabs.posts")}</h3>
             <div className="space-y-2">
               {postResults.map((result) => (
                 <SearchResultCard key={result._id} result={result} />
@@ -271,7 +274,7 @@ export function SearchResults({ query, initialType = "all" }: SearchResultsProps
         )}
         {propertyCount > 0 && (
           <div className="space-y-2">
-            <h3 className="text-sm font-medium text-muted-foreground">Properties</h3>
+            <h3 className="text-sm font-medium text-muted-foreground">{t("tabs.properties")}</h3>
             <div className="space-y-2">
               {propertyResults.map((result) => (
                 <SearchResultCard key={result._id} result={result} />
@@ -288,7 +291,7 @@ export function SearchResults({ query, initialType = "all" }: SearchResultsProps
         ))}
         {userCount === 0 && (
           <p className="text-center text-muted-foreground py-8">
-            No users found matching &quot;{query}&quot;
+            {t("results.noUsersFound", { query })}
           </p>
         )}
       </TabsContent>
@@ -300,7 +303,7 @@ export function SearchResults({ query, initialType = "all" }: SearchResultsProps
         ))}
         {postCount === 0 && (
           <p className="text-center text-muted-foreground py-8">
-            No posts found matching &quot;{query}&quot;
+            {t("results.noPostsFound", { query })}
           </p>
         )}
       </TabsContent>
@@ -312,7 +315,7 @@ export function SearchResults({ query, initialType = "all" }: SearchResultsProps
         ))}
         {propertyCount === 0 && (
           <p className="text-center text-muted-foreground py-8">
-            No properties found matching &quot;{query}&quot;
+            {t("results.noPropertiesFound", { query })}
           </p>
         )}
       </TabsContent>

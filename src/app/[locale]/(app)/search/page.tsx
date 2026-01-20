@@ -3,6 +3,7 @@
 import { useSearchParams } from "next/navigation";
 import { useMutation } from "convex/react";
 import { useEffect, useRef } from "react";
+import { useTranslations } from "next-intl";
 import { api } from "../../../../../convex/_generated/api";
 import { SearchResults } from "@/components/search/SearchResults";
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -12,6 +13,7 @@ export default function SearchPage() {
   const searchParams = useSearchParams();
   const query = searchParams.get("q") || "";
   const type = searchParams.get("type") as "all" | "user" | "post" | "property" | null;
+  const t = useTranslations("search");
 
   // Track if search has been saved for this query
   const savedQueryRef = useRef<string>("");
@@ -34,10 +36,10 @@ export default function SearchPage() {
     <div className="max-w-4xl mx-auto p-6 space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold">Search Results</h1>
+        <h1 className="text-2xl font-bold">{t("title")}</h1>
         {query && (
           <p className="text-muted-foreground mt-1">
-            Showing results for &quot;{query}&quot;
+            {t("results.showing", { query })}
           </p>
         )}
       </div>
@@ -50,9 +52,9 @@ export default function SearchPage() {
           <div className="rounded-full bg-muted p-4 mb-4 text-muted-foreground">
             <HugeiconsIcon icon={Search01Icon} size={48} strokeWidth={1.5} />
           </div>
-          <h2 className="text-xl font-semibold mb-2">Search for something</h2>
+          <h2 className="text-xl font-semibold mb-2">{t("searchFor")}</h2>
           <p className="text-muted-foreground max-w-md">
-            Enter a search term to find users, posts, and properties.
+            {t("enterTerm")}
           </p>
         </div>
       )}

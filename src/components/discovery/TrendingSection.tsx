@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useQuery } from "convex/react";
+import { useTranslations } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -12,6 +13,7 @@ import { TrendingUp, Flame } from "lucide-react";
 
 export function TrendingSection() {
   const [timeWindow, setTimeWindow] = useState<"today" | "week">("today");
+  const t = useTranslations("search");
 
   const trendingPosts = useQuery(api.trending.getTrendingPosts, {
     timeWindow,
@@ -24,15 +26,15 @@ export function TrendingSection() {
         <div className="flex items-center justify-between">
           <CardTitle className="text-base font-semibold flex items-center gap-2">
             <TrendingUp className="h-4 w-4" />
-            Trending
+            {t("trending.title")}
           </CardTitle>
           <Tabs value={timeWindow} onValueChange={(v) => setTimeWindow(v as "today" | "week")}>
             <TabsList className="h-7">
               <TabsTrigger value="today" className="text-xs px-2 py-1">
-                Today
+                {t("trending.today")}
               </TabsTrigger>
               <TabsTrigger value="week" className="text-xs px-2 py-1">
-                This Week
+                {t("trending.thisWeek")}
               </TabsTrigger>
             </TabsList>
           </Tabs>
@@ -58,7 +60,7 @@ export function TrendingSection() {
         {/* Empty state */}
         {trendingPosts !== undefined && trendingPosts.length === 0 && (
           <p className="text-sm text-muted-foreground py-4 text-center">
-            No trending posts yet
+            {t("trending.noPosts")}
           </p>
         )}
 

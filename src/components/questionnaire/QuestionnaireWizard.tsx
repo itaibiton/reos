@@ -2,6 +2,7 @@
 
 import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { QuestionnaireProgress, StepConfig } from "./QuestionnaireProgress";
@@ -33,6 +34,7 @@ export function QuestionnaireWizard({
   className,
   editMode = false,
 }: QuestionnaireWizardProps) {
+  const t = useTranslations("onboarding.questionnaire");
   const totalSteps = steps.length;
   const isFirstStep = currentStep === 1;
   const isLastStep = currentStep === totalSteps;
@@ -141,7 +143,7 @@ export function QuestionnaireWizard({
               disabled={isFirstStep || isLoading}
               className="min-w-[100px]"
             >
-              Back
+              {t("back")}
             </Button>
 
             <Button
@@ -149,7 +151,7 @@ export function QuestionnaireWizard({
               disabled={isLoading}
               className="min-w-[120px]"
             >
-              {isLastStep ? (editMode ? "Save Changes" : "Complete") : "Continue"}
+              {isLastStep ? (editMode ? t("saveChanges") : t("complete")) : t("next")}
             </Button>
           </div>
         </CardContent>
@@ -163,7 +165,7 @@ export function QuestionnaireWizard({
             disabled={isLoading}
             className="text-sm text-muted-foreground hover:text-foreground hover:underline transition-colors disabled:opacity-50"
           >
-            Skip for now
+            {t("skip")}
           </button>
         </div>
       )}

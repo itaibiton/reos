@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useMutation } from "convex/react";
+import { useTranslations } from "next-intl";
 import { api } from "../../../../../convex/_generated/api";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import {
@@ -19,36 +20,25 @@ import { Spinner } from "@/components/ui/spinner";
 
 type Role = "investor" | "broker" | "mortgage_advisor" | "lawyer";
 
-const roles: { value: Role; label: string; description: string }[] = [
-  {
-    value: "investor",
-    label: "Investor",
-    description: "Looking to invest in Israeli real estate properties",
-  },
-  {
-    value: "broker",
-    label: "Real Estate Broker",
-    description: "Licensed broker helping investors find properties",
-  },
-  {
-    value: "mortgage_advisor",
-    label: "Mortgage Advisor",
-    description: "Helping investors secure financing for their purchases",
-  },
-  {
-    value: "lawyer",
-    label: "Real Estate Lawyer",
-    description: "Providing legal services for property transactions",
-  },
-];
+// Role keys for translation lookup
+const ROLE_KEYS: Record<Role, string> = {
+  investor: "investor",
+  broker: "broker",
+  mortgage_advisor: "mortgageAdvisor",
+  lawyer: "lawyer",
+};
 
 export default function OnboardingPage() {
   const router = useRouter();
   const { user, isLoading } = useCurrentUser();
   const setUserRole = useMutation(api.users.setUserRole);
+  const t = useTranslations("onboarding");
 
   const [selectedRole, setSelectedRole] = useState<Role | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Role options for the UI
+  const roles: Role[] = ["investor", "broker", "mortgage_advisor", "lawyer"];
 
   // Redirect to dashboard if already onboarded
   useEffect(() => {
@@ -88,10 +78,9 @@ export default function OnboardingPage() {
     <div className="flex min-h-[80vh] items-center justify-center p-6">
       <Card className="w-full max-w-lg">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl">Complete Your Profile</CardTitle>
+          <CardTitle className="text-2xl">{t("title")}</CardTitle>
           <CardDescription>
-            Select your role to get started with REOS. This helps us personalize
-            your experience.
+            {t("subtitle")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -99,26 +88,29 @@ export default function OnboardingPage() {
             value={selectedRole ?? undefined}
             onValueChange={(value) => setSelectedRole(value as Role)}
           >
-            {roles.map((role) => (
-              <div
-                key={role.value}
-                className="flex items-start space-x-3 rtl:space-x-reverse rounded-lg border p-4 hover:bg-muted/50 cursor-pointer"
-                onClick={() => setSelectedRole(role.value)}
-              >
-                <RadioGroupItem value={role.value} id={role.value} className="mt-1" />
-                <div className="flex-1">
-                  <Label
-                    htmlFor={role.value}
-                    className="text-base font-medium cursor-pointer"
-                  >
-                    {role.label}
-                  </Label>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    {role.description}
-                  </p>
+            {roles.map((roleValue) => {
+              const roleKey = ROLE_KEYS[roleValue];
+              return (
+                <div
+                  key={roleValue}
+                  className="flex items-start space-x-3 rtl:space-x-reverse rounded-lg border p-4 hover:bg-muted/50 cursor-pointer"
+                  onClick={() => setSelectedRole(roleValue)}
+                >
+                  <RadioGroupItem value={roleValue} id={roleValue} className="mt-1" />
+                  <div className="flex-1">
+                    <Label
+                      htmlFor={roleValue}
+                      className="text-base font-medium cursor-pointer"
+                    >
+                      {t(`roles.${roleKey}.label`)}
+                    </Label>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      {t(`roles.${roleKey}.description`)}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </RadioGroup>
 
           <Button
@@ -130,10 +122,10 @@ export default function OnboardingPage() {
             {isSubmitting ? (
               <>
                 <Spinner className="me-2 h-4 w-4" />
-                Setting up...
+                {t("settingUp")}
               </>
             ) : (
-              "Continue"
+              t("continue")
             )}
           </Button>
         </CardContent>
