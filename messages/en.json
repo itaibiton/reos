@@ -809,5 +809,191 @@
         "furnished": "Furnished"
       }
     }
+  },
+  "chat": {
+    "title": "Chat",
+    "messages": "Messages",
+    "modes": {
+      "deals": "Deal Chats",
+      "direct": "Direct Messages",
+      "groups": "Group Chats"
+    },
+    "input": {
+      "placeholder": "Type a message...",
+      "send": "Send",
+      "sendMessage": "Send message"
+    },
+    "layout": {
+      "single": "Single chat",
+      "split": "Split view",
+      "quad": "Quad view",
+      "selectMode": "Select Layout"
+    },
+    "pane": {
+      "selectDeal": "Select a deal to see participants",
+      "selectConversation": "Select a conversation",
+      "dragHere": "Drag a participant here",
+      "dropToAssign": "Drop to assign",
+      "clickBelow": "or click the button below",
+      "selectParticipant": "Select Participant",
+      "emptyPane": "Empty pane",
+      "dragParticipants": "Drag participants to chat panes"
+    },
+    "participants": {
+      "title": "Participants",
+      "online": "Online",
+      "offline": "Offline",
+      "typing": "typing...",
+      "unread": "{count} unread"
+    },
+    "group": {
+      "create": "Create Group",
+      "name": "Group Name",
+      "addMembers": "Add Members",
+      "leave": "Leave Group",
+      "leaveTitle": "Leave \"{groupName}\"?",
+      "leaveConfirm": "You won't be able to see messages from this group anymore. You can be added back by another member.",
+      "leaving": "Leaving...",
+      "leftSuccess": "Left group",
+      "leftError": "Failed to leave group",
+      "delete": "Delete Group",
+      "deleteTitle": "Delete \"{groupName}\"?",
+      "deleteConfirm": "This will permanently delete the group and all messages for all members. This action cannot be undone.",
+      "deleting": "Deleting...",
+      "deletedSuccess": "Group deleted",
+      "deletedError": "Failed to delete group"
+    },
+    "empty": {
+      "noMessages": "No messages yet",
+      "startConversation": "Start a conversation",
+      "noChats": "No chats yet",
+      "noDeals": "No deals yet",
+      "noDealsDescription": "Start a deal on a property to chat with service providers",
+      "selectDeal": "Select a deal",
+      "selectDealDescription": "Choose a deal from the dropdown to see who you can chat with",
+      "selectChat": "Select a conversation",
+      "selectChatDescription": "Choose a conversation from the list or start a new chat",
+      "selectConversation": "Select a conversation",
+      "selectConversationDescription": "Choose a participant from the list to start messaging"
+    },
+    "time": {
+      "justNow": "Just now",
+      "minutesAgo": "{count} min ago",
+      "hoursAgo": "{count}h ago",
+      "yesterday": "Yesterday",
+      "daysAgo": "{count}d ago"
+    }
+  },
+  "feed": {
+    "title": "Feed",
+    "createPost": "Create Post",
+    "tabs": {
+      "global": "Global",
+      "following": "Following"
+    },
+    "filters": {
+      "all": "All",
+      "properties": "Properties",
+      "services": "Services",
+      "discussions": "Discussions"
+    },
+    "post": {
+      "types": {
+        "property": "Property",
+        "serviceRequest": "Service",
+        "discussion": "Discussion"
+      },
+      "selectProperty": "Select a property to share",
+      "propertyRequired": "Please select a property to share",
+      "serviceType": "What type of service do you need?",
+      "serviceTypeRequired": "Please select a service type",
+      "visibility": "Who can see this post?",
+      "visibilityOptions": {
+        "public": "Public",
+        "publicDescription": "Everyone can see",
+        "followersOnly": "Followers",
+        "followersOnlyDescription": "Only followers",
+        "dealParticipants": "Deal Participants"
+      },
+      "content": "Content",
+      "contentRequired": "Post content is required",
+      "contentPlaceholder": "What's on your mind?",
+      "propertyCaption": "Add a caption",
+      "propertyCaptionPlaceholder": "What makes this property special...",
+      "serviceDescription": "Describe what you're looking for",
+      "serviceDescriptionPlaceholder": "I'm looking for a broker who specializes in...",
+      "discussionPlaceholder": "Share your thoughts, ask questions, or start a conversation...",
+      "post": "Post",
+      "posting": "Posting...",
+      "propertyPostCreated": "Property post created!",
+      "discussionPostCreated": "Discussion post created!",
+      "serviceRequestPosted": "Service request posted!",
+      "createError": "Failed to create post"
+    },
+    "engagement": {
+      "like": "Like",
+      "liked": "Liked",
+      "unlikePost": "Unlike post",
+      "likePost": "Like post",
+      "comment": "Comment",
+      "comments": "Comments",
+      "hideComments": "Hide comments",
+      "showComments": "Show comments",
+      "share": "Share",
+      "sharePost": "Share post",
+      "save": "Save",
+      "saved": "Saved",
+      "unsavePost": "Unsave post",
+      "savePost": "Save post",
+      "repost": "Repost",
+      "alreadyReposted": "Already reposted",
+      "repostedTooltip": "You've already reposted this"
+    },
+    "comments": {
+      "title": "Comments",
+      "placeholder": "Write a comment...",
+      "post": "Post",
+      "loadMore": "Load more comments",
+      "noComments": "No comments yet. Be the first to comment!",
+      "beFirst": "Be the first to comment",
+      "addedSuccess": "Comment added",
+      "addedError": "Failed to add comment"
+    },
+    "share": {
+      "title": "Share",
+      "copyLink": "Copy Link",
+      "copied": "Link copied to clipboard",
+      "copyError": "Failed to copy link",
+      "shareOn": "Share on"
+    },
+    "follow": {
+      "follow": "Follow",
+      "following": "Following",
+      "unfollow": "Unfollow",
+      "followers": "followers",
+      "followersCount": "{count} followers",
+      "followingCount": "{count} following"
+    },
+    "empty": {
+      "noPosts": "No posts yet",
+      "noPostsDescription": "Be the first to share something with the community.",
+      "noPropertyPosts": "No property posts yet",
+      "noServicePosts": "No service request posts yet",
+      "noDiscussionPosts": "No discussion posts yet",
+      "noFollowingPosts": "No posts from people you follow yet",
+      "noFollowingDescription": "Follow users to see their posts here.",
+      "followMore": "Follow more people to see their posts",
+      "createFirst": "Be the first to post",
+      "createAPost": "Create a Post"
+    },
+    "card": {
+      "viewProperty": "View Property",
+      "viewDetails": "View Details",
+      "postedBy": "Posted by",
+      "lookingFor": "Looking for",
+      "discussion": "Discussion"
+    },
+    "loadMore": "Load more",
+    "loading": "Loading..."
   }
 }
