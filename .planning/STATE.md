@@ -11,11 +11,11 @@ See: .planning/PROJECT.md (updated 2026-01-19)
 
 Milestone: v1.4 Internationalization & RTL Support
 Phase: 31 - Translation Infrastructure
-Plan: 4 of 7 in current phase
+Plan: 6 of 7 in current phase
 Status: In progress
-Last activity: 2026-01-20 — Completed 31-04-PLAN.md (Deals Namespace)
+Last activity: 2026-01-20 — Completed 31-06-PLAN.md (Chat & Feed Namespace)
 
-Progress: [████████--] 57% (4/7 phases)
+Progress: [█████████-] 86% (6/7 phases)
 
 ## Performance Metrics
 
@@ -69,11 +69,11 @@ Progress: [████████--] 57% (4/7 phases)
 | 28 | 2/2 | 8 min | 4 min |
 | 29 | 11/11 | 37 min | 3.4 min |
 | 30 | 3/3 | 12 min | 4 min |
-| 31 | 4/7 | 19 min | 4.75 min |
+| 31 | 6/7 | 31 min | 5.17 min |
 
 **Recent Trend:**
-- Last 5 plans: 3 min, 5 min, 4 min, 3 min, 4 min
-- Trend: Phase 31 Translation Infrastructure - navigation namespace complete
+- Last 5 plans: 5 min, 4 min, 3 min, 4 min, 12 min
+- Trend: Phase 31 Translation Infrastructure - chat & feed namespaces complete
 
 ## Accumulated Context
 
@@ -330,6 +330,10 @@ Recent decisions affecting current work:
 - Phase 31: Properties namespace with 17 sections (card, details, form, empty, save, neighborhood, amenities)
 - Phase 31: tCommon('propertyTypes.x') pattern for shared property type/status labels
 - Phase 31: Locale-aware Link from i18n/navigation for internal property page links
+- Phase 31: Chat namespace with modes, input, layout, pane, participants, group, empty, time sub-sections
+- Phase 31: Feed namespace with tabs, filters, post, engagement, comments, share, follow, empty, card sub-sections
+- Phase 31: common.roles reused for service type labels in feed (broker, mortgageAdvisor, lawyer)
+- Phase 31: roleKeyMap pattern converts snake_case DB values to camelCase translation keys
 
 ### v1.4 Research Findings
 
@@ -371,6 +375,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-20
-Stopped at: Completed 31-04-PLAN.md (Deals Namespace)
+Stopped at: Completed 31-06-PLAN.md (Chat & Feed Namespace)
 Resume file: None
-Next: Execute 31-05-PLAN.md (Feed & Social Namespace)
+Next: Execute 31-07-PLAN.md (Settings & Profile Namespace)
