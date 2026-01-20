@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useMutation } from "convex/react";
+import { useTranslations } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 import {
@@ -50,18 +51,14 @@ interface GroupSettingsDialogProps {
   onDeleted: () => void;
 }
 
-// Format role for display
-function formatRole(role?: string | null) {
-  if (!role) return null;
-  const labels: Record<string, string> = {
-    investor: "Investor",
-    broker: "Broker",
-    mortgage_advisor: "Mortgage",
-    lawyer: "Lawyer",
-    admin: "Admin",
-  };
-  return labels[role] || role;
-}
+// Role key map for translations
+const roleKeyMap: Record<string, string> = {
+  investor: "investor",
+  broker: "broker",
+  mortgage_advisor: "mortgageAdvisor",
+  lawyer: "lawyer",
+  admin: "admin",
+};
 
 // Get initials from name
 function getInitials(name?: string | null) {
@@ -93,6 +90,9 @@ export function GroupSettingsDialog({
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [removingMemberId, setRemovingMemberId] = useState<Id<"users"> | null>(null);
 
+  const t = useTranslations("chat");
+  const tRoles = useTranslations("common.roles");
+
   const updateGroup = useMutation(api.conversations.updateGroup);
 
   const isCreator = user?._id === createdBy;
@@ -115,7 +115,7 @@ export function GroupSettingsDialog({
         name: editedName.trim(),
       });
       setIsEditingName(false);
-      toast.success("Group name updated");
+      toast.success(t("groupSettings.groupNameUpdated"));
     } catch (error) {
       console.error("Failed to update group name:", error);
       toast.error("Failed to update group name");
@@ -136,7 +136,7 @@ export function GroupSettingsDialog({
         conversationId,
         removeParticipants: [memberId],
       });
-      toast.success("Member removed");
+      toast.success(t("groupSettings.memberRemoved"));
     } catch (error) {
       console.error("Failed to remove member:", error);
       toast.error("Failed to remove member");
@@ -146,7 +146,7 @@ export function GroupSettingsDialog({
   };
 
   const handleMembersAdded = () => {
-    toast.success("Members added");
+    toast.success(t("groupSettings.membersAdded"));
   };
 
   const displayName = name || `Group (${participants.length})`;
@@ -156,7 +156,7 @@ export function GroupSettingsDialog({
       <Dialog open={open} onOpenChange={onOpenChange}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Group Settings</DialogTitle>
+            <DialogTitle>{t("groupSettings.title")}</DialogTitle>
           </DialogHeader>
 
           <div className="space-y-6 py-4">
@@ -174,7 +174,7 @@ export function GroupSettingsDialog({
             {/* Group Name */}
             <div className="space-y-2">
               <label className="text-sm font-medium text-muted-foreground">
-                Group Name
+                {t("groupSettings.groupName")}
               </label>
               {isEditingName ? (
                 <div className="flex items-center gap-2">
@@ -182,7 +182,7 @@ export function GroupSettingsDialog({
                     value={editedName}
                     onChange={(e) => setEditedName(e.target.value)}
                     className="flex-1"
-                    placeholder="Enter group name..."
+                    placeholder={t("newConversation.groupNamePlaceholder")}
                     autoFocus
                     onKeyDown={(e) => {
                       if (e.key === "Enter") {
@@ -229,7 +229,7 @@ export function GroupSettingsDialog({
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium text-muted-foreground">
-                  Members ({participants.length})
+                  {t("groupSettings.members", { count: participants.length })}
                 </span>
                 <Button
                   variant="outline"
@@ -238,7 +238,7 @@ export function GroupSettingsDialog({
                   className="gap-1"
                 >
                   <HugeiconsIcon icon={Add01Icon} size={14} />
-                  Add
+                  {t("groupSettings.add")}
                 </Button>
               </div>
 
@@ -270,7 +270,7 @@ export function GroupSettingsDialog({
                             </span>
                             {isCurrentUser && (
                               <span className="text-xs text-muted-foreground">
-                                (You)
+                                {t("groupSettings.you")}
                               </span>
                             )}
                           </div>
@@ -280,12 +280,12 @@ export function GroupSettingsDialog({
                                 variant="secondary"
                                 className="text-[10px] px-1.5 py-0"
                               >
-                                {formatRole(participant.role)}
+                                {tRoles(roleKeyMap[participant.role] || participant.role)}
                               </Badge>
                             )}
                             {isParticipantCreator && (
                               <span className="text-[10px] text-muted-foreground">
-                                Creator
+                                {t("groupSettings.creator")}
                               </span>
                             )}
                           </div>
@@ -317,7 +317,7 @@ export function GroupSettingsDialog({
                 className="flex-1 text-destructive hover:text-destructive"
                 onClick={() => setLeaveOpen(true)}
               >
-                Leave Group
+                {t("groupSettings.leaveGroup")}
               </Button>
               {isCreator && (
                 <Button

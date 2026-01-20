@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { useQuery, useMutation } from "convex/react";
+import { useTranslations } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 import {
@@ -31,18 +32,14 @@ interface NewConversationDialogProps {
   mode?: "direct" | "group";
 }
 
-// Format role for display
-function formatRole(role?: string | null) {
-  if (!role) return null;
-  const labels: Record<string, string> = {
-    investor: "Investor",
-    broker: "Broker",
-    mortgage_advisor: "Mortgage",
-    lawyer: "Lawyer",
-    admin: "Admin",
-  };
-  return labels[role] || role;
-}
+// Role key map for translations
+const roleKeyMap: Record<string, string> = {
+  investor: "investor",
+  broker: "broker",
+  mortgage_advisor: "mortgageAdvisor",
+  lawyer: "lawyer",
+  admin: "admin",
+};
 
 // Get initials from name
 function getInitials(name?: string | null) {
@@ -65,6 +62,10 @@ export function NewConversationDialog({
   const [selectedUserIds, setSelectedUserIds] = useState<Id<"users">[]>([]);
   const [groupName, setGroupName] = useState("");
   const [isCreating, setIsCreating] = useState(false);
+
+  const t = useTranslations("chat");
+  const tRoles = useTranslations("common.roles");
+  const tActions = useTranslations("common.actions");
 
   const isGroupMode = mode === "group";
 
@@ -104,13 +105,13 @@ export function NewConversationDialog({
 
   const handleCreate = async () => {
     if (selectedUserIds.length === 0) {
-      toast.error("Please select at least one user");
+      toast.error(t("newConversation.selectAtLeastOne"));
       return;
     }
 
     // In group mode, require at least 2 users for a meaningful group
     if (isGroupMode && selectedUserIds.length < 2) {
-      toast.error("Please select at least 2 users for a group");
+      toast.error(t("newConversation.selectAtLeastTwo"));
       return;
     }
 
@@ -158,12 +159,12 @@ export function NewConversationDialog({
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>
-            {isGroupMode ? "New Group" : "New Conversation"}
+            {isGroupMode ? t("newConversation.titleGroup") : t("newConversation.title")}
           </DialogTitle>
           <DialogDescription>
             {isGroupMode
-              ? "Select users to create a new group"
-              : "Select a user to start a conversation"}
+              ? t("newConversation.selectUsersGroup")
+              : t("newConversation.selectUserDirect")}
           </DialogDescription>
         </DialogHeader>
 
@@ -192,12 +193,12 @@ export function NewConversationDialog({
           {/* Group name input (shown for 2+ users) */}
           {isGroup && (
             <div className="space-y-2">
-              <Label htmlFor="groupName">Group Name (optional)</Label>
+              <Label htmlFor="groupName">{t("newConversation.groupNameOptional")}</Label>
               <Input
                 id="groupName"
                 value={groupName}
                 onChange={(e) => setGroupName(e.target.value)}
-                placeholder="Enter group name..."
+                placeholder={t("newConversation.groupNamePlaceholder")}
                 className="h-9"
               />
             </div>
@@ -212,7 +213,7 @@ export function NewConversationDialog({
             />
             <Input
               type="text"
-              placeholder="Search users..."
+              placeholder={t("newConversation.searchUsers")}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="ps-8 h-9"
@@ -229,7 +230,7 @@ export function NewConversationDialog({
                 ))
               ) : filteredUsers.length === 0 ? (
                 <p className="text-sm text-muted-foreground text-center py-4">
-                  {searchQuery ? "No users match your search" : "No users available"}
+                  {searchQuery ? t("newConversation.noUsersMatch") : t("newConversation.noUsersAvailable")}
                 </p>
               ) : (
                 filteredUsers.map((user) => (
@@ -250,7 +251,7 @@ export function NewConversationDialog({
                     </div>
                     {user.role && (
                       <Badge variant="secondary" className="text-[10px] px-1.5 py-0">
-                        {formatRole(user.role)}
+                        {tRoles(roleKeyMap[user.role] || user.role)}
                       </Badge>
                     )}
                   </button>
@@ -262,7 +263,7 @@ export function NewConversationDialog({
 
         <DialogFooter>
           <Button variant="outline" onClick={handleClose}>
-            Cancel
+            {tActions("cancel")}
           </Button>
           <Button
             onClick={handleCreate}
@@ -273,10 +274,10 @@ export function NewConversationDialog({
             }
           >
             {isCreating
-              ? "Creating..."
+              ? t("newConversation.creating")
               : isGroup
-              ? "Create Group"
-              : "Start Chat"}
+              ? t("newConversation.createGroup")
+              : t("newConversation.startChat")}
           </Button>
         </DialogFooter>
       </DialogContent>

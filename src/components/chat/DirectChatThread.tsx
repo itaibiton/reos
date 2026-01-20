@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useQuery, useMutation } from "convex/react";
+import { useTranslations } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -24,18 +25,14 @@ interface DirectChatThreadProps {
   onConversationLeft?: () => void;
 }
 
-// Format role for display
-function formatRole(role?: string) {
-  if (!role) return null;
-  const labels: Record<string, string> = {
-    investor: "Investor",
-    broker: "Broker",
-    mortgage_advisor: "Mortgage Advisor",
-    lawyer: "Lawyer",
-    admin: "Admin",
-  };
-  return labels[role] || role;
-}
+// Role key map for translations
+const roleKeyMap: Record<string, string> = {
+  investor: "investor",
+  broker: "broker",
+  mortgage_advisor: "mortgageAdvisor",
+  lawyer: "lawyer",
+  admin: "admin",
+};
 
 // Get initials from name
 function getInitials(name?: string | null) {
@@ -56,6 +53,9 @@ export function DirectChatThread({
   const { user } = useCurrentUser();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
+
+  const t = useTranslations("chat");
+  const tRoles = useTranslations("common.roles");
 
   // Fetch conversation details
   const conversation = useQuery(api.conversations.get, { conversationId });
@@ -139,7 +139,7 @@ export function DirectChatThread({
             <div className="flex-1 min-w-0 text-start">
               <p className="font-medium truncate">{displayName}</p>
               <p className="text-xs text-muted-foreground">
-                {conversation?.participants?.length} participants - Tap for settings
+                {t("directChat.participants", { count: conversation?.participants?.length || 0 })}
               </p>
             </div>
           </button>
@@ -156,7 +156,7 @@ export function DirectChatThread({
               <p className="font-medium truncate">{displayName}</p>
               {firstParticipant?.role && (
                 <Badge variant="secondary" className="text-xs">
-                  {formatRole(firstParticipant.role)}
+                  {tRoles(roleKeyMap[firstParticipant.role] || firstParticipant.role)}
                 </Badge>
               )}
             </div>

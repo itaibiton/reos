@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { useQuery, useMutation } from "convex/react";
+import { useTranslations } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 import {
@@ -29,18 +30,14 @@ interface AddMembersDialogProps {
   onMembersAdded: () => void;
 }
 
-// Format role for display
-function formatRole(role?: string | null) {
-  if (!role) return null;
-  const labels: Record<string, string> = {
-    investor: "Investor",
-    broker: "Broker",
-    mortgage_advisor: "Mortgage",
-    lawyer: "Lawyer",
-    admin: "Admin",
-  };
-  return labels[role] || role;
-}
+// Role key map for translations
+const roleKeyMap: Record<string, string> = {
+  investor: "investor",
+  broker: "broker",
+  mortgage_advisor: "mortgageAdvisor",
+  lawyer: "lawyer",
+  admin: "admin",
+};
 
 // Get initials from name
 function getInitials(name?: string | null) {
@@ -63,6 +60,10 @@ export function AddMembersDialog({
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedUserIds, setSelectedUserIds] = useState<Id<"users">[]>([]);
   const [isAdding, setIsAdding] = useState(false);
+
+  const t = useTranslations("chat");
+  const tRoles = useTranslations("common.roles");
+  const tActions = useTranslations("common.actions");
 
   // Fetch all users
   const users = useQuery(api.users.listAll, { searchQuery });
@@ -130,9 +131,9 @@ export function AddMembersDialog({
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Add Members</DialogTitle>
+          <DialogTitle>{t("addMembers.title")}</DialogTitle>
           <DialogDescription>
-            Select users to add to this group
+            {t("addMembers.description")}
           </DialogDescription>
         </DialogHeader>
 
@@ -167,7 +168,7 @@ export function AddMembersDialog({
             />
             <Input
               type="text"
-              placeholder="Search users..."
+              placeholder={t("newConversation.searchUsers")}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="ps-8 h-9"
@@ -188,8 +189,8 @@ export function AddMembersDialog({
               ) : availableUsers.length === 0 ? (
                 <p className="text-sm text-muted-foreground text-center py-4">
                   {searchQuery
-                    ? "No users match your search"
-                    : "No users available to add"}
+                    ? t("newConversation.noUsersMatch")
+                    : t("addMembers.noUsersToAdd")}
                 </p>
               ) : (
                 availableUsers.map((user) => (
@@ -210,7 +211,7 @@ export function AddMembersDialog({
                     </div>
                     {user.role && (
                       <Badge variant="secondary" className="text-[10px] px-1.5 py-0">
-                        {formatRole(user.role)}
+                        {tRoles(roleKeyMap[user.role] || user.role)}
                       </Badge>
                     )}
                   </button>
@@ -222,15 +223,17 @@ export function AddMembersDialog({
 
         <DialogFooter>
           <Button variant="outline" onClick={handleClose}>
-            Cancel
+            {tActions("cancel")}
           </Button>
           <Button
             onClick={handleAdd}
             disabled={selectedUserIds.length === 0 || isAdding}
           >
             {isAdding
-              ? "Adding..."
-              : `Add ${selectedUserIds.length > 0 ? `(${selectedUserIds.length})` : ""}`}
+              ? t("addMembers.adding")
+              : selectedUserIds.length > 0
+              ? t("addMembers.addCount", { count: selectedUserIds.length })
+              : t("groupSettings.add")}
           </Button>
         </DialogFooter>
       </DialogContent>

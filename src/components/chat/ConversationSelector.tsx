@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { useQuery } from "convex/react";
-import { useFormatter, useNow } from "next-intl";
+import { useFormatter, useNow, useTranslations } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 import { Input } from "@/components/ui/input";
@@ -21,18 +21,14 @@ interface ConversationSelectorProps {
   onNewGroup: () => void;
 }
 
-// Format role for display
-function formatRole(role?: string | null) {
-  if (!role) return null;
-  const labels: Record<string, string> = {
-    investor: "Investor",
-    broker: "Broker",
-    mortgage_advisor: "Mortgage",
-    lawyer: "Lawyer",
-    admin: "Admin",
-  };
-  return labels[role] || role;
-}
+// Role key map for translations
+const roleKeyMap: Record<string, string> = {
+  investor: "investor",
+  broker: "broker",
+  mortgage_advisor: "mortgageAdvisor",
+  lawyer: "lawyer",
+  admin: "admin",
+};
 
 // Get initials from name
 function getInitials(name?: string | null) {
@@ -54,6 +50,8 @@ export function ConversationSelector({
   const [searchQuery, setSearchQuery] = useState("");
   const format = useFormatter();
   const now = useNow({ updateInterval: 1000 * 60 }); // Update every minute
+  const t = useTranslations("chat");
+  const tRoles = useTranslations("common.roles");
 
   // Fetch conversations
   const conversations = useQuery(api.conversations.list, {});
@@ -100,7 +98,7 @@ export function ConversationSelector({
           />
           <Input
             type="text"
-            placeholder="Search conversations..."
+            placeholder={t("conversations.search")}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="ps-8 h-9"
@@ -113,7 +111,7 @@ export function ConversationSelector({
             onClick={onNewChat}
           >
             <HugeiconsIcon icon={UserIcon} size={16} />
-            New Chat
+            {t("conversations.newChat")}
           </Button>
           <Button
             variant="outline"
@@ -121,7 +119,7 @@ export function ConversationSelector({
             onClick={onNewGroup}
           >
             <HugeiconsIcon icon={UserMultipleIcon} size={16} />
-            New Group
+            {t("conversations.newGroup")}
           </Button>
         </div>
       </div>
@@ -131,8 +129,8 @@ export function ConversationSelector({
         {filteredConversations.length === 0 ? (
           <p className="text-sm text-muted-foreground text-center py-4">
             {conversations.length === 0
-              ? "No conversations yet"
-              : "No conversations match your search"}
+              ? t("conversations.noConversations")
+              : t("conversations.noMatch")}
           </p>
         ) : (
           filteredConversations.map((conv) => {
@@ -219,12 +217,12 @@ export function ConversationSelector({
                     </p>
                   ) : (
                     <p className="text-xs text-muted-foreground italic">
-                      No messages yet
+                      {t("conversations.noMessages")}
                     </p>
                   )}
                   {!isGroup && firstParticipant?.role && (
                     <Badge variant="secondary" className="mt-1 text-[10px] px-1.5 py-0">
-                      {formatRole(firstParticipant.role)}
+                      {tRoles(roleKeyMap[firstParticipant.role] || firstParticipant.role)}
                     </Badge>
                   )}
                 </div>
