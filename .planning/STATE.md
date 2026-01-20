@@ -11,11 +11,11 @@ See: .planning/PROJECT.md (updated 2026-01-19)
 
 Milestone: v1.4 Internationalization & RTL Support
 Phase: 31 - Translation Infrastructure
-Plan: 6 of 7 in current phase
-Status: In progress
-Last activity: 2026-01-20 — Completed 31-06-PLAN.md (Chat & Feed Namespace)
+Plan: 7 of 7 in current phase
+Status: Phase complete
+Last activity: 2026-01-20 — Completed 31-07-PLAN.md (Discovery & Misc Page Translations)
 
-Progress: [█████████-] 86% (6/7 phases)
+Progress: [██████████] 100% (7/7 phases)
 
 ## Performance Metrics
 
@@ -69,11 +69,11 @@ Progress: [█████████-] 86% (6/7 phases)
 | 28 | 2/2 | 8 min | 4 min |
 | 29 | 11/11 | 37 min | 3.4 min |
 | 30 | 3/3 | 12 min | 4 min |
-| 31 | 6/7 | 31 min | 5.17 min |
+| 31 | 7/7 | 56 min | 8 min |
 
 **Recent Trend:**
-- Last 5 plans: 5 min, 4 min, 3 min, 4 min, 12 min
-- Trend: Phase 31 Translation Infrastructure - chat & feed namespaces complete
+- Last 5 plans: 4 min, 3 min, 4 min, 12 min, 25 min
+- Trend: Phase 31 Translation Infrastructure - all 7 plans complete
 
 ## Accumulated Context
 
@@ -336,6 +336,12 @@ Recent decisions affecting current work:
 - Phase 31: roleKeyMap pattern converts snake_case DB values to camelCase translation keys
 - Phase 31: ReturnType<typeof useTranslations<any>> for translator function prop typing
 - Phase 31: search-actions.ts updated to use labelKey with translation callback for filtering
+- Phase 31: providers namespace with tabs, card, profile, filters, empty, notFound sections
+- Phase 31: profile namespace with tabs, stats, sections, investor, provider, empty, notFound sections
+- Phase 31: search namespace with tabs, results, trending, suggestions sections
+- Phase 31: onboarding namespace with roles, questionnaire, questions, options, complete sections
+- Phase 31: misc namespace with comingSoon and error sections
+- Phase 31: ROLE_KEY_MAP pattern converts snake_case DB values to camelCase translation keys
 
 ### v1.4 Research Findings
 
@@ -377,6 +383,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-20
-Stopped at: Completed 31-05-PLAN.md (Dashboard & Settings Namespace) and 31-06-PLAN.md (Chat & Feed Namespace)
+Stopped at: Completed 31-07-PLAN.md (Discovery & Misc Page Translations) - Phase 31 complete
 Resume file: None
-Next: Execute 31-07-PLAN.md (Settings & Profile Namespace)
+Next: Execute Phase 32 (Hebrew Translation)
