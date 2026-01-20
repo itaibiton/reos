@@ -1579,5 +1579,142 @@
       "cannotCancel": "אין לך הרשאה לבטל עסקה זו",
       "viewOnly": "הרשאת צפייה בלבד"
     }
+  },
+  "settings": {
+    "title": "הגדרות",
+    "adminSettings": "הגדרות מנהל והגדרות מערכת",
+    "manageProfile": "נהל את הגדרות הפרופיל שלך",
+    "viewingAs": "צופה כ{role}",
+    "tabs": {
+      "profile": "פרופיל",
+      "availability": "זמינות",
+      "notifications": "התראות",
+      "preferences": "העדפות"
+    },
+    "profile": {
+      "title": "הגדרות פרופיל",
+      "personalInfo": "מידע אישי",
+      "firstName": "שם פרטי",
+      "lastName": "שם משפחה",
+      "email": "אימייל",
+      "phone": "טלפון",
+      "bio": "אודות",
+      "bioPlaceholder": "ספר לנו על עצמך...",
+      "specializations": "התמחויות",
+      "serviceAreas": "אזורי שירות",
+      "languages": "שפות",
+      "contactPreference": "אמצעי תקשורת מועדף",
+      "save": "שמור שינויים",
+      "saved": "השינויים נשמרו",
+      "completeness": "שלמות הפרופיל",
+      "complete": "% הושלם",
+      "missing": "חסר",
+      "reviewProfile": "סקור פרופיל",
+      "completeProfile": "השלם פרופיל",
+      "completeNow": "השלם עכשיו",
+      "completeYourProfile": "השלם את פרופיל המשקיע שלך",
+      "unlockRecommendations": "פתח המלצות מותאמות אישית והתחבר עם נותני שירות."
+    },
+    "availability": {
+      "title": "הגדרות זמינות",
+      "acceptingClients": "מקבל לקוחות חדשים",
+      "acceptingClientsDesc": "מוצג למשקיעים בפרופיל שלך",
+      "nowAccepting": "מקבל כעת לקוחות חדשים",
+      "notAccepting": "לא מקבל לקוחות חדשים",
+      "blockedDates": "תאריכים חסומים",
+      "blockedDatesDesc": "סמן תאריכים שבהם אינך זמין. לחץ על תאריך להחלפה.",
+      "blockedDatesCount": "תאריכים חסומים ({count})",
+      "addBlockedDate": "הוסף תאריך חסום",
+      "removeDate": "הסר",
+      "noBlockedDates": "אין תאריכים חסומים. לחץ על הלוח לחסימת תאריכים.",
+      "dateBlocked": "התאריך נחסם",
+      "dateUnblocked": "התאריך שוחרר",
+      "failedToBlock": "חסימת התאריך נכשלה",
+      "failedToUnblock": "שחרור התאריך נכשל",
+      "failedToUpdate": "עדכון הזמינות נכשל"
+    },
+    "notifications": {
+      "title": "העדפות התראות",
+      "channels": "ערוצי התראות",
+      "channelsDesc": "בחר כיצד לקבל התראות",
+      "types": "סוגי התראות",
+      "typesDesc": "בחר אילו אירועים יפעילו התראות",
+      "emailNotifications": "התראות באימייל",
+      "emailNotificationsDesc": "קבל התראות באימייל",
+      "inAppNotifications": "התראות באפליקציה",
+      "inAppNotificationsDesc": "קבל התראות בתוך האפליקציה",
+      "failedToUpdate": "עדכון העדפות ההתראות נכשל",
+      "categories": {
+        "messages": "הודעות",
+        "deals": "עסקאות",
+        "requests": "בקשות שירות",
+        "marketing": "עדכונים ומבצעים"
+      },
+      "options": {
+        "newMessage": "הודעות חדשות",
+        "newMessageDesc": "כשמתקבלת הודעה חדשה",
+        "dealStage": "שינויי שלב בעסקה",
+        "dealStageDesc": "כשעסקה עוברת לשלב חדש",
+        "fileUploaded": "קבצים שהועלו",
+        "fileUploadedDesc": "כשמועלים קבצים לעסקאות שלך",
+        "requestReceived": "בקשות חדשות שהתקבלו",
+        "requestReceivedDesc": "כשמשקיעים מבקשים את השירותים שלך",
+        "newsletter": "ניוזלטר",
+        "tips": "טיפים ושיטות עבודה מומלצות"
+      }
+    },
+    "admin": {
+      "title": "לוח בקרה מנהל",
+      "description": "השתמש בתפריט \"צפה כ\" בכותרת לתצוגה מקדימה של האפליקציה כסוגי משתמשים שונים. הסרגל הצדדי והתכונות הזמינות ישתנו בהתאם לתפקיד הנבחר."
+    }
+  },
+  "profile": {
+    "title": "פרופיל",
+    "editProfile": "ערוך פרופיל",
+    "viewPublicProfile": "צפה בפרופיל הציבורי",
+    "back": "חזור",
+    "tabs": {
+      "posts": "פוסטים",
+      "reposts": "שיתופים מחדש",
+      "about": "אודות",
+      "reviews": "ביקורות",
+      "portfolio": "תיק עבודות"
+    },
+    "stats": {
+      "followers": "עוקבים",
+      "following": "עוקב אחרי",
+      "posts": "פוסטים",
+      "deals": "עסקאות",
+      "avgRating": "דירוג ממוצע",
+      "reviews": "ביקורות",
+      "dealsCompleted": "עסקאות שהושלמו",
+      "yearsExperience": "שנות ניסיון"
+    },
+    "sections": {
+      "bio": "אודות",
+      "contactInfo": "פרטי התקשרות",
+      "specializations": "התמחויות",
+      "serviceAreas": "אזורי שירות",
+      "languages": "שפות"
+    },
+    "investor": {
+      "title": "פרופיל משקיע",
+      "questionnaire": "העדפות השקעה",
+      "editQuestionnaire": "ערוך העדפות"
+    },
+    "provider": {
+      "title": "פרופיל נותן שירות",
+      "portfolio": "תיק עבודות",
+      "recentDeals": "עסקאות אחרונות"
+    },
+    "empty": {
+      "noPosts": "אין פוסטים עדיין",
+      "noReposts": "אין שיתופים מחדש עדיין",
+      "noBio": "לא סופק תיאור"
+    },
+    "notFound": {
+      "title": "משתמש לא נמצא",
+      "description": "פרופיל משתמש זה אינו קיים או אינו זמין."
+    }
   }
 }
