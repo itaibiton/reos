@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import { useTranslations } from "next-intl";
 import { QuestionBubble } from "../QuestionBubble";
 import { AnswerArea } from "../AnswerArea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -11,7 +12,17 @@ interface YieldStepProps {
   onChange: (value: string) => void;
 }
 
+// Map snake_case DB values to camelCase translation keys
+const yieldKeyMap: Record<string, string> = {
+  rental_yield: "rentalYield",
+  appreciation: "appreciation",
+  balanced: "balanced",
+};
+
+const YIELD_IDS = ["rental_yield", "appreciation", "balanced"] as const;
+
 export function YieldStep({ value, onChange }: YieldStepProps) {
+  const t = useTranslations("onboarding.questions.yield");
   const [showAnswer, setShowAnswer] = useState(false);
 
   // Stable callback to prevent QuestionBubble re-renders
@@ -22,56 +33,34 @@ export function YieldStep({ value, onChange }: YieldStepProps) {
   return (
     <div className="space-y-6">
       <QuestionBubble
-        question="What's your yield preference?"
-        description="This affects which properties we prioritize in recommendations."
+        question={t("title")}
+        description={t("description")}
         onTypingComplete={handleTypingComplete}
       />
       {showAnswer && (
       <AnswerArea>
         <RadioGroup value={value} onValueChange={onChange}>
           <div className="space-y-3">
-            <label
-              htmlFor="rental_yield"
-              className="flex items-start space-x-3 rtl:space-x-reverse rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
-            >
-              <RadioGroupItem value="rental_yield" id="rental_yield" className="mt-0.5" />
-              <div className="flex-1">
-                <Label htmlFor="rental_yield" className="cursor-pointer font-medium">
-                  Rental yield focus
-                </Label>
-                <p className="text-sm text-muted-foreground mt-1">
-                  Prioritize cash flow
-                </p>
-              </div>
-            </label>
-            <label
-              htmlFor="appreciation"
-              className="flex items-start space-x-3 rtl:space-x-reverse rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
-            >
-              <RadioGroupItem value="appreciation" id="appreciation" className="mt-0.5" />
-              <div className="flex-1">
-                <Label htmlFor="appreciation" className="cursor-pointer font-medium">
-                  Appreciation focus
-                </Label>
-                <p className="text-sm text-muted-foreground mt-1">
-                  Prioritize value growth
-                </p>
-              </div>
-            </label>
-            <label
-              htmlFor="balanced"
-              className="flex items-start space-x-3 rtl:space-x-reverse rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
-            >
-              <RadioGroupItem value="balanced" id="balanced" className="mt-0.5" />
-              <div className="flex-1">
-                <Label htmlFor="balanced" className="cursor-pointer font-medium">
-                  Balanced approach
-                </Label>
-                <p className="text-sm text-muted-foreground mt-1">
-                  Both matter equally
-                </p>
-              </div>
-            </label>
+            {YIELD_IDS.map((yieldId) => {
+              const key = yieldKeyMap[yieldId];
+              return (
+                <label
+                  key={yieldId}
+                  htmlFor={yieldId}
+                  className="flex items-start space-x-3 rtl:space-x-reverse rounded-lg border p-4 hover:bg-muted/50 cursor-pointer transition-colors"
+                >
+                  <RadioGroupItem value={yieldId} id={yieldId} className="mt-0.5" />
+                  <div className="flex-1">
+                    <Label htmlFor={yieldId} className="cursor-pointer font-medium">
+                      {t(`options.${key}.label`)}
+                    </Label>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      {t(`options.${key}.description`)}
+                    </p>
+                  </div>
+                </label>
+              );
+            })}
           </div>
         </RadioGroup>
       </AnswerArea>
