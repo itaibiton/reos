@@ -806,6 +806,16 @@
       "signInToSave": "Sign in to Save"
     },
 
+    "saved": {
+      "title": "Saved Properties",
+      "count": "{count} saved {count, plural, =1 {property} other {properties}}",
+      "empty": {
+        "title": "No saved properties",
+        "description": "Browse the marketplace and save properties you're interested in to view them here.",
+        "cta": "Browse Marketplace"
+      }
+    },
+
     "neighborhood": {
       "title": "Neighborhood Info",
       "noData": "No neighborhood data available for this city",
@@ -1538,7 +1548,13 @@
       },
       "propertySize": {
         "title": "What size property are you looking for?",
-        "description": "This helps us filter properties that match your space requirements."
+        "description": "This helps us filter properties that match your space requirements.",
+        "placeholder": {
+          "minBedrooms": "e.g., 2",
+          "maxBedrooms": "e.g., 5",
+          "minArea": "e.g., 80",
+          "maxArea": "e.g., 200"
+        }
       },
       "amenities": {
         "title": "Which amenities are important to you?",
@@ -1571,6 +1587,15 @@
       "title": "You're all set!",
       "subtitle": "Your profile is ready. Start exploring properties.",
       "cta": "Browse Properties"
+    },
+
+    "editProfile": {
+      "title": "Edit Investment Profile",
+      "backToProfile": "Back to Profile",
+      "noQuestionnaire": "No questionnaire found. Please complete onboarding first.",
+      "goToOnboarding": "Go to Onboarding",
+      "saveSuccess": "Profile updated successfully!",
+      "saveError": "Failed to save profile. Please try again."
     }
   },
   "misc": {
