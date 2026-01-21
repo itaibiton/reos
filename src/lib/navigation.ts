@@ -20,6 +20,16 @@ import {
   BarChart3,
   Rss,
 } from "lucide-react";
+import type { IconSvgElement } from "@hugeicons/react";
+import {
+  Home01Icon,
+  Building02Icon,
+  News01Icon,
+  Message02Icon,
+  Agreement01Icon,
+  UserIcon,
+  UserMultiple02Icon,
+} from "@hugeicons/core-free-icons";
 
 // All user roles in the system (extended for future roles)
 export type UserRole =
@@ -45,6 +55,15 @@ export type NavItem = {
 export type NavGroup = {
   labelKey?: string; // Optional group label translation key (e.g., "navigation.groups.marketplace")
   items: NavItem[];
+};
+
+// Mobile tab item for bottom navigation
+export type MobileTabItem = {
+  labelKey: string; // Translation key (e.g., "navigation.items.chat")
+  href: string;
+  icon: LucideIcon; // Lucide icon for compatibility
+  hugeIcon: IconSvgElement; // HugeIcon for mobile display
+  showBadge?: "chat" | "notifications"; // Which unread count to show
 };
 
 // Role-based navigation configuration
@@ -417,4 +436,34 @@ export function isActivePath(pathname: string, href: string): boolean {
   }
 
   return false;
+}
+
+/**
+ * Get mobile bottom tab items for a role (exactly 5 tabs)
+ *
+ * Investor tabs: Properties, Feed, Chat, Deals, Profile
+ * Provider tabs: Dashboard, Clients, Chat, Feed, Profile
+ *
+ * @param role - The user's effective role
+ * @returns Array of 5 MobileTabItem for bottom navigation
+ */
+export function getMobileTabsForRole(role: UserRole): MobileTabItem[] {
+  if (role === "investor") {
+    return [
+      { labelKey: "navigation.items.browseProperties", href: "/properties", icon: Building2, hugeIcon: Building02Icon },
+      { labelKey: "navigation.items.feed", href: "/feed", icon: Rss, hugeIcon: News01Icon },
+      { labelKey: "navigation.items.chat", href: "/chat", icon: MessageSquare, hugeIcon: Message02Icon, showBadge: "chat" },
+      { labelKey: "navigation.items.deals", href: "/deals", icon: Handshake, hugeIcon: Agreement01Icon },
+      { labelKey: "navigation.items.profile", href: "/profile/investor", icon: UserCircle, hugeIcon: UserIcon },
+    ];
+  }
+
+  // All provider roles (broker, mortgage_advisor, lawyer, accountant, notary, tax_consultant, appraiser, admin)
+  return [
+    { labelKey: "navigation.items.dashboard", href: "/dashboard", icon: Home, hugeIcon: Home01Icon },
+    { labelKey: "navigation.items.clients", href: "/clients", icon: Users, hugeIcon: UserMultiple02Icon },
+    { labelKey: "navigation.items.chat", href: "/chat", icon: MessageSquare, hugeIcon: Message02Icon, showBadge: "chat" },
+    { labelKey: "navigation.items.feed", href: "/feed", icon: Rss, hugeIcon: News01Icon },
+    { labelKey: "navigation.items.profile", href: "/profile/provider", icon: UserCircle, hugeIcon: UserIcon },
+  ];
 }
