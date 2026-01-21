@@ -10,19 +10,19 @@ See: .planning/PROJECT.md (updated 2026-01-21)
 ## Current Position
 
 Milestone: v1.5 Mobile Responsive & Header Redesign
-Phase: 38 - Header Redesign (COMPLETE)
-Plan: 3/3 complete (38-01, 38-02, 38-03)
-Status: Phase 38 complete, ready for Phase 39 (Final Polish)
-Last activity: 2026-01-21 — Completed 38-03-PLAN.md
+Phase: 39 - Responsive Layouts (IN PROGRESS)
+Plan: 2/3 complete (39-01, 39-02)
+Status: Phase 39 in progress
+Last activity: 2026-01-21 — Completed 39-02-PLAN.md
 
-Progress: [████████░░] 80% (4/5 phases)
+Progress: [████████░░] 80% (4/5 phases, 39-02 complete)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 134
-- Average duration: 5.1 min
-- Total execution time: 9.0 hours
+- Total plans completed: 136
+- Average duration: 5.0 min
+- Total execution time: 9.1 hours
 
 **By Phase:**
 
@@ -78,10 +78,11 @@ Progress: [████████░░] 80% (4/5 phases)
 | 36 | 1/1 | 3 min | 3 min |
 | 37 | 3/3 | 7 min | 2.3 min |
 | 38 | 3/3 | 9 min | 3 min |
+| 39 | 2/3 | 8 min | 4 min |
 
 **Recent Trend:**
-- Last 5 plans: 37-02 (1 min), 37-03 (3 min), 38-01 (3 min), 38-02 (1 min), 38-03 (3 min)
-- Trend: v1.5 Mobile Responsive in progress - Phase 38 complete
+- Last 5 plans: 38-01 (3 min), 38-02 (1 min), 38-03 (3 min), 39-01 (4 min), 39-02 (4 min)
+- Trend: v1.5 Mobile Responsive in progress - Phase 39 ongoing
 
 ## Accumulated Context
 
@@ -390,6 +391,10 @@ Recent decisions affecting current work:
 - Phase 38: Keyboard event dispatch to trigger GlobalSearchBar (simulates Cmd+K)
 - Phase 38: Admin role switcher kept separate from avatar dropdown
 - Phase 38: hidden md:block pattern for mobile-hidden breadcrumbs
+- Phase 39: ResponsiveDialog pattern: Dialog on desktop, Drawer on mobile
+- Phase 39: CreatePostDialog, CreateGroupDialog, AddParticipantsDialog converted to ResponsiveDialog
+- Phase 39: grid-cols-1 sm:grid-cols-2 for form input pairs (mobile-first)
+- Phase 39: grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 for NearbyProperties grid
 
 ### v1.5 Research Findings
 
@@ -435,6 +440,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-21
-Stopped at: Completed 38-03-PLAN.md (Header Composition)
+Stopped at: Completed 39-02-PLAN.md (Property Cards & Forms)
 Resume file: None
-Next: Phase 39 - Final Mobile Polish
+Next: 39-03 - Touch Targets & Interactive Elements
