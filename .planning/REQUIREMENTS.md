@@ -35,16 +35,16 @@ Requirements for v1.5 Mobile Responsive & Header Redesign. Each maps to roadmap 
 
 ### Header Redesign
 
-- [ ] **HDR-01**: Header shows search icon on mobile that expands to full search input on tap
-- [ ] **HDR-02**: Header shows single avatar dropdown button on right side
-- [ ] **HDR-03**: Dropdown contains Notifications tab with unread items
-- [ ] **HDR-04**: Dropdown contains Settings tab with theme and language switches
-- [ ] **HDR-05**: Dropdown shows Sign Out button at bottom
-- [ ] **HDR-06**: Dropdown trigger shows unread notification badge
-- [ ] **HDR-07**: Breadcrumbs hidden on mobile, shown on desktop
-- [ ] **HDR-08**: Search expansion animates smoothly
-- [ ] **HDR-09**: Notifications grouped by type in dropdown
-- [ ] **HDR-10**: Custom UI built with Clerk functions (no Clerk components)
+- [x] **HDR-01**: Header shows search icon on mobile that expands to full search input on tap
+- [x] **HDR-02**: Header shows single avatar dropdown button on right side
+- [x] **HDR-03**: Dropdown contains Notifications tab with unread items
+- [x] **HDR-04**: Dropdown contains Settings tab with theme and language switches
+- [x] **HDR-05**: Dropdown shows Sign Out button at bottom
+- [x] **HDR-06**: Dropdown trigger shows unread notification badge
+- [x] **HDR-07**: Breadcrumbs hidden on mobile, shown on desktop
+- [x] **HDR-08**: Search expansion animates smoothly
+- [x] **HDR-09**: Notifications grouped by type in dropdown
+- [x] **HDR-10**: Custom UI built with Clerk functions (no Clerk components)
 
 ### Responsive Layouts
 
@@ -107,16 +107,16 @@ Which phases cover which requirements. Updated during roadmap creation.
 | NAV-06 | Phase 37 | Complete |
 | NAV-07 | Phase 37 | Complete |
 | NAV-08 | Phase 37 | Complete |
-| HDR-01 | Phase 38 | Pending |
-| HDR-02 | Phase 38 | Pending |
-| HDR-03 | Phase 38 | Pending |
-| HDR-04 | Phase 38 | Pending |
-| HDR-05 | Phase 38 | Pending |
-| HDR-06 | Phase 38 | Pending |
-| HDR-07 | Phase 38 | Pending |
-| HDR-08 | Phase 38 | Pending |
-| HDR-09 | Phase 38 | Pending |
-| HDR-10 | Phase 38 | Pending |
+| HDR-01 | Phase 38 | Complete |
+| HDR-02 | Phase 38 | Complete |
+| HDR-03 | Phase 38 | Complete |
+| HDR-04 | Phase 38 | Complete |
+| HDR-05 | Phase 38 | Complete |
+| HDR-06 | Phase 38 | Complete |
+| HDR-07 | Phase 38 | Complete |
+| HDR-08 | Phase 38 | Complete |
+| HDR-09 | Phase 38 | Complete |
+| HDR-10 | Phase 38 | Complete |
 | RSP-01 | Phase 39 | Pending |
 | RSP-02 | Phase 39 | Pending |
 | RSP-03 | Phase 39 | Pending |
