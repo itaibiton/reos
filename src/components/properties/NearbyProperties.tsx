@@ -72,7 +72,7 @@ export function NearbyProperties({
           </CardTitle>
         </CardHeader>
         <CardContent className="p-4">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {[1, 2, 3, 4].map((i) => (
               <PropertyCardSkeleton key={i} />
             ))}
@@ -118,7 +118,7 @@ export function NearbyProperties({
         </p>
       </CardHeader>
       <CardContent className="p-4">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {nearbyProperties.map((property) => (
             <Link
               key={property._id}
