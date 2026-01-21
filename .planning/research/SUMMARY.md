@@ -1,242 +1,184 @@
 # Project Research Summary
 
-**Project:** REOS v1.4 Internationalization
-**Domain:** Web application internationalization with Hebrew/RTL support
-**Researched:** 2026-01-19
+**Project:** REOS v1.5 Mobile Responsive & Header Redesign
+**Domain:** Mobile responsiveness for real estate investment platform
+**Researched:** 2026-01-21
 **Confidence:** HIGH
 
 ## Executive Summary
 
-Adding internationalization with Hebrew/RTL support to the REOS Next.js 15 application is a well-understood problem with mature tooling. The recommended approach uses **next-intl v4** for translation and routing, combined with **Tailwind v4's native logical properties** for RTL layout. The existing stack (Next.js 16.1, Tailwind v4, Shadcn/ui, Clerk, Convex) is fully compatible with this approach, requiring no major technology additions beyond next-intl and the Radix DirectionProvider.
+REOS is well-positioned for mobile responsiveness. The existing stack already contains every technology required: `next-themes` (v0.4.6) for theme switching, Tailwind CSS v4 with dark mode CSS variables configured, Framer Motion for animations, and Shadcn/ui primitives for all UI components. **No new packages are needed.** The work is pure configuration and component authoring.
 
-The architecture requires restructuring the app directory to add a `[locale]` dynamic segment wrapping all route groups. This is the most invasive change but is straightforward once the pattern is understood. The critical path runs through: infrastructure setup (routing, middleware composition) > RTL foundation (DirectionProvider, logical properties) > component migration > translation extraction. Each phase builds on the previous, with no opportunity for parallelization in the early stages.
+The recommended approach is to build a role-aware bottom tab bar (max 5 tabs) using existing navigation configuration, consolidate the header into an avatar dropdown with theme/locale/notifications, and implement Light/Dark/System theme switching via the already-installed `next-themes`. The existing `MobileBottomNav.tsx` component provides a starting point but needs refactoring to use `getNavigationForRole()` instead of hardcoded investor items.
 
-The primary risk is the **CSS migration effort**. The codebase contains 255+ occurrences of hardcoded directional Tailwind classes (`ml-*`, `mr-*`, `left-*`, etc.) that must be converted to logical properties. Additionally, Shadcn/ui components have known RTL issues requiring manual patches. These are labor-intensive but low-risk tasks with well-documented patterns. The Clerk + next-intl middleware composition is a potential complexity point but has verified patterns in official documentation.
+Key risks center on iOS Safari viewport behavior (100vh issues, safe area insets), theme hydration mismatches, and the complexity of the existing `AppShell.tsx` (~380 lines). Mitigation requires establishing responsive patterns and testing on real iOS devices before building components. The custom Clerk UI requirement carries the highest risk due to Clerk's documented warnings about edge case handling in custom flows; consider keeping Clerk components as fallback during transition.
 
 ## Key Findings
 
 ### Recommended Stack
 
-The i18n implementation requires minimal new dependencies. next-intl v4 is the clear choice for Next.js App Router - it provides server component support, ICU message syntax, TypeScript-first design, and documented Clerk middleware integration. No RTL plugins are needed because Tailwind v4 includes logical properties natively.
+The stack requires zero additions. Everything is already installed and configured.
 
-**Core technologies:**
-- **next-intl ^4.7.0**: Translation, routing, formatting - purpose-built for App Router with native Server Component support
-- **@radix-ui/react-direction ^1.1.1**: Global RTL context for Radix/Shadcn components
-- **Heebo font**: Hebrew-Latin typeface via next/font (extends Roboto design language to Hebrew)
+**Core technologies (already present):**
+- **next-themes (v0.4.6):** Theme switching — Installed but not wired up; requires ThemeProvider wrapper in Providers.tsx
+- **Tailwind CSS v4 (4.1.18):** Responsive design + dark mode — `.dark` class variant configured, CSS variables defined
+- **Framer Motion (12.26.2):** Tab bar animations — Available for active state transitions
+- **Shadcn/ui primitives:** All UI components — DropdownMenu, Sheet, Avatar already exist
+- **vaul (1.1.2):** Mobile drawers — Bottom sheet component available for mobile dropdowns
+- **Hugeicons (3.1.1):** Tab icons — Icon library already in use throughout app
 
-**DO NOT use:**
-- next-i18next (does not support App Router)
-- tailwindcss-rtl plugin (unnecessary with Tailwind v4)
-- i18n config in next.config.js (deprecated for App Router)
+**What NOT to add:**
+| Library | Why NOT |
+|---------|---------|
+| @mui/material | Massive bundle, different design system |
+| react-navigation | For React Native, not web |
+| Any bottom-nav package | Build with existing Radix + Framer Motion + Tailwind |
+| tailwindcss-animate | You have tw-animate-css and Framer Motion |
 
 ### Expected Features
 
 **Must have (table stakes):**
-- URL-based locale routing (`/en/dashboard`, `/he/dashboard`)
-- `dir="rtl"` dynamic attribute and CSS logical properties
-- Static string externalization with ICU message syntax
-- Date/number/currency formatting with Intl API
-- Language switcher with locale persistence
-- Radix DirectionProvider for Shadcn component RTL
+- Bottom tab bar navigation (5 tabs, role-specific, fixed position)
+- Safe area insets for iOS notch/home indicator
+- Responsive header (condensed on mobile, full on desktop)
+- Light/Dark/System theme switching
+- Search as icon that opens CommandDialog on mobile
+- Full-width property cards on mobile
+- Touch-friendly tap targets (min 44x44px)
 
 **Should have (competitive):**
-- CSS logical properties migration for all Tailwind classes
-- Full Hebrew translation of all UI strings
-- hreflang tags and localized SEO metadata
-- Clerk component localization
-- Locale auto-detection with cookie persistence
+- Badge indicators on tabs (notification counts)
+- Active state animations on tab selection
+- Skeleton loading states on mobile views
+- RTL-aware bottom tabs (Hebrew support)
 
 **Defer (v2+):**
-- User-generated content translation
-- Additional languages beyond English/Hebrew
-- Translation management system integration
-- Complex bidirectional text handling for mixed content
+- Gesture shortcuts (swipe up for quick actions)
+- Pull-to-refresh
+- Haptic feedback
+- Offline mode indicators
+- Accent color customization
+- Scheduled theme switching
 
 ### Architecture Approach
 
-The architecture follows a locale-segment pattern where all routes are nested under a `[locale]` dynamic segment. The existing route group structure `(app)`, `(auth)`, `(main)` is preserved, just moved one level deeper. The key providers stack in this order: ClerkProvider > NextIntlClientProvider > DirectionProvider > ConvexClientProvider.
+The architecture follows a composition pattern: `AppShell` orchestrates mobile vs desktop layout using the existing `useIsMobile()` hook (768px breakpoint). Mobile renders `MobileBottomNav` + condensed header; desktop renders `AppSidebar` + full header. Navigation items derive from the single source of truth (`getNavigationForRole()`) mapped to a mobile-specific priority configuration.
 
 **Major components:**
-1. **Root Layout** (`app/layout.tsx`) - Minimal shell, just renders children
-2. **Locale Layout** (`app/[locale]/layout.tsx`) - Sets html lang/dir, wraps with all providers, loads messages
-3. **i18n Config** (`src/i18n/routing.ts`, `request.ts`) - Locale definitions, message loading
-4. **Middleware** (`middleware.ts`) - Composes Clerk auth + next-intl routing, handles redirects
+1. **AppShell** — Layout orchestration, mobile/desktop conditional rendering
+2. **MobileBottomNav** — Bottom tab navigation (refactor existing, make role-aware)
+3. **ResponsiveHeader** — Mobile/desktop header switcher
+4. **HeaderActionsDropdown** — Consolidated header actions (notifications, locale, theme, sign out)
+5. **ThemeSwitcher** — Light/Dark/System toggle in dropdown
 
 **Data flow:**
-- Server: Request > Middleware (locale detection/redirect) > LocaleLayout (extract locale from params) > getMessages() > Server Components
-- Client: NextIntlClientProvider > useTranslations hook > React context > Client Components
-- RTL: `dir` attribute on html + DirectionProvider propagates to all Radix primitives
+```
+useCurrentUser() --> getNavigationForRole(role) --> AppSidebar (desktop)
+                                                --> MobileBottomNav (mobile, top 5 items)
+                                                --> MobileHeaderMenu (mobile, full nav in sheet)
+```
 
 ### Critical Pitfalls
 
-Research identified 15 pitfalls. The top 5 require immediate attention:
+1. **iOS Safari 100vh/Safe Area:** Bottom tab bar gets obscured by Safari chrome and home indicator. **Prevention:** Use `h-dvh` instead of `h-screen`, add `viewport-fit=cover` meta, apply `pb-[env(safe-area-inset-bottom)]` to tab bar.
 
-1. **Hardcoded directional CSS classes** — 255+ occurrences of `ml-*`, `mr-*`, `left-*`, etc. must convert to logical properties (`ms-*`, `me-*`, `start-*`). Create migration script and ESLint rule.
+2. **Theme Flash (FOWT):** Page flashes wrong theme on load due to SSR not knowing localStorage preference. **Prevention:** Configure ThemeProvider with `disableTransitionOnChange`, add `suppressHydrationWarning` to `<html>`, use CSS for theme-dependent images.
 
-2. **Shadcn/ui RTL issues** — sidebar, sheet, dropdown menus use physical positioning. Shadcn has no official RTL support (PR open 2+ years). Must patch components manually.
+3. **Tailwind Mobile-First Confusion:** Unprefixed classes apply to ALL sizes, not just desktop. **Prevention:** Audit existing responsive patterns before starting; establish convention that base = mobile, `md:` = desktop override.
 
-3. **Server/client hydration mismatch** — Dates/numbers formatted differently on server vs client causes React errors. Use next-intl formatters consistently with explicit timezone.
+4. **Sidebar-to-Tab State Desync:** Existing SidebarProvider context conflicts with bottom tab state model. **Prevention:** Derive active tab from route pathname, not context; remove mobile Sheet sidebar behavior when bottom tabs active.
 
-4. **Missing DirectionProvider** — Radix primitives don't inherit `dir` from HTML. Popovers, tooltips, dropdowns will position incorrectly without explicit DirectionProvider wrapping.
-
-5. **Middleware composition** — Clerk and next-intl must be chained correctly. Clerk wraps outer, returns intlMiddleware response. Order matters for route protection.
+5. **Clerk Custom UI Edge Cases:** Custom sign-in/sign-out misses 20+ flows that prebuilt components handle. **Prevention:** Implement all status codes and error states; keep Clerk components as fallback; test OAuth, MFA, magic link flows.
 
 ## Implications for Roadmap
 
 Based on research, suggested phase structure:
 
-### Phase 1: Core i18n Infrastructure
-**Rationale:** All other phases depend on routing and provider structure being in place first.
-**Delivers:** Working locale routing with `/en/` and `/he/` paths, middleware composition, provider stack.
-**Addresses:** URL-based routing, dir attribute, DirectionProvider
-**Avoids:** Middleware conflicts (Pitfall 8), Missing DirectionProvider (Pitfall 4)
+### Phase 1: Foundation
+**Rationale:** Must establish responsive patterns and safe area CSS before building any mobile components; prevents cascade of fixes later.
+**Delivers:** ThemeProvider setup, safe area CSS utilities, viewport meta tag, mobile nav config types
+**Addresses:** Theme switching infrastructure, iOS compatibility foundation
+**Avoids:** iOS 100vh pitfall (#1), theme flash pitfall (#2), Tailwind confusion (#3)
 
-Tasks:
-- Install next-intl, @radix-ui/react-direction
-- Create i18n/routing.ts and i18n/request.ts
-- Restructure app directory (add `[locale]` segment)
-- Update middleware.ts to compose Clerk + next-intl
-- Create LocaleLayout with all providers
-- Add minimal translation files (en.json, he.json)
-- Update html element with dynamic lang/dir
+### Phase 2: Theme System
+**Rationale:** Theme provider must be wired before building UI that depends on theme-aware colors; separating allows isolated testing.
+**Delivers:** Working Light/Dark/System toggle, theme-aware components, no hydration mismatches
+**Uses:** next-themes (already installed), Tailwind dark mode CSS (already configured)
+**Avoids:** Theme flash pitfall (#2), toggle animation jank (#12)
 
-### Phase 2: RTL Component Foundation
-**Rationale:** CSS migration must complete before page-level work to avoid double-handling components.
-**Delivers:** RTL-safe component library, all Shadcn components working in both directions.
-**Uses:** Tailwind v4 logical properties, DirectionProvider
-**Avoids:** Hardcoded CSS pitfall (Pitfall 1), Shadcn RTL issues (Pitfall 2)
+### Phase 3: Bottom Tab Bar
+**Rationale:** Core mobile navigation must exist before header can be simplified; establishes navigation patterns.
+**Delivers:** Role-aware bottom tabs (5 tabs max), active state indicators, safe area compliance
+**Implements:** MobileBottomNav refactor, mobile nav config by role
+**Avoids:** Nav state desync (#4), safe area issues (#1), full-bleed page conflicts (#10), keyboard conflicts (#14)
 
-Tasks:
-- Create CSS migration script for physical > logical properties
-- Convert all `ml-*`/`mr-*`/etc to `ms-*`/`me-*` across codebase
-- Audit and patch Shadcn components (sidebar.tsx, sheet.tsx, dropdown-menu.tsx)
-- Create DirectionalIcon utility for arrow/chevron flipping
-- Add ESLint rule to prevent future directional class usage
-- Test all UI components in RTL mode
+### Phase 4: Header Redesign
+**Rationale:** With bottom tabs providing primary nav, header can be simplified; consolidation requires all pieces in place.
+**Delivers:** Condensed mobile header, HeaderActionsDropdown (notifications + locale + theme + sign out), search icon trigger
+**Addresses:** Header information overload (#8), touch targets (#6)
+**Avoids:** Mobile header clutter, buried actions
 
-### Phase 3: AppShell RTL
-**Rationale:** Navigation chrome is the most visible RTL impact; proves the RTL system works.
-**Delivers:** Full RTL-aware navigation including sidebar, header, breadcrumbs.
-**Implements:** Sidebar position flip, navigation layout, mobile menu
-
-Tasks:
-- Update Sidebar.tsx for RTL (rail position, collapse direction)
-- Update AppShell header (search, user menu alignment)
-- Update breadcrumbs separator direction
-- Update mobile navigation drawer
-- Test complete navigation flow in both directions
-
-### Phase 4: Translation Infrastructure
-**Rationale:** Once RTL layout works, focus shifts to content. String extraction is foundational for translation.
-**Delivers:** All UI strings externalized to translation files, components using translation hooks.
-**Addresses:** String externalization, ICU message syntax, form validation messages
-
-Tasks:
-- Create namespace structure (common, navigation, dashboard, properties, deals, etc.)
-- Extract all hardcoded strings from components
-- Implement useTranslations pattern in Server and Client components
-- Add placeholder, aria-label, alt text translations
-- Set up TypeScript type safety for translation keys
-
-### Phase 5: Formatting and Localization
-**Rationale:** After strings, handle data formatting and third-party component localization.
-**Delivers:** Locale-aware dates, numbers, currency; localized Clerk components.
-**Avoids:** Hydration mismatch (Pitfall 3), Clerk not localized (Pitfall 7)
-
-Tasks:
-- Replace date-fns format calls with next-intl useFormatter
-- Replace number/currency formatting with useFormatter
-- Configure timezone in i18n/request.ts
-- Install @clerk/localizations, configure Hebrew
-- Update Calendar component with Hebrew locale
-- Test all data displays in both locales
-
-### Phase 6: Hebrew Translation
-**Rationale:** With infrastructure complete, content translation can proceed.
-**Delivers:** Complete Hebrew translation of all UI strings.
-**Addresses:** Full Hebrew translation from FEATURES.md
-
-Tasks:
-- Translate common.json namespace
-- Translate navigation namespace
-- Translate dashboard namespace
-- Translate properties namespace
-- Translate deals namespace
-- Translate form validation messages
-- Professional review of translations
-
-### Phase 7: Language Switcher and Polish
-**Rationale:** Final phase adds user-facing controls and handles edge cases.
-**Delivers:** Working language switcher, locale persistence, SEO tags, production-ready i18n.
-**Addresses:** Language switcher, locale persistence, hreflang tags
-
-Tasks:
-- Create language switcher component
-- Add to AppShell header
-- Implement cookie-based locale persistence
-- Add locale auto-detection for new visitors
-- Add hreflang tags to all pages
-- Add localized metadata (title, description)
-- Generate localized sitemap
-- End-to-end testing of locale switching
+### Phase 5: Custom Clerk UI (Optional)
+**Rationale:** Highest risk phase; requires stable navigation foundation; can be deferred or done with fallback.
+**Delivers:** Custom UserMenu replacing Clerk's UserButton, custom sign-out flow
+**Avoids:** Session handling gaps (#5)
+**Recommendation:** Keep Clerk prebuilt components as fallback; implement custom UI incrementally
 
 ### Phase Ordering Rationale
 
-- **Infrastructure first (Phase 1):** All subsequent phases depend on the routing structure and provider stack. This cannot be parallelized.
-- **RTL before content (Phases 2-3 before 4-6):** Extracting strings while also changing component structure leads to merge conflicts and rework. Complete CSS/layout changes first.
-- **Components before AppShell (Phase 2 before 3):** The AppShell uses components from the UI library. Fix component-level RTL issues first.
-- **Formatting before translation (Phase 5 before 6):** Ensures translators see proper date/number formatting patterns in context.
-- **Polish last (Phase 7):** Language switcher and SEO are not blockers for development and testing.
+- **Foundation before components:** Safe area CSS and ThemeProvider must exist before any fixed-position mobile components to avoid rework.
+- **Theme before UI:** Theme context must wrap app before building theme-aware components; prevents hydration mismatch debugging.
+- **Bottom tabs before header:** Primary navigation must be established before simplifying secondary header; ensures users have access to all features during transition.
+- **Header after tabs:** Can safely remove sidebar trigger and simplify header only after bottom tabs provide navigation.
+- **Custom Clerk last:** Highest risk, most edge cases, least impact on core mobile UX; can be deferred entirely if timeline pressures.
 
 ### Research Flags
 
-Phases likely needing deeper research during planning:
-- **Phase 2:** Shadcn component patches may require checking latest community solutions, specific component versions
-- **Phase 6:** Hebrew translation may need native speaker review, real estate terminology research
+**Phases likely needing deeper research during planning:**
+- **Phase 5 (Custom Clerk UI):** Clerk's custom flows are complex with many edge cases. Review Clerk Elements (beta) as alternative. May need auth flow test matrix.
 
-Phases with standard patterns (skip research-phase):
-- **Phase 1:** next-intl setup is well-documented with verified Clerk integration pattern
-- **Phase 4:** String extraction is mechanical, patterns are clear
-- **Phase 5:** Intl API and date-fns localization are standard
-- **Phase 7:** Language switcher and SEO tags follow established patterns
+**Phases with standard patterns (skip research-phase):**
+- **Phase 1 (Foundation):** Well-documented CSS patterns for safe areas and viewport units.
+- **Phase 2 (Theme System):** next-themes + shadcn/ui have official docs; pattern is established.
+- **Phase 3 (Bottom Tab Bar):** Standard mobile web pattern; existing MobileBottomNav provides starting point.
+- **Phase 4 (Header Redesign):** Uses existing Shadcn/ui DropdownMenu; consolidation is straightforward.
 
 ## Confidence Assessment
 
 | Area | Confidence | Notes |
 |------|------------|-------|
-| Stack | HIGH | next-intl v4 and Tailwind v4 logical properties are well-documented, version compatibility verified |
-| Features | HIGH | i18n feature landscape is mature, table stakes vs differentiators well-understood |
-| Architecture | HIGH | next-intl App Router pattern and Clerk middleware composition have official documentation |
-| Pitfalls | HIGH | Pitfalls verified with GitHub issues, community reports, and official docs |
+| Stack | HIGH | Codebase analysis confirms all packages present and configured |
+| Features | HIGH | Based on industry standards (Zillow, Redfin patterns) and existing REOS capabilities |
+| Architecture | HIGH | Direct code inspection of AppShell.tsx, Sidebar.tsx, navigation.ts |
+| Pitfalls | HIGH | iOS Safari issues well-documented; REOS-specific risks identified from code review |
 
 **Overall confidence:** HIGH
 
 ### Gaps to Address
 
-- **Shadcn component patches:** While issues are documented, specific patch implementations may need iteration. Plan for component-by-component testing.
-- **Hebrew translation quality:** UI translations should be reviewed by native Hebrew speaker with real estate domain knowledge. Budget for translation review.
-- **Performance impact:** Adding i18n middleware and translation loading may affect TTFB. Monitor and optimize if needed.
-- **Edge cases in bidirectional text:** Mixed English/Hebrew content (property addresses, names) may need `<bdi>` element usage. Address case-by-case during implementation.
+- **"More" Tab Behavior:** Decision needed: should 5th tab open full MobileHeaderMenu, or show mini-menu with remaining items? Decide during Phase 3 planning.
+- **Gesture Navigation:** Should mobile menu support swipe-to-close? Requires additional implementation or library. Can defer to post-MVP.
+- **Search on Mobile:** Current GlobalSearchBar uses CommandDialog; verify it works well on mobile or needs adaptation. Test during Phase 4.
+- **Notification Badge Aggregation:** Should consolidated header dropdown show aggregate notification count? Design decision for Phase 4.
 
 ## Sources
 
 ### Primary (HIGH confidence)
-- [next-intl Official Documentation](https://next-intl.dev/docs/getting-started/app-router) — App Router setup, middleware, server/client patterns
-- [next-intl 4.0 Release Notes](https://next-intl.dev/blog/next-intl-4-0) — TypeScript improvements, breaking changes
-- [Tailwind CSS v4 Documentation](https://tailwindcss.com/docs/padding) — Logical property utilities
-- [Radix UI DirectionProvider](https://www.radix-ui.com/primitives/docs/utilities/direction-provider) — RTL context for primitives
-- [Clerk Middleware Documentation](https://clerk.com/docs/reference/nextjs/clerk-middleware) — Middleware composition pattern
-- [Clerk Localization](https://clerk.com/docs/guides/customizing-clerk/localization) — Hebrew localization setup
+- **Codebase analysis** — Direct inspection of AppShell.tsx, Sidebar.tsx, navigation.ts, use-mobile.ts, Providers.tsx
+- [next-themes GitHub](https://github.com/pacocoursey/next-themes) — v0.4.6 setup, ThemeProvider configuration
+- [shadcn/ui Dark Mode Docs](https://ui.shadcn.com/docs/dark-mode/next) — ThemeProvider pattern
+- [Tailwind CSS Responsive Design](https://tailwindcss.com/docs/responsive-design) — Mobile-first breakpoints
+- [MDN env() CSS](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/env) — Safe area insets
+- [Clerk Custom Flows](https://clerk.com/docs/guides/development/custom-flows/overview) — Custom UI warnings and requirements
 
 ### Secondary (MEDIUM confidence)
-- [Shadcn RTL Issue #2759](https://github.com/shadcn-ui/ui/issues/2759) — Community discussion of RTL challenges
-- [Shadcn RTL PR #1638](https://github.com/shadcn-ui/ui/pull/1638) — Unmerged RTL support PR with implementation patterns
-- [next-intl Guide 2025](https://www.buildwithmatija.com/blog/nextjs-internationalization-guide-next-intl-2025) — Community tutorial with patterns
-- [Material Design Bidirectionality](https://material.io/design/usability/bidirectionality.html) — Icon mirroring best practices
+- [Mobile Navigation UX Best Practices (2026)](https://www.designstudiouiux.com/blog/mobile-navigation-ux/) — Bottom tab performance data (40% faster task completion)
+- [Material Design Dark Theme](https://m3.material.io/styles/color/dark-theme) — #121212 background recommendation
+- [Understanding Mobile Viewport Units](https://medium.com/@tharunbalaji110/understanding-mobile-viewport-units-a-complete-guide-to-svh-lvh-and-dvh-0c905d96e21a) — dvh/svh/lvh explanation
 
 ### Tertiary (LOW confidence)
-- [Shadcn Switch Direction Bug #8198](https://github.com/shadcn-ui/ui/issues/8198) — Specific component bug, may be fixed in newer versions
+- [Clerk Elements (Beta)](https://clerk.com/docs/customization/elements/overview) — Potential alternative to fully custom auth UI; needs evaluation
 
 ---
-*Research completed: 2026-01-19*
+*Research completed: 2026-01-21*
 *Ready for roadmap: yes*

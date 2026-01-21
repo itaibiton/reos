@@ -8,12 +8,12 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 
 **Deal flow tracking from interest to close.** If the end-to-end process of connecting investors with properties AND moving them through service providers doesn't work seamlessly, nothing else matters.
 
-## Current State (v1.3)
+## Current State (v1.4)
 
-**Latest Shipped:** 2026-01-19
-**Total Shipped:** 4 milestones (v1.0, v1.1, v1.2, v1.3)
+**Latest Shipped:** 2026-01-20
+**Total Shipped:** 5 milestones (v1.0, v1.1, v1.2, v1.3, v1.4)
 **LOC:** ~35,000+ TypeScript
-**Tech Stack:** Next.js 15, Convex, Clerk, Shadcn/ui, Tailwind v4, Hugeicons
+**Tech Stack:** Next.js 15, Convex, Clerk, Shadcn/ui, Tailwind v4, Hugeicons, next-intl
 
 **What's Working:**
 - Full authentication with 8 roles (investor, broker, mortgage_advisor, lawyer, admin, accountant, notary, tax_consultant, appraiser)
@@ -30,6 +30,7 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 - User following and personalized feeds
 - Global search with autocomplete and quick actions
 - Trending content and recommendations
+- Full i18n with Hebrew/RTL support and locale-aware formatting
 
 ## Requirements
 
@@ -56,20 +57,19 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 
 ### Active
 
-**v1.4 Internationalization & RTL Support**
+**v1.5 Mobile Responsive & Header Redesign**
 
-- [ ] Full i18n infrastructure with next-intl or similar
-- [ ] URL-based locale routing (/he/, /en/)
-- [ ] Complete Hebrew translation for all system UI
-- [ ] Full RTL layout flip when locale is Hebrew
-- [ ] Directional icon handling (arrows, chevrons flip)
-- [ ] RTL-aware Shadcn components
-- [ ] Locale-aware date/time formatting
-- [ ] Locale-aware number formatting
-- [ ] Locale-aware currency display
-- [ ] Language switcher component
-- [ ] Locale auto-detection with persistence
-- [ ] Scalable architecture for future languages
+- [ ] Full mobile responsiveness across all pages
+- [ ] Bottom tab bar navigation for mobile (role-specific tabs)
+- [ ] Header redesign with consolidated dropdown (notifications + settings)
+- [ ] Custom notification UI using Clerk functions (no Clerk components)
+- [ ] Custom sign out UI using Clerk functions
+- [ ] Theme switcher (Light/Dark/System)
+- [ ] Unread notification badge on dropdown trigger
+- [ ] Search icon → expanding search on mobile
+- [ ] Property cards stack vertically on mobile
+- [ ] All forms and modals mobile-optimized
+- [ ] Touch-friendly interactions throughout
 
 ### Out of Scope
 
@@ -78,8 +78,8 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 - **Payment processing / subscriptions** — all providers free during MVP
 - **Semantic search** — MVP uses NLP → filters only, semantic understanding in v2
 - **Property data auto-fetching** — manual property upload only for MVP
-- **Multi-language support** — ~~English only for MVP~~ → v1.4
 - **Offline mode** — real-time is core value
+- **Native mobile app** — web responsive first, native apps in future
 
 ## Context
 
@@ -122,16 +122,18 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 | Claude AI for search parsing | Fast, accurate, cost-effective | ✓ Good |
 | Hardcoded USD/ILS rate | Quick MVP, live API in v1.1 | ⚠️ Revisit |
 
-## Current Milestone: v1.4 Internationalization & RTL
+## Current Milestone: v1.5 Mobile Responsive & Header Redesign
 
-**Goal:** Add full internationalization infrastructure with Hebrew as the first additional language, including complete RTL layout support and locale-aware formatting.
+**Goal:** Make the entire application fully mobile responsive with modern mobile patterns, and redesign the header with a consolidated dropdown for notifications, settings, and sign out — all using custom UI with Clerk functions.
 
 **Target features:**
-- URL-based locale routing (`/he/`, `/en/`)
-- Full Hebrew UI translation
-- RTL layout flip (sidebar, text direction, icons)
-- Locale-aware formatting (dates, numbers, currency)
-- Scalable i18n architecture for future languages
+- Bottom tab bar navigation for mobile (5 tabs, role-specific)
+- Header consolidation: search bar + single dropdown (notifications tab, settings tab, sign out)
+- Custom Clerk UI (no Clerk-provided components)
+- Theme switcher (Light/Dark/System)
+- Full mobile responsiveness without breaking desktop
+- Property cards stacked vertically on mobile
+- Search icon that expands on mobile
 
 ---
-*Last updated: 2026-01-19 after v1.4 milestone planning*
+*Last updated: 2026-01-21 after v1.5 milestone started*

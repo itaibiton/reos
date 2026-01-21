@@ -11,6 +11,7 @@ Building an end-to-end real estate investment platform connecting US investors w
 - [v1.2 Provider Experience](milestones/v1.2-ROADMAP.md) (Phases 16-20) — SHIPPED 2026-01-19
 - [v1.3 Social Feed & Global Community](milestones/v1.3-ROADMAP.md) (Phases 21-27.2) — SHIPPED 2026-01-19
 - [v1.4 Internationalization & RTL](milestones/v1.4-ROADMAP.md) (Phases 28-34.1) — SHIPPED 2026-01-20
+- [v1.5 Mobile Responsive & Header Redesign](milestones/v1.5-ROADMAP.md) (Phases 35-39) — IN PROGRESS
 
 ## Completed Milestones
 
@@ -111,6 +112,18 @@ Building an end-to-end real estate investment platform connecting US investors w
 
 </details>
 
+## Current Milestone: v1.5 Mobile Responsive & Header Redesign
+
+**5 phases, 32 requirements**
+
+- [ ] Phase 35: Mobile Foundation (FND-01 to FND-04) — Pending
+- [ ] Phase 36: Theme System (THM-01 to THM-05) — Pending
+- [ ] Phase 37: Mobile Navigation (NAV-01 to NAV-08) — Pending
+- [ ] Phase 38: Header Redesign (HDR-01 to HDR-10) — Pending
+- [ ] Phase 39: Responsive Layouts (RSP-01 to RSP-06) — Pending
+
+[Full details ->](milestones/v1.5-ROADMAP.md)
+
 ## Progress
 
 | Milestone | Phases | Plans | Status | Shipped |
@@ -120,6 +133,7 @@ Building an end-to-end real estate investment platform connecting US investors w
 | v1.2 Provider Experience | 6 | 11 | Complete | 2026-01-19 |
 | v1.3 Social Feed & Global Community | 8 | 20 | Complete | 2026-01-19 |
 | v1.4 Internationalization & RTL | 8 | 46 | Complete | 2026-01-20 |
+| v1.5 Mobile Responsive & Header Redesign | 5 | TBD | In Progress | — |
 
 **Total: 46 phases, 125 plans shipped**
 

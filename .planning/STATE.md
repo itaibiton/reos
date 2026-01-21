@@ -2,25 +2,25 @@
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-01-19)
+See: .planning/PROJECT.md (updated 2026-01-21)
 
 **Core value:** Deal flow tracking from interest to close.
-**Current focus:** v1.4 Internationalization & RTL Support — SHIPPED
+**Current focus:** v1.5 Mobile Responsive & Header Redesign
 
 ## Current Position
 
-Milestone: v1.4 Internationalization & RTL Support — SHIPPED 2026-01-20
-Phase: 34.1 - Translate All Pages & Content (COMPLETE)
-Plan: 3/3 — complete
-Status: MILESTONE v1.4 COMPLETE
-Last activity: 2026-01-20 — Shipped v1.4 milestone (46 plans, 8 phases)
+Milestone: v1.5 Mobile Responsive & Header Redesign
+Phase: 35 - Mobile Foundation
+Plan: Not started
+Status: Ready for planning
+Last activity: 2026-01-21 — Roadmap created for v1.5
 
-Progress: [██████████] 100% (3/3 plans)
+Progress: [░░░░░░░░░░] 0%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 101
+- Total plans completed: 125
 - Average duration: 5.3 min
 - Total execution time: 8.6 hours
 
@@ -363,16 +363,17 @@ Recent decisions affecting current work:
 - Phase 34.1: stageKeyMap pattern for DealSelector stage label translations
 - Phase 34.1: roleKeyMap + tRoles pattern standardized across all chat dialog components for role translations
 
-### v1.4 Research Findings
+### v1.5 Research Findings
 
-Key decisions from research (research/SUMMARY.md):
-- next-intl v4 for translation and routing (not next-i18next)
-- Tailwind v4 logical properties (no RTL plugin needed)
-- @radix-ui/react-direction for Radix/Shadcn RTL context
-- Heebo font for Hebrew-Latin support
-- Middleware composition: Clerk wraps outer, returns intlMiddleware
-- 255+ directional CSS classes need migration
-- Shadcn has no official RTL support (manual patches needed)
+Key decisions from research:
+- next-themes already installed but not wired up (needs ThemeProvider wrapping)
+- Existing MobileBottomNav component exists but NOT integrated
+- useIsMobile() hook at 768px breakpoint ready
+- Role-based nav via getNavigationForRole() exists
+- iOS Safari 100vh bug - must use 100dvh + env(safe-area-inset-bottom)
+- Theme flash requires proper next-themes config (attribute, enableSystem, defaultTheme)
+- AppShell is complex (380 lines) - recommend careful modifications
+- framer-motion already in dependencies for tab animations
 
 ### Deferred Issues
 
@@ -401,10 +402,11 @@ None yet.
 - Milestone v1.4 created: Internationalization & RTL, 7 phases (Phase 28-34)
 - Phase 34.1 inserted after Phase 34: Translate All Pages & Content (COMPLETE)
 - Milestone v1.4 shipped: Internationalization & RTL, 8 phases (Phase 28-34.1), 46 plans
+- Milestone v1.5 created: Mobile Responsive & Header Redesign, 5 phases (Phase 35-39)
 
 ## Session Continuity
 
-Last session: 2026-01-20
-Stopped at: MILESTONE v1.4 SHIPPED
+Last session: 2026-01-21
+Stopped at: Roadmap created for v1.5
 Resume file: None
-Next: Run `/gsd:audit-milestone` or `/gsd:new-milestone` for next version
+Next: `/gsd:plan-phase 35` to plan Mobile Foundation phase

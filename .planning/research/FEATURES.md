@@ -1,239 +1,244 @@
-# Feature Landscape: i18n + RTL Support
+# Feature Landscape: Mobile Responsive + Header Redesign
 
-**Domain:** Web application internationalization with RTL support
-**Researched:** 2026-01-19
-**Confidence:** HIGH (verified via multiple authoritative sources)
+**Domain:** Real estate investment platform mobile responsiveness
+**Researched:** 2026-01-21
+**Mode:** Features dimension (for subsequent milestone)
 
 ## Table Stakes
 
-Features users expect in a properly internationalized web application. Missing any of these creates a broken or amateurish experience.
+Features users expect. Missing = product feels incomplete or broken on mobile.
 
-### Core i18n Infrastructure
+### Bottom Tab Bar Navigation
 
-| Feature | Why Expected | Complexity | Notes |
-|---------|--------------|------------|-------|
-| **URL-based locale routing** | Users expect `/he/` and `/en/` paths; enables bookmarking, sharing, SEO | Medium | Use `[locale]` dynamic segment in App Router |
-| **Static string externalization** | All UI text must be translatable, not hardcoded | Medium | Extract ~500+ strings to JSON files |
-| **ICU message syntax** | Handles interpolation, pluralization, gender correctly | Low | next-intl uses ICU format natively |
-| **Pluralization rules** | Hebrew has different plural forms than English | Low | ICU `{count, plural, ...}` handles this |
-| **Date/time formatting** | 19/01/2026 vs 01/19/2026 vs other formats | Low | Use `Intl.DateTimeFormat` via next-intl |
-| **Number formatting** | 1,234.56 vs 1.234,56 vs other conventions | Low | Use `Intl.NumberFormat` via next-intl |
-| **Currency formatting** | $1,234 vs 1,234 $ vs symbol placement | Low | ILS and USD with locale-appropriate display |
-| **Language switcher** | Users must be able to change language | Low | Preserve current path when switching |
-| **Locale persistence** | Remember user's language choice | Low | Cookie-based persistence |
+| Feature | Why Expected | Complexity | Dependencies | Notes |
+|---------|--------------|------------|--------------|-------|
+| Fixed bottom navigation (5 tabs) | Industry standard for mobile apps; 40% faster task completion vs hamburger menu (Airbnb study) | Low | None - new component | Position fixed, within thumb zone |
+| Role-specific tab content | Already have role-based sidebar navigation | Low | Existing `useCurrentUser`, `getNavigationForRole` | Map sidebar groups to bottom tabs |
+| Active state indicator | Users need visual feedback on current location | Low | React pathname matching (already in Sidebar.tsx) | Bold icon + label, or colored underline |
+| Safe area insets | iOS notch/home indicator compatibility | Low | Tailwind `safe-area-inset-*` or `pb-safe` | Critical for iPhone users |
+| Hide on scroll (optional) | More content visibility while browsing | Medium | Scroll direction detection hook | Zillow/Redfin do NOT hide - keep visible |
+| Badge indicators | Notifications count on tabs | Low | Existing notification count query | Dot or number badge on relevant tabs |
 
-### RTL Layout Requirements
+**Recommendation:** 5 tabs - Properties, Feed, Chat, Deals, Profile. This matches user mental model from Zillow (Explore, Favorites, Inbox, Profile) and LinkedIn (Home, Network, Post, Notifications, Jobs).
 
-| Feature | Why Expected | Complexity | Notes |
-|---------|--------------|------------|-------|
-| **`dir="rtl"` on root element** | Browser interprets direction, flips flex/grid | Low | Dynamic based on locale |
-| **CSS logical properties** | `margin-inline-start` instead of `margin-left` | High | Requires updating all Tailwind classes |
-| **Sidebar position flip** | Navigation on right side for RTL | Medium | Automatically handled by logical properties |
-| **Text alignment** | Right-aligned text in RTL | Low | `text-start` instead of `text-left` |
-| **Form field alignment** | Input fields align correctly | Low | CSS logical properties handle this |
-| **Scrollbar position** | Left side in RTL browsers | Low | Browser handles automatically |
+### Responsive Header
 
-### Directional Icon Handling
+| Feature | Why Expected | Complexity | Dependencies | Notes |
+|---------|--------------|------------|--------------|-------|
+| Condensed mobile header | Full header wastes precious vertical space | Low | Tailwind responsive classes | Logo + avatar dropdown + search icon |
+| Search as icon (not full bar) | Mobile space constraints | Low | Existing GlobalSearchBar opens dialog | Command+K dialog already works |
+| Single dropdown menu | Consolidate notifications, settings, sign out | Medium | Refactor existing Header.tsx | Avatar-triggered dropdown |
+| Hamburger for overflow | Secondary nav items (settings, help, etc.) | Low | Existing Sheet component | Only if needed beyond bottom tabs |
 
-| Feature | Why Expected | Complexity | Notes |
-|---------|--------------|------------|-------|
-| **Arrow/chevron mirroring** | Back arrow points right in RTL | Medium | Conditionally flip with `scale-x-[-1]` |
-| **Navigation icon mirroring** | Menu, sidebar icons flip appropriately | Medium | Some icons should NOT flip (e.g., phone, home) |
-| **Progress indicators** | Progress bars flow right-to-left | Low | CSS logical properties |
+**Recommendation:** Mobile header: Logo left, search icon center-right, avatar dropdown far right. Remove breadcrumbs on mobile (bottom tabs provide context).
 
-### SEO Requirements
+### Property Cards - Mobile Layout
 
-| Feature | Why Expected | Complexity | Notes |
-|---------|--------------|------------|-------|
-| **hreflang tags** | Search engines serve correct language version | Medium | Add to all pages with alternates |
-| **Self-referencing canonicals** | Each locale points to itself | Low | Standard SEO practice |
-| **Localized metadata** | Title, description in each language | Medium | Part of translation workflow |
-| **Localized sitemap** | URLs for all locales | Low | Generate per-locale URLs |
+| Feature | Why Expected | Complexity | Dependencies | Notes |
+|---------|--------------|------------|--------------|-------|
+| Full-width stacked cards | Grid doesn't work on small screens | Low | Tailwind responsive grid | `grid-cols-1 md:grid-cols-2 lg:grid-cols-3` |
+| Touch-friendly tap targets | Minimum 44x44px touch areas | Low | Review existing PropertyCard | Save button, status badges |
+| Image carousel swipe | Users expect swipe gestures on images | Medium | Embla carousel already installed | Add swipe navigation |
+| Quick action buttons | Save, share without opening detail | Low | Existing SaveButton component | Add share button |
 
-### Component-Level i18n
+### Theme Switching
 
-| Feature | Why Expected | Complexity | Notes |
-|---------|--------------|------------|-------|
-| **Radix DirectionProvider** | Shadcn/Radix components respect RTL | Low | Wrap app with DirectionProvider |
-| **Form validation messages** | Error messages in user's language | Medium | Use zod-i18n or translation keys |
-| **Toast/notification messages** | System messages translated | Low | Use translation keys |
-| **Empty states** | "No results" etc. translated | Low | Include in string extraction |
+| Feature | Why Expected | Complexity | Dependencies | Notes |
+|---------|--------------|------------|--------------|-------|
+| Light/Dark/System options | 82.7% of users have dark mode preference | Low | `next-themes` already installed | Already have infrastructure |
+| System preference sync | Auto-switch based on OS setting | Low | Built into next-themes | Default behavior |
+| Persistent preference | Remember user choice | Low | next-themes localStorage | Already works |
+| Smooth transitions | No jarring flash on theme change | Low | CSS transitions | Avoid FOUC |
+
+**Recommendation:** Three-way toggle: Light, Dark, System. Place in avatar dropdown menu.
+
+### RTL/i18n Responsive
+
+| Feature | Why Expected | Complexity | Dependencies | Notes |
+|---------|--------------|------------|--------------|-------|
+| RTL-aware bottom tabs | Hebrew users need mirrored layout | Low | Tailwind RTL utilities (`start-*`, `end-*`) | Already using logical properties |
+| RTL swipe gestures | Carousel direction should flip | Medium | Embla RTL support | Check direction context |
+| Locale-aware number formatting | Already implemented | None | Using `useFormatter` | Currency, percentages |
+
+---
 
 ## Differentiators
 
-Features that create an excellent i18n experience. Not strictly required, but significantly improve UX.
+Features that set REOS apart. Not expected, but valued.
 
-### Enhanced UX
+### Smart Navigation Shortcuts
 
-| Feature | Value Proposition | Complexity | Notes |
-|---------|-------------------|------------|-------|
-| **Auto-detection with graceful fallback** | Detect browser language, redirect appropriately | Medium | Middleware-based, respect `Accept-Language` |
-| **Locale-specific fonts** | Hebrew may need different font weights | Low | Font stacks per locale |
-| **Smooth transitions on locale change** | No jarring full-page reload | Medium | Client-side navigation preservation |
-| **Relative time formatting** | "2 days ago" localized correctly | Low | `Intl.RelativeTimeFormat` |
-| **List formatting** | "A, B, and C" vs "A, B and C" | Low | `Intl.ListFormat` |
+| Feature | Value Proposition | Complexity | Dependencies | Notes |
+|---------|-------------------|------------|--------------|-------|
+| Gesture shortcuts | Swipe up for quick actions | High | Custom gesture handling | Nice-to-have, not MVP |
+| Recent items quick access | Last 3 viewed properties in dropdown | Medium | Add view history tracking | Saves navigation time |
+| Role-specific quick actions | Admin: view-as switcher in dropdown | Low | Already built | Move to mobile dropdown |
 
-### Advanced Bidirectional Support
+### Advanced Mobile Features
 
-| Feature | Value Proposition | Complexity | Notes |
-|---------|-------------------|------------|-------|
-| **Bidirectional text isolation** | Mixed Hebrew/English in same string | Medium | `<bdi>` element for user content |
-| **Unicode directional marks** | Punctuation in correct position | Medium | LRM/RLM characters when needed |
-| **Property names/addresses** | English addresses in Hebrew UI | Medium | Isolate LTR content properly |
-| **User-generated content** | Comments, posts with mixed content | High | Runtime direction detection |
+| Feature | Value Proposition | Complexity | Dependencies | Notes |
+|---------|-------------------|------------|--------------|-------|
+| Pull-to-refresh | Natural mobile pattern | Medium | Custom hook or library | Properties list, Feed |
+| Skeleton loading states | Perceived performance | Low | Already have Skeleton component | Apply to mobile views |
+| Offline indicator | Clear network status | Low | Navigator.onLine API | Banner when offline |
+| Haptic feedback | Premium feel on actions | Low | Navigator.vibrate API | Save button, notifications |
 
-### Developer Experience
+### Theme Customization
 
-| Feature | Value Proposition | Complexity | Notes |
-|---------|-------------------|------------|-------|
-| **TypeScript autocompletion** | IDE suggests translation keys | Low | next-intl provides this |
-| **Missing translation detection** | Build-time warnings for missing keys | Medium | CI integration |
-| **Namespace organization** | Modular translation files | Low | `common.json`, `properties.json`, etc. |
-| **Translation key linting** | Detect unused/missing keys | Medium | eslint-plugin-i18n or similar |
+| Feature | Value Proposition | Complexity | Dependencies | Notes |
+|---------|-------------------|------------|--------------|-------|
+| Accent color customization | Personal branding for providers | High | Extend theme system | Post-MVP |
+| Scheduled theme switching | Auto dark at sunset | Medium | Geolocation + time | Premium feature |
 
-### Content Management
-
-| Feature | Value Proposition | Complexity | Notes |
-|---------|-------------------|------------|-------|
-| **Pseudo-localization testing** | Test layout without real translations | Low | Extend strings with accents |
-| **Translation progress tracking** | Know what's translated | Medium | TMS integration or manual tracking |
-| **Context for translators** | Screenshots, descriptions with keys | Medium | Add to translation files |
+---
 
 ## Anti-Features
 
-Features to explicitly NOT build. Common mistakes that waste effort or create problems.
+Features to explicitly NOT build. Common mistakes in this domain.
 
-### Over-Engineering
-
-| Anti-Feature | Why Avoid | What to Do Instead |
-|--------------|-----------|-------------------|
-| **Build custom i18n framework** | Reinventing wheel, missing edge cases | Use next-intl, battle-tested |
-| **Server-side locale detection only** | Ignores user preference, poor UX | Combine with cookie persistence |
-| **Automatic content translation** | Low quality, misses context | Human translation for UI strings |
-| **Translate user-generated content** | Complex, expensive, often unwanted | Leave UGC in original language |
-
-### Common Implementation Mistakes
+### Navigation Anti-Patterns
 
 | Anti-Feature | Why Avoid | What to Do Instead |
 |--------------|-----------|-------------------|
-| **String concatenation** | Word order varies by language | Use ICU placeholders `{name}` |
-| **Pixel-based layouts** | Translated text varies in length | Use flexible layouts, min/max widths |
-| **Text in images** | Cannot be translated | Separate text from graphics |
-| **Hardcoded date/number formats** | Different locales, different formats | Always use Intl API |
-| **`rtl:` modifier everywhere** | Maintenance nightmare | Use CSS logical properties |
-| **Single translation file** | Becomes huge, hard to maintain | Namespace by feature/page |
+| Hamburger menu as primary nav | 40% slower task completion, hidden navigation | Use bottom tab bar for primary sections |
+| Too many tabs (6+) | Thumb zone congestion, choice paralysis | Max 5 tabs, use "More" overflow if needed |
+| Hiding high-frequency actions | User friction increases abandonment | Keep Properties, Chat always visible |
+| Top navigation bar on mobile | Out of thumb reach zone | Bottom tabs for primary nav |
+| Tab labels without icons | Harder to scan quickly | Always pair icon + label |
+| Swipe-only navigation | Discoverability problem; keep visible controls | Swipe as accelerator, not primary path |
 
-### RTL-Specific Anti-Patterns
-
-| Anti-Feature | Why Avoid | What to Do Instead |
-|--------------|-----------|-------------------|
-| **Mirroring ALL icons** | Some icons are universal (phone, home) | Selective mirroring list |
-| **Testing with Lorem Ipsum** | Doesn't trigger RTL rendering | Test with actual Hebrew text |
-| **Assuming flexbox auto-flips** | Only works with proper dir attribute | Verify DirectionProvider setup |
-| **Ignoring bidirectional content** | Punctuation appears wrong | Use `<bdi>` and Unicode marks |
-
-### SEO Anti-Patterns
+### Header Anti-Patterns
 
 | Anti-Feature | Why Avoid | What to Do Instead |
 |--------------|-----------|-------------------|
-| **Same URL, different content** | Confuses search engines | Distinct URLs per locale |
-| **Cross-locale canonicals** | Wrong: en page canonical to he page | Self-referencing canonicals |
-| **Missing hreflang** | Search engines serve wrong version | Add hreflang to all pages |
-| **Automatic redirects only** | Users can't choose, bad for SEO | Provide visible language switcher |
+| Full search bar on mobile header | Wastes vertical space | Search icon that opens CommandDialog |
+| Multiple dropdown menus | Cognitive overload | Single avatar dropdown for all user actions |
+| Breadcrumbs on mobile | Too small to tap, wastes space | Remove on mobile; bottom tabs provide context |
+| Notification bell + avatar as separate items | Cluttered header | Consolidate into avatar dropdown |
+| Desktop sidebar on mobile | Covers content, poor UX | Replace with bottom tabs |
+
+### Theme Anti-Patterns
+
+| Anti-Feature | Why Avoid | What to Do Instead |
+|--------------|-----------|-------------------|
+| Pure black (#000000) dark mode | Eye strain, "visual vibration" | Use dark gray (#121212 per Material Design) |
+| Pure white text on dark | High contrast fatigue | Use dimmed white (#E0E0E0) |
+| No system preference option | Ignores user OS setting | Always include System/Auto option |
+| Flash on theme switch | Jarring experience | Use CSS transitions, proper SSR handling |
+| Forced dark mode | 1/3 users prefer light mode | Always offer choice |
+
+### Property Card Anti-Patterns
+
+| Anti-Feature | Why Avoid | What to Do Instead |
+|--------------|-----------|-------------------|
+| Horizontal scroll on mobile | Hidden content, poor discoverability | Vertical stack with full-width cards |
+| Tiny touch targets | Accessibility failure, frustration | Minimum 44x44px tap areas |
+| Image-only cards (no details visible) | Requires tap to see price | Show key metrics (price, beds, baths) |
+| Auto-playing video | Battery drain, data usage, annoyance | Tap to play only |
+
+---
 
 ## Feature Dependencies
 
 ```
-Core Infrastructure (must be first)
-    |
-    +-- URL-based routing
-    |       |
-    |       +-- Middleware locale detection
-    |       +-- hreflang tags
-    |       +-- Language switcher
-    |
-    +-- Translation file structure
-    |       |
-    |       +-- String externalization
-    |       +-- ICU message syntax
-    |       +-- Form validation messages
-    |
-    +-- RTL Layout
-            |
-            +-- dir attribute
-            +-- DirectionProvider
-            +-- CSS logical properties
-            +-- Icon mirroring
+Existing Features --> Mobile Features
+================================
+
+useCurrentUser hook ------> Role-specific bottom tabs
+getNavigationForRole() ---> Tab content mapping
+GlobalSearchBar (CommandDialog) --> Mobile search icon trigger
+NotificationCenter -------> Badge count on Profile tab
+LocaleSwitcher -----------> Move to avatar dropdown
+next-themes --------------> Theme switcher in dropdown
+PropertyCard -------------> Responsive grid classes
+SaveButton ---------------> Touch-friendly size adjustment
+Embla carousel -----------> Property image swipe
+Sheet component ----------> Mobile filters panel (if needed)
 ```
 
-**Phase Ordering Implication:**
-1. Infrastructure first (routing, middleware, dir attribute)
-2. Component updates (CSS logical properties, DirectionProvider)
-3. Content extraction (string externalization)
-4. Polish (icons, bidirectional text, testing)
+---
 
 ## MVP Recommendation
 
-For v1.4 MVP, prioritize in this order:
+For MVP, prioritize these table stakes features:
 
-### Must Have (Week 1-2)
-1. URL-based locale routing (`/he/`, `/en/`)
-2. `dir="rtl"` dynamic attribute
-3. Radix DirectionProvider wrapper
-4. Basic string externalization for navigation and common UI
-5. Language switcher component
-6. Date/number/currency formatting
+### Phase 1: Core Mobile Navigation (Must Have)
+1. **Bottom Tab Bar** - 5 tabs, role-specific, fixed position
+2. **Responsive Header** - Condensed version, avatar dropdown
+3. **Property Card Grid** - Full-width on mobile, responsive grid
+4. **Theme Switcher** - Light/Dark/System in dropdown
 
-### Should Have (Week 2-3)
-1. CSS logical properties migration (Tailwind classes)
-2. Full Hebrew translation for all UI strings
-3. hreflang and SEO metadata
-4. Locale auto-detection with persistence
-5. Form validation message translation
+### Phase 2: Polish (Should Have)
+5. **Safe area insets** - iOS compatibility
+6. **Badge indicators** - Notification counts
+7. **RTL support** - Already mostly done, verify tabs
 
-### Nice to Have (Week 3-4)
-1. Directional icon handling
-2. Bidirectional text support for user content
-3. Pseudo-localization testing mode
-4. Missing translation detection
+### Defer to Post-MVP:
+- Gesture shortcuts (swipe up for actions)
+- Pull-to-refresh
+- Haptic feedback
+- Offline mode indicators
+- Accent color customization
 
-### Defer to Post-v1.4
-- User-generated content translation
-- Additional languages beyond Hebrew/English
-- Translation management system integration
-- Advanced bidirectional text handling for complex cases
+---
 
-## Complexity Assessment
+## Responsive Breakpoint Strategy
 
-| Area | Effort | Risk | Notes |
-|------|--------|------|-------|
-| **Routing setup** | Low | Low | next-intl handles most complexity |
-| **CSS migration** | High | Medium | Many files to update, find `left`/`right` |
-| **String extraction** | High | Low | Tedious but straightforward |
-| **Shadcn RTL** | Medium | Medium | Some components need manual fixes |
-| **SEO tags** | Low | Low | Standard pattern |
-| **Icon mirroring** | Medium | Low | Need to categorize all icons |
+Based on existing codebase (Tailwind CSS 4) and research:
 
-**Total estimated effort:** 2-4 weeks depending on string count and component complexity.
+| Breakpoint | Width | Layout |
+|------------|-------|--------|
+| Mobile | < 640px (sm) | Bottom tabs, single column, condensed header |
+| Tablet | 640-1024px | Bottom tabs or sidebar, 2-column grid |
+| Desktop | > 1024px (lg) | Sidebar navigation, 3+ column grid |
+
+**Implementation Note:** The existing AppShell uses `lg:hidden` for mobile hamburger. Extend this pattern:
+- `md:hidden` for bottom tab bar (hide on tablet+)
+- `hidden md:flex` for desktop search bar
+- `grid-cols-1 sm:grid-cols-2 lg:grid-cols-3` for property grid
+
+---
 
 ## Sources
 
-### Authoritative (HIGH confidence)
-- [Next.js Internationalization Guide](https://nextjs.org/docs/pages/guides/internationalization)
-- [next-intl Documentation](https://next-intl.dev/)
-- [Radix DirectionProvider](https://www.radix-ui.com/primitives/docs/utilities/direction-provider)
-- [MDN CSS Logical Properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Logical_properties_and_values/Margins_borders_padding)
-- [W3C Internationalization Best Practices](https://www.w3.org/International/geo/html-tech/tech-bidi.html)
-- [Google Multi-Regional Site Management](https://developers.google.com/search/docs/specialty/international/managing-multi-regional-sites)
+**Mobile Navigation Patterns:**
+- [Mobile Navigation UX Best Practices (2026)](https://www.designstudiouiux.com/blog/mobile-navigation-ux/) - Bottom tab bar performance data
+- [Mobile Navigation Design: 6 Patterns That Work (2026)](https://phone-simulator.com/blog/mobile-navigation-patterns-in-2026/) - Platform conventions
 
-### Community (MEDIUM confidence)
-- [Phrase i18n Common Mistakes](https://phrase.com/blog/posts/10-common-mistakes-in-software-localization/)
-- [Shopify i18n Best Practices](https://shopify.engineering/internationalization-i18n-best-practices-front-end-developers)
-- [Smashing Magazine RTL Development](https://www.smashingmagazine.com/2017/11/right-to-left-mobile-design/)
-- [shadcn-ui RTL Issues](https://github.com/shadcn-ui/ui/issues/2736)
-- [zod-i18n Library](https://github.com/aiji42/zod-i18n)
+**Header & Dropdown Design:**
+- [Designing Profile, Account, and Settings Pages](https://medium.com/design-bootcamp/designing-profile-account-and-setting-pages-for-better-ux-345ef4ca1490) - Avatar dropdown patterns
+- [Salt Design System - App Header](https://www.saltdesignsystem.com/salt/patterns/app-header/) - Responsive header structure
 
-### Framework-Specific (MEDIUM confidence)
-- [Tailwind CSS RTL Plugin](https://github.com/20lives/tailwindcss-rtl)
-- [tailwindcss-vanilla-rtl](https://github.com/thibaudcolas/tailwindcss-vanilla-rtl)
-- [Flowbite RTL Support](https://flowbite.com/docs/customize/rtl/)
+**Dark Mode Best Practices:**
+- [10 Dark Mode UI Best Practices (2026)](https://www.designstudiouiux.com/blog/dark-mode-ui-design-best-practices/) - Color guidelines
+- [Dark Mode Design Best Practices (2026)](https://www.tech-rz.com/blog/dark-mode-design-best-practices-in-2026/) - User control principles
+- [Material Design - Dark Theme](https://m3.material.io/styles/color/dark-theme) - #121212 background recommendation
+
+**Real Estate App UX:**
+- [Using Maps as Core UX in Real Estate Platforms](https://raw.studio/blog/using-maps-as-the-core-ux-in-real-estate-platforms/) - Zillow/Redfin patterns
+- [Redesigning Zillow App](https://insights.daffodilsw.com/blog/redesigning-zillow-app-using-design-thinking-approach) - Onboarding issues
+
+**Implementation References:**
+- [Next.js Bottom Navigation Bar](https://github.com/coderzway/next-js-bottom-navigation-bar) - Implementation example
+- [Creating Responsive Navbar with Tailwind CSS](https://dev.to/ryaddev/creating-a-responsive-navbar-using-nextjs-and-tailwind-css-48kk) - Tailwind patterns
+
+---
+
+## Existing Infrastructure Leverage
+
+The REOS codebase already has:
+
+| Existing | Mobile Use |
+|----------|------------|
+| `next-themes` | Theme switching infrastructure ready |
+| `useCurrentUser` hook | Role detection for tab content |
+| `getNavigationForRole()` | Navigation items to map to tabs |
+| `GlobalSearchBar` with CommandDialog | Mobile search - just need icon trigger |
+| `NotificationCenter` | Notification count for badge |
+| `LocaleSwitcher` | Move to dropdown |
+| `Sheet` component | Mobile filter panels |
+| `Embla carousel` | Image swipe gestures |
+| Tailwind logical properties (`start-*`, `end-*`) | RTL support |
+| `SidebarProvider` with responsive collapse | Desktop fallback already works |
+
+**No new dependencies required.** All features can be built with existing stack.

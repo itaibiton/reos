@@ -1,66 +1,75 @@
-# Requirements: REOS v1.4
+# Requirements: REOS v1.5
 
-**Defined:** 2026-01-19
+**Defined:** 2026-01-21
 **Core Value:** Deal flow tracking from interest to close
 
 ## v1 Requirements
 
-Requirements for v1.4 Internationalization & RTL Support. Each maps to roadmap phases.
+Requirements for v1.5 Mobile Responsive & Header Redesign. Each maps to roadmap phases.
 
-### Infrastructure
+### Foundation
 
-- [x] **INFRA-01**: App supports URL-based locale routing with `/he/` and `/en/` path prefixes
-- [x] **INFRA-02**: Middleware correctly chains Clerk auth with next-intl locale handling
-- [x] **INFRA-03**: App wrapped with DirectionProvider for Radix/Shadcn RTL support
-- [x] **INFRA-04**: Existing route groups `(app)`, `(auth)`, `(main)` preserved under `[locale]` segment
+- [ ] **FND-01**: Viewport uses 100dvh for full-height layouts (not 100vh)
+- [ ] **FND-02**: CSS env() safe-area-inset variables configured
+- [ ] **FND-03**: ThemeProvider properly wraps application
+- [ ] **FND-04**: useIsMobile() hook used consistently for responsive behavior
 
-### RTL Layout
+### Theme Switching
 
-- [x] **RTL-01**: HTML `dir` attribute set to `rtl` when locale is Hebrew
-- [x] **RTL-02**: All directional CSS classes converted to logical properties (`ml-` to `ms-`, etc.)
-- [x] **RTL-03**: Shadcn Sidebar component works correctly in RTL mode
-- [x] **RTL-04**: Shadcn Sheet, DropdownMenu, and other positioned components work in RTL
-- [x] **RTL-05**: Directional icons (arrows, chevrons) flip appropriately in RTL mode
+- [ ] **THM-01**: Settings tab contains Light/Dark/System toggle
+- [ ] **THM-02**: Theme preference persists across sessions (localStorage)
+- [ ] **THM-03**: No theme flash on page load (proper hydration)
+- [ ] **THM-04**: System option respects OS dark mode preference
+- [ ] **THM-05**: Theme transition animates smoothly
 
-### Translation
+### Mobile Navigation
 
-- [x] **TRANS-01**: All UI strings extracted to JSON translation files
-- [x] **TRANS-02**: Hebrew translations provided for all extracted UI strings
-- [x] **TRANS-03**: Translation files organized by namespace/feature
+- [ ] **NAV-01**: App displays bottom tab bar on mobile (<768px) with 5 tabs
+- [ ] **NAV-02**: Tab bar shows role-specific tabs (investors: Properties, Feed, Chat, Deals, Profile)
+- [ ] **NAV-03**: Tab bar shows role-specific tabs (providers: Dashboard, Clients, Chat, Feed, Profile)
+- [ ] **NAV-04**: Active tab shows visual indicator (filled icon, color highlight)
+- [ ] **NAV-05**: Tabs display badge for unread counts (notifications, messages)
+- [ ] **NAV-06**: Tab bar respects iOS safe area insets (no content behind home indicator)
+- [ ] **NAV-07**: Tab transitions animate smoothly with Framer Motion
+- [ ] **NAV-08**: Sidebar is hidden on mobile, replaced by bottom tabs
 
-### Formatting
+### Header Redesign
 
-- [x] **FMT-01**: Dates displayed in locale-appropriate format
-- [x] **FMT-02**: Numbers displayed with locale-appropriate separators
-- [x] **FMT-03**: Currency displayed with locale-appropriate symbol and format
+- [ ] **HDR-01**: Header shows search icon on mobile that expands to full search input on tap
+- [ ] **HDR-02**: Header shows single avatar dropdown button on right side
+- [ ] **HDR-03**: Dropdown contains Notifications tab with unread items
+- [ ] **HDR-04**: Dropdown contains Settings tab with theme and language switches
+- [ ] **HDR-05**: Dropdown shows Sign Out button at bottom
+- [ ] **HDR-06**: Dropdown trigger shows unread notification badge
+- [ ] **HDR-07**: Breadcrumbs hidden on mobile, shown on desktop
+- [ ] **HDR-08**: Search expansion animates smoothly
+- [ ] **HDR-09**: Notifications grouped by type in dropdown
+- [ ] **HDR-10**: Custom UI built with Clerk functions (no Clerk components)
 
-### User Experience
+### Responsive Layouts
 
-- [x] **UX-01**: Language switcher component available in UI
-- [x] **UX-02**: User locale preference persisted across sessions
-- [x] **UX-03**: Locale auto-detected on first visit based on browser settings
+- [ ] **RSP-01**: Property cards stack vertically (full-width) on mobile
+- [ ] **RSP-02**: All form inputs are full-width on mobile
+- [ ] **RSP-03**: Modals display as bottom sheets on mobile
+- [ ] **RSP-04**: Touch targets are minimum 44px for all interactive elements
+- [ ] **RSP-05**: Pull-to-refresh available on feed pages
+- [ ] **RSP-06**: Desktop layouts remain unchanged (no regressions)
 
 ## v2 Requirements
 
 Deferred to future release. Tracked but not in current roadmap.
 
-### Advanced Translation
+### Advanced Mobile
 
-- **TRANS-04**: ICU message syntax for complex plurals and interpolation
-- **TRANS-05**: TypeScript type-safe translation keys
-- **TRANS-06**: Machine translation fallback for missing strings
+- **MOB-01**: Gesture navigation (swipe to go back)
+- **MOB-02**: Haptic feedback on interactions
+- **MOB-03**: Offline indicator when connection lost
+- **MOB-04**: PWA install prompt
 
-### Additional Languages
+### Advanced Theme
 
-- **LANG-01**: Arabic language support (RTL)
-- **LANG-02**: Russian language support
-- **LANG-03**: Spanish language support
-
-### SEO
-
-- **SEO-01**: hreflang tags for language alternates
-- **SEO-02**: Locale-specific meta descriptions
-- **SEO-03**: Locale-specific Open Graph tags
+- **THM-06**: Custom accent color picker
+- **THM-07**: High contrast mode for accessibility
 
 ## Out of Scope
 
@@ -68,10 +77,12 @@ Explicitly excluded. Documented to prevent scope creep.
 
 | Feature | Reason |
 |---------|--------|
-| User-generated content translation | User content stays in original language per requirements |
-| Real-time translation API | Too complex for MVP, defer to v2+ |
-| Per-field language selection | Overkill for initial release |
-| Subdomain-based locale (he.reos.com) | URL path approach simpler and better for SEO |
+| Native mobile app | Web responsive first, native apps in future milestone |
+| Hamburger menu | Research shows 40% slower task completion than bottom tabs |
+| Full search bar on mobile | Takes too much header space, icon trigger is standard |
+| Breadcrumbs on mobile | Screen real estate too limited |
+| Pure black (#000000) dark mode | Too harsh, use dark gray instead |
+| Clerk UserButton component | Want custom UI matching our design system |
 
 ## Traceability
 
@@ -79,30 +90,45 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INFRA-01 | 28 | Complete |
-| INFRA-02 | 28 | Complete |
-| INFRA-03 | 28 | Complete |
-| INFRA-04 | 28 | Complete |
-| RTL-01 | 28 | Complete |
-| RTL-02 | 29 | Complete |
-| RTL-03 | 30 | Complete |
-| RTL-04 | 30 | Complete |
-| RTL-05 | 30 | Complete |
-| TRANS-01 | 31 | Complete |
-| TRANS-02 | 33 | Complete |
-| TRANS-03 | 31 | Complete |
-| FMT-01 | 32 | Complete |
-| FMT-02 | 32 | Complete |
-| FMT-03 | 32 | Complete |
-| UX-01 | 34 | Complete |
-| UX-02 | 34 | Complete |
-| UX-03 | 34 | Complete |
+| FND-01 | Phase 35 | Pending |
+| FND-02 | Phase 35 | Pending |
+| FND-03 | Phase 35 | Pending |
+| FND-04 | Phase 35 | Pending |
+| THM-01 | Phase 36 | Pending |
+| THM-02 | Phase 36 | Pending |
+| THM-03 | Phase 36 | Pending |
+| THM-04 | Phase 36 | Pending |
+| THM-05 | Phase 36 | Pending |
+| NAV-01 | Phase 37 | Pending |
+| NAV-02 | Phase 37 | Pending |
+| NAV-03 | Phase 37 | Pending |
+| NAV-04 | Phase 37 | Pending |
+| NAV-05 | Phase 37 | Pending |
+| NAV-06 | Phase 37 | Pending |
+| NAV-07 | Phase 37 | Pending |
+| NAV-08 | Phase 37 | Pending |
+| HDR-01 | Phase 38 | Pending |
+| HDR-02 | Phase 38 | Pending |
+| HDR-03 | Phase 38 | Pending |
+| HDR-04 | Phase 38 | Pending |
+| HDR-05 | Phase 38 | Pending |
+| HDR-06 | Phase 38 | Pending |
+| HDR-07 | Phase 38 | Pending |
+| HDR-08 | Phase 38 | Pending |
+| HDR-09 | Phase 38 | Pending |
+| HDR-10 | Phase 38 | Pending |
+| RSP-01 | Phase 39 | Pending |
+| RSP-02 | Phase 39 | Pending |
+| RSP-03 | Phase 39 | Pending |
+| RSP-04 | Phase 39 | Pending |
+| RSP-05 | Phase 39 | Pending |
+| RSP-06 | Phase 39 | Pending |
 
 **Coverage:**
-- v1 requirements: 18 total
-- Mapped to phases: 18
+- v1 requirements: 32 total
+- Mapped to phases: 32
 - Unmapped: 0
 
 ---
-*Requirements defined: 2026-01-19*
-*Last updated: 2026-01-20 after Phase 33 completion*
+*Requirements defined: 2026-01-21*
+*Last updated: 2026-01-21 after roadmap creation*
