@@ -6,7 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { useRouter } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { api } from "../../../../../convex/_generated/api";
-import { PostCard, PostCardSkeleton, CreatePostDialog } from "@/components/feed";
+import { PostCard, PostCardSkeleton, CreatePostDialog, PullToRefreshWrapper } from "@/components/feed";
 import { TrendingSection, PeopleToFollow } from "@/components/discovery";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -99,97 +99,106 @@ export default function FeedPage() {
     return t("empty.noPostsDescription");
   };
 
+  // Handle pull-to-refresh
+  const handleRefresh = async () => {
+    router.refresh();
+    // Add small delay for UX
+    await new Promise(resolve => setTimeout(resolve, 500));
+  };
+
   return (
     <div className="max-w-5xl mx-auto p-6">
       <div className="lg:flex lg:gap-6">
-        {/* Main feed column */}
-        <div className="flex-1 space-y-6">
-          {/* Header */}
-          <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-bold">{t("title")}</h1>
-            <Button onClick={() => setDialogOpen(true)} className="gap-2">
-              <HugeiconsIcon icon={Add01Icon} size={16} />
-              {t("createPost")}
-            </Button>
-          </div>
+        {/* Main feed column with pull-to-refresh on mobile */}
+        <PullToRefreshWrapper onRefresh={handleRefresh}>
+          <div className="flex-1 space-y-6">
+            {/* Header */}
+            <div className="flex items-center justify-between">
+              <h1 className="text-2xl font-bold">{t("title")}</h1>
+              <Button onClick={() => setDialogOpen(true)} className="gap-2">
+                <HugeiconsIcon icon={Add01Icon} size={16} />
+                {t("createPost")}
+              </Button>
+            </div>
 
-          {/* Feed Source Tabs (Global/Following) */}
-          <Tabs value={feedSource} onValueChange={handleSourceChange}>
-            <TabsList>
-              <TabsTrigger value="global">{t("tabs.global")}</TabsTrigger>
-              <TabsTrigger value="following">{t("tabs.following")}</TabsTrigger>
-            </TabsList>
-          </Tabs>
-
-          {/* Post Type Filter Tabs (only for global feed) */}
-          {feedSource === "global" && (
-            <Tabs value={filterType} onValueChange={handleFilterChange}>
-              <TabsList className="grid w-full grid-cols-4">
-                <TabsTrigger value="all">{t("filters.all")}</TabsTrigger>
-                <TabsTrigger value="property_listing">{t("filters.properties")}</TabsTrigger>
-                <TabsTrigger value="service_request">{t("filters.services")}</TabsTrigger>
-                <TabsTrigger value="discussion">{t("filters.discussions")}</TabsTrigger>
+            {/* Feed Source Tabs (Global/Following) */}
+            <Tabs value={feedSource} onValueChange={handleSourceChange}>
+              <TabsList>
+                <TabsTrigger value="global">{t("tabs.global")}</TabsTrigger>
+                <TabsTrigger value="following">{t("tabs.following")}</TabsTrigger>
               </TabsList>
             </Tabs>
-          )}
 
-          {/* Loading state (first page) */}
-          {status === "LoadingFirstPage" && (
-            <div className="flex flex-col gap-4">
-              <PostCardSkeleton />
-              <PostCardSkeleton />
-              <PostCardSkeleton />
-            </div>
-          )}
+            {/* Post Type Filter Tabs (only for global feed) */}
+            {feedSource === "global" && (
+              <Tabs value={filterType} onValueChange={handleFilterChange}>
+                <TabsList className="grid w-full grid-cols-4">
+                  <TabsTrigger value="all">{t("filters.all")}</TabsTrigger>
+                  <TabsTrigger value="property_listing">{t("filters.properties")}</TabsTrigger>
+                  <TabsTrigger value="service_request">{t("filters.services")}</TabsTrigger>
+                  <TabsTrigger value="discussion">{t("filters.discussions")}</TabsTrigger>
+                </TabsList>
+              </Tabs>
+            )}
 
-          {/* Empty state */}
-          {status !== "LoadingFirstPage" && results.length === 0 && (
-            <div className="flex flex-col items-center text-center py-12">
-              <div className="rounded-full bg-muted p-4 mb-4 text-muted-foreground">
-                <HugeiconsIcon
-                  icon={feedSource === "following" ? UserMultiple02Icon : RssIcon}
-                  size={48}
-                  strokeWidth={1.5}
-                />
+            {/* Loading state (first page) */}
+            {status === "LoadingFirstPage" && (
+              <div className="flex flex-col gap-4">
+                <PostCardSkeleton />
+                <PostCardSkeleton />
+                <PostCardSkeleton />
               </div>
-              <h2 className="text-xl font-semibold mb-2">{getEmptyStateMessage()}</h2>
-              <p className="text-muted-foreground mb-6 max-w-md">
-                {getEmptyStateDescription()}
-              </p>
-              {feedSource === "global" && (
-                <Button onClick={() => setDialogOpen(true)}>{t("empty.createAPost")}</Button>
-              )}
-            </div>
-          )}
+            )}
 
-          {/* Posts list */}
-          {results.length > 0 && (
-            <div className="flex flex-col gap-4">
-              {results.map((post) => (
-                <PostCard key={post._id} post={post} />
-              ))}
-            </div>
-          )}
+            {/* Empty state */}
+            {status !== "LoadingFirstPage" && results.length === 0 && (
+              <div className="flex flex-col items-center text-center py-12">
+                <div className="rounded-full bg-muted p-4 mb-4 text-muted-foreground">
+                  <HugeiconsIcon
+                    icon={feedSource === "following" ? UserMultiple02Icon : RssIcon}
+                    size={48}
+                    strokeWidth={1.5}
+                  />
+                </div>
+                <h2 className="text-xl font-semibold mb-2">{getEmptyStateMessage()}</h2>
+                <p className="text-muted-foreground mb-6 max-w-md">
+                  {getEmptyStateDescription()}
+                </p>
+                {feedSource === "global" && (
+                  <Button onClick={() => setDialogOpen(true)}>{t("empty.createAPost")}</Button>
+                )}
+              </div>
+            )}
 
-          {/* Load more button */}
-          {status === "CanLoadMore" && (
-            <Button
-              variant="outline"
-              className="w-full"
-              onClick={() => loadMore(10)}
-            >
-              {t("loadMore")}
-            </Button>
-          )}
+            {/* Posts list */}
+            {results.length > 0 && (
+              <div className="flex flex-col gap-4">
+                {results.map((post) => (
+                  <PostCard key={post._id} post={post} />
+                ))}
+              </div>
+            )}
 
-          {/* Loading more indicator */}
-          {status === "LoadingMore" && (
-            <Button variant="outline" className="w-full" disabled>
-              <Loader2 className="h-4 w-4 animate-spin me-2" />
-              {t("loading")}
-            </Button>
-          )}
-        </div>
+            {/* Load more button */}
+            {status === "CanLoadMore" && (
+              <Button
+                variant="outline"
+                className="w-full"
+                onClick={() => loadMore(10)}
+              >
+                {t("loadMore")}
+              </Button>
+            )}
+
+            {/* Loading more indicator */}
+            {status === "LoadingMore" && (
+              <Button variant="outline" className="w-full" disabled>
+                <Loader2 className="h-4 w-4 animate-spin me-2" />
+                {t("loading")}
+              </Button>
+            )}
+          </div>
+        </PullToRefreshWrapper>
 
         {/* Discovery sidebar - hidden on mobile */}
         <aside className="hidden lg:block w-80 space-y-6 sticky top-6 self-start">
