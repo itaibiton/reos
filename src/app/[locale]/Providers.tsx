@@ -17,7 +17,6 @@ export function Providers({ children, locale, direction, messages }: Props) {
       attribute="class"
       defaultTheme="system"
       enableSystem
-      disableTransitionOnChange
     >
       <DirectionProvider dir={direction}>
         <NextIntlClientProvider locale={locale} messages={messages}>
