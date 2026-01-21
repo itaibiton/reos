@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono, Heebo, Bebas_Neue, DM_Serif_Display } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { hasLocale } from "next-intl";
@@ -47,6 +47,13 @@ export const metadata: Metadata = {
   description: "Connect US investors with Israeli properties",
 };
 
+export const viewport: Viewport = {
+  viewportFit: "cover",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+};
+
 // Generate static params for all supported locales
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -75,6 +82,7 @@ export default async function LocaleLayout({ children, params }: Props) {
     <html
       lang={locale}
       dir={direction}
+      suppressHydrationWarning
       className={`${inter.variable} ${jetbrainsMono.variable} ${heebo.variable} ${bebasNeue.variable} ${dmSerifDisplay.variable}`}
     >
       <body className="font-sans antialiased">
