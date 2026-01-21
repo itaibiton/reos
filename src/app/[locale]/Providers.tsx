@@ -19,7 +19,7 @@ export function Providers({ children, locale, direction, messages }: Props) {
       enableSystem
     >
       <DirectionProvider dir={direction}>
-        <NextIntlClientProvider locale={locale} messages={messages}>
+        <NextIntlClientProvider locale={locale} messages={messages} timeZone="Asia/Jerusalem">
           {children}
         </NextIntlClientProvider>
       </DirectionProvider>

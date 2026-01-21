@@ -153,7 +153,7 @@ function DealCard({ deal, property, onClick }: DealCardProps) {
 
             <div className="flex items-center gap-1 text-sm text-muted-foreground">
               <HugeiconsIcon icon={Calendar01Icon} size={14} />
-              <span>{t("card.started")} {format.dateTime(new Date(deal.createdAt), 'short')}</span>
+              <span>{t("card.started")} {format.dateTime(new Date(deal.createdAt), { day: 'numeric', month: 'short', year: 'numeric' })}</span>
             </div>
 
             {providerCount > 0 && (

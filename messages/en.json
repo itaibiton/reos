@@ -570,13 +570,13 @@
         "price": "$29",
         "period": "/month",
         "units": "Up to 10 units",
-        "features": [
-          "Basic property dashboard",
-          "Tenant portal",
-          "Online rent collection",
-          "Email support",
-          "Mobile app access"
-        ],
+        "features": {
+          "0": "Basic property dashboard",
+          "1": "Tenant portal",
+          "2": "Online rent collection",
+          "3": "Email support",
+          "4": "Mobile app access"
+        },
         "cta": "Start Free Trial"
       },
       "professional": {
@@ -586,14 +586,14 @@
         "period": "/month",
         "units": "Up to 50 units",
         "popular": "Most Popular",
-        "features": [
-          "Everything in Starter",
-          "Advanced analytics",
-          "Automated workflows",
-          "Document management",
-          "Priority support",
-          "API access"
-        ],
+        "features": {
+          "0": "Everything in Starter",
+          "1": "Advanced analytics",
+          "2": "Automated workflows",
+          "3": "Document management",
+          "4": "Priority support",
+          "5": "API access"
+        },
         "cta": "Start Free Trial"
       },
       "enterprise": {
@@ -602,14 +602,14 @@
         "price": "Custom",
         "period": "",
         "units": "Unlimited units",
-        "features": [
-          "Everything in Professional",
-          "Custom integrations",
-          "Dedicated account manager",
-          "SLA guarantee",
-          "On-premise option",
-          "Training & onboarding"
-        ],
+        "features": {
+          "0": "Everything in Professional",
+          "1": "Custom integrations",
+          "2": "Dedicated account manager",
+          "3": "SLA guarantee",
+          "4": "On-premise option",
+          "5": "Training & onboarding"
+        },
         "cta": "Contact Sales"
       }
     },

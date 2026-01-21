@@ -176,13 +176,13 @@ export function PricingPlans({ className }: PricingPlansProps) {
         {/* Pricing Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
           {pricingTiers.map((tier, index) => {
-            // Get features as an array
+            // Get features as an array - check if key exists before translating
             const features: string[] = [];
             for (let i = 0; i < 6; i++) {
-              try {
-                const feature = t(`${tier.key}.features.${i}`);
-                if (feature) features.push(feature);
-              } catch {
+              const key = `${tier.key}.features.${i}` as const;
+              if (t.has(key)) {
+                features.push(t(key));
+              } else {
                 break;
               }
             }
