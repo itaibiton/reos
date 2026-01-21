@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { useQuery } from "convex/react";
 import { useTranslations } from "next-intl";
@@ -12,10 +12,17 @@ import { Sparkles } from "lucide-react";
 
 const TOAST_ID = "incomplete-profile-reminder";
 
-// Extract toast content to a separate component to use translations
-function ToastContent({ onComplete }: { onComplete: () => void }) {
-  const t = useTranslations("settings.profile");
+// Toast content with translations passed as props (toast renders outside React tree)
+interface ToastContentProps {
+  onComplete: () => void;
+  translations: {
+    completeYourProfile: string;
+    unlockRecommendations: string;
+    completeNow: string;
+  };
+}
 
+function ToastContent({ onComplete, translations }: ToastContentProps) {
   return (
     <div className="relative w-full rounded-xl p-[2px] overflow-hidden">
       {/* Animated gradient border */}
@@ -28,10 +35,10 @@ function ToastContent({ onComplete }: { onComplete: () => void }) {
           <div>
             <p className="font-semibold text-foreground flex items-center gap-2">
               <Sparkles className="h-4 w-4 text-violet-500" />
-              {t("completeYourProfile")}
+              {translations.completeYourProfile}
             </p>
             <p className="text-sm text-muted-foreground mt-1">
-              {t("unlockRecommendations")}
+              {translations.unlockRecommendations}
             </p>
           </div>
           <Button
@@ -39,7 +46,7 @@ function ToastContent({ onComplete }: { onComplete: () => void }) {
             className="bg-gradient-to-r from-violet-600 to-blue-600 hover:from-violet-700 hover:to-blue-700"
             onClick={onComplete}
           >
-            {t("completeNow")}
+            {translations.completeNow}
           </Button>
         </div>
       </div>
@@ -50,12 +57,21 @@ function ToastContent({ onComplete }: { onComplete: () => void }) {
 export function IncompleteProfileReminder() {
   const router = useRouter();
   const pathname = usePathname();
+  const t = useTranslations("settings.profile");
   const { effectiveRole } = useCurrentUser();
   const questionnaire = useQuery(
     api.investorQuestionnaires.getByUser,
     effectiveRole === "investor" ? undefined : "skip"
   );
   const lastPathRef = useRef<string>("");
+
+  // Pre-fetch translations to pass to toast (which renders outside React tree)
+  // Memoize to prevent infinite re-renders from useEffect dependency
+  const translations = useMemo(() => ({
+    completeYourProfile: t("completeYourProfile"),
+    unlockRecommendations: t("unlockRecommendations"),
+    completeNow: t("completeNow"),
+  }), [t]);
 
   useEffect(() => {
     // Only show for investors with incomplete questionnaire
@@ -89,6 +105,7 @@ export function IncompleteProfileReminder() {
               toast.dismiss(TOAST_ID);
               router.push("/profile/investor/questionnaire");
             }}
+            translations={translations}
           />
         ),
         {
@@ -97,7 +114,7 @@ export function IncompleteProfileReminder() {
         }
       );
     }, 500);
-  }, [effectiveRole, questionnaire, pathname, router]);
+  }, [effectiveRole, questionnaire, pathname, router, translations]);
 
   return null;
 }
