@@ -6,12 +6,11 @@ import { useTranslations } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+  ResponsiveDialog,
+  ResponsiveDialogFooter,
+  ResponsiveDialogHeader,
+  ResponsiveDialogTitle,
+} from "@/components/ui/responsive-dialog";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -158,11 +157,10 @@ export function CreatePostDialog({
   ];
 
   return (
-    <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-lg">
-        <DialogHeader>
-          <DialogTitle>{t("createPost")}</DialogTitle>
-        </DialogHeader>
+    <ResponsiveDialog open={open} onOpenChange={handleClose}>
+      <ResponsiveDialogHeader>
+        <ResponsiveDialogTitle>{t("createPost")}</ResponsiveDialogTitle>
+      </ResponsiveDialogHeader>
 
         <div className="space-y-4 py-4">
           {/* Post Type Tabs */}
@@ -343,7 +341,7 @@ export function CreatePostDialog({
           </div>
         </div>
 
-        <DialogFooter>
+        <ResponsiveDialogFooter>
           <Button variant="outline" onClick={handleClose} disabled={isSubmitting}>
             {tCommon("actions.cancel")}
           </Button>
@@ -353,8 +351,7 @@ export function CreatePostDialog({
           >
             {isSubmitting ? t("post.posting") : t("post.post")}
           </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+        </ResponsiveDialogFooter>
+    </ResponsiveDialog>
   );
 }
