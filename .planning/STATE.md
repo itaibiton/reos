@@ -11,11 +11,11 @@ See: .planning/PROJECT.md (updated 2026-01-21)
 
 Milestone: v1.5 Mobile Responsive & Header Redesign
 Phase: 38 - Header Redesign (IN PROGRESS)
-Plan: 2/3 — in progress
-Status: Plan 38-02 complete, ready for 38-03
-Last activity: 2026-01-21 — Completed 38-02-PLAN.md
+Plan: 2/3 complete (38-01, 38-02) — ready for 38-03
+Status: Plan 38-01 complete, ready for 38-03 (final integration)
+Last activity: 2026-01-21 — Completed 38-01-PLAN.md
 
-Progress: [███████░░░] 70% (3.67/5 phases)
+Progress: [███████░░░] 73% (3.67/5 phases)
 
 ## Performance Metrics
 
@@ -77,11 +77,11 @@ Progress: [███████░░░] 70% (3.67/5 phases)
 | 35 | 2/2 | 6 min | 3 min |
 | 36 | 1/1 | 3 min | 3 min |
 | 37 | 3/3 | 7 min | 2.3 min |
-| 38 | 2/3 | 3 min | 1.5 min |
+| 38 | 2/3 | 6 min | 3 min |
 
 **Recent Trend:**
-- Last 5 plans: 36-01 (3 min), 37-01 (3 min), 37-02 (1 min), 37-03 (3 min), 38-01 (2 min), 38-02 (1 min)
-- Trend: v1.5 Mobile Responsive in progress - Phase 38 in progress
+- Last 5 plans: 37-01 (3 min), 37-02 (1 min), 37-03 (3 min), 38-02 (1 min), 38-01 (3 min)
+- Trend: v1.5 Mobile Responsive in progress - Phase 38 nearing completion
 
 ## Accumulated Context
 
@@ -382,6 +382,11 @@ Recent decisions affecting current work:
 - Phase 38: MobileSearchExpander uses callback pattern for search dialog opening
 - Phase 38: Animation uses 0.15s exit + 0.2s expand timing for snappy feedback
 - Phase 38: mode="wait" prevents animation race conditions on rapid taps
+- Phase 38: Popover + Tabs pattern for complex avatar dropdown
+- Phase 38: NotificationGroup type mapping for categorization (messages/deals/files/requests)
+- Phase 38: header.* namespace for header-specific translations
+- Phase 38: ToggleGroup for language switching (simplified from dropdown)
+- Phase 38: Reused ThemeSwitcher component inside SettingsTab
 
 ### v1.5 Research Findings
 
@@ -427,6 +432,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-21
-Stopped at: Completed 38-02-PLAN.md (Mobile Search Expander)
+Stopped at: Completed 38-01-PLAN.md (Avatar Dropdown Components)
 Resume file: None
-Next: 38-03-PLAN.md (Header Composition)
+Next: 38-03-PLAN.md (Header Composition - final integration)
