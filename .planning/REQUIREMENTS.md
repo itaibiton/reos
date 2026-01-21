@@ -48,12 +48,12 @@ Requirements for v1.5 Mobile Responsive & Header Redesign. Each maps to roadmap 
 
 ### Responsive Layouts
 
-- [ ] **RSP-01**: Property cards stack vertically (full-width) on mobile
-- [ ] **RSP-02**: All form inputs are full-width on mobile
-- [ ] **RSP-03**: Modals display as bottom sheets on mobile
-- [ ] **RSP-04**: Touch targets are minimum 44px for all interactive elements
-- [ ] **RSP-05**: Pull-to-refresh available on feed pages
-- [ ] **RSP-06**: Desktop layouts remain unchanged (no regressions)
+- [x] **RSP-01**: Property cards stack vertically (full-width) on mobile
+- [x] **RSP-02**: All form inputs are full-width on mobile
+- [x] **RSP-03**: Modals display as bottom sheets on mobile
+- [x] **RSP-04**: Touch targets are minimum 44px for all interactive elements
+- [x] **RSP-05**: Pull-to-refresh available on feed pages
+- [x] **RSP-06**: Desktop layouts remain unchanged (no regressions)
 
 ## v2 Requirements
 
@@ -117,12 +117,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | HDR-08 | Phase 38 | Complete |
 | HDR-09 | Phase 38 | Complete |
 | HDR-10 | Phase 38 | Complete |
-| RSP-01 | Phase 39 | Pending |
-| RSP-02 | Phase 39 | Pending |
-| RSP-03 | Phase 39 | Pending |
-| RSP-04 | Phase 39 | Pending |
-| RSP-05 | Phase 39 | Pending |
-| RSP-06 | Phase 39 | Pending |
+| RSP-01 | Phase 39 | Complete |
+| RSP-02 | Phase 39 | Complete |
+| RSP-03 | Phase 39 | Complete |
+| RSP-04 | Phase 39 | Complete |
+| RSP-05 | Phase 39 | Complete |
+| RSP-06 | Phase 39 | Complete |
 
 **Coverage:**
 - v1 requirements: 32 total
