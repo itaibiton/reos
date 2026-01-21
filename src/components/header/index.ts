@@ -1,0 +1,1 @@
+export { MobileSearchExpander } from "./MobileSearchExpander";
