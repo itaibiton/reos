@@ -131,7 +131,7 @@ export function PropertyFiltersPanel({
       </PopoverTrigger>
 
       <PopoverContent align="start" className="w-[380px] p-4">
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {/* City Filter */}
           <div className="space-y-1.5">
             <Label htmlFor="city-filter" className="text-xs font-medium">

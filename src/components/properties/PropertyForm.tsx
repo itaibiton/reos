@@ -534,7 +534,7 @@ export function PropertyForm({
         </CardHeader>
         <CardContent className="space-y-6">
           {/* Price */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="priceUsd">
                 {t("priceUsd")} <span className="text-destructive">*</span>
@@ -619,7 +619,7 @@ export function PropertyForm({
           {/* Financial Costs */}
           <div className="space-y-3">
             <Label className="text-base font-medium">{t("sections.costs")}</Label>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="hoaFees">{t("hoaFees")}</Label>
                 <Input
@@ -969,7 +969,7 @@ export function PropertyForm({
           <CardTitle>{t("sections.location")}</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="latitude">{t("latitude")}</Label>
               <Input

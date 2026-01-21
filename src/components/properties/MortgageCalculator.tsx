@@ -154,7 +154,7 @@ export function MortgageCalculator({ defaultPrice }: MortgageCalculatorProps) {
         </div>
 
         {/* Other metrics */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1">
             <p className="text-sm text-muted-foreground">{t("loanAmount")}</p>
             <p className="font-semibold">{format.number(calculations.principal, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}</p>
