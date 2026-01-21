@@ -72,6 +72,12 @@
       "switchLanguage": "החלף שפה",
       "currentLanguage": "שפה נוכחית"
     },
+    "theme": {
+      "title": "ערכת נושא",
+      "light": "בהיר",
+      "dark": "כהה",
+      "system": "מערכת"
+    },
     "notifications": {
       "title": "התראות",
       "markAllRead": "סמן הכל כנקרא",
