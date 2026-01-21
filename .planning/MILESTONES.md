@@ -75,6 +75,57 @@
 
 ---
 
+## v1.5 Mobile Responsive & Header Redesign (Shipped: 2026-01-22)
+
+**Delivered:** Full mobile-first responsive experience with bottom tab navigation, consolidated header dropdown, theme switching, and touch-optimized layouts across all pages.
+
+**Phases completed:** 35-39 (12 plans total)
+
+**Key accomplishments:**
+
+- Mobile foundation with 100dvh viewport, ThemeProvider, safe-area CSS utilities
+- Theme system with Light/Dark/System toggle and smooth 300ms transitions
+- Role-specific bottom tab bar (5 tabs) with Framer Motion animations and unread badges
+- Consolidated header dropdown with notifications tab, settings tab, and custom Clerk sign-out
+- ResponsiveDialog pattern (bottom sheets on mobile, dialogs on desktop) - 7 dialogs converted
+- Mobile-first grids for property cards and form inputs
+- 44px touch targets on all interactive elements
+- Pull-to-refresh on feed pages
+
+**Stats:**
+
+- 5 phases, 12 plans
+- 35 commits
+- 1 day (2026-01-21 → 2026-01-22)
+- ~39,549 LOC TypeScript total
+
+**Requirements:** 32/32 satisfied (FND-01 to RSP-06)
+
+---
+
+## v1.4 Internationalization & RTL (Shipped: 2026-01-20)
+
+**Delivered:** Full internationalization with Hebrew/RTL support, locale-aware formatting, CSS logical properties, and language switching.
+
+**Phases completed:** 28-34.1 (46 plans total)
+
+**Key accomplishments:**
+
+- next-intl v4 infrastructure with locale routing
+- CSS logical properties migration (all directional CSS converted)
+- RTL component patches for animations and icons
+- Translation infrastructure with 16+ namespaces
+- Locale-aware number, date, and currency formatting
+- Complete Hebrew translations
+- Language switcher in header and sidebar
+
+**Stats:**
+
+- 8 phases, 46 plans
+- 1 day (2026-01-19 → 2026-01-20)
+
+---
+
 ## v1.3 Social Feed & Global Community (Shipped: 2026-01-19)
 
 **Delivered:** Social real estate platform with feed for sharing properties, service requests, and discussions. Full engagement features including likes, saves, shares, comments, following, and global discovery with search.

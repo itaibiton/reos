@@ -8,12 +8,12 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 
 **Deal flow tracking from interest to close.** If the end-to-end process of connecting investors with properties AND moving them through service providers doesn't work seamlessly, nothing else matters.
 
-## Current State (v1.4)
+## Current State (v1.5)
 
-**Latest Shipped:** 2026-01-20
-**Total Shipped:** 5 milestones (v1.0, v1.1, v1.2, v1.3, v1.4)
-**LOC:** ~35,000+ TypeScript
-**Tech Stack:** Next.js 15, Convex, Clerk, Shadcn/ui, Tailwind v4, Hugeicons, next-intl
+**Latest Shipped:** 2026-01-22
+**Total Shipped:** 6 milestones (v1.0, v1.1, v1.2, v1.3, v1.4, v1.5)
+**LOC:** ~39,549 TypeScript
+**Tech Stack:** Next.js 15, Convex, Clerk, Shadcn/ui, Tailwind v4, Hugeicons, next-intl, Framer Motion
 
 **What's Working:**
 - Full authentication with 8 roles (investor, broker, mortgage_advisor, lawyer, admin, accountant, notary, tax_consultant, appraiser)
@@ -31,6 +31,13 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 - Global search with autocomplete and quick actions
 - Trending content and recommendations
 - Full i18n with Hebrew/RTL support and locale-aware formatting
+- **Mobile-first responsive design with 100dvh viewport and safe-area handling**
+- **Theme switching (Light/Dark/System) with smooth 300ms transitions**
+- **Role-specific bottom tab navigation (5 tabs per role) with Framer Motion animations**
+- **Consolidated header dropdown (notifications + settings + sign out) — custom Clerk UI**
+- **ResponsiveDialog pattern (dialogs on desktop, bottom sheets on mobile)**
+- **44px touch targets on all interactive elements**
+- **Pull-to-refresh on feed pages**
 
 ## Requirements
 
@@ -54,22 +61,20 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 - [x] Service provider dashboard: clients, leads, activity feed — v1.0
 - [x] Real-time chat between investor and service providers — v1.0
 - [x] Real-time notifications for events — v1.0
+- [x] 100dvh viewport units for mobile — v1.5
+- [x] Safe-area CSS utilities for iOS — v1.5
+- [x] Theme switching (Light/Dark/System) with persistence — v1.5
+- [x] Role-specific bottom tab navigation (5 tabs) — v1.5
+- [x] Consolidated header dropdown (notifications + settings + sign out) — v1.5
+- [x] Custom Clerk UI (no Clerk UserButton) — v1.5
+- [x] ResponsiveDialog (dialogs on desktop, bottom sheets on mobile) — v1.5
+- [x] 44px touch targets on all interactive elements — v1.5
+- [x] Pull-to-refresh on feed pages — v1.5
+- [x] Mobile-first grid layouts for property cards and forms — v1.5
 
 ### Active
 
-**v1.5 Mobile Responsive & Header Redesign**
-
-- [ ] Full mobile responsiveness across all pages
-- [ ] Bottom tab bar navigation for mobile (role-specific tabs)
-- [ ] Header redesign with consolidated dropdown (notifications + settings)
-- [ ] Custom notification UI using Clerk functions (no Clerk components)
-- [ ] Custom sign out UI using Clerk functions
-- [ ] Theme switcher (Light/Dark/System)
-- [ ] Unread notification badge on dropdown trigger
-- [ ] Search icon → expanding search on mobile
-- [ ] Property cards stack vertically on mobile
-- [ ] All forms and modals mobile-optimized
-- [ ] Touch-friendly interactions throughout
+*No active requirements — next milestone to be defined with `/gsd:new-milestone`*
 
 ### Out of Scope
 
@@ -122,18 +127,15 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 | Claude AI for search parsing | Fast, accurate, cost-effective | ✓ Good |
 | Hardcoded USD/ILS rate | Quick MVP, live API in v1.1 | ⚠️ Revisit |
 
-## Current Milestone: v1.5 Mobile Responsive & Header Redesign
+## Next Milestone Goals
 
-**Goal:** Make the entire application fully mobile responsive with modern mobile patterns, and redesign the header with a consolidated dropdown for notifications, settings, and sign out — all using custom UI with Clerk functions.
+*To be defined with `/gsd:new-milestone`*
 
-**Target features:**
-- Bottom tab bar navigation for mobile (5 tabs, role-specific)
-- Header consolidation: search bar + single dropdown (notifications tab, settings tab, sign out)
-- Custom Clerk UI (no Clerk-provided components)
-- Theme switcher (Light/Dark/System)
-- Full mobile responsiveness without breaking desktop
-- Property cards stacked vertically on mobile
-- Search icon that expands on mobile
+Potential directions:
+- v1.6: Advanced mobile features (gestures, haptics, PWA install prompt)
+- v1.6: Analytics and reporting dashboards
+- v1.6: Enhanced notifications (push, email digests)
+- v2.0: Major feature expansion (payments, e-signatures)
 
 ---
-*Last updated: 2026-01-21 after v1.5 milestone started*
+*Last updated: 2026-01-22 after v1.5 milestone shipped*
