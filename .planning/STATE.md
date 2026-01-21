@@ -10,19 +10,19 @@ See: .planning/PROJECT.md (updated 2026-01-21)
 ## Current Position
 
 Milestone: v1.5 Mobile Responsive & Header Redesign
-Phase: 35 - Mobile Foundation (COMPLETE)
-Plan: 2/2 — complete
-Status: Phase 35 complete, ready for Phase 36
-Last activity: 2026-01-21 — Executed Phase 35 (2 plans)
+Phase: 36 - Theme System
+Plan: 1/1 — complete
+Status: Phase 36 complete, ready for Phase 37
+Last activity: 2026-01-21 — Completed 36-01-PLAN.md
 
-Progress: [██░░░░░░░░] 20% (1/5 phases)
+Progress: [████░░░░░░] 40% (2/5 phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 125
-- Average duration: 5.3 min
-- Total execution time: 8.6 hours
+- Total plans completed: 128
+- Average duration: 5.2 min
+- Total execution time: 8.8 hours
 
 **By Phase:**
 
@@ -74,10 +74,12 @@ Progress: [██░░░░░░░░] 20% (1/5 phases)
 | 33 | 8/8 | 25 min | 3.1 min |
 | 34 | 2/2 | 3 min | 1.5 min |
 | 34.1 | 3/3 | 21 min | 7 min |
+| 35 | 2/2 | 6 min | 3 min |
+| 36 | 1/1 | 3 min | 3 min |
 
 **Recent Trend:**
-- Last 5 plans: 34-01 (1 min), 34-02 (2 min), 34.1-01 (8 min), 34.1-02 (8 min), 34.1-03 (5 min)
-- Trend: v1.4 Internationalization milestone SHIPPED
+- Last 5 plans: 34.1-02 (8 min), 34.1-03 (5 min), 35-01 (3 min), 35-02 (3 min), 36-01 (3 min)
+- Trend: v1.5 Mobile Responsive in progress
 
 ## Accumulated Context
 
@@ -362,6 +364,9 @@ Recent decisions affecting current work:
 - Phase 34: Sidebar footer as secondary access point for language switching
 - Phase 34.1: stageKeyMap pattern for DealSelector stage label translations
 - Phase 34.1: roleKeyMap + tRoles pattern standardized across all chat dialog components for role translations
+- Phase 36: ThemeSwitcher uses mounted state pattern (useState + useEffect) to avoid hydration mismatch
+- Phase 36: ToggleGroup UI for Light/Dark/System theme selection
+- Phase 36: Raw CSS transition (300ms) on body instead of Tailwind utility in @layer base
 
 ### v1.5 Research Findings
 
@@ -407,6 +412,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-21
-Stopped at: Roadmap created for v1.5
+Stopped at: Completed 36-01-PLAN.md (ThemeSwitcher component)
 Resume file: None
-Next: `/gsd:plan-phase 35` to plan Mobile Foundation phase
+Next: Phase 37 (Mobile Bottom Navigation) or continue with remaining v1.5 phases
