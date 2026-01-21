@@ -2347,7 +2347,26 @@
   "header": {
     "viewAs": "הצג כ:",
     "switchView": "החלף תצוגה",
-    "signIn": "התחבר"
+    "signIn": "התחבר",
+    "notifications": {
+      "title": "התראות",
+      "markAllRead": "סמן הכל כנקרא",
+      "loading": "טוען...",
+      "empty": "אין התראות",
+      "caughtUp": "הכל נקרא!",
+      "groups": {
+        "messages": "הודעות",
+        "deals": "עסקאות",
+        "files": "קבצים",
+        "requests": "בקשות"
+      }
+    },
+    "settings": {
+      "title": "הגדרות",
+      "theme": "ערכת נושא",
+      "language": "שפה"
+    },
+    "signOut": "התנתק"
   },
   "breadcrumbs": {
     "groups": {

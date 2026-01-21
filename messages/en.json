@@ -2189,7 +2189,26 @@
   "header": {
     "viewAs": "View as:",
     "switchView": "Switch View",
-    "signIn": "Sign In"
+    "signIn": "Sign In",
+    "notifications": {
+      "title": "Notifications",
+      "markAllRead": "Mark all read",
+      "loading": "Loading...",
+      "empty": "No notifications",
+      "caughtUp": "You're all caught up!",
+      "groups": {
+        "messages": "Messages",
+        "deals": "Deals",
+        "files": "Files",
+        "requests": "Requests"
+      }
+    },
+    "settings": {
+      "title": "Settings",
+      "theme": "Theme",
+      "language": "Language"
+    },
+    "signOut": "Sign Out"
   },
   "breadcrumbs": {
     "groups": {
