@@ -4,7 +4,6 @@ import React from "react";
 import { useSearchParams } from "next/navigation";
 import { usePathname } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
-import { UserButton } from "@clerk/nextjs";
 import {
   Authenticated,
   Unauthenticated,
@@ -47,10 +46,9 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { NotificationCenter } from "@/components/notifications/NotificationCenter";
 import { IncompleteProfileReminder } from "@/components/IncompleteProfileReminder";
 import { GlobalSearchBar } from "@/components/search";
-import { LocaleSwitcher } from "@/components/LocaleSwitcher";
+import { AvatarDropdown, MobileSearchExpander } from "@/components/header";
 
 // Breadcrumb config: maps paths to their group and label translation keys
 // Format: { groupKey?: string, labelKey: string }
@@ -233,12 +231,6 @@ function ProviderHeaderContent() {
 
   return (
     <div className="flex items-center gap-3">
-      {/* Language switcher */}
-      <LocaleSwitcher />
-
-      {/* Notification center */}
-      <NotificationCenter />
-
       {/* Role-switching dropdown - admin only */}
       {isAdmin && (
         <DropdownMenu>
@@ -273,14 +265,8 @@ function ProviderHeaderContent() {
         </DropdownMenu>
       )}
 
-      <UserButton
-        afterSignOutUrl="/"
-        appearance={{
-          elements: {
-            avatarBox: "h-8 w-8",
-          },
-        }}
-      />
+      {/* Avatar dropdown (replaces UserButton + NotificationCenter + LocaleSwitcher) */}
+      <AvatarDropdown />
     </div>
   );
 }
@@ -314,9 +300,9 @@ export function AppShell({ children }: AppShellProps) {
           {/* Left: Sidebar trigger + breadcrumbs */}
           <div className="flex items-center gap-2">
             <SidebarTrigger className="-ms-1" />
-            <Separator orientation="vertical" className="me-2 h-4" />
-            {/* Breadcrumbs */}
-            <Breadcrumb>
+            <Separator orientation="vertical" className="me-2 h-4 hidden md:block" />
+            {/* Breadcrumbs - hidden on mobile (HDR-07) */}
+            <Breadcrumb className="hidden md:block">
               <BreadcrumbList>
                 {breadcrumbs.map((crumb, index) => {
                   const isLast = index === breadcrumbs.length - 1;
@@ -344,8 +330,24 @@ export function AppShell({ children }: AppShellProps) {
 
           {/* Center: Global search (authenticated only) */}
           <Authenticated>
-            <div className="hidden md:flex flex-1 justify-end px-4">
-              <GlobalSearchBar />
+            <div className="flex items-center gap-2 flex-1 justify-end px-4">
+              {/* Mobile search trigger (HDR-01) */}
+              <MobileSearchExpander
+                onOpenSearch={() => {
+                  // Dispatch keyboard event to open GlobalSearchBar dialog
+                  document.dispatchEvent(
+                    new KeyboardEvent("keydown", {
+                      key: "k",
+                      metaKey: true,
+                      bubbles: true,
+                    })
+                  );
+                }}
+              />
+              {/* Desktop search bar */}
+              <div className="hidden md:block">
+                <GlobalSearchBar />
+              </div>
             </div>
           </Authenticated>
 
