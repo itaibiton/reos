@@ -253,7 +253,7 @@ export function Hero({ className }: HeroProps) {
     <section
       ref={ref}
       className={cn(
-        "relative min-h-screen",
+        "relative min-h-dvh",
         "flex items-center",
         "pt-20 pb-16 sm:pt-24 md:pt-28 lg:pt-32",
         "px-4 sm:px-6 lg:px-8",

@@ -58,7 +58,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   // Show minimal loading screen until auth and user data are confirmed
   if (isLoading || !isAuthenticated) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
+      <div className="flex min-h-dvh items-center justify-center">
         <Spinner className="h-8 w-8" />
       </div>
     );
@@ -67,7 +67,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   // Still loading user data
   if (!user) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
+      <div className="flex min-h-dvh items-center justify-center">
         <Spinner className="h-8 w-8" />
       </div>
     );

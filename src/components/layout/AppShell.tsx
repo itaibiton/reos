@@ -340,7 +340,7 @@ export function AppShell({ children }: AppShellProps) {
 
           {/* Center: Global search (authenticated only) */}
           <Authenticated>
-            <div className="hidden md:flex flex-1 justify-center px-4">
+            <div className="hidden md:flex flex-1 justify-end px-4">
               <GlobalSearchBar />
             </div>
           </Authenticated>
@@ -369,7 +369,7 @@ export function AppShell({ children }: AppShellProps) {
         {/* Main content area */}
         <main className={isFullBleedPage ? "" : "p-6"}>
           {isFullBleedPage ? (
-            <div className="h-[calc(100vh-4rem)]">{children}</div>
+            <div className="h-[calc(100dvh-4rem)]">{children}</div>
           ) : (
             children
           )}

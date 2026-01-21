@@ -22,7 +22,7 @@ export default function LandingPage() {
       {/* Sticky Navigation */}
       <LandingNav />
 
-      <main className="min-h-screen landing-section-bg">
+      <main className="min-h-dvh landing-section-bg">
         {/* Hero Section */}
         <Hero />
 
