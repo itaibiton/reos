@@ -5,13 +5,12 @@ import { useQuery, useMutation } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+  ResponsiveDialog,
+  ResponsiveDialogDescription,
+  ResponsiveDialogFooter,
+  ResponsiveDialogHeader,
+  ResponsiveDialogTitle,
+} from "@/components/ui/responsive-dialog";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -103,15 +102,14 @@ export function RequestProviderDialog({
   }
 
   return (
-    <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-lg">
-        <DialogHeader>
-          <DialogTitle>Find a {typeLabel}</DialogTitle>
-          <DialogDescription>
-            Select a {typeLabel.toLowerCase()} to help with your deal. They&apos;ll receive your
-            request and can choose to accept.
-          </DialogDescription>
-        </DialogHeader>
+    <ResponsiveDialog open={open} onOpenChange={handleClose}>
+      <ResponsiveDialogHeader>
+        <ResponsiveDialogTitle>Find a {typeLabel}</ResponsiveDialogTitle>
+        <ResponsiveDialogDescription>
+          Select a {typeLabel.toLowerCase()} to help with your deal. They&apos;ll receive your
+          request and can choose to accept.
+        </ResponsiveDialogDescription>
+      </ResponsiveDialogHeader>
 
         <div className="space-y-4 py-4">
           {/* Provider list */}
@@ -218,7 +216,7 @@ export function RequestProviderDialog({
           )}
         </div>
 
-        <DialogFooter>
+        <ResponsiveDialogFooter>
           <Button variant="outline" onClick={handleClose} disabled={isSubmitting}>
             Cancel
           </Button>
@@ -228,8 +226,7 @@ export function RequestProviderDialog({
           >
             {isSubmitting ? "Sending..." : "Send Request"}
           </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+        </ResponsiveDialogFooter>
+    </ResponsiveDialog>
   );
 }

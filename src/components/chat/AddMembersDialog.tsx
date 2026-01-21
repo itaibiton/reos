@@ -6,13 +6,12 @@ import { useTranslations } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
-} from "@/components/ui/dialog";
+  ResponsiveDialog,
+  ResponsiveDialogHeader,
+  ResponsiveDialogTitle,
+  ResponsiveDialogDescription,
+  ResponsiveDialogFooter,
+} from "@/components/ui/responsive-dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -128,14 +127,13 @@ export function AddMembersDialog({
   };
 
   return (
-    <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-md">
-        <DialogHeader>
-          <DialogTitle>{t("addMembers.title")}</DialogTitle>
-          <DialogDescription>
-            {t("addMembers.description")}
-          </DialogDescription>
-        </DialogHeader>
+    <ResponsiveDialog open={open} onOpenChange={handleClose}>
+      <ResponsiveDialogHeader>
+        <ResponsiveDialogTitle>{t("addMembers.title")}</ResponsiveDialogTitle>
+        <ResponsiveDialogDescription>
+          {t("addMembers.description")}
+        </ResponsiveDialogDescription>
+      </ResponsiveDialogHeader>
 
         <div className="space-y-4 py-4">
           {/* Selected users */}
@@ -221,7 +219,7 @@ export function AddMembersDialog({
           </ScrollArea>
         </div>
 
-        <DialogFooter>
+        <ResponsiveDialogFooter>
           <Button variant="outline" onClick={handleClose}>
             {tActions("cancel")}
           </Button>
@@ -235,8 +233,7 @@ export function AddMembersDialog({
               ? t("addMembers.addCount", { count: selectedUserIds.length })
               : t("groupSettings.add")}
           </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+        </ResponsiveDialogFooter>
+    </ResponsiveDialog>
   );
 }

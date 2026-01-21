@@ -5,12 +5,11 @@ import { useTranslations } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from "@/components/ui/dialog";
+  ResponsiveDialog,
+  ResponsiveDialogHeader,
+  ResponsiveDialogTitle,
+  ResponsiveDialogDescription,
+} from "@/components/ui/responsive-dialog";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -75,14 +74,13 @@ export function ParticipantSelectorDialog({
   };
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md">
-        <DialogHeader>
-          <DialogTitle>{t("title")}</DialogTitle>
-          <DialogDescription>
-            {t("description")}
-          </DialogDescription>
-        </DialogHeader>
+    <ResponsiveDialog open={open} onOpenChange={onOpenChange}>
+      <ResponsiveDialogHeader>
+        <ResponsiveDialogTitle>{t("title")}</ResponsiveDialogTitle>
+        <ResponsiveDialogDescription>
+          {t("description")}
+        </ResponsiveDialogDescription>
+      </ResponsiveDialogHeader>
 
         <ScrollArea className="max-h-80">
           <div className="space-y-1 pe-4">
@@ -141,7 +139,6 @@ export function ParticipantSelectorDialog({
             )}
           </div>
         </ScrollArea>
-      </DialogContent>
-    </Dialog>
+    </ResponsiveDialog>
   );
 }

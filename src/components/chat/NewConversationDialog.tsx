@@ -6,13 +6,12 @@ import { useTranslations } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
-} from "@/components/ui/dialog";
+  ResponsiveDialog,
+  ResponsiveDialogHeader,
+  ResponsiveDialogTitle,
+  ResponsiveDialogDescription,
+  ResponsiveDialogFooter,
+} from "@/components/ui/responsive-dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -155,18 +154,17 @@ export function NewConversationDialog({
   };
 
   return (
-    <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-md">
-        <DialogHeader>
-          <DialogTitle>
-            {isGroupMode ? t("newConversation.titleGroup") : t("newConversation.title")}
-          </DialogTitle>
-          <DialogDescription>
-            {isGroupMode
-              ? t("newConversation.selectUsersGroup")
-              : t("newConversation.selectUserDirect")}
-          </DialogDescription>
-        </DialogHeader>
+    <ResponsiveDialog open={open} onOpenChange={handleClose}>
+      <ResponsiveDialogHeader>
+        <ResponsiveDialogTitle>
+          {isGroupMode ? t("newConversation.titleGroup") : t("newConversation.title")}
+        </ResponsiveDialogTitle>
+        <ResponsiveDialogDescription>
+          {isGroupMode
+            ? t("newConversation.selectUsersGroup")
+            : t("newConversation.selectUserDirect")}
+        </ResponsiveDialogDescription>
+      </ResponsiveDialogHeader>
 
         <div className="space-y-4 py-4">
           {/* Selected users */}
@@ -261,7 +259,7 @@ export function NewConversationDialog({
           </ScrollArea>
         </div>
 
-        <DialogFooter>
+        <ResponsiveDialogFooter>
           <Button variant="outline" onClick={handleClose}>
             {tActions("cancel")}
           </Button>
@@ -279,8 +277,7 @@ export function NewConversationDialog({
               ? t("newConversation.createGroup")
               : t("newConversation.startChat")}
           </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+        </ResponsiveDialogFooter>
+    </ResponsiveDialog>
   );
 }
