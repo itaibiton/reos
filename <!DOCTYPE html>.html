@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REOS - Executive One Pager</title>
+    <style>
+        :root {
+            --primary: #2C3E50; /* Deep Blue */
+            --accent: #2980B9;  /* Bright Blue */
+            --light: #ECF0F1;   /* Light Gray */
+            --text: #333333;
+            --white: #ffffff;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            -webkit-print-color-adjust: exact;
+        }
+
+        .container {
+            max-width: 850px; /* A4 width approx */
+            margin: 40px auto;
+            background: var(--white);
+            padding: 50px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Header */
+        header {
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 36px;
+            margin: 0;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+        }
+
+        .tagline {
+            font-size: 16px;
+            color: var(--accent);
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        .contact-mini {
+            text-align: right;
+            font-size: 12px;
+            color: #7f8c8d;
+        }
+
+        /* Sections */
+        h2 {
+            font-size: 18px;
+            color: var(--accent);
+            text-transform: uppercase;
+            border-left: 5px solid var(--primary);
+            padding-left: 10px;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        p { margin-bottom: 10px; font-size: 14px; }
+        ul { margin-top: 5px; padding-left: 20px; font-size: 14px;}
+        li { margin-bottom: 5px; }
+
+        /* Problem / Solution Grid */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .box {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 6px;
+        }
+
+        .box h3 { margin-top: 0; color: var(--primary); font-size: 16px;}
+
+        /* Workflow */
+        .workflow {
+            display: flex;
+            justify-content: space-between;
+            background: var(--primary);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 6px;
+            margin: 20px 0;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        /* Value Prop Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        
+        th {
+            text-align: left;
+            background: var(--accent);
+            color: white;
+            padding: 8px;
+        }
+
+        td {
+            border-bottom: 1px solid #ddd;
+            padding: 8px;
+            vertical-align: top;
+        }
+        
+        td strong { color: var(--primary); }
+
+        /* Footer */
+        footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            text-align: center;
+            font-size: 12px;
+            color: #7f8c8d;
+        }
+
+        /* Print Specifics */
+        @media print {
+            body { background: white; }
+            .container { margin: 0; box-shadow: none; padding: 20px; max-width: 100%; }
+            .workflow { background-color: #2C3E50 !important; color: white !important; -webkit-print-color-adjust: exact; }
+            th { background-color: #2980B9 !important; color: white !important; -webkit-print-color-adjust: exact; }
+            .box { background-color: #f0f0f0 !important; -webkit-print-color-adjust: exact; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div>
+            <h1>REOS</h1>
+            <div class="tagline">The Operating System for Israeli Real Estate</div>
+        </div>
+        <div class="contact-mini">
+            <strong>Investment Platform</strong><br>
+            Connecting Investors, Brokers, & Experts
+        </div>
+    </header>
+
+    <div class="grid-2">
+        <div class="box">
+            <h3>📉 The Problem</h3>
+            <p><strong>A Fragmented Ecosystem</strong></p>
+            <ul>
+                <li><strong>Chaos:</strong> Deals live in 5+ WhatsApp groups and buried emails.</li>
+                <li><strong>Opacity:</strong> Investors lack visibility into deal stages ("Where is the contract?").</li>
+                <li><strong>Trust Deficit:</strong> Foreign nationals struggle to find reliable local teams.</li>
+            </ul>
+        </div>
+        <div class="box">
+            <h3>🚀 The Solution</h3>
+            <p><strong>A Unified Deal Room</strong></p>
+            <p>REOS is an all-in-one platform connecting investors with a verified "Deal Team" (Broker, Lawyer, Mortgage Advisor), streamlining the journey from discovery to handover in <strong>one digital workspace</strong>.</p>
+        </div>
+    </div>
+
+    <h2>How It Works</h2>
+    <div class="workflow">
+        <span>1. DISCOVER</span>
+        <span>&rarr;</span>
+        <span>2. CONNECT</span>
+        <span>&rarr;</span>
+        <span>3. TRANSACT</span>
+        <span>&rarr;</span>
+        <span>4. CLOSE</span>
+    </div>
+    <p>We replace chaos with structure. Investors define their "Buy Box," get matched with a professional team, and manage the entire transaction (documents, chat, milestones) through a centralized dashboard.</p>
+
+    <h2>Value Proposition</h2>
+    <table>
+        <thead>
+            <tr>
+                <th width="50%">For Investors</th>
+                <th width="50%">For Service Providers</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Total Visibility:</strong> Track deal progress via a 7-stage status bar.</td>
+                <td><strong>Qualified Deal Flow:</strong> Stop chasing cold leads; get matched with high-intent buyers.</td>
+            </tr>
+            <tr>
+                <td><strong>One Channel:</strong> Direct access to your entire team in one thread.</td>
+                <td><strong>Workflow SaaS:</strong> Manage your pipeline, documents, and tasks in one place.</td>
+            </tr>
+            <tr>
+                <td><strong>Trust:</strong> Access to verified professionals with real reviews.</td>
+                <td><strong>Reputation:</strong> Showcase expertise and build a verified track record.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="grid-2">
+        <div>
+            <h2>Market Focus</h2>
+            <p><strong>Primary Market:</strong> Israel (15+ Cities)</p>
+            <ul>
+                <li><strong>Foreign Investors:</strong> Multi-language support (EN, HE, RU, FR) bridging the gap.</li>
+                <li><strong>New Immigrants (Olim):</strong> Simplifying bureaucracy.</li>
+            </ul>
+        </div>
+        <div>
+            <h2>Differentiation</h2>
+            <ul>
+                <li><strong>Not just a Marketplace:</strong> Unlike <em>Yad2</em>, we are a <strong>Workflow Tool</strong>.</li>
+                <li><strong>System of Record:</strong> We own the document flow and communication, making the platform indispensable.</li>
+            </ul>
+        </div>
+    </div>
+
+    <h2>Current Status</h2>
+    <p><strong>Concept:</strong> Validated pain point. <strong>Specs:</strong> MVP defined. <strong>Goal:</strong> Seeking strategic partnerships with Brokerage Firms and Legal Offices for beta launch.</p>
+
+    <footer>
+        REOS Real Estate Technologies &copy; 2024<br>
+        [Contact Name] | [Phone Number] | [Email Address] | [Website]
+    </footer>
+</div>
+
+</body>
+</html>

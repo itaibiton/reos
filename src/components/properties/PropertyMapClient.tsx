@@ -2,6 +2,7 @@
 
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { Icon } from "leaflet";
+import { cn } from "@/lib/utils";
 import "leaflet/dist/leaflet.css";
 
 interface PropertyMapClientProps {
@@ -10,6 +11,7 @@ interface PropertyMapClientProps {
   title: string;
   address: string;
   featuredImage?: string;
+  className?: string;
 }
 
 // Fix for default marker icon in Leaflet with bundlers
@@ -29,6 +31,7 @@ export function PropertyMapClient({
   title,
   address,
   featuredImage,
+  className,
 }: PropertyMapClientProps) {
   const position: [number, number] = [latitude, longitude];
 
@@ -37,8 +40,7 @@ export function PropertyMapClient({
       center={position}
       zoom={15}
       scrollWheelZoom={false}
-      className="h-64 w-full rounded-lg z-0"
-      style={{ height: "256px" }}
+      className={cn("w-full z-0", className)}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

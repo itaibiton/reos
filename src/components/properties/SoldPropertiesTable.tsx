@@ -88,7 +88,7 @@ export function SoldPropertiesTable({ city }: SoldPropertiesTableProps) {
               {format.number(property.soldPrice ?? property.priceUsd, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })}
             </TableCell>
             <TableCell className="text-end">
-              {format.dateTime(new Date(property.soldDate ?? property.updatedAt), 'short')}
+              {format.dateTime(new Date(property.soldDate ?? property.updatedAt), { dateStyle: 'medium', timeZone: 'UTC' })}
             </TableCell>
           </TableRow>
         ))}

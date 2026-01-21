@@ -38,7 +38,7 @@ export function ValueHistoryChart({ city }: ValueHistoryChartProps) {
 
   // Format date for chart axis using locale
   const formatDate = (timestamp: number) => {
-    return format.dateTime(new Date(timestamp), { month: "short", year: "2-digit" });
+    return format.dateTime(new Date(timestamp), { month: "short", year: "2-digit", timeZone: "UTC" });
   };
 
   // Format price for display using locale

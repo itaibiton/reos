@@ -721,7 +721,10 @@
       "viewMyDeal": "View My Deal",
       "creatingDeal": "Creating...",
       "backToMarketplace": "Back to Marketplace",
-      "aboutCity": "About {city}"
+      "aboutCity": "About {city}",
+      "mortgageCalculator": "Mortgage Calculator",
+      "recentSales": "Recent Sales in Area",
+      "linkCopied": "Link copied to clipboard"
     },
     "form": {
       "title": "Title",
@@ -765,7 +768,92 @@
       "createSuccess": "Property created successfully!",
       "updateSuccess": "Property updated successfully!",
       "createError": "Failed to create property. Please try again.",
-      "updateError": "Failed to update property. Please try again."
+      "updateError": "Failed to update property. Please try again.",
+      "sections": {
+        "basicInfo": "Basic Information",
+        "pricing": "Pricing & Investment",
+        "details": "Property Details",
+        "interior": "Interior Features",
+        "exterior": "Exterior Features",
+        "amenities": "Amenities",
+        "location": "Location",
+        "images": "Images",
+        "costs": "Financial Costs"
+      },
+      "floors": "Floors",
+      "lotSize": "Lot Size (m²)",
+      "parkingSpaces": "Parking Spaces",
+      "parkingType": "Parking Type",
+      "heatingType": "Heating",
+      "coolingType": "Cooling",
+      "laundryType": "Laundry",
+      "flooring": "Flooring",
+      "appliances": "Appliances",
+      "exteriorFeatures": "Exterior Features",
+      "view": "View",
+      "construction": "Construction Materials",
+      "hoaFees": "HOA/Building Fees (USD/month)",
+      "propertyTax": "Property Tax (USD/year)",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "select": "Select...",
+      "parkingTypes": {
+        "garage": "Garage",
+        "covered": "Covered",
+        "street": "Street",
+        "none": "None"
+      },
+      "heatingTypes": {
+        "central": "Central",
+        "electric": "Electric",
+        "gas": "Gas",
+        "none": "None"
+      },
+      "coolingTypes": {
+        "central_ac": "Central AC",
+        "split": "Split AC",
+        "none": "None"
+      },
+      "laundryTypes": {
+        "in_unit": "In-Unit",
+        "shared": "Shared",
+        "none": "None"
+      },
+      "flooringTypes": {
+        "tile": "Tile",
+        "hardwood": "Hardwood",
+        "marble": "Marble",
+        "carpet": "Carpet",
+        "concrete": "Concrete"
+      },
+      "applianceTypes": {
+        "dishwasher": "Dishwasher",
+        "oven": "Oven",
+        "refrigerator": "Refrigerator",
+        "washer": "Washer",
+        "dryer": "Dryer",
+        "microwave": "Microwave"
+      },
+      "exteriorFeatureTypes": {
+        "balcony": "Balcony",
+        "garden": "Garden",
+        "pool": "Pool",
+        "rooftop": "Rooftop",
+        "storage": "Storage"
+      },
+      "viewTypes": {
+        "city": "City View",
+        "sea": "Sea View",
+        "mountain": "Mountain View",
+        "garden": "Garden View",
+        "park": "Park View"
+      },
+      "constructionTypes": {
+        "concrete": "Concrete",
+        "brick": "Brick",
+        "stone": "Stone",
+        "wood": "Wood"
+      }
     },
     "empty": {
       "noProperties": "No properties found",
@@ -853,6 +941,129 @@
       "searchAndFilters": "Search & Filters",
       "aiPoweredSearch": "AI-powered search",
       "clearAllFilters": "Clear All Filters"
+    },
+    "gallery": {
+      "title": "Gallery",
+      "noImages": "No images available",
+      "viewAll": "View All",
+      "more": "more"
+    },
+    "facts": {
+      "title": "Facts & Features",
+      "tabs": {
+        "overview": "Overview",
+        "interior": "Interior",
+        "exterior": "Exterior",
+        "financial": "Financial"
+      },
+      "bedrooms": "Bedrooms",
+      "bathrooms": "Bathrooms",
+      "size": "Size",
+      "yearBuilt": "Year Built",
+      "type": "Type",
+      "floors": "Floors",
+      "lotSize": "Lot Size",
+      "parkingSpaces": "Parking",
+      "parkingType": "Parking Type",
+      "heating": "Heating",
+      "cooling": "Cooling",
+      "laundry": "Laundry",
+      "flooring": "Flooring",
+      "appliances": "Appliances",
+      "exteriorFeatures": "Exterior Features",
+      "view": "View",
+      "construction": "Construction",
+      "hoaFees": "HOA/Building Fees",
+      "propertyTax": "Property Tax",
+      "perMonth": "per month",
+      "perYear": "per year",
+      "parkingTypes": {
+        "garage": "Garage",
+        "covered": "Covered",
+        "street": "Street",
+        "none": "None"
+      },
+      "heatingTypes": {
+        "central": "Central",
+        "electric": "Electric",
+        "gas": "Gas",
+        "none": "None"
+      },
+      "coolingTypes": {
+        "central_ac": "Central AC",
+        "split": "Split AC",
+        "none": "None"
+      },
+      "laundryTypes": {
+        "in_unit": "In-Unit",
+        "shared": "Shared",
+        "none": "None"
+      },
+      "flooringTypes": {
+        "tile": "Tile",
+        "hardwood": "Hardwood",
+        "marble": "Marble",
+        "carpet": "Carpet",
+        "concrete": "Concrete"
+      },
+      "applianceTypes": {
+        "dishwasher": "Dishwasher",
+        "oven": "Oven",
+        "refrigerator": "Refrigerator",
+        "washer": "Washer",
+        "dryer": "Dryer",
+        "microwave": "Microwave"
+      },
+      "exteriorFeatureTypes": {
+        "balcony": "Balcony",
+        "garden": "Garden",
+        "pool": "Pool",
+        "rooftop": "Rooftop",
+        "storage": "Storage"
+      },
+      "viewTypes": {
+        "city": "City View",
+        "sea": "Sea View",
+        "mountain": "Mountain View",
+        "garden": "Garden View",
+        "park": "Park View"
+      },
+      "constructionTypes": {
+        "concrete": "Concrete",
+        "brick": "Brick",
+        "stone": "Stone",
+        "wood": "Wood"
+      }
+    },
+    "highlights": {
+      "title": "What's Special",
+      "spaciousLiving": "Spacious {sqm}m² of living space",
+      "newConstruction": "New construction (built {year})",
+      "recentlyRenovated": "Recently renovated",
+      "strongRoi": "{roi}% expected ROI",
+      "ampleParkingSpaces": "{count} parking spaces",
+      "garageParking": "Private garage parking",
+      "centralAC": "Central air conditioning",
+      "centralHeating": "Central heating system",
+      "inUnitLaundry": "In-unit washer/dryer",
+      "seaView": "Stunning sea view",
+      "cityView": "Beautiful city view",
+      "mountainView": "Scenic mountain view",
+      "gardenView": "Peaceful garden view",
+      "parkView": "Park view",
+      "privatePool": "Private swimming pool",
+      "privateGarden": "Private garden",
+      "balcony": "Balcony included",
+      "largeLot": "Large {sqm}m² lot",
+      "multipleFloors": "{floors} floors of living space",
+      "security": "24/7 security",
+      "safeRoom": "Safe room (mamad)"
+    },
+    "nearby": {
+      "title": "Nearby Properties",
+      "subtitle": "Similar properties in {city}",
+      "noNearby": "No nearby properties found",
+      "viewMore": "View more properties in {city}"
     }
   },
   "deals": {

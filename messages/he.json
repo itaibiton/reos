@@ -617,7 +617,10 @@
       "viewMyDeal": "צפה בעסקה שלי",
       "creatingDeal": "יוצר...",
       "backToMarketplace": "חזרה לשוק",
-      "aboutCity": "אודות {city}"
+      "aboutCity": "אודות {city}",
+      "mortgageCalculator": "מחשבון משכנתא",
+      "recentSales": "מכירות אחרונות באזור",
+      "linkCopied": "הקישור הועתק ללוח"
     },
     "form": {
       "title": "כותרת",
@@ -661,7 +664,92 @@
       "createSuccess": "הנכס נוצר בהצלחה!",
       "updateSuccess": "הנכס עודכן בהצלחה!",
       "createError": "יצירת הנכס נכשלה. אנא נסה שוב.",
-      "updateError": "עדכון הנכס נכשל. אנא נסה שוב."
+      "updateError": "עדכון הנכס נכשל. אנא נסה שוב.",
+      "sections": {
+        "basicInfo": "מידע בסיסי",
+        "pricing": "תמחור והשקעה",
+        "details": "פרטי הנכס",
+        "interior": "מאפיינים פנימיים",
+        "exterior": "מאפיינים חיצוניים",
+        "amenities": "מתקנים",
+        "location": "מיקום",
+        "images": "תמונות",
+        "costs": "עלויות פיננסיות"
+      },
+      "floors": "קומות",
+      "lotSize": "גודל מגרש (מ\"ר)",
+      "parkingSpaces": "מקומות חניה",
+      "parkingType": "סוג חניה",
+      "heatingType": "חימום",
+      "coolingType": "מיזוג",
+      "laundryType": "כביסה",
+      "flooring": "ריצוף",
+      "appliances": "מכשירי חשמל",
+      "exteriorFeatures": "מאפיינים חיצוניים",
+      "view": "נוף",
+      "construction": "חומרי בנייה",
+      "hoaFees": "דמי ועד בית (דולר/חודש)",
+      "propertyTax": "ארנונה (דולר/שנה)",
+      "latitude": "קו רוחב",
+      "longitude": "קו אורך",
+      "select": "בחר...",
+      "parkingTypes": {
+        "garage": "מוסך",
+        "covered": "מקורה",
+        "street": "רחוב",
+        "none": "ללא"
+      },
+      "heatingTypes": {
+        "central": "מרכזי",
+        "electric": "חשמלי",
+        "gas": "גז",
+        "none": "ללא"
+      },
+      "coolingTypes": {
+        "central_ac": "מיזוג מרכזי",
+        "split": "מזגן מפוצל",
+        "none": "ללא"
+      },
+      "laundryTypes": {
+        "in_unit": "בדירה",
+        "shared": "משותף",
+        "none": "ללא"
+      },
+      "flooringTypes": {
+        "tile": "אריחים",
+        "hardwood": "פרקט",
+        "marble": "שיש",
+        "carpet": "שטיח",
+        "concrete": "בטון"
+      },
+      "applianceTypes": {
+        "dishwasher": "מדיח כלים",
+        "oven": "תנור",
+        "refrigerator": "מקרר",
+        "washer": "מכונת כביסה",
+        "dryer": "מייבש",
+        "microwave": "מיקרוגל"
+      },
+      "exteriorFeatureTypes": {
+        "balcony": "מרפסת",
+        "garden": "גינה",
+        "pool": "בריכה",
+        "rooftop": "גג",
+        "storage": "מחסן"
+      },
+      "viewTypes": {
+        "city": "נוף עירוני",
+        "sea": "נוף לים",
+        "mountain": "נוף הרים",
+        "garden": "נוף לגינה",
+        "park": "נוף לפארק"
+      },
+      "constructionTypes": {
+        "concrete": "בטון",
+        "brick": "לבנים",
+        "stone": "אבן",
+        "wood": "עץ"
+      }
     },
     "empty": {
       "noProperties": "לא נמצאו נכסים",
@@ -749,6 +837,129 @@
       "searchAndFilters": "חיפוש וסינונים",
       "aiPoweredSearch": "חיפוש בינה מלאכותית",
       "clearAllFilters": "נקה את כל הסינונים"
+    },
+    "gallery": {
+      "title": "גלריה",
+      "noImages": "אין תמונות זמינות",
+      "viewAll": "צפה בכל",
+      "more": "עוד"
+    },
+    "facts": {
+      "title": "עובדות ומאפיינים",
+      "tabs": {
+        "overview": "סקירה",
+        "interior": "פנים",
+        "exterior": "חוץ",
+        "financial": "פיננסי"
+      },
+      "bedrooms": "חדרי שינה",
+      "bathrooms": "חדרי רחצה",
+      "size": "גודל",
+      "yearBuilt": "שנת בנייה",
+      "type": "סוג",
+      "floors": "קומות",
+      "lotSize": "גודל מגרש",
+      "parkingSpaces": "חניה",
+      "parkingType": "סוג חניה",
+      "heating": "חימום",
+      "cooling": "מיזוג",
+      "laundry": "כביסה",
+      "flooring": "ריצוף",
+      "appliances": "מכשירי חשמל",
+      "exteriorFeatures": "מאפיינים חיצוניים",
+      "view": "נוף",
+      "construction": "בנייה",
+      "hoaFees": "דמי ועד בית",
+      "propertyTax": "ארנונה",
+      "perMonth": "לחודש",
+      "perYear": "לשנה",
+      "parkingTypes": {
+        "garage": "מוסך",
+        "covered": "מקורה",
+        "street": "רחוב",
+        "none": "ללא"
+      },
+      "heatingTypes": {
+        "central": "מרכזי",
+        "electric": "חשמלי",
+        "gas": "גז",
+        "none": "ללא"
+      },
+      "coolingTypes": {
+        "central_ac": "מיזוג מרכזי",
+        "split": "מזגן מפוצל",
+        "none": "ללא"
+      },
+      "laundryTypes": {
+        "in_unit": "בדירה",
+        "shared": "משותף",
+        "none": "ללא"
+      },
+      "flooringTypes": {
+        "tile": "אריחים",
+        "hardwood": "פרקט",
+        "marble": "שיש",
+        "carpet": "שטיח",
+        "concrete": "בטון"
+      },
+      "applianceTypes": {
+        "dishwasher": "מדיח כלים",
+        "oven": "תנור",
+        "refrigerator": "מקרר",
+        "washer": "מכונת כביסה",
+        "dryer": "מייבש",
+        "microwave": "מיקרוגל"
+      },
+      "exteriorFeatureTypes": {
+        "balcony": "מרפסת",
+        "garden": "גינה",
+        "pool": "בריכה",
+        "rooftop": "גג",
+        "storage": "מחסן"
+      },
+      "viewTypes": {
+        "city": "נוף עירוני",
+        "sea": "נוף לים",
+        "mountain": "נוף הרים",
+        "garden": "נוף לגינה",
+        "park": "נוף לפארק"
+      },
+      "constructionTypes": {
+        "concrete": "בטון",
+        "brick": "לבנים",
+        "stone": "אבן",
+        "wood": "עץ"
+      }
+    },
+    "highlights": {
+      "title": "מה מיוחד",
+      "spaciousLiving": "שטח מגורים מרווח של {sqm} מ\"ר",
+      "newConstruction": "בנייה חדשה (נבנה ב-{year})",
+      "recentlyRenovated": "משופץ לאחרונה",
+      "strongRoi": "תשואה צפויה של {roi}%",
+      "ampleParkingSpaces": "{count} מקומות חניה",
+      "garageParking": "חניה במוסך פרטי",
+      "centralAC": "מיזוג אוויר מרכזי",
+      "centralHeating": "מערכת חימום מרכזית",
+      "inUnitLaundry": "מכונת כביסה ומייבש בדירה",
+      "seaView": "נוף מדהים לים",
+      "cityView": "נוף עירוני יפהפה",
+      "mountainView": "נוף הרים ציורי",
+      "gardenView": "נוף שקט לגינה",
+      "parkView": "נוף לפארק",
+      "privatePool": "בריכה פרטית",
+      "privateGarden": "גינה פרטית",
+      "balcony": "מרפסת כלולה",
+      "largeLot": "מגרש גדול של {sqm} מ\"ר",
+      "multipleFloors": "{floors} קומות מגורים",
+      "security": "אבטחה 24/7",
+      "safeRoom": "ממ\"ד"
+    },
+    "nearby": {
+      "title": "נכסים קרובים",
+      "subtitle": "נכסים דומים ב{city}",
+      "noNearby": "לא נמצאו נכסים קרובים",
+      "viewMore": "צפה בעוד נכסים ב{city}"
     }
   },
   "feed": {

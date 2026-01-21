@@ -31,6 +31,7 @@ import { USER_ROLES } from "@/lib/constants";
 import { Link } from "@/i18n/navigation";
 import { TopNav } from "./TopNav";
 import { NotificationCenter } from "@/components/notifications/NotificationCenter";
+import { GlobalSearchBar } from "@/components/search/GlobalSearchBar";
 
 // Separate component to use hooks inside Authenticated block
 function AuthenticatedContent() {
@@ -171,8 +172,13 @@ export function Header({
         )}
       </div>
 
-      {/* Auth section */}
-      <div className="flex items-center">
+      {/* Auth section with search */}
+      <div className="flex items-center gap-3 flex-shrink-0">
+        {/* Global search */}
+        <div className="hidden md:block flex-shrink-0">
+          <GlobalSearchBar />
+        </div>
+
         <AuthLoading>
           <Skeleton className="h-8 w-8 rounded-full" />
         </AuthLoading>

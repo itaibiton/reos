@@ -51,6 +51,36 @@ const propertyStatus = v.union(
   v.literal("sold")
 );
 
+// Parking types (Zillow-style)
+const parkingType = v.union(
+  v.literal("garage"),
+  v.literal("covered"),
+  v.literal("street"),
+  v.literal("none")
+);
+
+// Heating types (Zillow-style)
+const heatingType = v.union(
+  v.literal("central"),
+  v.literal("electric"),
+  v.literal("gas"),
+  v.literal("none")
+);
+
+// Cooling types (Zillow-style)
+const coolingType = v.union(
+  v.literal("central_ac"),
+  v.literal("split"),
+  v.literal("none")
+);
+
+// Laundry types (Zillow-style)
+const laundryType = v.union(
+  v.literal("in_unit"),
+  v.literal("shared"),
+  v.literal("none")
+);
+
 // Languages spoken
 const language = v.union(
   v.literal("english"),
@@ -304,6 +334,22 @@ export default defineSchema({
 
     // Amenities - flexible string array for amenity keys
     amenities: v.optional(v.array(v.string())),
+
+    // Zillow-style enhanced property details
+    floors: v.optional(v.number()), // Number of floors/stories
+    lotSize: v.optional(v.number()), // Lot size in sqm
+    parkingSpaces: v.optional(v.number()), // Number of parking spots
+    parkingType: v.optional(parkingType), // Type of parking
+    heatingType: v.optional(heatingType), // Heating system type
+    coolingType: v.optional(coolingType), // Cooling system type
+    flooringType: v.optional(v.array(v.string())), // Array: tile, hardwood, marble, carpet, concrete
+    laundryType: v.optional(laundryType), // Laundry setup
+    hoaFees: v.optional(v.number()), // Monthly HOA/building fees (USD)
+    propertyTax: v.optional(v.number()), // Annual property tax (USD)
+    constructionMaterials: v.optional(v.array(v.string())), // Array: concrete, brick, stone, wood
+    appliances: v.optional(v.array(v.string())), // Array: dishwasher, oven, refrigerator, washer, dryer, microwave
+    exteriorFeatures: v.optional(v.array(v.string())), // Array: balcony, garden, pool, rooftop, storage
+    view: v.optional(v.array(v.string())), // Array: city, sea, mountain, garden, park
 
     // Media
     images: v.array(v.string()), // URLs for now, file storage later

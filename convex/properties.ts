@@ -15,6 +15,33 @@ const propertyStatusValidator = v.union(
   v.literal("sold")
 );
 
+// Zillow-style validators
+const parkingTypeValidator = v.union(
+  v.literal("garage"),
+  v.literal("covered"),
+  v.literal("street"),
+  v.literal("none")
+);
+
+const heatingTypeValidator = v.union(
+  v.literal("central"),
+  v.literal("electric"),
+  v.literal("gas"),
+  v.literal("none")
+);
+
+const coolingTypeValidator = v.union(
+  v.literal("central_ac"),
+  v.literal("split"),
+  v.literal("none")
+);
+
+const laundryTypeValidator = v.union(
+  v.literal("in_unit"),
+  v.literal("shared"),
+  v.literal("none")
+);
+
 // List properties with optional filters
 // By default, shows available properties only
 // Supports full filter set for smart search (see PropertyFilters in search.ts)
@@ -140,6 +167,25 @@ export const create = mutation({
     bathrooms: v.optional(v.number()),
     squareMeters: v.optional(v.number()),
     yearBuilt: v.optional(v.number()),
+    // Zillow-style fields
+    floors: v.optional(v.number()),
+    lotSize: v.optional(v.number()),
+    parkingSpaces: v.optional(v.number()),
+    parkingType: v.optional(parkingTypeValidator),
+    heatingType: v.optional(heatingTypeValidator),
+    coolingType: v.optional(coolingTypeValidator),
+    flooringType: v.optional(v.array(v.string())),
+    laundryType: v.optional(laundryTypeValidator),
+    hoaFees: v.optional(v.number()),
+    propertyTax: v.optional(v.number()),
+    constructionMaterials: v.optional(v.array(v.string())),
+    appliances: v.optional(v.array(v.string())),
+    exteriorFeatures: v.optional(v.array(v.string())),
+    view: v.optional(v.array(v.string())),
+    amenities: v.optional(v.array(v.string())),
+    // Coordinates
+    latitude: v.optional(v.number()),
+    longitude: v.optional(v.number()),
     images: v.array(v.string()),
     featuredImage: v.optional(v.string()),
   },
@@ -196,6 +242,25 @@ export const create = mutation({
       bathrooms: args.bathrooms,
       squareMeters: args.squareMeters,
       yearBuilt: args.yearBuilt,
+      // Zillow-style fields
+      floors: args.floors,
+      lotSize: args.lotSize,
+      parkingSpaces: args.parkingSpaces,
+      parkingType: args.parkingType,
+      heatingType: args.heatingType,
+      coolingType: args.coolingType,
+      flooringType: args.flooringType,
+      laundryType: args.laundryType,
+      hoaFees: args.hoaFees,
+      propertyTax: args.propertyTax,
+      constructionMaterials: args.constructionMaterials,
+      appliances: args.appliances,
+      exteriorFeatures: args.exteriorFeatures,
+      view: args.view,
+      amenities: args.amenities,
+      // Coordinates
+      latitude: args.latitude,
+      longitude: args.longitude,
       images: args.images,
       featuredImage: args.featuredImage,
       createdBy: user._id,
@@ -278,6 +343,25 @@ export const update = mutation({
     bathrooms: v.optional(v.number()),
     squareMeters: v.optional(v.number()),
     yearBuilt: v.optional(v.number()),
+    // Zillow-style fields
+    floors: v.optional(v.number()),
+    lotSize: v.optional(v.number()),
+    parkingSpaces: v.optional(v.number()),
+    parkingType: v.optional(parkingTypeValidator),
+    heatingType: v.optional(heatingTypeValidator),
+    coolingType: v.optional(coolingTypeValidator),
+    flooringType: v.optional(v.array(v.string())),
+    laundryType: v.optional(laundryTypeValidator),
+    hoaFees: v.optional(v.number()),
+    propertyTax: v.optional(v.number()),
+    constructionMaterials: v.optional(v.array(v.string())),
+    appliances: v.optional(v.array(v.string())),
+    exteriorFeatures: v.optional(v.array(v.string())),
+    view: v.optional(v.array(v.string())),
+    amenities: v.optional(v.array(v.string())),
+    // Coordinates
+    latitude: v.optional(v.number()),
+    longitude: v.optional(v.number()),
     images: v.optional(v.array(v.string())),
     featuredImage: v.optional(v.string()),
   },
@@ -393,6 +477,75 @@ export const update = mutation({
 
     if (args.featuredImage !== undefined) {
       updates.featuredImage = args.featuredImage;
+    }
+
+    // Zillow-style fields
+    if (args.floors !== undefined) {
+      updates.floors = args.floors;
+    }
+
+    if (args.lotSize !== undefined) {
+      updates.lotSize = args.lotSize;
+    }
+
+    if (args.parkingSpaces !== undefined) {
+      updates.parkingSpaces = args.parkingSpaces;
+    }
+
+    if (args.parkingType !== undefined) {
+      updates.parkingType = args.parkingType;
+    }
+
+    if (args.heatingType !== undefined) {
+      updates.heatingType = args.heatingType;
+    }
+
+    if (args.coolingType !== undefined) {
+      updates.coolingType = args.coolingType;
+    }
+
+    if (args.flooringType !== undefined) {
+      updates.flooringType = args.flooringType;
+    }
+
+    if (args.laundryType !== undefined) {
+      updates.laundryType = args.laundryType;
+    }
+
+    if (args.hoaFees !== undefined) {
+      updates.hoaFees = args.hoaFees;
+    }
+
+    if (args.propertyTax !== undefined) {
+      updates.propertyTax = args.propertyTax;
+    }
+
+    if (args.constructionMaterials !== undefined) {
+      updates.constructionMaterials = args.constructionMaterials;
+    }
+
+    if (args.appliances !== undefined) {
+      updates.appliances = args.appliances;
+    }
+
+    if (args.exteriorFeatures !== undefined) {
+      updates.exteriorFeatures = args.exteriorFeatures;
+    }
+
+    if (args.view !== undefined) {
+      updates.view = args.view;
+    }
+
+    if (args.amenities !== undefined) {
+      updates.amenities = args.amenities;
+    }
+
+    if (args.latitude !== undefined) {
+      updates.latitude = args.latitude;
+    }
+
+    if (args.longitude !== undefined) {
+      updates.longitude = args.longitude;
     }
 
     await ctx.db.patch(args.id, updates);
