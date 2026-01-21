@@ -16,9 +16,12 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { CheckmarkCircle01Icon } from "@hugeicons/core-free-icons";
 import { api } from "../../../convex/_generated/api";
 import { USER_ROLES } from "@/lib/constants";
+import { cn } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
 import { AppSidebar } from "./Sidebar";
 import { InvestorSearchBar } from "./InvestorSearchBar";
+import { MobileBottomNav } from "./MobileBottomNav";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -288,6 +291,7 @@ export function AppShell({ children }: AppShellProps) {
   const searchParams = useSearchParams();
   const searchParamsString = searchParams.toString();
   const t = useTranslations();
+  const isMobile = useIsMobile();
 
   // Generate breadcrumbs
   const breadcrumbs = generateBreadcrumbs(pathname, searchParamsString);
@@ -367,14 +371,23 @@ export function AppShell({ children }: AppShellProps) {
         {showSearchBar && <InvestorSearchBar />}
 
         {/* Main content area */}
-        <main className={isFullBleedPage ? "" : "p-6"}>
+        <main className={cn(
+          isFullBleedPage ? "" : "p-6",
+          isMobile && "pb-20" // Space for bottom tab bar (~80px)
+        )}>
           {isFullBleedPage ? (
-            <div className="h-[calc(100dvh-4rem)]">{children}</div>
+            <div className={cn(
+              "h-[calc(100dvh-4rem)]",
+              isMobile && "h-[calc(100dvh-4rem-5rem)]" // Subtract tab bar height
+            )}>
+              {children}
+            </div>
           ) : (
             children
           )}
         </main>
       </SidebarInset>
+      <MobileBottomNav />
     </SidebarProvider>
   );
 }
