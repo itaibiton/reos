@@ -24,14 +24,14 @@ Requirements for v1.5 Mobile Responsive & Header Redesign. Each maps to roadmap 
 
 ### Mobile Navigation
 
-- [ ] **NAV-01**: App displays bottom tab bar on mobile (<768px) with 5 tabs
-- [ ] **NAV-02**: Tab bar shows role-specific tabs (investors: Properties, Feed, Chat, Deals, Profile)
-- [ ] **NAV-03**: Tab bar shows role-specific tabs (providers: Dashboard, Clients, Chat, Feed, Profile)
-- [ ] **NAV-04**: Active tab shows visual indicator (filled icon, color highlight)
-- [ ] **NAV-05**: Tabs display badge for unread counts (notifications, messages)
-- [ ] **NAV-06**: Tab bar respects iOS safe area insets (no content behind home indicator)
-- [ ] **NAV-07**: Tab transitions animate smoothly with Framer Motion
-- [ ] **NAV-08**: Sidebar is hidden on mobile, replaced by bottom tabs
+- [x] **NAV-01**: App displays bottom tab bar on mobile (<768px) with 5 tabs
+- [x] **NAV-02**: Tab bar shows role-specific tabs (investors: Properties, Feed, Chat, Deals, Profile)
+- [x] **NAV-03**: Tab bar shows role-specific tabs (providers: Dashboard, Clients, Chat, Feed, Profile)
+- [x] **NAV-04**: Active tab shows visual indicator (filled icon, color highlight)
+- [x] **NAV-05**: Tabs display badge for unread counts (notifications, messages)
+- [x] **NAV-06**: Tab bar respects iOS safe area insets (no content behind home indicator)
+- [x] **NAV-07**: Tab transitions animate smoothly with Framer Motion
+- [x] **NAV-08**: Sidebar is hidden on mobile, replaced by bottom tabs
 
 ### Header Redesign
 
@@ -99,14 +99,14 @@ Which phases cover which requirements. Updated during roadmap creation.
 | THM-03 | Phase 36 | Complete |
 | THM-04 | Phase 36 | Complete |
 | THM-05 | Phase 36 | Complete |
-| NAV-01 | Phase 37 | Pending |
-| NAV-02 | Phase 37 | Pending |
-| NAV-03 | Phase 37 | Pending |
-| NAV-04 | Phase 37 | Pending |
-| NAV-05 | Phase 37 | Pending |
-| NAV-06 | Phase 37 | Pending |
-| NAV-07 | Phase 37 | Pending |
-| NAV-08 | Phase 37 | Pending |
+| NAV-01 | Phase 37 | Complete |
+| NAV-02 | Phase 37 | Complete |
+| NAV-03 | Phase 37 | Complete |
+| NAV-04 | Phase 37 | Complete |
+| NAV-05 | Phase 37 | Complete |
+| NAV-06 | Phase 37 | Complete |
+| NAV-07 | Phase 37 | Complete |
+| NAV-08 | Phase 37 | Complete |
 | HDR-01 | Phase 38 | Pending |
 | HDR-02 | Phase 38 | Pending |
 | HDR-03 | Phase 38 | Pending |
