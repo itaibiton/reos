@@ -10,19 +10,19 @@ See: .planning/PROJECT.md (updated 2026-01-21)
 ## Current Position
 
 Milestone: v1.5 Mobile Responsive & Header Redesign
-Phase: 37 - Mobile Bottom Navigation (COMPLETE)
-Plan: 3/3 — complete
-Status: Phase 37 complete, ready for Phase 38
-Last activity: 2026-01-21 — Completed 37-03-PLAN.md
+Phase: 38 - Header Redesign (IN PROGRESS)
+Plan: 2/3 — in progress
+Status: Plan 38-02 complete, ready for 38-03
+Last activity: 2026-01-21 — Completed 38-02-PLAN.md
 
-Progress: [██████░░░░] 60% (3/5 phases)
+Progress: [███████░░░] 70% (3.67/5 phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 131
-- Average duration: 5.2 min
-- Total execution time: 8.92 hours
+- Total plans completed: 133
+- Average duration: 5.1 min
+- Total execution time: 8.95 hours
 
 **By Phase:**
 
@@ -77,10 +77,11 @@ Progress: [██████░░░░] 60% (3/5 phases)
 | 35 | 2/2 | 6 min | 3 min |
 | 36 | 1/1 | 3 min | 3 min |
 | 37 | 3/3 | 7 min | 2.3 min |
+| 38 | 2/3 | 3 min | 1.5 min |
 
 **Recent Trend:**
-- Last 5 plans: 35-02 (3 min), 36-01 (3 min), 37-01 (3 min), 37-02 (1 min), 37-03 (3 min)
-- Trend: v1.5 Mobile Responsive in progress - Phase 37 complete
+- Last 5 plans: 36-01 (3 min), 37-01 (3 min), 37-02 (1 min), 37-03 (3 min), 38-01 (2 min), 38-02 (1 min)
+- Trend: v1.5 Mobile Responsive in progress - Phase 38 in progress
 
 ## Accumulated Context
 
@@ -378,6 +379,9 @@ Recent decisions affecting current work:
 - Phase 37: safe-area-bottom class (not pb-safe) for iOS safe area
 - Phase 37: AppShell isMobile conditional for pb-20 bottom padding
 - Phase 37: Full-bleed pages subtract 5rem for tab bar height on mobile
+- Phase 38: MobileSearchExpander uses callback pattern for search dialog opening
+- Phase 38: Animation uses 0.15s exit + 0.2s expand timing for snappy feedback
+- Phase 38: mode="wait" prevents animation race conditions on rapid taps
 
 ### v1.5 Research Findings
 
@@ -423,6 +427,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-21
-Stopped at: Completed 37-03-PLAN.md (AppShell integration)
+Stopped at: Completed 38-02-PLAN.md (Mobile Search Expander)
 Resume file: None
-Next: Phase 38 (Header Redesign)
+Next: 38-03-PLAN.md (Header Composition)
