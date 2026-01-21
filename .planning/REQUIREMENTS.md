@@ -9,10 +9,10 @@ Requirements for v1.5 Mobile Responsive & Header Redesign. Each maps to roadmap 
 
 ### Foundation
 
-- [ ] **FND-01**: Viewport uses 100dvh for full-height layouts (not 100vh)
-- [ ] **FND-02**: CSS env() safe-area-inset variables configured
-- [ ] **FND-03**: ThemeProvider properly wraps application
-- [ ] **FND-04**: useIsMobile() hook used consistently for responsive behavior
+- [x] **FND-01**: Viewport uses 100dvh for full-height layouts (not 100vh)
+- [x] **FND-02**: CSS env() safe-area-inset variables configured
+- [x] **FND-03**: ThemeProvider properly wraps application
+- [x] **FND-04**: useIsMobile() hook used consistently for responsive behavior
 
 ### Theme Switching
 
@@ -90,10 +90,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FND-01 | Phase 35 | Pending |
-| FND-02 | Phase 35 | Pending |
-| FND-03 | Phase 35 | Pending |
-| FND-04 | Phase 35 | Pending |
+| FND-01 | Phase 35 | Complete |
+| FND-02 | Phase 35 | Complete |
+| FND-03 | Phase 35 | Complete |
+| FND-04 | Phase 35 | Complete |
 | THM-01 | Phase 36 | Pending |
 | THM-02 | Phase 36 | Pending |
 | THM-03 | Phase 36 | Pending |
