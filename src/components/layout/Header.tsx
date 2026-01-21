@@ -1,6 +1,5 @@
 "use client";
 
-import { UserButton } from "@clerk/nextjs";
 import {
   Authenticated,
   Unauthenticated,
@@ -30,8 +29,8 @@ import { api } from "../../../convex/_generated/api";
 import { USER_ROLES } from "@/lib/constants";
 import { Link } from "@/i18n/navigation";
 import { TopNav } from "./TopNav";
-import { NotificationCenter } from "@/components/notifications/NotificationCenter";
 import { GlobalSearchBar } from "@/components/search/GlobalSearchBar";
+import { AvatarDropdown, MobileSearchExpander } from "@/components/header";
 
 // Separate component to use hooks inside Authenticated block
 function AuthenticatedContent() {
@@ -70,9 +69,6 @@ function AuthenticatedContent() {
 
   return (
     <div className="flex items-center gap-3">
-      {/* Notification center */}
-      <NotificationCenter />
-
       {/* Role-switching dropdown - admin only */}
       {isAdmin && (
         <DropdownMenu>
@@ -107,14 +103,8 @@ function AuthenticatedContent() {
         </DropdownMenu>
       )}
 
-      <UserButton
-        afterSignOutUrl="/"
-        appearance={{
-          elements: {
-            avatarBox: "h-8 w-8",
-          },
-        }}
-      />
+      {/* Avatar dropdown (replaces UserButton + NotificationCenter) */}
+      <AvatarDropdown />
     </div>
   );
 }
@@ -174,7 +164,21 @@ export function Header({
 
       {/* Auth section with search */}
       <div className="flex items-center gap-3 flex-shrink-0">
-        {/* Global search */}
+        {/* Mobile search trigger */}
+        <MobileSearchExpander
+          onOpenSearch={() => {
+            // Dispatch keyboard event to open GlobalSearchBar dialog
+            document.dispatchEvent(
+              new KeyboardEvent("keydown", {
+                key: "k",
+                metaKey: true,
+                bubbles: true,
+              })
+            );
+          }}
+        />
+
+        {/* Desktop search */}
         <div className="hidden md:block flex-shrink-0">
           <GlobalSearchBar />
         </div>
