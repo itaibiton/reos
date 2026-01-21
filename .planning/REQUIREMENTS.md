@@ -16,11 +16,11 @@ Requirements for v1.5 Mobile Responsive & Header Redesign. Each maps to roadmap 
 
 ### Theme Switching
 
-- [ ] **THM-01**: Settings tab contains Light/Dark/System toggle
-- [ ] **THM-02**: Theme preference persists across sessions (localStorage)
-- [ ] **THM-03**: No theme flash on page load (proper hydration)
-- [ ] **THM-04**: System option respects OS dark mode preference
-- [ ] **THM-05**: Theme transition animates smoothly
+- [x] **THM-01**: Settings tab contains Light/Dark/System toggle
+- [x] **THM-02**: Theme preference persists across sessions (localStorage)
+- [x] **THM-03**: No theme flash on page load (proper hydration)
+- [x] **THM-04**: System option respects OS dark mode preference
+- [x] **THM-05**: Theme transition animates smoothly
 
 ### Mobile Navigation
 
@@ -94,11 +94,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | FND-02 | Phase 35 | Complete |
 | FND-03 | Phase 35 | Complete |
 | FND-04 | Phase 35 | Complete |
-| THM-01 | Phase 36 | Pending |
-| THM-02 | Phase 36 | Pending |
-| THM-03 | Phase 36 | Pending |
-| THM-04 | Phase 36 | Pending |
-| THM-05 | Phase 36 | Pending |
+| THM-01 | Phase 36 | Complete |
+| THM-02 | Phase 36 | Complete |
+| THM-03 | Phase 36 | Complete |
+| THM-04 | Phase 36 | Complete |
+| THM-05 | Phase 36 | Complete |
 | NAV-01 | Phase 37 | Pending |
 | NAV-02 | Phase 37 | Pending |
 | NAV-03 | Phase 37 | Pending |
