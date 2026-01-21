@@ -42,7 +42,7 @@ export function ShareButton({ postId, shareCount }: ShareButtonProps) {
   return (
     <button
       onClick={handleShare}
-      className="flex items-center gap-1 hover:text-foreground transition-colors"
+      className="flex items-center justify-center gap-1 min-h-[44px] min-w-[44px] md:min-h-0 md:min-w-0 hover:text-foreground transition-colors"
       aria-label={t("engagement.sharePost")}
     >
       <HugeiconsIcon icon={Share01Icon} size={16} strokeWidth={1.5} />

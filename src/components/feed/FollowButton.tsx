@@ -67,7 +67,7 @@ export function FollowButton({ userId, isOwnPost }: FollowButtonProps) {
   return (
     <Button
       variant={isFollowing ? "secondary" : "default"}
-      size="sm"
+      size="touch-sm"
       onClick={handleToggle}
       disabled={isPending}
     >

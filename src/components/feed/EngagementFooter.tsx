@@ -167,7 +167,7 @@ export function EngagementFooter({
         <button
           onClick={handleLikeToggle}
           disabled={isLikePending}
-          className="flex items-center gap-1 hover:text-foreground transition-colors disabled:opacity-50"
+          className="flex items-center justify-center gap-1 min-h-[44px] min-w-[44px] md:min-h-0 md:min-w-0 hover:text-foreground transition-colors disabled:opacity-50"
           aria-label={isLiked ? t("engagement.unlikePost") : t("engagement.likePost")}
         >
           <HugeiconsIcon
@@ -183,7 +183,7 @@ export function EngagementFooter({
         {/* Comment Button - toggles comment section visibility */}
         <button
           onClick={() => setShowComments(!showComments)}
-          className="flex items-center gap-1 hover:text-foreground transition-colors"
+          className="flex items-center justify-center gap-1 min-h-[44px] min-w-[44px] md:min-h-0 md:min-w-0 hover:text-foreground transition-colors"
           aria-label={showComments ? t("engagement.hideComments") : t("engagement.showComments")}
         >
           <HugeiconsIcon icon={Comment01Icon} size={16} strokeWidth={1.5} />
@@ -194,7 +194,7 @@ export function EngagementFooter({
         <button
           onClick={handleSaveToggle}
           disabled={isSavePending}
-          className="flex items-center gap-1 hover:text-foreground transition-colors disabled:opacity-50"
+          className="flex items-center justify-center gap-1 min-h-[44px] min-w-[44px] md:min-h-0 md:min-w-0 hover:text-foreground transition-colors disabled:opacity-50"
           aria-label={isSaved ? t("engagement.unsavePost") : t("engagement.savePost")}
         >
           <HugeiconsIcon
@@ -212,7 +212,7 @@ export function EngagementFooter({
           <button
             onClick={() => setShowRepostDialog(true)}
             disabled={isReposted}
-            className={`flex items-center gap-1 hover:text-foreground transition-colors ${
+            className={`flex items-center justify-center gap-1 min-h-[44px] min-w-[44px] md:min-h-0 md:min-w-0 hover:text-foreground transition-colors ${
               isReposted ? "text-green-500" : ""
             }`}
             aria-label={isReposted ? t("engagement.alreadyReposted") : t("engagement.repost")}
