@@ -9,7 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@ai-sdk/anthropic": "^3.0.18",
+    "@ai-sdk/anthropic": "^2.0.57",
     "@anthropic-ai/sdk": "^0.71.2",
     "@clerk/nextjs": "^6.36.7",
     "@convex-dev/agent": "^0.3.2",
@@ -51,6 +51,7 @@
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
     "convex": "^1.31.3",
+    "convex-helpers": "^0.1.111",
     "date-fns": "^4.1.0",
     "embla-carousel-react": "^8.6.0",
     "framer-motion": "^12.26.2",
