@@ -5,39 +5,39 @@
 See: .planning/PROJECT.md (updated 2026-01-22)
 
 **Core value:** Deal flow tracking from interest to close.
-**Current focus:** Phase 40 - AI Infrastructure Foundation (COMPLETE)
+**Current focus:** Phase 41 - Conversational AI Core (IN PROGRESS)
 
 ## Current Position
 
 Milestone: v1.6 AI-Powered Investor Experience
 Phase: 41 of 45 (Conversational AI Core)
-Plan: 0 of ? in current phase
-Status: Ready to plan
-Last activity: 2026-01-22 — Phase 40 complete, verified
+Plan: 1 of ? in current phase
+Status: In progress
+Last activity: 2026-01-22 — Completed 41-01-PLAN.md
 
-Progress: [██░░░░░░░░] 17% (1/6 phases)
+Progress: [██░░░░░░░░] 17% (1/6 phases + 1 plan)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 140
+- Total plans completed: 141
 - Average duration: 5.0 min
-- Total execution time: 9.33 hours
+- Total execution time: 9.38 hours
 
-**By Phase (v1.5 most recent):**
+**By Phase (v1.6 most recent):**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 35 | 2/2 | 6 min | 3 min |
 | 36 | 1/1 | 3 min | 3 min |
 | 37 | 3/3 | 7 min | 2.3 min |
 | 38 | 3/3 | 9 min | 3 min |
 | 39 | 3/3 | 11 min | 3.7 min |
 | 40 | 3/3 | 11 min | 3.7 min |
+| 41 | 1/? | 3 min | 3 min |
 
 **Recent Trend:**
-- Last 5 plans: 39-02 (4 min), 39-03 (3 min), 40-01 (5 min), 40-02 (2 min), 40-03 (4 min)
-- Trend: Stable, Phase 40 complete
+- Last 5 plans: 39-03 (3 min), 40-01 (5 min), 40-02 (2 min), 40-03 (4 min), 41-01 (3 min)
+- Trend: Stable, consistent 3-5 min execution
 
 ## Accumulated Context
 
@@ -59,6 +59,10 @@ Recent decisions affecting current work:
 - 40-03: In-memory Map for abort controller tracking
 - 40-03: System context = profile + summary (injected dynamically)
 - 40-03: Asynchronous summarization trigger (non-blocking)
+- 41-01: Messages fetched via action (not query) - agent stores in internal tables
+- 41-01: Refetch-after-send pattern since actions don't support subscriptions
+- 41-01: Optimistic UI updates for user messages during send
+- 41-01: Intersection Observer for smart auto-scroll
 
 ### Pending Todos
 
@@ -77,6 +81,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-22
-Stopped at: Phase 40 verified and complete
+Stopped at: Completed 41-01-PLAN.md
 Resume file: None
-Next: `/gsd:discuss-phase 41` or `/gsd:plan-phase 41`
+Next: Continue with remaining Phase 41 plans
