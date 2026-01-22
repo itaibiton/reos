@@ -801,4 +801,27 @@ export default defineSchema({
   })
     .index("by_user", ["userId"])
     .index("by_user_and_time", ["userId", "createdAt"]),
+
+  // ============================================================================
+  // AI ASSISTANT TABLES (Phase 40)
+  // ============================================================================
+
+  // AI conversation threads - one per user for persistent memory
+  aiThreads: defineTable({
+    // Reference to user
+    userId: v.id("users"),
+    // Thread ID from @convex-dev/agent (for linking)
+    agentThreadId: v.optional(v.string()),
+    // Summary of older messages (for context window management)
+    summary: v.optional(v.string()),
+    // Number of messages summarized (for tracking)
+    summarizedMessageCount: v.optional(v.number()),
+    // Last activity timestamp
+    lastActivityAt: v.number(),
+    // Timestamps
+    createdAt: v.number(),
+    updatedAt: v.number(),
+  })
+    .index("by_user", ["userId"])
+    .index("by_last_activity", ["lastActivityAt"]),
 });
