@@ -1342,7 +1342,57 @@
       "goToOnboarding": "עבור לתהליך הרשמה",
       "saveSuccess": "הפרופיל עודכן בהצלחה!",
       "saveError": "שמירת הפרופיל נכשלה. אנא נסה שוב."
+    }
+  },
+  "profileSummary": {
+    "title": "הפרופיל שלך",
+    "completeness": {
+      "title": "שלמות הפרופיל",
+      "complete": "הפרופיל מלא",
+      "missingPrefix": "חסר:",
+      "moreItems": "+{count} נוספים"
     },
+    "sections": {
+      "basics": "פרטי משקיע",
+      "financial": "הקשר פיננסי",
+      "preferences": "העדפות נכס",
+      "timeline": "לוח זמנים ושירותים"
+    },
+    "fields": {
+      "citizenship": "אזרחות",
+      "residencyStatus": "סטטוס תושבות",
+      "experienceLevel": "רמת ניסיון",
+      "propertyOwnership": "בעלות על נכס בישראל",
+      "investmentType": "סוג השקעה",
+      "budgetMin": "תקציב מינימלי",
+      "budgetMax": "תקציב מקסימלי",
+      "investmentHorizon": "אופק השקעה",
+      "investmentGoals": "מטרות השקעה",
+      "yieldPreference": "העדפת תשואה",
+      "financingApproach": "גישת מימון",
+      "propertyTypes": "סוגי נכסים",
+      "preferredLocations": "מיקומים מועדפים",
+      "purchaseTimeline": "לוח זמנים לרכישה",
+      "servicesNeeded": "שירותים נדרשים",
+      "notSet": "לא הוגדר"
+    },
+    "edit": {
+      "save": "שמור",
+      "cancel": "ביטול",
+      "saving": "שומר...",
+      "saveSuccess": "נשמר",
+      "saveError": "השמירה נכשלה"
+    },
+    "incomplete": "לא הושלם"
+  },
+  "quickReplies": {
+    "showProperties": "הצג נכסים",
+    "buildTeam": "בנה את הצוות שלי",
+    "explainOptions": "הסבר אפשרויות",
+    "completeProfile": "השלם פרופיל",
+    "showSuggestions": "הצג הצעות"
+  },
+  "onboarding": {
     "questions": {
       "citizenship": {
         "title": "האם אתה אזרח ישראלי?",

@@ -2174,6 +2174,54 @@
       "saveError": "Failed to save profile. Please try again."
     }
   },
+  "profileSummary": {
+    "title": "Your Profile",
+    "completeness": {
+      "title": "Profile Completeness",
+      "complete": "Profile complete",
+      "missingPrefix": "Missing:",
+      "moreItems": "+{count} more"
+    },
+    "sections": {
+      "basics": "Investor Basics",
+      "financial": "Financial Context",
+      "preferences": "Property Preferences",
+      "timeline": "Timeline & Services"
+    },
+    "fields": {
+      "citizenship": "Citizenship",
+      "residencyStatus": "Residency Status",
+      "experienceLevel": "Experience Level",
+      "propertyOwnership": "Owns Property in Israel",
+      "investmentType": "Investment Type",
+      "budgetMin": "Minimum Budget",
+      "budgetMax": "Maximum Budget",
+      "investmentHorizon": "Investment Horizon",
+      "investmentGoals": "Investment Goals",
+      "yieldPreference": "Yield Preference",
+      "financingApproach": "Financing Approach",
+      "propertyTypes": "Property Types",
+      "preferredLocations": "Preferred Locations",
+      "purchaseTimeline": "Purchase Timeline",
+      "servicesNeeded": "Services Needed",
+      "notSet": "Not set"
+    },
+    "edit": {
+      "save": "Save",
+      "cancel": "Cancel",
+      "saving": "Saving...",
+      "saveSuccess": "Saved",
+      "saveError": "Failed to save"
+    },
+    "incomplete": "Incomplete"
+  },
+  "quickReplies": {
+    "showProperties": "Show properties",
+    "buildTeam": "Build my team",
+    "explainOptions": "Explain options",
+    "completeProfile": "Complete profile",
+    "showSuggestions": "Show suggestions"
+  },
   "misc": {
     "comingSoon": {
       "title": "Coming Soon",
