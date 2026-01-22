@@ -11,18 +11,18 @@ See: .planning/PROJECT.md (updated 2026-01-22)
 
 Milestone: v1.6 AI-Powered Investor Experience
 Phase: 43 of 45 (Dream Team Builder)
-Plan: 1 of 3 in current phase
+Plan: 2 of 3 in current phase
 Status: In progress
-Last activity: 2026-01-22 — Completed 43-01-PLAN.md
+Last activity: 2026-01-22 — Completed 43-02-PLAN.md
 
-Progress: [█████░░░░░] 50% (3/6 phases complete, 1/3 plans in phase 43)
+Progress: [█████░░░░░] 50% (3/6 phases complete, 2/3 plans in phase 43)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 147
+- Total plans completed: 148
 - Average duration: 4.9 min
-- Total execution time: 9.73 hours
+- Total execution time: 9.78 hours
 
 **By Phase (v1.6 most recent):**
 
@@ -35,10 +35,10 @@ Progress: [█████░░░░░] 50% (3/6 phases complete, 1/3 plans i
 | 40 | 3/3 | 11 min | 3.7 min |
 | 41 | 3/3 | 7 min | 2.3 min |
 | 42 | 3/3 | 9 min | 3 min |
-| 43 | 1/3 | 4 min | 4 min |
+| 43 | 2/3 | 7 min | 3.5 min |
 
 **Recent Trend:**
-- Last 5 plans: 42-01 (4 min), 42-02 (3 min), 42-03 (2 min), 43-01 (4 min)
+- Last 5 plans: 42-02 (3 min), 42-03 (2 min), 43-01 (4 min), 43-02 (3 min)
 - Trend: Stable, consistent 2-4 min execution
 
 ## Accumulated Context
@@ -82,6 +82,9 @@ Recent decisions affecting current work:
 - 43-01: Cap maxPerRole at 5 providers to avoid overwhelming chat
 - 43-01: Return searchCriteria in tool results for UI match badge computation
 - 43-01: Proactive team prompt after EVERY property recommendation (TEAM-06)
+- 43-02: Compute isOnTeam from active deals list (not per-provider query)
+- 43-02: Skip pattern for modal queries (only load when open)
+- 43-02: Map providerType to deal field dynamically
 
 ### Pending Todos
 
@@ -98,11 +101,11 @@ None yet.
 - Phase 40 complete: AI infrastructure foundation ready
 - Phase 41 complete: Conversational AI core ready for integration
 - Phase 42 complete: Property recommendations end-to-end (tool, UI, chat integration)
-- Phase 43 in progress: Provider search tool and agent instructions complete (43-01)
+- Phase 43 in progress: Provider search tool (43-01), provider UI components (43-02) complete
 
 ## Session Continuity
 
 Last session: 2026-01-22
-Stopped at: Completed 43-01-PLAN.md
+Stopped at: Completed 43-02-PLAN.md
 Resume file: None
-Next: Continue with 43-02-PLAN.md (Provider Card UI)
+Next: Continue with 43-03-PLAN.md (Chat Integration & Wiring)
