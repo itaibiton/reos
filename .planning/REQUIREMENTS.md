@@ -30,7 +30,7 @@ Requirements for AI-Powered Investor Experience milestone. Each maps to roadmap 
 - [ ] **CHAT-05**: Quick reply buttons appear for common queries
 - [x] **CHAT-06**: AI can answer questions about investor's profile
 - [x] **CHAT-07**: AI can answer questions about properties in the system
-- [ ] **CHAT-08**: AI can answer questions about service providers
+- [x] **CHAT-08**: AI can answer questions about service providers
 
 ### Property Recommendations
 
@@ -44,12 +44,12 @@ Requirements for AI-Powered Investor Experience milestone. Each maps to roadmap 
 
 ### Dream Team Builder
 
-- [ ] **TEAM-01**: AI suggests 2-3 brokers that match investor profile and property preferences
-- [ ] **TEAM-02**: AI suggests 2-3 mortgage advisors based on investor needs
-- [ ] **TEAM-03**: AI suggests 2-3 lawyers for the investor's target locations
-- [ ] **TEAM-04**: Each provider suggestion includes explanation of why they match
-- [ ] **TEAM-05**: Investor can select which providers to add to their team
-- [ ] **TEAM-06**: AI prompts investor to build team after viewing properties
+- [x] **TEAM-01**: AI suggests 2-3 brokers that match investor profile and property preferences
+- [x] **TEAM-02**: AI suggests 2-3 mortgage advisors based on investor needs
+- [x] **TEAM-03**: AI suggests 2-3 lawyers for the investor's target locations
+- [x] **TEAM-04**: Each provider suggestion includes explanation of why they match
+- [x] **TEAM-05**: Investor can select which providers to add to their team
+- [x] **TEAM-06**: AI prompts investor to build team after viewing properties
 
 ### Summary Page Layout
 
@@ -119,13 +119,13 @@ Which phases cover which requirements. Updated during roadmap creation.
 | REC-07 | Phase 42 | Complete |
 | CHAT-06 | Phase 42 | Complete |
 | CHAT-07 | Phase 42 | Complete |
-| TEAM-01 | Phase 43 | Pending |
-| TEAM-02 | Phase 43 | Pending |
-| TEAM-03 | Phase 43 | Pending |
-| TEAM-04 | Phase 43 | Pending |
-| TEAM-05 | Phase 43 | Pending |
-| TEAM-06 | Phase 43 | Pending |
-| CHAT-08 | Phase 43 | Pending |
+| TEAM-01 | Phase 43 | Complete |
+| TEAM-02 | Phase 43 | Complete |
+| TEAM-03 | Phase 43 | Complete |
+| TEAM-04 | Phase 43 | Complete |
+| TEAM-05 | Phase 43 | Complete |
+| TEAM-06 | Phase 43 | Complete |
+| CHAT-08 | Phase 43 | Complete |
 | PROF-01 | Phase 44 | Pending |
 | PROF-02 | Phase 44 | Pending |
 | PROF-03 | Phase 44 | Pending |
