@@ -18,7 +18,7 @@ Transform the post-onboarding experience into an intelligent investor hub. This 
 
 - [x] **Phase 40: AI Infrastructure Foundation** - Streaming, memory persistence, context management
 - [x] **Phase 41: Conversational AI Core** - Basic chat UI with streaming responses
-- [ ] **Phase 42: Property Recommendations** - RAG-grounded property matching with explanations
+- [x] **Phase 42: Property Recommendations** - RAG-grounded property matching with explanations
 - [ ] **Phase 43: Dream Team Builder** - Provider suggestions per role with match reasons
 - [ ] **Phase 44: Investor Summary Page** - Two-panel layout integrating profile and AI
 - [ ] **Phase 45: Mobile Experience** - Tabbed interface and touch-optimized chat
@@ -70,9 +70,9 @@ Plans:
 **Plans**: 3 plans in 2 waves
 
 Plans:
-- [ ] 42-01-PLAN.md — Property search query, tool definition with Zod schema, agent registration
-- [ ] 42-02-PLAN.md — Sonner toast setup, PropertyRecommendationCard, PropertyDetailModal, SaveAllButton
-- [ ] 42-03-PLAN.md — ChatMessage extended with property cards, useAIChat tool results, integration verification
+- [x] 42-01-PLAN.md — Property search query, tool definition with Zod schema, agent registration
+- [x] 42-02-PLAN.md — Sonner toast setup, PropertyRecommendationCard, PropertyDetailModal, SaveAllButton
+- [x] 42-03-PLAN.md — ChatMessage extended with property cards, useAIChat tool results, integration verification
 
 ### Phase 43: Dream Team Builder
 **Goal**: AI suggests service providers per role with match explanations
@@ -132,7 +132,7 @@ Plans:
 |-------|-----------|----------------|--------|-----------|
 | 40. AI Infrastructure Foundation | v1.6 | 3/3 | ✓ Complete | 2026-01-22 |
 | 41. Conversational AI Core | v1.6 | 3/3 | ✓ Complete | 2026-01-22 |
-| 42. Property Recommendations | v1.6 | 0/3 | Ready | - |
+| 42. Property Recommendations | v1.6 | 3/3 | ✓ Complete | 2026-01-22 |
 | 43. Dream Team Builder | v1.6 | 0/? | Not started | - |
 | 44. Investor Summary Page | v1.6 | 0/? | Not started | - |
 | 45. Mobile Experience | v1.6 | 0/? | Not started | - |

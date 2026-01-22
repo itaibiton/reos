@@ -28,19 +28,19 @@ Requirements for AI-Powered Investor Experience milestone. Each maps to roadmap 
 - [x] **CHAT-03**: Typing indicator shows while AI is generating response
 - [x] **CHAT-04**: Chat history displays previous messages in conversation
 - [ ] **CHAT-05**: Quick reply buttons appear for common queries
-- [ ] **CHAT-06**: AI can answer questions about investor's profile
-- [ ] **CHAT-07**: AI can answer questions about properties in the system
+- [x] **CHAT-06**: AI can answer questions about investor's profile
+- [x] **CHAT-07**: AI can answer questions about properties in the system
 - [ ] **CHAT-08**: AI can answer questions about service providers
 
 ### Property Recommendations
 
-- [ ] **REC-01**: AI generates personalized property recommendations based on profile
-- [ ] **REC-02**: Each recommendation includes 2-3 match factors explaining why
-- [ ] **REC-03**: Recommendations display match score/confidence indicator
-- [ ] **REC-04**: "Quick save all" button saves all recommended properties at once
-- [ ] **REC-05**: Each property card links to full property detail page
-- [ ] **REC-06**: AI shows loading indicator while searching properties
-- [ ] **REC-07**: Recommendations are grounded in database (no hallucinated properties)
+- [x] **REC-01**: AI generates personalized property recommendations based on profile
+- [x] **REC-02**: Each recommendation includes 2-3 match factors explaining why
+- [x] **REC-03**: Recommendations display match score/confidence indicator
+- [x] **REC-04**: "Quick save all" button saves all recommended properties at once
+- [x] **REC-05**: Each property card links to full property detail page
+- [x] **REC-06**: AI shows loading indicator while searching properties
+- [x] **REC-07**: Recommendations are grounded in database (no hallucinated properties)
 
 ### Dream Team Builder
 
@@ -110,15 +110,15 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CHAT-02 | Phase 41 | Complete |
 | CHAT-03 | Phase 41 | Complete |
 | CHAT-04 | Phase 41 | Complete |
-| REC-01 | Phase 42 | Pending |
-| REC-02 | Phase 42 | Pending |
-| REC-03 | Phase 42 | Pending |
-| REC-04 | Phase 42 | Pending |
-| REC-05 | Phase 42 | Pending |
-| REC-06 | Phase 42 | Pending |
-| REC-07 | Phase 42 | Pending |
-| CHAT-06 | Phase 42 | Pending |
-| CHAT-07 | Phase 42 | Pending |
+| REC-01 | Phase 42 | Complete |
+| REC-02 | Phase 42 | Complete |
+| REC-03 | Phase 42 | Complete |
+| REC-04 | Phase 42 | Complete |
+| REC-05 | Phase 42 | Complete |
+| REC-06 | Phase 42 | Complete |
+| REC-07 | Phase 42 | Complete |
+| CHAT-06 | Phase 42 | Complete |
+| CHAT-07 | Phase 42 | Complete |
 | TEAM-01 | Phase 43 | Pending |
 | TEAM-02 | Phase 43 | Pending |
 | TEAM-03 | Phase 43 | Pending |
