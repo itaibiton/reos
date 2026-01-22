@@ -119,11 +119,12 @@ Plans:
   3. Chat input stays visible above keyboard when keyboard opens
   4. All interactive elements have minimum 44px touch targets
   5. Quick reply buttons are easily tappable without accidental adjacent presses
-**Plans**: TBD
+**Plans**: 3 plans in 2 waves
 
 Plans:
-- [ ] 45-01: TBD
-- [ ] 45-02: TBD
+- [ ] 45-01-PLAN.md — Keyboard detection hook, MobileInvestorSummary tabbed component
+- [ ] 45-02-PLAN.md — Touch target updates (44px), horizontal quick replies, responsive field editor
+- [ ] 45-03-PLAN.md — Page integration with mobile detection, translations, verification checkpoint
 
 ## Progress
 
@@ -136,7 +137,7 @@ Plans:
 | 42. Property Recommendations | v1.6 | 3/3 | ✓ Complete | 2026-01-22 |
 | 43. Dream Team Builder | v1.6 | 3/3 | ✓ Complete | 2026-01-22 |
 | 44. Investor Summary Page | v1.6 | 3/3 | ✓ Complete | 2026-01-23 |
-| 45. Mobile Experience | v1.6 | 0/? | Not started | - |
+| 45. Mobile Experience | v1.6 | 0/3 | Not started | - |
 
 ---
 *Roadmap created: 2026-01-22*
