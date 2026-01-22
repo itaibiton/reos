@@ -8,12 +8,21 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 import { formatDistanceToNow } from "date-fns";
 import { StreamingCursor } from "./StreamingCursor";
+import { PropertyCardRenderer } from "./PropertyCardRenderer";
+
+interface ToolCall {
+  toolCallId: string;
+  toolName: string;
+  args: any;
+  result?: any;
+}
 
 interface ChatMessageProps {
   role: "user" | "assistant";
   content: string;
   timestamp: number;
   isStreaming?: boolean;
+  toolCalls?: ToolCall[];
   userImage?: string;
   userName?: string;
 }
@@ -24,6 +33,7 @@ export const ChatMessage = memo(function ChatMessage({
   content,
   timestamp,
   isStreaming = false,
+  toolCalls,
   userImage,
   userName,
 }: ChatMessageProps) {
@@ -128,6 +138,14 @@ export const ChatMessage = memo(function ChatMessage({
                 {content}
               </ReactMarkdown>
               {isStreaming && <StreamingCursor />}
+
+              {/* Property cards for assistant messages with tool results */}
+              {role === "assistant" && (
+                <PropertyCardRenderer
+                  toolCalls={toolCalls}
+                  isExecuting={isStreaming}
+                />
+              )}
             </div>
           )}
         </div>

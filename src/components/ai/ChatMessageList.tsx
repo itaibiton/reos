@@ -9,10 +9,18 @@ import { Button } from "@/components/ui/button";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { ArrowDown01Icon } from "@hugeicons/core-free-icons";
 
+interface ToolCall {
+  toolCallId: string;
+  toolName: string;
+  args: any;
+  result?: any;
+}
+
 interface Message {
   _id: string;
   role: "user" | "assistant";
   content: string;
+  toolCalls?: ToolCall[];
   _creationTime: number;
 }
 
@@ -64,6 +72,7 @@ export function ChatMessageList({ messages, isStreaming, isLoading = false }: Ch
               content={message.content}
               timestamp={message._creationTime}
               isStreaming={isLastMessageStreaming && index === messages.length - 1}
+              toolCalls={message.toolCalls}
               userImage={user?.imageUrl}
               userName={user?.fullName ?? user?.firstName ?? undefined}
             />

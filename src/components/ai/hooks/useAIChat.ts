@@ -4,10 +4,18 @@ import { useQuery, useAction, useMutation } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
 import { useState, useCallback, useEffect } from "react";
 
+interface ToolCall {
+  toolCallId: string;
+  toolName: string;
+  args: any;
+  result?: any;
+}
+
 interface Message {
   _id: string;
   role: "user" | "assistant";
   content: string;
+  toolCalls?: ToolCall[];
   _creationTime: number;
 }
 
