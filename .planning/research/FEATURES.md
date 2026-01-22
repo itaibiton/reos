@@ -1,64 +1,87 @@
-# Feature Landscape: Mobile Responsive + Header Redesign
+# Feature Landscape: AI-Powered Investor Assistant
 
-**Domain:** Real estate investment platform mobile responsiveness
-**Researched:** 2026-01-21
-**Mode:** Features dimension (for subsequent milestone)
+**Domain:** AI real estate assistant for investor experience
+**Researched:** 2026-01-22
+**Mode:** Features dimension (for v1.6 milestone)
+**Overall Confidence:** MEDIUM-HIGH
+
+## Executive Summary
+
+AI real estate assistants in 2025-2026 are expected to provide instant, personalized responses based on user profiles, remember context across sessions, and deliver transparent recommendations with explanations. Users expect 24/7 availability, hyper-personalized property matching, and seamless human handoff when needed. The key differentiator for REOS is the integrated "dream team" builder concept, which goes beyond property recommendations to orchestrate the full service provider experience.
+
+---
 
 ## Table Stakes
 
-Features users expect. Missing = product feels incomplete or broken on mobile.
+Features users expect. Missing = AI assistant feels incomplete or untrustworthy.
 
-### Bottom Tab Bar Navigation
-
-| Feature | Why Expected | Complexity | Dependencies | Notes |
-|---------|--------------|------------|--------------|-------|
-| Fixed bottom navigation (5 tabs) | Industry standard for mobile apps; 40% faster task completion vs hamburger menu (Airbnb study) | Low | None - new component | Position fixed, within thumb zone |
-| Role-specific tab content | Already have role-based sidebar navigation | Low | Existing `useCurrentUser`, `getNavigationForRole` | Map sidebar groups to bottom tabs |
-| Active state indicator | Users need visual feedback on current location | Low | React pathname matching (already in Sidebar.tsx) | Bold icon + label, or colored underline |
-| Safe area insets | iOS notch/home indicator compatibility | Low | Tailwind `safe-area-inset-*` or `pb-safe` | Critical for iPhone users |
-| Hide on scroll (optional) | More content visibility while browsing | Medium | Scroll direction detection hook | Zillow/Redfin do NOT hide - keep visible |
-| Badge indicators | Notifications count on tabs | Low | Existing notification count query | Dot or number badge on relevant tabs |
-
-**Recommendation:** 5 tabs - Properties, Feed, Chat, Deals, Profile. This matches user mental model from Zillow (Explore, Favorites, Inbox, Profile) and LinkedIn (Home, Network, Post, Notifications, Jobs).
-
-### Responsive Header
+### Personalized Property Recommendations
 
 | Feature | Why Expected | Complexity | Dependencies | Notes |
 |---------|--------------|------------|--------------|-------|
-| Condensed mobile header | Full header wastes precious vertical space | Low | Tailwind responsive classes | Logo + avatar dropdown + search icon |
-| Search as icon (not full bar) | Mobile space constraints | Low | Existing GlobalSearchBar opens dialog | Command+K dialog already works |
-| Single dropdown menu | Consolidate notifications, settings, sign out | Medium | Refactor existing Header.tsx | Avatar-triggered dropdown |
-| Hamburger for overflow | Secondary nav items (settings, help, etc.) | Low | Existing Sheet component | Only if needed beyond bottom tabs |
+| Profile-based matching | AI should use questionnaire data (budget, location, property type, goals) to filter recommendations | Medium | Investor questionnaire data, property listings | Core value proposition |
+| Explanation for each recommendation | Users need to understand "why this property?" | Medium | Matching algorithm, UI for explanations | "Matches your $500K-800K budget and Tel Aviv preference" |
+| Confidence/match score | Visual indicator of how well property matches profile | Low | Scoring algorithm | 85% match, 3/5 stars, or "Strong match" |
+| Multiple recommendations (3-5) | Single recommendation feels limited | Low | Query returns multiple properties | Batch display with comparison option |
+| "View all" navigation | Easy path to full property list with AI filters applied | Low | Smart search integration | Preserves AI-derived filters |
 
-**Recommendation:** Mobile header: Logo left, search icon center-right, avatar dropdown far right. Remove breadcrumbs on mobile (bottom tabs provide context).
+**Research Source:** AI recommendation systems analyze complex data points including property features, location preferences, budget constraints, and lifestyle requirements. After implementing AI-powered recommendations, one agency saw search time reduce by 40% ([Ascendix Tech](https://ascendixtech.com/ai-recommendation-system-real-estate/)).
 
-### Property Cards - Mobile Layout
-
-| Feature | Why Expected | Complexity | Dependencies | Notes |
-|---------|--------------|------------|--------------|-------|
-| Full-width stacked cards | Grid doesn't work on small screens | Low | Tailwind responsive grid | `grid-cols-1 md:grid-cols-2 lg:grid-cols-3` |
-| Touch-friendly tap targets | Minimum 44x44px touch areas | Low | Review existing PropertyCard | Save button, status badges |
-| Image carousel swipe | Users expect swipe gestures on images | Medium | Embla carousel already installed | Add swipe navigation |
-| Quick action buttons | Save, share without opening detail | Low | Existing SaveButton component | Add share button |
-
-### Theme Switching
+### Batch Save Actions
 
 | Feature | Why Expected | Complexity | Dependencies | Notes |
 |---------|--------------|------------|--------------|-------|
-| Light/Dark/System options | 82.7% of users have dark mode preference | Low | `next-themes` already installed | Already have infrastructure |
-| System preference sync | Auto-switch based on OS setting | Low | Built into next-themes | Default behavior |
-| Persistent preference | Remember user choice | Low | next-themes localStorage | Already works |
-| Smooth transitions | No jarring flash on theme change | Low | CSS transitions | Avoid FOUC |
+| Quick save individual | Heart/save icon on each recommendation card | Low | Existing SaveButton component | Already built in REOS |
+| "Save all recommendations" | Batch action for convenience | Low | Bulk save mutation | Single tap to save all 3-5 properties |
+| Save confirmation feedback | Toast/animation confirming save | Low | Toast component | "3 properties saved to your favorites" |
+| Navigate to saved list | Clear path to view saved properties | Low | Existing saved properties page | Link in confirmation toast |
 
-**Recommendation:** Three-way toggle: Light, Dark, System. Place in avatar dropdown menu.
+**Research Source:** Favorites feature is "indispensable for every real-estate app" - users searching for homes need to revisit shortlisted options later ([Uptech UX Review](https://www.uptech.team/blog/ux-review-of-real-estate-apps)).
 
-### RTL/i18n Responsive
+### Conversational AI Interface
 
 | Feature | Why Expected | Complexity | Dependencies | Notes |
 |---------|--------------|------------|--------------|-------|
-| RTL-aware bottom tabs | Hebrew users need mirrored layout | Low | Tailwind RTL utilities (`start-*`, `end-*`) | Already using logical properties |
-| RTL swipe gestures | Carousel direction should flip | Medium | Embla RTL support | Check direction context |
-| Locale-aware number formatting | Already implemented | None | Using `useFormatter` | Currency, percentages |
+| Natural language input | Users type questions like "Why did you suggest this property?" | Medium | LLM integration (Claude) | Already using Claude for smart search |
+| Human-like responses | Avoid robotic, scripted responses | Medium | Prompt engineering | "Great question! This property matches because..." |
+| Quick reply suggestions | Predefined buttons for common queries | Low | Static UI component | "Tell me more", "Show similar", "Contact broker" |
+| Typing indicator | Visual feedback while AI generates response | Low | Loading state | Shows AI is "thinking" |
+| Message history in session | Scroll back through conversation | Low | State management | Standard chat pattern |
+
+**Research Source:** More than 90% of consumers expect businesses to use conversational assistants. Using natural, human-like language keeps people engaged and builds trust ([ChatBot.com](https://www.chatbot.com/blog/real-estate-chatbot/)).
+
+### Persistent Memory
+
+| Feature | Why Expected | Complexity | Dependencies | Notes |
+|---------|--------------|------------|--------------|-------|
+| Remember profile context | AI knows investor preferences without re-asking | Low | Load questionnaire data into context | Always available |
+| Remember conversation history | Resume where left off across sessions | Medium | Convex storage for conversation history | Key differentiator in 2025-2026 |
+| Selective memory updates | AI can update understanding based on new info ("Actually, I'm now looking at a higher budget") | Medium | Memory update mechanism | User confirms what to remember |
+| Privacy controls | User can clear AI memory | Low | Delete conversation data | "Forget our conversation" option |
+
+**Research Source:** By mid-2025, every major AI vendor shipped persistent memory. The "Groundhog Day" effect (repeating yourself every session) is now unacceptable ([MemMachine](https://memmachine.ai/blog/2025/09/beyond-the-chatbot-why-ai-agents-need-persistent-memory/)).
+
+### Recommendation Transparency
+
+| Feature | Why Expected | Complexity | Dependencies | Notes |
+|---------|--------------|------------|--------------|-------|
+| Show matching criteria | Display 2-3 factors that influenced recommendation | Low | Extract from matching algorithm | "Budget: Match | Location: Match | Size: Partial match" |
+| Confidence visualization | Progress bar, percentage, or High/Medium/Low indicator | Low | Scoring algorithm | Green/Yellow/Red or 85% match |
+| "Why this?" expandable section | Tap to see full reasoning | Low | Detailed explanation stored | Optional expansion for curious users |
+| Acknowledge limitations | "This property is over your budget, but matches other criteria" | Medium | Edge case handling in prompts | Honesty builds trust |
+
+**Research Source:** Best practices include showing top 2-3 factors that influenced each recommendation, using simple language, and displaying confidence levels when AI is uncertain ([Glance App Trust Study](https://thisisglance.com/learning-centre/what-makes-users-trust-ai-powered-app-recommendations)).
+
+### Profile Summary Display
+
+| Feature | Why Expected | Complexity | Dependencies | Notes |
+|---------|--------------|------------|--------------|-------|
+| Visual profile summary | At-a-glance view of investor preferences | Low | Render questionnaire data | Cards or list format |
+| Key metrics highlighted | Budget, location, timeline prominently displayed | Low | Data extraction | Most decision-relevant info first |
+| Completeness indicator | Show profile completion percentage | Low | Already built (ProfileCompletenessCard) | Motivates completion |
+| Edit access | Inline or link to edit profile | Low | Already built (edit questionnaire page) | Quick corrections |
+
+**Research Source:** AI platforms analyze investor risk tolerance, budget, location preferences, and goals to provide personalized recommendations ([Ascendix AI Investment](https://ascendixtech.com/ai-real-estate-investment/)).
 
 ---
 
@@ -66,161 +89,219 @@ Features users expect. Missing = product feels incomplete or broken on mobile.
 
 Features that set REOS apart. Not expected, but valued.
 
-### Smart Navigation Shortcuts
+### Dream Team Builder
 
 | Feature | Value Proposition | Complexity | Dependencies | Notes |
 |---------|-------------------|------------|--------------|-------|
-| Gesture shortcuts | Swipe up for quick actions | High | Custom gesture handling | Nice-to-have, not MVP |
-| Recent items quick access | Last 3 viewed properties in dropdown | Medium | Add view history tracking | Saves navigation time |
-| Role-specific quick actions | Admin: view-as switcher in dropdown | Low | Already built | Move to mobile dropdown |
+| Role-based provider suggestions | AI suggests 2-3 providers per role (broker, mortgage, lawyer) | Medium | Provider profiles, matching algorithm | **REOS unique differentiator** |
+| Provider match explanations | "This broker specializes in Tel Aviv apartments" | Medium | Provider specialization data | Requires rich provider profiles |
+| "Build my team" batch action | One tap to initiate contact with suggested team | Medium | Deal flow initiation | Creates deals with selected providers |
+| Comparison view | Side-by-side provider comparison | Medium | Provider data display | Ratings, reviews, specializations |
+| Team composition preview | See full team before committing | Low | UI display | "Your dream team: Sarah (broker), David (mortgage), Rachel (lawyer)" |
 
-### Advanced Mobile Features
+**Rationale:** No existing AI real estate assistant offers integrated service provider team building. This directly supports REOS's core value of "deal flow tracking from interest to close" and differentiates from property-only platforms like Zillow/Redfin.
 
-| Feature | Value Proposition | Complexity | Dependencies | Notes |
-|---------|-------------------|------------|--------------|-------|
-| Pull-to-refresh | Natural mobile pattern | Medium | Custom hook or library | Properties list, Feed |
-| Skeleton loading states | Perceived performance | Low | Already have Skeleton component | Apply to mobile views |
-| Offline indicator | Clear network status | Low | Navigator.onLine API | Banner when offline |
-| Haptic feedback | Premium feel on actions | Low | Navigator.vibrate API | Save button, notifications |
-
-### Theme Customization
+### Proactive Suggestions
 
 | Feature | Value Proposition | Complexity | Dependencies | Notes |
 |---------|-------------------|------------|--------------|-------|
-| Accent color customization | Personal branding for providers | High | Extend theme system | Post-MVP |
-| Scheduled theme switching | Auto dark at sunset | Medium | Geolocation + time | Premium feature |
+| New property alerts | AI notifies when matching properties are listed | Medium | Background job, push notifications | "3 new properties match your profile" |
+| Profile optimization hints | AI suggests profile improvements | Low | Profile analysis prompts | "Adding your financing preference would improve matches" |
+| Next step guidance | AI suggests logical next actions | Medium | Deal flow stage awareness | "You've saved 5 properties. Ready to connect with a broker?" |
+| Market insights | Location-specific trends relevant to investor | High | Market data integration | Post-MVP |
+
+**Research Source:** Agentic AI assistants "monitor data streams, prioritize tasks, send notifications, or even complete multi-step workflows automatically" ([HousingWire](https://www.housingwire.com/articles/agentic-ai-real-estate-2025/)).
+
+### Conversation Memory Intelligence
+
+| Feature | Value Proposition | Complexity | Dependencies | Notes |
+|---------|-------------------|------------|--------------|-------|
+| Extract preferences from chat | AI learns new preferences from conversation | High | NLP extraction, memory updates | "I learned you prefer newer construction" |
+| Context-aware follow-ups | AI references past conversations naturally | Medium | Conversation history retrieval | "Last time you mentioned interest in rental yield..." |
+| Contradiction detection | AI notices and asks about conflicting info | High | Preference comparison logic | "You said $500K max but saved a $650K property. Update budget?" |
+
+### Advanced Match Scoring
+
+| Feature | Value Proposition | Complexity | Dependencies | Notes |
+|---------|-------------------|------------|--------------|-------|
+| Multi-factor match breakdown | Detailed scoring per criterion | Medium | Scoring algorithm visualization | Budget: 100%, Location: 80%, Size: 60% |
+| Deal score | AI predicts deal potential | High | Historical deal data | Post-MVP - needs data |
+| Investment analysis integration | ROI, yield calculations in recommendations | Medium | Financial calculations | Leverage existing mortgage calculator |
 
 ---
 
 ## Anti-Features
 
-Features to explicitly NOT build. Common mistakes in this domain.
+Features to explicitly NOT build. Common mistakes in AI assistants.
 
-### Navigation Anti-Patterns
-
-| Anti-Feature | Why Avoid | What to Do Instead |
-|--------------|-----------|-------------------|
-| Hamburger menu as primary nav | 40% slower task completion, hidden navigation | Use bottom tab bar for primary sections |
-| Too many tabs (6+) | Thumb zone congestion, choice paralysis | Max 5 tabs, use "More" overflow if needed |
-| Hiding high-frequency actions | User friction increases abandonment | Keep Properties, Chat always visible |
-| Top navigation bar on mobile | Out of thumb reach zone | Bottom tabs for primary nav |
-| Tab labels without icons | Harder to scan quickly | Always pair icon + label |
-| Swipe-only navigation | Discoverability problem; keep visible controls | Swipe as accelerator, not primary path |
-
-### Header Anti-Patterns
+### Over-Automation
 
 | Anti-Feature | Why Avoid | What to Do Instead |
 |--------------|-----------|-------------------|
-| Full search bar on mobile header | Wastes vertical space | Search icon that opens CommandDialog |
-| Multiple dropdown menus | Cognitive overload | Single avatar dropdown for all user actions |
-| Breadcrumbs on mobile | Too small to tap, wastes space | Remove on mobile; bottom tabs provide context |
-| Notification bell + avatar as separate items | Cluttered header | Consolidate into avatar dropdown |
-| Desktop sidebar on mobile | Covers content, poor UX | Replace with bottom tabs |
+| Auto-contact providers without consent | Users feel loss of control, privacy concerns | Always require explicit user action ("Connect with broker?") |
+| Auto-save recommendations | Clutters saved list, removes user agency | Suggest saving, let user confirm |
+| Unsolicited push notifications | Notification fatigue, perceived spam | User controls notification preferences |
+| Auto-schedule viewings | Commits user time without consent | Suggest scheduling, require confirmation |
 
-### Theme Anti-Patterns
-
-| Anti-Feature | Why Avoid | What to Do Instead |
-|--------------|-----------|-------------------|
-| Pure black (#000000) dark mode | Eye strain, "visual vibration" | Use dark gray (#121212 per Material Design) |
-| Pure white text on dark | High contrast fatigue | Use dimmed white (#E0E0E0) |
-| No system preference option | Ignores user OS setting | Always include System/Auto option |
-| Flash on theme switch | Jarring experience | Use CSS transitions, proper SSR handling |
-| Forced dark mode | 1/3 users prefer light mode | Always offer choice |
-
-### Property Card Anti-Patterns
+### False Confidence
 
 | Anti-Feature | Why Avoid | What to Do Instead |
 |--------------|-----------|-------------------|
-| Horizontal scroll on mobile | Hidden content, poor discoverability | Vertical stack with full-width cards |
-| Tiny touch targets | Accessibility failure, frustration | Minimum 44x44px tap areas |
-| Image-only cards (no details visible) | Requires tap to see price | Show key metrics (price, beds, baths) |
-| Auto-playing video | Battery drain, data usage, annoyance | Tap to play only |
+| Hide AI uncertainty | Erodes trust when recommendations miss | Show confidence levels transparently |
+| Present all outputs as equally reliable | Some matches are better than others | Use visual confidence indicators |
+| Make definitive price predictions | Real estate is complex, AI can be wrong | Use ranges and caveats |
+| Guarantee outcomes | Legal liability, broken promises | Frame as suggestions, not guarantees |
+
+**Research Source:** "AI systems frequently present outputs as definitive: a single score, label, or recommendation. This false certainty can mislead users" ([AI Design Patterns](https://www.aiuxdesign.guide/patterns/confidence-visualization)).
+
+### Conversation Anti-Patterns
+
+| Anti-Feature | Why Avoid | What to Do Instead |
+|--------------|-----------|-------------------|
+| Robotic, scripted responses | Users disengage, feels impersonal | Natural language with personality |
+| Information overload per message | Cognitive overwhelm | Chunk information, offer "tell me more" |
+| No escape hatch | User stuck with AI when they need human | Always offer "Contact support" or "Talk to a broker" |
+| Ignoring conversation context | Frustrating repetition | Use persistent memory properly |
+| Long response times without feedback | User thinks system is broken | Show typing indicator, progress |
+
+**Research Source:** "Stiff, robotic replies turn users off. Train the bot for casual, human-like chats" ([ChatBot.com Best Practices](https://www.chatbot.com/blog/real-estate-chatbot/)).
+
+### UX Anti-Patterns
+
+| Anti-Feature | Why Avoid | What to Do Instead |
+|--------------|-----------|-------------------|
+| Full-page AI takeover | Loses context, feels disorienting | Two-panel layout (profile + AI side by side) |
+| Tiny chat input | Hard to type on mobile | Large, accessible input area (44px+ height) |
+| No quick actions | Typing-only interface is slow | Quick reply buttons for common queries |
+| Hidden AI capabilities | Users don't know what to ask | Onboarding tips, example prompts |
+| Infinite conversation scroll | Hard to find previous info | Conversation summarization, search |
+
+### Data Anti-Patterns
+
+| Anti-Feature | Why Avoid | What to Do Instead |
+|--------------|-----------|-------------------|
+| Store all conversation data indefinitely | Privacy concerns, storage costs | Retention policy, user-controlled deletion |
+| Share conversation data externally | Trust violation | Clear privacy policy, data stays in REOS |
+| No memory reset option | User feels trapped | "Clear conversation history" button |
+| Remember incorrect info without correction | Compounds errors | Allow user to correct AI's understanding |
 
 ---
 
 ## Feature Dependencies
 
 ```
-Existing Features --> Mobile Features
-================================
+Existing REOS Features --> AI Assistant Features
+================================================
 
-useCurrentUser hook ------> Role-specific bottom tabs
-getNavigationForRole() ---> Tab content mapping
-GlobalSearchBar (CommandDialog) --> Mobile search icon trigger
-NotificationCenter -------> Badge count on Profile tab
-LocaleSwitcher -----------> Move to avatar dropdown
-next-themes --------------> Theme switcher in dropdown
-PropertyCard -------------> Responsive grid classes
-SaveButton ---------------> Touch-friendly size adjustment
-Embla carousel -----------> Property image swipe
-Sheet component ----------> Mobile filters panel (if needed)
+Investor Questionnaire Data --> Profile-based property matching
+  - citizenship, residency, experience
+  - budget (min/max), timeline
+  - property type, size, location preferences
+  - investment goals, yield expectations
+  - financing preferences, services needed
+
+Property Listings --> Property recommendations
+  - price, location, type, size
+  - images, amenities, features
+  - ROI calculations (already built)
+
+Service Provider Profiles --> Dream team suggestions
+  - specializations, locations served
+  - ratings, reviews (already built)
+  - availability status
+
+Smart Search (Claude AI) --> Conversational AI
+  - Already using Claude for NLP parsing
+  - Extend to conversational interface
+
+SaveButton Component --> Quick save actions
+  - Existing save/unsave functionality
+  - Extend to batch operations
+
+Deal Flow System --> Team building integration
+  - Create deals with selected providers
+  - Track investor-provider connections
+
+Real-time Chat --> AI conversation persistence
+  - Similar message storage pattern
+  - Convex reactive updates
 ```
 
 ---
 
 ## MVP Recommendation
 
-For MVP, prioritize these table stakes features:
+For v1.6 MVP, prioritize these features:
 
-### Phase 1: Core Mobile Navigation (Must Have)
-1. **Bottom Tab Bar** - 5 tabs, role-specific, fixed position
-2. **Responsive Header** - Condensed version, avatar dropdown
-3. **Property Card Grid** - Full-width on mobile, responsive grid
-4. **Theme Switcher** - Light/Dark/System in dropdown
+### Must Have (Table Stakes)
+1. **Profile summary display** - Show questionnaire data clearly
+2. **AI property recommendations** - 3-5 personalized suggestions with explanations
+3. **Match score/confidence** - Visual indicator of recommendation quality
+4. **Quick save all** - Batch save recommendations
+5. **Conversational interface** - Natural language Q&A about recommendations
+6. **Persistent memory** - Remember conversation across sessions via Convex
+7. **Mobile tabbed interface** - Profile / AI Assistant tabs for mobile
 
-### Phase 2: Polish (Should Have)
-5. **Safe area insets** - iOS compatibility
-6. **Badge indicators** - Notification counts
-7. **RTL support** - Already mostly done, verify tabs
+### Should Have (Differentiators)
+8. **Dream team suggestions** - 2-3 providers per role with explanations
+9. **Quick reply buttons** - Predefined prompts for common questions
+10. **Profile edit access** - Inline editing from summary view
 
-### Defer to Post-MVP:
-- Gesture shortcuts (swipe up for actions)
-- Pull-to-refresh
-- Haptic feedback
-- Offline mode indicators
-- Accent color customization
+### Defer to Post-v1.6
+- Proactive new property alerts
+- Contradiction detection in preferences
+- Market insights and predictions
+- Advanced multi-factor match breakdown UI
+- Conversation summarization/search
+- Profile optimization hints from AI
 
 ---
 
-## Responsive Breakpoint Strategy
+## Confidence Assessment
 
-Based on existing codebase (Tailwind CSS 4) and research:
-
-| Breakpoint | Width | Layout |
-|------------|-------|--------|
-| Mobile | < 640px (sm) | Bottom tabs, single column, condensed header |
-| Tablet | 640-1024px | Bottom tabs or sidebar, 2-column grid |
-| Desktop | > 1024px (lg) | Sidebar navigation, 3+ column grid |
-
-**Implementation Note:** The existing AppShell uses `lg:hidden` for mobile hamburger. Extend this pattern:
-- `md:hidden` for bottom tab bar (hide on tablet+)
-- `hidden md:flex` for desktop search bar
-- `grid-cols-1 sm:grid-cols-2 lg:grid-cols-3` for property grid
+| Area | Level | Reason |
+|------|-------|--------|
+| Property recommendations | HIGH | Well-documented pattern across Zillow, Redfin, Compass; research consistent |
+| Conversational AI | HIGH | Industry standard in 2025; extensive best practices available |
+| Persistent memory | HIGH | Every major vendor shipped this by mid-2025; clear expectations |
+| Dream team builder | MEDIUM | Novel feature for REOS; no direct competitor reference, but logical extension of platform value |
+| Match explanations | HIGH | Transparency requirements well-established; Google PAIR guidelines |
+| Mobile UX patterns | HIGH | Leverages existing REOS mobile patterns from v1.5 |
 
 ---
 
 ## Sources
 
-**Mobile Navigation Patterns:**
-- [Mobile Navigation UX Best Practices (2026)](https://www.designstudiouiux.com/blog/mobile-navigation-ux/) - Bottom tab bar performance data
-- [Mobile Navigation Design: 6 Patterns That Work (2026)](https://phone-simulator.com/blog/mobile-navigation-patterns-in-2026/) - Platform conventions
+**AI Real Estate Assistants:**
+- [Crescendo.ai - Conversational AI for Real Estate 2026](https://www.crescendo.ai/blog/conversational-ai-for-real-estate)
+- [GPTBots - AI Tools for Real Estate 2026](https://www.gptbots.ai/blog/ai-tools-for-real-estate)
+- [V7 Labs - Best AI Tools for Real Estate 2026](https://www.v7labs.com/blog/best-ai-tools-for-real-estate)
 
-**Header & Dropdown Design:**
-- [Designing Profile, Account, and Settings Pages](https://medium.com/design-bootcamp/designing-profile-account-and-setting-pages-for-better-ux-345ef4ca1490) - Avatar dropdown patterns
-- [Salt Design System - App Header](https://www.saltdesignsystem.com/salt/patterns/app-header/) - Responsive header structure
+**Property Matching & Recommendations:**
+- [Ascendix Tech - AI Recommendation System for Real Estate](https://ascendixtech.com/ai-recommendation-system-real-estate/)
+- [Numalis - AI Revolutionizing Property Search](https://numalis.com/ai-revolutionizing-property-search-and-recommendation/)
+- [ListedKit - AI Property Search](https://listedkit.com/the-personalized-property-search-how-ai-is-matching-buyers-with-their-dream-homes/)
 
-**Dark Mode Best Practices:**
-- [10 Dark Mode UI Best Practices (2026)](https://www.designstudiouiux.com/blog/dark-mode-ui-design-best-practices/) - Color guidelines
-- [Dark Mode Design Best Practices (2026)](https://www.tech-rz.com/blog/dark-mode-design-best-practices-in-2026/) - User control principles
-- [Material Design - Dark Theme](https://m3.material.io/styles/color/dark-theme) - #121212 background recommendation
+**Chatbot Best Practices:**
+- [ChatBot.com - Real Estate Chatbot Guide 2025](https://www.chatbot.com/blog/real-estate-chatbot/)
+- [Master of Code - AI Real Estate Chatbots](https://masterofcode.com/blog/real-estate-chatbot)
+- [AIMultiple - Real Estate Chatbot Use Cases](https://research.aimultiple.com/real-estate-chatbot/)
+
+**Persistent Memory:**
+- [MemMachine - Why AI Agents Need Persistent Memory](https://memmachine.ai/blog/2025/09/beyond-the-chatbot-why-ai-agents-need-persistent-memory/)
+- [FlowHunt - Which AI Chatbot Has Best Memory](https://www.flowhunt.io/faq/best-ai-chatbot-memory/)
+- [Tribe AI - Context-Aware Memory Systems 2025](https://www.tribe.ai/applied-ai/beyond-the-bubble-how-context-aware-memory-systems-are-changing-the-game-in-2025)
+
+**Confidence & Transparency:**
+- [AI Design Patterns - Confidence Visualization](https://www.aiuxdesign.guide/patterns/confidence-visualization)
+- [Agentic Design - Confidence Visualization Patterns](https://agentic-design.ai/patterns/ui-ux-patterns/confidence-visualization-patterns)
+- [Google PAIR - Explainability & Trust](https://pair.withgoogle.com/chapter/explainability-trust)
+- [Glance - What Makes Users Trust AI Recommendations](https://thisisglance.com/learning-centre/what-makes-users-trust-ai-powered-app-recommendations)
 
 **Real Estate App UX:**
-- [Using Maps as Core UX in Real Estate Platforms](https://raw.studio/blog/using-maps-as-the-core-ux-in-real-estate-platforms/) - Zillow/Redfin patterns
-- [Redesigning Zillow App](https://insights.daffodilsw.com/blog/redesigning-zillow-app-using-design-thinking-approach) - Onboarding issues
-
-**Implementation References:**
-- [Next.js Bottom Navigation Bar](https://github.com/coderzway/next-js-bottom-navigation-bar) - Implementation example
-- [Creating Responsive Navbar with Tailwind CSS](https://dev.to/ryaddev/creating-a-responsive-navbar-using-nextjs-and-tailwind-css-48kk) - Tailwind patterns
+- [Uptech - UX Review of Real Estate Apps](https://www.uptech.team/blog/ux-review-of-real-estate-apps)
+- [TrangoTech - UI/UX for Real Estate Apps 2025](https://trangotech.com/blog/ui-ux-for-real-estate-apps/)
+- [LinkedIn - Best UI Design Patterns for Real Estate Apps](https://www.linkedin.com/advice/0/what-best-ui-design-patterns-real-estate-apps-ggzhc)
 
 ---
 
@@ -228,17 +309,25 @@ Based on existing codebase (Tailwind CSS 4) and research:
 
 The REOS codebase already has:
 
-| Existing | Mobile Use |
-|----------|------------|
-| `next-themes` | Theme switching infrastructure ready |
-| `useCurrentUser` hook | Role detection for tab content |
-| `getNavigationForRole()` | Navigation items to map to tabs |
-| `GlobalSearchBar` with CommandDialog | Mobile search - just need icon trigger |
-| `NotificationCenter` | Notification count for badge |
-| `LocaleSwitcher` | Move to dropdown |
-| `Sheet` component | Mobile filter panels |
-| `Embla carousel` | Image swipe gestures |
-| Tailwind logical properties (`start-*`, `end-*`) | RTL support |
-| `SidebarProvider` with responsive collapse | Desktop fallback already works |
+| Existing | AI Assistant Use |
+|----------|------------------|
+| Claude AI integration | Extend from smart search to conversational AI |
+| Investor questionnaire data | Profile context for recommendations |
+| Property listings with filters | Recommendation source |
+| Provider profiles with ratings | Dream team suggestions |
+| SaveButton component | Quick save individual properties |
+| Deal flow system | Team building integration |
+| Real-time chat (Convex) | Similar pattern for AI conversation storage |
+| Mobile responsive design (v1.5) | Two-panel and tabbed layouts |
+| ResponsiveDialog pattern | AI chat on mobile as bottom sheet or tab |
+| ProfileCompletenessCard | Profile summary component |
 
-**No new dependencies required.** All features can be built with existing stack.
+**New dependencies required:**
+- Conversation storage schema (Convex)
+- AI memory management logic
+- Recommendation scoring algorithm
+- Provider matching algorithm
+
+---
+
+*Last updated: 2026-01-22*

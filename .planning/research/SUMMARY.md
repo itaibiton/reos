@@ -1,184 +1,173 @@
 # Project Research Summary
 
-**Project:** REOS v1.5 Mobile Responsive & Header Redesign
-**Domain:** Mobile responsiveness for real estate investment platform
-**Researched:** 2026-01-21
+**Project:** REOS v1.6 - AI-Powered Investor Experience
+**Domain:** AI assistant integration for real estate investment platform
+**Researched:** 2026-01-22
 **Confidence:** HIGH
 
 ## Executive Summary
 
-REOS is well-positioned for mobile responsiveness. The existing stack already contains every technology required: `next-themes` (v0.4.6) for theme switching, Tailwind CSS v4 with dark mode CSS variables configured, Framer Motion for animations, and Shadcn/ui primitives for all UI components. **No new packages are needed.** The work is pure configuration and component authoring.
+The AI Assistant milestone for REOS is a well-scoped integration project, not a greenfield AI build. The existing stack (Next.js 15, Convex, Claude via Anthropic SDK) provides a solid foundation that requires only three additional packages: `@convex-dev/agent` for thread-based memory persistence, `@ai-sdk/anthropic` as the Claude provider, and `ai` (Vercel AI SDK) for streaming UI hooks. The proven pattern in `/convex/search.ts` for Claude integration directly extends to conversational AI without architectural changes.
 
-The recommended approach is to build a role-aware bottom tab bar (max 5 tabs) using existing navigation configuration, consolidate the header into an avatar dropdown with theme/locale/notifications, and implement Light/Dark/System theme switching via the already-installed `next-themes`. The existing `MobileBottomNav.tsx` component provides a starting point but needs refactoring to use `getNavigationForRole()` instead of hardcoded investor items.
+The recommended approach emphasizes **streaming-first implementation** and **RAG-grounded recommendations**. Users in 2025-2026 expect immediate feedback during AI generation, persistent memory across sessions, and transparent recommendations that explain why properties or providers match their profile. The "dream team builder" concept is a genuine differentiator with no direct competitor implementation, positioning REOS beyond property-only platforms like Zillow and Redfin.
 
-Key risks center on iOS Safari viewport behavior (100vh issues, safe area insets), theme hydration mismatches, and the complexity of the existing `AppShell.tsx` (~380 lines). Mitigation requires establishing responsive patterns and testing on real iOS devices before building components. The custom Clerk UI requirement carries the highest risk due to Clerk's documented warnings about edge case handling in custom flows; consider keeping Clerk components as fallback during transition.
+Key risks center on hallucination (AI fabricating property/provider facts), context window mismanagement (degraded responses as conversations grow), and mobile UX (chat interfaces designed desktop-first). All three are preventable with day-one architectural decisions: mandatory database grounding for all factual claims, sliding window plus summarization for memory, and mobile-first component design. The existing Convex real-time subscription pattern directly supports the optimistic update + streaming response flow required for excellent chat UX.
 
 ## Key Findings
 
 ### Recommended Stack
 
-The stack requires zero additions. Everything is already installed and configured.
+REOS already has Claude integration via `@anthropic-ai/sdk` ^0.71.2 for search parsing. The addition is minimal: Convex Agent for persistence plus Vercel AI SDK for streaming UI.
 
-**Core technologies (already present):**
-- **next-themes (v0.4.6):** Theme switching — Installed but not wired up; requires ThemeProvider wrapper in Providers.tsx
-- **Tailwind CSS v4 (4.1.18):** Responsive design + dark mode — `.dark` class variant configured, CSS variables defined
-- **Framer Motion (12.26.2):** Tab bar animations — Available for active state transitions
-- **Shadcn/ui primitives:** All UI components — DropdownMenu, Sheet, Avatar already exist
-- **vaul (1.1.2):** Mobile drawers — Bottom sheet component available for mobile dropdowns
-- **Hugeicons (3.1.1):** Tab icons — Icon library already in use throughout app
+**Core technologies:**
+- `@convex-dev/agent` (^0.3.2): Thread-based conversation persistence with built-in vector search, WebSocket streaming, automatic retry handling
+- `@ai-sdk/anthropic` (^3.0.13): Claude provider for Vercel AI SDK, enables `streamText`/`streamObject` with latest Claude Sonnet 4.5
+- `ai` (^6.0.0): Core AI SDK with `useChat` hook for token-by-token streaming UI, framework-agnostic React integration
 
 **What NOT to add:**
-| Library | Why NOT |
-|---------|---------|
-| @mui/material | Massive bundle, different design system |
-| react-navigation | For React Native, not web |
-| Any bottom-nav package | Build with existing Radix + Framer Motion + Tailwind |
-| tailwindcss-animate | You have tw-animate-css and Framer Motion |
+- LangChain (overkill, obscures Convex capabilities)
+- External vector stores like Pinecone (Convex Agent has built-in vector search)
+- Redis/caching layers (Convex handles real-time natively)
 
 ### Expected Features
 
 **Must have (table stakes):**
-- Bottom tab bar navigation (5 tabs, role-specific, fixed position)
-- Safe area insets for iOS notch/home indicator
-- Responsive header (condensed on mobile, full on desktop)
-- Light/Dark/System theme switching
-- Search as icon that opens CommandDialog on mobile
-- Full-width property cards on mobile
-- Touch-friendly tap targets (min 44x44px)
+- Profile-based property recommendations with match explanations
+- Batch "save all" action for recommended properties
+- Conversational interface with natural language Q&A
+- Persistent memory across sessions (via Convex)
+- Typing indicator and streaming responses
+- Mobile tabbed interface (Profile / AI Assistant)
 
-**Should have (competitive):**
-- Badge indicators on tabs (notification counts)
-- Active state animations on tab selection
-- Skeleton loading states on mobile views
-- RTL-aware bottom tabs (Hebrew support)
+**Should have (differentiators):**
+- Dream team builder: 2-3 providers per role with explanations
+- Quick reply buttons for common queries
+- Inline profile edit from summary view
 
 **Defer (v2+):**
-- Gesture shortcuts (swipe up for quick actions)
-- Pull-to-refresh
-- Haptic feedback
-- Offline mode indicators
-- Accent color customization
-- Scheduled theme switching
+- Proactive new property alerts
+- Preference contradiction detection
+- Market insights and predictions
+- Conversation summarization/search
 
 ### Architecture Approach
 
-The architecture follows a composition pattern: `AppShell` orchestrates mobile vs desktop layout using the existing `useIsMobile()` hook (768px breakpoint). Mobile renders `MobileBottomNav` + condensed header; desktop renders `AppSidebar` + full header. Navigation items derive from the single source of truth (`getNavigationForRole()`) mapped to a mobile-specific priority configuration.
+The architecture follows existing REOS patterns: Convex actions for AI generation (matching `parseSearchQuery`), new tables for conversation persistence (`aiConversations`, `aiMessages`), and queries that combine investor questionnaire data with property/provider matching. Frontend orchestrates action calls after mutations; UI subscribes to real-time message updates.
 
 **Major components:**
-1. **AppShell** — Layout orchestration, mobile/desktop conditional rendering
-2. **MobileBottomNav** — Bottom tab navigation (refactor existing, make role-aware)
-3. **ResponsiveHeader** — Mobile/desktop header switcher
-4. **HeaderActionsDropdown** — Consolidated header actions (notifications, locale, theme, sign out)
-5. **ThemeSwitcher** — Light/Dark/System toggle in dropdown
-
-**Data flow:**
-```
-useCurrentUser() --> getNavigationForRole(role) --> AppSidebar (desktop)
-                                                --> MobileBottomNav (mobile, top 5 items)
-                                                --> MobileHeaderMenu (mobile, full nav in sheet)
-```
+1. **Convex Backend** (`/convex/aiAssistant.ts`): Mutations for message handling, actions for AI generation, queries for conversation history
+2. **AI Chat Components** (`/components/ai-assistant/`): Chat container, message bubbles, input with streaming, typing indicator, inline property/provider cards
+3. **Memory Layer**: Thread-per-user persistence with `aiThreads` table mapping users to Convex Agent threads
 
 ### Critical Pitfalls
 
-1. **iOS Safari 100vh/Safe Area:** Bottom tab bar gets obscured by Safari chrome and home indicator. **Prevention:** Use `h-dvh` instead of `h-screen`, add `viewport-fit=cover` meta, apply `pb-[env(safe-area-inset-bottom)]` to tab bar.
+1. **Dead air during AI response** — Implement streaming from day one. Show typing indicator within 200ms, stream tokens as generated. Time to first visible response must be under 1 second.
 
-2. **Theme Flash (FOWT):** Page flashes wrong theme on load due to SSR not knowing localStorage preference. **Prevention:** Configure ThemeProvider with `disableTransitionOnChange`, add `suppressHydrationWarning` to `<html>`, use CSS for theme-dependent images.
+2. **Context window explosion** — Use sliding window (last 10-15 messages) plus AI-generated summaries for older context. Treat context as finite resource to budget, not infinite storage.
 
-3. **Tailwind Mobile-First Confusion:** Unprefixed classes apply to ALL sizes, not just desktop. **Prevention:** Audit existing responsive patterns before starting; establish convention that base = mobile, `md:` = desktop override.
+3. **Hallucinated property facts** — Mandatory RAG grounding: every property/provider statement must cite database records. Validate entity IDs exist before mentioning. Configure Claude to refuse when data unavailable.
 
-4. **Sidebar-to-Tab State Desync:** Existing SidebarProvider context conflicts with bottom tab state model. **Prevention:** Derive active tab from route pathname, not context; remove mobile Sheet sidebar behavior when bottom tabs active.
+4. **Generic recommendations ignoring profile** — Always inject user profile (budget, locations, property types, timeline) into context. Every recommendation query starts with questionnaire fetch.
 
-5. **Clerk Custom UI Edge Cases:** Custom sign-in/sign-out misses 20+ flows that prebuilt components handle. **Prevention:** Implement all status codes and error states; keep Clerk components as fallback; test OAuth, MFA, magic link flows.
+5. **Mobile chat UX failures** — Design mobile-first: 44px+ touch targets, keyboard-aware layout, voice input option, suggested reply buttons to reduce typing.
 
 ## Implications for Roadmap
 
 Based on research, suggested phase structure:
 
-### Phase 1: Foundation
-**Rationale:** Must establish responsive patterns and safe area CSS before building any mobile components; prevents cascade of fixes later.
-**Delivers:** ThemeProvider setup, safe area CSS utilities, viewport meta tag, mobile nav config types
-**Addresses:** Theme switching infrastructure, iOS compatibility foundation
-**Avoids:** iOS 100vh pitfall (#1), theme flash pitfall (#2), Tailwind confusion (#3)
+### Phase 1: AI Infrastructure Foundation
+**Rationale:** Memory architecture and streaming must be designed from day one per pitfall research. Context management patterns are foundational.
+**Delivers:** Convex Agent setup, `aiConversations`/`aiMessages` tables, basic thread persistence, streaming action pattern
+**Addresses:** Persistent memory, typing indicator (table stakes)
+**Avoids:** Dead air pitfall, context window explosion pitfall
 
-### Phase 2: Theme System
-**Rationale:** Theme provider must be wired before building UI that depends on theme-aware colors; separating allows isolated testing.
-**Delivers:** Working Light/Dark/System toggle, theme-aware components, no hydration mismatches
-**Uses:** next-themes (already installed), Tailwind dark mode CSS (already configured)
-**Avoids:** Theme flash pitfall (#2), toggle animation jank (#12)
+### Phase 2: Conversational AI Core
+**Rationale:** Basic chat must work before adding recommendations. Establishes streaming UI, error handling, and conversation flow.
+**Delivers:** Chat UI components, `useChat` integration, basic Q&A about investor profile and general questions
+**Uses:** AI SDK hooks, Convex real-time subscriptions
+**Implements:** AiAssistantChat, AiChatMessage, AiChatInput, AiTypingIndicator components
 
-### Phase 3: Bottom Tab Bar
-**Rationale:** Core mobile navigation must exist before header can be simplified; establishes navigation patterns.
-**Delivers:** Role-aware bottom tabs (5 tabs max), active state indicators, safe area compliance
-**Implements:** MobileBottomNav refactor, mobile nav config by role
-**Avoids:** Nav state desync (#4), safe area issues (#1), full-bleed page conflicts (#10), keyboard conflicts (#14)
+### Phase 3: Property Recommendations
+**Rationale:** Recommendations depend on working chat. Profile integration and RAG grounding are prerequisites.
+**Delivers:** AI-powered property matching with explanations, inline property cards, "save all" batch action
+**Addresses:** Profile-based recommendations, match explanations, batch save (table stakes)
+**Avoids:** Hallucination pitfall, generic recommendations pitfall
 
-### Phase 4: Header Redesign
-**Rationale:** With bottom tabs providing primary nav, header can be simplified; consolidation requires all pieces in place.
-**Delivers:** Condensed mobile header, HeaderActionsDropdown (notifications + locale + theme + sign out), search icon trigger
-**Addresses:** Header information overload (#8), touch targets (#6)
-**Avoids:** Mobile header clutter, buried actions
+### Phase 4: Dream Team Builder
+**Rationale:** Provider matching builds on property recommendation patterns. Requires chat UI established.
+**Delivers:** Role-based provider suggestions (broker, mortgage, lawyer), provider comparison, team composition preview
+**Addresses:** Dream team builder (differentiator)
+**Avoids:** Provider recommendations without context pitfall
 
-### Phase 5: Custom Clerk UI (Optional)
-**Rationale:** Highest risk phase; requires stable navigation foundation; can be deferred or done with fallback.
-**Delivers:** Custom UserMenu replacing Clerk's UserButton, custom sign-out flow
-**Avoids:** Session handling gaps (#5)
-**Recommendation:** Keep Clerk prebuilt components as fallback; implement custom UI incrementally
+### Phase 5: Investor Summary Page
+**Rationale:** Two-panel layout requires all AI components complete. Integration phase.
+**Delivers:** Desktop two-panel layout (profile + AI assistant), profile summary with edit access, completeness indicator
+**Addresses:** Profile summary display, edit access (table stakes)
+
+### Phase 6: Mobile Experience
+**Rationale:** Mobile requires specific interaction patterns after desktop UX validated.
+**Delivers:** Tabbed interface (Profile / AI Assistant), keyboard-aware chat input, touch targets, quick reply buttons
+**Addresses:** Mobile tabbed interface (table stakes)
+**Avoids:** Mobile UX pitfall
 
 ### Phase Ordering Rationale
 
-- **Foundation before components:** Safe area CSS and ThemeProvider must exist before any fixed-position mobile components to avoid rework.
-- **Theme before UI:** Theme context must wrap app before building theme-aware components; prevents hydration mismatch debugging.
-- **Bottom tabs before header:** Primary navigation must be established before simplifying secondary header; ensures users have access to all features during transition.
-- **Header after tabs:** Can safely remove sidebar trigger and simplify header only after bottom tabs provide navigation.
-- **Custom Clerk last:** Highest risk, most edge cases, least impact on core mobile UX; can be deferred entirely if timeline pressures.
+- **Infrastructure before features:** Streaming and memory patterns are referenced by all subsequent phases. Retrofitting is expensive.
+- **Chat before recommendations:** Recommendation responses flow through chat UI. Chat must be stable first.
+- **Properties before providers:** Provider matching is a variation of property matching with different data. Same pattern, different query.
+- **Desktop before mobile:** Validate core UX on desktop where debugging is easier, then adapt mobile-specific patterns.
+- **Grouping by dependency:** Each phase produces components used by subsequent phases. No orphan features.
 
 ### Research Flags
 
-**Phases likely needing deeper research during planning:**
-- **Phase 5 (Custom Clerk UI):** Clerk's custom flows are complex with many edge cases. Review Clerk Elements (beta) as alternative. May need auth flow test matrix.
+Phases likely needing deeper research during planning:
+- **Phase 4 (Dream Team):** Novel feature with no direct competitor reference. May need iteration on matching algorithm and UI presentation.
 
-**Phases with standard patterns (skip research-phase):**
-- **Phase 1 (Foundation):** Well-documented CSS patterns for safe areas and viewport units.
-- **Phase 2 (Theme System):** next-themes + shadcn/ui have official docs; pattern is established.
-- **Phase 3 (Bottom Tab Bar):** Standard mobile web pattern; existing MobileBottomNav provides starting point.
-- **Phase 4 (Header Redesign):** Uses existing Shadcn/ui DropdownMenu; consolidation is straightforward.
+Phases with standard patterns (skip research-phase):
+- **Phase 1 (Infrastructure):** Convex Agent documentation is comprehensive. Verified patterns.
+- **Phase 2 (Chat Core):** AI SDK `useChat` is well-documented. Standard streaming pattern.
+- **Phase 3 (Property Recommendations):** RAG pattern is established. Existing property data schema is sufficient.
+- **Phase 5 (Summary Page):** Standard two-panel responsive layout. Existing Shadcn components.
+- **Phase 6 (Mobile):** REOS v1.5 established mobile patterns. Apply to chat components.
 
 ## Confidence Assessment
 
 | Area | Confidence | Notes |
 |------|------------|-------|
-| Stack | HIGH | Codebase analysis confirms all packages present and configured |
-| Features | HIGH | Based on industry standards (Zillow, Redfin patterns) and existing REOS capabilities |
-| Architecture | HIGH | Direct code inspection of AppShell.tsx, Sidebar.tsx, navigation.ts |
-| Pitfalls | HIGH | iOS Safari issues well-documented; REOS-specific risks identified from code review |
+| Stack | HIGH | Convex Agent and AI SDK versions verified, official docs reviewed, packages actively maintained |
+| Features | MEDIUM-HIGH | Industry expectations well-documented; dream team builder is novel but logical extension |
+| Architecture | HIGH | Patterns match existing REOS codebase (parseSearchQuery, directMessages), Convex official AI guidance |
+| Pitfalls | HIGH | Multiple authoritative sources confirm all critical pitfalls; prevention strategies are established |
 
 **Overall confidence:** HIGH
 
 ### Gaps to Address
 
-- **"More" Tab Behavior:** Decision needed: should 5th tab open full MobileHeaderMenu, or show mini-menu with remaining items? Decide during Phase 3 planning.
-- **Gesture Navigation:** Should mobile menu support swipe-to-close? Requires additional implementation or library. Can defer to post-MVP.
-- **Search on Mobile:** Current GlobalSearchBar uses CommandDialog; verify it works well on mobile or needs adaptation. Test during Phase 4.
-- **Notification Badge Aggregation:** Should consolidated header dropdown show aggregate notification count? Design decision for Phase 4.
+- **Provider matching algorithm specifics:** Research establishes what to match (service areas, languages, availability) but not optimal ranking/weighting. Address during Phase 4 planning with real provider data.
+- **Conversation summarization strategy:** Known as needed for long conversations but exact trigger (message count, token count) and summary format need experimentation. Defer to Phase 1 implementation.
+- **Claude model selection:** Sonnet 4.5 recommended for conversation, but may need A/B testing against Haiku for cost optimization. Instrument from day one.
 
 ## Sources
 
 ### Primary (HIGH confidence)
-- **Codebase analysis** — Direct inspection of AppShell.tsx, Sidebar.tsx, navigation.ts, use-mobile.ts, Providers.tsx
-- [next-themes GitHub](https://github.com/pacocoursey/next-themes) — v0.4.6 setup, ThemeProvider configuration
-- [shadcn/ui Dark Mode Docs](https://ui.shadcn.com/docs/dark-mode/next) — ThemeProvider pattern
-- [Tailwind CSS Responsive Design](https://tailwindcss.com/docs/responsive-design) — Mobile-first breakpoints
-- [MDN env() CSS](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/env) — Safe area insets
-- [Clerk Custom Flows](https://clerk.com/docs/guides/development/custom-flows/overview) — Custom UI warnings and requirements
+- [Convex Agents Documentation](https://docs.convex.dev/agents) — Thread memory, streaming, agent setup
+- [Convex Agent Getting Started](https://docs.convex.dev/agents/getting-started) — Installation, convex.config.ts
+- [Vercel AI SDK](https://ai-sdk.dev/docs/introduction) — useChat, streamText, provider integration
+- [AI SDK Anthropic Provider](https://ai-sdk.dev/providers/ai-sdk-providers/anthropic) — Claude model support
+- [Claude Platform Docs - Reducing Latency](https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-latency) — Streaming best practices
 
 ### Secondary (MEDIUM confidence)
-- [Mobile Navigation UX Best Practices (2026)](https://www.designstudiouiux.com/blog/mobile-navigation-ux/) — Bottom tab performance data (40% faster task completion)
-- [Material Design Dark Theme](https://m3.material.io/styles/color/dark-theme) — #121212 background recommendation
-- [Understanding Mobile Viewport Units](https://medium.com/@tharunbalaji110/understanding-mobile-viewport-units-a-complete-guide-to-svh-lvh-and-dvh-0c905d96e21a) — dvh/svh/lvh explanation
+- [Convex AI Streaming Patterns](https://stack.convex.dev/gpt-streaming-with-persistent-reactivity) — Dual streaming strategy
+- [The Context Window Problem](https://factory.ai/news/context-window-problem) — Memory management patterns
+- [LLM Hallucinations Guide 2025](https://www.lakera.ai/blog/guide-to-hallucinations-in-large-language-models) — RAG grounding requirements
+- [Ascendix Tech - AI Recommendation System](https://ascendixtech.com/ai-recommendation-system-real-estate/) — Real estate AI expectations
+- [ChatBot.com - Real Estate Chatbot](https://www.chatbot.com/blog/real-estate-chatbot/) — Conversational AI best practices
 
-### Tertiary (LOW confidence)
-- [Clerk Elements (Beta)](https://clerk.com/docs/customization/elements/overview) — Potential alternative to fully custom auth UI; needs evaluation
+### Tertiary (for reference)
+- [AI UI Patterns - patterns.dev](https://www.patterns.dev/react/ai-ui-patterns/) — Streaming UI patterns
+- [ParallelHQ - UX for AI Chatbots 2025](https://www.parallelhq.com/blog/ux-ai-chatbots) — Mobile chat design
+- [Google PAIR - Explainability & Trust](https://pair.withgoogle.com/chapter/explainability-trust) — Recommendation transparency
 
 ---
-*Research completed: 2026-01-21*
+*Research completed: 2026-01-22*
 *Ready for roadmap: yes*
