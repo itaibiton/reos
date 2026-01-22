@@ -16,7 +16,7 @@ Transform the post-onboarding experience into an intelligent investor hub. This 
 
 ## Phases
 
-- [ ] **Phase 40: AI Infrastructure Foundation** - Streaming, memory persistence, context management
+- [x] **Phase 40: AI Infrastructure Foundation** - Streaming, memory persistence, context management
 - [ ] **Phase 41: Conversational AI Core** - Basic chat UI with streaming responses
 - [ ] **Phase 42: Property Recommendations** - RAG-grounded property matching with explanations
 - [ ] **Phase 43: Dream Team Builder** - Provider suggestions per role with match reasons
@@ -37,9 +37,9 @@ Transform the post-onboarding experience into an intelligent investor hub. This 
 **Plans**: 3 plans in 3 waves
 
 Plans:
-- [ ] 40-01-PLAN.md — Agent component setup, schema extension, base agent definition
-- [ ] 40-02-PLAN.md — Profile context builder, thread management, summarization logic
-- [ ] 40-03-PLAN.md — Streaming chat action with stop button, end-to-end wiring
+- [x] 40-01-PLAN.md — Agent component setup, schema extension, base agent definition
+- [x] 40-02-PLAN.md — Profile context builder, thread management, summarization logic
+- [x] 40-03-PLAN.md — Streaming chat action with stop button, end-to-end wiring
 
 ### Phase 41: Conversational AI Core
 **Goal**: Users can chat with AI assistant and see streaming responses
@@ -129,7 +129,7 @@ Plans:
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
-| 40. AI Infrastructure Foundation | v1.6 | 0/3 | Planned | - |
+| 40. AI Infrastructure Foundation | v1.6 | 3/3 | ✓ Complete | 2026-01-22 |
 | 41. Conversational AI Core | v1.6 | 0/? | Not started | - |
 | 42. Property Recommendations | v1.6 | 0/? | Not started | - |
 | 43. Dream Team Builder | v1.6 | 0/? | Not started | - |

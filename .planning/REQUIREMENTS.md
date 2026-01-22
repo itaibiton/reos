@@ -9,10 +9,10 @@ Requirements for AI-Powered Investor Experience milestone. Each maps to roadmap 
 
 ### AI Infrastructure
 
-- [ ] **INFRA-01**: AI conversation threads persist across sessions via Convex
-- [ ] **INFRA-02**: AI responses stream token-by-token with typing indicator
-- [ ] **INFRA-03**: AI context includes user profile from questionnaire
-- [ ] **INFRA-04**: AI memory uses sliding window with summarization for long conversations
+- [x] **INFRA-01**: AI conversation threads persist across sessions via Convex
+- [x] **INFRA-02**: AI responses stream token-by-token with typing indicator
+- [x] **INFRA-03**: AI context includes user profile from questionnaire
+- [x] **INFRA-04**: AI memory uses sliding window with summarization for long conversations
 
 ### Profile Summary
 
@@ -102,10 +102,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INFRA-01 | Phase 40 | Pending |
-| INFRA-02 | Phase 40 | Pending |
-| INFRA-03 | Phase 40 | Pending |
-| INFRA-04 | Phase 40 | Pending |
+| INFRA-01 | Phase 40 | Complete |
+| INFRA-02 | Phase 40 | Complete |
+| INFRA-03 | Phase 40 | Complete |
+| INFRA-04 | Phase 40 | Complete |
 | CHAT-01 | Phase 41 | Pending |
 | CHAT-02 | Phase 41 | Pending |
 | CHAT-03 | Phase 41 | Pending |
