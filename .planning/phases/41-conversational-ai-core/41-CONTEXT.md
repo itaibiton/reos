@@ -2,6 +2,7 @@
 
 **Captured:** 2026-01-22
 **Method:** /gsd:discuss-phase adaptive questioning
+**Updated:** 2026-01-22 (simplified history design)
 
 ## Phase Goal
 
@@ -66,17 +67,15 @@ Users can chat with AI assistant and see streaming responses.
 
 | Decision | Choice | Rationale |
 |----------|--------|-----------|
-| Initial view | Fresh start | Clean UI, AI remembers context internally |
-| History loading | Paginated batches | Predictable loading, "Load more" button |
-| History access | History button | Explicit UI to view past conversations |
+| Initial view | Load previous messages | Immediate context, better UX |
+| History loading | Load recent on mount | Phase 40 provides persistent threads |
 | Clear option | Yes, with confirm | User control with protection against accidents |
 
 **Implementation notes:**
-- When user returns: Empty chat UI with welcome message
-- AI has full context from Phase 40 memory system (user unaware)
-- History button in chat header reveals past messages
-- "Load more" button at top loads previous batch (e.g., 20 messages)
-- Clear button in settings/header with "Are you sure?" confirmation
+- When user opens chat: Previous messages load automatically
+- AI has full context from Phase 40 memory system
+- Messages fetched via action (refetch-after-send pattern since actions don't support real-time subscriptions)
+- Clear button in header with "Are you sure?" confirmation
 - Clear calls `clearMemory` from Phase 40 threads.ts
 
 ## Technical Integration
@@ -88,35 +87,38 @@ Users can chat with AI assistant and see streaming responses.
 | `api.ai.chat.sendMessage` | Send user message, receive streaming response |
 | `api.ai.chat.stopGeneration` | Stop button functionality |
 | `api.ai.chat.getStreamingStatus` | Typing indicator state |
-| `api.ai.threads.getThreadForUser` | Load conversation history |
+| `api.ai.threads.getThreadForUser` | Get user's thread for context |
 | `api.ai.threads.clearMemory` | Clear history functionality |
+| `investorAssistant.listMessages` | Fetch messages for display (via action) |
 
-### Component Structure (Proposed)
+### Component Structure
 
 ```
 src/components/ai/
 ├── AIChatPanel.tsx        # Main container
-├── ChatMessages.tsx       # Message list with virtualization
+├── ChatMessageList.tsx    # Scrollable message list with smart scroll
 ├── ChatMessage.tsx        # Individual message bubble
-├── ChatInput.tsx          # Fixed input footer
+├── AIChatInput.tsx        # Fixed input footer
 ├── TypingIndicator.tsx    # Animated dots
 ├── StreamingCursor.tsx    # Blinking cursor
-└── ChatHistoryModal.tsx   # History viewer overlay
+└── hooks/
+    ├── useAIChat.ts       # Chat state management with refetch pattern
+    └── useSmartScroll.ts  # Smart auto-scroll behavior
 ```
 
 ### State Management
 
-- **Streaming state**: Track via `getStreamingStatus` or local state from action response
-- **Messages**: Convex subscription to thread messages (real-time updates)
+- **Streaming state**: Track via local state (set when sendMessage starts, cleared on complete)
+- **Messages**: Fetched via action, refetched after sendMessage completes
 - **Input state**: Local React state (message text, disabled flag)
 - **Scroll position**: Ref-based tracking for smart auto-scroll
 
 ## Open Questions Resolved
 
-1. ~~Message styling~~ → Chat bubbles with avatars
-2. ~~Streaming visualization~~ → Word-by-word with blinking cursor
-3. ~~Input behavior~~ → Fixed footer, auto-grow, disabled during response
-4. ~~History display~~ → Fresh start UI, paginated history access
+1. ~~Message styling~~ -> Chat bubbles with avatars
+2. ~~Streaming visualization~~ -> Word-by-word with blinking cursor
+3. ~~Input behavior~~ -> Fixed footer, auto-grow, disabled during response
+4. ~~History display~~ -> Load immediately (simpler, better UX)
 
 ## Out of Scope for Phase 41
 
