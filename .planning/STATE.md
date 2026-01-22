@@ -11,18 +11,18 @@ See: .planning/PROJECT.md (updated 2026-01-22)
 
 Milestone: v1.6 AI-Powered Investor Experience
 Phase: 40 of 45 (AI Infrastructure Foundation)
-Plan: 0 of ? in current phase
-Status: Ready to plan
-Last activity: 2026-01-22 — Roadmap created for v1.6
+Plan: 1 of 3 in current phase
+Status: In progress
+Last activity: 2026-01-22 - Completed 40-01-PLAN.md
 
-Progress: [░░░░░░░░░░] 0% (0/6 phases)
+Progress: [█░░░░░░░░░] 5% (0.3/6 phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 137
+- Total plans completed: 138
 - Average duration: 5.0 min
-- Total execution time: 9.15 hours
+- Total execution time: 9.23 hours
 
 **By Phase (v1.5 most recent):**
 
@@ -35,8 +35,8 @@ Progress: [░░░░░░░░░░] 0% (0/6 phases)
 | 39 | 3/3 | 11 min | 3.7 min |
 
 **Recent Trend:**
-- Last 5 plans: 38-02 (1 min), 38-03 (3 min), 39-01 (4 min), 39-02 (4 min), 39-03 (3 min)
-- Trend: Stable, ready for v1.6
+- Last 5 plans: 38-03 (3 min), 39-01 (4 min), 39-02 (4 min), 39-03 (3 min), 40-01 (5 min)
+- Trend: Stable, v1.6 underway
 
 ## Accumulated Context
 
@@ -49,6 +49,9 @@ Recent decisions affecting current work:
 - v1.6 Research: Use @ai-sdk/anthropic + ai (Vercel AI SDK) for streaming
 - v1.6 Research: Sliding window + summarization for context management
 - v1.6 Research: RAG grounding mandatory for property/provider facts
+- 40-01: Used @ai-sdk/anthropic@2.x for zod 4 compatibility
+- 40-01: Added convex-helpers as peer dependency for agent package
+- 40-01: Created aiThreads table as application wrapper (agent manages internal tables)
 
 ### Pending Todos
 
@@ -65,7 +68,7 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-22
-Stopped at: Roadmap creation complete
+Last session: 2026-01-22T10:59:25Z
+Stopped at: Completed 40-01-PLAN.md
 Resume file: None
-Next: `/gsd:plan-phase 40`
+Next: 40-02-PLAN.md (Streaming action layer)
