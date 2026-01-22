@@ -11,18 +11,18 @@ See: .planning/PROJECT.md (updated 2026-01-22)
 
 Milestone: v1.6 AI-Powered Investor Experience
 Phase: 41 of 45 (Conversational AI Core)
-Plan: 1 of ? in current phase
+Plan: 2 of 3 in current phase
 Status: In progress
-Last activity: 2026-01-22 — Completed 41-01-PLAN.md
+Last activity: 2026-01-22 — Completed 41-02-PLAN.md
 
-Progress: [██░░░░░░░░] 17% (1/6 phases + 1 plan)
+Progress: [██░░░░░░░░] 18% (1/6 phases + 2 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 141
+- Total plans completed: 142
 - Average duration: 5.0 min
-- Total execution time: 9.38 hours
+- Total execution time: 9.42 hours
 
 **By Phase (v1.6 most recent):**
 
@@ -33,11 +33,11 @@ Progress: [██░░░░░░░░] 17% (1/6 phases + 1 plan)
 | 38 | 3/3 | 9 min | 3 min |
 | 39 | 3/3 | 11 min | 3.7 min |
 | 40 | 3/3 | 11 min | 3.7 min |
-| 41 | 1/? | 3 min | 3 min |
+| 41 | 2/3 | 5 min | 2.5 min |
 
 **Recent Trend:**
-- Last 5 plans: 39-03 (3 min), 40-01 (5 min), 40-02 (2 min), 40-03 (4 min), 41-01 (3 min)
-- Trend: Stable, consistent 3-5 min execution
+- Last 5 plans: 40-01 (5 min), 40-02 (2 min), 40-03 (4 min), 41-01 (3 min), 41-02 (2 min)
+- Trend: Stable, consistent 2-5 min execution
 
 ## Accumulated Context
 
@@ -63,6 +63,9 @@ Recent decisions affecting current work:
 - 41-01: Refetch-after-send pattern since actions don't support subscriptions
 - 41-01: Optimistic UI updates for user messages during send
 - 41-01: Intersection Observer for smart auto-scroll
+- 41-02: Used Cancel01Icon as stop button (StopIcon not in Hugeicons free set)
+- 41-02: Memoized ChatMessage to prevent re-renders during streaming
+- 41-02: Auto-growing textarea capped at ~4 lines (120px)
 
 ### Pending Todos
 
@@ -81,6 +84,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-22
-Stopped at: Completed 41-01-PLAN.md
+Stopped at: Completed 41-02-PLAN.md
 Resume file: None
-Next: Continue with remaining Phase 41 plans
+Next: Continue with Plan 41-03 (Chat Panel Assembly)
