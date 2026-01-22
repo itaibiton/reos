@@ -36,7 +36,7 @@ Progress: [██████░░░░] 67% (4/6 phases complete)
 | 41 | 3/3 | 7 min | 2.3 min |
 | 42 | 3/3 | 9 min | 3 min |
 | 43 | 3/3 | 11 min | 3.7 min |
-| 44 | 2/3 | 4 min | 2 min |
+| 44 | 2/3 | 6 min | 3 min |
 
 **Recent Trend:**
 - Last 5 plans: 43-01 (4 min), 43-02 (3 min), 43-03 (4 min), 44-01 (2 min), 44-02 (2 min)
@@ -88,6 +88,11 @@ Recent decisions affecting current work:
 - 43-02: Map providerType to deal field dynamically
 - 43-03: All accordion sections start expanded (defaultValue includes all roles)
 - 43-03: Dual tool rendering: ChatMessage renders both PropertyCardRenderer and ProviderCardRenderer
+- 44-01: Controlled Popover with explicit save/cancel (no auto-save)
+- 44-01: Field-to-section ID mapping for click-to-jump navigation
+- 44-01: Generic InlineFieldEditor with renderInput prop for field-type flexibility
+- 44-01: Accordion defaults to first incomplete section
+- 44-01: Multiselect fields use checkboxes for simplicity
 - 44-01: Click progress bar to jump to first incomplete section (auto-expands)
 - 44-01: Celebration animation (confetti) when profile reaches 100% complete
 - 44-01: Inline editing pattern with Popover (explicit Save/Cancel, no auto-save)
@@ -111,6 +116,7 @@ None yet.
 - Phase 41 complete: Conversational AI core ready for integration
 - Phase 42 complete: Property recommendations end-to-end (tool, UI, chat integration)
 - Phase 43 complete: Dream Team Builder (provider search, UI components, chat integration)
+- Phase 44 started: Investor Summary Page (2 of 3 plans complete - profile components and quick reply buttons ready)
 
 ## Session Continuity
 
