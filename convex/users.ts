@@ -1,6 +1,21 @@
 import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
 
+/**
+ * Get user by Clerk ID (for internal use by AI actions)
+ */
+export const getByClerkId = query({
+  args: {
+    clerkId: v.string(),
+  },
+  handler: async (ctx, { clerkId }) => {
+    return await ctx.db
+      .query("users")
+      .withIndex("by_clerk_id", (q) => q.eq("clerkId", clerkId))
+      .unique();
+  },
+});
+
 // Get or create user from Clerk identity
 // Called automatically when user accesses authenticated content
 export const getOrCreateUser = mutation({
