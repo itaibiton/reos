@@ -23,10 +23,10 @@ Requirements for AI-Powered Investor Experience milestone. Each maps to roadmap 
 
 ### AI Chat Interface
 
-- [ ] **CHAT-01**: Investor can send messages to AI assistant
-- [ ] **CHAT-02**: AI responds with streaming text (token-by-token display)
-- [ ] **CHAT-03**: Typing indicator shows while AI is generating response
-- [ ] **CHAT-04**: Chat history displays previous messages in conversation
+- [x] **CHAT-01**: Investor can send messages to AI assistant
+- [x] **CHAT-02**: AI responds with streaming text (token-by-token display)
+- [x] **CHAT-03**: Typing indicator shows while AI is generating response
+- [x] **CHAT-04**: Chat history displays previous messages in conversation
 - [ ] **CHAT-05**: Quick reply buttons appear for common queries
 - [ ] **CHAT-06**: AI can answer questions about investor's profile
 - [ ] **CHAT-07**: AI can answer questions about properties in the system
@@ -106,10 +106,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | INFRA-02 | Phase 40 | Complete |
 | INFRA-03 | Phase 40 | Complete |
 | INFRA-04 | Phase 40 | Complete |
-| CHAT-01 | Phase 41 | Pending |
-| CHAT-02 | Phase 41 | Pending |
-| CHAT-03 | Phase 41 | Pending |
-| CHAT-04 | Phase 41 | Pending |
+| CHAT-01 | Phase 41 | Complete |
+| CHAT-02 | Phase 41 | Complete |
+| CHAT-03 | Phase 41 | Complete |
+| CHAT-04 | Phase 41 | Complete |
 | REC-01 | Phase 42 | Pending |
 | REC-02 | Phase 42 | Pending |
 | REC-03 | Phase 42 | Pending |

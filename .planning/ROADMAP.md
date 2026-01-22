@@ -17,7 +17,7 @@ Transform the post-onboarding experience into an intelligent investor hub. This 
 ## Phases
 
 - [x] **Phase 40: AI Infrastructure Foundation** - Streaming, memory persistence, context management
-- [ ] **Phase 41: Conversational AI Core** - Basic chat UI with streaming responses
+- [x] **Phase 41: Conversational AI Core** - Basic chat UI with streaming responses
 - [ ] **Phase 42: Property Recommendations** - RAG-grounded property matching with explanations
 - [ ] **Phase 43: Dream Team Builder** - Provider suggestions per role with match reasons
 - [ ] **Phase 44: Investor Summary Page** - Two-panel layout integrating profile and AI
@@ -53,9 +53,9 @@ Plans:
 **Plans**: 3 plans in 3 waves
 
 Plans:
-- [ ] 41-01-PLAN.md — Install markdown dependencies, create messages query, useAIChat/useSmartScroll hooks
-- [ ] 41-02-PLAN.md — ChatMessage with markdown, TypingIndicator, StreamingCursor, AIChatInput components
-- [ ] 41-03-PLAN.md — ChatMessageList, AIChatPanel container, barrel exports, integration verification
+- [x] 41-01-PLAN.md — Install markdown dependencies, create messages query, useAIChat/useSmartScroll hooks
+- [x] 41-02-PLAN.md — ChatMessage with markdown, TypingIndicator, StreamingCursor, AIChatInput components
+- [x] 41-03-PLAN.md — ChatMessageList, AIChatPanel container, barrel exports, integration verification
 
 ### Phase 42: Property Recommendations
 **Goal**: AI suggests properties matching investor profile with explanations
@@ -131,7 +131,7 @@ Plans:
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
 | 40. AI Infrastructure Foundation | v1.6 | 3/3 | ✓ Complete | 2026-01-22 |
-| 41. Conversational AI Core | v1.6 | 0/3 | Ready | - |
+| 41. Conversational AI Core | v1.6 | 3/3 | ✓ Complete | 2026-01-22 |
 | 42. Property Recommendations | v1.6 | 0/? | Not started | - |
 | 43. Dream Team Builder | v1.6 | 0/? | Not started | - |
 | 44. Investor Summary Page | v1.6 | 0/? | Not started | - |

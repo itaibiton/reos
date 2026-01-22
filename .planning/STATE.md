@@ -5,7 +5,7 @@
 See: .planning/PROJECT.md (updated 2026-01-22)
 
 **Core value:** Deal flow tracking from interest to close.
-**Current focus:** Phase 41 - Conversational AI Core (IN PROGRESS)
+**Current focus:** Phase 41 - Conversational AI Core (COMPLETE)
 
 ## Current Position
 
@@ -90,4 +90,4 @@ None yet.
 Last session: 2026-01-22
 Stopped at: Completed 41-03-PLAN.md (Phase 41 complete)
 Resume file: None
-Next: Begin Phase 42 (Property RAG Integration) or Phase 43 (Provider RAG Integration)
+Next: `/gsd:discuss-phase 42` or `/gsd:plan-phase 42`
