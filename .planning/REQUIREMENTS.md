@@ -102,50 +102,50 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INFRA-01 | TBD | Pending |
-| INFRA-02 | TBD | Pending |
-| INFRA-03 | TBD | Pending |
-| INFRA-04 | TBD | Pending |
-| PROF-01 | TBD | Pending |
-| PROF-02 | TBD | Pending |
-| PROF-03 | TBD | Pending |
-| PROF-04 | TBD | Pending |
-| CHAT-01 | TBD | Pending |
-| CHAT-02 | TBD | Pending |
-| CHAT-03 | TBD | Pending |
-| CHAT-04 | TBD | Pending |
-| CHAT-05 | TBD | Pending |
-| CHAT-06 | TBD | Pending |
-| CHAT-07 | TBD | Pending |
-| CHAT-08 | TBD | Pending |
-| REC-01 | TBD | Pending |
-| REC-02 | TBD | Pending |
-| REC-03 | TBD | Pending |
-| REC-04 | TBD | Pending |
-| REC-05 | TBD | Pending |
-| REC-06 | TBD | Pending |
-| REC-07 | TBD | Pending |
-| TEAM-01 | TBD | Pending |
-| TEAM-02 | TBD | Pending |
-| TEAM-03 | TBD | Pending |
-| TEAM-04 | TBD | Pending |
-| TEAM-05 | TBD | Pending |
-| TEAM-06 | TBD | Pending |
-| PAGE-01 | TBD | Pending |
-| PAGE-02 | TBD | Pending |
-| PAGE-03 | TBD | Pending |
-| PAGE-04 | TBD | Pending |
-| MOB-01 | TBD | Pending |
-| MOB-02 | TBD | Pending |
-| MOB-03 | TBD | Pending |
-| MOB-04 | TBD | Pending |
-| MOB-05 | TBD | Pending |
+| INFRA-01 | Phase 40 | Pending |
+| INFRA-02 | Phase 40 | Pending |
+| INFRA-03 | Phase 40 | Pending |
+| INFRA-04 | Phase 40 | Pending |
+| CHAT-01 | Phase 41 | Pending |
+| CHAT-02 | Phase 41 | Pending |
+| CHAT-03 | Phase 41 | Pending |
+| CHAT-04 | Phase 41 | Pending |
+| REC-01 | Phase 42 | Pending |
+| REC-02 | Phase 42 | Pending |
+| REC-03 | Phase 42 | Pending |
+| REC-04 | Phase 42 | Pending |
+| REC-05 | Phase 42 | Pending |
+| REC-06 | Phase 42 | Pending |
+| REC-07 | Phase 42 | Pending |
+| CHAT-06 | Phase 42 | Pending |
+| CHAT-07 | Phase 42 | Pending |
+| TEAM-01 | Phase 43 | Pending |
+| TEAM-02 | Phase 43 | Pending |
+| TEAM-03 | Phase 43 | Pending |
+| TEAM-04 | Phase 43 | Pending |
+| TEAM-05 | Phase 43 | Pending |
+| TEAM-06 | Phase 43 | Pending |
+| CHAT-08 | Phase 43 | Pending |
+| PROF-01 | Phase 44 | Pending |
+| PROF-02 | Phase 44 | Pending |
+| PROF-03 | Phase 44 | Pending |
+| PROF-04 | Phase 44 | Pending |
+| PAGE-01 | Phase 44 | Pending |
+| PAGE-02 | Phase 44 | Pending |
+| PAGE-03 | Phase 44 | Pending |
+| PAGE-04 | Phase 44 | Pending |
+| CHAT-05 | Phase 44 | Pending |
+| MOB-01 | Phase 45 | Pending |
+| MOB-02 | Phase 45 | Pending |
+| MOB-03 | Phase 45 | Pending |
+| MOB-04 | Phase 45 | Pending |
+| MOB-05 | Phase 45 | Pending |
 
 **Coverage:**
 - v1.6 requirements: 37 total
-- Mapped to phases: 0
-- Unmapped: 37 (roadmap pending)
+- Mapped to phases: 37
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-01-22*
-*Last updated: 2026-01-22 after initial definition*
+*Last updated: 2026-01-22 after roadmap creation*
