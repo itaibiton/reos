@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { formatDistanceToNow } from "date-fns";
 import { StreamingCursor } from "./StreamingCursor";
 import { PropertyCardRenderer } from "./PropertyCardRenderer";
+import { ProviderCardRenderer } from "./ProviderCardRenderer";
 
 interface ToolCall {
   toolCallId: string;
@@ -143,7 +144,25 @@ export const ChatMessage = memo(function ChatMessage({
               {role === "assistant" && (
                 <PropertyCardRenderer
                   toolCalls={toolCalls}
-                  isExecuting={isStreaming}
+                  isExecuting={
+                    isStreaming &&
+                    !toolCalls?.some(
+                      (t) => t.toolName === "searchProperties" && t.result
+                    )
+                  }
+                />
+              )}
+
+              {/* Provider cards for assistant messages with tool results */}
+              {role === "assistant" && (
+                <ProviderCardRenderer
+                  toolCalls={toolCalls}
+                  isExecuting={
+                    isStreaming &&
+                    !toolCalls?.some(
+                      (t) => t.toolName === "searchProviders" && t.result
+                    )
+                  }
                 />
               )}
             </div>
