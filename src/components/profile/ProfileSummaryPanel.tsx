@@ -101,7 +101,7 @@ export function ProfileSummaryPanel({ className }: ProfileSummaryPanelProps) {
       />
 
       {/* Accordion sections */}
-      <div className="p-6">
+      <div className="px-4 pb-4">
         <Accordion
           type="single"
           collapsible

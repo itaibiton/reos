@@ -176,8 +176,8 @@ export function ProfileSection({
   questionnaire,
   onFieldSave,
 }: ProfileSectionProps) {
-  const t = useTranslations("profile");
-  const tOptions = useTranslations("questionnaire.options");
+  const t = useTranslations("profileSummary");
+  const tOptions = useTranslations("profileSummary.options");
 
   // Check if section is incomplete
   const incomplete = section.fields.some(
