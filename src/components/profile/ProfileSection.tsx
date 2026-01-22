@@ -191,19 +191,31 @@ export function ProfileSection({
     }
   );
 
+  // Helper to safely get option translation, falling back to formatted value
+  const translateOption = (val: string): string => {
+    const translated = tOptions(val);
+    // If translation returns a key-like string (contains dots or matches the key), use formatted fallback
+    if (translated.includes(".") || translated === val) {
+      // Convert snake_case to Title Case as fallback
+      return val.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+    }
+    return translated;
+  };
+
   const formatValue = (value: any, field: FieldConfig): string => {
-    if (value === undefined || value === null) return "Not set";
+    if (value === undefined || value === null) return t("fields.notSet");
 
     if (field.type === "boolean") {
       return value ? t("yes") : t("no");
     }
 
     if (Array.isArray(value)) {
-      return value.map((v) => tOptions(v)).join(", ");
+      if (value.length === 0) return t("fields.notSet");
+      return value.map((v) => translateOption(v)).join(", ");
     }
 
     if (field.type === "select" && field.options) {
-      return tOptions(value);
+      return translateOption(value);
     }
 
     if (field.type === "number") {

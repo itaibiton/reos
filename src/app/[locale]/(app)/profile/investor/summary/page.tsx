@@ -30,7 +30,7 @@ export default function InvestorSummaryPage() {
   }
 
   return (
-    <div className="h-[calc(100vh-64px)] grid grid-cols-1 lg:grid-cols-2 gap-0">
+    <div className="h-[calc(100vh-64px)] grid grid-cols-1 lg:grid-cols-2 gap-0 p-0">
       {/* Left panel: Profile Summary */}
       <div className="border-e overflow-y-auto bg-background">
         <ProfileSummaryPanel />

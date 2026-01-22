@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { Spinner } from "@/components/ui/spinner";
+import { useTranslations } from "next-intl";
 
 interface InlineFieldEditorProps {
   label: string;
@@ -26,6 +27,7 @@ export function InlineFieldEditor({
   renderInput,
   formatValue,
 }: InlineFieldEditorProps) {
+  const t = useTranslations("profileSummary");
   const [open, setOpen] = useState(false);
   const [editValue, setEditValue] = useState(value);
   const [isSaving, setIsSaving] = useState(false);
@@ -37,7 +39,7 @@ export function InlineFieldEditor({
       setOpen(false);
     } catch (error) {
       console.error("Failed to save field:", error);
-      toast.error("Failed to save. Please try again.");
+      toast.error(t("edit.saveError"));
     } finally {
       setIsSaving(false);
     }
@@ -61,12 +63,12 @@ export function InlineFieldEditor({
   const displayValue = formatValue
     ? formatValue(value)
     : Array.isArray(value)
-      ? value.join(", ")
+      ? value.length > 0 ? value.join(", ") : t("fields.notSet")
       : typeof value === "boolean"
         ? value
-          ? "Yes"
-          : "No"
-        : value || "Not set";
+          ? t("yes")
+          : t("no")
+        : value || t("fields.notSet");
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -104,10 +106,10 @@ export function InlineFieldEditor({
               {isSaving ? (
                 <>
                   <Spinner className="h-3 w-3 mr-2" />
-                  Saving...
+                  {t("edit.saving")}
                 </>
               ) : (
-                "Save"
+                t("edit.save")
               )}
             </Button>
             <Button
@@ -117,7 +119,7 @@ export function InlineFieldEditor({
               disabled={isSaving}
               className="flex-1"
             >
-              Cancel
+              {t("edit.cancel")}
             </Button>
           </div>
         </div>

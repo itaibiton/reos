@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { MessageQuestionIcon } from "@hugeicons/core-free-icons";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 interface QuickReplyButtonsProps {
   onPromptSelect: (prompt: string) => void;
@@ -12,25 +13,27 @@ interface QuickReplyButtonsProps {
   className?: string;
 }
 
-const BASE_PROMPTS = [
-  { label: "Show properties", prompt: "Show me properties that match my preferences" },
-  { label: "Build my team", prompt: "Help me find service providers for my investment" },
-  { label: "Explain options", prompt: "What are my investment options based on my profile?" },
-];
-
 export function QuickReplyButtons({
   onPromptSelect,
   profileComplete = true,
   className,
 }: QuickReplyButtonsProps) {
+  const t = useTranslations("quickReplies");
   const [collapsed, setCollapsed] = useState(false);
+
+  // Prompts are in English for AI processing, labels are translated
+  const basePrompts = [
+    { labelKey: "showProperties", prompt: "Show me properties that match my preferences" },
+    { labelKey: "buildTeam", prompt: "Help me find service providers for my investment" },
+    { labelKey: "explainOptions", prompt: "What are my investment options based on my profile?" },
+  ];
 
   // Add context-aware prompt if profile incomplete
   const prompts = profileComplete
-    ? BASE_PROMPTS
+    ? basePrompts
     : [
-        ...BASE_PROMPTS,
-        { label: "Complete profile", prompt: "What information am I missing in my profile?" },
+        ...basePrompts,
+        { labelKey: "completeProfile", prompt: "What information am I missing in my profile?" },
       ];
 
   if (collapsed) {
@@ -43,7 +46,7 @@ export function QuickReplyButtons({
           className="text-xs text-muted-foreground"
         >
           <HugeiconsIcon icon={MessageQuestionIcon} size={14} className="me-1" />
-          Show suggestions
+          {t("showSuggestions")}
         </Button>
       </div>
     );
@@ -52,9 +55,9 @@ export function QuickReplyButtons({
   return (
     <div className={cn("px-3 py-2 border-t bg-muted/30", className)}>
       <div className="flex flex-wrap gap-2">
-        {prompts.map(({ label, prompt }) => (
+        {prompts.map(({ labelKey, prompt }) => (
           <Button
-            key={label}
+            key={labelKey}
             variant="outline"
             size="sm"
             onClick={() => {
@@ -63,7 +66,7 @@ export function QuickReplyButtons({
             }}
             className="text-xs h-7"
           >
-            {label}
+            {t(labelKey)}
           </Button>
         ))}
       </div>
