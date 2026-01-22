@@ -34,11 +34,12 @@ Transform the post-onboarding experience into an intelligent investor hub. This 
   2. AI responses stream token-by-token with visible typing indicator within 200ms
   3. AI references investor's questionnaire answers without being re-told
   4. Long conversations (20+ messages) maintain coherent context without degradation
-**Plans**: TBD
+**Plans**: 3 plans in 3 waves
 
 Plans:
-- [ ] 40-01: TBD
-- [ ] 40-02: TBD
+- [ ] 40-01-PLAN.md — Agent component setup, schema extension, base agent definition
+- [ ] 40-02-PLAN.md — Profile context builder, thread management, summarization logic
+- [ ] 40-03-PLAN.md — Streaming chat action with stop button, end-to-end wiring
 
 ### Phase 41: Conversational AI Core
 **Goal**: Users can chat with AI assistant and see streaming responses
@@ -128,7 +129,7 @@ Plans:
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
-| 40. AI Infrastructure Foundation | v1.6 | 0/? | Not started | - |
+| 40. AI Infrastructure Foundation | v1.6 | 0/3 | Planned | - |
 | 41. Conversational AI Core | v1.6 | 0/? | Not started | - |
 | 42. Property Recommendations | v1.6 | 0/? | Not started | - |
 | 43. Dream Team Builder | v1.6 | 0/? | Not started | - |
