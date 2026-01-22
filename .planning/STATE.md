@@ -5,24 +5,24 @@
 See: .planning/PROJECT.md (updated 2026-01-22)
 
 **Core value:** Deal flow tracking from interest to close.
-**Current focus:** Phase 40 - AI Infrastructure Foundation
+**Current focus:** Phase 40 - AI Infrastructure Foundation (COMPLETE)
 
 ## Current Position
 
 Milestone: v1.6 AI-Powered Investor Experience
 Phase: 40 of 45 (AI Infrastructure Foundation)
-Plan: 2 of 3 in current phase
-Status: In progress
-Last activity: 2026-01-22 - Completed 40-02-PLAN.md
+Plan: 3 of 3 in current phase (PHASE COMPLETE)
+Status: Phase complete
+Last activity: 2026-01-22 - Completed 40-03-PLAN.md
 
-Progress: [██░░░░░░░░] 11% (0.7/6 phases)
+Progress: [██░░░░░░░░] 17% (1/6 phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 139
+- Total plans completed: 140
 - Average duration: 5.0 min
-- Total execution time: 9.27 hours
+- Total execution time: 9.33 hours
 
 **By Phase (v1.5 most recent):**
 
@@ -33,10 +33,11 @@ Progress: [██░░░░░░░░] 11% (0.7/6 phases)
 | 37 | 3/3 | 7 min | 2.3 min |
 | 38 | 3/3 | 9 min | 3 min |
 | 39 | 3/3 | 11 min | 3.7 min |
+| 40 | 3/3 | 11 min | 3.7 min |
 
 **Recent Trend:**
-- Last 5 plans: 39-01 (4 min), 39-02 (4 min), 39-03 (3 min), 40-01 (5 min), 40-02 (2 min)
-- Trend: Stable, v1.6 underway
+- Last 5 plans: 39-02 (4 min), 39-03 (3 min), 40-01 (5 min), 40-02 (2 min), 40-03 (4 min)
+- Trend: Stable, Phase 40 complete
 
 ## Accumulated Context
 
@@ -55,6 +56,9 @@ Recent decisions affecting current work:
 - 40-02: Profile context rebuilt fresh per call (never stale)
 - 40-02: 15-message threshold for summarization, keep 10 recent verbatim
 - 40-02: Use Haiku for cost-effective summarization
+- 40-03: In-memory Map for abort controller tracking
+- 40-03: System context = profile + summary (injected dynamically)
+- 40-03: Asynchronous summarization trigger (non-blocking)
 
 ### Pending Todos
 
@@ -68,10 +72,11 @@ None yet.
 
 - Milestone v1.6 created: AI-Powered Investor Experience, 6 phases (Phase 40-45)
 - Phase structure derived from research and dependency analysis
+- Phase 40 complete: AI infrastructure foundation ready
 
 ## Session Continuity
 
-Last session: 2026-01-22T11:03:56Z
-Stopped at: Completed 40-02-PLAN.md
+Last session: 2026-01-22T11:09:45Z
+Stopped at: Completed 40-03-PLAN.md (Phase 40 complete)
 Resume file: None
-Next: 40-03-PLAN.md (Streaming action layer)
+Next: Phase 41 - Chat Interface UI
