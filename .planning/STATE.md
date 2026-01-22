@@ -5,17 +5,17 @@
 See: .planning/PROJECT.md (updated 2026-01-22)
 
 **Core value:** Deal flow tracking from interest to close.
-**Current focus:** Planning next milestone
+**Current focus:** v1.6 AI-Powered Investor Experience
 
 ## Current Position
 
-Milestone: Ready for next milestone
-Phase: 39 - Last completed (Responsive Layouts)
-Plan: N/A
-Status: v1.5 shipped, awaiting `/gsd:new-milestone`
-Last activity: 2026-01-22 — Completed v1.5 milestone
+Milestone: v1.6 AI-Powered Investor Experience
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-01-22 — Milestone v1.6 started
 
-Progress: Ready for next milestone
+Progress: Milestone initialized, requirements pending
 
 ## Performance Metrics
 
@@ -443,6 +443,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-22
-Stopped at: v1.5 milestone completion
+Stopped at: v1.6 milestone initialization
 Resume file: None
-Next: `/gsd:new-milestone` to define next milestone requirements
+Next: Define requirements and create roadmap

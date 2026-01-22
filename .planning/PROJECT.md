@@ -8,6 +8,19 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 
 **Deal flow tracking from interest to close.** If the end-to-end process of connecting investors with properties AND moving them through service providers doesn't work seamlessly, nothing else matters.
 
+## Current Milestone: v1.6 AI-Powered Investor Experience
+
+**Goal:** Transform the post-onboarding experience into an intelligent investor hub with personalized property recommendations, AI-assisted provider team building, and conversational guidance.
+
+**Target features:**
+- Investor Summary Page — two-panel design (profile summary + AI assistant)
+- Profile display with inline editing of questionnaire answers
+- AI property recommendations with "quick save all" action
+- AI-powered "dream team" builder (broker, mortgage, lawyer suggestions)
+- Conversational AI for profile insights, property questions, provider recommendations
+- Persistent AI memory via Convex (profile context + selective new data storage)
+- Mobile-responsive with tabbed interface (Profile / AI Assistant tabs)
+
 ## Current State (v1.5)
 
 **Latest Shipped:** 2026-01-22
@@ -74,7 +87,15 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 
 ### Active
 
-*No active requirements — next milestone to be defined with `/gsd:new-milestone`*
+- [ ] Investor Summary Page with two-panel layout (profile + AI) — v1.6
+- [ ] Profile summary display from questionnaire answers — v1.6
+- [ ] Inline editing for profile sections — v1.6
+- [ ] AI property recommendations based on investor profile — v1.6
+- [ ] "Quick save all" for recommended properties — v1.6
+- [ ] AI dream team builder (2-3 suggestions per provider role) — v1.6
+- [ ] Conversational AI for profile/property/provider questions — v1.6
+- [ ] AI memory persistence via Convex — v1.6
+- [ ] Mobile tabbed interface (Profile / AI Assistant) — v1.6
 
 ### Out of Scope
 
@@ -129,13 +150,15 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 
 ## Next Milestone Goals
 
-*To be defined with `/gsd:new-milestone`*
+**v1.6: AI-Powered Investor Experience** (current)
+- Investor Summary Page with AI assistant
+- Personalized property and provider recommendations
+- Conversational AI guidance
 
-Potential directions:
-- v1.6: Advanced mobile features (gestures, haptics, PWA install prompt)
-- v1.6: Analytics and reporting dashboards
-- v1.6: Enhanced notifications (push, email digests)
+**Future directions:**
+- v1.7: Advanced mobile features (gestures, haptics, PWA install prompt)
+- v1.7: Analytics and reporting dashboards
 - v2.0: Major feature expansion (payments, e-signatures)
 
 ---
-*Last updated: 2026-01-22 after v1.5 milestone shipped*
+*Last updated: 2026-01-22 after v1.6 milestone started*
