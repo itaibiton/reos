@@ -10,6 +10,7 @@ export { StreamingCursor } from "./StreamingCursor";
 export { PropertyRecommendationCard } from "./PropertyRecommendationCard";
 export { PropertyDetailModal } from "./PropertyDetailModal";
 export { SaveAllButton } from "./SaveAllButton";
+export { PropertyCardRenderer } from "./PropertyCardRenderer";
 
 // Hooks
 export { useAIChat } from "./hooks/useAIChat";
