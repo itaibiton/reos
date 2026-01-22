@@ -12,7 +12,14 @@ export { PropertyDetailModal } from "./PropertyDetailModal";
 export { SaveAllButton } from "./SaveAllButton";
 export { PropertyCardRenderer } from "./PropertyCardRenderer";
 
+// Provider Recommendation Components
+export { ProviderRecommendationCard } from "./ProviderRecommendationCard";
+export type { ProviderData, ProviderSearchCriteria } from "./ProviderRecommendationCard";
+export { ProviderDetailModal } from "./ProviderDetailModal";
+export { ProviderCardRenderer } from "./ProviderCardRenderer";
+
 // Hooks
 export { useAIChat } from "./hooks/useAIChat";
 export { useSmartScroll } from "./hooks/useSmartScroll";
 export { usePropertySave } from "./hooks/usePropertySave";
+export { useProviderAdd } from "./hooks/useProviderAdd";
