@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, ReactNode } from "react";
 import { useAIChat } from "./hooks/useAIChat";
 import { ChatMessageList } from "./ChatMessageList";
 import { AIChatInput } from "./AIChatInput";
@@ -22,9 +22,10 @@ import { cn } from "@/lib/utils";
 
 interface AIChatPanelProps {
   className?: string;
+  renderQuickReplies?: (sendMessage: (text: string) => void) => ReactNode;
 }
 
-export function AIChatPanel({ className }: AIChatPanelProps) {
+export function AIChatPanel({ className, renderQuickReplies }: AIChatPanelProps) {
   const {
     messages,
     isStreaming,
@@ -99,6 +100,9 @@ export function AIChatPanel({ className }: AIChatPanelProps) {
         isStreaming={isStreaming}
         isLoading={isLoading}
       />
+
+      {/* Quick reply slot (above input) */}
+      {renderQuickReplies && renderQuickReplies(sendMessage)}
 
       {/* Input */}
       <AIChatInput
