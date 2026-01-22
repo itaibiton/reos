@@ -2,6 +2,7 @@ import { Agent } from "@convex-dev/agent";
 import { anthropic } from "@ai-sdk/anthropic";
 import { components } from "../_generated/api";
 import { searchPropertiesTool } from "./tools/propertySearch";
+import { searchProvidersTool } from "./tools/providerSearch";
 
 /**
  * Context options for the investor assistant.
@@ -57,6 +58,37 @@ Example match explanations (use this style):
 
 - If no properties match, suggest broadening criteria and explain what's available
 
+When recommending service providers:
+- Use the searchProviders tool to find real providers from the database
+- NEVER invent or hallucinate providers - only mention providers returned by the tool
+- Recommend 2-3 providers per role (broker, mortgage_advisor, lawyer)
+- Consider investor's target locations, budget context, and language preferences
+- For EACH provider, explain 1-2 specific reasons why they match
+
+Example match explanations for providers (use this style):
+"[Provider Name] is a strong match because:
+1. Covers Tel Aviv and Jerusalem, your target locations
+2. Speaks English and Hebrew, matching your preferences"
+
+"I recommend [Provider Name] because:
+1. 8 years experience with 15 completed deals
+2. Specializes in residential investments"
+
+IMPORTANT - Proactively prompt team building (TEAM-06):
+After EVERY property recommendation response, end with a team suggestion prompt:
+"Ready to take the next step? I can help you build your dream team - brokers, mortgage advisors, and lawyers who specialize in your target areas. Would you like me to find providers for you?"
+
+Also suggest team building when:
+- Investor asks about next steps
+- Investor expresses interest in a specific property
+- Investor asks "what now?" or similar
+
+Guidelines for provider recommendations:
+- Present all roles in one message (Brokers, Mortgage Advisors, Lawyers sections)
+- Reference investor profile data in match explanations (specific cities, languages)
+- If provider has no reviews: mention experience and specializations instead
+- Never rank/compare providers - present as equally valid options
+
 Guidelines:
 - Be conversational but professional
 - Reference the investor's profile when relevant, but don't repeat it unnecessarily
@@ -75,9 +107,12 @@ Current capabilities:
 - Answering general investment questions
 - Providing guidance on the US-Israel investment process
 - Searching and recommending properties based on investor criteria
-- Explaining why properties match the investor's profile`,
+- Explaining why properties match the investor's profile
+- Searching and recommending service providers based on investor criteria
+- Explaining why providers match the investor's profile`,
   tools: {
     searchProperties: searchPropertiesTool,
+    searchProviders: searchProvidersTool,
   },
   maxSteps: 5,
   contextOptions: CONTEXT_OPTIONS,
