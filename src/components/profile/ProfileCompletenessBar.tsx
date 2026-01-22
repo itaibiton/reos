@@ -97,7 +97,7 @@ function calculateCompleteness(
   t: (key: string) => string
 ): { percent: number; missingFields: string[]; firstIncompleteSectionId?: string } {
   if (!q)
-    return { percent: 0, missingFields: [t("fields.notStarted")] };
+    return { percent: 0, missingFields: [t("fields.notSet")] };
 
   const missingFields: string[] = [];
   let filled = 0;
@@ -134,7 +134,7 @@ export function ProfileCompletenessBar({
   questionnaire,
   onJumpToIncomplete,
 }: ProfileCompletenessBarProps) {
-  const t = useTranslations("profile.completeness");
+  const t = useTranslations("profileSummary");
 
   const { percent, missingFields, firstIncompleteSectionId } = useMemo(
     () => calculateCompleteness(questionnaire, t),
@@ -168,7 +168,7 @@ export function ProfileCompletenessBar({
       <div className="space-y-2">
         <div className="flex justify-between items-center">
           <span className="text-sm font-medium">
-            {t("profileCompleteness")}
+            {t("completeness.title")}
           </span>
           <span className="text-sm text-muted-foreground">{percent}%</span>
         </div>
@@ -177,19 +177,19 @@ export function ProfileCompletenessBar({
 
         {!isComplete && missingFields.length > 0 && (
           <p className="text-xs text-muted-foreground">
-            {t("missing")}{" "}
+            {t("completeness.missingPrefix")}{" "}
             {missingFields.slice(0, 3).join(", ")}
             {missingFields.length > 3 &&
-              ` +${missingFields.length - 3} ${t("more")}`}
+              t("completeness.moreItems", { count: missingFields.length - 3 })}
           </p>
         )}
 
         {isComplete && (
           <div className="flex items-center gap-2">
             <Badge variant="default" className="text-xs bg-green-600">
-              {t("complete")}
+              ✓
             </Badge>
-            <span className="text-xs text-green-600">{t("profileComplete")}</span>
+            <span className="text-xs text-green-600">{t("completeness.complete")}</span>
           </div>
         )}
       </div>

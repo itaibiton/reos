@@ -37,7 +37,7 @@ export default function InvestorSummaryPage() {
       </div>
 
       {/* Right panel: AI Assistant */}
-      <div className="flex flex-col h-full">
+      <div className="flex flex-col h-full overflow-hidden">
         <AIChatPanel
           className="flex-1"
           renderQuickReplies={(sendMessage) => (

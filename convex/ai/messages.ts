@@ -61,7 +61,8 @@ export const listMessages = action({
           _creationTime: msg._creationTime,
         };
       })
-      .filter(msg => msg.content.length > 0);
+      .filter(msg => msg.content.length > 0)
+      .reverse(); // Reverse to chronological order (oldest first) for chat display
   },
 });
 

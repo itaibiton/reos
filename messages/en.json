@@ -2194,6 +2194,7 @@
       "experienceLevel": "Experience Level",
       "propertyOwnership": "Owns Property in Israel",
       "investmentType": "Investment Type",
+      "budget": "Budget",
       "budgetMin": "Minimum Budget",
       "budgetMax": "Maximum Budget",
       "investmentHorizon": "Investment Horizon",
