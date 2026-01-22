@@ -11,18 +11,18 @@ See: .planning/PROJECT.md (updated 2026-01-22)
 
 Milestone: v1.6 AI-Powered Investor Experience
 Phase: 40 of 45 (AI Infrastructure Foundation)
-Plan: 1 of 3 in current phase
+Plan: 2 of 3 in current phase
 Status: In progress
-Last activity: 2026-01-22 - Completed 40-01-PLAN.md
+Last activity: 2026-01-22 - Completed 40-02-PLAN.md
 
-Progress: [█░░░░░░░░░] 5% (0.3/6 phases)
+Progress: [██░░░░░░░░] 11% (0.7/6 phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 138
+- Total plans completed: 139
 - Average duration: 5.0 min
-- Total execution time: 9.23 hours
+- Total execution time: 9.27 hours
 
 **By Phase (v1.5 most recent):**
 
@@ -35,7 +35,7 @@ Progress: [█░░░░░░░░░] 5% (0.3/6 phases)
 | 39 | 3/3 | 11 min | 3.7 min |
 
 **Recent Trend:**
-- Last 5 plans: 38-03 (3 min), 39-01 (4 min), 39-02 (4 min), 39-03 (3 min), 40-01 (5 min)
+- Last 5 plans: 39-01 (4 min), 39-02 (4 min), 39-03 (3 min), 40-01 (5 min), 40-02 (2 min)
 - Trend: Stable, v1.6 underway
 
 ## Accumulated Context
@@ -52,6 +52,9 @@ Recent decisions affecting current work:
 - 40-01: Used @ai-sdk/anthropic@2.x for zod 4 compatibility
 - 40-01: Added convex-helpers as peer dependency for agent package
 - 40-01: Created aiThreads table as application wrapper (agent manages internal tables)
+- 40-02: Profile context rebuilt fresh per call (never stale)
+- 40-02: 15-message threshold for summarization, keep 10 recent verbatim
+- 40-02: Use Haiku for cost-effective summarization
 
 ### Pending Todos
 
@@ -68,7 +71,7 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-22T10:59:25Z
-Stopped at: Completed 40-01-PLAN.md
+Last session: 2026-01-22T11:03:56Z
+Stopped at: Completed 40-02-PLAN.md
 Resume file: None
-Next: 40-02-PLAN.md (Streaming action layer)
+Next: 40-03-PLAN.md (Streaming action layer)
