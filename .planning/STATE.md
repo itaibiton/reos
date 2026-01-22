@@ -5,17 +5,17 @@
 See: .planning/PROJECT.md (updated 2026-01-22)
 
 **Core value:** Deal flow tracking from interest to close.
-**Current focus:** Phase 44 - Investor Summary Page (IN PROGRESS)
+**Current focus:** Phase 45 - Mobile Experience (UP NEXT)
 
 ## Current Position
 
 Milestone: v1.6 AI-Powered Investor Experience
 Phase: 44 of 45 (Investor Summary Page)
-Plan: 2 of 3 in current phase
-Status: In progress
-Last activity: 2026-01-23 — Completed 44-02-PLAN.md
+Plan: 3 of 3 in current phase
+Status: Complete
+Last activity: 2026-01-23 — Completed Phase 44 (Investor Summary Page)
 
-Progress: [██████░░░░] 67% (4/6 phases complete)
+Progress: [████████░░] 83% (5/6 phases complete)
 
 ## Performance Metrics
 
@@ -36,11 +36,11 @@ Progress: [██████░░░░] 67% (4/6 phases complete)
 | 41 | 3/3 | 7 min | 2.3 min |
 | 42 | 3/3 | 9 min | 3 min |
 | 43 | 3/3 | 11 min | 3.7 min |
-| 44 | 2/3 | 6 min | 3 min |
+| 44 | 3/3 | 21 min | 7 min |
 
 **Recent Trend:**
-- Last 5 plans: 43-01 (4 min), 43-02 (3 min), 43-03 (4 min), 44-01 (2 min), 44-02 (2 min)
-- Trend: Excellent velocity, consistent 2-4 min execution
+- Last 5 plans: 43-02 (3 min), 43-03 (4 min), 44-01 (2 min), 44-02 (2 min), 44-03 (15 min)
+- Trend: Solid velocity, 44-03 longer due to bug fixes during verification
 
 ## Accumulated Context
 
@@ -99,6 +99,10 @@ Recent decisions affecting current work:
 - 44-02: Render prop pattern for renderQuickReplies instead of lifting useAIChat to parent
 - 44-02: Collapse after first use to keep chat clean
 - 44-02: Context-aware "Complete profile" prompt when profile incomplete
+- 44-03: Fixed height layout with calc(100vh-64px) for header offset
+- 44-03: Overflow-hidden on right panel for proper scroll containment
+- 44-03: Message order reversed to chronological (oldest first) for chat display
+- 44-03: Comprehensive i18n with fallback for missing option translations
 
 ### Pending Todos
 
@@ -116,11 +120,11 @@ None yet.
 - Phase 41 complete: Conversational AI core ready for integration
 - Phase 42 complete: Property recommendations end-to-end (tool, UI, chat integration)
 - Phase 43 complete: Dream Team Builder (provider search, UI components, chat integration)
-- Phase 44 started: Investor Summary Page (2 of 3 plans complete - profile components and quick reply buttons ready)
+- Phase 44 complete: Investor Summary Page (two-panel layout with profile and AI, verified)
 
 ## Session Continuity
 
 Last session: 2026-01-23
-Stopped at: Completed 44-02-PLAN.md (Quick Reply Buttons)
+Stopped at: Completed Phase 44 (Investor Summary Page)
 Resume file: None
-Next: Continue with 44-03 (Investor Summary Page integration)
+Next: Plan and execute Phase 45 (Mobile Experience)

@@ -20,7 +20,7 @@ Transform the post-onboarding experience into an intelligent investor hub. This 
 - [x] **Phase 41: Conversational AI Core** - Basic chat UI with streaming responses
 - [x] **Phase 42: Property Recommendations** - RAG-grounded property matching with explanations
 - [x] **Phase 43: Dream Team Builder** - Provider suggestions per role with match reasons
-- [ ] **Phase 44: Investor Summary Page** - Two-panel layout integrating profile and AI
+- [x] **Phase 44: Investor Summary Page** - Two-panel layout integrating profile and AI
 - [ ] **Phase 45: Mobile Experience** - Tabbed interface and touch-optimized chat
 
 ## Phase Details
@@ -105,9 +105,9 @@ Plans:
 **Plans**: 3 plans in 2 waves
 
 Plans:
-- [ ] 44-01-PLAN.md — ProfileCompletenessBar, InlineFieldEditor, ProfileSection, ProfileSummaryPanel components
-- [ ] 44-02-PLAN.md — QuickReplyButtons component, AIChatPanel renderQuickReplies prop
-- [ ] 44-03-PLAN.md — Two-panel summary page, routing updates, translations, verification checkpoint
+- [x] 44-01-PLAN.md — ProfileCompletenessBar, InlineFieldEditor, ProfileSection, ProfileSummaryPanel components
+- [x] 44-02-PLAN.md — QuickReplyButtons component, AIChatPanel renderQuickReplies prop
+- [x] 44-03-PLAN.md — Two-panel summary page, routing updates, translations, verification checkpoint
 
 ### Phase 45: Mobile Experience
 **Goal**: Touch-optimized AI experience with tabbed navigation
@@ -135,7 +135,7 @@ Plans:
 | 41. Conversational AI Core | v1.6 | 3/3 | ✓ Complete | 2026-01-22 |
 | 42. Property Recommendations | v1.6 | 3/3 | ✓ Complete | 2026-01-22 |
 | 43. Dream Team Builder | v1.6 | 3/3 | ✓ Complete | 2026-01-22 |
-| 44. Investor Summary Page | v1.6 | 0/3 | Not started | - |
+| 44. Investor Summary Page | v1.6 | 3/3 | ✓ Complete | 2026-01-23 |
 | 45. Mobile Experience | v1.6 | 0/? | Not started | - |
 
 ---
