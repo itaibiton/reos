@@ -14,6 +14,8 @@ import type * as ai_context from "../ai/context.js";
 import type * as ai_messages from "../ai/messages.js";
 import type * as ai_summarization from "../ai/summarization.js";
 import type * as ai_threads from "../ai/threads.js";
+import type * as ai_tools_propertyQueries from "../ai/tools/propertyQueries.js";
+import type * as ai_tools_propertySearch from "../ai/tools/propertySearch.js";
 import type * as clients from "../clients.js";
 import type * as conversations from "../conversations.js";
 import type * as dashboard from "../dashboard.js";
@@ -59,6 +61,8 @@ declare const fullApi: ApiFromModules<{
   "ai/messages": typeof ai_messages;
   "ai/summarization": typeof ai_summarization;
   "ai/threads": typeof ai_threads;
+  "ai/tools/propertyQueries": typeof ai_tools_propertyQueries;
+  "ai/tools/propertySearch": typeof ai_tools_propertySearch;
   clients: typeof clients;
   conversations: typeof conversations;
   dashboard: typeof dashboard;
