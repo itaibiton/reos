@@ -102,12 +102,12 @@ Plans:
   4. Profile completeness indicator shows percentage and lists missing sections
   5. Quick reply buttons appear for common queries (e.g., "Show me properties", "Build my team")
   6. Page accessible after onboarding completes AND as ongoing profile page
-**Plans**: TBD
+**Plans**: 3 plans in 2 waves
 
 Plans:
-- [ ] 44-01: TBD
-- [ ] 44-02: TBD
-- [ ] 44-03: TBD
+- [ ] 44-01-PLAN.md — ProfileCompletenessBar, InlineFieldEditor, ProfileSection, ProfileSummaryPanel components
+- [ ] 44-02-PLAN.md — QuickReplyButtons component, AIChatPanel renderQuickReplies prop
+- [ ] 44-03-PLAN.md — Two-panel summary page, routing updates, translations, verification checkpoint
 
 ### Phase 45: Mobile Experience
 **Goal**: Touch-optimized AI experience with tabbed navigation
@@ -135,7 +135,7 @@ Plans:
 | 41. Conversational AI Core | v1.6 | 3/3 | ✓ Complete | 2026-01-22 |
 | 42. Property Recommendations | v1.6 | 3/3 | ✓ Complete | 2026-01-22 |
 | 43. Dream Team Builder | v1.6 | 3/3 | ✓ Complete | 2026-01-22 |
-| 44. Investor Summary Page | v1.6 | 0/? | Not started | - |
+| 44. Investor Summary Page | v1.6 | 0/3 | Not started | - |
 | 45. Mobile Experience | v1.6 | 0/? | Not started | - |
 
 ---
