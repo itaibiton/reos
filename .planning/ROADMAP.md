@@ -67,12 +67,12 @@ Plans:
   3. User can ask AI questions about specific properties and get accurate answers from database
   4. User can save all recommended properties with single "Quick Save All" action
   5. Every property mentioned by AI exists in database (no hallucinated properties)
-**Plans**: TBD
+**Plans**: 3 plans in 2 waves
 
 Plans:
-- [ ] 42-01: TBD
-- [ ] 42-02: TBD
-- [ ] 42-03: TBD
+- [ ] 42-01-PLAN.md — Property search query, tool definition with Zod schema, agent registration
+- [ ] 42-02-PLAN.md — Sonner toast setup, PropertyRecommendationCard, PropertyDetailModal, SaveAllButton
+- [ ] 42-03-PLAN.md — ChatMessage extended with property cards, useAIChat tool results, integration verification
 
 ### Phase 43: Dream Team Builder
 **Goal**: AI suggests service providers per role with match explanations
@@ -132,7 +132,7 @@ Plans:
 |-------|-----------|----------------|--------|-----------|
 | 40. AI Infrastructure Foundation | v1.6 | 3/3 | ✓ Complete | 2026-01-22 |
 | 41. Conversational AI Core | v1.6 | 3/3 | ✓ Complete | 2026-01-22 |
-| 42. Property Recommendations | v1.6 | 0/? | Not started | - |
+| 42. Property Recommendations | v1.6 | 0/3 | Ready | - |
 | 43. Dream Team Builder | v1.6 | 0/? | Not started | - |
 | 44. Investor Summary Page | v1.6 | 0/? | Not started | - |
 | 45. Mobile Experience | v1.6 | 0/? | Not started | - |
