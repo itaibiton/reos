@@ -11,18 +11,18 @@ See: .planning/PROJECT.md (updated 2026-01-22)
 
 Milestone: v1.6 AI-Powered Investor Experience
 Phase: 42 of 45 (Property Recommendations)
-Plan: 2 of 3 in current phase
+Plan: 1 of 3 in current phase
 Status: In progress
-Last activity: 2026-01-22 — Completed 42-02-PLAN.md
+Last activity: 2026-01-22 — Completed 42-01-PLAN.md
 
-Progress: [████░░░░░░] 38% (2.67/6 phases complete)
+Progress: [████░░░░░░] 38% (2.33/6 phases complete)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 144
+- Total plans completed: 143
 - Average duration: 4.9 min
-- Total execution time: 9.53 hours
+- Total execution time: 9.52 hours
 
 **By Phase (v1.6 most recent):**
 
@@ -34,11 +34,11 @@ Progress: [████░░░░░░] 38% (2.67/6 phases complete)
 | 39 | 3/3 | 11 min | 3.7 min |
 | 40 | 3/3 | 11 min | 3.7 min |
 | 41 | 3/3 | 7 min | 2.3 min |
-| 42 | 2/3 | 6 min | 3 min |
+| 42 | 1/3 | 4 min | 4 min |
 
 **Recent Trend:**
-- Last 5 plans: 41-01 (3 min), 41-02 (2 min), 41-03 (2 min), 42-01 (3 min), 42-02 (3 min)
-- Trend: Stable, consistent 2-3 min execution
+- Last 5 plans: 41-01 (3 min), 41-02 (2 min), 41-03 (2 min), 40-03 (4 min), 42-01 (4 min)
+- Trend: Stable, consistent 2-4 min execution
 
 ## Accumulated Context
 
@@ -70,9 +70,10 @@ Recent decisions affecting current work:
 - 41-03: Messages load immediately on open (no deferred loading)
 - 41-03: Typing indicator shows before first AI token arrives
 - 41-03: Clear memory requires confirmation dialog (destructive action)
-- 42-02: Use HugeiconsIcon wrapper with core-free-icons for consistency
-- 42-02: Skip pattern for conditional query loading (modal-only data fetch)
-- 42-02: Silently ignore duplicate save errors in batch operations
+- 42-01: Use createTool from @convex-dev/agent (not tool from ai) for Convex context
+- 42-01: Cap maxResults at 5 properties to avoid overwhelming chat
+- 42-01: Include explicit example match explanations in agent instructions
+- 42-01: Return searchCriteria in tool results for UI match badge computation
 
 ### Pending Todos
 
@@ -88,11 +89,11 @@ None yet.
 - Phase structure derived from research and dependency analysis
 - Phase 40 complete: AI infrastructure foundation ready
 - Phase 41 complete: Conversational AI core ready for integration
-- Phase 42 in progress: Property recommendation UI components ready
+- Phase 42 in progress: Property search tool complete, UI pending
 
 ## Session Continuity
 
 Last session: 2026-01-22
-Stopped at: Completed 42-02-PLAN.md (Phase 42 plan 2/3)
+Stopped at: Completed 42-01-PLAN.md (Phase 42 plan 1/3)
 Resume file: None
-Next: `/gsd:execute-plan 42-03`
+Next: `/gsd:execute-plan 42-02` or `/gsd:execute-plan 42-03`
