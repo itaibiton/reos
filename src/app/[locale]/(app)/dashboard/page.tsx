@@ -46,10 +46,10 @@ export default function DashboardPage() {
       }
     : null;
 
-  // Redirect investors to properties page - they don't have a dashboard
+  // Redirect investors to summary page - their main hub
   useEffect(() => {
     if (!userLoading && effectiveRole === "investor") {
-      router.replace("/properties");
+      router.replace("/profile/investor/summary");
     }
   }, [userLoading, effectiveRole, router]);
 

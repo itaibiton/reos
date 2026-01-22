@@ -214,10 +214,10 @@ export default function QuestionnairePage() {
   // Get current step from questionnaire (default to 1)
   const currentStep = questionnaire?.currentStep ?? 1;
 
-  // Redirect to properties if questionnaire already complete
+  // Redirect to investor summary if questionnaire already complete
   useEffect(() => {
     if (!isUserLoading && questionnaire?.status === "complete") {
-      router.push("/properties");
+      router.push("/profile/investor/summary");
     }
   }, [isUserLoading, questionnaire, router]);
 
@@ -280,7 +280,7 @@ export default function QuestionnairePage() {
       await saveProgress();
       await markComplete();
       await completeOnboarding();
-      router.push("/dashboard");
+      router.push("/profile/investor/summary");
     } catch (error) {
       console.error("Failed to complete questionnaire:", error);
       toast.error("Failed to complete questionnaire. Please try again.");
