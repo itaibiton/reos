@@ -2356,5 +2356,9 @@
     "analytics": "Analytics",
     "details": "Details",
     "edit": "Edit"
+  },
+  "mobileTabs": {
+    "profile": "Profile",
+    "assistant": "AI Assistant"
   }
 }
