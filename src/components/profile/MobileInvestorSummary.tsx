@@ -8,6 +8,7 @@ import { UserCircle02Icon, AiChat02Icon } from "@hugeicons/core-free-icons";
 import { ProfileSummaryPanel } from "./ProfileSummaryPanel";
 import { AIChatPanel } from "@/components/ai/AIChatPanel";
 import { QuickReplyButtons } from "./QuickReplyButtons";
+import { useKeyboardVisible } from "@/hooks/use-keyboard-visible";
 import { cn } from "@/lib/utils";
 
 interface MobileInvestorSummaryProps {
@@ -21,6 +22,7 @@ export function MobileInvestorSummary({
 }: MobileInvestorSummaryProps) {
   const [activeTab, setActiveTab] = useState<TabValue>("profile");
   const [prevTab, setPrevTab] = useState<TabValue>("profile");
+  const keyboardHeight = useKeyboardVisible();
 
   // Calculate animation direction based on tab order
   const handleTabChange = (value: string) => {
@@ -34,8 +36,15 @@ export function MobileInvestorSummary({
 
   return (
     <Tabs.Root value={activeTab} onValueChange={handleTabChange}>
-      {/* Content area - fills viewport minus header and tab bar */}
-      <div className="h-[calc(100dvh-var(--header-height)-var(--tab-bar-height))] overflow-hidden">
+      {/* Content area - fills viewport minus header, tab bar, and keyboard */}
+      <div
+        className="overflow-hidden transition-[height] duration-200"
+        style={{
+          height: keyboardHeight > 0
+            ? `calc(100dvh - var(--header-height) - var(--tab-bar-height) - ${keyboardHeight}px)`
+            : 'calc(100dvh - var(--header-height) - var(--tab-bar-height))'
+        }}
+      >
         <AnimatePresence mode="wait" initial={false}>
           <Tabs.Content
             value="profile"
