@@ -121,12 +121,29 @@ CRITICAL: Execute BOTH tool calls automatically in this response. Do NOT wait fo
 Start with "Welcome! Based on your profile..." then show properties, then providers.`;
       }
 
+      // Detect if user is asking for properties or providers
+      const lowerMessage = message.toLowerCase();
+      const wantsProperties = lowerMessage.includes("propert") ||
+                              lowerMessage.includes("show me") ||
+                              lowerMessage.includes("find me") ||
+                              lowerMessage.includes("recommend");
+      const wantsProviders = lowerMessage.includes("provider") ||
+                             lowerMessage.includes("team") ||
+                             lowerMessage.includes("broker") ||
+                             lowerMessage.includes("lawyer") ||
+                             lowerMessage.includes("mortgage");
+
+      // Force tool usage for auto-greeting or explicit property/provider requests
+      const shouldForceToolUse = isAutoGreeting || wantsProperties || wantsProviders;
+
       // Stream text with the user's message
       const result = await agentThread.streamText(
         {
           prompt: message || "Begin our conversation",
           system: systemContext || undefined,
           abortSignal: abortController.signal,
+          // Force tool usage when appropriate to prevent hallucination
+          toolChoice: shouldForceToolUse ? "required" : "auto",
         },
         {
           saveStreamDeltas: true,
