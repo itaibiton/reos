@@ -80,6 +80,7 @@ export function MobileInvestorSummary({
                 className="h-full"
               >
                 <AIChatPanel
+                  autoGreet={true}
                   renderQuickReplies={(sendMessage) => (
                     <QuickReplyButtons
                       onPromptSelect={sendMessage}
