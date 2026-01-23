@@ -77,7 +77,7 @@ export function AIChatInput({
           "placeholder:text-muted-foreground",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
           "disabled:cursor-not-allowed disabled:opacity-50",
-          "min-h-[40px]"
+          "min-h-11"
         )}
         aria-label="Message input"
       />
@@ -88,7 +88,7 @@ export function AIChatInput({
           onClick={onStop}
           variant="destructive"
           size="icon"
-          className="h-10 w-10 flex-shrink-0"
+          className="h-11 w-11 min-h-11 min-w-11 flex-shrink-0"
           aria-label="Stop generating"
         >
           <HugeiconsIcon icon={Cancel01Icon} size={18} />
@@ -99,7 +99,7 @@ export function AIChatInput({
           onClick={handleSend}
           disabled={inputDisabled || isEmpty}
           size="icon"
-          className="h-10 w-10 flex-shrink-0"
+          className="h-11 w-11 min-h-11 min-w-11 flex-shrink-0"
           aria-label="Send message"
         >
           <HugeiconsIcon icon={SentIcon} size={18} />
