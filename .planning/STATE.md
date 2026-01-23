@@ -11,9 +11,9 @@ See: .planning/PROJECT.md (updated 2026-01-22)
 
 Milestone: v1.6 AI-Powered Investor Experience
 Phase: 46 of 46 (AI Auto-Flow)
-Plan: 1 of 3 in current phase
+Plan: 2 of 3 in current phase
 Status: In progress
-Last activity: 2026-01-23 — Completed 46-01-PLAN.md
+Last activity: 2026-01-23 — Completed 46-02-PLAN.md
 
 Progress: [█████████░] 90% (6.3/7 phases complete)
 
@@ -38,10 +38,10 @@ Progress: [█████████░] 90% (6.3/7 phases complete)
 | 43 | 3/3 | 11 min | 3.7 min |
 | 44 | 3/3 | 21 min | 7 min |
 | 45 | 3/3 | 3 min | 1 min |
-| 46 | 1/3 | 3 min | 3 min |
+| 46 | 2/3 | 5 min | 2.5 min |
 
 **Recent Trend:**
-- Last 5 plans: 44-03 (15 min), 45-02 (2 min), 45-03 (1 min), 46-01 (3 min)
+- Last 5 plans: 45-02 (2 min), 45-03 (1 min), 46-01 (3 min), 46-02 (2 min)
 - Trend: Fast execution velocity, integration tasks completing in 1-3 minutes
 
 ## Accumulated Context
@@ -117,6 +117,10 @@ Recent decisions affecting current work:
 - 46-01: Skip optimistic user message when text.trim() is empty (no empty bubble)
 - 46-01: isAutoGreeting = empty message AND (new thread OR zero existing messages)
 - 46-01: System prompt uses "BOTH tool calls" for explicit dual tool execution
+- 46-02: Conditional hook call via ternary with no-op object when disabled
+- 46-02: Ref prevents re-triggering across renders (hasTriggeredRef)
+- 46-02: Single useAIChat instance inside AIChatPanel (prevents race conditions)
+- 46-02: Barrel export created for all hooks in ai/hooks folder
 
 ### Pending Todos
 
@@ -141,6 +145,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-23
-Stopped at: Completed 46-01-PLAN.md
+Stopped at: Completed 46-02-PLAN.md
 Resume file: None
-Next: Execute 46-02-PLAN.md (Questionnaire Completion Trigger)
+Next: Execute 46-03-PLAN.md (Mobile Auto-Greeting Integration)
