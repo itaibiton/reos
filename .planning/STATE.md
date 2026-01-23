@@ -5,17 +5,17 @@
 See: .planning/PROJECT.md (updated 2026-01-22)
 
 **Core value:** Deal flow tracking from interest to close.
-**Current focus:** Phase 46 - AI Auto-Flow (UP NEXT)
+**Current focus:** Phase 46 - AI Auto-Flow (IN PROGRESS)
 
 ## Current Position
 
 Milestone: v1.6 AI-Powered Investor Experience
-Phase: 45 of 46 (Mobile Experience → AI Auto-Flow next)
-Plan: 3 of 3 in current phase
-Status: Phase 45 complete, Phase 46 pending planning
-Last activity: 2026-01-23 — Completed Phase 45, created Phase 46 context
+Phase: 46 of 46 (AI Auto-Flow)
+Plan: 1 of 3 in current phase
+Status: In progress
+Last activity: 2026-01-23 — Completed 46-01-PLAN.md
 
-Progress: [████████░░] 86% (6/7 phases complete)
+Progress: [█████████░] 90% (6.3/7 phases complete)
 
 ## Performance Metrics
 
@@ -38,10 +38,11 @@ Progress: [████████░░] 86% (6/7 phases complete)
 | 43 | 3/3 | 11 min | 3.7 min |
 | 44 | 3/3 | 21 min | 7 min |
 | 45 | 3/3 | 3 min | 1 min |
+| 46 | 1/3 | 3 min | 3 min |
 
 **Recent Trend:**
-- Last 5 plans: 44-01 (2 min), 44-02 (2 min), 44-03 (15 min), 45-02 (2 min), 45-03 (1 min)
-- Trend: Fast execution velocity, integration tasks completing in 1-2 minutes
+- Last 5 plans: 44-03 (15 min), 45-02 (2 min), 45-03 (1 min), 46-01 (3 min)
+- Trend: Fast execution velocity, integration tasks completing in 1-3 minutes
 
 ## Accumulated Context
 
@@ -112,6 +113,10 @@ Recent decisions affecting current work:
 - 45-02: Horizontal scroll with snap for quick reply buttons (not wrap)
 - 45-02: gap-2 (8px) spacing prevents accidental adjacent taps
 - 45-02: Drawer on mobile uses max-h-[85vh] for proper sizing
+- 46-01: allowEmpty parameter in options object preserves backward compatibility
+- 46-01: Skip optimistic user message when text.trim() is empty (no empty bubble)
+- 46-01: isAutoGreeting = empty message AND (new thread OR zero existing messages)
+- 46-01: System prompt uses "BOTH tool calls" for explicit dual tool execution
 
 ### Pending Todos
 
@@ -136,6 +141,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-23
-Stopped at: Completed Phase 45 verification, created Phase 46 context
+Stopped at: Completed 46-01-PLAN.md
 Resume file: None
-Next: Plan Phase 46 (AI Auto-Flow) with /gsd:plan-phase 46
+Next: Execute 46-02-PLAN.md (Questionnaire Completion Trigger)
