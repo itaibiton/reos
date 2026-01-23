@@ -2355,10 +2355,20 @@
     "providers": "Providers",
     "analytics": "Analytics",
     "details": "Details",
-    "edit": "Edit"
+    "edit": "Edit",
+    "investor": "Investor",
+    "summary": "Summary"
   },
   "mobileTabs": {
     "profile": "Profile",
     "assistant": "AI Assistant"
+  },
+  "ai": {
+    "autoGreeting": {
+      "welcome": "Welcome! Based on your profile, I've found some great investment opportunities for you.",
+      "showingProperties": "Let me show you some properties that match your criteria.",
+      "showingProviders": "I've also found some service providers who can help with your investment journey.",
+      "quickRepliesHint": "Use the quick reply buttons below for follow-up questions."
+    }
   }
 }
