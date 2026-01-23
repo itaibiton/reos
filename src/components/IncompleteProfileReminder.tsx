@@ -82,8 +82,8 @@ export function IncompleteProfileReminder() {
       return;
     }
 
-    // Don't show on onboarding/questionnaire pages (but track the path)
-    if (pathname.startsWith("/onboarding") || pathname.startsWith("/profile/investor/questionnaire")) {
+    // Don't show on onboarding pages (but track the path)
+    if (pathname.startsWith("/onboarding")) {
       toast.dismiss(TOAST_ID);
       lastPathRef.current = pathname;
       return;

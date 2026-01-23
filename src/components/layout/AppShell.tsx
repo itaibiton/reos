@@ -105,7 +105,6 @@ const breadcrumbConfig: Record<string, BreadcrumbConfig> = {
   "/settings": { labelKey: "breadcrumbs.settings" },
   "/profile/investor": { labelKey: "breadcrumbs.profile" },
   "/profile/provider": { labelKey: "breadcrumbs.profile" },
-  "/profile/investor/questionnaire": { labelKey: "breadcrumbs.editQuestionnaire" },
   "/properties/new": { groupKey: "breadcrumbs.groups.marketplace", labelKey: "breadcrumbs.newProperty" },
   "/onboarding": { labelKey: "breadcrumbs.onboarding" },
   "/onboarding/questionnaire": { labelKey: "breadcrumbs.questionnaire" },
@@ -374,7 +373,7 @@ export function AppShell({ children }: AppShellProps) {
 
         {/* Main content area */}
         <main className={cn(
-          isFullBleedPage ? "" : "p-6",
+          isFullBleedPage ? "" : "",
           isMobile && "pb-20" // Space for bottom tab bar (~80px)
         )}>
           {isFullBleedPage ? (

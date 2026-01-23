@@ -121,7 +121,7 @@ export function ProfileCompletenessCard({ className }: ProfileCompletenessCardPr
 
         {/* Edit link */}
         <Button asChild variant={isComplete ? "outline" : "default"} className="w-full">
-          <Link href="/profile/investor/questionnaire">
+          <Link href="/onboarding/questionnaire">
             {isComplete ? t("reviewProfile") : t("completeProfile")}
           </Link>
         </Button>
