@@ -2,7 +2,7 @@
 
 import { useClerk } from "@clerk/nextjs";
 import { useQuery } from "convex/react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { api } from "../../../convex/_generated/api";
 import {
   Popover,
@@ -35,6 +35,7 @@ function getInitials(name: string | undefined): string {
 
 export function AvatarDropdown() {
   const { signOut } = useClerk();
+  const locale = useLocale();
   const t = useTranslations("header");
   const tNotifications = useTranslations("header.notifications");
   const tSettings = useTranslations("header.settings");
@@ -44,7 +45,7 @@ export function AvatarDropdown() {
   const unreadCount = useQuery(api.notifications.getUnreadCount);
 
   const handleSignOut = () => {
-    signOut({ redirectUrl: "/" });
+    signOut({ redirectUrl: `/${locale}` });
   };
 
   return (
