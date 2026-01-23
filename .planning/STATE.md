@@ -104,6 +104,10 @@ Recent decisions affecting current work:
 - 44-03: Overflow-hidden on right panel for proper scroll containment
 - 44-03: Message order reversed to chronological (oldest first) for chat display
 - 44-03: Comprehensive i18n with fallback for missing option translations
+- 45-01: VisualViewport API with 100px threshold to distinguish keyboard from browser chrome
+- 45-01: AnimatePresence mode="wait" for smooth tab transitions (not deprecated exitBeforeEnter)
+- 45-01: Direction-aware animations computed from tab order (forward/backward)
+- 45-01: Both tabs forceMount to preserve scroll position (display toggle via data-state)
 - 45-02: Use h-11/w-11 (44px) for all touch targets following mobile standards
 - 45-02: Horizontal scroll with snap for quick reply buttons (not wrap)
 - 45-02: gap-2 (8px) spacing prevents accidental adjacent taps
