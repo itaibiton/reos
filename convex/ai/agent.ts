@@ -114,6 +114,8 @@ Current capabilities:
     searchProperties: searchPropertiesTool,
     searchProviders: searchProvidersTool,
   },
+  // maxSteps: 5 allows multiple tool calls in single response
+  // Required for auto-greeting flow: searchProperties + searchProviders
   maxSteps: 5,
   contextOptions: CONTEXT_OPTIONS,
 });
