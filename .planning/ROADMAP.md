@@ -12,7 +12,7 @@ Transform the post-onboarding experience into an intelligent investor hub. This 
 - ✅ **v1.3 Social Feed & Global Community** - Phases 21-27.2 (shipped 2026-01-19)
 - ✅ **v1.4 Internationalization & RTL** - Phases 28-34.1 (shipped 2026-01-20)
 - ✅ **v1.5 Mobile Responsive & Header Redesign** - Phases 35-39 (shipped 2026-01-22)
-- 🚧 **v1.6 AI-Powered Investor Experience** - Phases 40-45 (in progress)
+- 🚧 **v1.6 AI-Powered Investor Experience** - Phases 40-46 (in progress)
 
 ## Phases
 
@@ -22,6 +22,7 @@ Transform the post-onboarding experience into an intelligent investor hub. This 
 - [x] **Phase 43: Dream Team Builder** - Provider suggestions per role with match reasons
 - [x] **Phase 44: Investor Summary Page** - Two-panel layout integrating profile and AI
 - [ ] **Phase 45: Mobile Experience** - Tabbed interface and touch-optimized chat
+- [ ] **Phase 46: AI Auto-Flow** - AI-initiated recommendations after questionnaire completion
 
 ## Phase Details
 
@@ -122,13 +123,27 @@ Plans:
 **Plans**: 3 plans in 2 waves
 
 Plans:
-- [ ] 45-01-PLAN.md — Keyboard detection hook, MobileInvestorSummary tabbed component
-- [ ] 45-02-PLAN.md — Touch target updates (44px), horizontal quick replies, responsive field editor
-- [ ] 45-03-PLAN.md — Page integration with mobile detection, translations, verification checkpoint
+- [x] 45-01-PLAN.md — Keyboard detection hook, MobileInvestorSummary tabbed component
+- [x] 45-02-PLAN.md — Touch target updates (44px), horizontal quick replies, responsive field editor
+- [x] 45-03-PLAN.md — Page integration with mobile detection, translations, verification checkpoint
+
+### Phase 46: AI Auto-Flow
+**Goal**: AI initiates conversation after questionnaire with automatic property and provider recommendations
+**Depends on**: Phase 45
+**Requirements**: AUTO-01, AUTO-02, AUTO-03, AUTO-04, AUTO-05
+**Success Criteria** (what must be TRUE):
+  1. After questionnaire completion, AI sends greeting without user prompt
+  2. AI automatically triggers property search and displays results as cards (not text)
+  3. Each property card has individual Save button AND batch "Save All" button at bottom
+  4. After property suggestions, AI automatically suggests providers grouped by role
+  5. Provider cards have "Add to Team" buttons with role-based grouping
+  6. Questionnaire popup persists on each visit until completed (skip doesn't dismiss permanently)
+  7. Quick reply buttons remain visible after auto-suggestions for follow-up queries
+**Plans**: TBD (run /gsd:plan-phase 46)
 
 ## Progress
 
-**Execution Order:** Phases 40 → 41 → 42 → 43 → 44 → 45
+**Execution Order:** Phases 40 → 41 → 42 → 43 → 44 → 45 → 46
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
@@ -137,9 +152,10 @@ Plans:
 | 42. Property Recommendations | v1.6 | 3/3 | ✓ Complete | 2026-01-22 |
 | 43. Dream Team Builder | v1.6 | 3/3 | ✓ Complete | 2026-01-22 |
 | 44. Investor Summary Page | v1.6 | 3/3 | ✓ Complete | 2026-01-23 |
-| 45. Mobile Experience | v1.6 | 0/3 | Not started | - |
+| 45. Mobile Experience | v1.6 | 3/3 | ✓ Complete | 2026-01-23 |
+| 46. AI Auto-Flow | v1.6 | 0/? | ○ Not started | - |
 
 ---
 *Roadmap created: 2026-01-22*
 *Milestone: v1.6 AI-Powered Investor Experience*
-*Requirements: 37 mapped to 6 phases*
+*Requirements: 42 mapped to 7 phases*

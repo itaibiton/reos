@@ -60,11 +60,19 @@ Requirements for AI-Powered Investor Experience milestone. Each maps to roadmap 
 
 ### Mobile Experience
 
-- [ ] **MOB-01**: Mobile layout uses tabbed interface (Profile / AI Assistant)
-- [ ] **MOB-02**: Tab switching is smooth with appropriate animations
-- [ ] **MOB-03**: Chat input is keyboard-aware (adjusts when keyboard opens)
-- [ ] **MOB-04**: All touch targets are minimum 44px
-- [ ] **MOB-05**: Quick reply buttons are touch-optimized
+- [x] **MOB-01**: Mobile layout uses tabbed interface (Profile / AI Assistant)
+- [x] **MOB-02**: Tab switching is smooth with appropriate animations
+- [x] **MOB-03**: Chat input is keyboard-aware (adjusts when keyboard opens)
+- [x] **MOB-04**: All touch targets are minimum 44px
+- [x] **MOB-05**: Quick reply buttons are touch-optimized
+
+### AI Auto-Flow
+
+- [ ] **AUTO-01**: AI sends greeting automatically after questionnaire completion (no user prompt)
+- [ ] **AUTO-02**: AI automatically triggers property search and displays results as cards
+- [ ] **AUTO-03**: Property cards have individual Save buttons AND batch "Save All" button
+- [ ] **AUTO-04**: AI automatically suggests providers after properties, grouped by role
+- [ ] **AUTO-05**: Questionnaire popup persists on each visit until completed (skip is temporary)
 
 ## Future Requirements
 
@@ -135,17 +143,22 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PAGE-03 | Phase 44 | Complete |
 | PAGE-04 | Phase 44 | Complete |
 | CHAT-05 | Phase 44 | Complete |
-| MOB-01 | Phase 45 | Pending |
-| MOB-02 | Phase 45 | Pending |
-| MOB-03 | Phase 45 | Pending |
-| MOB-04 | Phase 45 | Pending |
-| MOB-05 | Phase 45 | Pending |
+| MOB-01 | Phase 45 | Complete |
+| MOB-02 | Phase 45 | Complete |
+| MOB-03 | Phase 45 | Complete |
+| MOB-04 | Phase 45 | Complete |
+| MOB-05 | Phase 45 | Complete |
+| AUTO-01 | Phase 46 | Pending |
+| AUTO-02 | Phase 46 | Pending |
+| AUTO-03 | Phase 46 | Pending |
+| AUTO-04 | Phase 46 | Pending |
+| AUTO-05 | Phase 46 | Pending |
 
 **Coverage:**
-- v1.6 requirements: 37 total
-- Mapped to phases: 37
+- v1.6 requirements: 42 total
+- Mapped to phases: 42
 - Unmapped: 0
 
 ---
 *Requirements defined: 2026-01-22*
-*Last updated: 2026-01-23 after Phase 44 completion*
+*Last updated: 2026-01-23 after adding Phase 46*
