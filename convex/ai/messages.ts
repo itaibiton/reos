@@ -48,6 +48,11 @@ export const listMessages = action({
       statuses: ["success"],
     });
 
+    // DEBUG: Log first few messages to understand structure
+    if (messagesResult.page.length > 0) {
+      console.log("Message structure sample:", JSON.stringify(messagesResult.page.slice(0, 2), null, 2));
+    }
+
     // Transform to simplified format for frontend
     return messagesResult.page
       .filter(msg => msg.message && (msg.message.role === "user" || msg.message.role === "assistant"))
@@ -61,7 +66,7 @@ export const listMessages = action({
           _creationTime: msg._creationTime,
         };
       })
-      .filter(msg => msg.content.length > 0)
+      .filter(msg => msg.content.length > 0 || (msg.toolCalls && msg.toolCalls.length > 0))
       .reverse(); // Reverse to chronological order (oldest first) for chat display
   },
 });
@@ -89,7 +94,9 @@ function extractTextFromContent(content: unknown): string {
  *
  * Assistant messages with tools have content arrays containing:
  * - { type: "tool-call", toolCallId, toolName, args } - tool invocations
- * - { type: "tool-result", toolCallId, result } - tool results
+ * - { type: "tool-result", toolCallId, result?, output? } - tool results
+ *
+ * Tool results can be in either `result` field or `output.value` field.
  */
 function extractToolCalls(content: unknown): ToolCall[] {
   if (!Array.isArray(content)) {
@@ -106,9 +113,14 @@ function extractToolCalls(content: unknown): ToolCall[] {
       typeof part.toolName === "string"
   );
 
-  // Extract tool-result parts
+  // Extract tool-result parts (may have result OR output field)
   const toolResultParts = content.filter(
-    (part): part is { type: "tool-result"; toolCallId: string; result: any } =>
+    (part): part is {
+      type: "tool-result";
+      toolCallId: string;
+      result?: any;
+      output?: { type: string; value: any };
+    } =>
       part &&
       typeof part === "object" &&
       part.type === "tool-result" &&
@@ -116,9 +128,15 @@ function extractToolCalls(content: unknown): ToolCall[] {
   );
 
   // Build a map of results by toolCallId
-  const resultMap = new Map(
-    toolResultParts.map((r) => [r.toolCallId, r.result])
-  );
+  // Check both result and output.value fields
+  const resultMap = new Map<string, any>();
+  for (const r of toolResultParts) {
+    // Prefer result field if present, otherwise use output.value
+    const resultValue = r.result ?? (r.output?.value);
+    if (resultValue !== undefined) {
+      resultMap.set(r.toolCallId, resultValue);
+    }
+  }
 
   // Pair tool calls with their results
   return toolCallParts.map((call) => ({
