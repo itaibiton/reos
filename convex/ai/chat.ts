@@ -94,10 +94,37 @@ export const sendMessage = action({
         userId: identity.subject,
       });
 
+      // Detect auto-greeting scenario: empty message + new/empty thread
+      // Get message count from agent thread to check if it's empty
+      const messagesCheck = await investorAssistant.listMessages(ctx, {
+        threadId: currentThreadId,
+        paginationOpts: { numItems: 1, cursor: null },
+        excludeToolMessages: true,
+        statuses: ["success"],
+      });
+      const existingMessageCount = messagesCheck.page.length;
+      const isAutoGreeting = message.trim() === "" && (isNew || existingMessageCount === 0);
+
+      // Append auto-greeting instructions if this is a first interaction
+      if (isAutoGreeting) {
+        systemContext += `\n\n## Auto-Greeting Instructions
+
+You're meeting this investor for the first time after they completed their investment profile questionnaire.
+
+Your sequence:
+1. Send a warm, personalized greeting (2-3 sentences) referencing their budget range and target cities from their profile
+2. Immediately call the searchProperties tool with criteria matching their profile (3 properties)
+3. After showing properties, immediately call the searchProviders tool (2-3 providers per role: broker, mortgage_advisor, lawyer)
+4. After showing providers, mention the quick reply buttons for follow-up questions
+
+CRITICAL: Execute BOTH tool calls automatically in this response. Do NOT wait for user prompts.
+Start with "Welcome! Based on your profile..." then show properties, then providers.`;
+      }
+
       // Stream text with the user's message
       const result = await agentThread.streamText(
         {
-          prompt: message,
+          prompt: message || "Begin our conversation",
           system: systemContext || undefined,
           abortSignal: abortController.signal,
         },
