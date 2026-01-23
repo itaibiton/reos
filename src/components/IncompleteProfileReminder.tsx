@@ -103,7 +103,7 @@ export function IncompleteProfileReminder() {
           <ToastContent
             onComplete={() => {
               toast.dismiss(TOAST_ID);
-              router.push("/profile/investor/questionnaire");
+              router.push("/onboarding/questionnaire");
             }}
             translations={translations}
           />
