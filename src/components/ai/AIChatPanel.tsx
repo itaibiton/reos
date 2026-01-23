@@ -2,6 +2,7 @@
 
 import { useState, ReactNode } from "react";
 import { useAIChat } from "./hooks/useAIChat";
+import { useAutoGreeting } from "./hooks/useAutoGreeting";
 import { ChatMessageList } from "./ChatMessageList";
 import { AIChatInput } from "./AIChatInput";
 import { Button } from "@/components/ui/button";
@@ -23,9 +24,10 @@ import { cn } from "@/lib/utils";
 interface AIChatPanelProps {
   className?: string;
   renderQuickReplies?: (sendMessage: (text: string) => void) => ReactNode;
+  autoGreet?: boolean;
 }
 
-export function AIChatPanel({ className, renderQuickReplies }: AIChatPanelProps) {
+export function AIChatPanel({ className, renderQuickReplies, autoGreet }: AIChatPanelProps) {
   const {
     messages,
     isStreaming,
@@ -35,6 +37,17 @@ export function AIChatPanel({ className, renderQuickReplies }: AIChatPanelProps)
     stopGeneration,
     clearMemory,
   } = useAIChat();
+
+  // Auto-greeting trigger (uses same useAIChat instance - no race condition)
+  useAutoGreeting(autoGreet ? {
+    sendMessage,
+    messages,
+    isLoading,
+  } : {
+    sendMessage: async () => {},  // no-op when disabled
+    messages: [],
+    isLoading: false,
+  });
 
   const [isClearing, setIsClearing] = useState(false);
 

@@ -43,6 +43,7 @@ export default function InvestorSummaryPage() {
       <div className="flex flex-col h-full overflow-hidden">
         <AIChatPanel
           className="flex-1"
+          autoGreet={true}
           renderQuickReplies={(sendMessage) => (
             <QuickReplyButtons
               onPromptSelect={sendMessage}
