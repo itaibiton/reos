@@ -21,7 +21,7 @@ Transform the post-onboarding experience into an intelligent investor hub. This 
 - [x] **Phase 42: Property Recommendations** - RAG-grounded property matching with explanations
 - [x] **Phase 43: Dream Team Builder** - Provider suggestions per role with match reasons
 - [x] **Phase 44: Investor Summary Page** - Two-panel layout integrating profile and AI
-- [ ] **Phase 45: Mobile Experience** - Tabbed interface and touch-optimized chat
+- [x] **Phase 45: Mobile Experience** - Tabbed interface and touch-optimized chat
 - [ ] **Phase 46: AI Auto-Flow** - AI-initiated recommendations after questionnaire completion
 
 ## Phase Details
@@ -139,7 +139,12 @@ Plans:
   5. Provider cards have "Add to Team" buttons with role-based grouping
   6. Questionnaire popup persists on each visit until completed (skip doesn't dismiss permanently)
   7. Quick reply buttons remain visible after auto-suggestions for follow-up queries
-**Plans**: TBD (run /gsd:plan-phase 46)
+**Plans**: 3 plans in 2 waves
+
+Plans:
+- [ ] 46-01-PLAN.md — Enable empty message support, auto-greeting system prompt enhancement
+- [ ] 46-02-PLAN.md — Auto-greeting trigger on summary page (desktop and mobile)
+- [ ] 46-03-PLAN.md — Verify questionnaire persistence, translations, end-to-end verification
 
 ## Progress
 
@@ -153,7 +158,7 @@ Plans:
 | 43. Dream Team Builder | v1.6 | 3/3 | ✓ Complete | 2026-01-22 |
 | 44. Investor Summary Page | v1.6 | 3/3 | ✓ Complete | 2026-01-23 |
 | 45. Mobile Experience | v1.6 | 3/3 | ✓ Complete | 2026-01-23 |
-| 46. AI Auto-Flow | v1.6 | 0/? | ○ Not started | - |
+| 46. AI Auto-Flow | v1.6 | 0/3 | ○ Not started | - |
 
 ---
 *Roadmap created: 2026-01-22*
