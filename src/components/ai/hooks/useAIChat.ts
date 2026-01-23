@@ -59,19 +59,22 @@ export function useAIChat() {
     fetchMessages();
   }, [fetchMessages, thread?.agentThreadId]);
 
-  const sendMessage = useCallback(async (text: string) => {
-    if (!text.trim()) return;
+  const sendMessage = useCallback(async (text: string, options?: { allowEmpty?: boolean }) => {
+    // Guard: skip empty messages unless explicitly allowed (for auto-greeting)
+    if (!text.trim() && !options?.allowEmpty) return;
     setError(null);
     setIsStreaming(true);
 
-    // Optimistically add user message to UI
+    // Optimistically add user message to UI (skip for empty auto-greeting messages)
     const optimisticUserMessage: Message = {
       _id: `temp-${Date.now()}`,
       role: "user",
       content: text,
       _creationTime: Date.now(),
     };
-    setMessages(prev => [...prev, optimisticUserMessage]);
+    if (text.trim()) {
+      setMessages(prev => [...prev, optimisticUserMessage]);
+    }
 
     try {
       await sendMessageAction({ message: text });
@@ -84,8 +87,10 @@ export function useAIChat() {
         await fetchMessages();
       } else {
         setError(err instanceof Error ? err.message : "Failed to send message");
-        // Remove optimistic message on error
-        setMessages(prev => prev.filter(m => m._id !== optimisticUserMessage._id));
+        // Remove optimistic message on error (only if one was added)
+        if (text.trim()) {
+          setMessages(prev => prev.filter(m => m._id !== optimisticUserMessage._id));
+        }
       }
     } finally {
       setIsStreaming(false);
