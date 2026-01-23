@@ -6,11 +6,19 @@ import {
   PopoverTrigger,
   PopoverContent,
 } from "@/components/ui/popover";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerFooter,
+} from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { Spinner } from "@/components/ui/spinner";
 import { useTranslations } from "next-intl";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface InlineFieldEditorProps {
   label: string;
@@ -28,6 +36,7 @@ export function InlineFieldEditor({
   formatValue,
 }: InlineFieldEditorProps) {
   const t = useTranslations("profileSummary");
+  const isMobile = useIsMobile();
   const [open, setOpen] = useState(false);
   const [editValue, setEditValue] = useState(value);
   const [isSaving, setIsSaving] = useState(false);
@@ -70,10 +79,26 @@ export function InlineFieldEditor({
           : t("no")
         : value || t("fields.notSet");
 
-  return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
+  const triggerButton = (
+    <button
+      className="text-left hover:bg-muted px-3 py-2 rounded transition-colors w-full"
+      type="button"
+    >
+      <Label className="text-xs text-muted-foreground block mb-1">
+        {label}
+      </Label>
+      <p className="font-medium text-sm">
+        {displayValue}
+      </p>
+    </button>
+  );
+
+  // Mobile: Use Drawer
+  if (isMobile) {
+    return (
+      <Drawer open={open} onOpenChange={setOpen}>
         <button
+          onClick={() => setOpen(true)}
           className="text-left hover:bg-muted px-3 py-2 rounded transition-colors w-full"
           type="button"
         >
@@ -84,6 +109,47 @@ export function InlineFieldEditor({
             {displayValue}
           </p>
         </button>
+        <DrawerContent className="max-h-[85vh]">
+          <DrawerHeader>
+            <DrawerTitle>{label}</DrawerTitle>
+          </DrawerHeader>
+          <div className="p-4">
+            {renderInput(editValue, setEditValue)}
+          </div>
+          <DrawerFooter className="flex-row gap-2">
+            <Button
+              variant="outline"
+              onClick={handleCancel}
+              disabled={isSaving}
+              className="flex-1 min-h-11"
+            >
+              {t("edit.cancel")}
+            </Button>
+            <Button
+              onClick={handleSave}
+              disabled={isSaving}
+              className="flex-1 min-h-11"
+            >
+              {isSaving ? (
+                <>
+                  <Spinner className="h-3 w-3 mr-2" />
+                  {t("edit.saving")}
+                </>
+              ) : (
+                t("edit.save")
+              )}
+            </Button>
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
+    );
+  }
+
+  // Desktop: Use Popover
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        {triggerButton}
       </PopoverTrigger>
 
       <PopoverContent
