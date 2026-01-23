@@ -43,7 +43,7 @@ export function QuickReplyButtons({
           variant="ghost"
           size="sm"
           onClick={() => setCollapsed(false)}
-          className="text-xs text-muted-foreground"
+          className="text-xs text-muted-foreground min-h-11"
         >
           <HugeiconsIcon icon={MessageQuestionIcon} size={14} className="me-1" />
           {t("showSuggestions")}
@@ -54,7 +54,7 @@ export function QuickReplyButtons({
 
   return (
     <div className={cn("px-3 py-2 border-t bg-muted/30", className)}>
-      <div className="flex flex-wrap gap-2">
+      <div className="flex overflow-x-auto gap-2 pb-1 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
         {prompts.map(({ labelKey, prompt }) => (
           <Button
             key={labelKey}
@@ -64,7 +64,7 @@ export function QuickReplyButtons({
               onPromptSelect(prompt);
               setCollapsed(true);
             }}
-            className="text-xs h-7"
+            className="flex-shrink-0 snap-start min-h-11 min-w-[100px] text-xs whitespace-nowrap"
           >
             {t(labelKey)}
           </Button>
