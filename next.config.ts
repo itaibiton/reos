@@ -10,6 +10,14 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'images.unsplash.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'realestate.jpost.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'img.yad2.co.il',
+      },
     ],
   },
 };

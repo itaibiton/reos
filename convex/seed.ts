@@ -1450,3 +1450,483 @@ export const clearSocialData = mutation({
     };
   },
 });
+
+// Clear investor profile data - questionnaires, AI threads, and reset user onboarding
+// Call from Convex dashboard or CLI: npx convex run seed:clearInvestorData
+export const clearInvestorData = mutation({
+  args: {},
+  handler: async (ctx) => {
+    let deletedQuestionnaires = 0;
+    let deletedAiThreads = 0;
+    let resetUsers = 0;
+
+    // Delete all investor questionnaires
+    const questionnaires = await ctx.db.query("investorQuestionnaires").collect();
+    for (const q of questionnaires) {
+      await ctx.db.delete(q._id);
+      deletedQuestionnaires++;
+    }
+
+    // Delete all AI threads
+    const threads = await ctx.db.query("aiThreads").collect();
+    for (const thread of threads) {
+      await ctx.db.delete(thread._id);
+      deletedAiThreads++;
+    }
+
+    // Reset all investor users' onboarding status
+    const investors = await ctx.db
+      .query("users")
+      .filter((q) => q.eq(q.field("role"), "investor"))
+      .collect();
+
+    for (const investor of investors) {
+      await ctx.db.patch(investor._id, {
+        onboardingComplete: false,
+        onboardingStep: undefined,
+        updatedAt: Date.now(),
+      });
+      resetUsers++;
+    }
+
+    return {
+      success: true,
+      deleted: {
+        questionnaires: deletedQuestionnaires,
+        aiThreads: deletedAiThreads,
+        usersReset: resetUsers,
+      },
+      message: `Cleared investor data: ${deletedQuestionnaires} questionnaires, ${deletedAiThreads} AI threads, ${resetUsers} users reset`,
+    };
+  },
+});
+
+// Clear ALL data from ALL tables - complete database reset
+// Call from Convex dashboard or CLI: npx convex run seed:clearAll
+export const clearAll = mutation({
+  args: {},
+  handler: async (ctx) => {
+    const results: Record<string, number> = {};
+
+    // Clear all tables in order (respecting foreign key-like relationships)
+    const tablesToClear = [
+      "aiThreads",
+      "postComments",
+      "postLikes",
+      "postReposts",
+      "postSaves",
+      "posts",
+      "userFollows",
+      "directMessages",
+      "conversations",
+      "messages",
+      "dealActivity",
+      "dealFiles",
+      "notifications",
+      "providerReviews",
+      "providerUnavailableDates",
+      "searchHistory",
+      "serviceRequests",
+      "favorites",
+      "deals",
+      "properties",
+      "neighborhoods",
+      "priceHistory",
+      "investorProfiles",
+      "investorQuestionnaires",
+      "serviceProviderProfiles",
+      "users",
+    ] as const;
+
+    for (const tableName of tablesToClear) {
+      const docs = await ctx.db.query(tableName).collect();
+      for (const doc of docs) {
+        await ctx.db.delete(doc._id);
+      }
+      results[tableName] = docs.length;
+    }
+
+    return {
+      success: true,
+      results,
+      message: `Cleared all tables: ${Object.entries(results).map(([k, v]) => `${k}:${v}`).join(", ")}`,
+    };
+  },
+});
+
+// Scraped real properties from JPost and Yad2
+const SCRAPED_PROPERTIES = [
+  {
+    title: "Luxury Villa in Rishpon",
+    address: "Rishpon",
+    city: "Rishpon",
+    priceIls: 19000000,
+    bedrooms: 5,
+    bathrooms: 3,
+    squareMeters: 300,
+    propertyType: "residential" as const,
+    description: "A luxurious villa for sale in Rishpon with premium finishes, spacious rooms, and beautiful garden. Perfect for families looking for upscale living in a prestigious neighborhood.",
+    latitude: 32.201856,
+    longitude: 34.824723,
+    featuredImage: "https://realestate.jpost.com/wp-content/uploads/2025/12/WhatsApp-Image-2025-11-25-at-16.18.36-eyal-katz.jpeg",
+    yearBuilt: 2020,
+  },
+  {
+    title: "Mini Penthouse with Panoramic Views",
+    address: "Hashofet Chaim Cohen St., Jerusalem",
+    city: "Jerusalem",
+    priceIls: 7400000,
+    bedrooms: 3,
+    bathrooms: 2,
+    squareMeters: 151,
+    propertyType: "residential" as const,
+    description: "Sophisticated mini penthouse with great views from all exposures. High-end finishes throughout with modern design.",
+    latitude: 31.7458457,
+    longitude: 35.2191009,
+    featuredImage: "https://realestate.jpost.com/wp-content/uploads/2025/12/תוכניות-אדריכליות-כללי-min-Natalia-Volkov.jpg",
+    yearBuilt: 2023,
+  },
+  {
+    title: "Semi-Detached House in Yavniel",
+    address: "Main Street, Yavniel",
+    city: "Yavniel",
+    priceIls: 5100000,
+    bedrooms: 4,
+    bathrooms: 2,
+    squareMeters: 250,
+    propertyType: "residential" as const,
+    description: "Beautiful semi-detached house on 2 floors in the scenic village of Yavniel. Spacious layout with mountain views.",
+    latitude: 32.7037641,
+    longitude: 35.5062245,
+    featuredImage: "https://realestate.jpost.com/wp-content/uploads/2025/12/IMG_4599-Jacqueline-Perle-1.jpeg",
+    yearBuilt: 2018,
+  },
+  {
+    title: "Penthouse with Temple Mount View",
+    address: "Arnona, Jerusalem",
+    city: "Jerusalem",
+    priceIls: 8500000,
+    bedrooms: 3,
+    bathrooms: 2,
+    squareMeters: 153,
+    propertyType: "residential" as const,
+    description: "Spectacular penthouse with breathtaking views of the Temple Mount and the Dead Sea. Premium location.",
+    latitude: 31.7458457,
+    longitude: 35.2191009,
+    featuredImage: "https://realestate.jpost.com/wp-content/uploads/2025/12/Hashofet-Chaim-Cohen-East-mini-penthouse-23rd-floor-11-scaled-Natalia-Volkov.jpg",
+    yearBuilt: 2022,
+  },
+  {
+    title: "Modern Apartment in Arnona Tower",
+    address: "Arnona, Jerusalem",
+    city: "Jerusalem",
+    priceIls: 3800000,
+    bedrooms: 2,
+    bathrooms: 1,
+    squareMeters: 96,
+    propertyType: "residential" as const,
+    description: "New 3BR resale in Arnona luxury tower. Modern finishes, great views, and premium building amenities.",
+    latitude: 31.7458457,
+    longitude: 35.2191009,
+    featuredImage: "https://realestate.jpost.com/wp-content/uploads/2025/12/y2_1pa_010477_20240518221307-scaled-Natalia-Volkov.jpeg",
+    yearBuilt: 2024,
+  },
+  {
+    title: "German Colony Pre-Construction",
+    address: "Hamagid Street, German Colony, Jerusalem",
+    city: "Jerusalem",
+    priceIls: 5950000,
+    bedrooms: 3,
+    bathrooms: 2,
+    squareMeters: 101,
+    propertyType: "residential" as const,
+    description: "Pre-construction opportunity in the prestigious German Colony. 101 sqm on Hamagid Street with balcony.",
+    latitude: 31.7657597,
+    longitude: 35.220131,
+    featuredImage: "https://realestate.jpost.com/wp-content/uploads/2025/12/Hamagid6-furnished-balcony-Natalia-Volkov.jpeg",
+    yearBuilt: 2026,
+  },
+  {
+    title: "Old Katamon Park View Apartment",
+    address: "Old Katamon, Jerusalem",
+    city: "Jerusalem",
+    priceIls: 12140000,
+    bedrooms: 4,
+    bathrooms: 3,
+    squareMeters: 194,
+    propertyType: "residential" as const,
+    description: "Pre-development opportunity in Old Katamon by the park. Spacious 4-bedroom with stunning park views.",
+    latitude: 31.7768831,
+    longitude: 35.2224346,
+    featuredImage: "https://realestate.jpost.com/wp-content/uploads/2025/12/Building-Illustrauion-Old-Katamon-1-Natalia-Volkov.jpeg",
+    yearBuilt: 2026,
+  },
+  {
+    title: "Kiryat Moshe Premium Apartment",
+    address: "Rova 1, Kiryat Moshe, Jerusalem",
+    city: "Jerusalem",
+    priceIls: 8990000,
+    bedrooms: 5,
+    bathrooms: 3,
+    squareMeters: 210,
+    propertyType: "residential" as const,
+    description: "Rare luxury 210sqm listing in Kiryat Moshe - Rova 1 premium project. High-end finishes.",
+    latitude: 31.7855031,
+    longitude: 35.1966557,
+    featuredImage: "https://realestate.jpost.com/wp-content/uploads/2025/11/רובע-אחד-הדמיה_-min-Natalia-Volkov-1.jpeg",
+    yearBuilt: 2025,
+  },
+  {
+    title: "Magshimim Country Estate",
+    address: "Moshav Magshimim",
+    city: "Magshimim",
+    priceIls: 18500000,
+    bedrooms: 4,
+    bathrooms: 3,
+    squareMeters: 320,
+    propertyType: "residential" as const,
+    description: "Spacious country estate property in Moshav Magshimim, Central Israel. Large plot with landscaping.",
+    latitude: 32.0506884,
+    longitude: 34.9023182,
+    featuredImage: "https://realestate.jpost.com/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-27-at-13.27.58-3-Jessica-Kamir.jpeg",
+    yearBuilt: 2019,
+  },
+  {
+    title: "Galilee Mountain Villa",
+    address: "Kfar Shamay",
+    city: "Kfar Shamay",
+    priceIls: 8500000,
+    bedrooms: 7,
+    bathrooms: 4,
+    squareMeters: 500,
+    propertyType: "residential" as const,
+    description: "Beautiful vacation villa in the green mountains of the Galilee, overlooking mountains of Meron.",
+    latitude: 32.955698,
+    longitude: 35.457916,
+    featuredImage: "https://realestate.jpost.com/wp-content/uploads/2025/11/9-Isaac-Nuri.jpeg",
+    yearBuilt: 2015,
+  },
+  {
+    title: "Garden Apartment in Kiryat Shmuel",
+    address: "Kiryat Shmuel, Jerusalem",
+    city: "Jerusalem",
+    priceIls: 7700000,
+    bedrooms: 4,
+    bathrooms: 2,
+    squareMeters: 150,
+    propertyType: "residential" as const,
+    description: "Stunning new garden apartment in Kiryat Shmuel on the border of Rechavia. Contemporary design.",
+    latitude: 31.7768831,
+    longitude: 35.2224346,
+    featuredImage: "https://realestate.jpost.com/wp-content/uploads/2025/11/1-Kenny-Sherman.jpg",
+    yearBuilt: 2024,
+  },
+  {
+    title: "Telz Stone Garden Apartment",
+    address: "Telz Stone, Kiryat Ye'arim",
+    city: "Kiryat Ye'arim",
+    priceIls: 4550000,
+    bedrooms: 4,
+    bathrooms: 2,
+    squareMeters: 142,
+    propertyType: "residential" as const,
+    description: "Beautiful and spacious garden apartment in the Telz Stone community. Family-friendly neighborhood.",
+    latitude: 31.8049549,
+    longitude: 35.151392,
+    featuredImage: "https://realestate.jpost.com/wp-content/uploads/2025/11/noi9the5vgYk0gwJDPFL_17622535648286-אורטל-מצליח.jpg",
+    yearBuilt: 2017,
+  },
+  {
+    title: "German Colony Garden Apartment",
+    address: "German Colony, Jerusalem",
+    city: "Jerusalem",
+    priceIls: 5800000,
+    bedrooms: 1,
+    bathrooms: 1,
+    squareMeters: 90,
+    propertyType: "residential" as const,
+    description: "Charming garden apartment in the German Colony with 90 sqm living space and 77 sqm private garden.",
+    latitude: 31.7768831,
+    longitude: 35.22243460000001,
+    featuredImage: "https://realestate.jpost.com/wp-content/uploads/2025/11/IMG_3200-טפרברג-נכסים.jpg",
+    yearBuilt: 2010,
+  },
+  {
+    title: "Family Apartment in Lahavim",
+    address: "Agur 26, Lahavim",
+    city: "Lahavim",
+    priceIls: 2850000,
+    bedrooms: 4,
+    bathrooms: 2,
+    squareMeters: 159,
+    propertyType: "residential" as const,
+    description: "Spacious ground floor apartment in the quiet and green town of Lahavim. Perfect for families.",
+    latitude: 31.3747,
+    longitude: 34.8242,
+    featuredImage: "https://img.yad2.co.il/Pic/202601/24/2_1/o/y2_1pa_010326_20260124193714.jpeg",
+    yearBuilt: 2015,
+  },
+  {
+    title: "Modern Apartment in Tel Aviv",
+    address: "Modigliani 12, Tel Aviv",
+    city: "Tel Aviv",
+    priceIls: 4650000,
+    bedrooms: 3,
+    bathrooms: 2,
+    squareMeters: 75,
+    propertyType: "residential" as const,
+    description: "Modern apartment on the 3rd floor in central Tel Aviv. Walking distance to Rothschild Boulevard.",
+    latitude: 32.0853,
+    longitude: 34.7818,
+    featuredImage: "https://img.yad2.co.il/Pic/202601/23/2_1/o/y2_1_05256_20260123160117.jpeg",
+    yearBuilt: 2020,
+  },
+  {
+    title: "Large Family Home in Or Akiva",
+    address: "Kerem 13, Or Akiva",
+    city: "Or Akiva",
+    priceIls: 4600000,
+    bedrooms: 7,
+    bathrooms: 3,
+    squareMeters: 250,
+    propertyType: "residential" as const,
+    description: "Spacious 7-room family home with large garden. Ground floor with direct access. Great for large families.",
+    latitude: 32.5063,
+    longitude: 34.9172,
+    featuredImage: "https://img.yad2.co.il/Pic/202601/23/2_1/o/y2_1pa_010198_20260123102428.jpeg",
+    yearBuilt: 2012,
+  },
+  {
+    title: "Penthouse in Modiin",
+    address: "Ofroni 9, Modiin",
+    city: "Modiin",
+    priceIls: 5400000,
+    bedrooms: 4,
+    bathrooms: 2,
+    squareMeters: 180,
+    propertyType: "residential" as const,
+    description: "Stunning penthouse on the 4th floor in Modiin Maccabim. Luxury living with panoramic views.",
+    latitude: 31.8977,
+    longitude: 35.0104,
+    featuredImage: "https://img.yad2.co.il/Pic/202601/20/2_1/o/y2_1pa_010481_20260120112947.jpeg",
+    yearBuilt: 2021,
+  },
+  {
+    title: "Desert Retreat in Mitzpe Ramon",
+    address: "Har Tzin 2, Mitzpe Ramon",
+    city: "Mitzpe Ramon",
+    priceIls: 790000,
+    bedrooms: 8,
+    bathrooms: 4,
+    squareMeters: 498,
+    propertyType: "residential" as const,
+    description: "Unique property overlooking the Ramon Crater. Perfect for a desert retreat or B&B business.",
+    latitude: 30.6095,
+    longitude: 34.8014,
+    featuredImage: "https://img.yad2.co.il/Pic/202511/23/2_1/o/y2_1pa_010583_20251123102454.jpeg",
+    yearBuilt: 2000,
+  },
+  {
+    title: "Affordable Apartment in Dimona",
+    address: "Merhavim 1332, Dimona",
+    city: "Dimona",
+    priceIls: 560000,
+    bedrooms: 3,
+    bathrooms: 1,
+    squareMeters: 80,
+    propertyType: "residential" as const,
+    description: "Affordable 3-room apartment on the 4th floor in Dimona. Great investment opportunity in southern Israel.",
+    latitude: 31.0697,
+    longitude: 35.0328,
+    featuredImage: "https://img.yad2.co.il/Pic/202601/22/2_1/o/y2_1_04086_20260122210440.jpeg",
+    yearBuilt: 1985,
+  },
+  {
+    title: "Luxury Villa in Baka Jerusalem",
+    address: "Baka, Jerusalem",
+    city: "Jerusalem",
+    priceIls: 25000000,
+    bedrooms: 6,
+    bathrooms: 5,
+    squareMeters: 768,
+    propertyType: "residential" as const,
+    description: "One-of-a-kind luxury villa in Baka. Distinctive architecture with premium finishes. Private garden and pool.",
+    latitude: 31.7768831,
+    longitude: 35.22243460000001,
+    featuredImage: "https://realestate.jpost.com/wp-content/uploads/2025/12/Baka-Jerusalem-private-house-for-sale-3-Natalia-Volkov-1.jpeg",
+    yearBuilt: 2018,
+  },
+];
+
+// Seed scraped properties from real estate websites
+// Call from Convex dashboard or CLI: npx convex run seed:seedScrapedProperties
+export const seedScrapedProperties = mutation({
+  args: {},
+  handler: async (ctx) => {
+    const now = Date.now();
+    const ILS_TO_USD = 0.27;
+
+    // Create a system user for scraped properties
+    let creatorId = await ctx.db
+      .query("users")
+      .filter((q) => q.eq(q.field("role"), "admin"))
+      .first()
+      .then((user) => user?._id);
+
+    if (!creatorId) {
+      creatorId = await ctx.db.insert("users", {
+        clerkId: "system_scraper",
+        email: "scraper@reos.dev",
+        name: "Property Scraper",
+        onboardingComplete: true,
+        role: "admin",
+        createdAt: now,
+        updatedAt: now,
+      });
+    }
+
+    let insertedCount = 0;
+
+    for (const property of SCRAPED_PROPERTIES) {
+      const priceUsd = Math.round(property.priceIls * ILS_TO_USD);
+      const monthlyRent = Math.round((property.priceIls * 0.0035) / 3.7);
+      const expectedRoi = 3 + Math.random() * 4;
+      const capRate = 2.5 + Math.random() * 3;
+      const cashOnCash = 4 + Math.random() * 5;
+
+      await ctx.db.insert("properties", {
+        title: property.title,
+        description: property.description,
+        address: property.address,
+        city: property.city,
+        latitude: property.latitude,
+        longitude: property.longitude,
+        propertyType: property.propertyType,
+        status: "available",
+        priceUsd,
+        priceIls: property.priceIls,
+        expectedRoi,
+        capRate,
+        cashOnCash,
+        monthlyRent,
+        bedrooms: property.bedrooms,
+        bathrooms: property.bathrooms,
+        squareMeters: property.squareMeters,
+        yearBuilt: property.yearBuilt,
+        amenities: ["Parking", "Air Conditioning", "Balcony"],
+        images: [property.featuredImage],
+        featuredImage: property.featuredImage,
+        createdBy: creatorId,
+        createdAt: now,
+        updatedAt: now,
+      });
+      insertedCount++;
+    }
+
+    return {
+      success: true,
+      insertedCount,
+      message: `Seeded ${insertedCount} scraped properties from JPost and Yad2`,
+    };
+  },
+});

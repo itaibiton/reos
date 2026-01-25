@@ -139,12 +139,13 @@ Plans:
   5. Provider cards have "Add to Team" buttons with role-based grouping
   6. Questionnaire popup persists on each visit until completed (skip doesn't dismiss permanently)
   7. Quick reply buttons remain visible after auto-suggestions for follow-up queries
-**Plans**: 3 plans in 2 waves
+**Plans**: 4 plans in 3 waves
 
 Plans:
-- [ ] 46-01-PLAN.md — Enable empty message support, auto-greeting system prompt enhancement
-- [ ] 46-02-PLAN.md — Auto-greeting trigger on summary page (desktop and mobile)
+- [x] 46-01-PLAN.md — Enable empty message support, auto-greeting system prompt enhancement
+- [x] 46-02-PLAN.md — Auto-greeting trigger on summary page (desktop and mobile)
 - [ ] 46-03-PLAN.md — Verify questionnaire persistence, translations, end-to-end verification
+- [ ] 46-04-PLAN.md — Gap closure: Fix tool result extraction for card rendering
 
 ## Progress
 
@@ -158,7 +159,7 @@ Plans:
 | 43. Dream Team Builder | v1.6 | 3/3 | ✓ Complete | 2026-01-22 |
 | 44. Investor Summary Page | v1.6 | 3/3 | ✓ Complete | 2026-01-23 |
 | 45. Mobile Experience | v1.6 | 3/3 | ✓ Complete | 2026-01-23 |
-| 46. AI Auto-Flow | v1.6 | 0/3 | ○ Not started | - |
+| 46. AI Auto-Flow | v1.6 | 2/4 | 🔄 In progress | - |
 
 ---
 *Roadmap created: 2026-01-22*

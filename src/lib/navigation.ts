@@ -91,7 +91,7 @@ const investorNavigation: RoleNavigation = {
       items: [
         { labelKey: "navigation.items.feed", href: "/feed", icon: Rss },
         { labelKey: "navigation.items.chat", href: "/chat", icon: MessageSquare },
-        { labelKey: "navigation.items.profile", href: "/profile/investor", icon: UserCircle },
+        { labelKey: "navigation.items.profile", href: "/profile/investor/summary", icon: UserCircle },
         { labelKey: "navigation.items.settings", href: "/settings", icon: Settings },
       ],
     },
@@ -454,7 +454,7 @@ export function getMobileTabsForRole(role: UserRole): MobileTabItem[] {
       { labelKey: "navigation.items.feed", href: "/feed", icon: Rss, hugeIcon: News01Icon },
       { labelKey: "navigation.items.chat", href: "/chat", icon: MessageSquare, hugeIcon: Message02Icon, showBadge: "chat" },
       { labelKey: "navigation.items.deals", href: "/deals", icon: Handshake, hugeIcon: Agreement01Icon },
-      { labelKey: "navigation.items.profile", href: "/profile/investor", icon: UserCircle, hugeIcon: UserIcon },
+      { labelKey: "navigation.items.profile", href: "/profile/investor/summary", icon: UserCircle, hugeIcon: UserIcon },
     ];
   }
 
