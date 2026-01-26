@@ -17,7 +17,7 @@ Create a modern, conversion-focused landing page that showcases REOS's value pro
 
 ## Phases
 
-- [ ] **Phase 47: Landing Page Foundation** - Navbar, footer, page layout structure
+- [x] **Phase 47: Landing Page Foundation** - Navbar, footer, page layout structure
 - [ ] **Phase 48: Hero Section** - Full 100vh hero with headline, CTA, visuals, animations
 - [ ] **Phase 49: Trust & Value Props** - Logo section and value propositions
 - [ ] **Phase 50: Feature Cards** - Four feature cards showcasing platform capabilities
@@ -38,8 +38,8 @@ Create a modern, conversion-focused landing page that showcases REOS's value pro
   5. Page layout structure ready to receive content sections
 **Plans:** 2 plans
 Plans:
-- [ ] 47-01-PLAN.md — Update navbar links and layout structure for v1.7 sections
-- [ ] 47-02-PLAN.md — Update footer with REOS content and proper links
+- [x] 47-01-PLAN.md — Update navbar links and layout structure for v1.7 sections
+- [x] 47-02-PLAN.md — Update footer with REOS content and proper links
 
 ### Phase 48: Hero Section
 **Goal**: Users immediately understand REOS's value proposition upon landing
@@ -108,7 +108,7 @@ Plans:
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
-| 47. Landing Page Foundation | v1.7 | 0/2 | Planning Complete | — |
+| 47. Landing Page Foundation | v1.7 | 2/2 | Complete | 2026-01-26 |
 | 48. Hero Section | v1.7 | 0/0 | Pending | — |
 | 49. Trust & Value Props | v1.7 | 0/0 | Pending | — |
 | 50. Feature Cards | v1.7 | 0/0 | Pending | — |
