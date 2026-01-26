@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { LandingNav } from "@/components/landing/Navigation";
 import { Hero } from "@/components/landing/Hero";
 import { ServicesGrid } from "@/components/landing/ServicesGrid";
 import { FeatureDeepDive } from "@/components/landing/Features";
@@ -7,7 +6,6 @@ import { ProcessSteps } from "@/components/landing/ProcessSteps";
 import { PricingPlans } from "@/components/landing/Pricing";
 import { TeamSection } from "@/components/landing/TeamSection";
 import { FAQAccordion } from "@/components/landing/FAQ";
-import { Footer } from "@/components/landing/Footer";
 import { GeometricDivider } from "@/components/landing/shared";
 
 export const metadata: Metadata = {
@@ -18,11 +16,7 @@ export const metadata: Metadata = {
 
 export default function LandingPage() {
   return (
-    <>
-      {/* Sticky Navigation */}
-      <LandingNav />
-
-      <main className="min-h-dvh landing-section-bg">
+    <div className="landing-section-bg">
         {/* Hero Section */}
         <Hero />
 
@@ -62,12 +56,8 @@ export default function LandingPage() {
           fillClassName="fill-muted/30"
         />
 
-        {/* FAQ Section */}
-        <FAQAccordion />
-      </main>
-
-      {/* Footer */}
-      <Footer />
-    </>
+      {/* FAQ Section */}
+      <FAQAccordion />
+    </div>
   );
 }
