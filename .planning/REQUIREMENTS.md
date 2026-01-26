@@ -14,11 +14,11 @@ Requirements for New Landing Page milestone. Each maps to roadmap phases.
 
 ### Hero Section
 
-- [ ] **HERO-01**: Full-viewport (100vh) hero with compelling headline
-- [ ] **HERO-02**: Subheadline explaining REOS value proposition
-- [ ] **HERO-03**: Primary CTA button ("Start Investing" / "Get Started")
-- [ ] **HERO-04**: Hero visual (property images, gradient background, or animated element)
-- [ ] **HERO-05**: Scroll indicator animation
+- [x] **HERO-01**: Full-viewport (100vh) hero with compelling headline
+- [x] **HERO-02**: Subheadline explaining REOS value proposition
+- [x] **HERO-03**: Primary CTA button ("Start Investing" / "Get Started")
+- [x] **HERO-04**: Hero visual (property images, gradient background, or animated element)
+- [x] **HERO-05**: Scroll indicator animation
 
 ### Trust/Logos Section
 
@@ -104,11 +104,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 |-------------|-------|--------|
 | NAV-01 | Phase 47 | Complete |
 | NAV-02 | Phase 47 | Complete |
-| HERO-01 | Phase 48 | Pending |
-| HERO-02 | Phase 48 | Pending |
-| HERO-03 | Phase 48 | Pending |
-| HERO-04 | Phase 48 | Pending |
-| HERO-05 | Phase 48 | Pending |
+| HERO-01 | Phase 48 | Complete |
+| HERO-02 | Phase 48 | Complete |
+| HERO-03 | Phase 48 | Complete |
+| HERO-04 | Phase 48 | Complete |
+| HERO-05 | Phase 48 | Complete |
 | LOGO-01 | Phase 49 | Pending |
 | LOGO-02 | Phase 49 | Pending |
 | VAL-01 | Phase 49 | Pending |
@@ -146,4 +146,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-01-26*
-*Last updated: 2026-01-26 after Phase 47 completion*
+*Last updated: 2026-01-26 after Phase 48 completion*
