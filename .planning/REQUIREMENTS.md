@@ -68,11 +68,11 @@ Requirements for AI-Powered Investor Experience milestone. Each maps to roadmap 
 
 ### AI Auto-Flow
 
-- [ ] **AUTO-01**: AI sends greeting automatically after questionnaire completion (no user prompt)
-- [ ] **AUTO-02**: AI automatically triggers property search and displays results as cards
-- [ ] **AUTO-03**: Property cards have individual Save buttons AND batch "Save All" button
-- [ ] **AUTO-04**: AI automatically suggests providers after properties, grouped by role
-- [ ] **AUTO-05**: Questionnaire popup persists on each visit until completed (skip is temporary)
+- [x] **AUTO-01**: AI sends greeting automatically after questionnaire completion (no user prompt)
+- [x] **AUTO-02**: AI automatically triggers property search and displays results as cards
+- [x] **AUTO-03**: Property cards have individual Save buttons AND batch "Save All" button
+- [x] **AUTO-04**: AI automatically suggests providers after properties, grouped by role
+- [x] **AUTO-05**: Questionnaire popup persists on each visit until completed (skip is temporary)
 
 ## Future Requirements
 
@@ -148,11 +148,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | MOB-03 | Phase 45 | Complete |
 | MOB-04 | Phase 45 | Complete |
 | MOB-05 | Phase 45 | Complete |
-| AUTO-01 | Phase 46 | Pending |
-| AUTO-02 | Phase 46 | Pending |
-| AUTO-03 | Phase 46 | Pending |
-| AUTO-04 | Phase 46 | Pending |
-| AUTO-05 | Phase 46 | Pending |
+| AUTO-01 | Phase 46 | Complete |
+| AUTO-02 | Phase 46 | Complete |
+| AUTO-03 | Phase 46 | Complete |
+| AUTO-04 | Phase 46 | Complete |
+| AUTO-05 | Phase 46 | Complete |
 
 **Coverage:**
 - v1.6 requirements: 42 total
@@ -161,4 +161,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-01-22*
-*Last updated: 2026-01-23 after adding Phase 46*
+*Last updated: 2026-01-26 after Phase 46 completion*

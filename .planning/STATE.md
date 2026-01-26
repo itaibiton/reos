@@ -2,20 +2,20 @@
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-01-22)
+See: .planning/PROJECT.md (updated 2026-01-26)
 
 **Core value:** Deal flow tracking from interest to close.
-**Current focus:** Phase 46 - AI Auto-Flow (IN PROGRESS)
+**Current focus:** v1.6 COMPLETE — Ready for new milestone
 
 ## Current Position
 
-Milestone: v1.6 AI-Powered Investor Experience
-Phase: 46 of 46 (AI Auto-Flow)
-Plan: 2 of 4 in current phase (gap closure in progress)
-Status: In progress - closing verification gaps
-Last activity: 2026-01-23 — Created 46-04-PLAN.md for gap closure
+Milestone: v1.6 AI-Powered Investor Experience ✓ COMPLETE
+Phase: 46 of 46 (AI Auto-Flow) ✓
+Plan: 4 of 4 complete
+Status: Milestone complete - ready for v1.7
+Last activity: 2026-01-26 — Phase 46 verification passed, milestone complete
 
-Progress: [█████████░] 90% (6.3/7 phases complete)
+Progress: [██████████] 100% (7/7 phases complete)
 
 ## Performance Metrics
 
@@ -38,11 +38,11 @@ Progress: [█████████░] 90% (6.3/7 phases complete)
 | 43 | 3/3 | 11 min | 3.7 min |
 | 44 | 3/3 | 21 min | 7 min |
 | 45 | 3/3 | 3 min | 1 min |
-| 46 | 2/3 | 5 min | 2.5 min |
+| 46 | 4/4 | 12 min | 3 min |
 
 **Recent Trend:**
-- Last 5 plans: 45-02 (2 min), 45-03 (1 min), 46-01 (3 min), 46-02 (2 min)
-- Trend: Fast execution velocity, integration tasks completing in 1-3 minutes
+- Last 5 plans: 45-03 (1 min), 46-01 (3 min), 46-02 (2 min), 46-03 (2 min), 46-04 (5 min)
+- Trend: Fast execution velocity, gap closure plans efficiently completed
 
 ## Accumulated Context
 
@@ -121,6 +121,9 @@ Recent decisions affecting current work:
 - 46-02: Ref prevents re-triggering across renders (hasTriggeredRef)
 - 46-02: Single useAIChat instance inside AIChatPanel (prevents race conditions)
 - 46-02: Barrel export created for all hooks in ai/hooks folder
+- 46-04: excludeToolMessages: false required to capture tool results from "tool" role messages
+- 46-04: Global tool result map collects results from ALL messages before pairing with tool calls
+- 46-04: Tool results in "tool" messages, not embedded in assistant message content
 
 ### Pending Todos
 
@@ -132,7 +135,7 @@ None yet.
 
 ### Roadmap Evolution
 
-- Milestone v1.6 created: AI-Powered Investor Experience, 6 phases (Phase 40-45)
+- Milestone v1.6 created: AI-Powered Investor Experience, 7 phases (Phase 40-46)
 - Phase structure derived from research and dependency analysis
 - Phase 40 complete: AI infrastructure foundation ready
 - Phase 41 complete: Conversational AI core ready for integration
@@ -140,11 +143,12 @@ None yet.
 - Phase 43 complete: Dream Team Builder (provider search, UI components, chat integration)
 - Phase 44 complete: Investor Summary Page (two-panel layout with profile and AI, verified)
 - Phase 45 complete: Mobile Experience (tabbed mobile layout, touch optimization, responsive design)
-- Phase 46 created: AI Auto-Flow (AI-initiated conversation, auto property/provider suggestions)
+- Phase 46 complete: AI Auto-Flow (AI-initiated conversation, tool result extraction fixed, verified)
+- **MILESTONE v1.6 COMPLETE** — All 42 requirements satisfied
 
 ## Session Continuity
 
-Last session: 2026-01-23
-Stopped at: Human verification found gaps (AUTO-02, AUTO-03, AUTO-04 failures)
+Last session: 2026-01-26
+Stopped at: v1.6 milestone complete
 Resume file: None
-Next: Execute 46-03-PLAN.md and 46-04-PLAN.md (gap closure for card rendering)
+Next: Run `/gsd:new-milestone` to start v1.7
