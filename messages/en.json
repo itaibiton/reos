@@ -588,6 +588,44 @@
         }
       ]
     },
+    "testimonialsVideo": {
+      "heading": "What Our Investors Say",
+      "subheading": "Join thousands of investors who trust REOS for their Israeli real estate journey",
+      "ariaLabel": "Client testimonials and platform demonstration",
+      "testimonials": [
+        {
+          "id": "testimonial-1",
+          "quote": "REOS transformed how I manage my Israeli property investments. The deal flow tracking is exceptional.",
+          "author": "Sarah Johnson",
+          "role": "Real Estate Investor"
+        },
+        {
+          "id": "testimonial-2",
+          "quote": "The AI recommendations helped me find properties I would have never discovered on my own. Incredible platform.",
+          "author": "Michael Chen",
+          "role": "International Investor"
+        },
+        {
+          "id": "testimonial-3",
+          "quote": "From initial search to closing, REOS connected me with the right professionals every step of the way.",
+          "author": "David Rosenberg",
+          "role": "First-time Investor"
+        },
+        {
+          "id": "testimonial-4",
+          "quote": "The real-time communication features keep me updated on all my deals without constant phone calls.",
+          "author": "Rachel Aviv",
+          "role": "Property Developer"
+        }
+      ],
+      "video": {
+        "title": "See REOS in Action",
+        "description": "Watch how REOS simplifies your investment journey from discovery to closing",
+        "playLabel": "Play demonstration video",
+        "videoId": "dQw4w9WgXcQ",
+        "fallbackImage": "/images/landing/video-thumbnail.jpg"
+      }
+    },
     "services": {
       "title": "Everything You Need, All in One Place",
       "subtitle": "Stop juggling multiple tools and systems. REOS brings property management, tenant communication, and financial insights together so you can run your portfolio with confidence."
