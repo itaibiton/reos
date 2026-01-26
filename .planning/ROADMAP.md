@@ -1,167 +1,118 @@
-# Roadmap: REOS v1.6 AI-Powered Investor Experience
+# Roadmap: REOS v1.7 New Landing Page
 
 ## Overview
 
-Transform the post-onboarding experience into an intelligent investor hub. This milestone builds AI infrastructure (streaming, memory, context), then layers conversational capabilities, property recommendations with RAG grounding, dream team builder for provider matching, a two-panel summary page integrating profile and AI assistant, and finally mobile-optimized interaction patterns. Every feature flows through persistent, streaming AI that understands the investor's profile.
+Create a modern, conversion-focused landing page that showcases REOS's value proposition to US investors looking to invest in Israeli real estate. The milestone builds from foundation (navbar, footer) through content sections (hero, trust, features) to interactive elements (testimonials, video, contact form), with responsive design and animations applied throughout.
 
 ## Milestones
 
-- ✅ **v1.0 MVP** - Phases 1-8 (shipped 2026-01-17)
-- ✅ **v1.1 Investor Onboarding** - Phases 9-15 (shipped 2026-01-18)
-- ✅ **v1.2 Provider Experience** - Phases 16-20 (shipped 2026-01-19)
-- ✅ **v1.3 Social Feed & Global Community** - Phases 21-27.2 (shipped 2026-01-19)
-- ✅ **v1.4 Internationalization & RTL** - Phases 28-34.1 (shipped 2026-01-20)
-- ✅ **v1.5 Mobile Responsive & Header Redesign** - Phases 35-39 (shipped 2026-01-22)
-- 🚧 **v1.6 AI-Powered Investor Experience** - Phases 40-46 (in progress)
+- **v1.0 MVP** - Phases 1-8 (shipped 2026-01-17)
+- **v1.1 Investor Onboarding** - Phases 9-15 (shipped 2026-01-18)
+- **v1.2 Provider Experience** - Phases 16-20 (shipped 2026-01-19)
+- **v1.3 Social Feed & Global Community** - Phases 21-27.2 (shipped 2026-01-19)
+- **v1.4 Internationalization & RTL** - Phases 28-34.1 (shipped 2026-01-20)
+- **v1.5 Mobile Responsive & Header Redesign** - Phases 35-39 (shipped 2026-01-22)
+- **v1.6 AI-Powered Investor Experience** - Phases 40-46 (shipped 2026-01-26)
+- **v1.7 New Landing Page** - Phases 47-52 (in progress)
 
 ## Phases
 
-- [x] **Phase 40: AI Infrastructure Foundation** - Streaming, memory persistence, context management
-- [x] **Phase 41: Conversational AI Core** - Basic chat UI with streaming responses
-- [x] **Phase 42: Property Recommendations** - RAG-grounded property matching with explanations
-- [x] **Phase 43: Dream Team Builder** - Provider suggestions per role with match reasons
-- [x] **Phase 44: Investor Summary Page** - Two-panel layout integrating profile and AI
-- [x] **Phase 45: Mobile Experience** - Tabbed interface and touch-optimized chat
-- [x] **Phase 46: AI Auto-Flow** - AI-initiated recommendations after questionnaire completion
+- [ ] **Phase 47: Landing Page Foundation** - Navbar, footer, page layout structure
+- [ ] **Phase 48: Hero Section** - Full 100vh hero with headline, CTA, visuals, animations
+- [ ] **Phase 49: Trust & Value Props** - Logo section and value propositions
+- [ ] **Phase 50: Feature Cards** - Four feature cards showcasing platform capabilities
+- [ ] **Phase 51: Testimonials & Video** - Client testimonials carousel and video section
+- [ ] **Phase 52: Contact Form & Polish** - Lead capture form with Convex, responsive polish
 
 ## Phase Details
 
-### Phase 40: AI Infrastructure Foundation
-**Goal**: Establish streaming AI responses with persistent memory and profile context
-**Depends on**: Nothing (first phase of v1.6)
-**Requirements**: INFRA-01, INFRA-02, INFRA-03, INFRA-04
+### Phase 47: Landing Page Foundation
+**Goal**: Users can navigate the landing page with consistent header and footer across all sections
+**Depends on**: Nothing (first phase of v1.7)
+**Requirements**: NAV-01, NAV-02, FOOT-01, FOOT-02, FOOT-03, FOOT-04, FOOT-05
 **Success Criteria** (what must be TRUE):
-  1. AI conversation persists across browser sessions (close tab, return, history intact)
-  2. AI responses stream token-by-token with visible typing indicator within 200ms
-  3. AI references investor's questionnaire answers without being re-told
-  4. Long conversations (20+ messages) maintain coherent context without degradation
-**Plans**: 3 plans in 3 waves
+  1. Fixed navbar stays visible while scrolling through landing page
+  2. Mobile users can open hamburger menu and navigate to all sections
+  3. Footer displays logo, navigation links, social links, and legal information
+  4. CTA button in navbar navigates to sign-up or contact section
+  5. Page layout structure ready to receive content sections
+**Plans**: TBD (created during phase planning)
 
-Plans:
-- [x] 40-01-PLAN.md — Agent component setup, schema extension, base agent definition
-- [x] 40-02-PLAN.md — Profile context builder, thread management, summarization logic
-- [x] 40-03-PLAN.md — Streaming chat action with stop button, end-to-end wiring
-
-### Phase 41: Conversational AI Core
-**Goal**: Users can chat with AI assistant and see streaming responses
-**Depends on**: Phase 40
-**Requirements**: CHAT-01, CHAT-02, CHAT-03, CHAT-04
+### Phase 48: Hero Section
+**Goal**: Users immediately understand REOS's value proposition upon landing
+**Depends on**: Phase 47
+**Requirements**: HERO-01, HERO-02, HERO-03, HERO-04, HERO-05
 **Success Criteria** (what must be TRUE):
-  1. User can type message and send to AI assistant
-  2. AI response appears token-by-token as it generates (not all at once)
-  3. Typing indicator visible while waiting for first token
-  4. Previous messages in conversation visible when returning to chat
-**Plans**: 3 plans in 3 waves
+  1. Hero section fills full viewport (100vh) with compelling headline visible above fold
+  2. Subheadline clearly explains REOS connects US investors with Israeli properties
+  3. Primary CTA button ("Start Investing" or similar) is prominently visible
+  4. Hero visual (property images, gradient, or animation) creates professional impression
+  5. Scroll indicator animates to guide users to continue scrolling
+**Plans**: TBD (created during phase planning)
 
-Plans:
-- [x] 41-01-PLAN.md — Install markdown dependencies, create messages query, useAIChat/useSmartScroll hooks
-- [x] 41-02-PLAN.md — ChatMessage with markdown, TypingIndicator, StreamingCursor, AIChatInput components
-- [x] 41-03-PLAN.md — ChatMessageList, AIChatPanel container, barrel exports, integration verification
-
-### Phase 42: Property Recommendations
-**Goal**: AI suggests properties matching investor profile with explanations
-**Depends on**: Phase 41
-**Requirements**: REC-01, REC-02, REC-03, REC-04, REC-05, REC-06, REC-07, CHAT-06, CHAT-07
+### Phase 49: Trust & Value Props
+**Goal**: Users see social proof and understand key platform benefits
+**Depends on**: Phase 48
+**Requirements**: LOGO-01, LOGO-02, VAL-01, VAL-02, VAL-03
 **Success Criteria** (what must be TRUE):
-  1. AI recommends 3-5 properties based on investor's budget, locations, property type preferences
-  2. Each recommendation shows 2-3 reasons why it matches (e.g., "Within your $500K budget", "In Tel Aviv, your preferred area")
-  3. User can ask AI questions about specific properties and get accurate answers from database
-  4. User can save all recommended properties with single "Quick Save All" action
-  5. Every property mentioned by AI exists in database (no hallucinated properties)
-**Plans**: 3 plans in 2 waves
+  1. "Trusted by" or "Featured in" section displays partner/media logos
+  2. 3-4 value propositions appear with distinct icons
+  3. Each value proposition has brief, scannable description
+  4. Sections animate into view as user scrolls (fade-in effect)
+**Plans**: TBD (created during phase planning)
 
-Plans:
-- [x] 42-01-PLAN.md — Property search query, tool definition with Zod schema, agent registration
-- [x] 42-02-PLAN.md — Sonner toast setup, PropertyRecommendationCard, PropertyDetailModal, SaveAllButton
-- [x] 42-03-PLAN.md — ChatMessage extended with property cards, useAIChat tool results, integration verification
-
-### Phase 43: Dream Team Builder
-**Goal**: AI suggests service providers per role with match explanations
-**Depends on**: Phase 42
-**Requirements**: TEAM-01, TEAM-02, TEAM-03, TEAM-04, TEAM-05, TEAM-06, CHAT-08
+### Phase 50: Feature Cards
+**Goal**: Users understand the four core platform capabilities
+**Depends on**: Phase 49
+**Requirements**: FEAT-01, FEAT-02, FEAT-03, FEAT-04, FEAT-05
 **Success Criteria** (what must be TRUE):
-  1. AI suggests 2-3 brokers matching investor's target locations and property interests
-  2. AI suggests 2-3 mortgage advisors based on investor's budget and financial needs
-  3. AI suggests 2-3 lawyers for investor's target locations
-  4. Each provider suggestion includes explanation of why they match
-  5. User can select providers from suggestions to add to their team
-**Plans**: 3 plans in 2 waves
+  1. Property Discovery card explains smart search and AI recommendations
+  2. Deal Flow card explains 7-stage tracking and service provider network
+  3. Communication card explains real-time chat and notifications
+  4. AI Assistant card explains personalized recommendations
+  5. Cards have hover/interaction animations that invite exploration
+**Plans**: TBD (created during phase planning)
 
-Plans:
-- [x] 43-01-PLAN.md — Provider search query, tool definition with Zod schema, agent registration
-- [x] 43-02-PLAN.md — ProviderRecommendationCard, ProviderDetailModal, useProviderAdd hook, teamManagement mutations
-- [x] 43-03-PLAN.md — ProviderCardRenderer with accordion grouping, ChatMessage integration, verification checkpoint
-
-### Phase 44: Investor Summary Page
-**Goal**: Two-panel page with profile summary and AI assistant working together
-**Depends on**: Phase 43
-**Requirements**: PROF-01, PROF-02, PROF-03, PROF-04, PAGE-01, PAGE-02, PAGE-03, PAGE-04, CHAT-05
+### Phase 51: Testimonials & Video
+**Goal**: Users see social proof from clients and can watch platform demo
+**Depends on**: Phase 50
+**Requirements**: TEST-01, TEST-02, TEST-03, VID-01, VID-02, VID-03
 **Success Criteria** (what must be TRUE):
-  1. Desktop shows two panels: profile summary (left) and AI assistant (right)
-  2. Profile summary displays all questionnaire sections in readable format
-  3. User can edit any profile section inline without leaving the page
-  4. Profile completeness indicator shows percentage and lists missing sections
-  5. Quick reply buttons appear for common queries (e.g., "Show me properties", "Build my team")
-  6. Page accessible after onboarding completes AND as ongoing profile page
-**Plans**: 3 plans in 2 waves
+  1. Client testimonials display with quotes, photos/avatars, and names
+  2. Testimonials arranged in carousel or grid layout
+  3. Video section has embedded player or animated demo placeholder
+  4. Play button overlay invites users to watch video
+  5. Fallback image displays when video cannot load
+**Plans**: TBD (created during phase planning)
 
-Plans:
-- [x] 44-01-PLAN.md — ProfileCompletenessBar, InlineFieldEditor, ProfileSection, ProfileSummaryPanel components
-- [x] 44-02-PLAN.md — QuickReplyButtons component, AIChatPanel renderQuickReplies prop
-- [x] 44-03-PLAN.md — Two-panel summary page, routing updates, translations, verification checkpoint
-
-### Phase 45: Mobile Experience
-**Goal**: Touch-optimized AI experience with tabbed navigation
-**Depends on**: Phase 44
-**Requirements**: MOB-01, MOB-02, MOB-03, MOB-04, MOB-05
+### Phase 52: Contact Form & Polish
+**Goal**: Users can submit their information and page works flawlessly on all devices
+**Depends on**: Phase 51
+**Requirements**: FORM-01, FORM-02, FORM-03, FORM-04, RESP-01, RESP-02, RESP-03, RESP-04
 **Success Criteria** (what must be TRUE):
-  1. Mobile shows tabbed interface switching between Profile and AI Assistant views
-  2. Tab switching animates smoothly (no jarring transitions)
-  3. Chat input stays visible above keyboard when keyboard opens
-  4. All interactive elements have minimum 44px touch targets
-  5. Quick reply buttons are easily tappable without accidental adjacent presses
-**Plans**: 3 plans in 2 waves
-
-Plans:
-- [x] 45-01-PLAN.md — Keyboard detection hook, MobileInvestorSummary tabbed component
-- [x] 45-02-PLAN.md — Touch target updates (44px), horizontal quick replies, responsive field editor
-- [x] 45-03-PLAN.md — Page integration with mobile detection, translations, verification checkpoint
-
-### Phase 46: AI Auto-Flow
-**Goal**: AI initiates conversation after questionnaire with automatic property and provider recommendations
-**Depends on**: Phase 45
-**Requirements**: AUTO-01, AUTO-02, AUTO-03, AUTO-04, AUTO-05
-**Success Criteria** (what must be TRUE):
-  1. After questionnaire completion, AI sends greeting without user prompt
-  2. AI automatically triggers property search and displays results as cards (not text)
-  3. Each property card has individual Save button AND batch "Save All" button at bottom
-  4. After property suggestions, AI automatically suggests providers grouped by role
-  5. Provider cards have "Add to Team" buttons with role-based grouping
-  6. Questionnaire popup persists on each visit until completed (skip doesn't dismiss permanently)
-  7. Quick reply buttons remain visible after auto-suggestions for follow-up queries
-**Plans**: 4 plans in 3 waves
-
-Plans:
-- [x] 46-01-PLAN.md — Enable empty message support, auto-greeting system prompt enhancement
-- [x] 46-02-PLAN.md — Auto-greeting trigger on summary page (desktop and mobile)
-- [x] 46-03-PLAN.md — Verify questionnaire persistence, translations, end-to-end verification
-- [x] 46-04-PLAN.md — Gap closure: Fix tool result extraction for card rendering
+  1. Contact form captures name, email, and investor type
+  2. Form shows validation errors for invalid/missing fields
+  3. Success state confirms submission with clear feedback
+  4. Form submission persists lead data to Convex backend
+  5. All sections display correctly on mobile (320px+), tablet, and desktop
+  6. Scroll-triggered animations work smoothly across all sections
+  7. Section transitions are smooth without jank or layout shift
+**Plans**: TBD (created during phase planning)
 
 ## Progress
 
-**Execution Order:** Phases 40 → 41 → 42 → 43 → 44 → 45 → 46
+**Execution Order:** Phases 47 -> 48 -> 49 -> 50 -> 51 -> 52
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
-| 40. AI Infrastructure Foundation | v1.6 | 3/3 | ✓ Complete | 2026-01-22 |
-| 41. Conversational AI Core | v1.6 | 3/3 | ✓ Complete | 2026-01-22 |
-| 42. Property Recommendations | v1.6 | 3/3 | ✓ Complete | 2026-01-22 |
-| 43. Dream Team Builder | v1.6 | 3/3 | ✓ Complete | 2026-01-22 |
-| 44. Investor Summary Page | v1.6 | 3/3 | ✓ Complete | 2026-01-23 |
-| 45. Mobile Experience | v1.6 | 3/3 | ✓ Complete | 2026-01-23 |
-| 46. AI Auto-Flow | v1.6 | 4/4 | ✓ Complete | 2026-01-26 |
+| 47. Landing Page Foundation | v1.7 | 0/0 | Pending | — |
+| 48. Hero Section | v1.7 | 0/0 | Pending | — |
+| 49. Trust & Value Props | v1.7 | 0/0 | Pending | — |
+| 50. Feature Cards | v1.7 | 0/0 | Pending | — |
+| 51. Testimonials & Video | v1.7 | 0/0 | Pending | — |
+| 52. Contact Form & Polish | v1.7 | 0/0 | Pending | — |
 
 ---
-*Roadmap created: 2026-01-22*
-*Milestone: v1.6 AI-Powered Investor Experience*
-*Requirements: 42 mapped to 7 phases*
+*Roadmap created: 2026-01-26*
+*Milestone: v1.7 New Landing Page*
+*Requirements: 36 mapped to 6 phases*

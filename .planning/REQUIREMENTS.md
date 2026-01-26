@@ -102,48 +102,48 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| NAV-01 | TBD | Pending |
-| NAV-02 | TBD | Pending |
-| HERO-01 | TBD | Pending |
-| HERO-02 | TBD | Pending |
-| HERO-03 | TBD | Pending |
-| HERO-04 | TBD | Pending |
-| HERO-05 | TBD | Pending |
-| LOGO-01 | TBD | Pending |
-| LOGO-02 | TBD | Pending |
-| VAL-01 | TBD | Pending |
-| VAL-02 | TBD | Pending |
-| VAL-03 | TBD | Pending |
-| FEAT-01 | TBD | Pending |
-| FEAT-02 | TBD | Pending |
-| FEAT-03 | TBD | Pending |
-| FEAT-04 | TBD | Pending |
-| FEAT-05 | TBD | Pending |
-| TEST-01 | TBD | Pending |
-| TEST-02 | TBD | Pending |
-| TEST-03 | TBD | Pending |
-| VID-01 | TBD | Pending |
-| VID-02 | TBD | Pending |
-| VID-03 | TBD | Pending |
-| FORM-01 | TBD | Pending |
-| FORM-02 | TBD | Pending |
-| FORM-03 | TBD | Pending |
-| FORM-04 | TBD | Pending |
-| FOOT-01 | TBD | Pending |
-| FOOT-02 | TBD | Pending |
-| FOOT-03 | TBD | Pending |
-| FOOT-04 | TBD | Pending |
-| FOOT-05 | TBD | Pending |
-| RESP-01 | TBD | Pending |
-| RESP-02 | TBD | Pending |
-| RESP-03 | TBD | Pending |
-| RESP-04 | TBD | Pending |
+| NAV-01 | Phase 47 | Pending |
+| NAV-02 | Phase 47 | Pending |
+| HERO-01 | Phase 48 | Pending |
+| HERO-02 | Phase 48 | Pending |
+| HERO-03 | Phase 48 | Pending |
+| HERO-04 | Phase 48 | Pending |
+| HERO-05 | Phase 48 | Pending |
+| LOGO-01 | Phase 49 | Pending |
+| LOGO-02 | Phase 49 | Pending |
+| VAL-01 | Phase 49 | Pending |
+| VAL-02 | Phase 49 | Pending |
+| VAL-03 | Phase 49 | Pending |
+| FEAT-01 | Phase 50 | Pending |
+| FEAT-02 | Phase 50 | Pending |
+| FEAT-03 | Phase 50 | Pending |
+| FEAT-04 | Phase 50 | Pending |
+| FEAT-05 | Phase 50 | Pending |
+| TEST-01 | Phase 51 | Pending |
+| TEST-02 | Phase 51 | Pending |
+| TEST-03 | Phase 51 | Pending |
+| VID-01 | Phase 51 | Pending |
+| VID-02 | Phase 51 | Pending |
+| VID-03 | Phase 51 | Pending |
+| FORM-01 | Phase 52 | Pending |
+| FORM-02 | Phase 52 | Pending |
+| FORM-03 | Phase 52 | Pending |
+| FORM-04 | Phase 52 | Pending |
+| FOOT-01 | Phase 47 | Pending |
+| FOOT-02 | Phase 47 | Pending |
+| FOOT-03 | Phase 47 | Pending |
+| FOOT-04 | Phase 47 | Pending |
+| FOOT-05 | Phase 47 | Pending |
+| RESP-01 | Phase 52 | Pending |
+| RESP-02 | Phase 52 | Pending |
+| RESP-03 | Phase 52 | Pending |
+| RESP-04 | Phase 52 | Pending |
 
 **Coverage:**
 - v1.7 requirements: 36 total
-- Mapped to phases: 0
-- Unmapped: 36
+- Mapped to phases: 36
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-01-26*
-*Last updated: 2026-01-26 after initial definition*
+*Last updated: 2026-01-26 after roadmap creation*
