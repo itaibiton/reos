@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/landing/Hero";
+import { TrustSection } from "@/components/landing/TrustSection";
+import { ValuePropsSection } from "@/components/landing/ValueProps";
 import { ServicesGrid } from "@/components/landing/ServicesGrid";
 import { FeatureDeepDive } from "@/components/landing/Features";
 import { ProcessSteps } from "@/components/landing/ProcessSteps";
@@ -19,6 +21,19 @@ export default function LandingPage() {
     <div className="landing-section-bg">
         {/* Hero Section */}
         <Hero />
+
+        {/* Trust Section */}
+        <TrustSection />
+
+        {/* Value Props Section */}
+        <ValuePropsSection />
+
+        {/* Geometric Divider */}
+        <GeometricDivider
+          variant="diagonal-down"
+          height={60}
+          fillClassName="fill-muted/30"
+        />
 
         {/* Services Grid Section */}
         <ServicesGrid />

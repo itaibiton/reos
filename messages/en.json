@@ -524,6 +524,40 @@
       "trustROI": "Avg. ROI",
       "trustInvestors": "Active Investors"
     },
+    "trust": {
+      "heading": "Trusted By Industry Leaders",
+      "subheading": "Join hundreds of investors who trust REOS for their Israeli real estate investments"
+    },
+    "valueProps": {
+      "heading": "Why Choose REOS",
+      "subheading": "Everything you need to invest in Israeli real estate with confidence",
+      "items": [
+        {
+          "key": "network",
+          "icon": "network",
+          "title": "Global Network",
+          "description": "Connect with 50+ verified Israeli partners including agents, lawyers, and accountants"
+        },
+        {
+          "key": "tracking",
+          "icon": "tracking",
+          "title": "Deal Tracking",
+          "description": "Follow every deal from initial interest to close with our 7-stage pipeline"
+        },
+        {
+          "key": "partners",
+          "icon": "partners",
+          "title": "Vetted Partners",
+          "description": "Work only with pre-screened, English-speaking service providers"
+        },
+        {
+          "key": "security",
+          "icon": "security",
+          "title": "Secure Platform",
+          "description": "End-to-end encrypted communications and document storage"
+        }
+      ]
+    },
     "services": {
       "title": "Everything You Need, All in One Place",
       "subtitle": "Stop juggling multiple tools and systems. REOS brings property management, tenant communication, and financial insights together so you can run your portfolio with confidence."
