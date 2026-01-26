@@ -3,6 +3,7 @@ import { Hero } from "@/components/landing/Hero";
 import { TrustSection } from "@/components/landing/TrustSection";
 import { ValuePropsSection } from "@/components/landing/ValueProps";
 import { FeatureCardsSection } from "@/components/landing/FeatureCards";
+import { TestimonialsVideoSection } from "@/components/landing/TestimonialsVideo";
 import { ServicesGrid } from "@/components/landing/ServicesGrid";
 import { FeatureDeepDive } from "@/components/landing/Features";
 import { ProcessSteps } from "@/components/landing/ProcessSteps";
@@ -31,6 +32,9 @@ export default function LandingPage() {
 
         {/* Feature Cards Section */}
         <FeatureCardsSection />
+
+        {/* Testimonials & Video Section */}
+        <TestimonialsVideoSection />
 
         {/* Geometric Divider */}
         <GeometricDivider
