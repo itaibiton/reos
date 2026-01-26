@@ -242,6 +242,8 @@
       "pricing": "תמחור",
       "team": "הצוות",
       "faq": "שאלות נפוצות",
+      "testimonials": "המלצות",
+      "contact": "צור קשר",
       "signIn": "התחברות",
       "getStarted": "התחל עכשיו"
     },
@@ -379,46 +381,35 @@
       }
     },
     "footer": {
-      "description": "כלי ניהול נכסים מקיפים לבעלי נכסים ומנהלי נכסים מודרניים.",
-      "product": {
-        "title": "מוצר",
+      "description": "מחברים משקיעים אמריקאים להזדמנויות נדל\"ן בישראל. השותף האמין שלכם להשקעות נדל\"ן בינלאומיות.",
+      "platform": {
+        "title": "הפלטפורמה",
         "features": "תכונות",
-        "pricing": "תמחור",
-        "integrations": "אינטגרציות",
-        "changelog": "יומן שינויים"
+        "howItWorks": "איך זה עובד",
+        "forInvestors": "למשקיעים",
+        "forProviders": "לספקי שירות"
       },
       "company": {
-        "title": "חברה",
+        "title": "החברה",
         "about": "אודותינו",
-        "careers": "קריירה",
-        "blog": "בלוג",
-        "press": "לעיתונות"
-      },
-      "resources": {
-        "title": "משאבים",
-        "documentation": "תיעוד",
-        "helpCenter": "מרכז עזרה",
-        "community": "קהילה",
-        "webinars": "וובינרים"
+        "contact": "צור קשר",
+        "careers": "קריירה"
       },
       "legal": {
         "title": "משפטי",
         "privacy": "מדיניות פרטיות",
-        "terms": "תנאי שימוש",
-        "cookies": "מדיניות עוגיות",
-        "security": "אבטחה"
+        "terms": "תנאי שימוש"
       },
       "contact": {
-        "title": "יצירת קשר",
         "email": "hello@reos.io",
-        "phone": "+972-3-123-4567"
+        "phone": "+1 (212) 555-0123"
       },
       "social": {
         "twitter": "עקבו אחרינו בטוויטר",
         "linkedin": "התחברו בלינקדאין",
-        "github": "צפו בגיטהאב"
+        "github": "צפו בגיטהאב שלנו"
       },
-      "copyright": "© 2024 REOS. כל הזכויות שמורות."
+      "copyright": "© 2026 REOS. כל הזכויות שמורות."
     }
   },
   "chat": {

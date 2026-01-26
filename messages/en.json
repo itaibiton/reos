@@ -507,6 +507,8 @@
       "pricing": "Pricing",
       "team": "Team",
       "faq": "FAQ",
+      "testimonials": "Testimonials",
+      "contact": "Contact",
       "signIn": "Sign In",
       "getStarted": "Get Started"
     },
@@ -644,46 +646,35 @@
       }
     },
     "footer": {
-      "description": "Comprehensive property management tools for modern landlords and property managers.",
-      "product": {
-        "title": "Product",
+      "description": "Connecting US investors with Israeli real estate opportunities. Your trusted partner for cross-border property investment.",
+      "platform": {
+        "title": "Platform",
         "features": "Features",
-        "pricing": "Pricing",
-        "integrations": "Integrations",
-        "changelog": "Changelog"
+        "howItWorks": "How It Works",
+        "forInvestors": "For Investors",
+        "forProviders": "For Providers"
       },
       "company": {
         "title": "Company",
         "about": "About Us",
-        "careers": "Careers",
-        "blog": "Blog",
-        "press": "Press"
-      },
-      "resources": {
-        "title": "Resources",
-        "documentation": "Documentation",
-        "helpCenter": "Help Center",
-        "community": "Community",
-        "webinars": "Webinars"
+        "contact": "Contact",
+        "careers": "Careers"
       },
       "legal": {
         "title": "Legal",
         "privacy": "Privacy Policy",
-        "terms": "Terms of Service",
-        "cookies": "Cookie Policy",
-        "security": "Security"
+        "terms": "Terms of Service"
       },
       "contact": {
-        "title": "Contact",
         "email": "hello@reos.io",
-        "phone": "+1 (555) 123-4567"
+        "phone": "+1 (212) 555-0123"
       },
       "social": {
         "twitter": "Follow us on Twitter",
         "linkedin": "Connect on LinkedIn",
-        "github": "View on GitHub"
+        "github": "View our GitHub"
       },
-      "copyright": "© 2024 REOS. All rights reserved."
+      "copyright": "© 2026 REOS. All rights reserved."
     }
   },
   "properties": {

@@ -25,30 +25,20 @@ interface FooterLinkGroup {
 
 const linkGroups: FooterLinkGroup[] = [
   {
-    titleKey: "product.title",
+    titleKey: "platform.title",
     links: [
-      { labelKey: "product.features", href: "#features" },
-      { labelKey: "product.pricing", href: "#pricing" },
-      { labelKey: "product.integrations", href: "/integrations" },
-      { labelKey: "product.changelog", href: "/changelog" },
+      { labelKey: "platform.features", href: "#features" },
+      { labelKey: "platform.howItWorks", href: "#how-it-works" },
+      { labelKey: "platform.forInvestors", href: "/investors" },
+      { labelKey: "platform.forProviders", href: "/providers" },
     ],
   },
   {
     titleKey: "company.title",
     links: [
       { labelKey: "company.about", href: "/about" },
+      { labelKey: "company.contact", href: "#contact" },
       { labelKey: "company.careers", href: "/careers" },
-      { labelKey: "company.blog", href: "/blog" },
-      { labelKey: "company.press", href: "/press" },
-    ],
-  },
-  {
-    titleKey: "resources.title",
-    links: [
-      { labelKey: "resources.documentation", href: "/docs" },
-      { labelKey: "resources.helpCenter", href: "/help" },
-      { labelKey: "resources.community", href: "/community" },
-      { labelKey: "resources.webinars", href: "/webinars" },
     ],
   },
   {
@@ -56,8 +46,6 @@ const linkGroups: FooterLinkGroup[] = [
     links: [
       { labelKey: "legal.privacy", href: "/privacy" },
       { labelKey: "legal.terms", href: "/terms" },
-      { labelKey: "legal.cookies", href: "/cookies" },
-      { labelKey: "legal.security", href: "/security" },
     ],
   },
 ];

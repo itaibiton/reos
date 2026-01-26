@@ -26,11 +26,9 @@ interface LandingNavProps {
 // ============================================================================
 
 const navLinks: NavLink[] = [
-  { href: "#services", labelKey: "services" },
   { href: "#features", labelKey: "features" },
-  { href: "#pricing", labelKey: "pricing" },
-  { href: "#team", labelKey: "team" },
-  { href: "#faq", labelKey: "faq" },
+  { href: "#testimonials", labelKey: "testimonials" },
+  { href: "#contact", labelKey: "contact" },
 ];
 
 // ============================================================================
@@ -233,7 +231,7 @@ function MobileNav({
             className="w-full justify-center bg-landing-primary text-white hover:bg-landing-primary/90"
             asChild
           >
-            <Link href={`/${locale}/sign-up`}>{t("getStarted")}</Link>
+            <a href="#contact">{t("getStarted")}</a>
           </Button>
         </div>
       </nav>
@@ -269,7 +267,7 @@ function CTAButtons({ scrolled }: { scrolled: boolean }) {
         )}
         asChild
       >
-        <Link href={`/${locale}/sign-up`}>{t("getStarted")}</Link>
+        <a href="#contact">{t("getStarted")}</a>
       </Button>
     </div>
   );
