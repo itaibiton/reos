@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Hero } from "@/components/landing/Hero";
 import { TrustSection } from "@/components/landing/TrustSection";
 import { ValuePropsSection } from "@/components/landing/ValueProps";
+import { FeatureCardsSection } from "@/components/landing/FeatureCards";
 import { ServicesGrid } from "@/components/landing/ServicesGrid";
 import { FeatureDeepDive } from "@/components/landing/Features";
 import { ProcessSteps } from "@/components/landing/ProcessSteps";
@@ -27,6 +28,9 @@ export default function LandingPage() {
 
         {/* Value Props Section */}
         <ValuePropsSection />
+
+        {/* Feature Cards Section */}
+        <FeatureCardsSection />
 
         {/* Geometric Divider */}
         <GeometricDivider
