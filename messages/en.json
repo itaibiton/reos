@@ -558,6 +558,36 @@
         }
       ]
     },
+    "featureCards": {
+      "heading": "Platform Capabilities",
+      "subheading": "Everything you need to invest in Israeli real estate with confidence",
+      "items": [
+        {
+          "key": "property-discovery",
+          "icon": "search",
+          "title": "Property Discovery",
+          "description": "Smart search with AI-powered recommendations to find your perfect Israeli property investment."
+        },
+        {
+          "key": "deal-flow",
+          "icon": "dealFlow",
+          "title": "7-Stage Deal Flow",
+          "description": "Track every step from discovery to closing. Connect with vetted brokers, mortgage advisors, and lawyers."
+        },
+        {
+          "key": "communication",
+          "icon": "communication",
+          "title": "Real-Time Communication",
+          "description": "Built-in chat and notifications keep you connected with partners and providers throughout your journey."
+        },
+        {
+          "key": "ai-assistant",
+          "icon": "aiAssistant",
+          "title": "AI Assistant",
+          "description": "Personalized property recommendations and answers to your investment questions, powered by AI."
+        }
+      ]
+    },
     "services": {
       "title": "Everything You Need, All in One Place",
       "subtitle": "Stop juggling multiple tools and systems. REOS brings property management, tenant communication, and financial insights together so you can run your portfolio with confidence."
