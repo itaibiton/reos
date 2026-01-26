@@ -36,7 +36,10 @@ Create a modern, conversion-focused landing page that showcases REOS's value pro
   3. Footer displays logo, navigation links, social links, and legal information
   4. CTA button in navbar navigates to sign-up or contact section
   5. Page layout structure ready to receive content sections
-**Plans**: TBD (created during phase planning)
+**Plans:** 2 plans
+Plans:
+- [ ] 47-01-PLAN.md — Update navbar links and layout structure for v1.7 sections
+- [ ] 47-02-PLAN.md — Update footer with REOS content and proper links
 
 ### Phase 48: Hero Section
 **Goal**: Users immediately understand REOS's value proposition upon landing
@@ -105,7 +108,7 @@ Create a modern, conversion-focused landing page that showcases REOS's value pro
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
-| 47. Landing Page Foundation | v1.7 | 0/0 | Pending | — |
+| 47. Landing Page Foundation | v1.7 | 0/2 | Planning Complete | — |
 | 48. Hero Section | v1.7 | 0/0 | Pending | — |
 | 49. Trust & Value Props | v1.7 | 0/0 | Pending | — |
 | 50. Feature Cards | v1.7 | 0/0 | Pending | — |
