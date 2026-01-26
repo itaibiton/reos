@@ -2,9 +2,8 @@
 
 import { useRef } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
-import { ArrowRight, Play } from "lucide-react";
-import Link from "next/link";
-import { useTranslations, useLocale } from "next-intl";
+import { ArrowRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { HeroBackground } from "./HeroBackground";
@@ -112,7 +111,6 @@ function AccentBadge({ children }: { children: React.ReactNode }) {
 
 function HeroContent({ shouldReduceMotion }: { shouldReduceMotion: boolean | null }) {
   const t = useTranslations("landing.hero");
-  const locale = useLocale();
 
   return (
     <motion.div
@@ -184,10 +182,10 @@ function HeroContent({ shouldReduceMotion }: { shouldReduceMotion: boolean | nul
             )}
             asChild
           >
-            <Link href={`/${locale}/sign-up`}>
+            <a href="#contact">
               {t("ctaPrimary")}
               <ArrowRight className="ms-2 h-5 w-5" aria-hidden="true" />
-            </Link>
+            </a>
           </Button>
         </motion.div>
 
@@ -205,9 +203,12 @@ function HeroContent({ shouldReduceMotion }: { shouldReduceMotion: boolean | nul
               "px-8 py-6 text-lg font-medium",
               "transition-all duration-200"
             )}
+            asChild
           >
-            <Play className="me-2 h-5 w-5" aria-hidden="true" />
-            {t("ctaSecondary")}
+            <a href="#features">
+              {t("ctaSecondary")}
+              <ArrowRight className="ms-2 h-5 w-5" aria-hidden="true" />
+            </a>
           </Button>
         </motion.div>
       </motion.div>
@@ -221,18 +222,18 @@ function HeroContent({ shouldReduceMotion }: { shouldReduceMotion: boolean | nul
         <div className="flex items-center justify-center lg:justify-start gap-6 text-landing-text/60">
           {/* Trust badges/stats */}
           <div className="text-center">
+            <div className="font-display text-2xl text-landing-primary">150+</div>
+            <div className="text-xs">{t("trustDeals")}</div>
+          </div>
+          <div className="w-px h-8 bg-landing-primary/20" />
+          <div className="text-center">
+            <div className="font-display text-2xl text-landing-primary">12%</div>
+            <div className="text-xs">{t("trustROI")}</div>
+          </div>
+          <div className="w-px h-8 bg-landing-primary/20" />
+          <div className="text-center">
             <div className="font-display text-2xl text-landing-primary">500+</div>
-            <div className="text-xs">{t("trustProperties")}</div>
-          </div>
-          <div className="w-px h-8 bg-landing-primary/20" />
-          <div className="text-center">
-            <div className="font-display text-2xl text-landing-primary">98%</div>
-            <div className="text-xs">{t("trustSatisfaction")}</div>
-          </div>
-          <div className="w-px h-8 bg-landing-primary/20" />
-          <div className="text-center">
-            <div className="font-display text-2xl text-landing-primary">24/7</div>
-            <div className="text-xs">{t("trustSupport")}</div>
+            <div className="text-xs">{t("trustInvestors")}</div>
           </div>
         </div>
       </motion.div>
@@ -252,8 +253,9 @@ export function Hero({ className }: HeroProps) {
   return (
     <section
       ref={ref}
+      id="hero"
       className={cn(
-        "relative min-h-dvh",
+        "relative min-h-[100vh] min-h-dvh",
         "flex items-center",
         "pt-20 pb-16 sm:pt-24 md:pt-28 lg:pt-32",
         "px-4 sm:px-6 lg:px-8",
