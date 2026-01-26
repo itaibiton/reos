@@ -626,6 +626,48 @@
         "fallbackImage": "/images/landing/video-thumbnail.jpg"
       }
     },
+    "contactForm": {
+      "heading": "Start Your Investment Journey",
+      "subheading": "Tell us about yourself and we'll connect you with the right opportunities",
+      "optional": "optional",
+      "fields": {
+        "name": {
+          "label": "Full Name",
+          "placeholder": "John Smith"
+        },
+        "email": {
+          "label": "Email Address",
+          "placeholder": "john@example.com"
+        },
+        "phone": {
+          "label": "Phone Number",
+          "placeholder": "+1 (555) 123-4567"
+        },
+        "investorType": {
+          "label": "Investor Type",
+          "placeholder": "Select your experience level"
+        },
+        "message": {
+          "label": "Message",
+          "placeholder": "Tell us about your investment goals..."
+        }
+      },
+      "investorTypes": {
+        "firstTime": "First-Time Investor",
+        "experienced": "Experienced Investor",
+        "institutional": "Institutional Investor",
+        "other": "Other"
+      },
+      "submit": "Get Started",
+      "submitting": "Submitting...",
+      "success": {
+        "title": "Thank You!",
+        "message": "We've received your information and will be in touch within 24 hours."
+      },
+      "errors": {
+        "submitFailed": "Something went wrong. Please try again."
+      }
+    },
     "services": {
       "title": "Everything You Need, All in One Place",
       "subtitle": "Stop juggling multiple tools and systems. REOS brings property management, tenant communication, and financial insights together so you can run your portfolio with confidence."

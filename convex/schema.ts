@@ -803,6 +803,29 @@ export default defineSchema({
     .index("by_user_and_time", ["userId", "createdAt"]),
 
   // ============================================================================
+  // LEADS TABLE (Phase 52)
+  // ============================================================================
+
+  // Landing page lead capture
+  leads: defineTable({
+    name: v.string(),
+    email: v.string(),
+    phone: v.optional(v.string()),
+    investorType: v.union(
+      v.literal("first_time"),
+      v.literal("experienced"),
+      v.literal("institutional"),
+      v.literal("other")
+    ),
+    message: v.optional(v.string()),
+    source: v.optional(v.string()), // e.g., "landing_page", "referral"
+    createdAt: v.number(),
+  })
+    .index("by_email", ["email"])
+    .index("by_created", ["createdAt"])
+    .index("by_type", ["investorType"]),
+
+  // ============================================================================
   // AI ASSISTANT TABLES (Phase 40)
   // ============================================================================
 

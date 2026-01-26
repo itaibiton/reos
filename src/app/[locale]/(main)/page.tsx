@@ -4,6 +4,7 @@ import { TrustSection } from "@/components/landing/TrustSection";
 import { ValuePropsSection } from "@/components/landing/ValueProps";
 import { FeatureCardsSection } from "@/components/landing/FeatureCards";
 import { TestimonialsVideoSection } from "@/components/landing/TestimonialsVideo";
+import { ContactFormSection } from "@/components/landing/ContactForm";
 import { ServicesGrid } from "@/components/landing/ServicesGrid";
 import { FeatureDeepDive } from "@/components/landing/Features";
 import { ProcessSteps } from "@/components/landing/ProcessSteps";
@@ -78,6 +79,9 @@ export default function LandingPage() {
           height={60}
           fillClassName="fill-muted/30"
         />
+
+      {/* Contact Form Section */}
+      <ContactFormSection />
 
       {/* FAQ Section */}
       <FAQAccordion />

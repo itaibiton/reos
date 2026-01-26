@@ -361,6 +361,48 @@
         "fallbackImage": "/images/landing/video-thumbnail.jpg"
       }
     },
+    "contactForm": {
+      "heading": "התחילו את מסע ההשקעה שלכם",
+      "subheading": "ספרו לנו על עצמכם ונחבר אתכם להזדמנויות המתאימות",
+      "optional": "אופציונלי",
+      "fields": {
+        "name": {
+          "label": "שם מלא",
+          "placeholder": "ישראל ישראלי"
+        },
+        "email": {
+          "label": "כתובת אימייל",
+          "placeholder": "israel@example.com"
+        },
+        "phone": {
+          "label": "מספר טלפון",
+          "placeholder": "+972-50-123-4567"
+        },
+        "investorType": {
+          "label": "סוג משקיע",
+          "placeholder": "בחרו את רמת הניסיון שלכם"
+        },
+        "message": {
+          "label": "הודעה",
+          "placeholder": "ספרו לנו על יעדי ההשקעה שלכם..."
+        }
+      },
+      "investorTypes": {
+        "firstTime": "משקיע ראשון",
+        "experienced": "משקיע מנוסה",
+        "institutional": "משקיע מוסדי",
+        "other": "אחר"
+      },
+      "submit": "בואו נתחיל",
+      "submitting": "שולח...",
+      "success": {
+        "title": "תודה רבה!",
+        "message": "קיבלנו את הפרטים שלכם וניצור קשר תוך 24 שעות."
+      },
+      "errors": {
+        "submitFailed": "משהו השתבש. אנא נסו שוב."
+      }
+    },
     "services": {
       "title": "כל מה שאתה צריך, במקום אחד",
       "subtitle": "הפסק לג'נגל בין מערכות וכלים רבים. REOS מאחד ניהול נכסים, תקשורת עם דיירים ותובנות פיננסיות כדי שתוכל לנהל את תיק הנכסים שלך בביטחון."
