@@ -5,17 +5,17 @@
 See: .planning/PROJECT.md (updated 2026-01-26)
 
 **Core value:** Deal flow tracking from interest to close.
-**Current focus:** v1.6 COMPLETE — Ready for new milestone
+**Current focus:** v1.7 New Landing Page
 
 ## Current Position
 
-Milestone: v1.6 AI-Powered Investor Experience ✓ COMPLETE
-Phase: 46 of 46 (AI Auto-Flow) ✓
-Plan: 4 of 4 complete
-Status: Milestone complete - ready for v1.7
-Last activity: 2026-01-26 — Phase 46 verification passed, milestone complete
+Milestone: v1.7 New Landing Page
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-01-26 — Milestone v1.7 started
 
-Progress: [██████████] 100% (7/7 phases complete)
+Progress: [░░░░░░░░░░] 0%
 
 ## Performance Metrics
 

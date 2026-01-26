@@ -8,23 +8,26 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 
 **Deal flow tracking from interest to close.** If the end-to-end process of connecting investors with properties AND moving them through service providers doesn't work seamlessly, nothing else matters.
 
-## Current Milestone: v1.6 AI-Powered Investor Experience
+## Current Milestone: v1.7 New Landing Page
 
-**Goal:** Transform the post-onboarding experience into an intelligent investor hub with personalized property recommendations, AI-assisted provider team building, and conversational guidance.
+**Goal:** Create a modern, conversion-focused landing page that showcases REOS's value proposition to US investors looking to invest in Israeli real estate.
 
 **Target features:**
-- Investor Summary Page — two-panel design (profile summary + AI assistant)
-- Profile display with inline editing of questionnaire answers
-- AI property recommendations with "quick save all" action
-- AI-powered "dream team" builder (broker, mortgage, lawyer suggestions)
-- Conversational AI for profile insights, property questions, provider recommendations
-- Persistent AI memory via Convex (profile context + selective new data storage)
-- Mobile-responsive with tabbed interface (Profile / AI Assistant tabs)
+- Full-viewport hero section with compelling headline and CTA
+- Partner/trust logos section ("Trusted by...")
+- Key value propositions (headlines section)
+- Feature cards showcasing platform capabilities
+- Client testimonials with social proof
+- Platform video/demo section
+- Contact form with lead capture
+- Responsive footer with navigation
+- Smooth scroll animations with Framer Motion
+- Mobile-optimized with all sections responsive
 
-## Current State (v1.5)
+## Current State (v1.6)
 
-**Latest Shipped:** 2026-01-22
-**Total Shipped:** 6 milestones (v1.0, v1.1, v1.2, v1.3, v1.4, v1.5)
+**Latest Shipped:** 2026-01-26
+**Total Shipped:** 7 milestones (v1.0, v1.1, v1.2, v1.3, v1.4, v1.5, v1.6)
 **LOC:** ~39,549 TypeScript
 **Tech Stack:** Next.js 15, Convex, Clerk, Shadcn/ui, Tailwind v4, Hugeicons, next-intl, Framer Motion
 
@@ -44,13 +47,20 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 - Global search with autocomplete and quick actions
 - Trending content and recommendations
 - Full i18n with Hebrew/RTL support and locale-aware formatting
-- **Mobile-first responsive design with 100dvh viewport and safe-area handling**
-- **Theme switching (Light/Dark/System) with smooth 300ms transitions**
-- **Role-specific bottom tab navigation (5 tabs per role) with Framer Motion animations**
-- **Consolidated header dropdown (notifications + settings + sign out) — custom Clerk UI**
-- **ResponsiveDialog pattern (dialogs on desktop, bottom sheets on mobile)**
-- **44px touch targets on all interactive elements**
-- **Pull-to-refresh on feed pages**
+- Mobile-first responsive design with 100dvh viewport and safe-area handling
+- Theme switching (Light/Dark/System) with smooth 300ms transitions
+- Role-specific bottom tab navigation (5 tabs per role) with Framer Motion animations
+- Consolidated header dropdown (notifications + settings + sign out) — custom Clerk UI
+- ResponsiveDialog pattern (dialogs on desktop, bottom sheets on mobile)
+- 44px touch targets on all interactive elements
+- Pull-to-refresh on feed pages
+- **AI-powered investor summary page with two-panel layout**
+- **Conversational AI assistant with streaming responses**
+- **Property recommendations with match explanations and batch save**
+- **Dream team builder (broker, mortgage, lawyer suggestions)**
+- **AI memory persistence with sliding window + summarization**
+- **Mobile tabbed interface for AI assistant**
+- **Auto-greeting with property and provider recommendations**
 
 ## Requirements
 
@@ -84,18 +94,29 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 - [x] 44px touch targets on all interactive elements — v1.5
 - [x] Pull-to-refresh on feed pages — v1.5
 - [x] Mobile-first grid layouts for property cards and forms — v1.5
+- [x] Investor Summary Page with two-panel layout (profile + AI) — v1.6
+- [x] Profile summary display from questionnaire answers — v1.6
+- [x] Inline editing for profile sections — v1.6
+- [x] AI property recommendations based on investor profile — v1.6
+- [x] "Quick save all" for recommended properties — v1.6
+- [x] AI dream team builder (2-3 suggestions per provider role) — v1.6
+- [x] Conversational AI for profile/property/provider questions — v1.6
+- [x] AI memory persistence via Convex — v1.6
+- [x] Mobile tabbed interface (Profile / AI Assistant) — v1.6
+- [x] Auto-greeting with property and provider recommendations — v1.6
 
 ### Active
 
-- [ ] Investor Summary Page with two-panel layout (profile + AI) — v1.6
-- [ ] Profile summary display from questionnaire answers — v1.6
-- [ ] Inline editing for profile sections — v1.6
-- [ ] AI property recommendations based on investor profile — v1.6
-- [ ] "Quick save all" for recommended properties — v1.6
-- [ ] AI dream team builder (2-3 suggestions per provider role) — v1.6
-- [ ] Conversational AI for profile/property/provider questions — v1.6
-- [ ] AI memory persistence via Convex — v1.6
-- [ ] Mobile tabbed interface (Profile / AI Assistant) — v1.6
+- [ ] Full-viewport hero section with headline and CTA — v1.7
+- [ ] Partner/trust logos section — v1.7
+- [ ] Key value propositions section — v1.7
+- [ ] Feature cards showcasing platform capabilities — v1.7
+- [ ] Client testimonials section — v1.7
+- [ ] Platform video/demo section — v1.7
+- [ ] Contact form with lead capture — v1.7
+- [ ] Responsive footer with navigation — v1.7
+- [ ] Smooth scroll animations — v1.7
+- [ ] Mobile-optimized landing page — v1.7
 
 ### Out of Scope
 
@@ -150,15 +171,16 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 
 ## Next Milestone Goals
 
-**v1.6: AI-Powered Investor Experience** (current)
-- Investor Summary Page with AI assistant
-- Personalized property and provider recommendations
-- Conversational AI guidance
+**v1.7: New Landing Page** (current)
+- Modern, conversion-focused landing page
+- Full sections: Hero, Logos, Features, Testimonials, Video, Contact, Footer
+- Framer Motion animations
+- Mobile-optimized
 
 **Future directions:**
-- v1.7: Advanced mobile features (gestures, haptics, PWA install prompt)
-- v1.7: Analytics and reporting dashboards
+- v1.8: Analytics and reporting dashboards
+- v1.8: Advanced mobile features (PWA, push notifications)
 - v2.0: Major feature expansion (payments, e-signatures)
 
 ---
-*Last updated: 2026-01-22 after v1.6 milestone started*
+*Last updated: 2026-01-26 after v1.7 milestone started*
