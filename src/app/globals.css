@@ -140,11 +140,17 @@
   }
   html {
     overflow-y: scroll;
+    scroll-behavior: smooth;
   }
   body {
     @apply bg-background text-foreground;
     transition: background-color 300ms ease-in-out, color 300ms ease-in-out;
   }
+}
+
+/* Smooth scroll for anchor links - Account for fixed navbar height */
+:target {
+  scroll-margin-top: 5rem; /* 80px to account for navbar height */
 }
 
 /* Prevent Radix scroll-lock from hiding scrollbar - must be outside @layer for higher specificity */
