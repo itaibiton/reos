@@ -51,9 +51,9 @@ const linkGroups: FooterLinkGroup[] = [
 ];
 
 const socialLinks = [
-  { platform: "twitter", icon: Twitter, href: "https://twitter.com/reosapp" },
-  { platform: "linkedin", icon: Linkedin, href: "https://linkedin.com/company/reos" },
-  { platform: "github", icon: Github, href: "https://github.com/reos" },
+  { platform: "twitter", icon: Twitter, href: "https://twitter.com/reosplatform" },
+  { platform: "linkedin", icon: Linkedin, href: "https://linkedin.com/company/reos-platform" },
+  { platform: "github", icon: Github, href: "https://github.com/reos-platform" },
 ];
 
 // ============================================================================
@@ -234,7 +234,7 @@ export function Footer({ className }: FooterProps) {
         {/* Bottom row */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-sm text-muted-foreground">
-            {t("copyright")}
+            {t("copyright").replace("2026", new Date().getFullYear().toString())}
           </p>
 
           {/* Language switcher hint */}
