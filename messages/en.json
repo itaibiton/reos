@@ -513,16 +513,16 @@
       "getStarted": "Get Started"
     },
     "hero": {
-      "badge": "Property Management Reimagined",
-      "headline": "Your Properties, Your Way",
-      "subheadline": "One platform to rule them all",
-      "description": "Comprehensive tools for real estate operations. Manage your entire property portfolio with automated workflows, tenant portals, and financial insights all in one place.",
-      "ctaPrimary": "Start Free Trial",
-      "ctaSecondary": "Watch Demo",
-      "trustLabel": "Trusted by property managers worldwide",
-      "trustProperties": "Properties",
-      "trustSatisfaction": "Satisfaction",
-      "trustSupport": "Support"
+      "badge": "US Investors \u2194 Israeli Real Estate",
+      "headline": "Your Gateway to Israeli Property Investment",
+      "subheadline": "Connect, Track, Close Deals with Confidence",
+      "description": "REOS connects US investors with premium Israeli real estate opportunities. From discovery to closing, manage your entire investment journey on one platform.",
+      "ctaPrimary": "Get Started",
+      "ctaSecondary": "Learn More",
+      "trustLabel": "Trusted by investors nationwide",
+      "trustDeals": "Deals Closed",
+      "trustROI": "Avg. ROI",
+      "trustInvestors": "Active Investors"
     },
     "services": {
       "title": "Everything You Need, All in One Place",
