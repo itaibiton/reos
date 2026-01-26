@@ -64,7 +64,9 @@ Plans:
   2. 3-4 value propositions appear with distinct icons
   3. Each value proposition has brief, scannable description
   4. Sections animate into view as user scrolls (fade-in effect)
-**Plans**: TBD (created during phase planning)
+**Plans:** 1 plan
+Plans:
+- [ ] 49-01-PLAN.md — Create TrustSection and ValuePropsSection components with translations
 
 ### Phase 50: Feature Cards
 **Goal**: Users understand the four core platform capabilities
@@ -112,7 +114,7 @@ Plans:
 |-------|-----------|----------------|--------|-----------|
 | 47. Landing Page Foundation | v1.7 | 2/2 | Complete | 2026-01-26 |
 | 48. Hero Section | v1.7 | 1/1 | Complete | 2026-01-26 |
-| 49. Trust & Value Props | v1.7 | 0/0 | Pending | — |
+| 49. Trust & Value Props | v1.7 | 0/1 | Planned | — |
 | 50. Feature Cards | v1.7 | 0/0 | Pending | — |
 | 51. Testimonials & Video | v1.7 | 0/0 | Pending | — |
 | 52. Contact Form & Polish | v1.7 | 0/0 | Pending | — |
