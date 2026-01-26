@@ -51,7 +51,9 @@ Plans:
   3. Primary CTA button ("Start Investing" or similar) is prominently visible
   4. Hero visual (property images, gradient, or animation) creates professional impression
   5. Scroll indicator animates to guide users to continue scrolling
-**Plans**: TBD (created during phase planning)
+**Plans:** 1 plan
+Plans:
+- [ ] 48-01-PLAN.md — Update Hero component with investor messaging, id attribute, and CTA to #contact
 
 ### Phase 49: Trust & Value Props
 **Goal**: Users see social proof and understand key platform benefits
@@ -109,7 +111,7 @@ Plans:
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
 | 47. Landing Page Foundation | v1.7 | 2/2 | Complete | 2026-01-26 |
-| 48. Hero Section | v1.7 | 0/0 | Pending | — |
+| 48. Hero Section | v1.7 | 0/1 | Planned | — |
 | 49. Trust & Value Props | v1.7 | 0/0 | Pending | — |
 | 50. Feature Cards | v1.7 | 0/0 | Pending | — |
 | 51. Testimonials & Video | v1.7 | 0/0 | Pending | — |
