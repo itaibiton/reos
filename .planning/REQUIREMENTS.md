@@ -22,14 +22,14 @@ Requirements for New Landing Page milestone. Each maps to roadmap phases.
 
 ### Trust/Logos Section
 
-- [ ] **LOGO-01**: "Trusted by" or "Featured in" heading
-- [ ] **LOGO-02**: Logo carousel or grid of partner/media logos
+- [x] **LOGO-01**: "Trusted by" or "Featured in" heading
+- [x] **LOGO-02**: Logo carousel or grid of partner/media logos
 
 ### Value Propositions
 
-- [ ] **VAL-01**: 3-4 key value propositions with icons
-- [ ] **VAL-02**: Brief descriptions for each value prop
-- [ ] **VAL-03**: Scroll-triggered fade-in animations
+- [x] **VAL-01**: 3-4 key value propositions with icons
+- [x] **VAL-02**: Brief descriptions for each value prop
+- [x] **VAL-03**: Scroll-triggered fade-in animations
 
 ### Feature Cards
 
@@ -109,11 +109,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | HERO-03 | Phase 48 | Complete |
 | HERO-04 | Phase 48 | Complete |
 | HERO-05 | Phase 48 | Complete |
-| LOGO-01 | Phase 49 | Pending |
-| LOGO-02 | Phase 49 | Pending |
-| VAL-01 | Phase 49 | Pending |
-| VAL-02 | Phase 49 | Pending |
-| VAL-03 | Phase 49 | Pending |
+| LOGO-01 | Phase 49 | Complete |
+| LOGO-02 | Phase 49 | Complete |
+| VAL-01 | Phase 49 | Complete |
+| VAL-02 | Phase 49 | Complete |
+| VAL-03 | Phase 49 | Complete |
 | FEAT-01 | Phase 50 | Pending |
 | FEAT-02 | Phase 50 | Pending |
 | FEAT-03 | Phase 50 | Pending |
@@ -146,4 +146,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-01-26*
-*Last updated: 2026-01-26 after Phase 48 completion*
+*Last updated: 2026-01-26 after Phase 49 completion*
