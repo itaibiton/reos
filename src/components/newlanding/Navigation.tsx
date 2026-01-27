@@ -267,6 +267,24 @@ export function Navigation({ className }: NavigationProps) {
                   <Menu className="h-6 w-6" />
                 </button>
               </SheetTrigger>
+              <SheetContent side="left" className="w-[300px] sm:w-[350px] px-0 pt-12">
+                <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+
+                {/* Close button */}
+                <SheetClose asChild>
+                  <button
+                    className="absolute top-4 right-4 min-h-[44px] min-w-[44px] flex items-center justify-center hover:bg-foreground/5 rounded-lg transition-colors"
+                    aria-label="Close menu"
+                  >
+                    <X className="h-5 w-5" />
+                  </button>
+                </SheetClose>
+
+                <div className="flex flex-col h-full">
+                  {/* Accordion content added in next task */}
+                  {/* Simple links added in task after that */}
+                </div>
+              </SheetContent>
             </Sheet>
           </div>
 
