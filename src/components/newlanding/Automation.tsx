@@ -70,14 +70,14 @@ export function Automation({ className }: AutomationProps) {
           xmlns="http://www.w3.org/2000/svg"
         >
           <polygon
-            points="0,0 100,30 100,100 0,100"
+            points="0,0 100,15 100,100 0,100"
             fill="#050A12"
           />
           <line
             x1="0"
             y1="0"
             x2="100"
-            y2="30"
+            y2="15"
             stroke="rgba(255,255,255,0.1)"
             strokeWidth="0.2"
           />
