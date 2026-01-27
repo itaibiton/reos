@@ -332,7 +332,7 @@ export function Hero({ className }: HeroProps) {
             <span className="text-xs font-light tracking-wide text-foreground/70 uppercase">{t("badge")}</span>
           </div>
 
-          <h1 className="text-5xl md:text-7xl font-light tracking-tighter text-foreground mb-6 leading-[1.1]">
+          <h1 className="text-3xl md:text-5xl lg:text-7xl font-light tracking-tighter text-foreground mb-6 leading-[1.1]">
             {t("heading")}{" "}
             <br className="hidden md:block" />
             <RotatingText
@@ -344,7 +344,7 @@ export function Hero({ className }: HeroProps) {
                 t("roles.appraisers"),
                 t("roles.propertyManagers")
               ]}
-              mainClassName="px-3 md:px-4 bg-foreground text-background overflow-hidden py-0.5 md:py-1 justify-center rounded-lg"
+              mainClassName="px-2 md:px-3 lg:px-4 bg-foreground text-background overflow-hidden py-0.5 md:py-1 justify-center rounded-lg"
               // staggerFrom="first"
               staggerFrom="random"
               initial={{ y: "100%" }}
@@ -377,14 +377,14 @@ export function Hero({ className }: HeroProps) {
           <div className="flex flex-col sm:flex-row gap-4 ">
             <a
               href="/questionnaire"
-              className="group flex items-center justify-center gap-2 px-6 py-3 bg-foreground text-background rounded-full text-sm font-medium hover:bg-foreground/90 transition-all"
+              className="group flex items-center justify-center gap-2 px-6 py-3 bg-foreground text-background rounded-full text-sm font-medium hover:bg-foreground/90 transition-all w-full sm:w-auto min-h-[44px]"
             >
               <span>{t("cta.primary")}</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </a>
             <a
               href="/properties"
-              className="flex items-center justify-center gap-2 px-6 py-3 border border-border bg-foreground/5 backdrop-blur-sm text-foreground rounded-full text-sm font-medium hover:bg-foreground/10 transition-colors"
+              className="flex items-center justify-center gap-2 px-6 py-3 border border-border bg-foreground/5 backdrop-blur-sm text-foreground rounded-full text-sm font-medium hover:bg-foreground/10 transition-colors w-full sm:w-auto min-h-[44px]"
             >
               <span>{t("cta.secondary")}</span>
             </a>
