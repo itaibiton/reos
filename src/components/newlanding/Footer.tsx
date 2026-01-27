@@ -2,6 +2,7 @@
 
 import { motion, type Variants } from "framer-motion";
 import { Camera, Twitter, Github } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 
 interface FooterProps {
@@ -13,34 +14,35 @@ const fadeInUp: Variants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
-const productLinks = [
-  { label: "Platform", href: "#" },
-  { label: "Data API", href: "#" },
-  { label: "Workflows", href: "#" },
-  { label: "Security", href: "#" },
-];
-
-const solutionsLinks = [
-  { label: "Residential", href: "#" },
-  { label: "Commercial", href: "#" },
-  { label: "Industrial", href: "#" },
-];
-
-const companyLinks = [
-  { label: "About", href: "#" },
-  { label: "Careers", href: "#" },
-  { label: "Blog", href: "#" },
-  { label: "Contact", href: "#" },
-];
-
-const legalLinks = [
-  { label: "Privacy", href: "#" },
-  { label: "Terms", href: "#" },
-  { label: "SLA", href: "#" },
-];
-
 export function Footer({ className }: FooterProps) {
+  const t = useTranslations("landing.footer");
   const currentYear = new Date().getFullYear();
+
+  const productLinks = [
+    { label: t("product.platform"), href: "#" },
+    { label: t("product.dataApi"), href: "#" },
+    { label: t("product.workflows"), href: "#" },
+    { label: t("product.security"), href: "#" },
+  ];
+
+  const solutionsLinks = [
+    { label: t("solutions.residential"), href: "#" },
+    { label: t("solutions.commercial"), href: "#" },
+    { label: t("solutions.industrial"), href: "#" },
+  ];
+
+  const companyLinks = [
+    { label: t("company.about"), href: "#" },
+    { label: t("company.careers"), href: "#" },
+    { label: t("company.blog"), href: "#" },
+    { label: t("company.contact"), href: "#" },
+  ];
+
+  const legalLinks = [
+    { label: t("legal.privacy"), href: "#" },
+    { label: t("legal.terms"), href: "#" },
+    { label: t("legal.sla"), href: "#" },
+  ];
 
   return (
     <motion.footer
@@ -57,15 +59,15 @@ export function Footer({ className }: FooterProps) {
               <div className="w-6 h-6 rounded bg-foreground/10 flex items-center justify-center text-foreground text-xs">
                 R
               </div>
-              <span className="font-normal text-sm tracking-widest text-foreground/90">REOS</span>
+              <span className="font-normal text-sm tracking-widest text-foreground/90">{t("logo")}</span>
             </a>
             <p className="text-sm text-muted-foreground font-light max-w-xs">
-              The financial infrastructure for the world's real estate assets.
+              {t("tagline")}
             </p>
           </div>
 
           <div>
-            <h4 className="text-xs font-semibold text-foreground mb-4 uppercase tracking-wider">Product</h4>
+            <h4 className="text-xs font-semibold text-foreground mb-4 uppercase tracking-wider">{t("sections.product")}</h4>
             <ul className="space-y-3 text-sm text-foreground/50 font-light">
               {productLinks.map((link, index) => (
                 <li key={index}>
@@ -78,7 +80,7 @@ export function Footer({ className }: FooterProps) {
           </div>
 
           <div>
-            <h4 className="text-xs font-semibold text-foreground mb-4 uppercase tracking-wider">Solutions</h4>
+            <h4 className="text-xs font-semibold text-foreground mb-4 uppercase tracking-wider">{t("sections.solutions")}</h4>
             <ul className="space-y-3 text-sm text-foreground/50 font-light">
               {solutionsLinks.map((link, index) => (
                 <li key={index}>
@@ -91,7 +93,7 @@ export function Footer({ className }: FooterProps) {
           </div>
 
           <div>
-            <h4 className="text-xs font-semibold text-foreground mb-4 uppercase tracking-wider">Company</h4>
+            <h4 className="text-xs font-semibold text-foreground mb-4 uppercase tracking-wider">{t("sections.company")}</h4>
             <ul className="space-y-3 text-sm text-foreground/50 font-light">
               {companyLinks.map((link, index) => (
                 <li key={index}>
@@ -104,7 +106,7 @@ export function Footer({ className }: FooterProps) {
           </div>
 
           <div>
-            <h4 className="text-xs font-semibold text-foreground mb-4 uppercase tracking-wider">Legal</h4>
+            <h4 className="text-xs font-semibold text-foreground mb-4 uppercase tracking-wider">{t("sections.legal")}</h4>
             <ul className="space-y-3 text-sm text-foreground/50 font-light">
               {legalLinks.map((link, index) => (
                 <li key={index}>
@@ -119,7 +121,7 @@ export function Footer({ className }: FooterProps) {
 
         <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-border/50">
           <p className="text-xs text-muted-foreground/75 mb-4 md:mb-0">
-            © {currentYear} REOS Technologies Inc. All rights reserved.
+            {t("copyright", { year: currentYear })}
           </p>
           <div className="flex gap-6">
             <a href="#" className="text-muted-foreground/75 hover:text-foreground transition-colors">

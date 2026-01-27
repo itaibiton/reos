@@ -1,5 +1,4 @@
-import { LandingNav } from "@/components/landing/Navigation";
-import { Footer } from "@/components/landing/Footer";
+import { Navigation, Footer } from "@/components/newlanding";
 
 export default function LandingLayout({
   children,
@@ -8,7 +7,7 @@ export default function LandingLayout({
 }) {
   return (
     <>
-      <LandingNav />
+      <Navigation />
       <main className="min-h-dvh">{children}</main>
       <Footer />
     </>

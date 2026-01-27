@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 
 interface SocialProofProps {
@@ -9,6 +10,7 @@ interface SocialProofProps {
 }
 
 export function SocialProof({ className }: SocialProofProps) {
+  const t = useTranslations("landing.socialProof");
   const sectionRef = useRef<HTMLElement>(null);
 
   // Track scroll progress for fade-in animation
@@ -30,7 +32,7 @@ export function SocialProof({ className }: SocialProofProps) {
       }}
     >
       <div className="max-w-7xl mx-auto px-6">
-        <p className="text-center text-sm font-light text-muted-foreground/75 mb-8">TRUSTED BY INNOVATIVE PROPERTY TEAMS</p>
+        <p className="text-center text-sm font-light text-muted-foreground/75 mb-8">{t("label")}</p>
         <div className="flex flex-wrap justify-center gap-12 md:gap-20 opacity-40 grayscale">
           {/* VANGUARD */}
           <div className="flex items-center gap-2">

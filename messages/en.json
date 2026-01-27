@@ -501,324 +501,259 @@
     }
   },
   "landing": {
-    "nav": {
-      "services": "Services",
-      "features": "Features",
-      "pricing": "Pricing",
-      "team": "Team",
-      "faq": "FAQ",
-      "testimonials": "Testimonials",
-      "contact": "Contact",
-      "signIn": "Sign In",
-      "getStarted": "Get Started"
-    },
     "hero": {
-      "badge": "US Investors \u2194 Israeli Real Estate",
-      "headline": "Your Gateway to Israeli Property Investment",
-      "subheadline": "Connect, Track, Close Deals with Confidence",
-      "description": "REOS connects US investors with premium Israeli real estate opportunities. From discovery to closing, manage your entire investment journey on one platform.",
-      "ctaPrimary": "Get Started",
-      "ctaSecondary": "Learn More",
-      "trustLabel": "Trusted by investors nationwide",
-      "trustDeals": "Deals Closed",
-      "trustROI": "Avg. ROI",
-      "trustInvestors": "Active Investors"
-    },
-    "trust": {
-      "heading": "Trusted By Industry Leaders",
-      "subheading": "Join hundreds of investors who trust REOS for their Israeli real estate investments"
-    },
-    "valueProps": {
-      "heading": "Why Choose REOS",
-      "subheading": "Everything you need to invest in Israeli real estate with confidence",
-      "items": [
-        {
-          "key": "network",
-          "icon": "network",
-          "title": "Global Network",
-          "description": "Connect with 50+ verified Israeli partners including agents, lawyers, and accountants"
+      "badge": "The Future of Real Estate Investment",
+      "heading": "The all-in-one real estate operating system for",
+      "roles": {
+        "investors": "Investors",
+        "mortgageAdvisors": "Mortgage Advisors",
+        "brokers": "Brokers",
+        "lawyers": "Lawyers",
+        "appraisers": "Appraisers",
+        "propertyManagers": "Property Managers"
+      },
+      "subheading": "Connecting US investors with Israeli properties — from discovery to closing, all in one platform.",
+      "cta": {
+        "primary": "Start Investing",
+        "secondary": "Explore Properties"
+      },
+      "stats": {
+        "initial": {
+          "transactionVolume": {
+            "value": "$1.5B+",
+            "label": "Transaction Volume"
+          },
+          "propertiesListed": {
+            "value": "500+",
+            "label": "Properties Listed"
+          },
+          "serviceCategories": {
+            "value": "8",
+            "label": "Service Categories"
+          },
+          "aiSupport": {
+            "value": "24/7",
+            "label": "AI Support"
+          }
         },
-        {
-          "key": "tracking",
-          "icon": "tracking",
-          "title": "Deal Tracking",
-          "description": "Follow every deal from initial interest to close with our 7-stage pipeline"
-        },
-        {
-          "key": "partners",
-          "icon": "partners",
-          "title": "Vetted Partners",
-          "description": "Work only with pre-screened, English-speaking service providers"
-        },
-        {
-          "key": "security",
-          "icon": "security",
-          "title": "Secure Platform",
-          "description": "End-to-end encrypted communications and document storage"
+        "switched": {
+          "totalAssets": {
+            "value": "$2.3B+",
+            "label": "Total Assets"
+          },
+          "activeUnits": {
+            "value": "1,200+",
+            "label": "Active Units"
+          },
+          "citiesCovered": {
+            "value": "15",
+            "label": "Cities Covered"
+          },
+          "satisfactionRate": {
+            "value": "98%",
+            "label": "Satisfaction Rate"
+          }
         }
-      ]
-    },
-    "featureCards": {
-      "heading": "Platform Capabilities",
-      "subheading": "Everything you need to invest in Israeli real estate with confidence",
-      "items": [
-        {
-          "key": "property-discovery",
-          "icon": "search",
-          "title": "Property Discovery",
-          "description": "Smart search with AI-powered recommendations to find your perfect Israeli property investment."
+      },
+      "dashboard": {
+        "workspace": "Workspace",
+        "sections": {
+          "main": "Main",
+          "operations": "Operations"
         },
-        {
-          "key": "deal-flow",
-          "icon": "dealFlow",
-          "title": "7-Stage Deal Flow",
-          "description": "Track every step from discovery to closing. Connect with vetted brokers, mortgage advisors, and lawyers."
+        "portfolioPerformance": "Portfolio Performance",
+        "lastUpdated": "Last updated: Just now via API",
+        "propertiesPortfolio": "Properties Portfolio",
+        "propertiesSubtitle": "All active properties • Updated daily",
+        "activityLog": "Activity Log",
+        "menu": {
+          "overview": "Overview",
+          "properties": "Properties",
+          "tenants": "Tenants",
+          "financials": "Financials",
+          "documents": "Documents",
+          "settings": "Settings"
         },
-        {
-          "key": "communication",
-          "icon": "communication",
-          "title": "Real-Time Communication",
-          "description": "Built-in chat and notifications keep you connected with partners and providers throughout your journey."
+        "user": {
+          "name": "John Smith",
+          "role": "Admin"
         },
-        {
-          "key": "ai-assistant",
-          "icon": "aiAssistant",
-          "title": "AI Assistant",
-          "description": "Personalized property recommendations and answers to your investment questions, powered by AI."
+        "tableHeaders": {
+          "asset": "ASSET",
+          "status": "STATUS",
+          "noi": "NOI",
+          "valuation": "VALUATION",
+          "property": "PROPERTY",
+          "location": "LOCATION",
+          "units": "UNITS",
+          "occupancy": "OCCUPANCY",
+          "value": "VALUE"
+        },
+        "timePeriods": {
+          "oneDay": "1D",
+          "oneWeek": "1W",
+          "oneMonth": "1M",
+          "oneYear": "1Y"
+        },
+        "filters": {
+          "all": "All",
+          "active": "Active",
+          "featured": "Featured"
         }
-      ]
-    },
-    "testimonialsVideo": {
-      "heading": "What Our Investors Say",
-      "subheading": "Join thousands of investors who trust REOS for their Israeli real estate journey",
-      "ariaLabel": "Client testimonials and platform demonstration",
-      "testimonials": [
-        {
-          "id": "testimonial-1",
-          "quote": "REOS transformed how I manage my Israeli property investments. The deal flow tracking is exceptional.",
-          "author": "Sarah Johnson",
-          "role": "Real Estate Investor"
-        },
-        {
-          "id": "testimonial-2",
-          "quote": "The AI recommendations helped me find properties I would have never discovered on my own. Incredible platform.",
-          "author": "Michael Chen",
-          "role": "International Investor"
-        },
-        {
-          "id": "testimonial-3",
-          "quote": "From initial search to closing, REOS connected me with the right professionals every step of the way.",
-          "author": "David Rosenberg",
-          "role": "First-time Investor"
-        },
-        {
-          "id": "testimonial-4",
-          "quote": "The real-time communication features keep me updated on all my deals without constant phone calls.",
-          "author": "Rachel Aviv",
-          "role": "Property Developer"
-        }
-      ],
-      "video": {
-        "title": "See REOS in Action",
-        "description": "Watch how REOS simplifies your investment journey from discovery to closing",
-        "playLabel": "Play demonstration video",
-        "videoId": "dQw4w9WgXcQ",
-        "fallbackImage": "/images/landing/video-thumbnail.jpg"
       }
     },
-    "contactForm": {
-      "heading": "Start Your Investment Journey",
-      "subheading": "Tell us about yourself and we'll connect you with the right opportunities",
-      "optional": "optional",
-      "fields": {
-        "name": {
-          "label": "Full Name",
-          "placeholder": "John Smith"
+    "navigation": {
+      "logo": "REOS",
+      "menu": {
+        "platform": "Platform",
+        "solutions": "Solutions",
+        "institutions": "Institutions",
+        "developers": "Developers"
+      },
+      "platform": {
+        "propertyManagement": {
+          "title": "Property Management",
+          "description": "Centralized platform for managing your entire portfolio"
         },
-        "email": {
-          "label": "Email Address",
-          "placeholder": "john@example.com"
+        "automationEngine": {
+          "title": "Automation Engine",
+          "description": "Automate workflows and reduce manual operations"
         },
-        "phone": {
-          "label": "Phone Number",
-          "placeholder": "+1 (555) 123-4567"
-        },
-        "investorType": {
-          "label": "Investor Type",
-          "placeholder": "Select your experience level"
-        },
-        "message": {
-          "label": "Message",
-          "placeholder": "Tell us about your investment goals..."
+        "enterpriseSecurity": {
+          "title": "Enterprise Security",
+          "description": "Bank-grade security and compliance infrastructure"
         }
       },
-      "investorTypes": {
-        "firstTime": "First-Time Investor",
-        "experienced": "Experienced Investor",
-        "institutional": "Institutional Investor",
-        "other": "Other"
+      "solutions": {
+        "residential": {
+          "title": "Residential",
+          "description": "Purpose-built for multifamily and residential properties"
+        },
+        "commercial": {
+          "title": "Commercial",
+          "description": "Optimize office, retail, and mixed-use properties"
+        },
+        "industrial": {
+          "title": "Industrial",
+          "description": "Manage warehouses and industrial facilities at scale"
+        }
       },
-      "submit": "Get Started",
-      "submitting": "Submitting...",
-      "success": {
-        "title": "Thank You!",
-        "message": "We've received your information and will be in touch within 24 hours."
-      },
-      "errors": {
-        "submitFailed": "Something went wrong. Please try again."
+      "actions": {
+        "login": "Log in",
+        "getStarted": "Get Started"
       }
     },
-    "services": {
-      "title": "Everything You Need, All in One Place",
-      "subtitle": "Stop juggling multiple tools and systems. REOS brings property management, tenant communication, and financial insights together so you can run your portfolio with confidence."
+    "socialProof": {
+      "label": "TRUSTED BY INNOVATIVE PROPERTY TEAMS"
     },
     "features": {
-      "title": "Powerful Features",
-      "subtitle": "Built for modern property managers who demand efficiency without compromise.",
-      "portfolioDashboard": {
-        "title": "Portfolio Dashboard",
-        "description": "See your entire portfolio at a glance. Monitor occupancy, track lease renewals, and spot opportunities before they pass you by."
-      },
-      "tenantSelfService": {
-        "title": "Tenant Self-Service",
-        "description": "Empower tenants with online rent payments, maintenance requests, and document access. Fewer phone calls, happier tenants."
-      },
-      "automatedWorkflows": {
-        "title": "Automated Workflows",
-        "description": "Set it and forget it. Automated rent reminders, lease renewals, and maintenance scheduling keep your operations running smoothly."
-      },
-      "financialInsights": {
-        "title": "Financial Insights",
-        "description": "Real-time dashboards show revenue, expenses, and cash flow across your portfolio. Make data-driven decisions with confidence."
-      },
-      "documentManagement": {
-        "title": "Document Management",
-        "description": "Secure cloud storage for leases, contracts, and compliance documents. Find anything in seconds with powerful search."
-      },
-      "teamCollaboration": {
-        "title": "Team Collaboration",
-        "description": "Keep your team aligned with shared calendars, task assignments, and unified communication channels."
-      }
-    },
-    "process": {
-      "title": "Up and Running in Minutes",
-      "subtitle": "Four simple steps to transform how you manage properties. No technical expertise required—just follow the path and start saving time today."
-    },
-    "pricing": {
-      "title": "Simple, Transparent Pricing",
-      "subtitle": "Choose the plan that fits your portfolio. No hidden fees, no surprises.",
-      "monthly": "Monthly",
-      "yearly": "Yearly",
-      "save": "Save 20%",
-      "starter": {
-        "name": "Starter",
-        "description": "Perfect for landlords just getting started",
-        "price": "$29",
-        "period": "/month",
-        "units": "Up to 10 units",
-        "features": {
-          "0": "Basic property dashboard",
-          "1": "Tenant portal",
-          "2": "Online rent collection",
-          "3": "Email support",
-          "4": "Mobile app access"
+      "heading": "Everything You Need",
+      "headingAccent": "in One Platform",
+      "subheading": "Here's why investors choose REOS for their Israeli real estate journey.",
+      "cards": {
+        "smartDiscovery": {
+          "title": "Smart Property Discovery",
+          "description": "AI-powered search that understands your investment goals. Filter by ROI, location, property type, and budget — or just describe what you're looking for in plain English."
         },
-        "cta": "Start Free Trial"
-      },
-      "professional": {
-        "name": "Professional",
-        "description": "For growing property managers",
-        "price": "$79",
-        "period": "/month",
-        "units": "Up to 50 units",
-        "popular": "Most Popular",
-        "features": {
-          "0": "Everything in Starter",
-          "1": "Advanced analytics",
-          "2": "Automated workflows",
-          "3": "Document management",
-          "4": "Priority support",
-          "5": "API access"
+        "dealFlow": {
+          "title": "Deal Flow Tracking",
+          "description": "Track every deal from interest to closing. Automatic handoffs between service providers, full activity history, and real-time status updates."
         },
-        "cta": "Start Free Trial"
-      },
-      "enterprise": {
-        "name": "Enterprise",
-        "description": "For large portfolios and teams",
-        "price": "Custom",
-        "period": "",
-        "units": "Unlimited units",
-        "features": {
-          "0": "Everything in Professional",
-          "1": "Custom integrations",
-          "2": "Dedicated account manager",
-          "3": "SLA guarantee",
-          "4": "On-premise option",
-          "5": "Training & onboarding"
+        "vettedProviders": {
+          "title": "Vetted Service Providers",
+          "description": "Access pre-screened Israeli professionals: brokers, mortgage advisors, lawyers, appraisers, tax consultants, and notaries — all specialized in working with US investors."
         },
-        "cta": "Contact Sales"
-      }
-    },
-    "team": {
-      "title": "The People Behind REOS",
-      "subtitle": "We started REOS because we believe property managers deserve better tools. Our team combines real estate expertise with technical innovation to build software that actually works for you."
-    },
-    "faq": {
-      "title": "Frequently Asked Questions",
-      "subtitle": "Everything you need to know about REOS and how it can transform your property management.",
-      "questions": {
-        "whatIs": {
-          "question": "What is REOS?",
-          "answer": "REOS is a comprehensive property management platform designed for modern landlords and property managers. It combines portfolio tracking, tenant communication, financial management, and automation tools into one intuitive interface."
-        },
-        "pricing": {
-          "question": "How does pricing work?",
-          "answer": "We offer three tiers based on portfolio size: Starter ($29/month for up to 10 units), Professional ($79/month for up to 50 units), and Enterprise (custom pricing for unlimited units). All plans include a 14-day free trial with no credit card required."
-        },
-        "services": {
-          "question": "Which services are included?",
-          "answer": "Every plan includes core features like property dashboard, tenant portal, online rent collection, and maintenance tracking. Higher tiers add advanced analytics, automated workflows, document management, and priority support."
-        },
-        "trial": {
-          "question": "Is there a free trial?",
-          "answer": "Yes! All plans come with a 14-day free trial with full access to features. No credit card required to start. You can upgrade, downgrade, or cancel anytime."
-        },
-        "getStarted": {
-          "question": "How do I get started?",
-          "answer": "Sign up takes less than 2 minutes. Create your account, add your first property, and you're ready to go. We also offer guided onboarding and a library of help resources to get you up to speed quickly."
+        "aiAdvisor": {
+          "title": "AI Investment Advisor",
+          "description": "Your 24/7 Claude-powered assistant that answers questions, explains Israeli market dynamics, and guides you through every decision."
         }
+      }
+    },
+    "automation": {
+      "heading": "Your Dream Team,",
+      "headingAccent": "Orchestrated",
+      "subheading": "REOS orchestrates your entire real estate investment — connecting you with vetted service providers through a single dashboard. No more juggling 6+ professionals independently.",
+      "providers": {
+        "brokers": {
+          "title": "Real Estate Brokers",
+          "description": "Specialists in Israeli investment properties who understand US investor needs."
+        },
+        "mortgageAdvisors": {
+          "title": "Mortgage Advisors",
+          "description": "Israeli mortgage experts who navigate financing options for foreign investors."
+        },
+        "lawyers": {
+          "title": "Real Estate Lawyers",
+          "description": "Legal professionals experienced in cross-border property transactions."
+        },
+        "appraisers": {
+          "title": "Appraisers",
+          "description": "Certified valuators providing accurate property assessments."
+        },
+        "taxConsultants": {
+          "title": "Tax Consultants",
+          "description": "US-Israel tax specialists optimizing your investment structure."
+        }
+      }
+    },
+    "stats": {
+      "assetsUnderManagement": {
+        "value": "$40B+",
+        "label": "Assets under management"
+      },
+      "unitsPowered": {
+        "value": "2.5M",
+        "label": "Units powered"
+      },
+      "uptimeSLA": {
+        "value": "99.99%",
+        "label": "Uptime SLA"
+      },
+      "apiIntegrations": {
+        "value": "140+",
+        "label": "API Integrations"
+      }
+    },
+    "cta": {
+      "heading": "Ready to upgrade your OS?",
+      "subheading": "Join the leading institutional owners running their portfolios on REOS.",
+      "actions": {
+        "contactSales": "Contact Sales",
+        "viewPricing": "View Pricing"
       }
     },
     "footer": {
-      "description": "Connecting US investors with Israeli real estate opportunities. Your trusted partner for cross-border property investment.",
-      "platform": {
-        "title": "Platform",
-        "features": "Features",
-        "howItWorks": "How It Works",
-        "forInvestors": "For Investors",
-        "forProviders": "For Providers"
+      "logo": "REOS",
+      "tagline": "The financial infrastructure for the world's real estate assets.",
+      "sections": {
+        "product": "Product",
+        "solutions": "Solutions",
+        "company": "Company",
+        "legal": "Legal"
+      },
+      "product": {
+        "platform": "Platform",
+        "dataApi": "Data API",
+        "workflows": "Workflows",
+        "security": "Security"
+      },
+      "solutions": {
+        "residential": "Residential",
+        "commercial": "Commercial",
+        "industrial": "Industrial"
       },
       "company": {
-        "title": "Company",
-        "about": "About Us",
-        "contact": "Contact",
-        "careers": "Careers"
+        "about": "About",
+        "careers": "Careers",
+        "blog": "Blog",
+        "contact": "Contact"
       },
       "legal": {
-        "title": "Legal",
-        "privacy": "Privacy Policy",
-        "terms": "Terms of Service"
+        "privacy": "Privacy",
+        "terms": "Terms",
+        "sla": "SLA"
       },
-      "contact": {
-        "email": "hello@reos.io",
-        "phone": "+1 (212) 555-0123"
-      },
-      "social": {
-        "twitter": "Follow us on Twitter",
-        "linkedin": "Connect on LinkedIn",
-        "github": "View our GitHub"
-      },
-      "copyright": "© 2026 REOS. All rights reserved."
+      "copyright": "© {year} REOS Technologies Inc. All rights reserved."
     }
   },
   "properties": {

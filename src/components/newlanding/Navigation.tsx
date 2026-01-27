@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
+import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import {
   Menu,
@@ -32,6 +33,7 @@ interface NavigationProps {
 }
 
 export function Navigation({ className }: NavigationProps) {
+  const t = useTranslations("landing.navigation");
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { theme, setTheme } = useTheme();
@@ -110,7 +112,7 @@ export function Navigation({ className }: NavigationProps) {
             <div className="w-8 h-8 rounded bg-foreground/5 border border-border flex items-center justify-center group-hover:border-border/100 transition-colors">
               <span className="font-medium tracking-tighter text-sm text-foreground">R</span>
             </div>
-            <span className="font-normal text-sm tracking-widest text-foreground/90">REOS</span>
+            <span className="font-normal text-sm tracking-widest text-foreground/90">{t("logo")}</span>
           </a>
 
           <div className="hidden md:flex items-center">
@@ -119,7 +121,7 @@ export function Navigation({ className }: NavigationProps) {
                 {/* Platform Dropdown */}
                 <NavigationMenuItem>
                   <NavigationMenuTrigger className="text-sm font-light bg-transparent hover:bg-foreground/5 data-[state=open]:bg-foreground/5">
-                    Platform
+                    {t("menu.platform")}
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <ul className="grid w-[400px] gap-3 p-4">
@@ -131,10 +133,10 @@ export function Navigation({ className }: NavigationProps) {
                           >
                             <div className="flex items-center gap-2 text-sm font-medium leading-none">
                               <Building2 className="h-4 w-4" />
-                              Property Management
+                              {t("platform.propertyManagement.title")}
                             </div>
                             <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              Centralized platform for managing your entire portfolio
+                              {t("platform.propertyManagement.description")}
                             </p>
                           </a>
                         </NavigationMenuLink>
@@ -147,10 +149,10 @@ export function Navigation({ className }: NavigationProps) {
                           >
                             <div className="flex items-center gap-2 text-sm font-medium leading-none">
                               <Workflow className="h-4 w-4" />
-                              Automation Engine
+                              {t("platform.automationEngine.title")}
                             </div>
                             <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              Automate workflows and reduce manual operations
+                              {t("platform.automationEngine.description")}
                             </p>
                           </a>
                         </NavigationMenuLink>
@@ -163,10 +165,10 @@ export function Navigation({ className }: NavigationProps) {
                           >
                             <div className="flex items-center gap-2 text-sm font-medium leading-none">
                               <Shield className="h-4 w-4" />
-                              Enterprise Security
+                              {t("platform.enterpriseSecurity.title")}
                             </div>
                             <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              Bank-grade security and compliance infrastructure
+                              {t("platform.enterpriseSecurity.description")}
                             </p>
                           </a>
                         </NavigationMenuLink>
@@ -178,7 +180,7 @@ export function Navigation({ className }: NavigationProps) {
                 {/* Solutions Dropdown */}
                 <NavigationMenuItem>
                   <NavigationMenuTrigger className="text-sm font-light bg-transparent hover:bg-foreground/5 data-[state=open]:bg-foreground/5">
-                    Solutions
+                    {t("menu.solutions")}
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <ul className="grid w-[400px] gap-3 p-4">
@@ -190,10 +192,10 @@ export function Navigation({ className }: NavigationProps) {
                           >
                             <div className="flex items-center gap-2 text-sm font-medium leading-none">
                               <Home className="h-4 w-4" />
-                              Residential
+                              {t("solutions.residential.title")}
                             </div>
                             <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              Purpose-built for multifamily and residential properties
+                              {t("solutions.residential.description")}
                             </p>
                           </a>
                         </NavigationMenuLink>
@@ -206,10 +208,10 @@ export function Navigation({ className }: NavigationProps) {
                           >
                             <div className="flex items-center gap-2 text-sm font-medium leading-none">
                               <Building className="h-4 w-4" />
-                              Commercial
+                              {t("solutions.commercial.title")}
                             </div>
                             <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              Optimize office, retail, and mixed-use properties
+                              {t("solutions.commercial.description")}
                             </p>
                           </a>
                         </NavigationMenuLink>
@@ -222,10 +224,10 @@ export function Navigation({ className }: NavigationProps) {
                           >
                             <div className="flex items-center gap-2 text-sm font-medium leading-none">
                               <Factory className="h-4 w-4" />
-                              Industrial
+                              {t("solutions.industrial.title")}
                             </div>
                             <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              Manage warehouses and industrial facilities at scale
+                              {t("solutions.industrial.description")}
                             </p>
                           </a>
                         </NavigationMenuLink>
@@ -240,7 +242,7 @@ export function Navigation({ className }: NavigationProps) {
                     href="#"
                     className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-light hover:bg-foreground/5 transition-colors"
                   >
-                    Institutions
+                    {t("menu.institutions")}
                   </a>
                 </NavigationMenuItem>
 
@@ -249,7 +251,7 @@ export function Navigation({ className }: NavigationProps) {
                     href="#"
                     className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-light hover:bg-foreground/5 transition-colors"
                   >
-                    Developers
+                    {t("menu.developers")}
                   </a>
                 </NavigationMenuItem>
               </NavigationMenuList>
@@ -257,7 +259,7 @@ export function Navigation({ className }: NavigationProps) {
           </div>
 
           <div className="flex items-center gap-4">
-            <a href="#" className="text-xs font-medium text-foreground/80 hover:text-foreground transition-colors hidden sm:block">Log in</a>
+            <a href="#" className="text-xs font-medium text-foreground/80 hover:text-foreground transition-colors hidden sm:block">{t("actions.login")}</a>
 
             {/* Theme Toggle */}
             {mounted && (
@@ -275,7 +277,7 @@ export function Navigation({ className }: NavigationProps) {
             )}
 
             <a href="#" className="text-xs font-medium bg-foreground text-background px-4 py-2 rounded-full hover:bg-foreground/90 transition-colors">
-              Get Started
+              {t("actions.getStarted")}
             </a>
           </div>
         </div>

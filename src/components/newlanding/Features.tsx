@@ -1,8 +1,10 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import { ShieldCheck, TrendingUp, Code2 } from "lucide-react";
+import { Search, Workflow, Users, Bot } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
+import { LayoutGrid } from "@/components/ui/layout-grid";
 
 interface FeaturesProps {
   className?: string;
@@ -13,88 +15,116 @@ const fadeInUp: Variants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
-const stagger: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
+const SkeletonOne = ({ t }: { t: any }) => {
+  return (
+    <div className="h-full w-full">
+      <p className="font-light text-4xl text-black dark:text-white">{t("cards.smartDiscovery.title")}</p>
+      <p className="font-normal text-base my-4 max-w-lg text-black/70 dark:text-white/70">
+        {t("cards.smartDiscovery.description")}
+      </p>
+    </div>
+  );
 };
 
-const featureCard: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+const SkeletonTwo = ({ t }: { t: any }) => {
+  return (
+    <div className="h-full w-full">
+      <p className="font-light text-4xl text-white">{t("cards.dealFlow.title")}</p>
+      <p className="font-normal text-base my-4 max-w-lg text-white/70">
+        {t("cards.dealFlow.description")}
+      </p>
+    </div>
+  );
 };
 
-const features = [
-  {
-    icon: ShieldCheck,
-    title: "Institutional Custody",
-    description: "Bank-grade security standards for sensitive tenant data and financial records, fully compliant with SOC2 Type II.",
-    color: "blue",
-  },
-  {
-    icon: TrendingUp,
-    title: "Real-time Settlements",
-    description: "Automated rent collection and vendor payouts via integrated rails, reducing settlement times from days to seconds.",
-    color: "purple",
-  },
-  {
-    icon: Code2,
-    title: "Programmable Assets",
-    description: "Developer-first API allows you to build custom valuation models and automated maintenance triggers effortlessly.",
-    color: "green",
-  },
-];
+const SkeletonThree = ({ t }: { t: any }) => {
+  return (
+    <div className="h-full w-full">
+      <p className="font-light text-4xl text-white">{t("cards.vettedProviders.title")}</p>
+      <p className="font-normal text-base my-4 max-w-lg text-white/70">
+        {t("cards.vettedProviders.description")}
+      </p>
+    </div>
+  );
+};
+
+const SkeletonFour = ({ t }: { t: any }) => {
+  return (
+    <div className="h-full w-full flex">
+      {/* Left side - Text on white background */}
+      <div className="w-1/2 bg-white dark:bg-zinc-900 p-8 flex flex-col justify-center">
+        <p className="font-light text-4xl text-black dark:text-white mb-4">{t("cards.aiAdvisor.title")}</p>
+        <p className="font-normal text-base text-black/70 dark:text-white/70">
+          {t("cards.aiAdvisor.description")}
+        </p>
+      </div>
+
+      {/* Right side - Video */}
+      <div className="w-1/2 relative overflow-hidden">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="/AIChatAdvisor.mp4" type="video/mp4" />
+        </video>
+      </div>
+    </div>
+  );
+};
 
 export function Features({ className }: FeaturesProps) {
+  const t = useTranslations("landing.features");
+
+  const cards = [
+    {
+      id: 1,
+      content: <SkeletonOne t={t} />,
+      className: "md:col-span-2",
+      thumbnail: "white",
+    },
+    {
+      id: 2,
+      content: <SkeletonTwo t={t} />,
+      className: "col-span-1",
+      thumbnail: "/pexels-karola-g-7875996.jpg",
+    },
+    {
+      id: 3,
+      content: <SkeletonThree t={t} />,
+      className: "col-span-1",
+      thumbnail: "",
+    },
+    {
+      id: 4,
+      content: <SkeletonFour t={t} />,
+      className: "md:col-span-2",
+      thumbnail: "custom",
+    },
+  ];
+
   return (
     <motion.section
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
       variants={fadeInUp}
-      className={cn("py-24 relative", className)}
+      className={cn("py-12 md:py-16 relative min-h-screen flex items-center", className)}
     >
-      <div className="max-w-7xl mx-auto px-6">
-        <motion.div variants={fadeInUp} className="max-w-3xl mb-16">
-          <h2 className="text-3xl md:text-5xl font-light tracking-tighter text-foreground mb-6">
-            Infrastructure for the <br />
-            <span className="text-foreground/40">digital asset era.</span>
+      <div className="max-w-7xl mx-auto px-6 w-full">
+        <motion.div variants={fadeInUp} className="max-w-3xl mb-8 md:mb-12">
+          <h2 className="text-3xl md:text-5xl font-light tracking-tighter text-foreground mb-4">
+            {t("heading")} <br />
+            <span className="text-foreground/40">{t("headingAccent")}</span>
           </h2>
           <p className="text-lg text-foreground/50 font-light leading-relaxed">
-            REOS replaces fragmented spreadsheets and legacy ERPs with a single, secure, and programmable layer for your entire real estate operation.
+            {t("subheading")}
           </p>
         </motion.div>
 
-        <motion.div
-          variants={stagger}
-          className="grid grid-cols-1 md:grid-cols-3 gap-6"
-        >
-          {features.map((feature, index) => (
-            <motion.div
-              key={index}
-              variants={featureCard}
-              className="group p-8 rounded-xl border border-border/50 bg-foreground/[0.02] hover:bg-foreground/[0.04] transition-colors relative overflow-hidden"
-            >
-              <div className={cn(
-                "absolute top-0 right-0 w-32 h-32 blur-[50px] rounded-full transition-all",
-                feature.color === "blue" && "bg-blue-500/10 group-hover:bg-blue-500/20",
-                feature.color === "purple" && "bg-purple-500/10 group-hover:bg-purple-500/20",
-                feature.color === "green" && "bg-green-500/10 group-hover:bg-green-500/20"
-              )}></div>
-              <div className="w-12 h-12 rounded-lg bg-foreground/5 flex items-center justify-center text-foreground mb-6 border border-border relative z-10">
-                <feature.icon className="w-6 h-6" strokeWidth={1.5} />
-              </div>
-              <h3 className="text-lg font-normal text-foreground mb-3 relative z-10">{feature.title}</h3>
-              <p className="text-sm text-foreground/50 leading-relaxed font-light relative z-10">
-                {feature.description}
-              </p>
-            </motion.div>
-          ))}
-        </motion.div>
+        <LayoutGrid cards={cards} />
       </div>
     </motion.section>
   );

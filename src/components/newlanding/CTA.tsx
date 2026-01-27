@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 
 interface CTAProps {
@@ -13,6 +14,7 @@ const fadeInUp: Variants = {
 };
 
 export function CTA({ className }: CTAProps) {
+  const t = useTranslations("landing.cta");
   return (
     <motion.section
       initial="hidden"
@@ -24,17 +26,17 @@ export function CTA({ className }: CTAProps) {
       <div className="absolute inset-0 bg-blue-900/5"></div>
       <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
         <h2 className="text-4xl md:text-6xl font-light tracking-tighter text-foreground mb-6">
-          Ready to upgrade your OS?
+          {t("heading")}
         </h2>
         <p className="text-lg text-foreground/50 font-light mb-10 max-w-xl mx-auto">
-          Join the leading institutional owners running their portfolios on REOS.
+          {t("subheading")}
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <button className="px-8 py-4 bg-foreground text-background rounded-full font-medium hover:bg-foreground/90 transition-colors w-full sm:w-auto">
-            Contact Sales
+            {t("actions.contactSales")}
           </button>
           <button className="px-8 py-4 bg-transparent border border-border text-foreground rounded-full font-medium hover:bg-foreground/5 transition-colors w-full sm:w-auto">
-            View Pricing
+            {t("actions.viewPricing")}
           </button>
         </div>
       </div>

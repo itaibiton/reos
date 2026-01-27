@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 
 interface StatsProps {
@@ -28,11 +29,12 @@ const statItem: Variants = {
 };
 
 export function Stats({ className }: StatsProps) {
+  const t = useTranslations("landing.stats");
   const stats = [
-    { value: "$40B+", label: "Assets under management" },
-    { value: "2.5M", label: "Units powered" },
-    { value: "99.99%", label: "Uptime SLA" },
-    { value: "140+", label: "API Integrations" },
+    { value: t("assetsUnderManagement.value"), label: t("assetsUnderManagement.label") },
+    { value: t("unitsPowered.value"), label: t("unitsPowered.label") },
+    { value: t("uptimeSLA.value"), label: t("uptimeSLA.label") },
+    { value: t("apiIntegrations.value"), label: t("apiIntegrations.label") },
   ];
 
   return (

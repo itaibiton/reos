@@ -2,6 +2,8 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, type Variants, useScroll, useTransform, useMotionValue, animate, useMotionValueEvent } from "framer-motion";
+import { useTranslations } from "next-intl";
+import RotatingText from "@/components/ui/rotating-text";
 import {
   ArrowRight,
   PlayCircle,
@@ -38,26 +40,7 @@ const stagger: Variants = {
   },
 };
 
-// Initial menu items (Overview active)
-const initialMenuItems = [
-  { icon: PieChart, label: "Overview", active: true },
-  { icon: Building2, label: "Properties", active: false },
-  { icon: Users, label: "Tenants", active: false, badge: "12" },
-  { icon: Wallet, label: "Financials", active: false },
-];
-
-// Switched menu items (Properties active)
-const switchedMenuItems = [
-  { icon: PieChart, label: "Overview", active: false },
-  { icon: Building2, label: "Properties", active: true },
-  { icon: Users, label: "Tenants", active: false, badge: "12" },
-  { icon: Wallet, label: "Financials", active: false },
-];
-
-const operationsItems = [
-  { icon: FileText, label: "Documents", active: false },
-  { icon: Settings, label: "Settings", active: false },
-];
+// Menu items are now generated dynamically using translations inside the component
 
 const assets = [
   { name: "Skyline Tower", icon: Building, status: "Active", noi: "$1.2M", valuation: "$45.2M", color: "blue" },
@@ -162,52 +145,53 @@ function CountUp({
 }
 
 // DecryptedText Component
-function DecryptedText({ 
-  text, 
+function DecryptedText({
+  text,
   speed = 50,
   maxIterations = 10,
-  isVisible = true 
-}: { 
-  text: string; 
+  isVisible = true
+}: {
+  text: string;
   speed?: number;
   maxIterations?: number;
   isVisible?: boolean;
 }) {
   const [displayText, setDisplayText] = useState("");
-  const hasDecryptedRef = useRef(false);
+  const prevTextRef = useRef(text);
 
-  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?";
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?/";
 
   useEffect(() => {
     if (!isVisible) {
       setDisplayText("");
-      hasDecryptedRef.current = false;
       return;
     }
 
-    if (hasDecryptedRef.current) return; // Don't re-decrypt if already decrypted
+    // Reset animation when text changes
+    if (prevTextRef.current !== text) {
+      prevTextRef.current = text;
+    }
 
-    hasDecryptedRef.current = true;
     let iteration = 0;
     const totalIterations = text.length * 3; // More iterations for longer animation
     let currentIteration = 0;
-    
+
     const interval = setInterval(() => {
       // Calculate which characters should be revealed based on progress
       const progress = currentIteration / totalIterations;
       const revealedCount = Math.floor(progress * text.length);
-      
+
       const newText = text
         .split("")
         .map((letter, index) => {
-          if (letter === " ") return " "; // Preserve spaces
+          if (letter === " " || letter === ":" || letter === "/" || letter === ".") return letter; // Preserve special chars
           if (index < revealedCount) {
             return text[index];
           }
           return chars[Math.floor(Math.random() * chars.length)];
         })
         .join("");
-      
+
       setDisplayText(newText);
 
       currentIteration++;
@@ -228,21 +212,7 @@ function DecryptedText({
   return <span>{displayText || text}</span>;
 }
 
-// Initial stats
-const initialStats = [
-  { value: "$1.5B+", label: "Transaction Volume" },
-  { value: "500+", label: "Properties Listed" },
-  { value: "8", label: "Service Categories" },
-  { value: "24/7", label: "AI Support" },
-];
-
-// Switched stats (shown at middle of scroll)
-const switchedStats = [
-  { value: "$2.3B+", label: "Total Assets" },
-  { value: "1,200+", label: "Active Units" },
-  { value: "15", label: "Cities Covered" },
-  { value: "98%", label: "Satisfaction Rate" },
-];
+// Stats are now generated dynamically using translations inside the component
 
 // Properties view content
 const propertiesData = [
@@ -253,6 +223,7 @@ const propertiesData = [
 ];
 
 export function Hero({ className }: HeroProps) {
+  const t = useTranslations("landing.hero");
   const [sidebarExpanded, setSidebarExpanded] = useState(true);
   const heroRef = useRef<HTMLElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
@@ -287,6 +258,14 @@ export function Hero({ className }: HeroProps) {
   const [initialStatsVisible, setInitialStatsVisible] = useState(false);
   const [switchedStatsVisible, setSwitchedStatsVisible] = useState(false);
 
+  // Track active menu item based on scroll
+  const [activeMenuItem, setActiveMenuItem] = useState<"Overview" | "Properties">("Overview");
+
+  // URL changes based on active menu item
+  const mockupUrl = activeMenuItem === "Overview"
+    ? "reos.internal/dashboard/overview"
+    : "reos.internal/dashboard/properties";
+
   useMotionValueEvent(statsOpacity, "change", (latest) => {
     if (latest > 0.3 && !initialStatsVisible) {
       setInitialStatsVisible(true);
@@ -296,6 +275,14 @@ export function Hero({ className }: HeroProps) {
   useMotionValueEvent(switchedContentOpacity, "change", (latest) => {
     if (latest > 0.3 && !switchedStatsVisible) {
       setSwitchedStatsVisible(true);
+    }
+  });
+
+  useMotionValueEvent(switchProgress, "change", (latest) => {
+    if (latest > 0.5) {
+      setActiveMenuItem("Properties");
+    } else {
+      setActiveMenuItem("Overview");
     }
   });
 
@@ -334,39 +321,72 @@ export function Hero({ className }: HeroProps) {
       {/* Ambient Light */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blue-900/10 blur-[120px] rounded-full pointer-events-none"></div>
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="max-w-7xl mx-auto relative z-10">
         {/* Centered Hero Content */}
         <motion.div
           variants={fadeInUp}
-          className="max-w-4xl mx-auto text-center"
+          className="mx-auto"
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-foreground/5 backdrop-blur-sm mb-8">
             <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span>
-            <span className="text-xs font-light tracking-wide text-foreground/70 uppercase">The Future of Real Estate Investment</span>
+            <span className="text-xs font-light tracking-wide text-foreground/70 uppercase">{t("badge")}</span>
           </div>
 
           <h1 className="text-5xl md:text-7xl font-light tracking-tighter text-foreground mb-6 leading-[1.1]">
-            Israeli Real Estate Investment, <br />
-            <span className="text-foreground/40">Simplified</span>
+            {t("heading")}{" "}
+            <br className="hidden md:block" />
+            <RotatingText
+              texts={[
+                t("roles.investors"),
+                t("roles.mortgageAdvisors"),
+                t("roles.brokers"),
+                t("roles.lawyers"),
+                t("roles.appraisers"),
+                t("roles.propertyManagers")
+              ]}
+              mainClassName="px-3 md:px-4 bg-foreground text-background overflow-hidden py-0.5 md:py-1 justify-center rounded-lg"
+              // staggerFrom="first"
+              staggerFrom="random"
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "-120%" }}
+              staggerDuration={0.01}
+              splitLevelClassName="overflow-hidden pb-0.5 md:pb-1"
+              transition={{ type: "spring", damping: 30, stiffness: 400 }}
+              animatePresenceMode="popLayout"
+              rotationInterval={2500}
+            />
+            {/* <RotatingText
+  texts={['React', 'Bits', 'Is', 'Cool!']}
+  mainClassName="px-2 sm:px-2 md:px-3 bg-cyan-300 text-black overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg"
+  staggerFrom={"last"}
+  initial={{ y: "100%" }}
+  animate={{ y: 0 }}
+  exit={{ y: "-120%" }}
+  staggerDuration={0.025}
+  splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
+  transition={{ type: "spring", damping: 30, stiffness: 400 }}
+  rotationInterval={2000}
+/> */}
           </h1>
 
-          <p className="text-lg md:text-xl text-foreground/50 font-light max-w-2xl mx-auto mb-10 leading-relaxed">
-            The all-in-one platform connecting US investors with Israeli properties — from discovery to closing.
+          <p className="text-lg md:text-xl text-foreground/50 font-light max-w-2xl mb-10 leading-relaxed">
+            {t("subheading")}
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 ">
             <a
               href="/questionnaire"
               className="group flex items-center justify-center gap-2 px-6 py-3 bg-foreground text-background rounded-full text-sm font-medium hover:bg-foreground/90 transition-all"
             >
-              <span>Start Investing</span>
+              <span>{t("cta.primary")}</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </a>
             <a
               href="/properties"
               className="flex items-center justify-center gap-2 px-6 py-3 border border-border bg-foreground/5 backdrop-blur-sm text-foreground rounded-full text-sm font-medium hover:bg-foreground/10 transition-colors"
             >
-              <span>Explore Properties</span>
+              <span>{t("cta.secondary")}</span>
             </a>
           </div>
         </motion.div>
@@ -374,28 +394,37 @@ export function Hero({ className }: HeroProps) {
 
       {/* Dashboard Preview */}
       <div 
-        className="sticky z-20 mt-20 max-w-7xl mx-auto px-6 relative"
+        className="sticky z-20 mt-20 max-w-7xl mx-auto relative"
         style={{ top: "calc(50vh - 350px)" }}
       >
         <motion.div variants={fadeInUp}>
-        <div className="relative rounded-t-xl border border-border bg-card shadow-2xl overflow-hidden select-none">
-          {/* Scroll Progress Indicator - Bottom Border */}
-          <motion.div
-            className="absolute bottom-0 left-0 h-0.5 bg-foreground z-50"
-            style={{
-              width: scrollProgressWidth,
-            }}
-          />
-          {/* Mockup Header */}
-          <div className="h-10 border-b border-border flex items-center px-4 gap-2 bg-foreground/[0.02]">
-            <div className="flex gap-1.5">
-              <div className="w-2.5 h-2.5 rounded-full bg-foreground/10"></div>
-              <div className="w-2.5 h-2.5 rounded-full bg-foreground/10"></div>
-              <div className="w-2.5 h-2.5 rounded-full bg-foreground/10"></div>
-            </div>
+        {/* MacBook-style bezel - Silver on light, Space Gray on dark */}
+        <div className="relative rounded-[20px] p-3 bg-gradient-to-b from-[#e8e8e8] via-[#d4d4d4] to-[#e8e8e8] dark:from-[#1a1a1a] dark:via-[#0f0f0f] dark:to-[#1a1a1a] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3),0_0_0_1px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8),0_0_0_1px_rgba(255,255,255,0.05)] select-none">
+          {/* Inner shadow for depth */}
+          <div className="absolute inset-0 rounded-[20px] shadow-[inset_0_2px_4px_rgba(0,0,0,0.15)] dark:shadow-[inset_0_2px_4px_rgba(0,0,0,0.5)] pointer-events-none"></div>
+
+          {/* Glossy reflection overlay */}
+          <div className="absolute inset-0 rounded-[20px] bg-gradient-to-b from-white/[0.15] dark:from-white/[0.03] via-transparent to-transparent pointer-events-none"></div>
+
+          {/* Screen */}
+          <div className="relative rounded-xl border border-black/10 dark:border-white/5 bg-card shadow-[inset_0_1px_2px_rgba(0,0,0,0.1)] dark:shadow-[inset_0_1px_2px_rgba(0,0,0,0.3)] overflow-hidden">
+            {/* Scroll Progress Indicator - Bottom Border */}
+            <motion.div
+              className="absolute bottom-0 left-0 h-0.5 bg-foreground z-50"
+              style={{
+                width: scrollProgressWidth,
+              }}
+            />
+            {/* Mockup Header */}
+            <div className="h-10 border-b border-border/50 flex items-center px-4 gap-2 bg-white/50 dark:bg-black/20 backdrop-blur-xl">
+              <div className="flex gap-1.5">
+                <div className="w-2.5 h-2.5 rounded-full bg-[#FF5F56] shadow-[0_1px_2px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.2)]"></div>
+                <div className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E] shadow-[0_1px_2px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.2)]"></div>
+                <div className="w-2.5 h-2.5 rounded-full bg-[#27C93F] shadow-[0_1px_2px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.2)]"></div>
+              </div>
             <div className="ml-4 flex-1 flex justify-center">
               <div className="h-5 w-64 bg-foreground/5 rounded text-[10px] flex items-center justify-center text-muted-foreground font-mono">
-                reos.internal/dashboard/assets
+                <DecryptedText text={mockupUrl} speed={30} isVisible={true} />
               </div>
             </div>
           </div>
@@ -423,24 +452,29 @@ export function Hero({ className }: HeroProps) {
                   <Menu className="w-[18px] h-[18px]" />
                 </button>
                 <span className="sidebar-text ml-3 text-sm font-medium text-foreground tracking-tight whitespace-nowrap">
-                  Workspace
+                  {t("dashboard.workspace")}
                 </span>
               </div>
 
               {/* Menu Items */}
               <div className="flex-1 p-3 space-y-1 relative z-10 overflow-hidden">
-                {/* Initial Menu Items (Overview active) */}
-                <motion.div className="space-y-1" style={{ opacity: initialContentOpacity, scale: initialContentScale }}>
-                  {/* Section Label */}
-                  <div className="sidebar-label px-3 py-2 text-[10px] uppercase tracking-wider text-muted-foreground/75 font-semibold transition-opacity duration-200">
-                    Main
-                  </div>
-                  {initialMenuItems.map((item, index) => (
+                {/* Section Label */}
+                <div className="sidebar-label px-3 py-2 text-[10px] uppercase tracking-wider text-muted-foreground/75 font-semibold transition-opacity duration-200">
+                  {t("dashboard.sections.main")}
+                </div>
+                {[
+                  { icon: PieChart, label: t("dashboard.menu.overview"), key: "Overview" },
+                  { icon: Building2, label: t("dashboard.menu.properties"), key: "Properties" },
+                  { icon: Users, label: t("dashboard.menu.tenants"), key: "Tenants", badge: "12" },
+                  { icon: Wallet, label: t("dashboard.menu.financials"), key: "Financials" },
+                ].map((item, index) => {
+                  const isActive = item.key === activeMenuItem;
+                  return (
                     <button
                       key={index}
                       className={cn(
                         "flex items-center w-full px-3 py-2 rounded-lg transition-all group/item",
-                        item.active
+                        isActive
                           ? "bg-foreground/10 text-foreground border border-border/50 shadow-sm"
                           : "text-foreground/50 hover:text-foreground hover:bg-foreground/5 border border-transparent hover:border-border/50"
                       )}
@@ -454,55 +488,24 @@ export function Hero({ className }: HeroProps) {
                           {item.badge}
                         </span>
                       )}
-                      {item.active && (
+                      {isActive && (
                         <div className="sidebar-text ml-auto opacity-0 group-hover/item:opacity-100 transition-opacity">
                           <ChevronRight className="w-3 h-3" />
                         </div>
                       )}
                     </button>
-                  ))}
-                </motion.div>
-                
-                {/* Switched Menu Items (Properties active) */}
-                <motion.div className="absolute inset-0 p-3 space-y-1" style={{ opacity: switchedContentOpacity, scale: switchedContentScale }}>
-                  {/* Section Label */}
-                  <div className="sidebar-label px-3 py-2 text-[10px] uppercase tracking-wider text-muted-foreground/75 font-semibold transition-opacity duration-200">
-                    Main
-                  </div>
-                  {switchedMenuItems.map((item, index) => (
-                    <button
-                      key={index}
-                      className={cn(
-                        "flex items-center w-full px-3 py-2 rounded-lg transition-all group/item",
-                        item.active
-                          ? "bg-foreground/10 text-foreground border border-border/50 shadow-sm"
-                          : "text-foreground/50 hover:text-foreground hover:bg-foreground/5 border border-transparent hover:border-border/50"
-                      )}
-                    >
-                      <item.icon className="shrink-0 w-[18px] h-[18px]" />
-                      <span className="sidebar-text ml-3 text-sm font-medium whitespace-nowrap">
-                        {item.label}
-                      </span>
-                      {item.badge && (
-                        <span className="sidebar-text ml-auto text-[10px] bg-blue-500/20 text-blue-400 px-1.5 py-0.5 rounded border border-blue-500/20">
-                          {item.badge}
-                        </span>
-                      )}
-                      {item.active && (
-                        <div className="sidebar-text ml-auto opacity-0 group-hover/item:opacity-100 transition-opacity">
-                          <ChevronRight className="w-3 h-3" />
-                        </div>
-                      )}
-                    </button>
-                  ))}
-                </motion.div>
+                  );
+                })}
 
                 {/* Section Label */}
                 <div className="sidebar-label px-3 py-4 text-[10px] uppercase tracking-wider text-muted-foreground/75 font-semibold transition-opacity duration-200">
-                  Operations
+                  {t("dashboard.sections.operations")}
                 </div>
 
-                {operationsItems.map((item, index) => (
+                {[
+                  { icon: FileText, label: t("dashboard.menu.documents") },
+                  { icon: Settings, label: t("dashboard.menu.settings") },
+                ].map((item, index) => (
                   <button
                     key={index}
                     className="flex items-center w-full px-3 py-2 rounded-lg text-foreground/50 hover:text-foreground hover:bg-foreground/5 border border-transparent hover:border-border/50 transition-all group/item"
@@ -522,8 +525,8 @@ export function Hero({ className }: HeroProps) {
                     JS
                   </div>
                   <div className="sidebar-text flex flex-col overflow-hidden">
-                    <span className="text-xs font-medium text-foreground truncate">John Smith</span>
-                    <span className="text-[10px] text-muted-foreground truncate">Admin</span>
+                    <span className="text-xs font-medium text-foreground truncate">{t("dashboard.user.name")}</span>
+                    <span className="text-[10px] text-muted-foreground truncate">{t("dashboard.user.role")}</span>
                   </div>
                 </div>
               </div>
@@ -536,21 +539,21 @@ export function Hero({ className }: HeroProps) {
                 {/* Header Area */}
                 <div className="flex justify-between items-end mb-8">
                   <div>
-                    <h3 className="text-xl font-light text-foreground mb-1">Portfolio Performance</h3>
-                    <p className="text-xs text-muted-foreground">Last updated: Just now via API</p>
+                    <h3 className="text-xl font-light text-foreground mb-1">{t("dashboard.portfolioPerformance")}</h3>
+                    <p className="text-xs text-muted-foreground">{t("dashboard.lastUpdated")}</p>
                   </div>
                   <div className="flex gap-2">
                     <div className="px-3 py-1.5 border border-border rounded text-xs text-foreground/60 hover:text-foreground cursor-pointer hover:bg-foreground/5 transition-colors">
-                      1D
+                      {t("dashboard.timePeriods.oneDay")}
                     </div>
                     <div className="px-3 py-1.5 border border-border rounded text-xs text-foreground/60 hover:text-foreground cursor-pointer hover:bg-foreground/5 transition-colors">
-                      1W
+                      {t("dashboard.timePeriods.oneWeek")}
                     </div>
                     <div className="px-3 py-1.5 bg-foreground text-background border border-foreground rounded text-xs font-medium cursor-pointer shadow-[0_0_15px_rgba(255,255,255,0.3)]">
-                      1M
+                      {t("dashboard.timePeriods.oneMonth")}
                     </div>
                     <div className="px-3 py-1.5 border border-border rounded text-xs text-foreground/60 hover:text-foreground cursor-pointer hover:bg-foreground/5 transition-colors">
-                      1Y
+                      {t("dashboard.timePeriods.oneYear")}
                     </div>
                   </div>
                 </div>
@@ -583,10 +586,10 @@ export function Hero({ className }: HeroProps) {
 
                 {/* Data Table */}
                 <div className="grid grid-cols-4 text-xs text-muted-foreground mb-3 px-2 font-medium tracking-wide">
-                  <div>ASSET</div>
-                  <div>STATUS</div>
-                  <div>NOI</div>
-                  <div className="text-right">VALUATION</div>
+                  <div>{t("dashboard.tableHeaders.asset")}</div>
+                  <div>{t("dashboard.tableHeaders.status")}</div>
+                  <div>{t("dashboard.tableHeaders.noi")}</div>
+                  <div className="text-right">{t("dashboard.tableHeaders.valuation")}</div>
                 </div>
                 <div className="space-y-1">
                   {assets.map((asset, index) => (
@@ -631,18 +634,18 @@ export function Hero({ className }: HeroProps) {
                 {/* Header Area */}
                 <div className="flex justify-between items-end mb-8">
                   <div>
-                    <h3 className="text-xl font-light text-foreground mb-1">Properties Portfolio</h3>
-                    <p className="text-xs text-muted-foreground">All active properties • Updated daily</p>
+                    <h3 className="text-xl font-light text-foreground mb-1">{t("dashboard.propertiesPortfolio")}</h3>
+                    <p className="text-xs text-muted-foreground">{t("dashboard.propertiesSubtitle")}</p>
                   </div>
                   <div className="flex gap-2">
                     <div className="px-3 py-1.5 border border-border rounded text-xs text-foreground/60 hover:text-foreground cursor-pointer hover:bg-foreground/5 transition-colors">
-                      All
+                      {t("dashboard.filters.all")}
                     </div>
                     <div className="px-3 py-1.5 border border-border rounded text-xs text-foreground/60 hover:text-foreground cursor-pointer hover:bg-foreground/5 transition-colors">
-                      Active
+                      {t("dashboard.filters.active")}
                     </div>
                     <div className="px-3 py-1.5 bg-foreground text-background border border-foreground rounded text-xs font-medium cursor-pointer shadow-[0_0_15px_rgba(255,255,255,0.3)]">
-                      Featured
+                      {t("dashboard.filters.featured")}
                     </div>
                   </div>
                 </div>
@@ -689,11 +692,11 @@ export function Hero({ className }: HeroProps) {
 
                 {/* Properties Table */}
                 <div className="grid grid-cols-5 text-xs text-muted-foreground mb-3 px-2 font-medium tracking-wide">
-                  <div>PROPERTY</div>
-                  <div>LOCATION</div>
-                  <div>UNITS</div>
-                  <div>OCCUPANCY</div>
-                  <div className="text-right">VALUE</div>
+                  <div>{t("dashboard.tableHeaders.property")}</div>
+                  <div>{t("dashboard.tableHeaders.location")}</div>
+                  <div>{t("dashboard.tableHeaders.units")}</div>
+                  <div>{t("dashboard.tableHeaders.occupancy")}</div>
+                  <div className="text-right">{t("dashboard.tableHeaders.value")}</div>
                 </div>
                 <div className="space-y-1">
                   {propertiesData.map((property, index) => (
@@ -725,7 +728,7 @@ export function Hero({ className }: HeroProps) {
 
             {/* Right Detail Panel */}
             <div className="w-72 border-l border-border bg-background hidden lg:block p-4 z-10">
-              <div className="text-xs font-medium text-muted-foreground uppercase tracking-widest mb-4">Activity Log</div>
+              <div className="text-xs font-medium text-muted-foreground uppercase tracking-widest mb-4">{t("dashboard.activityLog")}</div>
               <div className="space-y-6 relative">
                 {/* Timeline Line */}
                 <div className="absolute left-1.5 top-2 bottom-0 w-px bg-border"></div>
@@ -744,6 +747,7 @@ export function Hero({ className }: HeroProps) {
             </div>
           </div>
         </div>
+        </div>
 
         {/* Stats Section - Below Mockup */}
         <div className="mt-14 max-w-4xl mx-auto px-6 relative">
@@ -752,7 +756,12 @@ export function Hero({ className }: HeroProps) {
             className="grid grid-cols-2 md:grid-cols-4 gap-8"
             style={{ opacity: initialContentOpacity, scale: initialContentScale }}
           >
-            {initialStats.map((stat, index) => (
+            {[
+              { value: t("stats.initial.transactionVolume.value"), label: t("stats.initial.transactionVolume.label") },
+              { value: t("stats.initial.propertiesListed.value"), label: t("stats.initial.propertiesListed.label") },
+              { value: t("stats.initial.serviceCategories.value"), label: t("stats.initial.serviceCategories.label") },
+              { value: t("stats.initial.aiSupport.value"), label: t("stats.initial.aiSupport.label") },
+            ].map((stat, index) => (
               <div key={index} className="text-center">
                 <div className="text-3xl md:text-4xl font-light text-foreground mb-2 tracking-tight">
                   <CountUp value={stat.value} duration={2} isVisible={initialStatsVisible} />
@@ -769,7 +778,12 @@ export function Hero({ className }: HeroProps) {
             className="absolute inset-0 grid grid-cols-2 md:grid-cols-4 gap-8"
             style={{ opacity: switchedContentOpacity, scale: switchedContentScale }}
           >
-            {switchedStats.map((stat, index) => (
+            {[
+              { value: t("stats.switched.totalAssets.value"), label: t("stats.switched.totalAssets.label") },
+              { value: t("stats.switched.activeUnits.value"), label: t("stats.switched.activeUnits.label") },
+              { value: t("stats.switched.citiesCovered.value"), label: t("stats.switched.citiesCovered.label") },
+              { value: t("stats.switched.satisfactionRate.value"), label: t("stats.switched.satisfactionRate.label") },
+            ].map((stat, index) => (
               <div key={index} className="text-center">
                 <div className="text-3xl md:text-4xl font-light text-foreground mb-2 tracking-tight">
                   <CountUp value={stat.value} duration={2} isVisible={switchedStatsVisible} />
