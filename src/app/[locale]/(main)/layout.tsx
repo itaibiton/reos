@@ -6,7 +6,7 @@ export default function LandingLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="light">
+    <div className="light" style={{ colorScheme: "light" }}>
       <Navigation />
       <main className="min-h-dvh">{children}</main>
       <Footer />
