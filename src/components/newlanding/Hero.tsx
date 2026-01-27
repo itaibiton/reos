@@ -271,12 +271,14 @@ export function Hero({ className }: HeroProps) {
   const switchProgress = useTransform(scrollYProgress, [0.4, 0.6], [0, 1], {
     clamp: true,
   });
-  
-  // Initial content opacity (fades out)
-  const initialContentOpacity = useTransform(switchProgress, [0, 1], [1, 0]);
-  
-  // Switched content opacity (fades in)
-  const switchedContentOpacity = useTransform(switchProgress, [0, 1], [0, 1]);
+
+  // Initial content - fade out and scale down (card swap effect)
+  const initialContentOpacity = useTransform(switchProgress, [0, 0.5], [1, 0]);
+  const initialContentScale = useTransform(switchProgress, [0, 0.5], [1, 0.95]);
+
+  // Switched content - fade in and scale up (card swap effect)
+  const switchedContentOpacity = useTransform(switchProgress, [0.5, 1], [0, 1]);
+  const switchedContentScale = useTransform(switchProgress, [0.5, 1], [0.95, 1]);
 
   // Scroll progress for bottom border indicator (0 to 100%)
   const scrollProgressWidth = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
@@ -428,7 +430,7 @@ export function Hero({ className }: HeroProps) {
               {/* Menu Items */}
               <div className="flex-1 p-3 space-y-1 relative z-10 overflow-hidden">
                 {/* Initial Menu Items (Overview active) */}
-                <motion.div className="space-y-1" style={{ opacity: initialContentOpacity }}>
+                <motion.div className="space-y-1" style={{ opacity: initialContentOpacity, scale: initialContentScale }}>
                   {/* Section Label */}
                   <div className="sidebar-label px-3 py-2 text-[10px] uppercase tracking-wider text-muted-foreground/75 font-semibold transition-opacity duration-200">
                     Main
@@ -462,7 +464,7 @@ export function Hero({ className }: HeroProps) {
                 </motion.div>
                 
                 {/* Switched Menu Items (Properties active) */}
-                <motion.div className="absolute inset-0 p-3 space-y-1" style={{ opacity: switchedContentOpacity }}>
+                <motion.div className="absolute inset-0 p-3 space-y-1" style={{ opacity: switchedContentOpacity, scale: switchedContentScale }}>
                   {/* Section Label */}
                   <div className="sidebar-label px-3 py-2 text-[10px] uppercase tracking-wider text-muted-foreground/75 font-semibold transition-opacity duration-200">
                     Main
@@ -530,7 +532,7 @@ export function Hero({ className }: HeroProps) {
             {/* Main Content */}
             <div className="flex-1 p-6 overflow-hidden relative bg-background/50">
               {/* Initial Content - Overview */}
-              <motion.div className="absolute inset-0 p-6" style={{ opacity: initialContentOpacity }}>
+              <motion.div className="absolute inset-0 p-6" style={{ opacity: initialContentOpacity, scale: initialContentScale }}>
                 {/* Header Area */}
                 <div className="flex justify-between items-end mb-8">
                   <div>
@@ -625,7 +627,7 @@ export function Hero({ className }: HeroProps) {
               </motion.div>
 
               {/* Switched Content - Properties */}
-              <motion.div className="absolute inset-0 p-6" style={{ opacity: switchedContentOpacity }}>
+              <motion.div className="absolute inset-0 p-6" style={{ opacity: switchedContentOpacity, scale: switchedContentScale }}>
                 {/* Header Area */}
                 <div className="flex justify-between items-end mb-8">
                   <div>
@@ -748,7 +750,7 @@ export function Hero({ className }: HeroProps) {
           {/* Initial Stats */}
           <motion.div
             className="grid grid-cols-2 md:grid-cols-4 gap-8"
-            style={{ opacity: initialContentOpacity }}
+            style={{ opacity: initialContentOpacity, scale: initialContentScale }}
           >
             {initialStats.map((stat, index) => (
               <div key={index} className="text-center">
@@ -765,7 +767,7 @@ export function Hero({ className }: HeroProps) {
           {/* Switched Stats */}
           <motion.div
             className="absolute inset-0 grid grid-cols-2 md:grid-cols-4 gap-8"
-            style={{ opacity: switchedContentOpacity }}
+            style={{ opacity: switchedContentOpacity, scale: switchedContentScale }}
           >
             {switchedStats.map((stat, index) => (
               <div key={index} className="text-center">
