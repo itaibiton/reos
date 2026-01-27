@@ -1930,3 +1930,560 @@ export const seedScrapedProperties = mutation({
     };
   },
 });
+
+// Seed EVERYTHING - comprehensive database seeding with all data types
+// Call from Convex dashboard or CLI: npx convex run seed:seedEverything
+export const seedEverything = mutation({
+  args: {},
+  handler: async (ctx) => {
+    const now = Date.now();
+    const results = {
+      serviceProviders: 0,
+      properties: 0,
+      neighborhoods: 0,
+      priceHistory: 0,
+      deals: 0,
+      serviceRequests: 0,
+      dealActivity: 0,
+      dealMessages: 0,
+      dealFiles: 0,
+      conversations: 0,
+      directMessages: 0,
+      posts: 0,
+      comments: 0,
+      likes: 0,
+      saves: 0,
+      follows: 0,
+      notifications: 0,
+    };
+
+    // Step 1: Seed service providers first (they need to exist for deals)
+    console.log("Seeding service providers...");
+    for (const provider of SEED_SERVICE_PROVIDERS) {
+      const existingUser = await ctx.db
+        .query("users")
+        .filter((q) => q.eq(q.field("email"), provider.email))
+        .first();
+
+      let userId: Id<"users">;
+
+      if (existingUser) {
+        userId = existingUser._id;
+      } else {
+        userId = await ctx.db.insert("users", {
+          clerkId: `seed_${provider.role}_${provider.email.split("@")[0]}`,
+          email: provider.email,
+          name: provider.name,
+          role: provider.role,
+          imageUrl: provider.imageUrl,
+          onboardingComplete: true,
+          createdAt: now,
+          updatedAt: now,
+        });
+      }
+
+      const existingProfile = await ctx.db
+        .query("serviceProviderProfiles")
+        .withIndex("by_user", (q) => q.eq("userId", userId))
+        .first();
+
+      if (!existingProfile) {
+        await ctx.db.insert("serviceProviderProfiles", {
+          userId,
+          providerType: provider.role,
+          companyName: provider.profile.companyName,
+          licenseNumber: provider.profile.licenseNumber,
+          yearsExperience: provider.profile.yearsExperience,
+          specializations: provider.profile.specializations,
+          serviceAreas: provider.profile.serviceAreas,
+          bio: provider.profile.bio,
+          languages: provider.profile.languages,
+          phoneNumber: provider.profile.phoneNumber,
+          createdAt: now,
+          updatedAt: now,
+        });
+        results.serviceProviders++;
+      }
+    }
+
+    // Step 2: Create investor user if doesn't exist
+    let investorId = await ctx.db
+      .query("users")
+      .filter((q) => q.eq(q.field("role"), "investor"))
+      .first()
+      .then((user) => user?._id);
+
+    if (!investorId) {
+      const adminUser = await ctx.db
+        .query("users")
+        .filter((q) => q.eq(q.field("role"), "admin"))
+        .first();
+      if (adminUser) {
+        investorId = adminUser._id;
+      } else {
+        investorId = await ctx.db.insert("users", {
+          clerkId: "seed_investor_main",
+          email: "investor@reos.dev",
+          name: "John Investor",
+          role: "investor",
+          onboardingComplete: true,
+          createdAt: now,
+          updatedAt: now,
+        });
+      }
+    }
+
+    // Step 3: Seed properties
+    console.log("Seeding properties...");
+    const properties = await ctx.db.query("properties").collect();
+    if (properties.length === 0) {
+      for (const property of SEED_PROPERTIES) {
+        await ctx.db.insert("properties", {
+          title: property.title,
+          description: property.description,
+          address: property.address,
+          city: property.city,
+          latitude: property.latitude,
+          longitude: property.longitude,
+          propertyType: property.propertyType,
+          status: property.status,
+          priceUsd: property.priceUsd,
+          priceIls: property.priceIls,
+          expectedRoi: property.expectedRoi,
+          cashOnCash: property.cashOnCash,
+          capRate: property.capRate,
+          monthlyRent: property.monthlyRent,
+          bedrooms: property.bedrooms,
+          bathrooms: property.bathrooms,
+          squareMeters: property.squareMeters,
+          yearBuilt: property.yearBuilt,
+          amenities: property.amenities,
+          images: property.images,
+          featuredImage: property.featuredImage,
+          soldDate: property.soldDate,
+          soldPrice: property.soldPrice,
+          createdBy: investorId,
+          createdAt: now,
+          updatedAt: now,
+        });
+        results.properties++;
+      }
+    }
+
+    // Step 4: Seed neighborhoods
+    console.log("Seeding neighborhoods...");
+    const existingNeighborhoods = await ctx.db.query("neighborhoods").collect();
+    if (existingNeighborhoods.length === 0) {
+      for (const neighborhood of SEED_NEIGHBORHOODS) {
+        await ctx.db.insert("neighborhoods", {
+          city: neighborhood.city,
+          population: neighborhood.population,
+          avgPricePerSqm: neighborhood.avgPricePerSqm,
+          priceChange1Year: neighborhood.priceChange1Year,
+          nearbyAmenities: neighborhood.nearbyAmenities,
+          description: neighborhood.description,
+          createdAt: now,
+          updatedAt: now,
+        });
+        results.neighborhoods++;
+      }
+    }
+
+    // Step 5: Seed price history
+    console.log("Seeding price history...");
+    const existingHistory = await ctx.db.query("priceHistory").collect();
+    if (existingHistory.length === 0) {
+      for (const entry of SEED_PRICE_HISTORY) {
+        await ctx.db.insert("priceHistory", {
+          propertyId: undefined,
+          city: entry.city,
+          date: entry.date,
+          priceUsd: entry.priceUsd,
+          eventType: entry.eventType,
+          createdAt: now,
+        });
+        results.priceHistory++;
+      }
+    }
+
+    // Step 6: Seed deals with full workflow (providers, requests, activity, messages, files)
+    console.log("Seeding deals...");
+    const seededProperties = await ctx.db.query("properties").collect();
+
+    // Build provider map
+    const providerMap: Map<string, Id<"users">> = new Map();
+    for (const provider of SEED_SERVICE_PROVIDERS) {
+      const user = await ctx.db
+        .query("users")
+        .filter((q) => q.eq(q.field("email"), provider.email))
+        .first();
+      if (user) {
+        providerMap.set(provider.email, user._id);
+      }
+    }
+
+    // NOTE: File seeding skipped - requires actual Convex storage uploads
+
+    for (const scenario of SEED_DEAL_SCENARIOS) {
+      if (scenario.propertyIndex >= seededProperties.length) continue;
+
+      const property = seededProperties[scenario.propertyIndex];
+      const createdAt = now - scenario.daysAgo * 24 * 60 * 60 * 1000;
+
+      const brokerId = scenario.brokerEmail ? providerMap.get(scenario.brokerEmail) : undefined;
+      const mortgageAdvisorId = scenario.mortgageAdvisorEmail ? providerMap.get(scenario.mortgageAdvisorEmail) : undefined;
+      const lawyerId = scenario.lawyerEmail ? providerMap.get(scenario.lawyerEmail) : undefined;
+
+      const stageHistory = generateStageHistory(scenario.stage, scenario.daysAgo, scenario.notes);
+
+      const dealId = await ctx.db.insert("deals", {
+        propertyId: property._id,
+        investorId: investorId,
+        stage: scenario.stage,
+        offerPrice: scenario.offerPrice,
+        notes: scenario.notes,
+        brokerId,
+        mortgageAdvisorId,
+        lawyerId,
+        stageHistory,
+        createdAt,
+        updatedAt: now,
+      });
+      results.deals++;
+
+      // Create service requests
+      const providerAssignments: Array<{ providerId: Id<"users">; providerType: "broker" | "mortgage_advisor" | "lawyer" }> = [];
+      if (brokerId) providerAssignments.push({ providerId: brokerId, providerType: "broker" });
+      if (mortgageAdvisorId) providerAssignments.push({ providerId: mortgageAdvisorId, providerType: "mortgage_advisor" });
+      if (lawyerId) providerAssignments.push({ providerId: lawyerId, providerType: "lawyer" });
+
+      for (let i = 0; i < providerAssignments.length; i++) {
+        const { providerId, providerType } = providerAssignments[i];
+        const requestCreatedAt = createdAt + i * 2 * 24 * 60 * 60 * 1000;
+        const requestRespondedAt = requestCreatedAt + 12 * 60 * 60 * 1000;
+
+        await ctx.db.insert("serviceRequests", {
+          dealId,
+          investorId: investorId,
+          providerId,
+          providerType,
+          status: "accepted",
+          investorMessage: `I'd like your help with this ${property.city} property.`,
+          providerResponse: "I'd be happy to help! Let's schedule a call.",
+          createdAt: requestCreatedAt,
+          respondedAt: requestRespondedAt,
+        });
+        results.serviceRequests++;
+
+        await ctx.db.insert("dealActivity", {
+          dealId,
+          actorId: providerId,
+          activityType: "provider_assigned",
+          details: { providerType },
+          createdAt: requestRespondedAt,
+        });
+        results.dealActivity++;
+      }
+
+      // Create stage change activities
+      for (let i = 0; i < stageHistory.length; i++) {
+        const historyEntry = stageHistory[i];
+        const prevStage = i > 0 ? stageHistory[i - 1].stage : undefined;
+        await ctx.db.insert("dealActivity", {
+          dealId,
+          actorId: investorId,
+          activityType: "stage_change",
+          details: {
+            fromStage: prevStage,
+            toStage: historyEntry.stage,
+            note: historyEntry.notes,
+          },
+          createdAt: historyEntry.timestamp,
+        });
+        results.dealActivity++;
+      }
+
+      // Create messages in deals
+      for (const threadIndex of scenario.messageThreads) {
+        if (threadIndex >= SEED_MESSAGE_TEMPLATES.length) continue;
+        const thread = SEED_MESSAGE_TEMPLATES[threadIndex];
+
+        let threadProviderId: Id<"users"> | undefined;
+        if (thread.providerRole === "broker" && brokerId) threadProviderId = brokerId;
+        else if (thread.providerRole === "mortgage_advisor" && mortgageAdvisorId) threadProviderId = mortgageAdvisorId;
+        else if (thread.providerRole === "lawyer" && lawyerId) threadProviderId = lawyerId;
+
+        if (!threadProviderId) continue;
+
+        const threadStartTime = createdAt + Math.random() * 3 * 24 * 60 * 60 * 1000;
+
+        for (const msg of thread.messages) {
+          const msgTime = threadStartTime + msg.offsetMinutes * 60 * 1000;
+          const senderId = msg.fromInvestor ? investorId : threadProviderId;
+          const recipientId = msg.fromInvestor ? threadProviderId : investorId;
+
+          await ctx.db.insert("messages", {
+            dealId,
+            senderId,
+            recipientId,
+            content: msg.content,
+            status: "read",
+            readAt: msgTime + 5 * 60 * 1000,
+            createdAt: msgTime,
+          });
+          results.dealMessages++;
+        }
+      }
+
+      // NOTE: Skipping deal files - they require actual file uploads via Convex storage
+      // Files can be uploaded manually through the UI or via dealFiles:generateUploadUrl
+      // Uncomment below if you have a way to generate real storage IDs
+
+      // if (["mortgage", "legal", "closing", "completed"].includes(scenario.stage)) {
+      //   // Deal file seeding would go here with real storage IDs
+      // }
+
+      // Create notifications for deal participants
+      if (brokerId) {
+        await ctx.db.insert("notifications", {
+          userId: brokerId,
+          type: "request_received",
+          title: "New Service Request",
+          message: `You have a new request for ${property.title}`,
+          read: true,
+          link: `/deals/${dealId}`,
+          metadata: { dealId, propertyId: property._id },
+          createdAt: createdAt + 12 * 60 * 60 * 1000,
+        });
+        results.notifications++;
+      }
+    }
+
+    // Step 7: Seed direct message conversations
+    console.log("Seeding conversations...");
+    const users = await ctx.db.query("users").collect();
+    const brokers = users.filter(u => u.role === "broker");
+    const mortgageAdvisors = users.filter(u => u.role === "mortgage_advisor");
+    const lawyers = users.filter(u => u.role === "lawyer");
+    const investors = users.filter(u => u.role === "investor" || u.role === "admin");
+
+    const conversationTemplates = [
+      ["Hi, I'm interested in investment opportunities in Tel Aviv.", "Great! I have several properties to show you.", "When can we schedule a call?"],
+      ["I need help with a mortgage.", "I'd be glad to assist. Are you an Israeli resident?", "No, I'm based in the US.", "No problem. Let me explain the process."],
+      ["I need a lawyer for a purchase contract.", "Sure, when do you need it reviewed?", "Within 30 days.", "That's manageable."],
+    ];
+
+    if (investors.length > 0 && brokers.length > 0) {
+      const convId = await ctx.db.insert("conversations", {
+        type: "direct",
+        participantIds: [investors[0]._id, brokers[0]._id],
+        createdBy: investors[0]._id,
+        createdAt: now - 10 * 24 * 60 * 60 * 1000,
+        updatedAt: now,
+      });
+      results.conversations++;
+
+      for (let i = 0; i < conversationTemplates[0].length; i++) {
+        await ctx.db.insert("directMessages", {
+          conversationId: convId,
+          senderId: i % 2 === 0 ? investors[0]._id : brokers[0]._id,
+          content: conversationTemplates[0][i],
+          status: "read",
+          readBy: [investors[0]._id, brokers[0]._id],
+          createdAt: now - (10 - i) * 24 * 60 * 60 * 1000,
+        });
+        results.directMessages++;
+      }
+    }
+
+    // Create group conversation
+    if (users.length >= 3) {
+      const groupParticipants = users.slice(0, Math.min(4, users.length));
+      const groupId = await ctx.db.insert("conversations", {
+        type: "group",
+        name: "Deal Team - Premium Property",
+        participantIds: groupParticipants.map(u => u._id),
+        createdBy: groupParticipants[0]._id,
+        createdAt: now - 5 * 24 * 60 * 60 * 1000,
+        updatedAt: now,
+      });
+      results.conversations++;
+
+      const groupMessages = [
+        "Welcome to the deal team!",
+        "Looking forward to working together.",
+        "I'll send property details shortly.",
+        "Great, I'll start on financing options.",
+      ];
+
+      for (let i = 0; i < groupMessages.length; i++) {
+        await ctx.db.insert("directMessages", {
+          conversationId: groupId,
+          senderId: groupParticipants[i % groupParticipants.length]._id,
+          content: groupMessages[i],
+          status: "read",
+          readBy: groupParticipants.map(u => u._id),
+          createdAt: now - (5 - i) * 24 * 60 * 60 * 1000,
+        });
+        results.directMessages++;
+      }
+    }
+
+    // Step 8: Seed social feed data
+    console.log("Seeding social data...");
+    const providerMapByIndex: Map<number, Id<"users">> = new Map();
+    for (let i = 0; i < SEED_SERVICE_PROVIDERS.length; i++) {
+      const provider = SEED_SERVICE_PROVIDERS[i];
+      const user = await ctx.db
+        .query("users")
+        .filter((q) => q.eq(q.field("email"), provider.email))
+        .first();
+      if (user) {
+        providerMapByIndex.set(i, user._id);
+      }
+    }
+
+    const postIds: Id<"posts">[] = [];
+    for (const seedPost of SEED_POSTS) {
+      const authorId = seedPost.authorProviderIndex !== undefined
+        ? providerMapByIndex.get(seedPost.authorProviderIndex) || investorId
+        : investorId;
+
+      let propertyId: Id<"properties"> | undefined;
+      if (seedPost.postType === "property_listing" && seedPost.propertyIndex !== undefined) {
+        if (seedPost.propertyIndex < seededProperties.length) {
+          propertyId = seededProperties[seedPost.propertyIndex]._id;
+        }
+      }
+
+      const postCreatedAt = now - seedPost.daysAgo * 24 * 60 * 60 * 1000;
+      const postId = await ctx.db.insert("posts", {
+        authorId,
+        postType: seedPost.postType,
+        content: seedPost.content,
+        visibility: seedPost.visibility,
+        propertyId,
+        serviceType: seedPost.serviceType,
+        likeCount: seedPost.likeCount,
+        commentCount: seedPost.commentCount,
+        shareCount: seedPost.shareCount,
+        saveCount: seedPost.saveCount,
+        createdAt: postCreatedAt,
+        updatedAt: postCreatedAt,
+      });
+      postIds.push(postId);
+      results.posts++;
+    }
+
+    // Create comments
+    for (const seedComment of SEED_COMMENTS) {
+      if (seedComment.postIndex >= postIds.length) continue;
+      const postId = postIds[seedComment.postIndex];
+      const post = await ctx.db.get(postId);
+      if (!post) continue;
+
+      const authorId = seedComment.authorProviderIndex !== undefined
+        ? providerMapByIndex.get(seedComment.authorProviderIndex) || investorId
+        : investorId;
+
+      await ctx.db.insert("postComments", {
+        postId,
+        authorId,
+        content: seedComment.content,
+        createdAt: post.createdAt + seedComment.offsetHours * 60 * 60 * 1000,
+      });
+      results.comments++;
+    }
+
+    // Create likes and saves
+    const allUserIds = [investorId, ...Array.from(providerMapByIndex.values())];
+    for (let i = 0; i < postIds.length; i++) {
+      const postId = postIds[i];
+      const post = SEED_POSTS[i];
+
+      for (let j = 0; j < Math.min(post.likeCount, allUserIds.length); j++) {
+        const userId = allUserIds[(i + j) % allUserIds.length];
+        const existing = await ctx.db
+          .query("postLikes")
+          .withIndex("by_post_and_user", (q) => q.eq("postId", postId).eq("userId", userId))
+          .unique();
+        if (!existing) {
+          await ctx.db.insert("postLikes", {
+            postId,
+            userId,
+            createdAt: now - Math.random() * 7 * 24 * 60 * 60 * 1000,
+          });
+          results.likes++;
+        }
+      }
+
+      for (let j = 0; j < Math.min(post.saveCount, allUserIds.length); j++) {
+        const userId = allUserIds[(i + j + 3) % allUserIds.length];
+        const existing = await ctx.db
+          .query("postSaves")
+          .withIndex("by_post_and_user", (q) => q.eq("postId", postId).eq("userId", userId))
+          .unique();
+        if (!existing) {
+          await ctx.db.insert("postSaves", {
+            postId,
+            userId,
+            createdAt: now - Math.random() * 7 * 24 * 60 * 60 * 1000,
+          });
+          results.saves++;
+        }
+      }
+    }
+
+    // Create follows
+    for (const seedFollow of SEED_FOLLOWS) {
+      const followerId = seedFollow.followerProviderIndex !== undefined
+        ? providerMapByIndex.get(seedFollow.followerProviderIndex)
+        : investorId;
+      const followingId = seedFollow.followingProviderIndex !== undefined
+        ? providerMapByIndex.get(seedFollow.followingProviderIndex)
+        : investorId;
+
+      if (!followerId || !followingId || followerId === followingId) continue;
+
+      const existing = await ctx.db
+        .query("userFollows")
+        .withIndex("by_follower_and_following", (q) =>
+          q.eq("followerId", followerId).eq("followingId", followingId)
+        )
+        .unique();
+
+      if (!existing) {
+        await ctx.db.insert("userFollows", {
+          followerId,
+          followingId,
+          createdAt: now - Math.random() * 30 * 24 * 60 * 60 * 1000,
+        });
+        results.follows++;
+      }
+    }
+
+    return {
+      success: true,
+      results,
+      message: `✅ Seeded comprehensive database:
+      - ${results.serviceProviders} service providers
+      - ${results.properties} properties
+      - ${results.neighborhoods} neighborhoods
+      - ${results.priceHistory} price history entries
+      - ${results.deals} deals
+      - ${results.serviceRequests} service requests
+      - ${results.dealActivity} deal activities
+      - ${results.dealMessages} deal messages
+      - ${results.conversations} conversations (${results.conversations - 1} direct, 1 group)
+      - ${results.directMessages} direct messages
+      - ${results.posts} posts
+      - ${results.comments} comments
+      - ${results.likes} likes
+      - ${results.saves} saves
+      - ${results.follows} follows
+      - ${results.notifications} notifications
+
+      Note: Deal files skipped (require actual file uploads via Convex storage)`,
+    };
+  },
+});
