@@ -1,88 +1,237 @@
-# Requirements: REOS v1.7 New Landing Page
+# Requirements: REOS v1.8 Landing Page Mobile Responsive
 
-**Defined:** 2026-01-26
+**Defined:** 2026-01-27
 **Core Value:** Deal flow tracking from interest to close.
 
-## v1.7 Requirements
+## Milestone Goal
 
-Requirements for New Landing Page milestone. Each maps to roadmap phases.
+Make every component and layout on the landing page fully mobile responsive with adaptive layouts optimized for small screens (320px-768px), while preserving the desktop experience.
 
-### Navigation
+## Success Criteria
 
-- [x] **NAV-01**: Fixed/sticky navbar with logo, nav links, and CTA button
-- [x] **NAV-02**: Mobile hamburger menu with smooth animation
+- [ ] All 8 landing components display correctly on mobile devices (320px, 375px, 640px, 768px)
+- [ ] Adaptive layouts implemented (not just scaled) — single column grids, stacked sections
+- [ ] All interactive elements have 44px+ touch targets
+- [ ] Text is readable on all screen sizes (no overflow, proper line heights)
+- [ ] Animations work smoothly on mobile (simplified where needed)
+- [ ] Desktop experience unchanged above 768px
+- [ ] No horizontal scrolling on any mobile viewport
+- [ ] All content accessible without zooming
 
-### Hero Section
+## Component Requirements
 
-- [x] **HERO-01**: Full-viewport (100vh) hero with compelling headline
-- [x] **HERO-02**: Subheadline explaining REOS value proposition
-- [x] **HERO-03**: Primary CTA button ("Start Investing" / "Get Started")
-- [x] **HERO-04**: Hero visual (property images, gradient background, or animated element)
-- [x] **HERO-05**: Scroll indicator animation
+### 1. Hero Component (`Hero.tsx`)
 
-### Trust/Logos Section
+**Current State:**
+- Desktop-optimized with two-column layout (text + dashboard mockup)
+- Rotating text animation for role types
+- Stats grid with card swap animation
+- Dashboard preview with complex nested elements
 
-- [x] **LOGO-01**: "Trusted by" or "Featured in" heading
-- [x] **LOGO-02**: Logo carousel or grid of partner/media logos
+**Mobile Requirements:**
+- [ ] **HERO-M01**: Stack text and dashboard vertically on mobile
+- [ ] **HERO-M02**: Reduce heading font size progressively (3xl on mobile, 5xl on desktop)
+- [ ] **HERO-M03**: Adjust rotating text size and animation speed for mobile
+- [ ] **HERO-M04**: Stats grid: 2x2 on mobile (640px+), 1x4 stacked on small phones (320px-640px)
+- [ ] **HERO-M05**: Dashboard mockup: Reduce scale and complexity on mobile
+- [ ] **HERO-M06**: CTA buttons: Stack vertically on mobile (< 640px), horizontal on tablet+
+- [ ] **HERO-M07**: Badge text: Smaller font size on mobile
+- [ ] **HERO-M08**: Viewport height: Use min-h-screen instead of fixed heights
 
-### Value Propositions
+### 2. Navigation Component (`Navigation.tsx`)
 
-- [x] **VAL-01**: 3-4 key value propositions with icons
-- [x] **VAL-02**: Brief descriptions for each value prop
-- [x] **VAL-03**: Scroll-triggered fade-in animations
+**Current State:**
+- Desktop navigation with dropdown menus
+- Animated padding/border-radius on scroll
+- "Get Started" and "Log in" CTAs
 
-### Feature Cards
+**Mobile Requirements:**
+- [ ] **NAV-M01**: Implement hamburger menu for mobile (< 768px)
+- [ ] **NAV-M02**: Slide-out or dropdown mobile menu with smooth animation
+- [ ] **NAV-M03**: Menu items stack vertically in mobile menu
+- [ ] **NAV-M04**: Platform/Solutions dropdowns become accordion items in mobile menu
+- [ ] **NAV-M05**: Logo + hamburger + CTA button layout on mobile
+- [ ] **NAV-M06**: Hide "Log in" text below 640px (show only "Get Started")
+- [ ] **NAV-M07**: Adjust scroll animation thresholds for mobile (less padding reduction)
+- [ ] **NAV-M08**: Touch targets: 44px+ for all menu items and buttons
+- [ ] **NAV-M09**: Close menu on link click or outside tap
 
-- [ ] **FEAT-01**: Property Discovery card (smart search, AI recommendations)
-- [ ] **FEAT-02**: Deal Flow card (7-stage tracking, service providers)
-- [ ] **FEAT-03**: Communication card (real-time chat, notifications)
-- [ ] **FEAT-04**: AI Assistant card (personalized recommendations)
-- [ ] **FEAT-05**: Card hover/interaction animations
+### 3. SocialProof Component (`SocialProof.tsx`)
 
-### Testimonials
+**Current State:**
+- Horizontal scrolling logo strip
+- "TRUSTED BY INNOVATIVE PROPERTY TEAMS" label
 
-- [ ] **TEST-01**: Client testimonials with quotes
-- [ ] **TEST-02**: Client photos/avatars and names
-- [ ] **TEST-03**: Carousel or grid layout
+**Mobile Requirements:**
+- [ ] **SOCIAL-M01**: Maintain horizontal scroll but with mobile-friendly spacing
+- [ ] **SOCIAL-M02**: Reduce logo sizes on mobile
+- [ ] **SOCIAL-M03**: Adjust padding and gap between logos for mobile
+- [ ] **SOCIAL-M04**: Label text: Smaller font size on mobile
+- [ ] **SOCIAL-M05**: Ensure smooth scroll performance on touch devices
 
-### Platform Video/Demo
+### 4. Features Component (`Features.tsx`)
 
-- [ ] **VID-01**: Embedded video player or animated demo section
-- [ ] **VID-02**: Play button overlay
-- [ ] **VID-03**: Fallback image for video
+**Current State:**
+- 4 feature cards in LayoutGrid component
+- Complex grid layout (2 large cards, 2 small cards)
+- Different animation directions per card
 
-### Contact Form
+**Mobile Requirements:**
+- [ ] **FEAT-M01**: Stack all 4 cards vertically on mobile (< 640px)
+- [ ] **FEAT-M02**: 2-column grid on tablet (640px-768px)
+- [ ] **FEAT-M03**: Maintain 4-card grid on desktop (768px+)
+- [ ] **FEAT-M04**: Adjust card heights for mobile (remove fixed aspect ratios)
+- [ ] **FEAT-M05**: Simplify animations on mobile (reduce movement distance)
+- [ ] **FEAT-M06**: Heading: Reduce font size (2xl on mobile, 4xl on desktop)
+- [ ] **FEAT-M07**: Card content: Adjust padding and text sizes for mobile
+- [ ] **FEAT-M08**: Ensure images scale properly within cards
 
-- [ ] **FORM-01**: Lead capture form (name, email, investor type)
-- [ ] **FORM-02**: Form validation with error states
-- [ ] **FORM-03**: Success state after submission
-- [ ] **FORM-04**: Integration with backend (Convex mutation for leads)
+### 5. Automation Component (`Automation.tsx`)
 
-### Footer
+**Current State:**
+- Grid layout with 5 provider cards + large video card
+- Diagonal split background
+- Complex grid positioning (video spans 2 columns × 2 rows)
 
-- [x] **FOOT-01**: Logo and tagline
-- [x] **FOOT-02**: Navigation links (About, Features, Contact, etc.)
-- [x] **FOOT-03**: Social media links
-- [x] **FOOT-04**: Legal links (Privacy, Terms)
-- [x] **FOOT-05**: Copyright notice
+**Mobile Requirements:**
+- [ ] **AUTO-M01**: Stack all cards vertically on mobile (< 640px)
+- [ ] **AUTO-M02**: Video card: Full width, reduced height on mobile
+- [ ] **AUTO-M03**: 2-column grid on tablet (640px-768px)
+- [ ] **AUTO-M04**: Maintain complex grid on desktop (768px+)
+- [ ] **AUTO-M05**: Diagonal background: Adjust angle for mobile (less dramatic)
+- [ ] **AUTO-M06**: Heading: Reduce font size (2xl on mobile, 4xl on desktop)
+- [ ] **AUTO-M07**: Provider cards: Adjust padding and icon sizes for mobile
+- [ ] **AUTO-M08**: Video: Ensure proper aspect ratio and playback on mobile
+- [ ] **AUTO-M09**: Stagger animations differently for vertical layout
 
-### Responsive & Animations
+### 6. Stats Component (`Stats.tsx`)
 
-- [ ] **RESP-01**: Mobile-first responsive design for all sections
-- [ ] **RESP-02**: Tablet breakpoint optimizations
-- [ ] **RESP-03**: Framer Motion scroll-triggered animations
-- [ ] **RESP-04**: Smooth section transitions
+**Current State:**
+- 4 stats in horizontal grid
+- Large numbers with labels
 
-## Future Requirements
+**Mobile Requirements:**
+- [ ] **STATS-M01**: Stack stats vertically on small phones (< 640px)
+- [ ] **STATS-M02**: 2x2 grid on tablet (640px-768px)
+- [ ] **STATS-M03**: Maintain horizontal layout on desktop (768px+)
+- [ ] **STATS-M04**: Reduce stat value font size on mobile
+- [ ] **STATS-M05**: Adjust spacing and padding for mobile
+- [ ] **STATS-M06**: Ensure numbers remain readable without truncation
 
-Deferred to subsequent milestones. Tracked but not in v1.7 roadmap.
+### 7. CTA Component (`CTA.tsx`)
 
-### Landing Page Enhancements
+**Current State:**
+- Centered heading and subheading
+- Two action buttons side-by-side
 
-- **LAND-01**: A/B testing infrastructure for headlines
-- **LAND-02**: Multi-language landing page variants
-- **LAND-03**: Dynamic content based on referral source
-- **LAND-04**: Chatbot/live chat widget
+**Mobile Requirements:**
+- [ ] **CTA-M01**: Stack buttons vertically on mobile (< 640px)
+- [ ] **CTA-M02**: Reduce heading font size (2xl on mobile, 4xl on desktop)
+- [ ] **CTA-M03**: Adjust padding and spacing for mobile
+- [ ] **CTA-M04**: Full-width buttons on mobile (with max-width constraint)
+- [ ] **CTA-M05**: Maintain button sizing for touch targets (44px+ height)
+
+### 8. Footer Component (`Footer.tsx`)
+
+**Current State:**
+- Multi-column layout (logo/tagline + Product + Solutions + Company + Legal)
+- Social media links
+- Copyright notice
+
+**Mobile Requirements:**
+- [ ] **FOOT-M01**: Stack all columns vertically on mobile (< 768px)
+- [ ] **FOOT-M02**: Logo/tagline section full width on mobile
+- [ ] **FOOT-M03**: Link columns: 2x2 grid on tablet, stacked on mobile
+- [ ] **FOOT-M04**: Social icons: Horizontal row, centered on mobile
+- [ ] **FOOT-M05**: Copyright: Centered on mobile
+- [ ] **FOOT-M06**: Adjust font sizes and spacing for mobile
+- [ ] **FOOT-M07**: Touch targets: 44px+ for all links and icons
+
+## Technical Requirements
+
+### Breakpoints
+
+Use Tailwind's mobile-first breakpoints:
+- **Base (< 640px)**: Small phones (320px-639px)
+- **sm (640px+)**: Large phones
+- **md (768px+)**: Tablets (preserve desktop layout here)
+- **lg (1024px+)**: Desktop (existing styles)
+
+### Touch Interactions
+
+- [ ] **TOUCH-01**: All interactive elements: min-height 44px, min-width 44px
+- [ ] **TOUCH-02**: Adequate spacing between touch targets (8px minimum)
+- [ ] **TOUCH-03**: No hover-only interactions (use click/tap instead)
+- [ ] **TOUCH-04**: Form inputs: Large enough for mobile keyboards
+
+### Typography
+
+- [ ] **TYPE-01**: Headings scale progressively across breakpoints
+  - H1: text-3xl (mobile), text-4xl (sm), text-5xl (md+)
+  - H2: text-2xl (mobile), text-3xl (sm), text-4xl (md+)
+- [ ] **TYPE-02**: Body text: text-sm (mobile), text-base (sm+)
+- [ ] **TYPE-03**: Line heights: Increased for better readability (1.6-1.8)
+- [ ] **TYPE-04**: No text truncation or overflow on any viewport
+
+### Layouts
+
+- [ ] **LAYOUT-01**: Grid layouts: 1 column (mobile) → 2 columns (tablet) → 3-4 columns (desktop)
+- [ ] **LAYOUT-02**: Flexbox: column direction on mobile, row on desktop
+- [ ] **LAYOUT-03**: Padding: Reduced on mobile (px-4 instead of px-6)
+- [ ] **LAYOUT-04**: Max-width containers: Full bleed on mobile, constrained on desktop
+
+### Animations
+
+- [ ] **ANIM-01**: Reduce animation distances on mobile (30px → 15px)
+- [ ] **ANIM-02**: Adjust animation delays for stacked layouts
+- [ ] **ANIM-03**: Consider prefers-reduced-motion for accessibility
+- [ ] **ANIM-04**: Ensure animations don't cause layout shifts on mobile
+
+### Performance
+
+- [ ] **PERF-01**: Images: Responsive srcset for mobile optimization
+- [ ] **PERF-02**: Video: Preload="metadata" on mobile to save bandwidth
+- [ ] **PERF-03**: Fonts: Ensure proper loading on slow mobile connections
+- [ ] **PERF-04**: No layout shifts during loading
+
+## Testing Checklist
+
+### Viewport Testing
+
+- [ ] **TEST-V01**: 320px (iPhone SE, small phones)
+- [ ] **TEST-V02**: 375px (iPhone 12/13/14)
+- [ ] **TEST-V03**: 390px (iPhone 14 Pro)
+- [ ] **TEST-V04**: 414px (iPhone 12 Pro Max)
+- [ ] **TEST-V05**: 640px (large phones, small tablets)
+- [ ] **TEST-V06**: 768px (iPad, tablet portrait)
+
+### Device Testing
+
+- [ ] **TEST-D01**: iOS Safari (iPhone)
+- [ ] **TEST-D02**: Chrome Mobile (Android)
+- [ ] **TEST-D03**: Firefox Mobile
+- [ ] **TEST-D04**: Samsung Internet
+
+### Orientation Testing
+
+- [ ] **TEST-O01**: Portrait mode on all devices
+- [ ] **TEST-O02**: Landscape mode on phones (optional, but test)
+
+### Interaction Testing
+
+- [ ] **TEST-I01**: Touch targets are easy to tap
+- [ ] **TEST-I02**: Scrolling is smooth
+- [ ] **TEST-I03**: Menus open/close correctly
+- [ ] **TEST-I04**: Forms are usable with mobile keyboards
+- [ ] **TEST-I05**: No horizontal scroll anywhere
+
+### Content Testing
+
+- [ ] **TEST-C01**: All text readable without zooming
+- [ ] **TEST-C02**: No text overflow or truncation
+- [ ] **TEST-C03**: Images load and scale properly
+- [ ] **TEST-C04**: Videos play correctly on mobile
+- [ ] **TEST-C05**: No content hidden off-screen
 
 ## Out of Scope
 
@@ -90,60 +239,31 @@ Explicitly excluded. Documented to prevent scope creep.
 
 | Feature | Reason |
 |---------|--------|
-| Blog/Content section | Separate milestone, content strategy needed first |
-| Pricing page | No pricing model defined yet |
-| Full About page | Landing page only for v1.7 |
-| SEO optimization | Basic meta tags only, full SEO in v1.8 |
-| Analytics integration | Basic Vercel Analytics, full tracking in v1.8 |
+| Native mobile app functionality | MVP is web responsive only |
+| Mobile-specific features (swipe gestures) | Beyond standard scrolling not needed |
+| Performance optimization beyond basics | Focus is layout, not deep performance tuning |
+| Desktop design changes | Goal is preserve desktop, only fix mobile |
+| New content or features | Mobile responsive only, no new functionality |
+| PWA features | Future milestone |
+
+## Acceptance Criteria
+
+**A component is considered "mobile responsive" when:**
+
+1. ✅ It displays correctly on 320px viewport without horizontal scroll
+2. ✅ All text is readable without zooming
+3. ✅ All interactive elements have 44px+ touch targets
+4. ✅ Layout adapts appropriately at 640px and 768px breakpoints
+5. ✅ Animations work smoothly on mobile
+6. ✅ Desktop experience (768px+) is unchanged
+7. ✅ No console errors or warnings on mobile devices
 
 ## Traceability
 
 Which phases cover which requirements. Updated during roadmap creation.
 
-| Requirement | Phase | Status |
-|-------------|-------|--------|
-| NAV-01 | Phase 47 | Complete |
-| NAV-02 | Phase 47 | Complete |
-| HERO-01 | Phase 48 | Complete |
-| HERO-02 | Phase 48 | Complete |
-| HERO-03 | Phase 48 | Complete |
-| HERO-04 | Phase 48 | Complete |
-| HERO-05 | Phase 48 | Complete |
-| LOGO-01 | Phase 49 | Complete |
-| LOGO-02 | Phase 49 | Complete |
-| VAL-01 | Phase 49 | Complete |
-| VAL-02 | Phase 49 | Complete |
-| VAL-03 | Phase 49 | Complete |
-| FEAT-01 | Phase 50 | Pending |
-| FEAT-02 | Phase 50 | Pending |
-| FEAT-03 | Phase 50 | Pending |
-| FEAT-04 | Phase 50 | Pending |
-| FEAT-05 | Phase 50 | Pending |
-| TEST-01 | Phase 51 | Pending |
-| TEST-02 | Phase 51 | Pending |
-| TEST-03 | Phase 51 | Pending |
-| VID-01 | Phase 51 | Pending |
-| VID-02 | Phase 51 | Pending |
-| VID-03 | Phase 51 | Pending |
-| FORM-01 | Phase 52 | Pending |
-| FORM-02 | Phase 52 | Pending |
-| FORM-03 | Phase 52 | Pending |
-| FORM-04 | Phase 52 | Pending |
-| FOOT-01 | Phase 47 | Complete |
-| FOOT-02 | Phase 47 | Complete |
-| FOOT-03 | Phase 47 | Complete |
-| FOOT-04 | Phase 47 | Complete |
-| FOOT-05 | Phase 47 | Complete |
-| RESP-01 | Phase 52 | Pending |
-| RESP-02 | Phase 52 | Pending |
-| RESP-03 | Phase 52 | Pending |
-| RESP-04 | Phase 52 | Pending |
-
-**Coverage:**
-- v1.7 requirements: 36 total
-- Mapped to phases: 36
-- Unmapped: 0
+*To be populated during roadmap creation*
 
 ---
-*Requirements defined: 2026-01-26*
-*Last updated: 2026-01-26 after Phase 49 completion*
+*Requirements defined: 2026-01-27*
+*Last updated: 2026-01-27*
