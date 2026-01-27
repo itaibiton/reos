@@ -750,10 +750,10 @@ export function Hero({ className }: HeroProps) {
         </div>
 
         {/* Stats Section - Below Mockup */}
-        <div className="mt-14 max-w-4xl mx-auto px-6 relative">
+        <div className="mt-14 max-w-4xl mx-auto px-4 sm:px-6 relative">
           {/* Initial Stats */}
           <motion.div
-            className="grid grid-cols-2 md:grid-cols-4 gap-8"
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8"
             style={{ opacity: initialContentOpacity, scale: initialContentScale }}
           >
             {[
@@ -763,7 +763,7 @@ export function Hero({ className }: HeroProps) {
               { value: t("stats.initial.aiSupport.value"), label: t("stats.initial.aiSupport.label") },
             ].map((stat, index) => (
               <div key={index} className="text-center">
-                <div className="text-3xl md:text-4xl font-light text-foreground mb-2 tracking-tight">
+                <div className="text-2xl sm:text-3xl md:text-4xl font-light text-foreground mb-2 tracking-tight">
                   <CountUp value={stat.value} duration={2} isVisible={initialStatsVisible} />
                 </div>
                 <div className="text-sm text-foreground/50 font-light">
@@ -775,7 +775,7 @@ export function Hero({ className }: HeroProps) {
 
           {/* Switched Stats */}
           <motion.div
-            className="absolute inset-0 grid grid-cols-2 md:grid-cols-4 gap-8"
+            className="absolute inset-0 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8"
             style={{ opacity: switchedContentOpacity, scale: switchedContentScale }}
           >
             {[
@@ -785,7 +785,7 @@ export function Hero({ className }: HeroProps) {
               { value: t("stats.switched.satisfactionRate.value"), label: t("stats.switched.satisfactionRate.label") },
             ].map((stat, index) => (
               <div key={index} className="text-center">
-                <div className="text-3xl md:text-4xl font-light text-foreground mb-2 tracking-tight">
+                <div className="text-2xl sm:text-3xl md:text-4xl font-light text-foreground mb-2 tracking-tight">
                   <CountUp value={stat.value} duration={2} isVisible={switchedStatsVisible} />
                 </div>
                 <div className="text-sm text-foreground/50 font-light">
