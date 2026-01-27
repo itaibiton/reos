@@ -256,6 +256,20 @@ export function Navigation({ className }: NavigationProps) {
             </NavigationMenu>
           </div>
 
+          {/* Mobile Menu Trigger */}
+          <div className="md:hidden">
+            <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+              <SheetTrigger asChild>
+                <button
+                  className="min-h-[44px] min-w-[44px] flex items-center justify-center hover:bg-foreground/5 rounded-lg transition-colors"
+                  aria-label="Open navigation menu"
+                >
+                  <Menu className="h-6 w-6" />
+                </button>
+              </SheetTrigger>
+            </Sheet>
+          </div>
+
           <div className="flex items-center gap-4">
             <a href="#" className="text-xs font-medium text-foreground/80 hover:text-foreground transition-colors hidden sm:block">{t("actions.login")}</a>
 
