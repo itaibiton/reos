@@ -8,21 +8,23 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 
 **Deal flow tracking from interest to close.** If the end-to-end process of connecting investors with properties AND moving them through service providers doesn't work seamlessly, nothing else matters.
 
-## Current Milestone: v1.7 New Landing Page
+## Current Milestone: v1.8 Landing Page Mobile Responsive
 
-**Goal:** Create a modern, conversion-focused landing page that showcases REOS's value proposition to US investors looking to invest in Israeli real estate.
+**Goal:** Make every component and layout on the landing page fully mobile responsive with adaptive layouts optimized for small screens (320px-768px), while preserving the desktop experience.
 
 **Target features:**
-- Full-viewport hero section with compelling headline and CTA
-- Partner/trust logos section ("Trusted by...")
-- Key value propositions (headlines section)
-- Feature cards showcasing platform capabilities
-- Client testimonials with social proof
-- Platform video/demo section
-- Contact form with lead capture
-- Responsive footer with navigation
-- Smooth scroll animations with Framer Motion
-- Mobile-optimized with all sections responsive
+- Comprehensive mobile responsive treatment for all 8 landing components
+- Adaptive layouts (not just scaled) - single column grids, stacked sections where appropriate
+- Mobile breakpoints: 320px (small phones), 640px (large phones), 768px (tablet)
+- Touch-friendly interactions (44px+ touch targets, appropriate spacing)
+- Optimized animations for mobile (simplified or adjusted where needed)
+- Hero section mobile optimization (viewport height, text sizing, CTA placement)
+- Navigation mobile menu improvements
+- Feature cards responsive grid (4 cards → stacked or 2-column on mobile)
+- Automation section mobile layout
+- Footer mobile-friendly column stacking
+- All text readable on small screens (no overflow, proper line heights)
+- Desktop experience unchanged above 768px
 
 ## Current State (v1.6)
 
@@ -107,16 +109,18 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 
 ### Active
 
-- [ ] Full-viewport hero section with headline and CTA — v1.7
-- [ ] Partner/trust logos section — v1.7
-- [ ] Key value propositions section — v1.7
-- [ ] Feature cards showcasing platform capabilities — v1.7
-- [ ] Client testimonials section — v1.7
-- [ ] Platform video/demo section — v1.7
-- [ ] Contact form with lead capture — v1.7
-- [ ] Responsive footer with navigation — v1.7
-- [ ] Smooth scroll animations — v1.7
-- [ ] Mobile-optimized landing page — v1.7
+- [ ] Hero component mobile responsive (320px-768px) — v1.8
+- [ ] Navigation component mobile menu optimization — v1.8
+- [ ] SocialProof component mobile layout — v1.8
+- [ ] Features component mobile grid (adaptive 4→2→1 columns) — v1.8
+- [ ] Automation component mobile layout — v1.8
+- [ ] Stats component mobile grid — v1.8
+- [ ] CTA component mobile text sizing and spacing — v1.8
+- [ ] Footer component mobile column stacking — v1.8
+- [ ] Touch targets 44px+ on all interactive elements — v1.8
+- [ ] Mobile animations optimization (reduce motion where appropriate) — v1.8
+- [ ] Text overflow prevention on all components — v1.8
+- [ ] Mobile viewport testing (320px, 375px, 640px, 768px) — v1.8
 
 ### Out of Scope
 
