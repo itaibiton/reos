@@ -60,7 +60,6 @@ export function ContactFormSection() {
   const t = useTranslations("landing.contactForm");
   const prefersReducedMotion = useReducedMotion();
   const [isSubmitted, setIsSubmitted] = useState(false);
-  // @ts-expect-error - Type generated after `convex dev`
   const submitLead = useMutation(api.leads.submitLead);
 
   const form = useForm<FormValues>({
