@@ -353,6 +353,42 @@ export function Navigation({ className }: NavigationProps) {
                       </AccordionContent>
                     </AccordionItem>
                   </Accordion>
+
+                  {/* Simple Links */}
+                  <div className="px-4 mt-2 flex flex-col gap-1">
+                    <a
+                      href="#"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="px-4 py-3 min-h-[44px] text-base hover:bg-foreground/5 rounded-lg transition-colors flex items-center"
+                    >
+                      {t("menu.institutions")}
+                    </a>
+                    <a
+                      href="#"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="px-4 py-3 min-h-[44px] text-base hover:bg-foreground/5 rounded-lg transition-colors flex items-center"
+                    >
+                      {t("menu.developers")}
+                    </a>
+                  </div>
+
+                  {/* Mobile-only Log In and Get Started at bottom */}
+                  <div className="mt-auto px-4 pb-8 flex flex-col gap-3">
+                    <a
+                      href="#"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="px-4 py-3 min-h-[44px] text-base text-center border border-border rounded-full hover:bg-foreground/5 transition-colors"
+                    >
+                      {t("actions.login")}
+                    </a>
+                    <a
+                      href="#"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="px-4 py-3 min-h-[44px] text-base text-center bg-foreground text-background rounded-full hover:bg-foreground/90 transition-colors"
+                    >
+                      {t("actions.getStarted")}
+                    </a>
+                  </div>
                 </div>
               </SheetContent>
             </Sheet>
