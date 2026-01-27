@@ -1,0 +1,650 @@
+<html lang="en" class="scroll-smooth"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REOS | Real Estate Operating System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&amp;display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #050505;
+            color: #e5e5e5;
+        }
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+        /* Sidebar transition utilities */
+        .sidebar-expanded {
+            width: 16rem; /* w-64 */
+        }
+        .sidebar-collapsed {
+            width: 4.5rem; /* w-[72px] */
+        }
+        .sidebar-text {
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+        .sidebar-collapsed .sidebar-text {
+            opacity: 0;
+            transform: translateX(-10px);
+            pointer-events: none;
+            position: absolute; /* Take out of flow to prevent width issues */
+        }
+        .sidebar-collapsed .sidebar-label {
+            display: none;
+        }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden selection:bg-blue-500/30 selection:text-blue-200">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 border-b border-white/5 bg-[#050505]/80 backdrop-blur-xl">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-2 group">
+                <div class="w-8 h-8 rounded bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-white/20 transition-colors">
+                    <span class="font-medium tracking-tighter text-sm text-white">R</span>
+                </div>
+                <span class="font-normal text-sm tracking-widest text-white/90">REOS</span>
+            </a>
+
+            <div class="hidden md:flex items-center gap-8 text-sm font-light text-white/60">
+                <a href="#" class="hover:text-white transition-colors">Platform</a>
+                <a href="#" class="hover:text-white transition-colors">Solutions</a>
+                <a href="#" class="hover:text-white transition-colors">Institutions</a>
+                <a href="#" class="hover:text-white transition-colors">Developers</a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <a href="#" class="text-xs font-medium text-white/80 hover:text-white transition-colors hidden sm:block">Log in</a>
+                <a href="#" class="text-xs font-medium bg-white text-black px-4 py-2 rounded-full hover:bg-white/90 transition-colors">
+                    Get Started
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden bg-grid border-b border-white/5">
+        <!-- Ambient Light -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blue-900/10 blur-[120px] rounded-full pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="max-w-4xl">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm mb-8">
+                    <span class="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span>
+                    <span class="text-xs font-light tracking-wide text-white/70 uppercase">Reos v2.0 is live</span>
+                </div>
+                
+                <h1 class="text-5xl md:text-7xl font-light tracking-tighter text-white mb-6 leading-[1.1]">
+                    The operating system for <br>
+                    <span class="text-white/40">institutional real estate.</span>
+                </h1>
+                
+                <p class="text-lg md:text-xl text-white/50 font-light max-w-2xl mb-10 leading-relaxed">
+                    Unify property data, automate asset management workflows, and gain real-time intelligence across your portfolio.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <button class="group flex items-center justify-center gap-2 px-6 py-3 bg-white text-black rounded-full text-sm font-medium hover:bg-gray-100 transition-all">
+                        <span>Start Building</span>
+                        <iconify-icon icon="solar:arrow-right-linear" class="group-hover:translate-x-1 transition-transform"></iconify-icon>
+                    </button>
+                    <button class="flex items-center justify-center gap-2 px-6 py-3 border border-white/10 bg-white/5 backdrop-blur-sm text-white rounded-full text-sm font-medium hover:bg-white/10 transition-colors">
+                        <iconify-icon icon="solar:play-circle-linear"></iconify-icon>
+                        <span>Watch Demo</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Preview Abstract -->
+        <div class="mt-20 max-w-7xl mx-auto px-6 relative">
+            <div class="relative rounded-t-xl border border-white/10 bg-[#0A0A0A] shadow-2xl overflow-hidden select-none">
+                <!-- Mockup Header -->
+                <div class="h-10 border-b border-white/10 flex items-center px-4 gap-2 bg-white/[0.02]">
+                    <div class="flex gap-1.5">
+                        <div class="w-2.5 h-2.5 rounded-full bg-white/10"></div>
+                        <div class="w-2.5 h-2.5 rounded-full bg-white/10"></div>
+                        <div class="w-2.5 h-2.5 rounded-full bg-white/10"></div>
+                    </div>
+                    <div class="ml-4 flex-1 flex justify-center">
+                        <div class="h-5 w-64 bg-white/5 rounded text-[10px] flex items-center justify-center text-white/20 font-mono">reos.internal/dashboard/assets</div>
+                    </div>
+                </div>
+
+                <!-- Mockup Body -->
+                <div class="flex h-[550px]">
+                    <!-- Animated Sidebar -->
+                    <div id="mockup-sidebar" class="sidebar-expanded hidden md:flex flex-col border-r border-white/5 bg-black/40 backdrop-blur-xl relative transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] z-20 group">
+                        
+                        <!-- Sidebar Background Wrapper (Reference) -->
+                        <div class="nav-bg-overflow-wrapper absolute inset-0 pointer-events-none z-0">
+                            <div class="w-full h-full bg-gradient-to-b from-white/[0.03] to-transparent"></div>
+                        </div>
+
+                        <!-- Sidebar Header / Toggle -->
+                        <div class="h-14 flex items-center px-4 border-b border-white/5 relative z-10 shrink-0">
+                            <button onclick="toggleSidebar()" class="w-8 h-8 rounded-lg hover:bg-white/10 flex items-center justify-center text-white/60 hover:text-white transition-colors">
+                                <iconify-icon icon="solar:hamburger-menu-linear" width="18"></iconify-icon>
+                            </button>
+                            <span class="sidebar-text ml-3 text-sm font-medium text-white tracking-tight whitespace-nowrap">
+                                Workspace
+                            </span>
+                        </div>
+
+                        <!-- Menu Items -->
+                        <div class="flex-1 p-3 space-y-1 relative z-10 overflow-hidden">
+                            
+                            <!-- Section Label -->
+                            <div class="sidebar-label px-3 py-2 text-[10px] uppercase tracking-wider text-white/30 font-semibold transition-opacity duration-200">
+                                Main
+                            </div>
+
+                            <!-- Active Item -->
+                            <button class="flex items-center w-full px-3 py-2 rounded-lg bg-white/10 text-white border border-white/5 shadow-sm group/item">
+                                <iconify-icon icon="solar:pie-chart-2-linear" class="shrink-0" width="18"></iconify-icon>
+                                <span class="sidebar-text ml-3 text-sm font-medium whitespace-nowrap">Overview</span>
+                                <div class="sidebar-text ml-auto opacity-0 group-hover/item:opacity-100 transition-opacity">
+                                    <iconify-icon icon="solar:alt-arrow-right-linear" width="12"></iconify-icon>
+                                </div>
+                            </button>
+
+                            <!-- Inactive Item -->
+                            <button class="flex items-center w-full px-3 py-2 rounded-lg text-white/50 hover:text-white hover:bg-white/5 border border-transparent hover:border-white/5 transition-all group/item">
+                                <iconify-icon icon="solar:buildings-2-linear" class="shrink-0" width="18"></iconify-icon>
+                                <span class="sidebar-text ml-3 text-sm font-medium whitespace-nowrap">Properties</span>
+                            </button>
+
+                            <!-- Inactive Item -->
+                            <button class="flex items-center w-full px-3 py-2 rounded-lg text-white/50 hover:text-white hover:bg-white/5 border border-transparent hover:border-white/5 transition-all group/item">
+                                <iconify-icon icon="solar:users-group-rounded-linear" class="shrink-0" width="18"></iconify-icon>
+                                <span class="sidebar-text ml-3 text-sm font-medium whitespace-nowrap">Tenants</span>
+                                <span class="sidebar-text ml-auto text-[10px] bg-blue-500/20 text-blue-400 px-1.5 py-0.5 rounded border border-blue-500/20">12</span>
+                            </button>
+
+                            <!-- Inactive Item -->
+                            <button class="flex items-center w-full px-3 py-2 rounded-lg text-white/50 hover:text-white hover:bg-white/5 border border-transparent hover:border-white/5 transition-all group/item">
+                                <iconify-icon icon="solar:wallet-money-linear" class="shrink-0" width="18"></iconify-icon>
+                                <span class="sidebar-text ml-3 text-sm font-medium whitespace-nowrap">Financials</span>
+                            </button>
+
+                             <!-- Section Label -->
+                             <div class="sidebar-label px-3 py-4 text-[10px] uppercase tracking-wider text-white/30 font-semibold transition-opacity duration-200">
+                                Operations
+                            </div>
+
+                            <!-- Inactive Item -->
+                            <button class="flex items-center w-full px-3 py-2 rounded-lg text-white/50 hover:text-white hover:bg-white/5 border border-transparent hover:border-white/5 transition-all group/item">
+                                <iconify-icon icon="solar:document-text-linear" class="shrink-0" width="18"></iconify-icon>
+                                <span class="sidebar-text ml-3 text-sm font-medium whitespace-nowrap">Documents</span>
+                            </button>
+
+                            <!-- Inactive Item -->
+                            <button class="flex items-center w-full px-3 py-2 rounded-lg text-white/50 hover:text-white hover:bg-white/5 border border-transparent hover:border-white/5 transition-all group/item">
+                                <iconify-icon icon="solar:settings-linear" class="shrink-0" width="18"></iconify-icon>
+                                <span class="sidebar-text ml-3 text-sm font-medium whitespace-nowrap">Settings</span>
+                            </button>
+                        </div>
+
+                        <!-- Sidebar Footer -->
+                        <div class="p-3 mt-auto border-t border-white/5 relative z-10">
+                            <div class="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-white/5 cursor-pointer transition-colors">
+                                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-xs font-medium shrink-0 shadow-lg shadow-blue-900/20 ring-1 ring-white/10">
+                                    JS
+                                </div>
+                                <div class="sidebar-text flex flex-col overflow-hidden">
+                                    <span class="text-xs font-medium text-white truncate">John Smith</span>
+                                    <span class="text-[10px] text-white/40 truncate">Admin</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main Content -->
+                    <div class="flex-1 p-6 overflow-hidden relative bg-[#050505]/50">
+                        <!-- Header Area -->
+                        <div class="flex justify-between items-end mb-8">
+                            <div>
+                                <h3 class="text-xl font-light text-white mb-1">Portfolio Performance</h3>
+                                <p class="text-xs text-white/40">Last updated: Just now via API</p>
+                            </div>
+                            <div class="flex gap-2">
+                                <div class="px-3 py-1.5 border border-white/10 rounded text-xs text-white/60 hover:text-white cursor-pointer hover:bg-white/5 transition-colors">1D</div>
+                                <div class="px-3 py-1.5 border border-white/10 rounded text-xs text-white/60 hover:text-white cursor-pointer hover:bg-white/5 transition-colors">1W</div>
+                                <div class="px-3 py-1.5 bg-white text-black border border-white rounded text-xs font-medium cursor-pointer shadow-[0_0_15px_rgba(255,255,255,0.3)]">1M</div>
+                                <div class="px-3 py-1.5 border border-white/10 rounded text-xs text-white/60 hover:text-white cursor-pointer hover:bg-white/5 transition-colors">1Y</div>
+                            </div>
+                        </div>
+
+                        <!-- Chart Mockup (CSS only) -->
+                        <div class="h-64 w-full flex items-end justify-between gap-1 mb-10 border-b border-white/5 pb-4 relative">
+                            <!-- Horizontal Grid Lines -->
+                            <div class="absolute inset-0 flex flex-col justify-between pointer-events-none">
+                                <div class="w-full h-px bg-white/5"></div>
+                                <div class="w-full h-px bg-white/5"></div>
+                                <div class="w-full h-px bg-white/5"></div>
+                                <div class="w-full h-px bg-white/5"></div>
+                            </div>
+                            
+                            <!-- Bars -->
+                            <div class="w-full bg-gradient-to-t from-blue-500/10 to-blue-500/40 rounded-t-sm h-[40%] hover:bg-blue-500/50 transition-all cursor-crosshair"></div>
+                            <div class="w-full bg-gradient-to-t from-blue-500/10 to-blue-500/40 rounded-t-sm h-[55%] hover:bg-blue-500/50 transition-all cursor-crosshair"></div>
+                            <div class="w-full bg-gradient-to-t from-blue-500/10 to-blue-500/40 rounded-t-sm h-[45%] hover:bg-blue-500/50 transition-all cursor-crosshair"></div>
+                            <div class="w-full bg-gradient-to-t from-blue-500/10 to-blue-500/40 rounded-t-sm h-[70%] hover:bg-blue-500/50 transition-all cursor-crosshair"></div>
+                            <div class="w-full bg-gradient-to-t from-blue-500/10 to-blue-500/40 rounded-t-sm h-[60%] hover:bg-blue-500/50 transition-all cursor-crosshair"></div>
+                            <div class="w-full bg-gradient-to-t from-blue-500/10 to-blue-500/40 rounded-t-sm h-[85%] hover:bg-blue-500/50 transition-all cursor-crosshair"></div>
+                            <div class="w-full bg-gradient-to-t from-blue-500/10 to-blue-500/40 rounded-t-sm h-[65%] hover:bg-blue-500/50 transition-all cursor-crosshair"></div>
+                            <div class="w-full bg-gradient-to-t from-blue-500/10 to-blue-500/40 rounded-t-sm h-[75%] hover:bg-blue-500/50 transition-all cursor-crosshair"></div>
+                            <div class="w-full bg-gradient-to-t from-blue-500/10 to-blue-500/40 rounded-t-sm h-[90%] hover:bg-blue-500/50 transition-all relative group cursor-crosshair">
+                                <div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur text-black text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap font-medium shadow-lg transform translate-y-1 group-hover:translate-y-0 duration-200">
+                                    $42.5M Valuation
+                                </div>
+                            </div>
+                            <div class="w-full bg-gradient-to-t from-blue-500/10 to-blue-500/40 rounded-t-sm h-[80%] hover:bg-blue-500/50 transition-all cursor-crosshair"></div>
+                        </div>
+
+                        <!-- Data Table -->
+                        <div class="grid grid-cols-4 text-xs text-white/40 mb-3 px-2 font-medium tracking-wide">
+                            <div>ASSET</div>
+                            <div>STATUS</div>
+                            <div>NOI</div>
+                            <div class="text-right">VALUATION</div>
+                        </div>
+                        <div class="space-y-1">
+                            <!-- Row 1 -->
+                            <div class="grid grid-cols-4 items-center p-2 rounded hover:bg-white/5 cursor-pointer transition-colors border border-transparent hover:border-white/5 group">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-6 h-6 rounded bg-blue-500/20 text-blue-400 flex items-center justify-center border border-blue-500/20 group-hover:border-blue-500/40 transition-colors">
+                                        <iconify-icon icon="solar:city-linear" width="14"></iconify-icon>
+                                    </div>
+                                    <span class="text-white text-xs font-medium">Skyline Tower</span>
+                                </div>
+                                <div>
+                                    <span class="px-1.5 py-0.5 rounded-full bg-green-500/10 text-green-400 text-[10px] border border-green-500/20 flex w-fit items-center gap-1">
+                                        <div class="w-1 h-1 bg-green-400 rounded-full"></div> Active
+                                    </span>
+                                </div>
+                                <div class="text-white/80 text-xs font-mono group-hover:text-white transition-colors">$1.2M</div>
+                                <div class="text-right text-white text-xs font-mono">$45.2M</div>
+                            </div>
+                            <!-- Row 2 -->
+                            <div class="grid grid-cols-4 items-center p-2 rounded hover:bg-white/5 cursor-pointer transition-colors border border-transparent hover:border-white/5 group">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-6 h-6 rounded bg-purple-500/20 text-purple-400 flex items-center justify-center border border-purple-500/20 group-hover:border-purple-500/40 transition-colors">
+                                        <iconify-icon icon="solar:home-angle-linear" width="14"></iconify-icon>
+                                    </div>
+                                    <span class="text-white text-xs font-medium">Highland Park</span>
+                                </div>
+                                <div>
+                                    <span class="px-1.5 py-0.5 rounded-full bg-yellow-500/10 text-yellow-400 text-[10px] border border-yellow-500/20 flex w-fit items-center gap-1">
+                                        <div class="w-1 h-1 bg-yellow-400 rounded-full"></div> Review
+                                    </span>
+                                </div>
+                                <div class="text-white/80 text-xs font-mono group-hover:text-white transition-colors">$850K</div>
+                                <div class="text-right text-white text-xs font-mono">$12.8M</div>
+                            </div>
+                            <!-- Row 3 -->
+                            <div class="grid grid-cols-4 items-center p-2 rounded hover:bg-white/5 cursor-pointer transition-colors border border-transparent hover:border-white/5 group">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-6 h-6 rounded bg-orange-500/20 text-orange-400 flex items-center justify-center border border-orange-500/20 group-hover:border-orange-500/40 transition-colors">
+                                        <iconify-icon icon="solar:shop-linear" width="14"></iconify-icon>
+                                    </div>
+                                    <span class="text-white text-xs font-medium">Westside Retail</span>
+                                </div>
+                                <div>
+                                    <span class="px-1.5 py-0.5 rounded-full bg-green-500/10 text-green-400 text-[10px] border border-green-500/20 flex w-fit items-center gap-1">
+                                        <div class="w-1 h-1 bg-green-400 rounded-full"></div> Active
+                                    </span>
+                                </div>
+                                <div class="text-white/80 text-xs font-mono group-hover:text-white transition-colors">$2.1M</div>
+                                <div class="text-right text-white text-xs font-mono">$68.4M</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Detail Panel -->
+                    <div class="w-72 border-l border-white/10 bg-[#050505] hidden lg:block p-4 z-10">
+                        <div class="text-xs font-medium text-white/40 uppercase tracking-widest mb-4">Activity Log</div>
+                        <div class="space-y-6 relative">
+                            <!-- Timeline Line -->
+                            <div class="absolute left-1.5 top-2 bottom-0 w-px bg-white/10"></div>
+                            
+                            <div class="relative pl-6">
+                                <div class="absolute left-0 top-1 w-3 h-3 rounded-full bg-[#050505] border border-blue-500 z-10 shadow-[0_0_10px_rgba(59,130,246,0.5)]"></div>
+                                <p class="text-xs text-white">New Lease Signed</p>
+                                <p class="text-[10px] text-white/40 mt-0.5">Unit 402 • 10 mins ago</p>
+                            </div>
+                            <div class="relative pl-6">
+                                <div class="absolute left-0 top-1 w-3 h-3 rounded-full bg-[#050505] border border-white/20 z-10 group-hover:border-white/40 transition-colors"></div>
+                                <p class="text-xs text-white">Maintenance Request</p>
+                                <p class="text-[10px] text-white/40 mt-0.5">HVAC • 1 hour ago</p>
+                            </div>
+                            <div class="relative pl-6">
+                                <div class="absolute left-0 top-1 w-3 h-3 rounded-full bg-[#050505] border border-white/20 z-10"></div>
+                                <p class="text-xs text-white">Rent Payment Processed</p>
+                                <p class="text-[10px] text-white/40 mt-0.5">Auto-pay • 2 hours ago</p>
+                            </div>
+                            <div class="relative pl-6">
+                                <div class="absolute left-0 top-1 w-3 h-3 rounded-full bg-[#050505] border border-white/20 z-10"></div>
+                                <p class="text-xs text-white">Valuation Update</p>
+                                <p class="text-[10px] text-white/40 mt-0.5">System • 5 hours ago</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Social Proof -->
+    <section class="py-12 border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-6">
+            <p class="text-center text-sm font-light text-white/30 mb-8">TRUSTED BY INNOVATIVE PROPERTY TEAMS</p>
+            <div class="flex flex-wrap justify-center gap-12 md:gap-20 opacity-40 grayscale">
+                <!-- Simple Geometric Logos -->
+                <div class="flex items-center gap-2">
+                    <div class="w-5 h-5 bg-white rounded-sm"></div>
+                    <span class="font-bold text-lg tracking-tight">VANGUARD</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <div class="w-5 h-5 border-2 border-white rounded-full"></div>
+                    <span class="font-bold text-lg tracking-tight">OAKTREE</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <div class="w-5 h-5 bg-white rotate-45"></div>
+                    <span class="font-bold text-lg tracking-tight">APEX</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <div class="flex gap-0.5">
+                        <div class="w-2 h-5 bg-white"></div>
+                        <div class="w-2 h-5 bg-white"></div>
+                    </div>
+                    <span class="font-bold text-lg tracking-tight">PILLAR</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <div class="w-5 h-5 border border-white"></div>
+                    <span class="font-bold text-lg tracking-tight">FRAME</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Grid -->
+    <section class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="max-w-3xl mb-16">
+                <h2 class="text-3xl md:text-5xl font-light tracking-tighter text-white mb-6">
+                    Infrastructure for the <br>
+                    <span class="text-white/40">digital asset era.</span>
+                </h2>
+                <p class="text-lg text-white/50 font-light leading-relaxed">
+                    REOS replaces fragmented spreadsheets and legacy ERPs with a single, secure, and programmable layer for your entire real estate operation.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Feature 1 -->
+                <div class="group p-8 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-colors relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 blur-[50px] rounded-full group-hover:bg-blue-500/20 transition-all"></div>
+                    <div class="w-12 h-12 rounded-lg bg-white/5 flex items-center justify-center text-white mb-6 border border-white/10">
+                        <iconify-icon icon="solar:shield-check-linear" width="24" stroke-width="1.5"></iconify-icon>
+                    </div>
+                    <h3 class="text-lg font-normal text-white mb-3">Institutional Custody</h3>
+                    <p class="text-sm text-white/50 leading-relaxed font-light">
+                        Bank-grade security standards for sensitive tenant data and financial records, fully compliant with SOC2 Type II.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="group p-8 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-colors relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 blur-[50px] rounded-full group-hover:bg-purple-500/20 transition-all"></div>
+                    <div class="w-12 h-12 rounded-lg bg-white/5 flex items-center justify-center text-white mb-6 border border-white/10">
+                        <iconify-icon icon="solar:graph-up-linear" width="24" stroke-width="1.5"></iconify-icon>
+                    </div>
+                    <h3 class="text-lg font-normal text-white mb-3">Real-time Settlements</h3>
+                    <p class="text-sm text-white/50 leading-relaxed font-light">
+                        Automated rent collection and vendor payouts via integrated rails, reducing settlement times from days to seconds.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="group p-8 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-colors relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-green-500/10 blur-[50px] rounded-full group-hover:bg-green-500/20 transition-all"></div>
+                    <div class="w-12 h-12 rounded-lg bg-white/5 flex items-center justify-center text-white mb-6 border border-white/10">
+                        <iconify-icon icon="solar:code-circle-linear" width="24" stroke-width="1.5"></iconify-icon>
+                    </div>
+                    <h3 class="text-lg font-normal text-white mb-3">Programmable Assets</h3>
+                    <p class="text-sm text-white/50 leading-relaxed font-light">
+                        Developer-first API allows you to build custom valuation models and automated maintenance triggers effortlessly.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Deep Dive Section -->
+    <section class="py-24 border-t border-white/5 bg-white/[0.01]">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <!-- Left: Content -->
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-blue-500/30 bg-blue-500/10 mb-6">
+                        <span class="text-xs font-medium tracking-wide text-blue-400 uppercase">Automation</span>
+                    </div>
+                    <h2 class="text-3xl md:text-5xl font-light tracking-tighter text-white mb-6">
+                        Workflows that <br>run themselves.
+                    </h2>
+                    <p class="text-lg text-white/50 font-light mb-8 leading-relaxed">
+                        Define logic for any scenario. Whether it's lease renewals, maintenance dispatch, or financial reporting, REOS handles the execution so you can focus on strategy.
+                    </p>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start gap-3">
+                            <iconify-icon icon="solar:check-circle-linear" class="text-blue-500 mt-0.5" width="20"></iconify-icon>
+                            <span class="text-sm text-white/70 font-light">Custom trigger-based logic engines</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <iconify-icon icon="solar:check-circle-linear" class="text-blue-500 mt-0.5" width="20"></iconify-icon>
+                            <span class="text-sm text-white/70 font-light">Direct integration with banking &amp; IoT hardware</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <iconify-icon icon="solar:check-circle-linear" class="text-blue-500 mt-0.5" width="20"></iconify-icon>
+                            <span class="text-sm text-white/70 font-light">Granular permissioning for team access</span>
+                        </li>
+                    </ul>
+
+                    <a href="#" class="inline-flex items-center text-sm font-medium text-white hover:text-blue-400 transition-colors">
+                        Explore Documentation <iconify-icon icon="solar:arrow-right-linear" class="ml-2"></iconify-icon>
+                    </a>
+                </div>
+
+                <!-- Right: Visual -->
+                <div class="relative">
+                    <!-- Workflow UI Card -->
+                    <div class="bg-[#0A0A0A] border border-white/10 rounded-xl p-6 shadow-2xl relative z-10">
+                        <div class="flex items-center justify-between mb-6">
+                            <h4 class="text-sm font-medium text-white">Lease Renewal Logic</h4>
+                            <div class="w-8 h-5 bg-blue-600 rounded-full p-0.5 flex items-center justify-end cursor-pointer">
+                                <div class="w-4 h-4 bg-white rounded-full"></div>
+                            </div>
+                        </div>
+
+                        <!-- Workflow Step 1 -->
+                        <div class="flex gap-4 mb-6">
+                            <div class="flex flex-col items-center">
+                                <div class="w-8 h-8 rounded-full bg-white/10 border border-white/10 flex items-center justify-center text-white">1</div>
+                                <div class="h-full w-px bg-white/10 my-1"></div>
+                            </div>
+                            <div class="flex-1 pt-1">
+                                <p class="text-xs text-white/40 font-mono mb-1">TRIGGER</p>
+                                <div class="p-3 bg-white/5 border border-white/10 rounded-lg text-sm text-white/90">
+                                    When <span class="text-blue-400">Lease Expiry</span> is <span class="text-purple-400">90 days</span> away
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Workflow Step 2 -->
+                        <div class="flex gap-4 mb-6">
+                            <div class="flex flex-col items-center">
+                                <div class="w-8 h-8 rounded-full bg-white/10 border border-white/10 flex items-center justify-center text-white">2</div>
+                                <div class="h-full w-px bg-white/10 my-1"></div>
+                            </div>
+                            <div class="flex-1 pt-1">
+                                <p class="text-xs text-white/40 font-mono mb-1">ACTION</p>
+                                <div class="p-3 bg-white/5 border border-white/10 rounded-lg text-sm text-white/90">
+                                    Send <span class="text-green-400">Renewal Offer</span> email to Tenant
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Workflow Step 3 -->
+                        <div class="flex gap-4">
+                            <div class="flex flex-col items-center">
+                                <div class="w-8 h-8 rounded-full bg-white/10 border border-white/10 flex items-center justify-center text-white">3</div>
+                            </div>
+                            <div class="flex-1 pt-1">
+                                <p class="text-xs text-white/40 font-mono mb-1">CONDITION</p>
+                                <div class="p-3 bg-white/5 border border-white/10 rounded-lg text-sm text-white/90 flex justify-between items-center">
+                                    <span>If no response in 7 days</span>
+                                    <span class="text-xs text-white/40 bg-white/10 px-2 py-1 rounded">Notify PM</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Decorative Background -->
+                    <div class="absolute -inset-4 bg-gradient-to-tr from-blue-500/20 to-purple-500/20 rounded-xl blur-xl -z-10 opacity-50"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-20 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="text-3xl md:text-4xl font-light text-white mb-2 tracking-tight">$40B+</div>
+                    <div class="text-sm text-white/40">Assets under management</div>
+                </div>
+                <div>
+                    <div class="text-3xl md:text-4xl font-light text-white mb-2 tracking-tight">2.5M</div>
+                    <div class="text-sm text-white/40">Units powered</div>
+                </div>
+                <div>
+                    <div class="text-3xl md:text-4xl font-light text-white mb-2 tracking-tight">99.99%</div>
+                    <div class="text-sm text-white/40">Uptime SLA</div>
+                </div>
+                <div>
+                    <div class="text-3xl md:text-4xl font-light text-white mb-2 tracking-tight">140+</div>
+                    <div class="text-sm text-white/40">API Integrations</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-24 relative overflow-hidden">
+        <div class="absolute inset-0 bg-blue-900/5"></div>
+        <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+            <h2 class="text-4xl md:text-6xl font-light tracking-tighter text-white mb-6">
+                Ready to upgrade your OS?
+            </h2>
+            <p class="text-lg text-white/50 font-light mb-10 max-w-xl mx-auto">
+                Join the leading institutional owners running their portfolios on REOS.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <button class="px-8 py-4 bg-white text-black rounded-full font-medium hover:bg-gray-100 transition-colors w-full sm:w-auto">
+                    Contact Sales
+                </button>
+                <button class="px-8 py-4 bg-transparent border border-white/10 text-white rounded-full font-medium hover:bg-white/5 transition-colors w-full sm:w-auto">
+                    View Pricing
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#020202] border-t border-white/5 py-16">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-6 gap-10 mb-16">
+                <div class="col-span-2">
+                    <a href="#" class="flex items-center gap-2 mb-6">
+                        <div class="w-6 h-6 rounded bg-white/10 flex items-center justify-center text-white text-xs">R</div>
+                        <span class="font-normal text-sm tracking-widest text-white/90">REOS</span>
+                    </a>
+                    <p class="text-sm text-white/40 font-light max-w-xs">
+                        The financial infrastructure for the world's real estate assets.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="text-xs font-semibold text-white mb-4 uppercase tracking-wider">Product</h4>
+                    <ul class="space-y-3 text-sm text-white/50 font-light">
+                        <li><a href="#" class="hover:text-white transition-colors">Platform</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Data API</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Workflows</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Security</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-semibold text-white mb-4 uppercase tracking-wider">Solutions</h4>
+                    <ul class="space-y-3 text-sm text-white/50 font-light">
+                        <li><a href="#" class="hover:text-white transition-colors">Residential</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Commercial</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Industrial</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-semibold text-white mb-4 uppercase tracking-wider">Company</h4>
+                    <ul class="space-y-3 text-sm text-white/50 font-light">
+                        <li><a href="#" class="hover:text-white transition-colors">About</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Careers</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Blog</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-xs font-semibold text-white mb-4 uppercase tracking-wider">Legal</h4>
+                    <ul class="space-y-3 text-sm text-white/50 font-light">
+                        <li><a href="#" class="hover:text-white transition-colors">Privacy</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Terms</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">SLA</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/5">
+                <p class="text-xs text-white/30 mb-4 md:mb-0">© 2024 REOS Technologies Inc. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <a href="#" class="text-white/30 hover:text-white transition-colors"><iconify-icon icon="solar:camera-linear" width="20"></iconify-icon></a>
+                    <a href="#" class="text-white/30 hover:text-white transition-colors"><iconify-icon icon="solar:brand-x-linear" width="18"></iconify-icon></a> 
+                    <a href="#" class="text-white/30 hover:text-white transition-colors"><iconify-icon icon="solar:cat-linear" width="20"></iconify-icon></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('mockup-sidebar');
+            const isExpanded = sidebar.classList.contains('sidebar-expanded');
+
+            if (isExpanded) {
+                sidebar.classList.remove('sidebar-expanded');
+                sidebar.classList.add('sidebar-collapsed');
+            } else {
+                sidebar.classList.remove('sidebar-collapsed');
+                sidebar.classList.add('sidebar-expanded');
+            }
+        }
+    </script>
+
+</body></html>

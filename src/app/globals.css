@@ -349,3 +349,39 @@ html[data-scroll-locked] body {
   height: calc(100vh - var(--header-height) - var(--tab-bar-height));
   height: calc(100dvh - var(--header-height) - var(--tab-bar-height));
 }
+
+/* ============================================================================
+   New Landing Page Utilities
+   ============================================================================ */
+
+/* Grid background pattern */
+.bg-grid {
+  background-size: 40px 40px;
+  background-image:
+    linear-gradient(to right, hsl(var(--foreground) / 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, hsl(var(--foreground) / 0.03) 1px, transparent 1px);
+}
+
+/* Sidebar transitions */
+.sidebar-expanded {
+  width: 16rem; /* w-64 */
+}
+
+.sidebar-collapsed {
+  width: 4.5rem; /* w-[72px] */
+}
+
+.sidebar-text {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.sidebar-collapsed .sidebar-text {
+  opacity: 0;
+  transform: translateX(-10px);
+  pointer-events: none;
+  position: absolute;
+}
+
+.sidebar-collapsed .sidebar-label {
+  display: none;
+}
