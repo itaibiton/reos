@@ -281,8 +281,78 @@ export function Navigation({ className }: NavigationProps) {
                 </SheetClose>
 
                 <div className="flex flex-col h-full">
-                  {/* Accordion content added in next task */}
-                  {/* Simple links added in task after that */}
+                  {/* Accordion for Platform and Solutions */}
+                  <Accordion type="single" collapsible className="px-4">
+                    {/* Platform Accordion */}
+                    <AccordionItem value="platform" className="border-b-0">
+                      <AccordionTrigger className="py-4 text-base font-normal hover:no-underline hover:bg-foreground/5 px-2 rounded-lg min-h-[44px]">
+                        {t("menu.platform")}
+                      </AccordionTrigger>
+                      <AccordionContent className="pb-2">
+                        <div className="flex flex-col gap-1">
+                          <a
+                            href="#"
+                            onClick={() => setMobileMenuOpen(false)}
+                            className="flex items-center gap-3 px-4 py-3 min-h-[44px] text-sm hover:bg-foreground/5 rounded-lg transition-colors"
+                          >
+                            <Building2 className="h-5 w-5 text-muted-foreground" />
+                            <span>{t("platform.propertyManagement.title")}</span>
+                          </a>
+                          <a
+                            href="#"
+                            onClick={() => setMobileMenuOpen(false)}
+                            className="flex items-center gap-3 px-4 py-3 min-h-[44px] text-sm hover:bg-foreground/5 rounded-lg transition-colors"
+                          >
+                            <Workflow className="h-5 w-5 text-muted-foreground" />
+                            <span>{t("platform.automationEngine.title")}</span>
+                          </a>
+                          <a
+                            href="#"
+                            onClick={() => setMobileMenuOpen(false)}
+                            className="flex items-center gap-3 px-4 py-3 min-h-[44px] text-sm hover:bg-foreground/5 rounded-lg transition-colors"
+                          >
+                            <Shield className="h-5 w-5 text-muted-foreground" />
+                            <span>{t("platform.enterpriseSecurity.title")}</span>
+                          </a>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+
+                    {/* Solutions Accordion */}
+                    <AccordionItem value="solutions" className="border-b-0">
+                      <AccordionTrigger className="py-4 text-base font-normal hover:no-underline hover:bg-foreground/5 px-2 rounded-lg min-h-[44px]">
+                        {t("menu.solutions")}
+                      </AccordionTrigger>
+                      <AccordionContent className="pb-2">
+                        <div className="flex flex-col gap-1">
+                          <a
+                            href="#"
+                            onClick={() => setMobileMenuOpen(false)}
+                            className="flex items-center gap-3 px-4 py-3 min-h-[44px] text-sm hover:bg-foreground/5 rounded-lg transition-colors"
+                          >
+                            <Home className="h-5 w-5 text-muted-foreground" />
+                            <span>{t("solutions.residential.title")}</span>
+                          </a>
+                          <a
+                            href="#"
+                            onClick={() => setMobileMenuOpen(false)}
+                            className="flex items-center gap-3 px-4 py-3 min-h-[44px] text-sm hover:bg-foreground/5 rounded-lg transition-colors"
+                          >
+                            <Building className="h-5 w-5 text-muted-foreground" />
+                            <span>{t("solutions.commercial.title")}</span>
+                          </a>
+                          <a
+                            href="#"
+                            onClick={() => setMobileMenuOpen(false)}
+                            className="flex items-center gap-3 px-4 py-3 min-h-[44px] text-sm hover:bg-foreground/5 rounded-lg transition-colors"
+                          >
+                            <Factory className="h-5 w-5 text-muted-foreground" />
+                            <span>{t("solutions.industrial.title")}</span>
+                          </a>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
                 </div>
               </SheetContent>
             </Sheet>
