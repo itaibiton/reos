@@ -1,13 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useTheme } from "next-themes";
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import {
   Menu,
-  Sun,
-  Moon,
   Building2,
   Workflow,
   Shield,
@@ -34,13 +31,9 @@ interface NavigationProps {
 
 export function Navigation({ className }: NavigationProps) {
   const t = useTranslations("landing.navigation");
-  const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { theme, setTheme } = useTheme();
 
   useEffect(() => {
-    setMounted(true);
-
     let ticking = false;
     let lastScrollY = window.scrollY;
 
@@ -71,10 +64,6 @@ export function Navigation({ className }: NavigationProps) {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
-  };
 
   return (
     <motion.div
@@ -260,21 +249,6 @@ export function Navigation({ className }: NavigationProps) {
 
           <div className="flex items-center gap-4">
             <a href="#" className="text-xs font-medium text-foreground/80 hover:text-foreground transition-colors hidden sm:block">{t("actions.login")}</a>
-
-            {/* Theme Toggle */}
-            {mounted && (
-              <button
-                onClick={toggleTheme}
-                className="w-8 h-8 rounded-lg hover:bg-foreground/10 flex items-center justify-center text-foreground/60 hover:text-foreground transition-colors"
-                aria-label="Toggle theme"
-              >
-                {theme === "dark" ? (
-                  <Sun className="w-4 h-4" />
-                ) : (
-                  <Moon className="w-4 h-4" />
-                )}
-              </button>
-            )}
 
             <a href="#" className="text-xs font-medium bg-foreground text-background px-4 py-2 rounded-full hover:bg-foreground/90 transition-colors">
               {t("actions.getStarted")}
