@@ -393,8 +393,8 @@ export function Hero({ className }: HeroProps) {
       </div>
 
       {/* Dashboard Preview */}
-      <div 
-        className="sticky z-20 mt-20 max-w-7xl mx-auto relative"
+      <div
+        className="sticky z-20 mt-20 max-w-7xl mx-auto relative px-4 sm:px-6 lg:px-8"
         style={{ top: "calc(50vh - 350px)" }}
       >
         <motion.div variants={fadeInUp}>
@@ -430,7 +430,7 @@ export function Hero({ className }: HeroProps) {
           </div>
 
           {/* Mockup Body */}
-          <div className="flex h-[550px]">
+          <div className="flex h-[400px] sm:h-[450px] md:h-[550px]">
             {/* Animated Sidebar */}
             <div
               className={cn(
