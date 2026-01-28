@@ -1,173 +1,226 @@
 # Project Research Summary
 
-**Project:** REOS v1.6 - AI-Powered Investor Experience
-**Domain:** AI assistant integration for real estate investment platform
-**Researched:** 2026-01-22
+**Project:** REOS v1.8 -- Conversion & Essential Pages
+**Domain:** B2B2C real estate investment platform (US investors, Israeli properties, service providers)
+**Researched:** 2026-01-28
 **Confidence:** HIGH
 
 ## Executive Summary
 
-The AI Assistant milestone for REOS is a well-scoped integration project, not a greenfield AI build. The existing stack (Next.js 15, Convex, Claude via Anthropic SDK) provides a solid foundation that requires only three additional packages: `@convex-dev/agent` for thread-based memory persistence, `@ai-sdk/anthropic` as the Claude provider, and `ai` (Vercel AI SDK) for streaming UI hooks. The proven pattern in `/convex/search.ts` for Claude integration directly extends to conversational AI without architectural changes.
+REOS v1.8 adds six page types to the existing marketing site: FAQ section on the landing page, standalone pricing page, legal pages (privacy/terms), contact page with form, service provider landing pages (per provider type), and a How It Works section on the landing page. Research across stack, features, architecture, and pitfalls converges on a single conclusion: **this milestone is a content and composition exercise, not a technical one.** The existing codebase already contains working implementations of every component needed -- FAQ accordion, pricing cards, process steps, contact form with Zod validation, and the Convex backend for lead submission. Zero new runtime dependencies are required. The only addition is `schema-dts` as a dev dependency for type-safe JSON-LD structured data.
 
-The recommended approach emphasizes **streaming-first implementation** and **RAG-grounded recommendations**. Users in 2025-2026 expect immediate feedback during AI generation, persistent memory across sessions, and transparent recommendations that explain why properties or providers match their profile. The "dream team builder" concept is a genuine differentiator with no direct competitor implementation, positioning REOS beyond property-only platforms like Zillow and Redfin.
+The recommended approach is to build inside the existing `(main)` route group, which automatically provides Navigation, Footer, and light-theme enforcement for all public pages. The most important architectural decision is to use `/services/[type]` for provider landing pages instead of `/providers/[type]`, because the middleware already protects the `/:locale/providers(.*)` pattern for the authenticated provider directory. This avoids a middleware conflict that would either block public access to marketing pages or weaken auth on the app. A template-driven approach for provider pages (single dynamic route with `generateStaticParams`) keeps effort low and future provider types trivial to add.
 
-Key risks center on hallucination (AI fabricating property/provider facts), context window mismanagement (degraded responses as conversations grow), and mobile UX (chat interfaces designed desktop-first). All three are preventable with day-one architectural decisions: mandatory database grounding for all factual claims, sliding window plus summarization for memory, and mobile-first component design. The existing Convex real-time subscription pattern directly supports the optimistic update + streaming response flow required for excellent chat UX.
+The key risks are non-technical: navigation bloat from cramming six new page types into the top nav (keep it lean -- only add Pricing), generic legal pages that fail to disclose REOS-specific data processors (Clerk, Convex, Anthropic), FAQ content that reads like a product manual instead of addressing investor objections, and provider pages that accidentally speak to investors instead of providers. The dual-audience challenge (investors vs. service providers) runs through every page and is the single biggest content risk. Every page must have a clear primary audience.
 
 ## Key Findings
 
 ### Recommended Stack
 
-REOS already has Claude integration via `@anthropic-ai/sdk` ^0.71.2 for search parsing. The addition is minimal: Convex Agent for persistence plus Vercel AI SDK for streaming UI.
+**No new runtime dependencies.** The existing stack covers every technical need for conversion pages. The project already has Radix Accordion, react-hook-form + Zod v4, Framer Motion, next-intl, react-markdown, Convex with a working `leads.submitLead` mutation, Sonner for toasts, Lucide icons, and the full Shadcn component library.
 
-**Core technologies:**
-- `@convex-dev/agent` (^0.3.2): Thread-based conversation persistence with built-in vector search, WebSocket streaming, automatic retry handling
-- `@ai-sdk/anthropic` (^3.0.13): Claude provider for Vercel AI SDK, enables `streamText`/`streamObject` with latest Claude Sonnet 4.5
-- `ai` (^6.0.0): Core AI SDK with `useChat` hook for token-by-token streaming UI, framework-agnostic React integration
+**Additions:**
 
-**What NOT to add:**
-- LangChain (overkill, obscures Convex capabilities)
-- External vector stores like Pinecone (Convex Agent has built-in vector search)
-- Redis/caching layers (Convex handles real-time natively)
+- `schema-dts` (dev dependency, v1.1.5): Type-safe JSON-LD structured data for SEO. Prevents silent schema.org typos. Used for FAQPage, Product/Offer, and ProfessionalService schemas.
+
+**Explicitly excluded:**
+
+- MDX / @next/mdx -- use react-markdown (already installed) for legal prose
+- next-seo -- use Next.js native `metadata` exports
+- CMS (Contentlayer, Sanity, Contentful) -- overkill for pages that change once a year
+- Stripe / payment libraries -- pricing page is display-only, not transactional
+- Formik or competing form libraries -- react-hook-form is already integrated
+- @convex-dev/resend -- defer email notifications until email infrastructure is ready
+
+See: `.planning/research/STACK-CONVERSION-PAGES.md`
 
 ### Expected Features
 
 **Must have (table stakes):**
-- Profile-based property recommendations with match explanations
-- Batch "save all" action for recommended properties
-- Conversational interface with natural language Q&A
-- Persistent memory across sessions (via Convex)
-- Typing indicator and streaming responses
-- Mobile tabbed interface (Profile / AI Assistant)
+
+- FAQ: 15-20 questions across 3-4 categories, `type="multiple"` accordion (not "single"), JSON-LD structured data, "Still have questions?" CTA linking to contact
+- Pricing: 3-tier comparison, feature table, "Most Popular" badge, annual/monthly toggle, clear CTAs per tier, trust signals
+- Legal: Formatted prose with heading hierarchy, table of contents with jump links, last-updated date, accessible semantic HTML, footer links wired
+- Contact: 5-field max form (name, email, subject dropdown, message, optional phone), inline validation, success confirmation, honeypot anti-spam
+- Provider pages: Dedicated page per type with type-specific hero, benefits, social proof, provider-facing CTAs, "How it works for providers" steps
+- How It Works: 3-5 numbered steps with icons, scroll-triggered animations (already built via ProcessSteps)
 
 **Should have (differentiators):**
-- Dream team builder: 2-3 providers per role with explanations
-- Quick reply buttons for common queries
-- Inline profile edit from summary view
 
-**Defer (v2+):**
-- Proactive new property alerts
-- Preference contradiction detection
-- Market insights and predictions
-- Conversation summarization/search
+- FAQ: Audience-segmented tabs (Investors / Providers), search within FAQ
+- Pricing: Dual-audience sections (Investor Plans + Provider Plans), FAQ below pricing
+- Legal: Bilingual (EN/HE) with professional translation, plain-language summaries per section
+- Contact: Subject-based routing, referral source tracking (which page the user came from), alternative contact methods (phone, WhatsApp)
+- Provider pages: Template system (single configurable component, add types via data only), platform stats, "with vs without REOS" comparison
+- How It Works: Audience-specific process flows (investor journey vs provider journey)
+
+**Defer to post-v1.8:**
+
+- FAQ search functionality and analytics on question opens
+- ROI calculator on pricing page
+- Video testimonials on provider pages
+- Cookie consent banner (separate compliance effort)
+- Conversion tracking / analytics infrastructure
+- Email notifications on contact form submission (@convex-dev/resend)
+
+See: `.planning/research/FEATURES.md`
 
 ### Architecture Approach
 
-The architecture follows existing REOS patterns: Convex actions for AI generation (matching `parseSearchQuery`), new tables for conversation persistence (`aiConversations`, `aiMessages`), and queries that combine investor questionnaire data with property/provider matching. Frontend orchestrates action calls after mutations; UI subscribes to real-time message updates.
+All new pages live under the `(main)` route group, inheriting Navigation + Footer + light theme + Convex client access. No middleware changes are needed. The only backend addition is a new `contactSubmissions` Convex table and mutation for the contact form. Legal pages are pure Server Components (zero interactivity, optimal for SEO). Interactive pages (FAQ, pricing toggle, contact form) use Client Components within Server Component page shells that export metadata. Provider pages use a dynamic `[type]` route with `generateStaticParams` for static generation at build time. All content flows through `next-intl` translation JSON files.
 
 **Major components:**
-1. **Convex Backend** (`/convex/aiAssistant.ts`): Mutations for message handling, actions for AI generation, queries for conversation history
-2. **AI Chat Components** (`/components/ai-assistant/`): Chat container, message bubbles, input with streaming, typing indicator, inline property/provider cards
-3. **Memory Layer**: Thread-per-user persistence with `aiThreads` table mapping users to Convex Agent threads
+
+1. `(main)/` route group -- public marketing shell (Navigation + Footer + light theme)
+2. Landing page sections (FAQ.tsx, HowItWorks.tsx) -- added to existing landing page composition between Features/CTA
+3. Static pages (pricing, privacy, terms) -- new routes, no backend, Server Component page shells
+4. Contact page -- new route, new Convex table + mutation, Client Component form
+5. Services/[type] -- dynamic route, template-driven, `generateStaticParams` for all provider types
+6. Navigation + Footer link wiring -- update all `href="#"` dead links to real routes using locale-aware `Link`
+
+**Key architectural decisions:**
+
+- Use `/services/[type]` NOT `/providers/[type]` to avoid middleware auth conflict
+- Legal content in structured JSON sections within translation files (not MDX, not CMS)
+- Contact form writes to new `contactSubmissions` table (not the existing `leads` table, which has different field structure)
+- Place HowItWorks after Features, FAQ before CTA in landing page order
+
+See: `.planning/research/ARCHITECTURE-CONVERSION.md`
 
 ### Critical Pitfalls
 
-1. **Dead air during AI response** — Implement streaming from day one. Show typing indicator within 200ms, stream tokens as generated. Time to first visible response must be under 1 second.
+1. **Navigation bloat** -- Adding 6+ pages to top nav destroys the conversion funnel. Keep nav lean: add only "Pricing" to top nav. FAQ, legal, contact go in footer. Provider pages go under existing "Solutions" dropdown. Test mobile nav after every addition.
 
-2. **Context window explosion** — Use sliding window (last 10-15 messages) plus AI-generated summaries for older context. Treat context as finite resource to budget, not infinite storage.
+2. **Legal pages as copy-paste liability** -- Generic templates miss REOS-specific data processors (Clerk, Convex, Anthropic), cross-border data transfers (US/Israel), and multi-jurisdiction requirements (CCPA, GDPR, Israeli Privacy Protection Law). Map all data flows before writing legal content.
 
-3. **Hallucinated property facts** — Mandatory RAG grounding: every property/provider statement must cite database records. Validate entity IDs exist before mentioning. Configure Claude to refuse when data unavailable.
+3. **FAQ as content dump** -- FAQ must be structured by buyer journey stage (Trust/Safety, Process, Cost, Providers), limited to 15-20 questions, and sourced from real user objections -- not developer assumptions.
 
-4. **Generic recommendations ignoring profile** — Always inject user profile (budget, locations, property types, timeline) into context. Every recommendation query starts with questionnaire fetch.
+4. **Provider pages speaking to wrong audience** -- Each provider type needs distinct value propositions and provider-facing language. Brokers care about leads, lawyers about compliance, mortgage advisors about qualified borrowers. Generic "Sign Up" CTAs fail; use "Join as Broker Partner" etc.
 
-5. **Mobile chat UX failures** — Design mobile-first: 44px+ touch targets, keyboard-aware layout, voice input option, suggested reply buttons to reduce typing.
+5. **Contact form spam without protection** -- Public forms attract bots within days. Implement honeypot field + rate limiting in the Convex mutation from day one. Do not defer spam protection.
+
+6. **Middleware route collision** -- Using `/providers/[type]` for public marketing pages collides with authenticated `/providers/` routes. Use `/services/[type]` instead.
+
+See: `.planning/research/PITFALLS-CONVERSION-PAGES.md`
 
 ## Implications for Roadmap
 
-Based on research, suggested phase structure:
+Based on research, suggested phase structure (4 phases):
 
-### Phase 1: AI Infrastructure Foundation
-**Rationale:** Memory architecture and streaming must be designed from day one per pitfall research. Context management patterns are foundational.
-**Delivers:** Convex Agent setup, `aiConversations`/`aiMessages` tables, basic thread persistence, streaming action pattern
-**Addresses:** Persistent memory, typing indicator (table stakes)
-**Avoids:** Dead air pitfall, context window explosion pitfall
+### Phase 1: Foundation -- Landing Page Sections + Design Tokens
 
-### Phase 2: Conversational AI Core
-**Rationale:** Basic chat must work before adding recommendations. Establishes streaming UI, error handling, and conversation flow.
-**Delivers:** Chat UI components, `useChat` integration, basic Q&A about investor profile and general questions
-**Uses:** AI SDK hooks, Convex real-time subscriptions
-**Implements:** AiAssistantChat, AiChatMessage, AiChatInput, AiTypingIndicator components
+**Rationale:** Zero new routes, zero backend changes. Lowest risk starting point. Validates the translation pattern and animation consistency before adding pages. Establishes the shared section patterns that all subsequent phases reuse.
 
-### Phase 3: Property Recommendations
-**Rationale:** Recommendations depend on working chat. Profile integration and RAG grounding are prerequisites.
-**Delivers:** AI-powered property matching with explanations, inline property cards, "save all" batch action
-**Addresses:** Profile-based recommendations, match explanations, batch save (table stakes)
-**Avoids:** Hallucination pitfall, generic recommendations pitfall
+**Delivers:**
+- FAQ section added to landing page (expanded from 5 to 15-20 questions, `type="multiple"`, JSON-LD structured data)
+- HowItWorks section added to landing page (investor journey focus, CTA to sign-up)
+- Updated landing page composition order (Hero > SocialProof > Features > HowItWorks > Automation > Testimonials > Stats > FAQ > CTA)
+- Shared design tokens documented (spacing, colors, animation variants) for consistency
 
-### Phase 4: Dream Team Builder
-**Rationale:** Provider matching builds on property recommendation patterns. Requires chat UI established.
-**Delivers:** Role-based provider suggestions (broker, mortgage, lawyer), provider comparison, team composition preview
-**Addresses:** Dream team builder (differentiator)
-**Avoids:** Provider recommendations without context pitfall
+**Features addressed:** FAQ section (table stakes), How It Works section (table stakes)
+**Pitfalls avoided:** Pitfall 3 (FAQ as content dump -- structure by journey stage), Pitfall 8 (How It Works duplicating Features -- focus on user process), Pitfall 9 (design inconsistency -- establish tokens first), Pitfall 15 (i18n bypass -- set convention from phase 1)
 
-### Phase 5: Investor Summary Page
-**Rationale:** Two-panel layout requires all AI components complete. Integration phase.
-**Delivers:** Desktop two-panel layout (profile + AI assistant), profile summary with edit access, completeness indicator
-**Addresses:** Profile summary display, edit access (table stakes)
+### Phase 2: Static Pages -- Legal + Pricing
 
-### Phase 6: Mobile Experience
-**Rationale:** Mobile requires specific interaction patterns after desktop UX validated.
-**Delivers:** Tabbed interface (Profile / AI Assistant), keyboard-aware chat input, touch targets, quick reply buttons
-**Addresses:** Mobile tabbed interface (table stakes)
-**Avoids:** Mobile UX pitfall
+**Rationale:** Legal pages must exist before the contact form goes live (compliance requirement -- you cannot collect data via form without a privacy policy in place). Pricing is grouped here because it is also static content with no backend. These pages validate that new routes under `(main)` work correctly before adding backend-dependent pages.
+
+**Delivers:**
+- `/privacy` and `/terms` routes with structured legal content, table of contents, last-updated dates
+- `/pricing` route with dual-audience tier cards, feature comparison, monthly/annual toggle, pricing FAQ
+- Footer dead links wired to real routes (Privacy, Terms)
+- `schema-dts` dev dependency installed for JSON-LD on pricing page
+
+**Features addressed:** Legal pages (table stakes), Pricing page (table stakes + differentiators)
+**Pitfalls avoided:** Pitfall 2 (legal copy-paste -- map REOS data flows first), Pitfall 4 (pricing confusion -- show both REOS fees and investment cost context), Pitfall 11 (pricing model not finalized -- confirm model before building), Pitfall 13 (legal pages without dates)
+
+### Phase 3: Interactive Pages -- Contact + Provider Landing Pages
+
+**Rationale:** Contact page requires the only backend addition (new Convex table + mutation). Legal pages from Phase 2 must exist before the contact form collects data. Provider landing pages are grouped here because they depend on the template pattern and provider-specific content, which is the highest content-authoring effort. The `/services/[type]` dynamic route avoids the middleware collision.
+
+**Delivers:**
+- `/contact` route with 5-field form, subject dropdown, honeypot anti-spam, Convex `contactSubmissions` mutation, success state
+- `/services/[type]` dynamic route for brokers, lawyers, mortgage-advisors (minimum 3 types) with `generateStaticParams`
+- Provider page template system (shared component, data-driven per type)
+- Provider-specific hero, benefits, social proof, CTAs per type
+- JSON-LD structured data (ProfessionalService) on provider pages
+
+**Features addressed:** Contact page (table stakes), Provider landing pages (table stakes + template system differentiator)
+**Pitfalls avoided:** Pitfall 5 (context-less contact form -- add subject + referral source), Pitfall 6 (wrong audience on provider pages -- distinct value props per type), Pitfall 10 (spam flood -- honeypot + rate limiting from day one)
+
+### Phase 4: Navigation Wiring + Cross-Linking
+
+**Rationale:** Wire all links last so every target page exists. This prevents broken links during development and forces a deliberate navigation hierarchy review. All `href="#"` dead links in Navigation, Footer, and CTA components get replaced with real locale-aware routes.
+
+**Delivers:**
+- Navigation.tsx updated: "Pricing" in top nav, provider pages under Solutions dropdown
+- Footer.tsx updated: Contact, Privacy, Terms, and other links wired
+- CTA.tsx updated: "Contact Sales" links to /contact, "View Pricing" links to /pricing
+- Cross-page CTAs: FAQ "Still have questions?" to /contact, Pricing "Enterprise" to /contact, Provider pages to /sign-up?role=X
+- Sitemap generation (Next.js `app/sitemap.ts`)
+- All links use `Link` from `@/i18n/navigation` for locale-aware routing
+
+**Features addressed:** Cross-page linking (table stakes), navigation hierarchy
+**Pitfalls avoided:** Pitfall 1 (navigation bloat -- deliberate hierarchy), Pitfall 7 (orphan pages with no internal links -- sitemap + cross-linking)
 
 ### Phase Ordering Rationale
 
-- **Infrastructure before features:** Streaming and memory patterns are referenced by all subsequent phases. Retrofitting is expensive.
-- **Chat before recommendations:** Recommendation responses flow through chat UI. Chat must be stable first.
-- **Properties before providers:** Provider matching is a variation of property matching with different data. Same pattern, different query.
-- **Desktop before mobile:** Validate core UX on desktop where debugging is easier, then adapt mobile-specific patterns.
-- **Grouping by dependency:** Each phase produces components used by subsequent phases. No orphan features.
+- **Phase 1 before Phase 2:** Landing page sections validate translation and animation patterns with zero risk (no new routes). If patterns are wrong, fix them before proliferating across 5+ new pages.
+- **Phase 2 before Phase 3:** Legal pages must exist before the contact form collects personal data (GDPR/CCPA compliance). Pricing validates the new-route pattern without backend complexity.
+- **Phase 3 after Phase 2:** Contact form depends on legal pages existing. Provider pages are the highest content effort and benefit from patterns established in earlier phases.
+- **Phase 4 last:** Navigation wiring requires all target pages to exist. Doing it last prevents broken links and allows a holistic navigation hierarchy review.
 
 ### Research Flags
 
-Phases likely needing deeper research during planning:
-- **Phase 4 (Dream Team):** Novel feature with no direct competitor reference. May need iteration on matching algorithm and UI presentation.
+**Phases likely needing deeper research during planning:**
 
-Phases with standard patterns (skip research-phase):
-- **Phase 1 (Infrastructure):** Convex Agent documentation is comprehensive. Verified patterns.
-- **Phase 2 (Chat Core):** AI SDK `useChat` is well-documented. Standard streaming pattern.
-- **Phase 3 (Property Recommendations):** RAG pattern is established. Existing property data schema is sufficient.
-- **Phase 5 (Summary Page):** Standard two-panel responsive layout. Existing Shadcn components.
-- **Phase 6 (Mobile):** REOS v1.5 established mobile patterns. Apply to chat components.
+- **Phase 2 (Legal pages):** Legal content requires mapping all REOS data processors (Clerk, Convex, Anthropic, Vercel), cross-border data transfer disclosures, and multi-jurisdiction coverage. Consider legal counsel review. This is a content/compliance challenge, not a technical one.
+- **Phase 3 (Provider pages):** Provider value propositions should ideally be validated with real brokers/lawyers/mortgage advisors. Content for 3+ distinct provider types is the biggest authoring effort in this milestone.
+
+**Phases with standard patterns (skip deep research):**
+
+- **Phase 1 (Landing sections):** FAQ accordion and process steps are well-documented patterns. Components already exist in the codebase. Straightforward composition.
+- **Phase 4 (Navigation wiring):** Link updates are mechanical. The only decision (what goes in top nav vs footer) should be settled in Phase 1 planning.
 
 ## Confidence Assessment
 
 | Area | Confidence | Notes |
 |------|------------|-------|
-| Stack | HIGH | Convex Agent and AI SDK versions verified, official docs reviewed, packages actively maintained |
-| Features | MEDIUM-HIGH | Industry expectations well-documented; dream team builder is novel but logical extension |
-| Architecture | HIGH | Patterns match existing REOS codebase (parseSearchQuery, directMessages), Convex official AI guidance |
-| Pitfalls | HIGH | Multiple authoritative sources confirm all critical pitfalls; prevention strategies are established |
+| Stack | HIGH | Verified against project package.json. Zero runtime additions needed. All component versions confirmed compatible. |
+| Features | HIGH | Cross-referenced with NNGroup, Google structured data docs, and conversion benchmarks. Features grounded in existing codebase capabilities. |
+| Architecture | HIGH | Based on direct codebase analysis of all referenced files (middleware, layouts, route groups, existing components). Middleware collision identified and resolved. |
+| Pitfalls | HIGH | 15 pitfalls identified across critical/moderate/minor severity. Sourced from industry research and verified against REOS-specific codebase patterns. |
 
 **Overall confidence:** HIGH
 
+All four research dimensions were verified against the actual codebase. Stack recommendations are grounded in `package.json` and existing component implementations. Architecture is based on reading the actual middleware, layouts, and route structure. Pitfalls reference specific files and patterns in the codebase.
+
 ### Gaps to Address
 
-- **Provider matching algorithm specifics:** Research establishes what to match (service areas, languages, availability) but not optimal ranking/weighting. Address during Phase 4 planning with real provider data.
-- **Conversation summarization strategy:** Known as needed for long conversations but exact trigger (message count, token count) and summary format need experimentation. Defer to Phase 1 implementation.
-- **Claude model selection:** Sonnet 4.5 recommended for conversation, but may need A/B testing against Haiku for cost optimization. Instrument from day one.
+- **Pricing model finalization:** The pricing page design depends on a finalized business model (free tier, commission structure, provider fees). If the model is not settled, build a "pricing philosophy" placeholder page first and swap in real tiers when ready.
+- **Legal content authorship:** Template-based legal content is a starting point but must be reviewed for REOS-specific data flows (Clerk auth data, Convex real-time storage, Anthropic AI processing, cross-border US/Israel transfers). Professional legal review recommended.
+- **Provider value proposition validation:** Research suggests distinct messaging per provider type, but actual provider pain points should be validated with at least one real broker, lawyer, and mortgage advisor if possible.
+- **Analytics infrastructure:** No analytics library currently exists in the project. Conversion tracking for new pages is deferred but should be addressed before measuring page performance.
+- **Hebrew translation:** All new content needs EN and HE versions. Legal content in Hebrew may require professional translation. The i18n infrastructure is ready but the content authoring effort is significant.
 
 ## Sources
 
 ### Primary (HIGH confidence)
-- [Convex Agents Documentation](https://docs.convex.dev/agents) — Thread memory, streaming, agent setup
-- [Convex Agent Getting Started](https://docs.convex.dev/agents/getting-started) — Installation, convex.config.ts
-- [Vercel AI SDK](https://ai-sdk.dev/docs/introduction) — useChat, streamText, provider integration
-- [AI SDK Anthropic Provider](https://ai-sdk.dev/providers/ai-sdk-providers/anthropic) — Claude model support
-- [Claude Platform Docs - Reducing Latency](https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-latency) — Streaming best practices
+- REOS codebase analysis: `package.json`, `middleware.ts`, `(main)/layout.tsx`, `(main)/page.tsx`, all `newlanding/` components, `convex/schema.ts`, `convex/leads.ts`, `messages/en.json`
+- [Next.js JSON-LD Guide](https://nextjs.org/docs/app/guides/json-ld)
+- [Google FAQPage Structured Data](https://developers.google.com/search/docs/appearance/structured-data/faqpage)
+- [schema-dts npm](https://www.npmjs.com/package/schema-dts) -- v1.1.5, 334K weekly downloads, maintained by Google
 
 ### Secondary (MEDIUM confidence)
-- [Convex AI Streaming Patterns](https://stack.convex.dev/gpt-streaming-with-persistent-reactivity) — Dual streaming strategy
-- [The Context Window Problem](https://factory.ai/news/context-window-problem) — Memory management patterns
-- [LLM Hallucinations Guide 2025](https://www.lakera.ai/blog/guide-to-hallucinations-in-large-language-models) — RAG grounding requirements
-- [Ascendix Tech - AI Recommendation System](https://ascendixtech.com/ai-recommendation-system-real-estate/) — Real estate AI expectations
-- [ChatBot.com - Real Estate Chatbot](https://www.chatbot.com/blog/real-estate-chatbot/) — Conversational AI best practices
+- NNGroup: Accordion UI best practices, privacy policy usability
+- Industry pricing page benchmarks (DesignStudioUIUX, Artisan Strategies, Marketer Milk)
+- B2B landing page research (Instapage, Exposure Ninja, Landingi)
+- Contact form conversion research (Eleken, Smashing Magazine, Formidable Forms)
+- SEO and navigation best practices (Search Engine Journal, Ahrefs, Semrush)
 
-### Tertiary (for reference)
-- [AI UI Patterns - patterns.dev](https://www.patterns.dev/react/ai-ui-patterns/) — Streaming UI patterns
-- [ParallelHQ - UX for AI Chatbots 2025](https://www.parallelhq.com/blog/ux-ai-chatbots) — Mobile chat design
-- [Google PAIR - Explainability & Trust](https://pair.withgoogle.com/chapter/explainability-trust) — Recommendation transparency
+### Tertiary (LOW confidence)
+- Conversion rate benchmarks (35-40% uplift from conversion pages, 84-270% from social proof near pricing) -- directionally useful but vary widely by context
+- Two-sided marketplace dynamics (Sharetribe) -- general patterns applied to REOS-specific context
 
 ---
-*Research completed: 2026-01-22*
+*Research completed: 2026-01-28*
 *Ready for roadmap: yes*
