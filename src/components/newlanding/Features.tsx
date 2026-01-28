@@ -113,7 +113,7 @@ export function Features({ className }: FeaturesProps) {
       variants={fadeInUp}
       className={cn("py-12 md:py-16 relative min-h-screen flex items-center", className)}
     >
-      <div className="max-w-7xl mx-auto px-6 w-full">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <motion.div variants={fadeInUp} className="max-w-3xl mb-8 md:mb-12">
           <h2 className="text-3xl md:text-5xl font-light tracking-tighter text-foreground mb-4">
             {t("heading")} <br />

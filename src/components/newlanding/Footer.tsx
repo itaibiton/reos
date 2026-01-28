@@ -52,7 +52,7 @@ export function Footer({ className }: FooterProps) {
       variants={fadeInUp}
       className={cn("bg-card border-t border-border/50 py-16", className)}
     >
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 md:grid-cols-6 gap-10 mb-16">
           <div className="col-span-2">
             <a href="#" className="flex items-center gap-2 mb-6">

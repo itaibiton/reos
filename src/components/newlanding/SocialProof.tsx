@@ -31,7 +31,7 @@ export function SocialProof({ className }: SocialProofProps) {
         y,
       }}
     >
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <p className="text-center text-sm font-light text-muted-foreground/75 mb-8">{t("label")}</p>
         <div className="flex flex-wrap justify-center gap-12 md:gap-20 opacity-40 grayscale">
           {/* VANGUARD */}

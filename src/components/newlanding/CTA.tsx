@@ -24,7 +24,7 @@ export function CTA({ className }: CTAProps) {
       className={cn("py-24 relative overflow-hidden", className)}
     >
       <div className="absolute inset-0 bg-blue-900/5"></div>
-      <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
         <h2 className="text-4xl md:text-6xl font-light tracking-tighter text-foreground mb-6">
           {t("heading")}
         </h2>

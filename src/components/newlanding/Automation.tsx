@@ -91,7 +91,7 @@ export function Automation({ className }: AutomationProps) {
         variants={fadeInUp}
         className="relative z-10"
       >
-      <div className="max-w-7xl mx-auto px-6 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Header */}
         <motion.div variants={fadeInUp} className="max-w-3xl mb-12 mt-16 md:mt-24">
           <h2 className="text-3xl md:text-5xl font-light tracking-tighter text-white mb-6">

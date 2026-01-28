@@ -321,7 +321,7 @@ export function Hero({ className }: HeroProps) {
       {/* Ambient Light */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blue-900/10 blur-[120px] rounded-full pointer-events-none"></div>
 
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-7xl mx-auto relative z-10 px-4 sm:px-6 lg:px-8">
         {/* Centered Hero Content */}
         <motion.div
           variants={fadeInUp}
