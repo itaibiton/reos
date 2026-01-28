@@ -786,8 +786,7 @@
         "sla": "SLA"
       },
       "copyright": "© {year} REOS Technologies Inc. All rights reserved."
-    }
-,
+    },
     "howItWorks": {
       "heading": "How It Works",
       "subheading": "From sign-up to closing, REOS guides you through every step of the investment process.",
@@ -810,6 +809,136 @@
         }
       },
       "cta": "Start Investing Today"
+    },
+    "faq": {
+      "heading": "Frequently Asked Questions",
+      "tabs": {
+        "investors": "For Investors",
+        "providers": "For Service Providers"
+      },
+      "investors": {
+        "categories": {
+          "trust": "Trust & Safety",
+          "process": "Process",
+          "cost": "Cost & Pricing"
+        },
+        "questions": [
+          {
+            "id": "inv-1",
+            "category": "trust",
+            "question": "Is REOS a licensed real estate platform?",
+            "answer": "REOS is a technology platform that connects US investors with vetted Israeli real estate professionals. All transactions are conducted through licensed brokers, lawyers, and mortgage advisors who are independently verified."
+          },
+          {
+            "id": "inv-2",
+            "category": "trust",
+            "question": "How are service providers vetted?",
+            "answer": "Every service provider on REOS undergoes a thorough verification process including license validation, professional references, track record review, and ongoing performance monitoring through client ratings and reviews."
+          },
+          {
+            "id": "inv-3",
+            "category": "trust",
+            "question": "Is my personal information secure?",
+            "answer": "Yes. REOS uses industry-standard encryption and secure data handling practices. Your personal and financial information is protected in compliance with GDPR and CCPA regulations. We never share your data with third parties without your explicit consent."
+          },
+          {
+            "id": "inv-4",
+            "category": "process",
+            "question": "How do I start investing in Israeli real estate?",
+            "answer": "Simply create an account, complete your investor profile, and our AI will recommend properties matching your criteria. You can also browse all listings and use our smart search to find specific opportunities. Once you find a property, we connect you with the right professionals."
+          },
+          {
+            "id": "inv-5",
+            "category": "process",
+            "question": "What types of properties are available?",
+            "answer": "REOS features residential, commercial, and mixed-use properties across Israel's major cities including Tel Aviv, Jerusalem, Haifa, and Herzliya. Properties range from new developments to established investment opportunities."
+          },
+          {
+            "id": "inv-6",
+            "category": "process",
+            "question": "How long does a typical transaction take?",
+            "answer": "Timeline varies by property type and complexity, but most transactions complete within 60-90 days. REOS tracks every stage from initial interest through closing, keeping you informed with real-time updates throughout the process."
+          },
+          {
+            "id": "inv-7",
+            "category": "process",
+            "question": "Can I invest remotely from the US?",
+            "answer": "Absolutely. REOS is designed specifically for cross-border investment. Our platform handles the entire process digitally, and your assigned service providers manage all local requirements. You can track everything from your dashboard without traveling."
+          },
+          {
+            "id": "inv-8",
+            "category": "cost",
+            "question": "Is REOS free for investors?",
+            "answer": "Yes, REOS is completely free for investors. There are no platform fees, subscription costs, or hidden charges. Service provider fees (broker commissions, legal fees, etc.) are standard market rates disclosed upfront before you commit."
+          },
+          {
+            "id": "inv-9",
+            "category": "cost",
+            "question": "What are the typical costs of investing in Israeli real estate?",
+            "answer": "Costs include the property price, purchase tax (3.5-10% depending on property value), legal fees (typically 1-1.5% of purchase price), broker commission (1-2%), and mortgage arrangement fees if financing. REOS provides full cost breakdowns before you commit."
+          },
+          {
+            "id": "inv-10",
+            "category": "cost",
+            "question": "Are there financing options available?",
+            "answer": "Yes. Through our network of verified mortgage advisors, you can access Israeli mortgage options typically covering up to 50-75% of the property value for foreign investors. Our advisors help you find the best rates and terms."
+          }
+        ]
+      },
+      "providers": {
+        "categories": {
+          "platform": "Platform",
+          "leads": "Leads & Clients",
+          "cost": "Cost & Plans"
+        },
+        "questions": [
+          {
+            "id": "prov-1",
+            "category": "platform",
+            "question": "What types of service providers can join REOS?",
+            "answer": "REOS welcomes licensed real estate brokers, mortgage advisors, lawyers specializing in real estate transactions, appraisers, notaries, accountants, and tax consultants. Each provider type has a dedicated dashboard and workflow."
+          },
+          {
+            "id": "prov-2",
+            "category": "platform",
+            "question": "How does the deal handoff process work?",
+            "answer": "When an investor progresses through their purchase journey, REOS automatically routes them to the next service provider in the flow. For example, after a broker secures a deal, the system connects the investor with a mortgage advisor and lawyer. You receive warm, qualified leads with full context."
+          },
+          {
+            "id": "prov-3",
+            "category": "platform",
+            "question": "Can I manage my existing clients on REOS?",
+            "answer": "Yes. REOS includes a full client management system where you can track active deals, manage communications, share documents, and monitor deal progress — all in one place alongside new platform-generated leads."
+          },
+          {
+            "id": "prov-4",
+            "category": "leads",
+            "question": "How are leads matched to service providers?",
+            "answer": "Our matching algorithm considers your specialization areas, geographic coverage, language capabilities, availability, and client ratings. Investors are connected with providers who best match their specific needs and preferences."
+          },
+          {
+            "id": "prov-5",
+            "category": "leads",
+            "question": "What quality of leads can I expect?",
+            "answer": "REOS leads are pre-qualified investors who have completed their profiles and expressed genuine interest in specific properties. Unlike cold leads, these investors are actively looking to purchase and have been matched to you based on compatibility."
+          },
+          {
+            "id": "prov-6",
+            "category": "cost",
+            "question": "How much does REOS cost for service providers?",
+            "answer": "REOS currently offers free access during our growth phase. We plan to introduce professional tiers with enhanced features such as priority lead matching, advanced analytics, and marketing tools. Early adopters will receive preferential pricing."
+          },
+          {
+            "id": "prov-7",
+            "category": "cost",
+            "question": "Is there a commission or referral fee?",
+            "answer": "During our launch phase, there are no platform commission fees. Your standard professional fees are between you and your clients. We'll communicate any future changes well in advance with grandfathered terms for early providers."
+          }
+        ]
+      },
+      "stillHaveQuestions": "Still have questions?",
+      "contactCta": "Contact our team",
+      "contactDescription": "Our team is happy to help with any questions about investing in Israeli real estate or joining as a service provider."
     }
   },
   "properties": {
@@ -1524,7 +1653,9 @@
       "description": "Select users to add to this group",
       "noUsersToAdd": "No users available to add",
       "adding": "Adding...",
-      "addCount": "Add ({count})"
+      "addCount": "Add ({count})",
+      "selectAtLeastOne": "Please select at least one user",
+      "addFailed": "Failed to add members"
     },
     "groupSettings": {
       "title": "Group Settings",
@@ -1540,15 +1671,6 @@
       "nameCannotBeEmpty": "Group name cannot be empty",
       "updateNameFailed": "Failed to update group name",
       "removeMemberFailed": "Failed to remove member"
-    },
-    "addMembers": {
-      "title": "Add Members",
-      "description": "Select users to add to this group",
-      "noUsersToAdd": "No users available to add",
-      "adding": "Adding...",
-      "addCount": "Add ({count})",
-      "selectAtLeastOne": "Please select at least one user",
-      "addFailed": "Failed to add members"
     },
     "directChat": {
       "participants": "{count} participants - Tap for settings",
@@ -1958,7 +2080,10 @@
     "searchFor": "Search for something",
     "enterTerm": "Enter a search term to find users, posts, and properties.",
     "startTyping": "Start typing to search...",
-    "quickActions": "Quick Actions",
+    "quickActions": {
+      "title": "Quick Actions",
+      "goTo": "Go to {page}"
+    },
     "page": "Page",
     "noResults": "No results found for \"{query}\"",
     "tryDifferent": "Try different keywords or check your spelling",
@@ -1977,10 +2102,6 @@
       "noUsersFound": "No users found matching \"{query}\"",
       "noPostsFound": "No posts found matching \"{query}\"",
       "noPropertiesFound": "No properties found matching \"{query}\""
-    },
-    "quickActions": {
-      "title": "Quick Actions",
-      "goTo": "Go to {page}"
     },
     "trending": {
       "title": "Trending",
