@@ -245,14 +245,23 @@ export function Hero({ className }: HeroProps) {
     offset: ["start start", "end end"],
   });
 
-  // Stats fade in earlier (when scroll progress reaches 0.1, very early)
-  const statsOpacity = useTransform(scrollYProgress, [0.1, 0.3], [0, 1]);
-  const statsY = useTransform(scrollYProgress, [0.1, 0.3], [60, 0]);
+  // Mobile-friendly scroll progress - animations start immediately and complete within viewport
+  // On mobile (100vh), on desktop (400vh) - animations scaled proportionally
+  const statsOpacity = useTransform(scrollYProgress,
+    isMobile ? [0, 0.2] : [0.1, 0.3],
+    [0, 1]
+  );
+  const statsY = useTransform(scrollYProgress,
+    isMobile ? [0, 0.2] : [0.1, 0.3],
+    [60, 0]
+  );
 
-  // Switch stats and mockup content at middle of scroll (0.4-0.6)
-  const switchProgress = useTransform(scrollYProgress, [0.4, 0.6], [0, 1], {
-    clamp: true,
-  });
+  // Switch stats and mockup content - faster on mobile
+  const switchProgress = useTransform(scrollYProgress,
+    isMobile ? [0.3, 0.6] : [0.4, 0.6],
+    [0, 1],
+    { clamp: true }
+  );
 
   // Initial content - fade out and scale down (card swap effect)
   const initialContentOpacity = useTransform(switchProgress, [0, 0.5], [1, 0]);
@@ -278,19 +287,23 @@ export function Hero({ className }: HeroProps) {
     : "reos.internal/dashboard/properties";
 
   useMotionValueEvent(statsOpacity, "change", (latest) => {
-    if (latest > 0.3 && !initialStatsVisible) {
+    const threshold = isMobile ? 0.1 : 0.3;
+    if (latest > threshold && !initialStatsVisible) {
       setInitialStatsVisible(true);
     }
   });
 
   useMotionValueEvent(switchedContentOpacity, "change", (latest) => {
-    if (latest > 0.3 && !switchedStatsVisible) {
+    const threshold = isMobile ? 0.1 : 0.3;
+    if (latest > threshold && !switchedStatsVisible) {
       setSwitchedStatsVisible(true);
     }
   });
 
   useMotionValueEvent(switchProgress, "change", (latest) => {
-    if (latest > 0.5) {
+    // Switch menu item at midpoint of transition
+    const threshold = 0.5;
+    if (latest > threshold) {
       setActiveMenuItem("Properties");
     } else {
       setActiveMenuItem("Overview");
@@ -299,20 +312,15 @@ export function Hero({ className }: HeroProps) {
 
   // Check initial values on mount
   useEffect(() => {
-    // On mobile, make stats visible immediately
-    if (isMobile) {
-      setInitialStatsVisible(true);
-      setSwitchedStatsVisible(true);
-      return;
-    }
-
     const checkInitial = () => {
       const statsOp = statsOpacity.get();
       const switchedOp = switchedContentOpacity.get();
-      if (statsOp > 0.3 && !initialStatsVisible) {
+      // Lower threshold for mobile to trigger animations earlier
+      const threshold = isMobile ? 0.1 : 0.3;
+      if (statsOp > threshold && !initialStatsVisible) {
         setInitialStatsVisible(true);
       }
-      if (switchedOp > 0.3 && !switchedStatsVisible) {
+      if (switchedOp > threshold && !switchedStatsVisible) {
         setSwitchedStatsVisible(true);
       }
     };

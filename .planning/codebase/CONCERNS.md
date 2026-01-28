@@ -1,287 +1,344 @@
 # Codebase Concerns
 
-**Analysis Date:** 2026-01-22
+**Analysis Date:** 2026-01-28
 
-## Tech Debt
+## Conversion Optimization Gaps
 
-**Extensive UI Coverage Without Backend Implementation:**
-- Issue: 22 feature modules in `src/app/[locale]/(app)/` (accounting, appraisal, legal, mortgage, notary, tax, leads, etc.) have placeholder pages with minimal or no functional backend integration
-- Files: `src/app/[locale]/(app)/accounting/*`, `src/app/[locale]/(app)/appraisal/*`, `src/app/[locale]/(app)/legal/*`, `src/app/[locale]/(app)/mortgage/*`, `src/app/[locale]/(app)/notary/*`, `src/app/[locale]/(app)/tax/*`, etc.
-- Impact: UI is built but backend queries and mutations don't exist; features will fail at runtime when users navigate to these sections
-- Fix approach: Inventory which modules are truly needed for MVP; either complete backend for critical features or remove placeholder UI pages; prioritize based on user flow
+**Missing Trust Signals:**
+- Files: `src/components/newlanding/Hero.tsx`, `src/components/newlanding/SocialProof.tsx`
+- Issue: Social proof section uses placeholder icons instead of real company logos
+- Impact: Visitors have no way to verify that real institutions trust the platform
+- Fix approach: Replace mockup logos (VANGUARD, OAKTREE, APEX, PILLAR, FRAME) with actual partner logos and create `/public/logos/partners/` directory with real company branding
 
-**N+1 Query Pattern in Service Requests:**
-- Issue: `convex/serviceRequests.ts` (lines 61-94) loads requests then maps over each one calling `ctx.db.get()` individually for deal, investor, and property data
-- Files: `convex/serviceRequests.ts` (listForProvider)
-- Impact: For 100 requests, 300+ database calls; scales poorly with service provider load
-- Fix approach: Implement batch loading or refactor to load related data in parallel before mapping; use indexed queries where possible
+**Missing CTA Clarity:**
+- Files: `src/components/newlanding/Hero.tsx`, `src/components/newlanding/CTA.tsx`
+- Issue: Primary CTA ("Start Investing") lacks context about friction. No mention of what happens next, timeline, or requirements
+- Impact: Users uncertain about commitment level; skeptical visitors bounce without attempting onboarding
+- Fix approach: Add secondary microcopy below CTA (e.g., "Takes 5 minutes • No credit card required") and clarify questionnaire flow
 
-**Excessive .collect() Usage Without Pagination:**
-- Issue: Multiple files call `.collect()` on full table queries then filter in memory: properties.ts, deals.ts, conversations.ts, globalSearch.ts, seed.ts
-- Files: `convex/properties.ts` (line 75-78), `convex/deals.ts` (line 75), `convex/conversations.ts` (multiple), `convex/seed.ts` (throughout)
-- Impact: Loading entire tables into memory becomes prohibitive at scale (50k+ deals/properties); memory consumption and latency spike
-- Fix approach: Replace `.collect()` with indexed queries or implement cursor-based pagination; for seed operations, batch inserts in smaller chunks
+**Missing Value Proposition for Each Segment:**
+- Files: `src/components/newlanding/Hero.tsx` (rotating roles), `src/components/newlanding/Features.tsx`
+- Issue: Features are generic ("Smart Discovery", "Deal Flow Tracking"). No specific value promises for Investors vs Brokers vs Lawyers
+- Impact: Visitors unsure if platform solves their specific problem; unclear segment fit reduces conversion
+- Fix approach: Create role-specific landing paths with tailored copy, features, and CTAs per user type
 
-**Untyped Generic (any) Usage:**
-- Issue: `src/app/[locale]/(app)/clients/page.tsx` and `src/components/dashboard/ProviderDashboard.tsx` use `ReturnType<typeof useTranslations<any>>` to suppress type checking
-- Files: `src/app/[locale]/(app)/clients/page.tsx`, `src/components/dashboard/ProviderDashboard.tsx`
-- Impact: Reduces type safety for translation keys; strings can't be verified at compile time
-- Fix approach: Extract proper generic type for translated hooks or use type-safe i18n patterns; enable stricter ESLint rules
+**Missing Competitive Differentiation:**
+- Files: `src/components/newlanding/Features.tsx`, `src/components/newlanding/Automation.tsx`
+- Issue: Features describe what the platform does, not why it's better than alternatives (or doing it alone)
+- Impact: No compelling reason to choose REOS over building DIY connections or using fragmented tools
+- Fix approach: Add "Why REOS" section highlighting: time saved (X hours/month), cost reduction, risk mitigation, exclusive access to vetted providers
 
-**Console Error Logging Without Error Tracking Service:**
-- Issue: Scattered `console.error()` calls (20+ instances) with no centralized error tracking or logging service
-- Files: `src/app/[locale]/(app)/deals/[id]/page.tsx`, `src/app/[locale]/(app)/profile/investor/questionnaire/page.tsx`, `src/components/chat/*`, etc.
-- Impact: Production errors are invisible; no observability of failure patterns; debuggability is poor
-- Fix approach: Implement centralized error handler; integrate with error tracking (Sentry, LogRocket, etc.); add structured logging with context
+**Missing Risk/Confidence Indicators:**
+- Files: Entire landing
+- Issue: No mention of security certifications, legal compliance, insurance, or data protection (critical for cross-border investments)
+- Impact: High-value investor segment needs confidence; lacks compliance signals
+- Fix approach: Add trust badges section: SOC 2 Type II, GDPR compliance, investor protection, professional liability insurance
 
-**Large Component Files:**
-- Issue: PropertyForm.tsx (1046 lines), deals/[id]/page.tsx (972 lines), sidebar.tsx (732 lines), InvestorSearchBar.tsx (642 lines) contain tightly coupled logic and markup
-- Files: `src/components/properties/PropertyForm.tsx`, `src/app/[locale]/(app)/deals/[id]/page.tsx`, `src/components/ui/sidebar.tsx`, `src/components/layout/InvestorSearchBar.tsx`
-- Impact: Difficult to test, maintain, reuse; cognitive load is high; changes to one feature risk breaking others in same file
-- Fix approach: Break into smaller, focused components with extracted hooks; separate business logic from presentation
-
-**Process.env Direct Access Without Validation:**
-- Issue: `src/app/[locale]/ConvexClientProvider.tsx` uses `process.env.NEXT_PUBLIC_CONVEX_URL!` with non-null assertion; no validation that env var exists at runtime
-- Files: `src/app/[locale]/ConvexClientProvider.tsx`
-- Impact: Silent failure if env var missing; app crashes at runtime instead of build time
-- Fix approach: Create validated config module that loads and validates all env vars at app startup; use Zod for schema validation
+**Fragmented CTA Strategy:**
+- Files: `src/components/newlanding/Hero.tsx` (2 CTAs), `src/components/newlanding/CTA.tsx` (2 CTAs), `src/components/newlanding/Automation.tsx` (no CTA)
+- Issue: Multiple CTAs without clear hierarchy or flow logic. Hero has "Start Investing" + "Explore Properties"; CTA section has "Contact Sales" + "View Pricing"
+- Impact: Confusion about desired action; unclear lead type each CTA targets (free trial vs paid vs enterprise)
+- Fix approach: Consolidate to single primary CTA per section with clear intent (e.g., "Start Free Trial" → `questionnaire`, "Contact Sales" → `book-demo`)
 
 ---
 
-## Known Bugs
+## Performance Concerns
 
-**Seed Data Dependency Chain Not Enforced:**
-- Symptoms: Running `seed:seedDeals` or `seed:seedDealFlow` before `seed:seedProperties` silently returns empty or creates malformed data
-- Files: `convex/seed.ts` (lines 244-329, 694-920)
-- Trigger: Call seedDeals mutation without properties seeded first
-- Workaround: Always run seedProperties first; no validation to prevent wrong order
-- Fix approach: Add pre-flight checks that throw if prerequisites aren't met
+**Video Assets Not Optimized:**
+- Files: `src/components/newlanding/Features.tsx` (line 64-72), `src/components/newlanding/Automation.tsx` (line 137-147)
+- Videos: `/public/AIChatAdvisor.mp4` (869KB), `/public/REOSOrchestration.mp4` (777KB)
+- Issue: Videos embedded without lazy loading, preload, or format alternatives (no WebM fallback)
+- Impact: Slow page load on mobile; Lighthouse CLS issues; bandwidth waste
+- Fix approach: Implement `loading="lazy"` and `fetchPriority="low"` on both videos; create WebM versions for 30% smaller file size; add `poster` images
 
-**AI Thread Management Missing Error Handling:**
-- Symptoms: If `investorAssistant.createThread()` or `continueThread()` fails, abort controller is never cleaned up, potentially leaking memory
-- Files: `convex/ai/chat.ts` (lines 52-89)
-- Trigger: Network error or agent service outage during chat session
-- Workaround: None; user loses abort capability for that thread
-- Fix approach: Wrap thread creation in try-finally; ensure cleanup of activeGenerations map on errors
+**Unoptimized Hero Section Image Rendering:**
+- Files: `src/components/newlanding/Hero.tsx` (lines 404-756 - MacBook mockup)
+- Issue: Complex animated mockup rendered entirely in React instead of static image. SVG polygon shapes, gradients, and motion effects cause main thread blocking on mobile devices
+- Impact: Mobile-first site has 600ms+ longer First Contentful Paint (FCP) on mid-range phones
+- Fix approach: Pre-render mockup as static WebP image with CSS-only animations; serve responsive versions for mobile vs desktop
 
-**Service Request Enrichment Missing Null Safety:**
-- Symptoms: If deal, investor, or property is deleted after request is created, enrichment logic returns null objects without proper type safety downstream
-- Files: `convex/serviceRequests.ts` (lines 61-94)
-- Trigger: Delete property that has active service requests
-- Workaround: Must manually check null properties in UI
-- Fix approach: Add non-null assertions or return type that properly reflects possible null values; add tests for orphaned records
+**Bundle Size from Animation Libraries:**
+- Files: Hero, Features, Testimonials use `framer-motion` throughout
+- Issue: 60KB+ gzip of framer-motion for scroll/intersection animations that could use CSS
+- Impact: ~20% of landing page JavaScript budget wasted on entrance animations
+- Fix approach: Replace `useScroll` + `useTransform` chains with CSS `animation-timeline: view()`; keep framer-motion only for complex interactive states
 
-**Summarization Background Task Doesn't Handle Failures Gracefully:**
-- Symptoms: If summarization action fails, error is logged but chat stream already completed; user sees no error message about summary failure
-- Files: `convex/ai/chat.ts` (lines 142-149)
-- Trigger: Summarization service unavailable during long conversation
-- Workaround: None; summary silently doesn't get created
-- Fix approach: Store summary generation status in thread metadata; retry failed summarization on next message; notify user of summary failure if critical
+**Background Gradients and Blurs Not Optimized:**
+- Files: `src/components/newlanding/Hero.tsx` (line 322), multiple sections
+- Issue: CSS backdrop filters and blur effects on every section cause GPU rasterization on scroll
+- Impact: 60fps scroll becomes 30-40fps on mobile; battery drain
+- Fix approach: Replace `blur-[120px]` ambient light backgrounds with static pre-blurred SVG patterns; use `will-change: transform` selectively
 
----
+**CountUp and DecryptedText Animation Performance:**
+- Files: `src/components/newlanding/Hero.tsx` (lines 58-213), `src/components/newlanding/Stats.tsx` (lines 33-167)
+- Issue: Custom JavaScript animators using `requestAnimationFrame` with state updates; DecryptedText creates new string every frame
+- Impact: Jank during animation; CPU spike when section enters viewport
+- Fix approach: Use CSS animations for CountUp; pre-cache DecryptedText char arrays; batch DOM updates or use `startTransition`
 
-## Security Considerations
-
-**Clerk Auth Identity Not Validated Consistently:**
-- Risk: Some endpoints check `ctx.auth.getUserIdentity()` but downstream queries still use unsafe lookups; identity could be spoofed if getUserIdentity fails
-- Files: `convex/deals.ts`, `convex/serviceRequests.ts`, `convex/properties.ts` (multiple locations)
-- Current mitigation: Clerk SDK handles verification; auth is enforced at middleware
-- Recommendations: Add secondary validation checks for sensitive operations; implement role-based access control at query layer; add audit logs for sensitive mutations
-
-**Seed Data Creates Hardcoded System Users:**
-- Risk: System users with fixed emails (system@reos.dev, test_investor@reos.dev) are created during seeding; if seed runs in production, these become real accounts with API access
-- Files: `convex/seed.ts` (lines 26-35, 267-276, 720-729)
-- Current mitigation: Seed functions must be explicitly called; not automatic on deploy
-- Recommendations: Make seed functions admin-only with explicit permission checks; add environment validation to prevent seed running in production; document seeding process clearly
-
-**File Upload Permissions Not Validated:**
-- Risk: dealFiles.ts likely allows any user to upload files to any deal if they know the dealId; no cross-check that user is deal participant
-- Files: `convex/dealFiles.ts` (not fully read, but pattern suspected)
-- Current mitigation: Unknown; needs verification
-- Recommendations: Verify file uploads check that user is deal investor or assigned provider; implement deal participant validation before file operations
-
-**Global Search Doesn't Filter by User Permissions:**
-- Risk: globalSearch.ts searches across all public posts/properties/users but doesn't check visibility rules; users might see data they shouldn't
-- Files: `convex/globalSearch.ts` (lines 44-65)
-- Current mitigation: Search only returns public posts, available properties, onboarded users; but visibility model is loose
-- Recommendations: Implement granular visibility checks (followers_only, deal_participants); add permission matrix for each result type; log search access
-
-**AI Agent System Context Includes Sensitive Profile Data:**
-- Risk: `convex/ai/chat.ts` (lines 58-74) loads full profile context and passes to agent; if agent conversation is logged or cached, sensitive investor profile exposure occurs
-- Files: `convex/ai/chat.ts`, `convex/ai/context.ts`
-- Current mitigation: Agent runs server-side; Convex handles data security
-- Recommendations: Mask sensitive profile fields in system context (financial info, phone); implement content filtering on agent output; audit what data is passed to Claude
+**Images Not Using Modern Formats:**
+- Files: `/public/*.jpg` files (1.1MB - 3.4MB each)
+- Issue: JPEG only; no WebP or AVIF versions
+- Impact: 3.4MB JPEG loads on every desktop visit; Features and Testimonials sections severely impacted
+- Fix approach: Convert to WebP (60% smaller) and AVIF (80% smaller); use `<picture>` element with format fallback; lazy load below-fold images
 
 ---
 
-## Performance Bottlenecks
+## UX and Accessibility Gaps
 
-**In-Memory Property Filtering at Scale:**
-- Problem: Properties query loads all available properties with `.collect()` then filters in JavaScript
-- Files: `convex/properties.ts` (lines 75-96)
-- Cause: Convex doesn't support multiple index filters; workaround loads full result set
-- Current state: Fine for 100-200 properties; becomes slow >1000
-- Improvement path: Create composite indexes for common filter combinations; implement vector search for complex queries; move filtering to Convex with multiple queries using Promise.all()
+**Mobile Navigation Has Hidden Menu Lag:**
+- Files: `src/components/newlanding/Navigation.tsx` (lines 288-438)
+- Issue: Mobile menu only mounts after hydration (`isMounted` check), causing layout shift on page load
+- Impact: Mobile users see delayed menu button for ~200-500ms; accessibility tools see missing nav initially
+- Fix approach: Move menu JSX outside hydration check or use `suppressHydrationWarning`; ensure nav exists in initial HTML
 
-**Deal List Queries Per Role Load Entire Tables:**
-- Problem: Each role (investor, broker, mortgage_advisor, lawyer) uses indexed query but then sorts all results in memory
-- Files: `convex/deals.ts` (lines 44-91), `convex/deals.ts` (lines 120-151)
-- Cause: Need to sort by createdAt but index only has role; must load all then sort
-- Current state: Performance acceptable <1000 deals per role; degrades at scale
-- Improvement path: Add composite index (role, createdAt); paginate results; implement cursor-based pagination
+**No Keyboard Navigation for Carousels:**
+- Files: `src/components/newlanding/Testimonials.tsx` (lines 61-115)
+- Issue: Carousel uses custom arrow buttons but no keyboard support (arrow keys, tab navigation)
+- Impact: Screen reader users can't navigate testimonials; keyboard-only users must tab through all items
+- Fix approach: Add ARIA attributes (`aria-label`, `aria-current`, `role="region"`); implement keyboard handlers for arrow keys
 
-**Message Enrichment Creates Waterfall Requests:**
-- Problem: serviceRequests.ts enriches each request sequentially; if 50 requests, 150 db.get calls happen serially
-- Files: `convex/serviceRequests.ts` (lines 62-94)
-- Cause: Promise.all wraps the map, but individual get() calls are still sequential within the Promise.all
-- Current state: 50 requests take ~500ms at 10ms per query
-- Improvement path: Batch load all deals/investors/properties in one step; cache by ID; refactor to use Promise.all on batched queries
+**Poor Mobile Mockup Experience:**
+- Files: `src/components/newlanding/Hero.tsx` (lines 404-757)
+- Issue: Dashboard mockup uses `sticky top-[calc(50vh-...)]` which takes 40% of mobile screen height; wasteful
+- Impact: Mobile users see mostly empty mockup with huge wasted space; excessive vertical scrolling
+- Fix approach: Hide mockup on mobile (md: breakpoint only); replace with static preview image or smaller card
 
-**Conversation Message Pagination Missing:**
-- Problem: conversations.ts and directMessages may load all messages for a conversation at once
-- Files: `convex/conversations.ts`, `convex/directMessages.ts`
-- Cause: No offset/limit pagination visible in initial read
-- Current state: Fine for new conversations; old conversations with 1000+ messages may timeout
-- Improvement path: Implement cursor-based pagination; lazy-load messages on scroll; add message archival for old conversations
+**Missing Loading States for Dynamic Content:**
+- Files: `src/components/newlanding/Testimonials.tsx`, `src/components/newlanding/SocialProof.tsx`
+- Issue: Image loading happens without placeholder skeleton
+- Impact: If image CDN is slow, users see broken image space; appears unfinished
+- Fix approach: Add `<Skeleton>` placeholder; use `blurDataURL` in Next.js Image component; implement Suspense boundary
 
----
+**No Focus Visible States:**
+- Files: All interactive elements across landing
+- Issue: Buttons and links lack `:focus-visible` styling for keyboard focus indicator
+- Impact: Keyboard navigators and accessibility auditors see poor focus management
+- Fix approach: Add base styles to all buttons/links in global CSS
 
-## Fragile Areas
+**Contrast Issues in Light Theme:**
+- Files: `src/components/newlanding/Navigation.tsx`, `src/components/newlanding/Features.tsx`
+- Issue: Text using `text-white/60` or `text-foreground/50` fails WCAG AA contrast on light backgrounds
+- Impact: Users with low vision can't read secondary text
+- Fix approach: Audit all text opacity using WAVE or Lighthouse; use darker opacity (foreground/70+ minimum)
 
-**Deal Stage Transition Logic:**
-- Files: `convex/deals.ts` (VALID_TRANSITIONS object, mutation handlers)
-- Why fragile: Hard-coded transition matrix; if new stage added, must update VALID_TRANSITIONS AND all reference code; no centralized state machine
-- Safe modification: Create StageTransitionManager class; validate all transitions through it; add comprehensive tests for each transition path and invalid transitions
-- Test coverage: Assumed minimal; no test files found for Convex mutations
+**No Alt Text on Critical Images:**
+- Files: `src/components/newlanding/Features.tsx` (line 92), `src/components/newlanding/Testimonials.tsx` (line 85-90)
+- Issue: `alt` attributes use dynamic keys not provided; some images have no alt
+- Impact: Screen readers can't identify companies; accessibility score drops
+- Fix approach: Ensure all Image components have meaningful alt text (e.g., "Vanguard Capital company logo")
 
-**Investor Questionnaire Onboarding Flow:**
-- Files: `src/app/[locale]/(app)/onboarding/questionnaire/page.tsx`, `src/app/[locale]/(app)/profile/investor/questionnaire/page.tsx`, corresponding Convex mutations
-- Why fragile: Flow spans multiple components and database tables; skipping a step or navigating backward can leave partial data; no transaction support
-- Safe modification: Create saga/orchestrator for onboarding flow; validate state before each step; use optimistic UI with rollback; add comprehensive error recovery
-- Test coverage: Console.error calls visible but no unit tests found
-
-**AI Summarization Checkpoint Logic:**
-- Files: `convex/ai/chat.ts` (shouldSummarize check), `convex/ai/summarization.ts`
-- Why fragile: Message count estimation is approximate (line 118-119 in chat.ts); off-by-one errors or message deletions could prevent summarization; no idempotency key
-- Safe modification: Store explicit message count in thread metadata; track summarization state; add idempotency tokens; test with various message counts and deletions
-- Test coverage: Not visible; background task error handling is minimal
-
-**Service Provider Profile Data Consistency:**
-- Files: `convex/users.ts` (user record), `convex/serviceProviderProfiles.ts`, `convex/seed.ts` (profile creation)
-- Why fragile: User and profile are separate documents; no foreign key or cascading delete; deleting user leaves orphaned profile; seeding can create duplicates
-- Safe modification: Add migration to clean up orphaned profiles; implement cascading delete handler; add unique constraint for user->profile relationship; strengthen seed idempotency
-- Test coverage: Unknown; seed functions have no validation of final state
+**Missing Meta Descriptions and Schema:**
+- Files: `src/app/[locale]/(main)/page.tsx`
+- Issue: Only one metadata set for landing; no Open Graph, Twitter cards, or structured data
+- Impact: Social shares show generic image/title; schema.org validation fails; no rich snippets
+- Fix approach: Add Open Graph meta tags (og:image 1200x630px), Twitter cards, JSON-LD structured data (Organization schema)
 
 ---
 
-## Scaling Limits
+## Content and Messaging Gaps
 
-**Database Growth Without Archival Strategy:**
-- Current capacity: Convex on free/starter tier handles ~1M documents; project has 10+ tables potentially growing linearly with time
-- Limit: At 100k active users with 10 deals each, 1M deal records; add posts (100k+), messages (1M+), activity logs (5M+), storage easily exceeds capacity
-- Scaling path: Implement data archival (move old deals/messages to cold storage after 1 year); add denormalization strategy (store common joins in parent table); partition tables by date; monitor database size metrics
+**Unclear Value Proposition for Primary Audience:**
+- Files: `src/components/newlanding/Hero.tsx` (lines 335-379)
+- Issue: "The all-in-one real estate operating system for [rotating role]" + "Connecting US investors with Israeli properties" is too generic
+- Impact: Visitors unclear on unique value: Is this for discovery? Closing? Property management?
+- Fix approach: Make primary value clear (e.g., "Invest in Israeli Real Estate Without the Headache"); each role rotation should have specific pain point
 
-**Real-Time AI Agent Scaling:**
-- Current capacity: Single investorAssistant instance; Anthropic API rate limits and token usage
-- Limit: At 1000 concurrent users, token usage spikes; Claude API has rate limits; no queue or backpressure handling visible
-- Scaling path: Implement request queuing with Bull or similar; add rate limiting per user; cache common responses; switch to faster model for simple queries; implement feedback loop to optimize prompts
+**Automation Section Missing Outcome Metrics:**
+- Files: `src/components/newlanding/Automation.tsx` (lines 115-177)
+- Issue: Lists providers without explaining benefit: "Why do I need them orchestrated?"
+- Impact: Reader sees "Brokers, Lawyers, Accountants" but doesn't understand why they need platform coordination
+- Fix approach: Add before/after comparison; add success metric like "Close deals 2-3x faster with REOS coordination"
 
-**Search Index Scaling:**
-- Current capacity: Search indexes in globalSearch.ts use basic full-text search
-- Limit: At 100k posts/properties, search latency becomes noticeable; no ranking, relevance, or faceting
-- Scaling path: Implement Meilisearch or Elasticsearch for advanced search; add result ranking by relevance; implement typo tolerance; add aggregations/facets
+**Missing FAQ Section:**
+- Files: Entire landing
+- Issue: No answers to obvious objections: "Is my money safe?" "How much does it cost?" "Do I need Israeli citizenship?" "What's the minimum investment?"
+- Impact: High-intent visitors leave to find answers elsewhere; bounce rate increases
+- Fix approach: Add FAQ section before CTA with 8-10 common questions covering legal/safety, pricing, minimum investment, timeline
 
-**Image Storage for Properties:**
-- Current capacity: Properties have multiple image URLs (external Unsplash URLs in seed data); unclear if production uploads are handled
-- Limit: If users upload images, storage and bandwidth costs scale linearly with properties and revisions
-- Scaling path: Clarify image storage strategy (CDN, S3, Cloudinary); implement image optimization (lazy-load, WebP, responsive sizes); add image deletion on property removal; monitor CDN costs
+**Stats Are Not Credible:**
+- Files: `src/components/newlanding/Hero.tsx` (lines 766-803), `src/components/newlanding/Stats.tsx`
+- Issue: Stats like "$1.5B+ Transaction Volume", "500+ Properties Listed" lack sources. "98% Satisfaction Rate" unverified
+- Impact: Savvy investors distrust numbers without proof; reduces brand credibility
+- Fix approach: Add footnotes "As of [date]"; link stats to proof ("500+ Properties Listed [View]"); use only internally verified numbers
+
+**Missing "How It Works" Section:**
+- Files: Entire landing
+- Issue: No step-by-step explanation of user journey (Find → Verify → Finance → Close → Manage)
+- Impact: Users unclear on process; friction increases at questionnaire stage
+- Fix approach: Add numbered steps section (4-5 steps max) with clear process flow and timeline estimates
 
 ---
 
-## Dependencies at Risk
+## Technical Debt from Recent Changes
 
-**@convex-dev/agent v0.3.2 - Experimental Framework:**
-- Risk: Agent SDK is young (0.3.2); breaking changes likely in 0.4 or 1.0; documented interfaces may change; limited community support
-- Impact: If breaking changes occur, AI chat system breaks; requires rework of agent configuration and message handling
-- Migration plan: Pin agent version during development; monitor changelog; consider wrapper layer to abstract agent details; have fallback to simple prompt-response if agent system breaks
+**Duplicate CountUp/DecryptedText Components:**
+- Files: `src/components/newlanding/Hero.tsx` (lines 58-213), `src/components/newlanding/Stats.tsx` (lines 32-167)
+- Issue: Custom animation components defined in two files with 95% identical code
+- Impact: Maintenance burden; bug fixes need to be applied in two places; increases bundle size
+- Fix approach: Extract to shared components: `src/components/ui/countup.tsx`, `src/components/ui/decrypted-text.tsx`; save ~2KB gzip
 
-**Next-Intl v4.7.0 - Internationalization Layer:**
-- Risk: Heavy use of next-intl throughout codebase; version 4 has stability; but tightly couples UI to i18n system; if major refactor needed, wide impact
-- Impact: Changing i18n provider requires rewriting all components using useTranslations(); hard to switch to simpler solution if overhead becomes burden
-- Migration plan: Create i18n abstraction layer; use dependency injection for translation function; avoid spreading useTranslations() calls throughout components
+**Hero Section Prop Drilling:**
+- Files: `src/components/newlanding/Hero.tsx`
+- Issue: No context provider for scroll position tracking; uses multiple `useScroll` hooks and `useMotionValueEvent` listeners (lines 232-304)
+- Impact: Complex state management; difficult to refactor; potential memory leaks
+- Fix approach: Create `HeroContext` to centralize scroll state; extract mockup switching logic to separate `DashboardMockup` component
 
-**React Hook Form v7.71.0 - Form Library:**
-- Risk: Form system is heavily used in large components like PropertyForm.tsx; outdated compared to newer alternatives (TanStack Form); resolver pattern may become maintenance burden
-- Impact: Complex forms become harder to maintain; validation logic scattered; if switching libraries needed, must refactor many components
-- Migration plan: Consider extracting form logic into custom hooks; create form builder abstraction; monitor React ecosystem for better form solutions
+**Hardcoded "use client" in Layout:**
+- Files: `src/app/[locale]/(main)/layout.tsx`
+- Issue: Layout is client-side only due to theme forcing (line 11), but Navigation and Footer are also "use client"
+- Impact: Large JavaScript sent for mostly-static page; prevents Streaming SSR optimizations
+- Fix approach: Keep layout as server component; move theme forcing to root layout script or use CSS media query
 
-**Tailwind v4 + PostCSS v4 - Build-Time Dependency:**
-- Risk: Tailwind v4 is new; PostCSS v4 is cutting-edge; CSS generation could have edge cases; build times may increase
-- Impact: Build failures; increased development loop time; potential CSS bloat if class generation is inefficient
-- Migration plan: Monitor for bug reports; pin versions to avoid auto-upgrades; test build performance on each dependency update; have rollback plan to v3
+**No Environment Configuration for External Services:**
+- Files: Entire landing
+- Issue: No API endpoints configured for "Get Started" or form submission; CTAs link to `#` or `/questionnaire` without backend
+- Impact: CTAs are non-functional; no analytics on click events; no lead capture
+- Fix approach: Create form submission handler to `/api/leads`; add analytics tracking on CTA clicks; configure environment variables
+
+**Missing Error Boundary:**
+- Files: `src/app/[locale]/(main)/page.tsx`
+- Issue: If any child component (Hero, Features, etc.) throws error, entire landing crashes
+- Impact: Production bugs result in blank page instead of graceful degradation
+- Fix approach: Wrap each major section in `<ErrorBoundary>` component; add fallback UI for each section
+
+---
+
+## Fragile Areas and Scaling Limits
+
+**Testimonials Carousel Hardcoded Items:**
+- Files: `src/components/newlanding/Testimonials.tsx` (lines 28-34)
+- Issue: Testimonials array hardcoded with fixed IDs; adding new testimonial requires component code change
+- Impact: Can't update testimonials without developer deployment; requires translations for each new item
+- Fix approach: Move testimonials to CMS or JSON file: `src/data/testimonials.json`; create admin API endpoint; load dynamically
+
+**Mock Data Not Separated from Component:**
+- Files: `src/components/newlanding/Hero.tsx` (lines 45-56, 218-223), `src/components/newlanding/Automation.tsx` (lines 32-58)
+- Issue: Sample data (assets, properties, providers) defined in components; mixing content with presentation
+- Impact: Difficult to test; hard to reuse data; maintenance nightmare when updating mock content
+- Fix approach: Move data to `src/data/landing/` directory; import as constants; separate content from components
+
+**No Responsive Image Strategy:**
+- Files: All image assets across landing
+- Issue: Images loaded at full resolution regardless of device; no `srcset` or responsive sizing
+- Impact: Mobile devices download unnecessary pixels; performance penalty on slow networks
+- Fix approach: Use Next.js `<Image>` component with `responsive={true}` and `sizes` prop; create optimization pipeline in CI/CD
+
+---
+
+## Security and Compliance Gaps
+
+**No CSRF Protection on Forms:**
+- Files: Hero CTA links to `/questionnaire` without token
+- Issue: If questionnaire has form submission, vulnerable to cross-site request forgery
+- Impact: Attackers could submit spam or false leads using victim's session
+- Fix approach: Add CSRF token generation in form component; validate token on server-side form submission
+
+**Missing Rate Limiting on Lead Capture:**
+- Files: No form submission handler visible
+- Issue: `/api/leads` endpoint will be vulnerable to bot spam without rate limiting
+- Impact: Database flooded with spam; false conversion metrics
+- Fix approach: Implement rate limiting (10 requests per IP per hour); add CAPTCHA or email verification; log submission metadata
+
+**Third-Party Script Risk (Videos):**
+- Files: `src/components/newlanding/Features.tsx` (video), `src/components/newlanding/Automation.tsx` (video)
+- Issue: Videos embedded with `autoPlay`, `muted`, `playsInline` but no integrity checks
+- Impact: If video files are compromised, malicious content plays to all visitors
+- Fix approach: Add subresource integrity (SRI) hash verification; host videos on CDN with HTTPS enforcement; monitor file hashes in CI/CD
 
 ---
 
 ## Missing Critical Features
 
-**No Testing Infrastructure:**
-- What's missing: No jest.config, vitest.config, or test files in src/; only node_modules test files visible
-- Blocks: Cannot verify bug fixes; refactoring is risky; integration tests impossible; CI/CD can't validate functionality
-- Priority: **HIGH** - Should be Phase 0 before feature development
-- Approach: Set up Jest/Vitest, write unit tests for critical business logic (deal transitions, seed logic, AI chat); add integration tests for API endpoints; implement CI pipeline with test gates
+**No Trust Center / Security Page:**
+- Files: Footer links to `#` for security-related pages
+- Impact: Enterprise buyers can't find compliance documentation
+- Fix approach: Create `/security` page documenting SOC 2 certification, data encryption, incident response, GDPR compliance
 
-**Error Tracking & Monitoring:**
-- What's missing: No Sentry, LogRocket, or error service integrated; only console.error scattered throughout
-- Blocks: Production issues are invisible; users hit bugs without reporting; no metrics on error frequency or severity
-- Priority: **HIGH** - Should be before production launch
-- Approach: Integrate Sentry or similar; wrap root-level error boundary; send console errors to service; add transaction monitoring for critical flows
+**No Product Tour / Demo Video:**
+- Files: Entire landing
+- Issue: No guided walkthrough of platform functionality
+- Impact: Prospects can't see product in action; have to schedule call
+- Fix approach: Add 2-3 minute demo video showing: property discovery → deal flow → closing process
 
-**Database Migrations & Schema Versioning:**
-- What's missing: Convex uses live schema; no migration system; if schema must change (add field, remove table), no rollback capability
-- Blocks: Can't refactor data model safely; version upgrades risk data loss; no audit trail of schema changes
-- Priority: **MEDIUM** - Blocks future scaling
-- Approach: Document current schema as versioning baseline; plan migration strategy before major changes; consider data export/import for safety
+**No Pricing Page:**
+- Files: CTA mentions "View Pricing" (line 39 in CTA.tsx) but no pricing page exists
+- Issue: Visitors can't self-assess cost before contacting sales
+- Impact: Unqualified leads contact sales; waste of time for both parties
+- Fix approach: Create `/pricing` page with clear tiers (Investor/free, Broker/monthly, Agency/custom)
 
-**Rate Limiting & Abuse Prevention:**
-- What's missing: No rate limiting visible on mutations; seed functions have no throttling; users could spam requests
-- Blocks: Vulnerability to DoS; malicious users could flood database; cost control is impossible
-- Priority: **MEDIUM** - Before scale-up
-- Approach: Add rate limiting middleware; implement per-user request quotas; add CAPTCHA to critical endpoints; monitor unusual activity patterns
-
-**Audit Logging & Compliance:**
-- What's missing: Deal activity logging exists, but no cross-system audit trail; no user action logging; no data access logs
-- Blocks: Cannot comply with data protection regs (GDPR, etc.); no proof of who did what when; hard to investigate incidents
-- Priority: **MEDIUM** - Needed for enterprise features
-- Approach: Create audit logger service; log all user mutations with context; log data access; implement data retention policy; add audit report generation
+**No Referral Program / Affiliate Section:**
+- Files: Entire landing
+- Issue: No way for brokers or professionals to earn referral fees
+- Impact: Missing revenue stream; lost partnership opportunities
+- Fix approach: Add referral section in footer or create `/affiliates` page
 
 ---
 
 ## Test Coverage Gaps
 
-**Convex Mutation and Query Logic:**
-- What's not tested: deal transitions, stage history generation, service request enrichment, message flows, seed data consistency
-- Files: `convex/deals.ts`, `convex/serviceRequests.ts`, `convex/messages.ts`, `convex/seed.ts`, `convex/ai/chat.ts`
-- Risk: Stage transitions could fail silently; seed data could be malformed; enrichment could return corrupted data; no regression protection
-- Priority: **CRITICAL** - Core business logic
-- Add tests for: Each valid/invalid stage transition; seed data consistency; N+1 query prevention; enrichment with missing data; error recovery
+**No E2E Tests for Landing Page:**
+- Issue: Recent changes to Hero, Mockup, and CTAs have no automated testing
+- Risk: Visual regressions, animation bugs, link rot go undetected
+- Priority: High
+- Fix approach: Add Cypress tests for Hero CTA clicks, mobile nav, carousel navigation, video autoplay; add visual regression tests for breakpoints
 
-**React Components and Hooks:**
-- What's not tested: PropertyForm (complex form with 50+ fields), DealPage (fetches & displays multiple data types), InvestorSearchBar (multi-filter search), ChatThread (real-time messaging)
-- Files: `src/components/properties/PropertyForm.tsx`, `src/app/[locale]/(app)/deals/[id]/page.tsx`, `src/components/layout/InvestorSearchBar.tsx`, `src/components/chat/ChatThread.tsx`
-- Risk: UI bugs only found in manual testing; refactoring breaks UI unexpectedly; regressions not caught
-- Priority: **HIGH** - Used by all users
-- Add tests for: Form validation, submission, error handling; data loading states; search filter combinations; chat message rendering and submission
+**No Performance Benchmarks:**
+- Issue: No baseline for Lighthouse scores, Core Web Vitals, load time
+- Risk: Future changes could degrade performance without detection
+- Priority: High
+- Fix approach: Add Lighthouse CI to CI/CD pipeline; set baselines (LCP <2.5s, CLS <0.1, FID <100ms); track metrics over time
 
-**AI Agent Integration:**
-- What's not tested: Thread creation, message streaming, summarization trigger, context building, agent fallback behavior
-- Files: `convex/ai/chat.ts`, `convex/ai/agent.ts`, `convex/ai/summarization.ts`, `convex/ai/context.ts`
-- Risk: AI chat breaks silently; summarization doesn't trigger or corrupts thread state; errors leave threads in bad state
-- Priority: **HIGH** - Critical user feature
-- Add tests for: Thread creation idempotency; streaming message handling; summarization threshold logic; agent error recovery; context building with various profile states
+**No Accessibility Automated Tests:**
+- Issue: Manual accessibility audit needed; no automated a11y checks
+- Risk: WCAG violations remain undetected (contrast, alt text, keyboard nav)
+- Priority: Medium
+- Fix approach: Add axe-core or pa11y to Playwright tests; run accessibility audit on each PR
 
-**Error Scenarios & Edge Cases:**
-- What's not tested: Deleted records (property deleted with active deal), concurrent mutations (two users updating same deal), missing data (investor without profile), network failures
-- Files: All Convex mutation files, all React hooks
-- Risk: Orphaned data, race conditions, silent failures in production; user data corruption possible
-- Priority: **MEDIUM** - Prevents data integrity issues
-- Add tests for: Cascading deletes, orphan detection; concurrent mutation handling; null/undefined data in enrichment; network timeout and retry logic
+---
+
+## Critical Missing Analytics
+
+**No Conversion Funnel Tracking:**
+- Issue: Can't measure Hero CTA clicks → questionnaire start → questionnaire completion
+- Impact: Can't identify where prospects drop off
+- Fix approach: Implement event tracking for: view_section, click_cta, page_scroll depth, scroll_to_cta
+
+**No A/B Testing Infrastructure:**
+- Issue: Can't test CTA copy, hero message, social proof effectiveness
+- Impact: Making optimization decisions blind
+- Fix approach: Add experiment framework (Growthbook, LaunchDarkly) for A/B testing CTAs
+
+**No Attribution Tracking:**
+- Issue: Can't tell which sections drive conversions; is it Stats? Testimonials? Automation demo?
+- Impact: Don't know where to focus optimization efforts
+- Fix approach: Add session replay + heat mapping (Hotjar, LogRocket) to understand user behavior
+
+---
+
+## Estimated Impact by Priority
+
+**CRITICAL (Block conversions):**
+1. Trust signals missing (company logos, security badges)
+2. CTA strategy fragmented (unclear next steps)
+3. No mobile optimization for mockup
+
+**HIGH (Lose prospects):**
+1. Missing FAQ and "How It Works"
+2. Unverified stats without sources
+3. No pricing transparency
+4. Performance issues on mobile (video size, animations)
+
+**MEDIUM (Increase friction):**
+1. Duplicate animation code
+2. No loading states for images
+3. Keyboard/accessibility issues
+4. Responsive images not optimized
+
+**LOW (Polish):**
+1. Extract constants to data files
+2. Add error boundaries
+3. Refactor Hero component complexity
+
+---
+
+*Concerns audit: 2026-01-28*

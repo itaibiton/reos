@@ -1,6 +1,6 @@
 # Codebase Structure
 
-**Analysis Date:** 2026-01-22
+**Analysis Date:** 2026-01-28
 
 ## Directory Layout
 
@@ -13,7 +13,7 @@
 │   │   │   ├── ConvexClientProvider.tsx
 │   │   │   ├── Providers.tsx      # Theme, i18n, direction providers
 │   │   │   ├── (main)/            # Public/landing routes
-│   │   │   │   └── page.tsx       # Landing page
+│   │   │   │   └── page.tsx       # Landing page - composes newlanding components
 │   │   │   ├── (auth)/            # Authentication routes (Clerk managed)
 │   │   │   │   ├── layout.tsx
 │   │   │   │   ├── sign-in/
@@ -31,19 +31,19 @@
 │   │   └── favicon.ico
 │   ├── components/                # Reusable React components
 │   │   ├── ui/                    # shadcn/ui + Radix UI primitives (45+ files)
+│   │   ├── newlanding/            # NEW: Landing page sections (9 components)
+│   │   │   ├── Navigation.tsx     # Sticky nav with dropdowns and mobile menu
+│   │   │   ├── Hero.tsx           # Hero section with scroll-driven dashboard mockup
+│   │   │   ├── SocialProof.tsx    # Client logos section
+│   │   │   ├── Features.tsx       # LayoutGrid feature cards
+│   │   │   ├── Automation.tsx     # Provider integration grid with diagonal background
+│   │   │   ├── Testimonials.tsx   # NEW: Client testimonials carousel
+│   │   │   ├── Stats.tsx          # UPDATED: Key metrics with CountUp/DecryptedText
+│   │   │   ├── CTA.tsx            # Call-to-action section
+│   │   │   ├── Footer.tsx         # Footer with links
+│   │   │   └── index.ts           # Barrel export of all landing components
 │   │   ├── layout/                # Layout components (AppShell, Sidebar, Header, MobileBottomNav)
 │   │   ├── ai/                    # AI chat components and hooks
-│   │   ├── landing/               # Landing page sections
-│   │   │   ├── Navigation/
-│   │   │   ├── Hero/
-│   │   │   ├── Features/
-│   │   │   ├── ServicesGrid.tsx
-│   │   │   ├── ProcessSteps.tsx
-│   │   │   ├── Pricing/
-│   │   │   ├── TeamSection.tsx
-│   │   │   ├── FAQ/
-│   │   │   ├── Footer/
-│   │   │   └── shared/            # Shared landing utilities (GeometricDivider)
 │   │   ├── chat/                  # Chat/conversation components
 │   │   ├── properties/            # Property display and filtering components
 │   │   ├── deals/                 # Deal management UI components
@@ -135,6 +135,21 @@
 - Contains: 191 TypeScript component files across 27 directories
 - Key files: `ui/` (design system primitives), `layout/` (shell structure), `ai/` (AI chat UI), feature-specific folders
 
+**src/components/newlanding:**
+- Purpose: Landing page section components with scroll-driven animations
+- Contains: 9 fully self-contained motion components with framer-motion
+- Key files:
+  - `Navigation.tsx`: Sticky nav with scroll awareness, desktop/mobile variants
+  - `Hero.tsx`: Main banner with 400vh scrollable section, dashboard mockup with content swapping
+  - `SocialProof.tsx`: Client logo grid with scroll-driven fade
+  - `Features.tsx`: LayoutGrid with feature cards and embedded video
+  - `Automation.tsx`: Provider grid with diagonal background and directional animations
+  - `Testimonials.tsx`: NEW - Carousel of client testimonials with hover effects
+  - `Stats.tsx`: UPDATED - Metric cards with CountUp and DecryptedText animations
+  - `CTA.tsx`: Call-to-action banner with two button options
+  - `Footer.tsx`: Multi-column footer with links and social icons
+  - `index.ts`: Barrel export for clean imports in landing page
+
 **src/hooks:**
 - Purpose: Custom React hooks for state and data fetching
 - Contains: useCurrentUser (role/auth context), use-mobile (responsive), AI chat hooks
@@ -162,10 +177,15 @@
 
 ## Key File Locations
 
-**Entry Points:**
+**Landing Page Entry Points:**
+- `src/app/[locale]/(main)/page.tsx`: Assembles 7 landing sections in sequence
+- `src/components/newlanding/index.ts`: Barrel export of all 9 landing components
+- `src/components/newlanding/Hero.tsx`: Largest component (810 lines), handles dashboard mockup and scroll orchestration
+- `src/components/newlanding/Navigation.tsx`: 438 lines, manages scroll-aware nav and mobile menu
+
+**App Entry Points:**
 - `src/app/[locale]/layout.tsx`: Root app layout with all providers
 - `src/app/[locale]/(app)/layout.tsx`: Protected app layout with auth gate
-- `src/app/[locale]/(main)/page.tsx`: Public landing page
 - `src/app/[locale]/ConvexClientProvider.tsx`: Convex client initialization
 
 **Configuration:**
@@ -182,7 +202,7 @@
 
 **UI Components:**
 - `src/components/ui/`: 45+ shadcn/ui components (button, dialog, card, etc)
-- `src/components/landing/`: Landing page sections
+- `src/components/newlanding/`: 9 landing section components
 - `src/components/ai/`: AI chat components (AIChatPanel, ChatMessageList, AIChatInput)
 
 **Utilities:**
@@ -196,26 +216,60 @@
 ## Naming Conventions
 
 **Files:**
-- Components: PascalCase (e.g., `AIChatPanel.tsx`, `ChatMessageList.tsx`)
+- Components: PascalCase (e.g., `AIChatPanel.tsx`, `ChatMessageList.tsx`, `Hero.tsx`, `Testimonials.tsx`)
 - Hooks: camelCase with 'use' prefix (e.g., `useCurrentUser.ts`, `use-mobile.ts`)
 - Utilities/Functions: camelCase (e.g., `utils.ts`, `constants.ts`)
 - Styles: PascalCase matching component (e.g., `Button.tsx` with internal styles)
 - Pages: lowercase or index.tsx (e.g., `page.tsx`, `[id]/page.tsx`)
 
 **Directories:**
-- Feature-based: lowercase or PascalCase (e.g., `components/ai/`, `components/landing/`, `convex/ai/`)
+- Feature-based: lowercase or PascalCase (e.g., `components/ai/`, `components/newlanding/`, `convex/ai/`)
 - Dynamic segments: square brackets (e.g., `[locale]`, `[id]`, `[email]`)
 - Route groups: parentheses (e.g., `(app)`, `(auth)`, `(main)`)
 
 **Exports:**
 - Barrel files: `index.ts` or `index.tsx` re-export all public exports from directory
-- Example: `src/components/ai/index.ts` exports all AI components
+- Example: `src/components/newlanding/index.ts` exports all 9 landing components
 
 **Imports:**
 - Absolute imports via `@/` alias (maps to `src/`)
-- Example: `import { useCurrentUser } from "@/hooks/useCurrentUser"`
+- Example: `import { Hero } from "@/components/newlanding"`
 
 ## Where to Add New Code
+
+**New Landing Page Section:**
+- Component file: `src/components/newlanding/[SectionName].tsx`
+- Pattern:
+  ```typescript
+  "use client";
+
+  import { motion, type Variants } from "framer-motion";
+  import { useTranslations } from "next-intl";
+  import { cn } from "@/lib/utils";
+
+  const fadeInUp: Variants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  };
+
+  export function [SectionName]({ className }: { className?: string }) {
+    const t = useTranslations("landing.[section]");
+
+    return (
+      <motion.section
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={fadeInUp}
+        className={cn("py-20 md:py-24 border-t border-border/50", className)}
+      >
+        {/* Content */}
+      </motion.section>
+    );
+  }
+  ```
+- Export: Add to `src/components/newlanding/index.ts`
+- Use: Import in `src/app/[locale]/(main)/page.tsx` and place in component sequence
 
 **New Feature (pages + components + backend):**
 - Backend logic: Create new file in `convex/[domain].ts` (e.g., `convex/feedback.ts`)
@@ -226,7 +280,7 @@
 **New Component/Module:**
 - Shared component: `src/components/[feature]/[ComponentName].tsx`
 - UI primitive: `src/components/ui/[component-name].tsx` (shadcn style)
-- Landing section: `src/components/landing/[SectionName]/[Component].tsx`
+- Landing section: `src/components/newlanding/[SectionName].tsx` (for new sections)
 - Barrel export: Create `src/components/[feature]/index.ts` with re-exports
 
 **Utilities:**
@@ -242,6 +296,12 @@
 
 ## Special Directories
 
+**src/components/newlanding/:**
+- Purpose: Landing page section components with scroll-driven animations
+- Generated: No
+- Committed: Yes
+- Modification: Add new sections following existing pattern (motion.section, fadeInUp variant, useTranslations, cn utilities)
+
 **convex/_generated/:**
 - Purpose: Auto-generated TypeScript types
 - Generated: Yes (auto-generated by Convex CLI on every `convex dev`)
@@ -252,13 +312,13 @@
 - Purpose: Static assets served directly by Next.js
 - Generated: No
 - Committed: Yes
-- Modification: Place images, icons, etc. here and reference via `/` paths
+- Modification: Place images, icons, videos here and reference via `/` paths (e.g., `/AIChatAdvisor.mp4`, `/logos/testimonials/client1.svg`)
 
 **messages/:**
 - Purpose: i18n message translations (en, he)
 - Generated: May be auto-generated or manually maintained
 - Committed: Yes
-- Modification: Add translation keys here for use in components via `useTranslations()`
+- Modification: Add translation keys here for use in components via `useTranslations()` (e.g., `landing.hero`, `landing.testimonials`)
 
 **.next/:**
 - Purpose: Next.js build output
@@ -268,4 +328,4 @@
 
 ---
 
-*Structure analysis: 2026-01-22*
+*Structure analysis: 2026-01-28*

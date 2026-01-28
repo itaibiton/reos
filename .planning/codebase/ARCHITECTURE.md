@@ -1,10 +1,10 @@
 # Architecture
 
-**Analysis Date:** 2026-01-22
+**Analysis Date:** 2026-01-28
 
 ## Pattern Overview
 
-**Overall:** Multi-layered full-stack application using Next.js 16 with App Router, Convex backend, and React 19 frontend with role-based access patterns.
+**Overall:** Multi-layered full-stack application using Next.js 16 with App Router, Convex backend, and React 19 frontend with role-based access patterns. Landing page implemented as component-based scroll-driven animation system.
 
 **Key Characteristics:**
 - Server-side rendering (SSR) and streaming for core pages with client-side interactive features
@@ -13,6 +13,7 @@
 - Internationalization (i18n) support with locale routing (English/Hebrew with RTL support)
 - Component-driven UI with shadcn/ui design system wrapped in Radix UI primitives
 - Modular backend with Convex actions, mutations, and queries organized by domain
+- Landing page sections composed of self-contained motion components with scroll-triggered animations
 
 ## Layers
 
@@ -22,6 +23,14 @@
 - Contains: React components (pages, layouts, UI primitives), landing page sections, feature-specific component groups
 - Depends on: React hooks, Convex API client, i18n routing, form libraries
 - Used by: Browser (public), authenticated app users
+
+**Landing Page Components:**
+- Purpose: Render animated landing page sections with scroll-driven interactions
+- Location: `src/components/newlanding/`
+- Contains: 9 sections (Hero, Navigation, Features, Automation, Testimonials, Stats, CTA, SocialProof, Footer)
+- Depends on: `framer-motion`, `next-intl`, UI primitives (carousel, navigation-menu, accordion)
+- Used by: `src/app/[locale]/(main)/page.tsx`
+- Key patterns: Variant-based animations, viewport observers, scroll transforms, CountUp/DecryptedText animations
 
 **Business Logic Layer (Frontend):**
 - Purpose: State management, data fetching orchestration, role-based logic
@@ -52,6 +61,48 @@
 - Used by: All layers
 
 ## Data Flow
+
+**Landing Page Composition:**
+
+1. User navigates to `/` → Next.js routes to `src/app/[locale]/(main)/page.tsx`
+2. Page component imports landing section components from `src/components/newlanding/index.ts`
+3. Sections rendered in sequence: Navigation → Hero → SocialProof → Features → Automation → Testimonials → Stats → CTA → Footer
+4. Each section's animations fire independently based on viewport entry or scroll progress
+
+**Scroll-Triggered Content Swap (Hero Section):**
+
+1. User scrolls past hero section start
+2. Hero component calculates scroll progress via `useScroll({ target: heroRef, offset: ["start start", "end end"] })`
+3. `useTransform` maps scroll range [0.4, 0.6] to opacity/scale values
+4. Initial content (Overview stats/chart) fades and scales out via `initialContentOpacity`, `initialContentScale`
+5. Switched content (Properties grid/table) fades and scales in simultaneously via `switchedContentOpacity`, `switchedContentScale`
+6. Dashboard mockup URL updates dynamically based on `activeMenuItem` state (Overview or Properties)
+7. Stats below mockup swap in parallel with main content using same scroll-driven transforms
+
+**Viewport Entry Animations:**
+
+1. Component enters viewport
+2. `initial="hidden"` state applied (opacity: 0, y: 30)
+3. `whileInView="visible"` triggers when viewport `amount` threshold met (typically 0.3)
+4. Variant executes with configured duration (0.5s) and easing
+5. Animation fires once (`viewport={{ once: true }}`)
+6. Example: `src/components/newlanding/Stats.tsx` (lines 182-207), `src/components/newlanding/Features.tsx` (lines 109-130)
+
+**Animation Composition (Stats & Testimonials):**
+
+1. Parent container uses stagger variant with `staggerChildren: 0.1`
+2. Child items animate with individual delays staggered by 100ms
+3. CountUp animations trigger based on `isInView` visibility flag
+4. DecryptedText animations progress character-by-character when visible
+5. All nested animations respect parent stagger timing
+
+**State Management:**
+
+- Scroll progress: `useScroll()` hook with element target reference (`scrollYProgress`)
+- Animation visibility: Component-level boolean refs (`hasAnimatedRef`, `initialStatsVisible`, `switchedStatsVisible`)
+- User input: onClick handlers for interactive elements (sidebar toggle, menu clicks, mobile menu open/close)
+- Visual state: Conditional className application based on `scrolled`/`sidebarExpanded` flags
+- Motion values: Cached via `useMotionValue` in transforms to prevent recalculations
 
 **User Authentication Flow:**
 1. Clerk OAuth/sign-in captures identity → `clerk/nextjs` handles session
@@ -86,13 +137,37 @@
 7. After message completes, messages refetched to display full response
 8. If conversation exceeds threshold, `api.ai.summarization.summarizeThread` auto-triggers
 
-**State Management:**
-- **Client State:** React hooks (useState) for UI-only state (isLoading, isStreaming, modals)
-- **Server State:** Convex queries/mutations as source of truth (user data, properties, deals)
-- **Optimistic Updates:** Components add user messages optimistically, refetch to reconcile on success
-- **Real-time:** useQuery subscriptions auto-update when backend data changes
-
 ## Key Abstractions
+
+**Animation Variants (Landing Page):**
+
+- `fadeInUp`: opacity 0→1, y: 30px→0, duration 0.5s (used across 8 landing components)
+- `stagger`: Parent container with 0.1s staggerChildren delay (Hero, Stats)
+- `statItem`: opacity and y offset animation for individual stat cards (Stats component)
+- Custom directional variants: `initial` x/y offsets, directional entry from left/right/top/bottom (Automation component)
+
+- Examples: `src/components/newlanding/Hero.tsx` (lines 28-41), `src/components/newlanding/Stats.tsx` (lines 12-30), `src/components/newlanding/Automation.tsx` (lines 17-27)
+
+**CountUp Component:**
+
+- Purpose: Animate numeric values with suffix parsing (B, M, K, %, +)
+- Pattern: requestAnimationFrame loop with easing (easeOut cubic), prevents duplicate animation via `hasAnimatedRef`
+- Shared by: Hero.tsx (lines 59-145), Stats.tsx (lines 33-104)
+- Logic: Regex extraction of prefix/numeric/suffix → animated value → formatted display
+- Handles: "$1.5B+", "2.5M", "99.99%", "140+", "24/7"
+
+**DecryptedText Component:**
+
+- Purpose: Progressive character reveal animation (simulates decryption/unscrambling)
+- Pattern: Character-by-character replacement with random chars until reveal
+- Shared by: Hero.tsx (lines 148-213), Stats.tsx (lines 107-167)
+- Preserves: Whitespace, special characters (`:`, `/`, `.`)
+- Timing: Total iterations = text.length * 3, progresses based on iteration count
+
+**Navigation Model (App-wide):**
+- Purpose: Role-based navigation structure with locale-aware routing
+- Examples: `src/lib/navigation.ts`, `src/components/newlanding/Navigation.tsx`
+- Pattern: Menu items loaded dynamically via translations; scroll-aware styling
 
 **User Model:**
 - Purpose: Represents authenticated user with role, profile, and provider-specific data
@@ -109,17 +184,22 @@
 - Examples: `convex/properties.ts`, `src/app/[locale]/(app)/properties/`
 - Pattern: Searchable, filterable catalog with favorites and tour scheduling
 
-**AI Thread Model:**
-- Purpose: Conversation context for user-specific AI assistance
-- Examples: `convex/ai/threads.ts`, `src/components/ai/`
-- Pattern: One thread per user, messages stored separately with lazy loading
-
-**Provider Service Model:**
-- Purpose: Service provider profiles (broker, mortgage advisor, lawyer) with availability/specialization
-- Examples: `convex/serviceProviderProfiles.ts`, `src/components/profile/`
-- Pattern: Role-based profiles with service types, language preferences, contact methods
-
 ## Entry Points
+
+**Navigation (Landing Page):**
+- Location: `src/components/newlanding/Navigation.tsx`
+- Triggers: Page load (desktop/mobile switch), scroll events
+- Responsibilities: Top navigation bar with dropdowns, scroll-aware styling, mobile menu via Sheet component
+
+**Hero (Landing Page):**
+- Location: `src/components/newlanding/Hero.tsx`
+- Triggers: Page load, scroll through 400vh section
+- Responsibilities: Main banner, dashboard mockup preview, content swapping animation, sidebar interaction, stats animation
+
+**Landing Page Assembly:**
+- Location: `src/app/[locale]/(main)/page.tsx`
+- Triggers: Navigation to `/`
+- Responsibilities: Sequential component composition, metadata definition
 
 **Next.js Root:**
 - Location: `src/app/[locale]/layout.tsx`
@@ -130,11 +210,6 @@
 - Location: `src/app/[locale]/(app)/layout.tsx`
 - Triggers: Navigation to any route in (app) group
 - Responsibilities: Authentication gate; role-aware onboarding redirect; user context initialization
-
-**Landing Page:**
-- Location: `src/app/[locale]/(main)/page.tsx`
-- Triggers: User visits root route without authentication
-- Responsibilities: Renders landing page sections; no auth required
 
 **Auth Routes:**
 - Location: `src/app/[locale]/(auth)/`
@@ -148,7 +223,16 @@
 
 ## Error Handling
 
-**Strategy:** Async try-catch for server operations; fallback UI states (loading spinners, error messages); user-friendly toast notifications via sonner.
+**Strategy (Landing Page):** Defensive prop defaults and visibility flags; graceful animation fallbacks
+
+**Patterns:**
+- Optional `className` props with fallback to empty string via `cn()` utility
+- `isVisible` flags prevent duplicate animation initialization via `hasAnimatedRef`
+- CountUp handles unparseable numeric formats gracefully (falls back to "0")
+- DecryptedText returns raw text if `isVisible=false` instead of animating
+- Scroll event listeners use requestAnimationFrame throttling to prevent jank
+
+**Strategy (App):** Async try-catch for server operations; fallback UI states (loading spinners, error messages); user-friendly toast notifications via sonner.
 
 **Patterns:**
 - Convex actions throw errors automatically caught by React hooks → state error + display message
@@ -159,16 +243,42 @@
 
 ## Cross-Cutting Concerns
 
-**Logging:** No structured logging system; uses `console.error` for debugging in development. Production errors logged client-side only (e.g., in AI chat catch blocks).
+**Logging:** Console-free on landing page; uses React DevTools for motion debugging. App-wide: No structured logging system; uses `console.error` for debugging in development.
 
-**Validation:** Zod schema definitions in `convex/schema.ts` for all data types; react-hook-form validates client-side form inputs before submission.
+**Validation:**
+- Landing page: Translation keys validated at build time by `next-intl`; Image paths validated by Next.js Image component
+- App-wide: Zod schema definitions in `convex/schema.ts` for all data types; react-hook-form validates client-side form inputs
 
-**Authentication:** Clerk OAuth session management + Convex auth integration for API calls; user identity extracted via `ctx.auth.getUserIdentity()` in backend actions.
+**Authentication:** Landing page is public. App-wide: Clerk OAuth session management + Convex auth integration for API calls; user identity extracted via `ctx.auth.getUserIdentity()` in backend actions.
 
-**Authorization:** Role-based access control in `useCurrentUser()` hook returns `effectiveRole` (admin viewingAsRole or actual role); components render conditionally on `isServiceProvider`, `isAdmin`, `isInvestor` flags.
+**Authorization:** Landing page is public. App-wide: Role-based access control in `useCurrentUser()` hook returns `effectiveRole` (admin viewingAsRole or actual role); components render conditionally on `isServiceProvider`, `isAdmin`, `isInvestor` flags.
 
-**Internationalization:** next-intl handles routing, message loading, and locale context; components use `useTranslations()` hook to fetch i18n strings; RTL support via DirectionProvider for Hebrew locale.
+**Internationalization:**
+- Landing page: Uses next-intl for menu items, headings, descriptions, section content
+- App-wide: next-intl handles routing, message loading, and locale context; components use `useTranslations()` hook to fetch i18n strings; RTL support via DirectionProvider for Hebrew locale.
+
+**Responsive Design (Landing Page):**
+- Mobile-first Tailwind breakpoints (sm, md, lg) applied throughout
+- Hero dashboard mockup: hidden sidebar on mobile, sticky positioning adjusted via top offset
+- Navigation: Separate desktop (NavigationMenu) and mobile (Sheet) implementations
+- Testimonials carousel: basis-full (mobile) → basis-1/2 (md) → basis-1/3 (lg)
+- Features: min-h-screen flexbox with responsive grid-based LayoutGrid component
+
+**Performance Optimization (Landing Page):**
+- Scroll event listener uses requestAnimationFrame throttling (Navigation.tsx, lines 76-94)
+- `passive: true` event listeners for scroll performance
+- Motion values cached via `useMotionValue` to prevent recalculations
+- Video autoplay with `muted`, `playsInline` for mobile compatibility (Automation, Features)
+- Images use Next.js Image component with lazy loading (Testimonials)
+- CSS Grid for complex layouts (Hero dashboard mockup)
+
+**Styling Strategy (Landing Page):**
+- Utility-first Tailwind CSS with custom theme variables
+- Dark mode support via `dark:` prefixes throughout
+- Color semantic tokens: `foreground`, `background`, `muted-foreground`, `border`, `card`
+- Consistent spacing scale applied across components
+- Sticky positioning for navigation and mockup during scroll
 
 ---
 
-*Architecture analysis: 2026-01-22*
+*Architecture analysis: 2026-01-28*
