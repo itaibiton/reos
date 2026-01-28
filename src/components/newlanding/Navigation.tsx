@@ -279,8 +279,16 @@ export function Navigation({ className }: NavigationProps) {
       </motion.nav>
     </motion.div>
 
-    {/* Mobile Navigation - Always visible */}
-    <nav className="md:hidden fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-[#050A12] shadow-lg overflow-x-hidden">
+    {/* Mobile Navigation - Always visible, fixed at top */}
+    <nav
+      className="md:hidden fixed top-0 left-0 right-0 border-b border-white/10 bg-[#050A12] shadow-lg overflow-x-hidden"
+      style={{
+        position: 'fixed',
+        top: 0,
+        zIndex: 9999,
+        width: '100%'
+      }}
+    >
       <div className="w-full max-w-[100vw] px-2 h-16 flex items-center justify-between gap-1">
         <a href="#" className="flex items-center gap-1.5 group flex-shrink min-w-0">
           <div className="w-8 h-8 rounded bg-white/10 border border-white/20 flex items-center justify-center group-hover:border-white/30 transition-colors flex-shrink-0">
