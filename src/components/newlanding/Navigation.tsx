@@ -414,7 +414,6 @@ export function Navigation({ className }: NavigationProps) {
               </div>
             </SheetContent>
           </Sheet>
-        </div>
       </div>
     </nav>
     </>
