@@ -78,6 +78,11 @@ export function Navigation({ className }: NavigationProps) {
     <>
     {/* Desktop Navigation - Animated */}
     <motion.div
+      initial={{
+        paddingLeft: "24px",
+        paddingRight: "24px",
+        paddingTop: "16px",
+      }}
       animate={{
         paddingLeft: scrolled ? "0px" : "24px",
         paddingRight: scrolled ? "0px" : "24px",
@@ -87,10 +92,12 @@ export function Navigation({ className }: NavigationProps) {
         duration: 0.4,
         ease: [0.25, 1, 0.5, 1],
       }}
-      className="fixed top-0 left-0 right-0 z-50 md:block hidden"
+      className="hidden md:block fixed top-0 left-0 right-0 z-50"
     >
       <motion.nav
-        initial={false}
+        initial={{
+          borderRadius: "12px",
+        }}
         animate={{
           borderRadius: scrolled ? "0px" : "12px",
         }}
