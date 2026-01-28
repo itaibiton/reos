@@ -319,7 +319,7 @@ export function Hero({ className }: HeroProps) {
       style={{ minHeight: "400vh" }}
     >
       {/* Ambient Light */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blue-900/10 blur-[120px] rounded-full pointer-events-none"></div>
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[800px] h-[500px] bg-blue-900/10 blur-[120px] rounded-full pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto relative z-10 px-4 sm:px-6 lg:px-8">
         {/* Centered Hero Content */}
@@ -402,11 +402,11 @@ export function Hero({ className }: HeroProps) {
 
       {/* Dashboard Preview */}
       <div
-        className="sticky z-20 mt-20 max-w-7xl mx-auto relative px-4 sm:px-6 lg:px-8 top-20 md:top-[calc(50vh-275px)]"
+        className="md:sticky z-20 mt-20 max-w-7xl mx-auto relative px-4 sm:px-6 lg:px-8 md:top-[calc(50vh-275px)] w-full overflow-x-hidden"
       >
-        <motion.div variants={fadeInUp}>
+        <motion.div variants={fadeInUp} className="w-full max-w-full overflow-hidden">
         {/* MacBook-style bezel - Silver on light, Space Gray on dark */}
-        <div className="relative rounded-[20px] p-3 bg-gradient-to-b from-[#e8e8e8] via-[#d4d4d4] to-[#e8e8e8] dark:from-[#1a1a1a] dark:via-[#0f0f0f] dark:to-[#1a1a1a] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3),0_0_0_1px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8),0_0_0_1px_rgba(255,255,255,0.05)] select-none">
+        <div className="relative rounded-[20px] p-3 bg-gradient-to-b from-[#e8e8e8] via-[#d4d4d4] to-[#e8e8e8] dark:from-[#1a1a1a] dark:via-[#0f0f0f] dark:to-[#1a1a1a] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3),0_0_0_1px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8),0_0_0_1px_rgba(255,255,255,0.05)] select-none max-w-full">
           {/* Inner shadow for depth */}
           <div className="absolute inset-0 rounded-[20px] shadow-[inset_0_2px_4px_rgba(0,0,0,0.15)] dark:shadow-[inset_0_2px_4px_rgba(0,0,0,0.5)] pointer-events-none"></div>
 
@@ -757,7 +757,7 @@ export function Hero({ className }: HeroProps) {
         </div>
 
         {/* Stats Section - Below Mockup */}
-        <div className="mt-[420px] sm:mt-14 max-w-4xl mx-auto px-4 sm:px-6 relative">
+        <div className="mt-8 sm:mt-14 max-w-4xl mx-auto px-4 sm:px-6 relative">
           {/* Initial Stats */}
           <motion.div
             className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8"
