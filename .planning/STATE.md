@@ -2,20 +2,20 @@
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-01-27)
+See: .planning/PROJECT.md (updated 2026-01-28)
 
 **Core value:** Deal flow tracking from interest to close.
-**Current focus:** v1.8 Landing Page Mobile Responsive
+**Current focus:** v1.8 Conversion & Essential Pages
 
 ## Current Position
 
-Milestone: v1.8 Landing Page Mobile Responsive
-Phase: 53 of 1 (53-hero-navigation-mobile)
-Plan: 1 of 3
-Status: In progress
-Last activity: 2026-01-27 — Completed 53-01-PLAN.md
+Milestone: v1.8 Conversion & Essential Pages
+Phase: Not started (defining requirements)
+Plan: —
+Status: Researching domain ecosystem
+Last activity: 2026-01-28 — Milestone v1.8 started (conversion pages)
 
-Progress: [███░░░░░░░] 33% (1 of 3 plans complete in phase 53)
+Progress: [░░░░░░░░░░] 0%
 
 ## Performance Metrics
 
@@ -24,7 +24,7 @@ Progress: [███░░░░░░░] 33% (1 of 3 plans complete in phase 5
 - Average duration: 4.4 min
 - Total execution time: 10.28 hours
 
-**By Phase (v1.7 current):**
+**By Phase (v1.7):**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
@@ -39,10 +39,6 @@ Progress: [███░░░░░░░] 33% (1 of 3 plans complete in phase 5
 | 48 | 1/1 | 3 min | 3 min |
 | 49 | 1/1 | 3 min | 3 min |
 
-**Recent Trend:**
-- Last 5 plans: 47-02 (2 min), 48-01 (3 min), 49-01 (3 min), 53-01 (3 min)
-- Trend: Consistent fast execution on focused UI tasks
-
 ## Accumulated Context
 
 ### Decisions
@@ -52,44 +48,32 @@ Recent decisions affecting current work:
 
 | Decision | Context | Impact |
 |----------|---------|--------|
-| NAV-CTA | "Get Started" CTA scrolls to #contact instead of sign-up | Landing visitors see contact form first, not forced to sign-up |
-| NAV-LAYOUT | Nav/Footer lifted to layout.tsx | Single-source rendering, prevents duplication across routes |
-| FOOT-STRUCTURE | Simplified footer to 3 columns: Platform/Company/Legal | Landing page focused on investors needs clear categories |
-| FOOT-PHONE | US phone number format +1 (212) 555-0123 | Primary audience is US investors, US format builds trust |
-| FOOT-SOCIAL | Platform-specific social handles @reosplatform | Placeholder URLs for REOS platform identity |
-| LOGO-PLACEHOLDER | SVG data URLs for placeholder partner logos | Real partner logos not yet available, placeholders enable UI development |
-| ICON-MAPPING | Icon mapping via translation keys | Store icon key string in translations, map to LucideIcon component dynamically |
-| NAV-M-SHEET-SIDE | Sheet slides from left (not right) for mobile menu | Natural left-to-right reading flow, feels more intuitive |
-| NAV-M-ACCORDION | Accordion type='single' for mobile navigation | Only one section open at a time for mobile clarity |
-| NAV-M-DUPLICATE-CTA | Mobile CTAs duplicated at bottom of slide-in menu | After scrolling menu, user can take action without scrolling back |
-| NAV-M-LOGIN-VIS | Log in hidden below 640px in header, always visible in mobile menu | Maximize space for hamburger and primary CTA at smallest viewports |
-| HERO-M-TEXT-SCALE | Enhanced heading scaling with lg:text-7xl for large screens | Better visual hierarchy on 1024px+ without affecting mobile optimization |
-| HERO-M-TOUCH-TARGET | Applied min-h-[44px] to all CTA buttons | WCAG 2.5.5 compliance for mobile touch accuracy |
+| V1.8-SCOPE | Replace mobile responsive with conversion pages | Focus on critical missing pages to improve conversion |
+| EXISTING-LANDING | Don't modify existing landing components | New sections/pages only, preserve current work |
 
 ### Pending Todos
 
-- Replace placeholder partner logos with real partner/media logos (Phase 49)
+- Replace placeholder partner logos with real partner/media logos (deferred)
+- Complete mobile responsive work (deferred to future milestone)
 
 ### Blockers/Concerns
 
-- Phase 50+ sections need id attributes matching hash anchors (#features, #testimonials, #contact)
-- Legal pages (/privacy, /terms) referenced in footer not yet created - will 404 until created
-- Investor/Provider pages (/investors, /providers) not yet created - will 404 until created
-- Hero CTA links to #contact (Phase 52) - will scroll to nothing until contact form created
+- Legal pages (/privacy, /terms) referenced in footer - will be addressed this milestone
+- Investor/Provider pages not yet created - provider pages addressed this milestone
+- Hero CTA links to #contact - contact section/page needed
 
 ### Roadmap Evolution
 
 - Milestone v1.6 complete: AI-Powered Investor Experience (Phases 40-46)
-- Milestone v1.7 complete: New Landing Page, 6 phases (Phase 47-52)
-- Milestone v1.8 started: Landing Page Mobile Responsive
-  - Goal: Make all landing components fully mobile responsive (320px-768px)
-  - Components: Hero, Navigation, SocialProof, Features, Automation, Stats, CTA, Footer
-  - Approach: Adaptive layouts with touch-friendly interactions
-  - Desktop experience: Unchanged above 768px
+- Milestone v1.7 complete: New Landing Page (Phases 47-52)
+- Milestone v1.8 started: Conversion & Essential Pages
+  - Goal: Add FAQ, pricing, legal, contact, provider pages, How It Works
+  - Scope: New pages and sections only
+  - Constraint: Don't modify existing landing components
 
 ## Session Continuity
 
-Last session: 2026-01-27
-Stopped at: Completed 53-01-PLAN.md
+Last session: 2026-01-28
+Stopped at: Defining v1.8 requirements (research phase)
 Resume file: None
-Next: Continue phase 53 with 53-02 (Navigation mobile menu) and 53-03 (remaining plans in hero-navigation-mobile)
+Next: Research results → requirements → roadmap

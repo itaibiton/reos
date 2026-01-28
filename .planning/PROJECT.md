@@ -8,23 +8,19 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 
 **Deal flow tracking from interest to close.** If the end-to-end process of connecting investors with properties AND moving them through service providers doesn't work seamlessly, nothing else matters.
 
-## Current Milestone: v1.8 Landing Page Mobile Responsive
+## Current Milestone: v1.8 Conversion & Essential Pages
 
-**Goal:** Make every component and layout on the landing page fully mobile responsive with adaptive layouts optimized for small screens (320px-768px), while preserving the desktop experience.
+**Goal:** Add critical pages and sections to maximize conversion and complete the website experience — FAQ, pricing, legal pages, contact, service provider landing pages, and "How It Works" section.
 
 **Target features:**
-- Comprehensive mobile responsive treatment for all 8 landing components
-- Adaptive layouts (not just scaled) - single column grids, stacked sections where appropriate
-- Mobile breakpoints: 320px (small phones), 640px (large phones), 768px (tablet)
-- Touch-friendly interactions (44px+ touch targets, appropriate spacing)
-- Optimized animations for mobile (simplified or adjusted where needed)
-- Hero section mobile optimization (viewport height, text sizing, CTA placement)
-- Navigation mobile menu improvements
-- Feature cards responsive grid (4 cards → stacked or 2-column on mobile)
-- Automation section mobile layout
-- Footer mobile-friendly column stacking
-- All text readable on small screens (no overflow, proper line heights)
-- Desktop experience unchanged above 768px
+- FAQ section on landing page answering common questions (pricing, safety, process, requirements)
+- Pricing page with clear tiers (Investor/free, Broker/monthly, Agency/custom)
+- Legal pages: Privacy Policy (/privacy) and Terms of Service (/terms)
+- Contact page with form submission (/contact)
+- Service provider landing pages per type (/providers/brokers, /providers/lawyers, /providers/mortgage-advisors, etc.)
+- "How It Works" section on landing page showing step-by-step process flow
+- All new pages mobile responsive from day one
+- i18n support for all new content
 
 ## Current State (v1.6)
 
@@ -109,18 +105,13 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 
 ### Active
 
-- [ ] Hero component mobile responsive (320px-768px) — v1.8
-- [ ] Navigation component mobile menu optimization — v1.8
-- [ ] SocialProof component mobile layout — v1.8
-- [ ] Features component mobile grid (adaptive 4→2→1 columns) — v1.8
-- [ ] Automation component mobile layout — v1.8
-- [ ] Stats component mobile grid — v1.8
-- [ ] CTA component mobile text sizing and spacing — v1.8
-- [ ] Footer component mobile column stacking — v1.8
-- [ ] Touch targets 44px+ on all interactive elements — v1.8
-- [ ] Mobile animations optimization (reduce motion where appropriate) — v1.8
-- [ ] Text overflow prevention on all components — v1.8
-- [ ] Mobile viewport testing (320px, 375px, 640px, 768px) — v1.8
+- [ ] FAQ section on landing page — v1.8
+- [ ] Pricing page with investor/broker/agency tiers — v1.8
+- [ ] Privacy Policy page — v1.8
+- [ ] Terms of Service page — v1.8
+- [ ] Contact page with form — v1.8
+- [ ] Service provider landing pages (brokers, lawyers, mortgage advisors, etc.) — v1.8
+- [ ] "How It Works" section on landing page — v1.8
 
 ### Out of Scope
 
@@ -175,16 +166,18 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 
 ## Next Milestone Goals
 
-**v1.7: New Landing Page** (current)
-- Modern, conversion-focused landing page
-- Full sections: Hero, Logos, Features, Testimonials, Video, Contact, Footer
-- Framer Motion animations
-- Mobile-optimized
+**v1.8: Conversion & Essential Pages** (current)
+- FAQ section answering common questions
+- Pricing page with clear tiers
+- Legal pages (privacy, terms)
+- Contact page
+- Service provider landing pages
+- "How It Works" section
 
 **Future directions:**
-- v1.8: Analytics and reporting dashboards
-- v1.8: Advanced mobile features (PWA, push notifications)
+- v1.9: Analytics and reporting dashboards
+- v1.9: Advanced mobile features (PWA, push notifications)
 - v2.0: Major feature expansion (payments, e-signatures)
 
 ---
-*Last updated: 2026-01-26 after v1.7 milestone started*
+*Last updated: 2026-01-28 after v1.8 milestone started (conversion pages)*
