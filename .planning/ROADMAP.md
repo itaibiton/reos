@@ -18,8 +18,8 @@ Add critical conversion and essential pages to the REOS marketing site: FAQ and 
 
 ## Phases
 
-- [ ] **Phase 53: Landing Page Sections** - FAQ and How It Works sections added to landing page
-- [ ] **Phase 54: Legal & Pricing Pages** - Privacy Policy, Terms of Service, and Pricing standalone pages
+- [x] **Phase 53: Landing Page Sections** - FAQ and How It Works sections added to landing page
+- [x] **Phase 54: Legal & Pricing Pages** - Privacy Policy, Terms of Service, and Pricing standalone pages
 - [ ] **Phase 55: Contact & Provider Landing Pages** - Contact form page and service provider type landing pages
 - [ ] **Phase 56: Navigation Wiring & Cross-Linking** - Wire all links, update nav/footer, generate sitemap
 
@@ -52,9 +52,9 @@ Plans:
   4. All three pages have correct Next.js metadata (title, description, Open Graph) and display in both English and Hebrew
 **Plans**: 3 plans
 Plans:
-  - [ ] 54-01-PLAN.md — Legal i18n content (privacy + terms EN/HE) and shared legal components (TableOfContents, LegalSection)
-  - [ ] 54-02-PLAN.md — Privacy Policy and Terms of Service page routes with metadata
-  - [ ] 54-03-PLAN.md — Pricing page with i18n content, tier components, feature comparison, billing FAQ, and JSON-LD
+  - [x] 54-01-PLAN.md — Legal i18n content (privacy + terms EN/HE) and shared legal components (TableOfContents, LegalSection)
+  - [x] 54-02-PLAN.md — Privacy Policy and Terms of Service page routes with metadata
+  - [x] 54-03-PLAN.md — Pricing page with i18n content, tier components, feature comparison, billing FAQ, and JSON-LD
 
 ### Phase 55: Contact & Provider Landing Pages
 **Goal**: Users can submit inquiries via a contact form and service providers can discover type-specific landing pages
@@ -85,8 +85,8 @@ Plans:
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
-| 53. Landing Page Sections | v1.8 | 0/? | Not Started | - |
-| 54. Legal & Pricing Pages | v1.8 | 0/3 | Not Started | - |
+| 53. Landing Page Sections | v1.8 | 3/3 | Complete | 2026-01-28 |
+| 54. Legal & Pricing Pages | v1.8 | 3/3 | Complete | 2026-01-28 |
 | 55. Contact & Provider Landing Pages | v1.8 | 0/? | Not Started | - |
 | 56. Navigation Wiring & Cross-Linking | v1.8 | 0/? | Not Started | - |
 
