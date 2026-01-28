@@ -63,8 +63,29 @@ export function Automation({ className }: AutomationProps) {
       {/* Diagonal split background - static, not animated */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div className="absolute inset-0 bg-background"></div>
+        {/* Mobile - gentler angle */}
         <svg
-          className="absolute inset-0 w-full h-full"
+          className="absolute inset-0 w-full h-full md:hidden"
+          preserveAspectRatio="none"
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <polygon
+            points="0,0 100,5 100,100 0,100"
+            fill="#050A12"
+          />
+          <line
+            x1="0"
+            y1="0"
+            x2="100"
+            y2="5"
+            stroke="rgba(255,255,255,0.1)"
+            strokeWidth="0.2"
+          />
+        </svg>
+        {/* Desktop - original angle */}
+        <svg
+          className="hidden md:block absolute inset-0 w-full h-full"
           preserveAspectRatio="none"
           viewBox="0 0 100 100"
           xmlns="http://www.w3.org/2000/svg"
@@ -105,41 +126,13 @@ export function Automation({ className }: AutomationProps) {
 
         {/* Providers Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {providers.slice(0, 4).map((provider, index) => {
-            const Icon = provider.icon;
-            const { initial, animate } = getAnimationVariant(index);
-            return (
-              <motion.div
-                key={index}
-                initial={initial}
-                whileInView={animate}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7, delay: index * 0.2, ease: [0.25, 0.1, 0.25, 1] }}
-                className="relative p-6 rounded-xl border border-white/10 transition-colors group"
-              >
-                {/* Icon */}
-                <div className="w-12 h-12 rounded-lg bg-white/10 flex items-center justify-center mb-4 transition-colors">
-                  <Icon className="w-6 h-6 text-white/70" />
-                </div>
-
-                {/* Content */}
-                <h3 className="text-lg font-normal mb-2 text-white">
-                  {provider.title}
-                </h3>
-                <p className="text-sm font-light leading-relaxed text-white/60">
-                  {provider.description}
-                </p>
-              </motion.div>
-            );
-          })}
-
-          {/* Animation Card - spans 2 columns and 2 rows */}
+          {/* Animation Card - First on mobile, positioned in grid on desktop */}
           <motion.div
             initial={getAnimationVariant(4).initial}
             whileInView={getAnimationVariant(4).animate}
             viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 4 * 0.2, ease: [0.25, 0.1, 0.25, 1] }}
-            className="relative rounded-xl border border-white/10 bg-white/5 overflow-hidden md:col-span-2 lg:col-span-2 lg:row-span-2  "
+            transition={{ duration: 0.7, delay: 0, ease: [0.25, 0.1, 0.25, 1] }}
+            className="relative rounded-xl border border-white/10 bg-white/5 overflow-hidden md:col-span-2 lg:col-span-2 lg:row-span-2 order-first md:order-none md:col-start-2 md:row-start-1"
           >
             <video
               autoPlay
@@ -154,17 +147,16 @@ export function Automation({ className }: AutomationProps) {
             </video>
           </motion.div>
 
-          {/* Last provider card */}
-          {providers.slice(4).map((provider, index) => {
+          {providers.map((provider, index) => {
             const Icon = provider.icon;
-            const { initial, animate } = getAnimationVariant(5);
+            const { initial, animate } = getAnimationVariant(index);
             return (
               <motion.div
-                key={index + 4}
+                key={index}
                 initial={initial}
                 whileInView={animate}
                 viewport={{ once: true }}
-                transition={{ duration: 0.7, delay: 5 * 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+                transition={{ duration: 0.7, delay: (index + 1) * 0.2, ease: [0.25, 0.1, 0.25, 1] }}
                 className="relative p-6 rounded-xl border border-white/10 transition-colors group"
               >
                 {/* Icon */}

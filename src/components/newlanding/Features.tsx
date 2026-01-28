@@ -50,17 +50,17 @@ const SkeletonThree = ({ t }: { t: any }) => {
 
 const SkeletonFour = ({ t }: { t: any }) => {
   return (
-    <div className="h-full w-full flex">
-      {/* Left side - Text on white background */}
-      <div className="w-1/2 bg-white dark:bg-zinc-900 p-8 flex flex-col justify-center">
-        <p className="font-light text-4xl text-black dark:text-white mb-4">{t("cards.aiAdvisor.title")}</p>
+    <div className="h-full w-full flex flex-col md:flex-row">
+      {/* Text section - Top on mobile, Left on desktop */}
+      <div className="w-full md:w-1/2 bg-white dark:bg-zinc-900 p-6 md:p-8 flex flex-col justify-center">
+        <p className="font-light text-3xl md:text-4xl text-black dark:text-white mb-4">{t("cards.aiAdvisor.title")}</p>
         <p className="font-normal text-base text-black/70 dark:text-white/70">
           {t("cards.aiAdvisor.description")}
         </p>
       </div>
 
-      {/* Right side - Video */}
-      <div className="w-1/2 relative overflow-hidden">
+      {/* Video section - Bottom on mobile, Right on desktop */}
+      <div className="w-full md:w-1/2 relative overflow-hidden min-h-[300px] md:min-h-0">
         <video
           autoPlay
           loop

@@ -402,7 +402,7 @@ export function Hero({ className }: HeroProps) {
 
       {/* Dashboard Preview */}
       <div
-        className="md:sticky z-20 mt-20 max-w-7xl mx-auto relative px-4 sm:px-6 lg:px-8 md:top-[calc(50vh-275px)] w-full overflow-x-hidden"
+        className="sticky z-20 mt-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 top-[calc(50vh-182px)] sm:top-[calc(50vh-220px)] md:top-[calc(50vh-300px)] w-full overflow-hidden"
       >
         <motion.div variants={fadeInUp} className="w-full max-w-full overflow-hidden">
         {/* MacBook-style bezel - Silver on light, Space Gray on dark */}
@@ -760,7 +760,7 @@ export function Hero({ className }: HeroProps) {
         <div className="mt-8 sm:mt-14 max-w-4xl mx-auto px-4 sm:px-6 relative">
           {/* Initial Stats */}
           <motion.div
-            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8"
+            className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8"
             style={{ opacity: initialContentOpacity, scale: initialContentScale }}
           >
             {[
@@ -782,7 +782,7 @@ export function Hero({ className }: HeroProps) {
 
           {/* Switched Stats */}
           <motion.div
-            className="absolute inset-0 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8"
+            className="absolute inset-0 grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8"
             style={{ opacity: switchedContentOpacity, scale: switchedContentScale }}
           >
             {[
