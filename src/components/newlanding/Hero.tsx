@@ -227,6 +227,17 @@ export function Hero({ className }: HeroProps) {
   const [sidebarExpanded, setSidebarExpanded] = useState(true);
   const heroRef = useRef<HTMLElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile on mount
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Track scroll progress through the hero section
   const { scrollYProgress } = useScroll({
@@ -288,6 +299,13 @@ export function Hero({ className }: HeroProps) {
 
   // Check initial values on mount
   useEffect(() => {
+    // On mobile, make stats visible immediately
+    if (isMobile) {
+      setInitialStatsVisible(true);
+      setSwitchedStatsVisible(true);
+      return;
+    }
+
     const checkInitial = () => {
       const statsOp = statsOpacity.get();
       const switchedOp = switchedContentOpacity.get();
@@ -301,7 +319,7 @@ export function Hero({ className }: HeroProps) {
     checkInitial();
     const interval = setInterval(checkInitial, 100);
     return () => clearInterval(interval);
-  }, [statsOpacity, switchedContentOpacity, initialStatsVisible, switchedStatsVisible]);
+  }, [statsOpacity, switchedContentOpacity, initialStatsVisible, switchedStatsVisible, isMobile]);
 
 
   const toggleSidebar = () => {
@@ -315,8 +333,7 @@ export function Hero({ className }: HeroProps) {
       whileInView="visible"
       viewport={{ once: true }}
       variants={stagger}
-      className={cn("relative pt-32 pb-20 md:pt-48 md:pb-32 bg-grid border-b border-border/50", className)}
-      style={{ minHeight: "400vh" }}
+      className={cn("relative pt-32 pb-8 md:pt-48 md:pb-32 bg-grid border-b border-border/50 min-h-screen md:min-h-[400vh]", className)}
     >
       {/* Ambient Light */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[800px] h-[500px] bg-blue-900/10 blur-[120px] rounded-full pointer-events-none"></div>
@@ -402,7 +419,7 @@ export function Hero({ className }: HeroProps) {
 
       {/* Dashboard Preview */}
       <div
-        className="sticky z-20 mt-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 top-[calc(50vh-182px)] sm:top-[calc(50vh-220px)] md:top-[calc(50vh-300px)] w-full overflow-hidden"
+        className="sticky z-20 mt-12 md:mt-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 top-[calc(50vh-180px)] md:top-[calc(50vh-300px)] w-full overflow-hidden"
       >
         <motion.div variants={fadeInUp} className="w-full max-w-full overflow-hidden">
         {/* MacBook-style bezel - Silver on light, Space Gray on dark */}
@@ -437,7 +454,7 @@ export function Hero({ className }: HeroProps) {
           </div>
 
           {/* Mockup Body */}
-          <div className="flex h-[300px] sm:h-[400px] md:h-[550px]">
+          <div className="flex h-[220px] md:h-[550px]">
             {/* Animated Sidebar */}
             <div
               className={cn(
@@ -757,10 +774,10 @@ export function Hero({ className }: HeroProps) {
         </div>
 
         {/* Stats Section - Below Mockup */}
-        <div className="mt-8 sm:mt-14 max-w-4xl mx-auto px-4 sm:px-6 relative">
+        <div className="mt-6 md:mt-14 max-w-4xl mx-auto px-4 sm:px-6 relative">
           {/* Initial Stats */}
           <motion.div
-            className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8"
+            className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8"
             style={{ opacity: initialContentOpacity, scale: initialContentScale }}
           >
             {[
@@ -770,10 +787,10 @@ export function Hero({ className }: HeroProps) {
               { value: t("stats.initial.aiSupport.value"), label: t("stats.initial.aiSupport.label") },
             ].map((stat, index) => (
               <div key={index} className="text-center">
-                <div className="text-2xl sm:text-3xl md:text-4xl font-light text-foreground mb-2 tracking-tight">
+                <div className="text-xl md:text-4xl font-light text-foreground mb-1 md:mb-2 tracking-tight">
                   <CountUp value={stat.value} duration={2} isVisible={initialStatsVisible} />
                 </div>
-                <div className="text-sm text-foreground/50 font-light">
+                <div className="text-xs md:text-sm text-foreground/50 font-light">
                   <DecryptedText text={stat.label} speed={50} isVisible={initialStatsVisible} />
                 </div>
               </div>
@@ -782,7 +799,7 @@ export function Hero({ className }: HeroProps) {
 
           {/* Switched Stats */}
           <motion.div
-            className="absolute inset-0 grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8"
+            className="absolute inset-0 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8"
             style={{ opacity: switchedContentOpacity, scale: switchedContentScale }}
           >
             {[
@@ -792,10 +809,10 @@ export function Hero({ className }: HeroProps) {
               { value: t("stats.switched.satisfactionRate.value"), label: t("stats.switched.satisfactionRate.label") },
             ].map((stat, index) => (
               <div key={index} className="text-center">
-                <div className="text-2xl sm:text-3xl md:text-4xl font-light text-foreground mb-2 tracking-tight">
+                <div className="text-xl md:text-4xl font-light text-foreground mb-1 md:mb-2 tracking-tight">
                   <CountUp value={stat.value} duration={2} isVisible={switchedStatsVisible} />
                 </div>
-                <div className="text-sm text-foreground/50 font-light">
+                <div className="text-xs md:text-sm text-foreground/50 font-light">
                   <DecryptedText text={stat.label} speed={50} isVisible={switchedStatsVisible} />
                 </div>
               </div>
