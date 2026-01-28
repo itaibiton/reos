@@ -341,7 +341,8 @@ export function Hero({ className }: HeroProps) {
       whileInView="visible"
       viewport={{ once: true }}
       variants={stagger}
-      className={cn("relative pt-32 pb-8 md:pt-48 md:pb-32 bg-grid border-b border-border/50 min-h-screen md:min-h-[400vh]", className)}
+      className={cn("relative pt-32 pb-8 md:pt-48 md:pb-32 bg-grid border-b border-border/50", className)}
+      style={{ minHeight: isMobile ? "200vh" : "400vh" }}
     >
       {/* Ambient Light */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[800px] h-[500px] bg-blue-900/10 blur-[120px] rounded-full pointer-events-none"></div>
@@ -427,7 +428,7 @@ export function Hero({ className }: HeroProps) {
 
       {/* Dashboard Preview */}
       <div
-        className="sticky z-20 mt-12 md:mt-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 top-[calc(50vh-180px)] md:top-[calc(50vh-300px)] w-full overflow-hidden"
+        className="sticky z-20 mt-12 md:mt-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 top-[calc(50vh-210px)] md:top-[calc(50vh-300px)] w-full overflow-hidden"
       >
         <motion.div variants={fadeInUp} className="w-full max-w-full overflow-hidden">
         {/* MacBook-style bezel - Silver on light, Space Gray on dark */}
@@ -462,7 +463,7 @@ export function Hero({ className }: HeroProps) {
           </div>
 
           {/* Mockup Body */}
-          <div className="flex h-[220px] md:h-[550px]">
+          <div className="flex h-[280px] md:h-[550px]">
             {/* Animated Sidebar */}
             <div
               className={cn(
@@ -565,16 +566,16 @@ export function Hero({ className }: HeroProps) {
             </div>
 
             {/* Main Content */}
-            <div className="flex-1 p-6 overflow-hidden relative bg-background/50">
+            <div className="flex-1 p-3 md:p-6 overflow-hidden relative bg-background/50">
               {/* Initial Content - Overview */}
-              <motion.div className="absolute inset-0 p-6" style={{ opacity: initialContentOpacity, scale: initialContentScale }}>
+              <motion.div className="absolute inset-0 p-3 md:p-6" style={{ opacity: initialContentOpacity, scale: initialContentScale }}>
                 {/* Header Area */}
-                <div className="flex justify-between items-end mb-8">
+                <div className="flex justify-between items-end mb-3 md:mb-8">
                   <div>
                     <h3 className="text-xl font-light text-foreground mb-1">{t("dashboard.portfolioPerformance")}</h3>
                     <p className="text-xs text-muted-foreground">{t("dashboard.lastUpdated")}</p>
                   </div>
-                  <div className="flex gap-2">
+                  <div className="hidden md:flex gap-2">
                     <div className="px-3 py-1.5 border border-border rounded text-xs text-foreground/60 hover:text-foreground cursor-pointer hover:bg-foreground/5 transition-colors">
                       {t("dashboard.timePeriods.oneDay")}
                     </div>
@@ -662,14 +663,14 @@ export function Hero({ className }: HeroProps) {
               </motion.div>
 
               {/* Switched Content - Properties */}
-              <motion.div className="absolute inset-0 p-6" style={{ opacity: switchedContentOpacity, scale: switchedContentScale }}>
+              <motion.div className="absolute inset-0 p-3 md:p-6" style={{ opacity: switchedContentOpacity, scale: switchedContentScale }}>
                 {/* Header Area */}
-                <div className="flex justify-between items-end mb-8">
+                <div className="flex justify-between items-end mb-3 md:mb-8">
                   <div>
                     <h3 className="text-xl font-light text-foreground mb-1">{t("dashboard.propertiesPortfolio")}</h3>
                     <p className="text-xs text-muted-foreground">{t("dashboard.propertiesSubtitle")}</p>
                   </div>
-                  <div className="flex gap-2">
+                  <div className="hidden md:flex gap-2">
                     <div className="px-3 py-1.5 border border-border rounded text-xs text-foreground/60 hover:text-foreground cursor-pointer hover:bg-foreground/5 transition-colors">
                       {t("dashboard.filters.all")}
                     </div>
