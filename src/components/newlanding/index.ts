@@ -5,6 +5,7 @@ export { Hero } from "./Hero";
 export { SocialProof } from "./SocialProof";
 export { Features } from "./Features";
 export { Automation } from "./Automation";
+export { Testimonials } from "./Testimonials";
 export { Stats } from "./Stats";
 export { CTA } from "./CTA";
 export { Footer } from "./Footer";

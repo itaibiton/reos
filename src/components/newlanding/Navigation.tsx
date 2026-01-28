@@ -43,6 +43,28 @@ export function Navigation({ className }: NavigationProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
 
+  // Add custom styles to override NavigationMenu default hover colors
+  useEffect(() => {
+    const style = document.createElement('style');
+    style.innerHTML = `
+      [data-slot="navigation-menu-content"] a:hover {
+        background-color: transparent !important;
+        color: white !important;
+      }
+      [data-slot="navigation-menu-content"] a:focus {
+        background-color: transparent !important;
+        color: white !important;
+      }
+      [data-slot="navigation-menu-content"] li a:hover {
+        background-color: transparent !important;
+      }
+    `;
+    document.head.appendChild(style);
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
+
   useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -107,17 +129,17 @@ export function Navigation({ className }: NavigationProps) {
           width: scrolled ? "100%" : "min(1280px, 100%)",
         }}
         className={cn(
-          "mx-auto border bg-background/80 backdrop-blur-xl shadow-lg transition-all duration-[400ms] ease-[cubic-bezier(0.25,1,0.5,1)]",
-          scrolled ? "border-border/50 border-t-0 border-l-0 border-r-0" : "border-border/50",
+          "mx-auto border bg-[#050A12] shadow-lg transition-all duration-[400ms] ease-[cubic-bezier(0.25,1,0.5,1)]",
+          scrolled ? "border-white/10 border-t-0 border-l-0 border-r-0" : "border-white/10",
           className
         )}
       >
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between gap-2">
           <a href="#" className="flex items-center gap-2 group flex-shrink-0">
-            <div className="w-8 h-8 rounded bg-foreground/5 border border-border flex items-center justify-center group-hover:border-border/100 transition-colors">
-              <span className="font-medium tracking-tighter text-sm text-foreground">R</span>
+            <div className="w-8 h-8 rounded bg-white/10 border border-white/20 flex items-center justify-center group-hover:border-white/30 transition-colors">
+              <span className="font-medium tracking-tighter text-sm text-white">R</span>
             </div>
-            <span className="font-normal text-sm tracking-widest text-foreground/90">{t("logo")}</span>
+            <span className="font-normal text-sm tracking-widest text-white/90">{t("logo")}</span>
           </a>
 
           <div className="hidden md:flex items-center">
@@ -125,58 +147,52 @@ export function Navigation({ className }: NavigationProps) {
               <NavigationMenuList>
                 {/* Platform Dropdown */}
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="text-sm font-light bg-transparent hover:bg-foreground/5 data-[state=open]:bg-foreground/5">
+                  <NavigationMenuTrigger className="text-sm font-light bg-transparent text-white/80 hover:bg-white/5 hover:text-white data-[state=open]:bg-white/5 data-[state=open]:text-white">
                     {t("menu.platform")}
                   </NavigationMenuTrigger>
-                  <NavigationMenuContent>
+                  <NavigationMenuContent className="bg-[#050A12] border-white/10">
                     <ul className="grid w-[400px] gap-3 p-4">
                       <li>
-                        <NavigationMenuLink asChild>
-                          <a
-                            href="#"
-                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                          >
-                            <div className="flex items-center gap-2 text-sm font-medium leading-none">
-                              <Building2 className="h-4 w-4" />
-                              {t("platform.propertyManagement.title")}
-                            </div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              {t("platform.propertyManagement.description")}
-                            </p>
-                          </a>
-                        </NavigationMenuLink>
+                        <a
+                          href="#"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors  text-white"
+                        >
+                          <div className="flex items-center gap-2 text-sm font-medium leading-none">
+                            <Building2 className="h-4 w-4" />
+                            {t("platform.propertyManagement.title")}
+                          </div>
+                          <p className="line-clamp-2 text-sm leading-snug text-white/60">
+                            {t("platform.propertyManagement.description")}
+                          </p>
+                        </a>
                       </li>
                       <li>
-                        <NavigationMenuLink asChild>
-                          <a
-                            href="#"
-                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                          >
-                            <div className="flex items-center gap-2 text-sm font-medium leading-none">
-                              <Workflow className="h-4 w-4" />
-                              {t("platform.automationEngine.title")}
-                            </div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              {t("platform.automationEngine.description")}
-                            </p>
-                          </a>
-                        </NavigationMenuLink>
+                        <a
+                          href="#"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors  text-white"
+                        >
+                          <div className="flex items-center gap-2 text-sm font-medium leading-none">
+                            <Workflow className="h-4 w-4" />
+                            {t("platform.automationEngine.title")}
+                          </div>
+                          <p className="line-clamp-2 text-sm leading-snug text-white/60">
+                            {t("platform.automationEngine.description")}
+                          </p>
+                        </a>
                       </li>
                       <li>
-                        <NavigationMenuLink asChild>
-                          <a
-                            href="#"
-                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                          >
-                            <div className="flex items-center gap-2 text-sm font-medium leading-none">
-                              <Shield className="h-4 w-4" />
-                              {t("platform.enterpriseSecurity.title")}
-                            </div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              {t("platform.enterpriseSecurity.description")}
-                            </p>
-                          </a>
-                        </NavigationMenuLink>
+                        <a
+                          href="#"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors  text-white"
+                        >
+                          <div className="flex items-center gap-2 text-sm font-medium leading-none">
+                            <Shield className="h-4 w-4" />
+                            {t("platform.enterpriseSecurity.title")}
+                          </div>
+                          <p className="line-clamp-2 text-sm leading-snug text-white/60">
+                            {t("platform.enterpriseSecurity.description")}
+                          </p>
+                        </a>
                       </li>
                     </ul>
                   </NavigationMenuContent>
@@ -184,58 +200,52 @@ export function Navigation({ className }: NavigationProps) {
 
                 {/* Solutions Dropdown */}
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="text-sm font-light bg-transparent hover:bg-foreground/5 data-[state=open]:bg-foreground/5">
+                  <NavigationMenuTrigger className="text-sm font-light bg-transparent text-white/80 hover:bg-white/5 hover:text-white data-[state=open]:bg-white/5 data-[state=open]:text-white">
                     {t("menu.solutions")}
                   </NavigationMenuTrigger>
-                  <NavigationMenuContent>
+                  <NavigationMenuContent className="bg-[#050A12] border-white/10">
                     <ul className="grid w-[400px] gap-3 p-4">
                       <li>
-                        <NavigationMenuLink asChild>
-                          <a
-                            href="#"
-                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                          >
-                            <div className="flex items-center gap-2 text-sm font-medium leading-none">
-                              <Home className="h-4 w-4" />
-                              {t("solutions.residential.title")}
-                            </div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              {t("solutions.residential.description")}
-                            </p>
-                          </a>
-                        </NavigationMenuLink>
+                        <a
+                          href="#"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors  text-white"
+                        >
+                          <div className="flex items-center gap-2 text-sm font-medium leading-none">
+                            <Home className="h-4 w-4" />
+                            {t("solutions.residential.title")}
+                          </div>
+                          <p className="line-clamp-2 text-sm leading-snug text-white/60">
+                            {t("solutions.residential.description")}
+                          </p>
+                        </a>
                       </li>
                       <li>
-                        <NavigationMenuLink asChild>
-                          <a
-                            href="#"
-                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                          >
-                            <div className="flex items-center gap-2 text-sm font-medium leading-none">
-                              <Building className="h-4 w-4" />
-                              {t("solutions.commercial.title")}
-                            </div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              {t("solutions.commercial.description")}
-                            </p>
-                          </a>
-                        </NavigationMenuLink>
+                        <a
+                          href="#"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors  text-white"
+                        >
+                          <div className="flex items-center gap-2 text-sm font-medium leading-none">
+                            <Building className="h-4 w-4" />
+                            {t("solutions.commercial.title")}
+                          </div>
+                          <p className="line-clamp-2 text-sm leading-snug text-white/60">
+                            {t("solutions.commercial.description")}
+                          </p>
+                        </a>
                       </li>
                       <li>
-                        <NavigationMenuLink asChild>
-                          <a
-                            href="#"
-                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                          >
-                            <div className="flex items-center gap-2 text-sm font-medium leading-none">
-                              <Factory className="h-4 w-4" />
-                              {t("solutions.industrial.title")}
-                            </div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              {t("solutions.industrial.description")}
-                            </p>
-                          </a>
-                        </NavigationMenuLink>
+                        <a
+                          href="#"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors  text-white"
+                        >
+                          <div className="flex items-center gap-2 text-sm font-medium leading-none">
+                            <Factory className="h-4 w-4" />
+                            {t("solutions.industrial.title")}
+                          </div>
+                          <p className="line-clamp-2 text-sm leading-snug text-white/60">
+                            {t("solutions.industrial.description")}
+                          </p>
+                        </a>
                       </li>
                     </ul>
                   </NavigationMenuContent>
@@ -245,7 +255,7 @@ export function Navigation({ className }: NavigationProps) {
                 <NavigationMenuItem>
                   <a
                     href="#"
-                    className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-light hover:bg-foreground/5 transition-colors"
+                    className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent text-white/80 hover:text-white px-4 py-2 text-sm font-light hover:bg-white/5 transition-colors"
                   >
                     {t("menu.institutions")}
                   </a>
@@ -254,7 +264,7 @@ export function Navigation({ className }: NavigationProps) {
                 <NavigationMenuItem>
                   <a
                     href="#"
-                    className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-light hover:bg-foreground/5 transition-colors"
+                    className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent text-white/80 hover:text-white px-4 py-2 text-sm font-light hover:bg-white/5 transition-colors"
                   >
                     {t("menu.developers")}
                   </a>
@@ -264,9 +274,9 @@ export function Navigation({ className }: NavigationProps) {
           </div>
 
           <div className="flex items-center gap-4">
-            <a href="#" className="text-xs font-medium text-foreground/80 hover:text-foreground transition-colors hidden sm:block">{t("actions.login")}</a>
+            <a href="#" className="text-xs font-medium text-white/70 hover:text-white transition-colors hidden sm:block">{t("actions.login")}</a>
 
-            <a href="#" className="text-xs font-medium bg-foreground text-background px-4 py-2 rounded-full hover:bg-foreground/90 transition-colors">
+            <a href="#" className="text-xs font-medium bg-white text-[#050A12] px-4 py-2 rounded-full hover:bg-white/90 transition-colors">
               {t("actions.getStarted")}
             </a>
           </div>
@@ -276,20 +286,20 @@ export function Navigation({ className }: NavigationProps) {
 
     {/* Mobile Navigation - Static, no animation - Client-side only to prevent hydration mismatch */}
     {isMounted && (
-    <nav className="md:hidden fixed top-0 left-0 right-0 z-50 border-b bg-background/80 backdrop-blur-xl shadow-lg overflow-x-hidden">
+    <nav className="md:hidden fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-[#050A12] shadow-lg overflow-x-hidden">
       <div className="w-full max-w-[100vw] px-2 h-16 flex items-center justify-between gap-1">
         <a href="#" className="flex items-center gap-1.5 group flex-shrink min-w-0">
-          <div className="w-8 h-8 rounded bg-foreground/5 border border-border flex items-center justify-center group-hover:border-border/100 transition-colors flex-shrink-0">
-            <span className="font-medium tracking-tighter text-sm text-foreground">R</span>
+          <div className="w-8 h-8 rounded bg-white/10 border border-white/20 flex items-center justify-center group-hover:border-white/30 transition-colors flex-shrink-0">
+            <span className="font-medium tracking-tighter text-sm text-white">R</span>
           </div>
-          <span className="font-normal text-sm tracking-widest text-foreground/90 truncate">{t("logo")}</span>
+          <span className="font-normal text-sm tracking-widest text-white/90 truncate">{t("logo")}</span>
         </a>
 
         {/* Mobile Menu Trigger */}
         <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
           <SheetTrigger asChild>
             <button
-              className="min-h-[44px] min-w-[44px] w-[44px] h-[44px] flex items-center justify-center hover:bg-foreground/5 rounded-lg transition-colors flex-shrink-0"
+              className="min-h-[44px] min-w-[44px] w-[44px] h-[44px] flex items-center justify-center hover:bg-white/5 rounded-lg transition-colors flex-shrink-0 text-white"
               aria-label="Open navigation menu"
             >
               <Menu className="h-6 w-6" />
@@ -301,7 +311,7 @@ export function Navigation({ className }: NavigationProps) {
               {/* Close button */}
               <SheetClose asChild>
                 <button
-                  className="absolute top-4 right-4 min-h-[44px] min-w-[44px] flex items-center justify-center hover:bg-foreground/5 rounded-lg transition-colors"
+                  className="absolute top-4 right-4 min-h-[44px] min-w-[44px] flex items-center justify-center hover:bg-white/5 rounded-lg transition-colors text-white"
                   aria-label="Close menu"
                 >
                   <X className="h-5 w-5" />
@@ -313,7 +323,7 @@ export function Navigation({ className }: NavigationProps) {
                 <Accordion type="single" collapsible className="px-4">
                   {/* Platform Accordion */}
                   <AccordionItem value="platform" className="border-b-0">
-                    <AccordionTrigger className="py-4 text-base font-normal hover:no-underline hover:bg-foreground/5 px-2 rounded-lg min-h-[44px]">
+                    <AccordionTrigger className="py-4 text-base font-normal hover:no-underline hover:bg-white/5 text-white px-2 rounded-lg min-h-[44px]">
                       {t("menu.platform")}
                     </AccordionTrigger>
                     <AccordionContent className="pb-2">
@@ -321,25 +331,25 @@ export function Navigation({ className }: NavigationProps) {
                         <a
                           href="#"
                           onClick={() => setMobileMenuOpen(false)}
-                          className="flex items-center gap-3 px-4 py-3 min-h-[44px] text-sm hover:bg-foreground/5 rounded-lg transition-colors"
+                          className="flex items-center gap-3 px-4 py-3 min-h-[44px] text-sm hover:bg-white/5 rounded-lg transition-colors text-white"
                         >
-                          <Building2 className="h-5 w-5 text-muted-foreground" />
+                          <Building2 className="h-5 w-5 text-white/60" />
                           <span>{t("platform.propertyManagement.title")}</span>
                         </a>
                         <a
                           href="#"
                           onClick={() => setMobileMenuOpen(false)}
-                          className="flex items-center gap-3 px-4 py-3 min-h-[44px] text-sm hover:bg-foreground/5 rounded-lg transition-colors"
+                          className="flex items-center gap-3 px-4 py-3 min-h-[44px] text-sm hover:bg-white/5 rounded-lg transition-colors text-white"
                         >
-                          <Workflow className="h-5 w-5 text-muted-foreground" />
+                          <Workflow className="h-5 w-5 text-white/60" />
                           <span>{t("platform.automationEngine.title")}</span>
                         </a>
                         <a
                           href="#"
                           onClick={() => setMobileMenuOpen(false)}
-                          className="flex items-center gap-3 px-4 py-3 min-h-[44px] text-sm hover:bg-foreground/5 rounded-lg transition-colors"
+                          className="flex items-center gap-3 px-4 py-3 min-h-[44px] text-sm hover:bg-white/5 rounded-lg transition-colors text-white"
                         >
-                          <Shield className="h-5 w-5 text-muted-foreground" />
+                          <Shield className="h-5 w-5 text-white/60" />
                           <span>{t("platform.enterpriseSecurity.title")}</span>
                         </a>
                       </div>
@@ -348,7 +358,7 @@ export function Navigation({ className }: NavigationProps) {
 
                   {/* Solutions Accordion */}
                   <AccordionItem value="solutions" className="border-b-0">
-                    <AccordionTrigger className="py-4 text-base font-normal hover:no-underline hover:bg-foreground/5 px-2 rounded-lg min-h-[44px]">
+                    <AccordionTrigger className="py-4 text-base font-normal hover:no-underline hover:bg-white/5 text-white px-2 rounded-lg min-h-[44px]">
                       {t("menu.solutions")}
                     </AccordionTrigger>
                     <AccordionContent className="pb-2">
@@ -356,25 +366,25 @@ export function Navigation({ className }: NavigationProps) {
                         <a
                           href="#"
                           onClick={() => setMobileMenuOpen(false)}
-                          className="flex items-center gap-3 px-4 py-3 min-h-[44px] text-sm hover:bg-foreground/5 rounded-lg transition-colors"
+                          className="flex items-center gap-3 px-4 py-3 min-h-[44px] text-sm hover:bg-white/5 rounded-lg transition-colors text-white"
                         >
-                          <Home className="h-5 w-5 text-muted-foreground" />
+                          <Home className="h-5 w-5 text-white/60" />
                           <span>{t("solutions.residential.title")}</span>
                         </a>
                         <a
                           href="#"
                           onClick={() => setMobileMenuOpen(false)}
-                          className="flex items-center gap-3 px-4 py-3 min-h-[44px] text-sm hover:bg-foreground/5 rounded-lg transition-colors"
+                          className="flex items-center gap-3 px-4 py-3 min-h-[44px] text-sm hover:bg-white/5 rounded-lg transition-colors text-white"
                         >
-                          <Building className="h-5 w-5 text-muted-foreground" />
+                          <Building className="h-5 w-5 text-white/60" />
                           <span>{t("solutions.commercial.title")}</span>
                         </a>
                         <a
                           href="#"
                           onClick={() => setMobileMenuOpen(false)}
-                          className="flex items-center gap-3 px-4 py-3 min-h-[44px] text-sm hover:bg-foreground/5 rounded-lg transition-colors"
+                          className="flex items-center gap-3 px-4 py-3 min-h-[44px] text-sm hover:bg-white/5 rounded-lg transition-colors text-white"
                         >
-                          <Factory className="h-5 w-5 text-muted-foreground" />
+                          <Factory className="h-5 w-5 text-white/60" />
                           <span>{t("solutions.industrial.title")}</span>
                         </a>
                       </div>
@@ -387,14 +397,14 @@ export function Navigation({ className }: NavigationProps) {
                   <a
                     href="#"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="px-4 py-3 min-h-[44px] text-base hover:bg-foreground/5 rounded-lg transition-colors flex items-center"
+                    className="px-4 py-3 min-h-[44px] text-base hover:bg-white/5 rounded-lg transition-colors flex items-center text-white"
                   >
                     {t("menu.institutions")}
                   </a>
                   <a
                     href="#"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="px-4 py-3 min-h-[44px] text-base hover:bg-foreground/5 rounded-lg transition-colors flex items-center"
+                    className="px-4 py-3 min-h-[44px] text-base hover:bg-white/5 rounded-lg transition-colors flex items-center text-white"
                   >
                     {t("menu.developers")}
                   </a>
@@ -405,14 +415,14 @@ export function Navigation({ className }: NavigationProps) {
                   <a
                     href="#"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="px-4 py-3 min-h-[44px] text-base text-center border border-border rounded-full hover:bg-foreground/5 transition-colors"
+                    className="px-4 py-3 min-h-[44px] text-base text-center border border-white/20 rounded-full hover:bg-white/5 transition-colors text-white"
                   >
                     {t("actions.login")}
                   </a>
                   <a
                     href="#"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="px-4 py-3 min-h-[44px] text-base text-center bg-foreground text-background rounded-full hover:bg-foreground/90 transition-colors"
+                    className="px-4 py-3 min-h-[44px] text-base text-center bg-white text-[#050A12] rounded-full hover:bg-white/90 transition-colors"
                   >
                     {t("actions.getStarted")}
                   </a>

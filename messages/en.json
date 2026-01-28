@@ -696,10 +696,42 @@
         }
       }
     },
+    "testimonials": {
+      "heading": "Trusted by Investors",
+      "headingAccent": "Worldwide",
+      "subheading": "See what our clients say about their REOS experience.",
+      "items": {
+        "client1": {
+          "quote": "REOS transformed how we manage our Israeli real estate portfolio. The automation alone saves us 20+ hours per week.",
+          "author": "Sarah Mitchell",
+          "position": "Senior Investment Manager, Vanguard Real Estate"
+        },
+        "client2": {
+          "quote": "As a US-based investor, navigating Israeli real estate was challenging. REOS makes it effortless—from discovery to closing.",
+          "author": "Michael Chen",
+          "position": "Portfolio Director, BlackRock Alternatives"
+        },
+        "client3": {
+          "quote": "The AI advisor is game-changing. It's like having an Israeli real estate expert available 24/7.",
+          "author": "Rachel Goldstein",
+          "position": "Principal, Apollo Real Estate"
+        },
+        "client4": {
+          "quote": "The vetted service provider network gives us complete peace of mind. Every professional is pre-screened and reliable.",
+          "author": "David Rosenbaum",
+          "position": "Managing Director, Brookfield Properties"
+        },
+        "client5": {
+          "quote": "We've closed deals faster and with more confidence than ever before. REOS eliminated all the friction.",
+          "author": "Jennifer Park",
+          "position": "VP of Acquisitions, Carlyle Group"
+        }
+      }
+    },
     "stats": {
       "assetsUnderManagement": {
         "value": "$40B+",
-        "label": "Assets under management"
+        "label": "Managed assets"
       },
       "unitsPowered": {
         "value": "2.5M",

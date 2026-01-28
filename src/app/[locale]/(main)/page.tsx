@@ -4,6 +4,7 @@ import {
   SocialProof,
   Features,
   Automation,
+  Testimonials,
   Stats,
   CTA,
 } from "@/components/newlanding";
@@ -21,6 +22,7 @@ export default function LandingPage() {
       <SocialProof />
       <Features />
       <Automation />
+      <Testimonials />
       <Stats />
       <CTA />
     </>
