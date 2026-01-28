@@ -428,7 +428,7 @@ export function Hero({ className }: HeroProps) {
 
       {/* Dashboard Preview */}
       <div
-        className="sticky z-20 mt-12 md:mt-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 top-[calc(50vh-210px)] md:top-[calc(50vh-300px)] w-full overflow-hidden"
+        className="sticky z-20 mt-12 md:mt-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 top-[calc(50vh-240px)] md:top-[calc(50vh-300px)] w-full overflow-hidden"
       >
         <motion.div variants={fadeInUp} className="w-full max-w-full overflow-hidden">
         {/* MacBook-style bezel - Silver on light, Space Gray on dark */}
@@ -463,8 +463,8 @@ export function Hero({ className }: HeroProps) {
           </div>
 
           {/* Mockup Body */}
-          <div className="flex h-[280px] md:h-[550px]">
-            {/* Animated Sidebar */}
+          <div className="flex h-[380px] md:h-[550px]">
+            {/* Animated Sidebar - Hidden on mobile */}
             <div
               className={cn(
                 "hidden md:flex flex-col border-r border-border/50 bg-card/95 backdrop-blur-xl relative transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] z-20",
@@ -592,7 +592,7 @@ export function Hero({ className }: HeroProps) {
                 </div>
 
                 {/* Chart Mockup */}
-                <div className="h-64 w-full flex items-end justify-between gap-1 mb-10 border-b border-border/50 pb-4 relative">
+                <div className="h-40 md:h-64 w-full flex items-end justify-between gap-1 mb-4 md:mb-10 border-b border-border/50 pb-4 relative">
                   {/* Horizontal Grid Lines */}
                   <div className="absolute inset-0 flex flex-col justify-between pointer-events-none">
                     <div className="w-full h-px bg-foreground/5"></div>
@@ -618,45 +618,45 @@ export function Hero({ className }: HeroProps) {
                 </div>
 
                 {/* Data Table */}
-                <div className="grid grid-cols-4 text-xs text-muted-foreground mb-3 px-2 font-medium tracking-wide">
+                <div className="hidden md:grid grid-cols-4 text-xs text-muted-foreground mb-3 px-2 font-medium tracking-wide">
                   <div>{t("dashboard.tableHeaders.asset")}</div>
                   <div>{t("dashboard.tableHeaders.status")}</div>
                   <div>{t("dashboard.tableHeaders.noi")}</div>
                   <div className="text-right">{t("dashboard.tableHeaders.valuation")}</div>
                 </div>
                 <div className="space-y-1">
-                  {assets.map((asset, index) => (
+                  {assets.slice(0, isMobile ? 2 : 3).map((asset, index) => (
                     <div
                       key={index}
-                      className="grid grid-cols-4 items-center p-2 rounded hover:bg-foreground/5 cursor-pointer transition-colors border border-transparent hover:border-border/50 group"
+                      className="grid grid-cols-4 items-center p-1.5 md:p-2 rounded hover:bg-foreground/5 cursor-pointer transition-colors border border-transparent hover:border-border/50 group"
                     >
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-1 md:gap-2">
                         <div className={cn(
-                          "w-6 h-6 rounded flex items-center justify-center border",
+                          "w-5 h-5 md:w-6 md:h-6 rounded flex items-center justify-center border",
                           asset.color === "blue" && "bg-blue-500/20 text-blue-400 border-blue-500/20 group-hover:border-blue-500/40",
                           asset.color === "purple" && "bg-purple-500/20 text-purple-400 border-purple-500/20 group-hover:border-purple-500/40",
                           asset.color === "orange" && "bg-orange-500/20 text-orange-400 border-orange-500/20 group-hover:border-orange-500/40"
                         )}>
-                          <asset.icon className="w-[14px] h-[14px]" />
+                          <asset.icon className="w-3 h-3 md:w-[14px] md:h-[14px]" />
                         </div>
-                        <span className="text-foreground text-xs font-medium">{asset.name}</span>
+                        <span className="text-foreground text-[10px] md:text-xs font-medium">{asset.name}</span>
                       </div>
                       <div>
                         <span className={cn(
-                          "px-1.5 py-0.5 rounded-full text-[10px] border flex w-fit items-center gap-1",
+                          "px-1 md:px-1.5 py-0.5 rounded-full text-[9px] md:text-[10px] border flex w-fit items-center gap-1",
                           asset.status === "Active" ? "bg-green-500/10 text-green-400 border-green-500/20" : "bg-yellow-500/10 text-yellow-400 border-yellow-500/20"
                         )}>
                           <div className={cn(
                             "w-1 h-1 rounded-full",
                             asset.status === "Active" ? "bg-green-400" : "bg-yellow-400"
                           )}></div>
-                          {asset.status}
+                          <span className="hidden md:inline">{asset.status}</span>
                         </span>
                       </div>
-                      <div className="text-foreground/80 text-xs font-mono group-hover:text-foreground transition-colors">
+                      <div className="text-foreground/80 text-[10px] md:text-xs font-mono group-hover:text-foreground transition-colors">
                         {asset.noi}
                       </div>
-                      <div className="text-right text-foreground text-xs font-mono">{asset.valuation}</div>
+                      <div className="text-right text-foreground text-[10px] md:text-xs font-mono">{asset.valuation}</div>
                     </div>
                   ))}
                 </div>
@@ -684,28 +684,28 @@ export function Hero({ className }: HeroProps) {
                 </div>
 
                 {/* Properties Grid */}
-                <div className="grid grid-cols-2 gap-4 mb-10">
-                  {propertiesData.map((property, index) => (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 mb-4 md:mb-10">
+                  {propertiesData.slice(0, isMobile ? 2 : 4).map((property, index) => (
                     <div
                       key={index}
-                      className="p-4 border border-border rounded-lg hover:bg-foreground/5 cursor-pointer transition-colors group"
+                      className="p-3 md:p-4 border border-border rounded-lg hover:bg-foreground/5 cursor-pointer transition-colors group"
                     >
-                      <div className="flex items-start justify-between mb-3">
+                      <div className="flex items-start justify-between mb-2 md:mb-3">
                         <div>
-                          <h4 className="text-sm font-medium text-foreground mb-1">{property.name}</h4>
-                          <p className="text-xs text-muted-foreground">{property.location}</p>
+                          <h4 className="text-xs md:text-sm font-medium text-foreground mb-0.5 md:mb-1">{property.name}</h4>
+                          <p className="text-[10px] md:text-xs text-muted-foreground">{property.location}</p>
                         </div>
                         <div className={cn(
-                          "w-8 h-8 rounded flex items-center justify-center border",
+                          "w-6 h-6 md:w-8 md:h-8 rounded flex items-center justify-center border",
                           property.color === "blue" && "bg-blue-500/20 text-blue-400 border-blue-500/20",
                           property.color === "purple" && "bg-purple-500/20 text-purple-400 border-purple-500/20",
                           property.color === "orange" && "bg-orange-500/20 text-orange-400 border-orange-500/20",
                           property.color === "green" && "bg-green-500/20 text-green-400 border-green-500/20"
                         )}>
-                          <Building className="w-4 h-4" />
+                          <Building className="w-3 h-3 md:w-4 md:h-4" />
                         </div>
                       </div>
-                      <div className="grid grid-cols-3 gap-2 text-xs">
+                      <div className="grid grid-cols-3 gap-2 text-[10px] md:text-xs">
                         <div>
                           <div className="text-muted-foreground mb-1">Units</div>
                           <div className="text-foreground font-medium">{property.units}</div>
@@ -723,15 +723,15 @@ export function Hero({ className }: HeroProps) {
                   ))}
                 </div>
 
-                {/* Properties Table */}
-                <div className="grid grid-cols-5 text-xs text-muted-foreground mb-3 px-2 font-medium tracking-wide">
+                {/* Properties Table - Hidden on mobile */}
+                <div className="hidden md:grid grid-cols-5 text-xs text-muted-foreground mb-3 px-2 font-medium tracking-wide">
                   <div>{t("dashboard.tableHeaders.property")}</div>
                   <div>{t("dashboard.tableHeaders.location")}</div>
                   <div>{t("dashboard.tableHeaders.units")}</div>
                   <div>{t("dashboard.tableHeaders.occupancy")}</div>
                   <div className="text-right">{t("dashboard.tableHeaders.value")}</div>
                 </div>
-                <div className="space-y-1">
+                <div className="hidden md:block space-y-1">
                   {propertiesData.map((property, index) => (
                     <div
                       key={index}
