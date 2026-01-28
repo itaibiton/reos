@@ -19,12 +19,12 @@ export function PricingTiers({ isAnnual }: PricingTiersProps) {
       trustSignal: t("trustSignals.noCreditCard"),
     },
     {
-      key: "broker" as const,
+      key: "provider" as const,
       isPopular: true,
       trustSignal: t("trustSignals.freeTrial"),
     },
     {
-      key: "agency" as const,
+      key: "enterprise" as const,
       isPopular: false,
       trustSignal: null,
     },

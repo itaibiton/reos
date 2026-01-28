@@ -2816,7 +2816,7 @@
   "pricing": {
     "meta": {
       "title": "Pricing",
-      "description": "Compare REOS pricing plans for investors, brokers, and agencies. Start free, scale as you grow."
+      "description": "Compare REOS pricing plans for investors, providers, and enterprises. Start free, scale as you grow."
     },
     "title": "Simple, transparent pricing",
     "subtitle": "Choose the plan that fits your real estate business. Start free, upgrade when you're ready.",
@@ -2846,9 +2846,9 @@
           "Basic notifications"
         ]
       },
-      "broker": {
-        "name": "Broker",
-        "description": "For real estate professionals managing clients and deals",
+      "provider": {
+        "name": "Provider",
+        "description": "For brokers, mortgage advisors, lawyers, and other service providers who serve real estate investors",
         "priceMonthly": "49",
         "priceAnnual": "39",
         "cta": "Start Free Trial",
@@ -2864,14 +2864,14 @@
           "Custom notifications"
         ]
       },
-      "agency": {
-        "name": "Agency",
+      "enterprise": {
+        "name": "Enterprise",
         "description": "For agencies and teams requiring custom solutions and dedicated support",
         "priceMonthly": "Custom",
         "priceAnnual": "Custom",
         "cta": "Contact Sales",
         "features": [
-          "Everything in Broker",
+          "Everything in Provider",
           "Team management",
           "Multi-agent support",
           "Custom integrations",
@@ -2887,31 +2887,31 @@
       "title": "Compare plan features",
       "feature": "Feature",
       "features": [
-        { "name": "Property marketplace", "investor": true, "broker": true, "agency": true },
-        { "name": "AI property search", "investor": true, "broker": true, "agency": true },
-        { "name": "Save & compare properties", "investor": true, "broker": true, "agency": true },
-        { "name": "Connect with providers", "investor": true, "broker": true, "agency": true },
-        { "name": "Deal tracking", "investor": true, "broker": true, "agency": true },
-        { "name": "Client management", "investor": false, "broker": true, "agency": true },
-        { "name": "Lead pipeline", "investor": false, "broker": true, "agency": true },
-        { "name": "Provider profile", "investor": false, "broker": true, "agency": true },
-        { "name": "Analytics & insights", "investor": false, "broker": true, "agency": true },
-        { "name": "Deal handoff", "investor": false, "broker": true, "agency": true },
-        { "name": "Team management", "investor": false, "broker": false, "agency": true },
-        { "name": "Custom integrations", "investor": false, "broker": false, "agency": true },
-        { "name": "API access", "investor": false, "broker": false, "agency": true },
-        { "name": "Dedicated account manager", "investor": false, "broker": false, "agency": true },
-        { "name": "SLA guarantee", "investor": false, "broker": false, "agency": true }
+        { "name": "Property marketplace", "investor": true, "provider": true, "enterprise": true },
+        { "name": "AI property search", "investor": true, "provider": true, "enterprise": true },
+        { "name": "Save & compare properties", "investor": true, "provider": true, "enterprise": true },
+        { "name": "Connect with providers", "investor": true, "provider": true, "enterprise": true },
+        { "name": "Deal tracking", "investor": true, "provider": true, "enterprise": true },
+        { "name": "Client management", "investor": false, "provider": true, "enterprise": true },
+        { "name": "Lead pipeline", "investor": false, "provider": true, "enterprise": true },
+        { "name": "Provider profile", "investor": false, "provider": true, "enterprise": true },
+        { "name": "Analytics & insights", "investor": false, "provider": true, "enterprise": true },
+        { "name": "Deal handoff", "investor": false, "provider": true, "enterprise": true },
+        { "name": "Team management", "investor": false, "provider": false, "enterprise": true },
+        { "name": "Custom integrations", "investor": false, "provider": false, "enterprise": true },
+        { "name": "API access", "investor": false, "provider": false, "enterprise": true },
+        { "name": "Dedicated account manager", "investor": false, "provider": false, "enterprise": true },
+        { "name": "SLA guarantee", "investor": false, "provider": false, "enterprise": true }
       ]
     },
     "faq": {
       "title": "Billing FAQ",
       "questions": [
-        { "id": "trial", "question": "Is there a free trial?", "answer": "Yes! The Broker plan includes a 14-day free trial. No credit card required to start." },
+        { "id": "trial", "question": "Is there a free trial?", "answer": "Yes! The Provider plan includes a 14-day free trial. No credit card required to start." },
         { "id": "upgrade", "question": "Can I upgrade or downgrade anytime?", "answer": "Absolutely. You can change your plan at any time. When upgrading, you'll be prorated for the remainder of your billing cycle. When downgrading, the change takes effect at your next billing date." },
         { "id": "cancel", "question": "What happens if I cancel?", "answer": "You can cancel anytime. Your access continues until the end of your current billing period. Your data is retained for 30 days after cancellation in case you change your mind." },
         { "id": "payment", "question": "What payment methods do you accept?", "answer": "We accept all major credit cards (Visa, Mastercard, American Express) and bank transfers for annual plans." },
-        { "id": "enterprise", "question": "How does Agency pricing work?", "answer": "Agency pricing is customized based on team size, volume, and specific requirements. Contact our sales team for a personalized quote." },
+        { "id": "enterprise", "question": "How does Enterprise pricing work?", "answer": "Enterprise pricing is customized based on team size, volume, and specific requirements. Contact our sales team for a personalized quote." },
         { "id": "refund", "question": "Do you offer refunds?", "answer": "We offer a full refund within the first 14 days of any paid plan. After that, you can cancel anytime but refunds are not provided for partial billing periods." }
       ]
     },

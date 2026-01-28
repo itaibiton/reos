@@ -2928,7 +2928,7 @@
   "pricing": {
     "meta": {
       "title": "תמחור",
-      "description": "השווה תוכניות תמחור של REOS למשקיעים, מתווכים וסוכנויות. התחל בחינם, התרחב לפי הצורך."
+      "description": "השווה תוכניות תמחור של REOS למשקיעים, ספקי שירות וארגונים. התחל בחינם, התרחב לפי הצורך."
     },
     "title": "תמחור פשוט ושקוף",
     "subtitle": "בחר את התוכנית שמתאימה לעסק הנדל״ן שלך. התחל בחינם, שדרג כשתהיה מוכן.",
@@ -2958,9 +2958,9 @@
           "התראות בסיסיות"
         ]
       },
-      "broker": {
-        "name": "מתווך",
-        "description": "עבור אנשי מקצוע בנדל״ן המנהלים לקוחות ועסקאות",
+      "provider": {
+        "name": "ספק שירות",
+        "description": "עבור מתווכים, יועצי משכנתאות, עורכי דין וספקי שירות אחרים המשרתים משקיעי נדל״ן",
         "priceMonthly": "49",
         "priceAnnual": "39",
         "cta": "התחל ניסיון חינם",
@@ -2976,14 +2976,14 @@
           "התראות מותאמות אישית"
         ]
       },
-      "agency": {
-        "name": "סוכנות",
+      "enterprise": {
+        "name": "ארגוני",
         "description": "עבור סוכנויות וצוותים הדורשים פתרונות מותאמים אישית ותמיכה ייעודית",
         "priceMonthly": "מותאם אישית",
         "priceAnnual": "מותאם אישית",
         "cta": "צור קשר עם המכירות",
         "features": [
-          "כל מה שיש במתווך",
+          "כל מה שיש בספק שירות",
           "ניהול צוות",
           "תמיכה מרובת סוכנים",
           "אינטגרציות מותאמות אישית",
@@ -2999,31 +2999,31 @@
       "title": "השווה תכונות תוכנית",
       "feature": "תכונה",
       "features": [
-        { "name": "שוק נכסים", "investor": true, "broker": true, "agency": true },
-        { "name": "חיפוש נכסים AI", "investor": true, "broker": true, "agency": true },
-        { "name": "שמור והשווה נכסים", "investor": true, "broker": true, "agency": true },
-        { "name": "התחבר לספקים", "investor": true, "broker": true, "agency": true },
-        { "name": "מעקב עסקאות", "investor": true, "broker": true, "agency": true },
-        { "name": "ניהול לקוחות", "investor": false, "broker": true, "agency": true },
-        { "name": "צינור לידים", "investor": false, "broker": true, "agency": true },
-        { "name": "פרופיל ספק", "investor": false, "broker": true, "agency": true },
-        { "name": "ניתוחים ותובנות", "investor": false, "broker": true, "agency": true },
-        { "name": "העברת עסקאות", "investor": false, "broker": true, "agency": true },
-        { "name": "ניהול צוות", "investor": false, "broker": false, "agency": true },
-        { "name": "אינטגרציות מותאמות", "investor": false, "broker": false, "agency": true },
-        { "name": "גישת API", "investor": false, "broker": false, "agency": true },
-        { "name": "מנהל חשבון ייעודי", "investor": false, "broker": false, "agency": true },
-        { "name": "ערבות SLA", "investor": false, "broker": false, "agency": true }
+        { "name": "שוק נכסים", "investor": true, "provider": true, "enterprise": true },
+        { "name": "חיפוש נכסים AI", "investor": true, "provider": true, "enterprise": true },
+        { "name": "שמור והשווה נכסים", "investor": true, "provider": true, "enterprise": true },
+        { "name": "התחבר לספקים", "investor": true, "provider": true, "enterprise": true },
+        { "name": "מעקב עסקאות", "investor": true, "provider": true, "enterprise": true },
+        { "name": "ניהול לקוחות", "investor": false, "provider": true, "enterprise": true },
+        { "name": "צינור לידים", "investor": false, "provider": true, "enterprise": true },
+        { "name": "פרופיל ספק", "investor": false, "provider": true, "enterprise": true },
+        { "name": "ניתוחים ותובנות", "investor": false, "provider": true, "enterprise": true },
+        { "name": "העברת עסקאות", "investor": false, "provider": true, "enterprise": true },
+        { "name": "ניהול צוות", "investor": false, "provider": false, "enterprise": true },
+        { "name": "אינטגרציות מותאמות", "investor": false, "provider": false, "enterprise": true },
+        { "name": "גישת API", "investor": false, "provider": false, "enterprise": true },
+        { "name": "מנהל חשבון ייעודי", "investor": false, "provider": false, "enterprise": true },
+        { "name": "ערבות SLA", "investor": false, "provider": false, "enterprise": true }
       ]
     },
     "faq": {
       "title": "שאלות נפוצות על חיוב",
       "questions": [
-        { "id": "trial", "question": "האם יש ניסיון חינם?", "answer": "כן! תוכנית המתווך כוללת ניסיון חינם של 14 יום. אין צורך בכרטיס אשראי כדי להתחיל." },
+        { "id": "trial", "question": "האם יש ניסיון חינם?", "answer": "כן! תוכנית ספק השירות כוללת ניסיון חינם של 14 יום. אין צורך בכרטיס אשראי כדי להתחיל." },
         { "id": "upgrade", "question": "האם אוכל לשדרג או להוריד דרגה בכל עת?", "answer": "בהחלט. אתה יכול לשנות את התוכנית שלך בכל עת. בשדרוג, תקבל פרופורציה ליתרת תקופת החיוב שלך. בהורדת דרגה, השינוי ייכנס לתוקף בתאריך החיוב הבא שלך." },
         { "id": "cancel", "question": "מה קורה אם אני מבטל?", "answer": "אתה יכול לבטל בכל עת. הגישה שלך נמשכת עד סוף תקופת החיוב הנוכחית שלך. הנתונים שלך נשמרים למשך 30 יום לאחר הביטול למקרה שתשנה את דעתך." },
         { "id": "payment", "question": "אילו אמצעי תשלום אתם מקבלים?", "answer": "אנו מקבלים את כל כרטיסי האשראי העיקריים (Visa, Mastercard, American Express) והעברות בנקאיות עבור תוכניות שנתיות." },
-        { "id": "enterprise", "question": "איך עובד תמחור הסוכנות?", "answer": "תמחור הסוכנות מותאם אישית על סמך גודל הצוות, נפח ודרישות ספציפיות. צור קשר עם צוות המכירות שלנו להצעת מחיר מותאמת אישית." },
+        { "id": "enterprise", "question": "איך עובד התמחור הארגוני?", "answer": "התמחור הארגוני מותאם אישית על סמך גודל הצוות, נפח ודרישות ספציפיות. צור קשר עם צוות המכירות שלנו להצעת מחיר מותאמת אישית." },
         { "id": "refund", "question": "האם אתם מציעים החזרים כספיים?", "answer": "אנו מציעים החזר כספי מלא בתוך 14 הימים הראשונים של כל תוכנית בתשלום. לאחר מכן, אתה יכול לבטל בכל עת אך החזרים כספיים אינם ניתנים עבור תקופות חיוב חלקיות." }
       ]
     },

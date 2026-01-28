@@ -13,18 +13,19 @@ import {
 
 export function FeatureComparison() {
   const t = useTranslations("pricing.comparison");
+  const tPricing = useTranslations("pricing");
 
   const features = t.raw("features") as Array<{
     name: string;
     investor: boolean;
-    broker: boolean;
-    agency: boolean;
+    provider: boolean;
+    enterprise: boolean;
   }>;
 
   const tiers = [
-    { key: "investor", name: t("../tiers.investor.name") },
-    { key: "broker", name: t("../tiers.broker.name") },
-    { key: "agency", name: t("../tiers.agency.name") },
+    { key: "investor", name: tPricing("tiers.investor.name") },
+    { key: "provider", name: tPricing("tiers.provider.name") },
+    { key: "enterprise", name: tPricing("tiers.enterprise.name") },
   ];
 
   return (
@@ -62,7 +63,7 @@ export function FeatureComparison() {
                   )}
                 </TableCell>
                 <TableCell className="text-center">
-                  {feature.broker ? (
+                  {feature.provider ? (
                     <Check
                       className="inline-block size-5 text-green-600 dark:text-green-400"
                       aria-label="Included"
@@ -75,7 +76,7 @@ export function FeatureComparison() {
                   )}
                 </TableCell>
                 <TableCell className="text-center">
-                  {feature.agency ? (
+                  {feature.enterprise ? (
                     <Check
                       className="inline-block size-5 text-green-600 dark:text-green-400"
                       aria-label="Included"
