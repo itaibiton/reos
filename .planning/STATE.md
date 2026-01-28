@@ -10,19 +10,19 @@ See: .planning/PROJECT.md (updated 2026-01-28)
 ## Current Position
 
 Milestone: v1.8 Conversion & Essential Pages
-Phase: 53 of 56 (Landing Page Sections) -- complete (3 plans, 2 waves)
-Plan: 03 of 03 complete
-Status: Phase 53 complete
-Last activity: 2026-01-28 -- Completed 53-03-PLAN.md (wire landing page sections)
+Phase: 54 of 56 (Legal & Pricing Pages) -- in progress (3 plans, 1 wave)
+Plan: 01 of 03 complete
+Status: In progress
+Last activity: 2026-01-28 -- Completed 54-01-PLAN.md (legal content foundation)
 
-Progress: [██████████] 100% (3/3 plans complete in Phase 53)
+Progress: [███░░░░░░░] 33% (1/3 plans complete in Phase 54)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 160
+- Total plans completed: 161
 - Average duration: 4.4 min
-- Total execution time: 10.50 hours
+- Total execution time: 10.62 hours
 
 **By Phase (v1.7):**
 
@@ -44,6 +44,7 @@ Progress: [██████████] 100% (3/3 plans complete in Phase 53)
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 53 | 3/3 | 13 min | 4.3 min |
+| 54 | 1/3 | 7 min | 7 min |
 
 ## Accumulated Context
 
@@ -64,6 +65,9 @@ Recent decisions affecting current work:
 | FAQ-AUDIENCE-TABS | Use Radix Tabs for investor vs provider segmentation | Different audiences have distinct concerns - investors care about trust/cost/process, providers care about platform/leads/revenue |
 | FAQ-ACCORDION-MULTIPLE | Use Accordion type='multiple' for independent expand/collapse | Users often want to compare multiple answers side-by-side without having previous answers auto-collapse |
 | FAQ-JSON-LD-ALL | Include ALL questions (both tabs) in JSON-LD FAQPage schema | Maximize SEO benefit - search engines should index all FAQ content regardless of tab visibility |
+| LEGAL-I18N-STRUCTURE | Nested legal.privacy and legal.terms namespaces with sections | Mirrors existing i18n structure pattern, enables granular translation access |
+| TOC-SCROLL-SPY | IntersectionObserver with rootMargin: '-20% 0px -35% 0px' | Activates link when heading is in top portion of viewport (natural reading position) |
+| TOC-RESPONSIVE | Hidden on mobile (lg:block), inline render for mobile TOC | Sticky sidebar impractical on mobile; legal pages can render inline TOC above content |
 
 ### Pending Todos
 
@@ -89,6 +93,6 @@ Recent decisions affecting current work:
 ## Session Continuity
 
 Last session: 2026-01-28
-Stopped at: Completed 53-03-PLAN.md (Phase 53 complete)
+Stopped at: Completed 54-01-PLAN.md (legal content foundation)
 Resume file: None
-Next: Begin Phase 54 (Legal & Pricing Pages)
+Next: Continue Phase 54 (54-02: Privacy page, 54-03: Terms page)
