@@ -16,13 +16,13 @@ export const metadata: Metadata = {
 
 export default function LandingPage() {
   return (
-    <div className="overflow-x-hidden w-full max-w-[100vw]">
+    <>
       <Hero />
       <SocialProof />
       <Features />
       <Automation />
       <Stats />
       <CTA />
-    </div>
+    </>
   );
 }

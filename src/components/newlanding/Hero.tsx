@@ -315,7 +315,7 @@ export function Hero({ className }: HeroProps) {
       whileInView="visible"
       viewport={{ once: true }}
       variants={stagger}
-      className={cn("relative pt-32 pb-20 md:pt-48 md:pb-32 bg-grid border-b border-border/50 overflow-x-hidden", className)}
+      className={cn("relative pt-32 pb-20 md:pt-48 md:pb-32 bg-grid border-b border-border/50", className)}
       style={{ minHeight: "400vh" }}
     >
       {/* Ambient Light */}
