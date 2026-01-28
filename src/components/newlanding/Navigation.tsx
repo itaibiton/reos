@@ -97,16 +97,18 @@ export function Navigation({ className }: NavigationProps) {
       <motion.nav
         initial={{
           borderRadius: "12px",
+          maxWidth: "1280px",
         }}
         animate={{
           borderRadius: scrolled ? "0px" : "12px",
+          maxWidth: scrolled ? "100%" : "1280px",
         }}
         transition={{
           duration: 0.4,
           ease: [0.25, 1, 0.5, 1],
         }}
         className={cn(
-          "mx-auto border bg-background/80 backdrop-blur-xl shadow-lg w-full max-w-[1280px]",
+          "mx-auto border bg-background/80 backdrop-blur-xl shadow-lg w-full",
           scrolled ? "border-border/50 border-t-0 border-l-0 border-r-0" : "border-border/50",
           className
         )}
