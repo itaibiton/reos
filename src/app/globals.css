@@ -139,13 +139,12 @@
     @apply border-border outline-ring/50;
   }
   html {
-    overflow-y: scroll;
-    overflow-x: hidden;
     scroll-behavior: smooth;
   }
   body {
     @apply bg-background text-foreground;
     overflow-x: hidden;
+    max-width: 100vw;
     transition: background-color 300ms ease-in-out, color 300ms ease-in-out;
   }
 }
