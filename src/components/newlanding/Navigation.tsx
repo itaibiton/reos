@@ -270,8 +270,8 @@ export function Navigation({ className }: NavigationProps) {
     </motion.div>
 
     {/* Mobile Navigation - Static, no animation */}
-    <nav className="md:hidden fixed top-0 left-0 right-0 z-50 border-b bg-background/80 backdrop-blur-xl shadow-lg w-full">
-      <div className="mx-auto px-3 sm:px-4 h-16 flex items-center justify-between gap-2">
+    <nav className="md:hidden fixed top-0 left-0 right-0 z-50 border-b bg-background/80 backdrop-blur-xl shadow-lg w-full max-w-full overflow-hidden">
+      <div className="w-full px-3 sm:px-4 h-16 flex items-center justify-between gap-2">
         <a href="#" className="flex items-center gap-2 group flex-shrink-0">
           <div className="w-8 h-8 rounded bg-foreground/5 border border-border flex items-center justify-center group-hover:border-border/100 transition-colors">
             <span className="font-medium tracking-tighter text-sm text-foreground">R</span>
