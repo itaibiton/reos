@@ -1,8 +1,8 @@
-# Roadmap: REOS v1.8 Landing Page Mobile Responsive
+# Roadmap: REOS v1.8 Conversion & Essential Pages
 
 ## Overview
 
-Make every component and layout on the landing page fully mobile responsive with adaptive layouts optimized for small screens (320px-768px), while preserving the desktop experience. This milestone systematically addresses mobile responsiveness across all 8 landing components through focused, testable phases.
+Add critical conversion and essential pages to the REOS marketing site: FAQ and How It Works sections on the landing page, standalone pricing and legal pages, a contact page with form submission, service provider landing pages per type, and full navigation wiring across all new content. All new content supports EN/HE i18n and follows existing design patterns. Four phases deliver progressively from zero-risk landing sections to final cross-linking.
 
 ## Milestones
 
@@ -14,148 +14,87 @@ Make every component and layout on the landing page fully mobile responsive with
 - **v1.5 Mobile Responsive & Header Redesign** - Phases 35-39 (shipped 2026-01-22)
 - **v1.6 AI-Powered Investor Experience** - Phases 40-46 (shipped 2026-01-26)
 - **v1.7 New Landing Page** - Phases 47-52 (shipped 2026-01-26)
-- **v1.8 Landing Page Mobile Responsive** - Phases 53-58 (current)
+- **v1.8 Conversion & Essential Pages** - Phases 53-56 (current)
 
 ## Phases
 
-- [ ] **Phase 53: Hero & Navigation Mobile** - Mobile responsive hero section and mobile navigation menu
-- [ ] **Phase 54: Features & SocialProof Mobile** - Mobile responsive feature cards and logo strip
-- [ ] **Phase 55: Automation Mobile** - Mobile responsive automation section with provider cards
-- [ ] **Phase 56: Stats & CTA Mobile** - Mobile responsive stats and call-to-action sections
-- [ ] **Phase 57: Footer Mobile** - Mobile responsive footer with stacked columns
-- [ ] **Phase 58: Mobile Testing & Polish** - Cross-device testing and final adjustments
+- [ ] **Phase 53: Landing Page Sections** - FAQ and How It Works sections added to landing page
+- [ ] **Phase 54: Legal & Pricing Pages** - Privacy Policy, Terms of Service, and Pricing standalone pages
+- [ ] **Phase 55: Contact & Provider Landing Pages** - Contact form page and service provider type landing pages
+- [ ] **Phase 56: Navigation Wiring & Cross-Linking** - Wire all links, update nav/footer, generate sitemap
 
 ## Phase Details
 
-### Phase 53: Hero & Navigation Mobile
-**Goal**: Hero section and navigation work perfectly on mobile devices (320px-768px)
+### Phase 53: Landing Page Sections
+**Goal**: Users can learn how REOS works and find answers to common questions directly on the landing page
 **Depends on**: Nothing (first phase of v1.8)
-**Requirements**: HERO-M01, HERO-M02, HERO-M03, HERO-M04, HERO-M05, HERO-M06, HERO-M07, HERO-M08, NAV-M01, NAV-M02, NAV-M03, NAV-M04, NAV-M05, NAV-M06, NAV-M07, NAV-M08, NAV-M09
+**Requirements**: FAQ-01, FAQ-02, FAQ-03, FAQ-04, FAQ-05, FAQ-06, HIW-01, HIW-02, HIW-03, HIW-04, HIW-05
 **Success Criteria** (what must be TRUE):
-  1. Hero text and dashboard stack vertically on mobile (< 768px)
-  2. Hero heading scales appropriately (text-3xl on mobile, text-5xl on desktop)
-  3. Hero stats display in 2x2 grid on mobile (640px+) and 1x4 on small phones (< 640px)
-  4. Dashboard mockup scales down and remains readable on mobile
-  5. CTA buttons stack vertically on small phones (< 640px)
-  6. Navigation shows hamburger menu on mobile (< 768px)
-  7. Mobile menu opens with smooth slide-in animation
-  8. Platform/Solutions dropdowns become accordion items in mobile menu
-  9. Menu items have 44px+ touch targets
-  10. "Log in" link hidden below 640px (only "Get Started" visible)
-**Plans:** 3 plans
-Plans:
-- [ ] 53-01-PLAN.md — Hero mobile responsiveness (text sizing, stats grid, CTA buttons, dashboard scaling)
-- [ ] 53-02-PLAN.md — Navigation mobile menu (hamburger, Sheet slide-in, Accordion nested menus)
-- [ ] 53-03-PLAN.md — Scroll animation adjustment and visual verification checkpoint
+  1. User sees a "How It Works" section on the landing page with 4-5 numbered steps showing the investment process, each with an icon, title, description, and visual connecting flow
+  2. User sees a FAQ section on the landing page with 15-20 questions organized by category, filterable by audience tab (Investors / Service Providers), where each question expands and collapses independently
+  3. How It Works section animates into view on scroll and ends with a CTA button linking to sign-up
+  4. FAQ section includes a "Still have questions?" CTA and emits JSON-LD FAQPage structured data in the page source
+  5. Both sections display correctly in English and Hebrew
+**Plans**: TBD (created during phase planning)
 
-### Phase 54: Features & SocialProof Mobile
-**Goal**: Feature cards and social proof display correctly on all mobile viewports
+### Phase 54: Legal & Pricing Pages
+**Goal**: Users can review REOS legal terms and compare pricing tiers on dedicated pages
 **Depends on**: Phase 53
-**Requirements**: FEAT-M01, FEAT-M02, FEAT-M03, FEAT-M04, FEAT-M05, FEAT-M06, FEAT-M07, FEAT-M08, SOCIAL-M01, SOCIAL-M02, SOCIAL-M03, SOCIAL-M04, SOCIAL-M05
+**Requirements**: LEGAL-01, LEGAL-02, LEGAL-03, LEGAL-04, LEGAL-05, LEGAL-06, LEGAL-07, LEGAL-08, LEGAL-09, PRICE-01, PRICE-02, PRICE-03, PRICE-04, PRICE-05, PRICE-06, PRICE-07, PRICE-08, PRICE-09, PRICE-10
 **Success Criteria** (what must be TRUE):
-  1. Feature cards stack vertically on small phones (< 640px)
-  2. Feature cards display in 2-column grid on tablet (640px-768px)
-  3. Feature heading scales down on mobile (text-2xl on mobile, text-4xl on desktop)
-  4. Card animations simplified on mobile (reduced movement distance)
-  5. Card content and padding adjusted for mobile readability
-  6. Social proof logos reduce size on mobile
-  7. Social proof label text scales down appropriately
-  8. Horizontal scroll maintains smooth performance on touch devices
-  9. Logo spacing adjusted for mobile viewports
+  1. User can navigate to /privacy and /terms and read properly formatted legal content with table of contents, jump links, last-updated date, and responsive typography that covers REOS-specific data processors and cross-border data handling
+  2. User can navigate to /pricing and see 3 tiers (Investor free, Broker monthly, Agency custom) with feature comparison table, annual/monthly toggle, "Most Popular" badge, and clear CTA per tier
+  3. Pricing page includes a billing FAQ section and trust signals (security badges, "No credit card required")
+  4. All three pages have correct Next.js metadata (title, description, Open Graph) and display in both English and Hebrew
 **Plans**: TBD (created during phase planning)
 
-### Phase 55: Automation Mobile
-**Goal**: Automation section with provider cards and video works on mobile
-**Depends on**: Phase 54
-**Requirements**: AUTO-M01, AUTO-M02, AUTO-M03, AUTO-M04, AUTO-M05, AUTO-M06, AUTO-M07, AUTO-M08, AUTO-M09
+### Phase 55: Contact & Provider Landing Pages
+**Goal**: Users can submit inquiries via a contact form and service providers can discover type-specific landing pages
+**Depends on**: Phase 54 (legal pages must exist before collecting personal data)
+**Requirements**: CONTACT-01, CONTACT-02, CONTACT-03, CONTACT-04, CONTACT-05, CONTACT-06, CONTACT-07, CONTACT-08, CONTACT-09, CONTACT-10, PROV-01, PROV-02, PROV-03, PROV-04, PROV-05, PROV-06, PROV-07, PROV-08, PROV-09, PROV-10, PROV-11
 **Success Criteria** (what must be TRUE):
-  1. All provider cards stack vertically on small phones (< 640px)
-  2. Cards display in 2-column grid on tablet (640px-768px)
-  3. Video card displays full width with appropriate height on mobile
-  4. Diagonal background angle adjusted for mobile (less dramatic slope)
-  5. Section heading scales down (text-2xl on mobile, text-4xl on desktop)
-  6. Provider card padding and icon sizes optimized for mobile
-  7. Video maintains aspect ratio and plays correctly on mobile devices
-  8. Animation stagger timing adjusted for vertical layout
-  9. Desktop grid layout (video spanning 2x2) preserved above 768px
+  1. User can navigate to /contact, fill out a form (name, email, subject, message, optional phone), see inline validation errors, and receive a success confirmation after submission that saves to Convex
+  2. Contact form subject dropdown pre-selects based on URL parameter, includes honeypot anti-spam, and shows alternative contact methods alongside the form
+  3. User can navigate to /services/brokers, /services/lawyers, and /services/mortgage-advisors and see a type-specific hero, benefits section, social proof, process steps, and CTA linking to sign-up with role pre-selected
+  4. Provider pages use a shared template component with data-driven content, generate statically via generateStaticParams, and include JSON-LD ProfessionalService structured data
+  5. All pages display correctly in English and Hebrew with proper Next.js metadata
 **Plans**: TBD (created during phase planning)
 
-### Phase 56: Stats & CTA Mobile
-**Goal**: Stats section and CTA section fully mobile responsive
-**Depends on**: Phase 55
-**Requirements**: STATS-M01, STATS-M02, STATS-M03, STATS-M04, STATS-M05, STATS-M06, CTA-M01, CTA-M02, CTA-M03, CTA-M04, CTA-M05
+### Phase 56: Navigation Wiring & Cross-Linking
+**Goal**: Every new page is discoverable through navigation, footer, and cross-page CTAs with no dead links remaining
+**Depends on**: Phase 55 (all target pages must exist)
+**Requirements**: NAV-01, NAV-02, NAV-03, NAV-04, NAV-05, NAV-06, NAV-07, NAV-08
 **Success Criteria** (what must be TRUE):
-  1. Stats stack vertically on small phones (< 640px)
-  2. Stats display in 2x2 grid on tablet (640px-768px)
-  3. Stat values scale down on mobile without truncation
-  4. Stat spacing and padding optimized for mobile
-  5. CTA buttons stack vertically on mobile (< 640px)
-  6. CTA heading scales down (text-2xl on mobile, text-4xl on desktop)
-  7. CTA buttons full-width on mobile with max-width constraint
-  8. All buttons maintain 44px+ height for touch targets
-  9. Desktop horizontal layouts preserved above 768px
-**Plans**: TBD (created during phase planning)
-
-### Phase 57: Footer Mobile
-**Goal**: Footer displays correctly with stacked columns on mobile
-**Depends on**: Phase 56
-**Requirements**: FOOT-M01, FOOT-M02, FOOT-M03, FOOT-M04, FOOT-M05, FOOT-M06, FOOT-M07, LAYOUT-01, LAYOUT-02, LAYOUT-03, LAYOUT-04
-**Success Criteria** (what must be TRUE):
-  1. All footer columns stack vertically on mobile (< 768px)
-  2. Logo/tagline section displays full width at top of footer
-  3. Link columns display in 2x2 grid on tablet, stacked on small phones
-  4. Social icons display in horizontal row, centered on mobile
-  5. Copyright notice centered on mobile
-  6. All links and icons have 44px+ touch targets
-  7. Font sizes and spacing adjusted for mobile readability
-  8. Desktop multi-column layout preserved above 768px
-**Plans**: TBD (created during phase planning)
-
-### Phase 58: Mobile Testing & Polish
-**Goal**: Landing page tested across all mobile devices with final polish applied
-**Depends on**: Phase 57
-**Requirements**: TEST-V01, TEST-V02, TEST-V03, TEST-V04, TEST-V05, TEST-V06, TEST-D01, TEST-D02, TEST-D03, TEST-D04, TEST-O01, TEST-I01, TEST-I02, TEST-I03, TEST-I05, TEST-C01, TEST-C02, TEST-C03, TEST-C04, TEST-C05, TOUCH-01, TOUCH-02, TOUCH-03, TYPE-01, TYPE-02, TYPE-03, TYPE-04, ANIM-01, ANIM-02, ANIM-03, ANIM-04, PERF-01, PERF-02, PERF-03, PERF-04
-**Success Criteria** (what must be TRUE):
-  1. All components tested on 320px, 375px, 390px, 414px, 640px, 768px viewports
-  2. Landing page tested on iOS Safari, Chrome Mobile, Firefox Mobile
-  3. No horizontal scrolling on any mobile viewport
-  4. All text readable without zooming on all screen sizes
-  5. All touch targets are 44px+ and easy to tap
-  6. Scrolling is smooth without jank or stuttering
-  7. Animations perform well on mobile devices
-  8. Images and videos load properly on mobile connections
-  9. No console errors or warnings on mobile devices
-  10. Desktop experience (768px+) completely unchanged and tested
+  1. Top navigation includes "Pricing" link and provider pages are accessible under "Solutions" dropdown
+  2. Footer includes working links to Privacy, Terms, Contact, and other relevant pages
+  3. Cross-page CTAs work: FAQ "Still have questions?" goes to /contact, Pricing enterprise tier goes to /contact, CTA section "Contact Sales" goes to /contact and "View Pricing" goes to /pricing
+  4. All internal links use locale-aware Link component and sitemap.ts covers all new pages
 **Plans**: TBD (created during phase planning)
 
 ## Progress
 
-**Execution Order:** Phases 53 -> 54 -> 55 -> 56 -> 57 -> 58
+**Execution Order:** Phases 53 -> 54 -> 55 -> 56
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
-| 53. Hero & Navigation Mobile | v1.8 | 0/3 | Planned | - |
-| 54. Features & SocialProof Mobile | v1.8 | 0/? | Not Started | - |
-| 55. Automation Mobile | v1.8 | 0/? | Not Started | - |
-| 56. Stats & CTA Mobile | v1.8 | 0/? | Not Started | - |
-| 57. Footer Mobile | v1.8 | 0/? | Not Started | - |
-| 58. Mobile Testing & Polish | v1.8 | 0/? | Not Started | - |
+| 53. Landing Page Sections | v1.8 | 0/? | Not Started | - |
+| 54. Legal & Pricing Pages | v1.8 | 0/? | Not Started | - |
+| 55. Contact & Provider Landing Pages | v1.8 | 0/? | Not Started | - |
+| 56. Navigation Wiring & Cross-Linking | v1.8 | 0/? | Not Started | - |
 
 ## Requirements Coverage
 
-**v1.8 Total Requirements:** 77 (across 8 components + technical + testing)
+**v1.8 Total Requirements:** 59
 
 **By Phase:**
-- Phase 53: 17 requirements (Hero + Navigation mobile)
-- Phase 54: 13 requirements (Features + SocialProof mobile)
-- Phase 55: 9 requirements (Automation mobile)
-- Phase 56: 11 requirements (Stats + CTA mobile)
-- Phase 57: 11 requirements (Footer + Layout mobile)
-- Phase 58: 30 requirements (Testing + Technical polish)
+- Phase 53: 11 requirements (FAQ-01 to FAQ-06, HIW-01 to HIW-05)
+- Phase 54: 19 requirements (LEGAL-01 to LEGAL-09, PRICE-01 to PRICE-10)
+- Phase 55: 21 requirements (CONTACT-01 to CONTACT-10, PROV-01 to PROV-11)
+- Phase 56: 8 requirements (NAV-01 to NAV-08)
 
 **Unmapped:** 0
 
 ---
-*Roadmap created: 2026-01-27*
-*Milestone: v1.8 Landing Page Mobile Responsive*
-*Requirements: 77 mapped to 6 phases*
+*Roadmap created: 2026-01-28*
+*Milestone: v1.8 Conversion & Essential Pages*
+*Requirements: 59 mapped to 4 phases*

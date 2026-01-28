@@ -10,10 +10,10 @@ See: .planning/PROJECT.md (updated 2026-01-28)
 ## Current Position
 
 Milestone: v1.8 Conversion & Essential Pages
-Phase: Not started (defining requirements)
-Plan: —
-Status: Researching domain ecosystem
-Last activity: 2026-01-28 — Milestone v1.8 started (conversion pages)
+Phase: 53 of 56 (Landing Page Sections) -- ready to plan
+Plan: --
+Status: Roadmap created, ready to plan Phase 53
+Last activity: 2026-01-28 -- Roadmap created for v1.8 (4 phases, 59 requirements)
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -50,6 +50,9 @@ Recent decisions affecting current work:
 |----------|---------|--------|
 | V1.8-SCOPE | Replace mobile responsive with conversion pages | Focus on critical missing pages to improve conversion |
 | EXISTING-LANDING | Don't modify existing landing components | New sections/pages only, preserve current work |
+| SERVICES-ROUTE | Use /services/[type] not /providers/[type] | Avoids middleware auth conflict on /providers routes |
+| LEGAL-BEFORE-CONTACT | Legal pages must exist before contact form | GDPR/CCPA compliance -- cannot collect data without privacy policy |
+| NAV-LAST | Wire navigation after all target pages exist | Prevents broken links during development |
 
 ### Pending Todos
 
@@ -58,22 +61,23 @@ Recent decisions affecting current work:
 
 ### Blockers/Concerns
 
-- Legal pages (/privacy, /terms) referenced in footer - will be addressed this milestone
-- Investor/Provider pages not yet created - provider pages addressed this milestone
-- Hero CTA links to #contact - contact section/page needed
+- Legal pages (/privacy, /terms) referenced in footer -- addressed in Phase 54
+- Contact page needed for hero CTA -- addressed in Phase 55
+- Provider pages not yet created -- addressed in Phase 55
 
 ### Roadmap Evolution
 
 - Milestone v1.6 complete: AI-Powered Investor Experience (Phases 40-46)
 - Milestone v1.7 complete: New Landing Page (Phases 47-52)
-- Milestone v1.8 started: Conversion & Essential Pages
-  - Goal: Add FAQ, pricing, legal, contact, provider pages, How It Works
-  - Scope: New pages and sections only
-  - Constraint: Don't modify existing landing components
+- Milestone v1.8 roadmap created: Conversion & Essential Pages (Phases 53-56)
+  - Phase 53: Landing Page Sections (FAQ + How It Works)
+  - Phase 54: Legal & Pricing Pages
+  - Phase 55: Contact & Provider Landing Pages
+  - Phase 56: Navigation Wiring & Cross-Linking
 
 ## Session Continuity
 
 Last session: 2026-01-28
-Stopped at: Defining v1.8 requirements (research phase)
+Stopped at: Roadmap created for v1.8 milestone
 Resume file: None
-Next: Research results → requirements → roadmap
+Next: Plan Phase 53 (Landing Page Sections)

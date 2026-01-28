@@ -117,75 +117,73 @@ Add critical pages and sections to maximize conversion and complete the website 
 
 ## Traceability
 
-Which phases cover which requirements. Updated during roadmap creation.
-
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FAQ-01 | TBD | Pending |
-| FAQ-02 | TBD | Pending |
-| FAQ-03 | TBD | Pending |
-| FAQ-04 | TBD | Pending |
-| FAQ-05 | TBD | Pending |
-| FAQ-06 | TBD | Pending |
-| HIW-01 | TBD | Pending |
-| HIW-02 | TBD | Pending |
-| HIW-03 | TBD | Pending |
-| HIW-04 | TBD | Pending |
-| HIW-05 | TBD | Pending |
-| PRICE-01 | TBD | Pending |
-| PRICE-02 | TBD | Pending |
-| PRICE-03 | TBD | Pending |
-| PRICE-04 | TBD | Pending |
-| PRICE-05 | TBD | Pending |
-| PRICE-06 | TBD | Pending |
-| PRICE-07 | TBD | Pending |
-| PRICE-08 | TBD | Pending |
-| PRICE-09 | TBD | Pending |
-| PRICE-10 | TBD | Pending |
-| LEGAL-01 | TBD | Pending |
-| LEGAL-02 | TBD | Pending |
-| LEGAL-03 | TBD | Pending |
-| LEGAL-04 | TBD | Pending |
-| LEGAL-05 | TBD | Pending |
-| LEGAL-06 | TBD | Pending |
-| LEGAL-07 | TBD | Pending |
-| LEGAL-08 | TBD | Pending |
-| LEGAL-09 | TBD | Pending |
-| CONTACT-01 | TBD | Pending |
-| CONTACT-02 | TBD | Pending |
-| CONTACT-03 | TBD | Pending |
-| CONTACT-04 | TBD | Pending |
-| CONTACT-05 | TBD | Pending |
-| CONTACT-06 | TBD | Pending |
-| CONTACT-07 | TBD | Pending |
-| CONTACT-08 | TBD | Pending |
-| CONTACT-09 | TBD | Pending |
-| CONTACT-10 | TBD | Pending |
-| PROV-01 | TBD | Pending |
-| PROV-02 | TBD | Pending |
-| PROV-03 | TBD | Pending |
-| PROV-04 | TBD | Pending |
-| PROV-05 | TBD | Pending |
-| PROV-06 | TBD | Pending |
-| PROV-07 | TBD | Pending |
-| PROV-08 | TBD | Pending |
-| PROV-09 | TBD | Pending |
-| PROV-10 | TBD | Pending |
-| PROV-11 | TBD | Pending |
-| NAV-01 | TBD | Pending |
-| NAV-02 | TBD | Pending |
-| NAV-03 | TBD | Pending |
-| NAV-04 | TBD | Pending |
-| NAV-05 | TBD | Pending |
-| NAV-06 | TBD | Pending |
-| NAV-07 | TBD | Pending |
-| NAV-08 | TBD | Pending |
+| FAQ-01 | Phase 53 | Pending |
+| FAQ-02 | Phase 53 | Pending |
+| FAQ-03 | Phase 53 | Pending |
+| FAQ-04 | Phase 53 | Pending |
+| FAQ-05 | Phase 53 | Pending |
+| FAQ-06 | Phase 53 | Pending |
+| HIW-01 | Phase 53 | Pending |
+| HIW-02 | Phase 53 | Pending |
+| HIW-03 | Phase 53 | Pending |
+| HIW-04 | Phase 53 | Pending |
+| HIW-05 | Phase 53 | Pending |
+| PRICE-01 | Phase 54 | Pending |
+| PRICE-02 | Phase 54 | Pending |
+| PRICE-03 | Phase 54 | Pending |
+| PRICE-04 | Phase 54 | Pending |
+| PRICE-05 | Phase 54 | Pending |
+| PRICE-06 | Phase 54 | Pending |
+| PRICE-07 | Phase 54 | Pending |
+| PRICE-08 | Phase 54 | Pending |
+| PRICE-09 | Phase 54 | Pending |
+| PRICE-10 | Phase 54 | Pending |
+| LEGAL-01 | Phase 54 | Pending |
+| LEGAL-02 | Phase 54 | Pending |
+| LEGAL-03 | Phase 54 | Pending |
+| LEGAL-04 | Phase 54 | Pending |
+| LEGAL-05 | Phase 54 | Pending |
+| LEGAL-06 | Phase 54 | Pending |
+| LEGAL-07 | Phase 54 | Pending |
+| LEGAL-08 | Phase 54 | Pending |
+| LEGAL-09 | Phase 54 | Pending |
+| CONTACT-01 | Phase 55 | Pending |
+| CONTACT-02 | Phase 55 | Pending |
+| CONTACT-03 | Phase 55 | Pending |
+| CONTACT-04 | Phase 55 | Pending |
+| CONTACT-05 | Phase 55 | Pending |
+| CONTACT-06 | Phase 55 | Pending |
+| CONTACT-07 | Phase 55 | Pending |
+| CONTACT-08 | Phase 55 | Pending |
+| CONTACT-09 | Phase 55 | Pending |
+| CONTACT-10 | Phase 55 | Pending |
+| PROV-01 | Phase 55 | Pending |
+| PROV-02 | Phase 55 | Pending |
+| PROV-03 | Phase 55 | Pending |
+| PROV-04 | Phase 55 | Pending |
+| PROV-05 | Phase 55 | Pending |
+| PROV-06 | Phase 55 | Pending |
+| PROV-07 | Phase 55 | Pending |
+| PROV-08 | Phase 55 | Pending |
+| PROV-09 | Phase 55 | Pending |
+| PROV-10 | Phase 55 | Pending |
+| PROV-11 | Phase 55 | Pending |
+| NAV-01 | Phase 56 | Pending |
+| NAV-02 | Phase 56 | Pending |
+| NAV-03 | Phase 56 | Pending |
+| NAV-04 | Phase 56 | Pending |
+| NAV-05 | Phase 56 | Pending |
+| NAV-06 | Phase 56 | Pending |
+| NAV-07 | Phase 56 | Pending |
+| NAV-08 | Phase 56 | Pending |
 
 **Coverage:**
-- v1.8 requirements: 52 total
-- Mapped to phases: 0 (pending roadmap creation)
-- Unmapped: 52
+- v1.8 requirements: 59 total
+- Mapped to phases: 59
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-01-28*
-*Last updated: 2026-01-28 after initial definition*
+*Last updated: 2026-01-28 after roadmap creation (traceability populated)*
