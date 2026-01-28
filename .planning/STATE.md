@@ -11,18 +11,18 @@ See: .planning/PROJECT.md (updated 2026-01-28)
 
 Milestone: v1.8 Conversion & Essential Pages
 Phase: 53 of 56 (Landing Page Sections) -- in progress (3 plans, 2 waves)
-Plan: 01 of 03 complete
+Plan: 02 of 03 complete
 Status: Phase 53 in progress
-Last activity: 2026-01-28 -- Completed 53-01-PLAN.md (How It Works section)
+Last activity: 2026-01-28 -- Completed 53-02-PLAN.md (FAQ section)
 
-Progress: [█░░░░░░░░░] 33% (1/3 plans complete in Phase 53)
+Progress: [██░░░░░░░░] 67% (2/3 plans complete in Phase 53)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 158
+- Total plans completed: 159
 - Average duration: 4.4 min
-- Total execution time: 10.35 hours
+- Total execution time: 10.43 hours
 
 **By Phase (v1.7):**
 
@@ -43,7 +43,7 @@ Progress: [█░░░░░░░░░] 33% (1/3 plans complete in Phase 53)
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 53 | 1/3 | 4 min | 4 min |
+| 53 | 2/3 | 9 min | 4.5 min |
 
 ## Accumulated Context
 
@@ -61,6 +61,9 @@ Recent decisions affecting current work:
 | NAV-LAST | Wire navigation after all target pages exist | Prevents broken links during development |
 | RTL-LOGICAL-PROPS | Use logical properties (-end-*) not directional (-right-*) | Ensures RTL support for Hebrew without duplicate styling |
 | DESKTOP-CONNECTORS | Visual connector lines desktop-only (md:block) | Simplifies mobile layouts while enhancing desktop visual flow |
+| FAQ-AUDIENCE-TABS | Use Radix Tabs for investor vs provider segmentation | Different audiences have distinct concerns - investors care about trust/cost/process, providers care about platform/leads/revenue |
+| FAQ-ACCORDION-MULTIPLE | Use Accordion type='multiple' for independent expand/collapse | Users often want to compare multiple answers side-by-side without having previous answers auto-collapse |
+| FAQ-JSON-LD-ALL | Include ALL questions (both tabs) in JSON-LD FAQPage schema | Maximize SEO benefit - search engines should index all FAQ content regardless of tab visibility |
 
 ### Pending Todos
 
@@ -86,6 +89,6 @@ Recent decisions affecting current work:
 ## Session Continuity
 
 Last session: 2026-01-28
-Stopped at: Completed 53-01-PLAN.md
+Stopped at: Completed 53-02-PLAN.md
 Resume file: None
-Next: Execute 53-02 (FAQ section) or continue Phase 53
+Next: Execute 53-03 (landing page assembly) to complete Phase 53
