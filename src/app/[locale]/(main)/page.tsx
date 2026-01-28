@@ -6,6 +6,8 @@ import {
   Automation,
   Testimonials,
   Stats,
+  HowItWorks,
+  FAQ,
   CTA,
 } from "@/components/newlanding";
 
@@ -24,6 +26,8 @@ export default function LandingPage() {
       <Automation />
       <Testimonials />
       <Stats />
+      <HowItWorks />
+      <FAQ />
       <CTA />
     </>
   );
