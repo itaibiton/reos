@@ -41,7 +41,6 @@ export function Navigation({ className }: NavigationProps) {
   const t = useTranslations("landing.navigation");
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
 
   // Add custom styles to override NavigationMenu default hover colors
   useEffect(() => {
@@ -63,10 +62,6 @@ export function Navigation({ className }: NavigationProps) {
     return () => {
       document.head.removeChild(style);
     };
-  }, []);
-
-  useEffect(() => {
-    setIsMounted(true);
   }, []);
 
   useEffect(() => {
@@ -284,8 +279,7 @@ export function Navigation({ className }: NavigationProps) {
       </motion.nav>
     </motion.div>
 
-    {/* Mobile Navigation - Static, no animation - Client-side only to prevent hydration mismatch */}
-    {isMounted && (
+    {/* Mobile Navigation - Always visible */}
     <nav className="md:hidden fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-[#050A12] shadow-lg overflow-x-hidden">
       <div className="w-full max-w-[100vw] px-2 h-16 flex items-center justify-between gap-1">
         <a href="#" className="flex items-center gap-1.5 group flex-shrink min-w-0">
@@ -432,7 +426,6 @@ export function Navigation({ className }: NavigationProps) {
           </Sheet>
       </div>
     </nav>
-    )}
     </>
   );
 }
