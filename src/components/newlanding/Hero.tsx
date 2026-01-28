@@ -333,9 +333,16 @@ export function Hero({ className }: HeroProps) {
           </div>
 
           <h1 className="text-3xl md:text-5xl lg:text-7xl font-light tracking-tighter text-foreground mb-6 leading-[1.1]">
-            {t("heading")}{" "}
-            <br className="hidden md:block" />
-            <RotatingText
+            <span className="md:inline">
+              {t("heading").split(" ").slice(0, Math.ceil(t("heading").split(" ").length / 2)).join(" ")}
+            </span>
+            <br className="md:hidden" />{" "}
+            <span className="md:inline">
+              {t("heading").split(" ").slice(Math.ceil(t("heading").split(" ").length / 2)).join(" ")}
+            </span>{" "}
+            <br />
+            <span className="block md:inline">
+              <RotatingText
               texts={[
                 t("roles.investors"),
                 t("roles.mortgageAdvisors"),
@@ -356,6 +363,7 @@ export function Hero({ className }: HeroProps) {
               animatePresenceMode="popLayout"
               rotationInterval={2500}
             />
+            </span>
             {/* <RotatingText
   texts={['React', 'Bits', 'Is', 'Cool!']}
   mainClassName="px-2 sm:px-2 md:px-3 bg-cyan-300 text-black overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg"
