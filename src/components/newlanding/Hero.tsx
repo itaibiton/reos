@@ -402,8 +402,7 @@ export function Hero({ className }: HeroProps) {
 
       {/* Dashboard Preview */}
       <div
-        className="sticky z-20 mt-20 max-w-7xl mx-auto relative px-4 sm:px-6 lg:px-8"
-        style={{ top: "calc(50vh - 350px)" }}
+        className="sticky z-20 mt-20 max-w-7xl mx-auto relative px-4 sm:px-6 lg:px-8 [top:calc(50vh-200px)] sm:[top:calc(50vh-225px)] md:[top:calc(50vh-275px)]"
       >
         <motion.div variants={fadeInUp}>
         {/* MacBook-style bezel - Silver on light, Space Gray on dark */}
