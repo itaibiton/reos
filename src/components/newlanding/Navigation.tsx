@@ -77,9 +77,9 @@ export function Navigation({ className }: NavigationProps) {
   return (
     <motion.div
       animate={{
-        paddingLeft: scrolled ? "0px" : "24px",
-        paddingRight: scrolled ? "0px" : "24px",
-        paddingTop: scrolled ? "0px" : "16px",
+        paddingLeft: scrolled ? "0px" : "8px",
+        paddingRight: scrolled ? "0px" : "8px",
+        paddingTop: scrolled ? "0px" : "8px",
       }}
       transition={{
         duration: 0.4,
@@ -96,17 +96,14 @@ export function Navigation({ className }: NavigationProps) {
           duration: 0.4,
           ease: [0.25, 1, 0.5, 1],
         }}
-        style={{
-          width: scrolled ? "100%" : "min(1280px, 100%)",
-        }}
         className={cn(
-          "mx-auto border bg-background/80 backdrop-blur-xl shadow-lg transition-all duration-[400ms] ease-[cubic-bezier(0.25,1,0.5,1)]",
+          "mx-auto border bg-background/80 backdrop-blur-xl shadow-lg transition-all duration-[400ms] ease-[cubic-bezier(0.25,1,0.5,1)] w-full max-w-[1280px]",
           scrolled ? "border-border/50 border-t-0 border-l-0 border-r-0" : "border-border/50",
           className
         )}
       >
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <a href="#" className="flex items-center gap-2 group">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-2">
+          <a href="#" className="flex items-center gap-2 group flex-shrink-0">
             <div className="w-8 h-8 rounded bg-foreground/5 border border-border flex items-center justify-center group-hover:border-border/100 transition-colors">
               <span className="font-medium tracking-tighter text-sm text-foreground">R</span>
             </div>
@@ -257,11 +254,11 @@ export function Navigation({ className }: NavigationProps) {
           </div>
 
           {/* Mobile Menu Trigger */}
-          <div className="md:hidden">
+          <div className="md:hidden flex-shrink-0">
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <SheetTrigger asChild>
                 <button
-                  className="min-h-[44px] min-w-[44px] flex items-center justify-center hover:bg-foreground/5 rounded-lg transition-colors"
+                  className="min-h-[44px] min-w-[44px] w-[44px] h-[44px] flex items-center justify-center hover:bg-foreground/5 rounded-lg transition-colors"
                   aria-label="Open navigation menu"
                 >
                   <Menu className="h-6 w-6" />
@@ -394,7 +391,7 @@ export function Navigation({ className }: NavigationProps) {
             </Sheet>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="hidden md:flex items-center gap-4">
             <a href="#" className="text-xs font-medium text-foreground/80 hover:text-foreground transition-colors hidden sm:block">{t("actions.login")}</a>
 
             <a href="#" className="text-xs font-medium bg-foreground text-background px-4 py-2 rounded-full hover:bg-foreground/90 transition-colors">
