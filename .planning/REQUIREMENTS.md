@@ -1,269 +1,191 @@
-# Requirements: REOS v1.8 Landing Page Mobile Responsive
+# Requirements: REOS v1.8 Conversion & Essential Pages
 
-**Defined:** 2026-01-27
+**Defined:** 2026-01-28
 **Core Value:** Deal flow tracking from interest to close.
 
 ## Milestone Goal
 
-Make every component and layout on the landing page fully mobile responsive with adaptive layouts optimized for small screens (320px-768px), while preserving the desktop experience.
+Add critical pages and sections to maximize conversion and complete the website experience — FAQ, pricing, legal pages, contact, service provider landing pages, and "How It Works" section. All new content, no modifications to existing landing components.
 
-## Success Criteria
+## v1.8 Requirements
 
-- [ ] All 8 landing components display correctly on mobile devices (320px, 375px, 640px, 768px)
-- [ ] Adaptive layouts implemented (not just scaled) — single column grids, stacked sections
-- [ ] All interactive elements have 44px+ touch targets
-- [ ] Text is readable on all screen sizes (no overflow, proper line heights)
-- [ ] Animations work smoothly on mobile (simplified where needed)
-- [ ] Desktop experience unchanged above 768px
-- [ ] No horizontal scrolling on any mobile viewport
-- [ ] All content accessible without zooming
+### FAQ Section
 
-## Component Requirements
+- [ ] **FAQ-01**: User can view FAQ section on landing page with 15-20 questions organized by category (Trust/Safety, Process, Cost, Providers)
+- [ ] **FAQ-02**: User can expand/collapse individual FAQ items independently (type="multiple" accordion)
+- [ ] **FAQ-03**: FAQ section includes JSON-LD FAQPage structured data for SEO
+- [ ] **FAQ-04**: FAQ section includes "Still have questions?" CTA linking to contact page
+- [ ] **FAQ-05**: FAQ content available in both English and Hebrew via i18n
+- [ ] **FAQ-06**: FAQ section uses audience-segmented tabs (For Investors / For Service Providers)
 
-### 1. Hero Component (`Hero.tsx`)
+### How It Works Section
 
-**Current State:**
-- Desktop-optimized with two-column layout (text + dashboard mockup)
-- Rotating text animation for role types
-- Stats grid with card swap animation
-- Dashboard preview with complex nested elements
+- [ ] **HIW-01**: User can view "How It Works" section on landing page with 4-5 numbered steps showing the investment process
+- [ ] **HIW-02**: Steps include icons, titles, descriptions, and connecting visual flow
+- [ ] **HIW-03**: Section includes scroll-triggered animations consistent with existing landing style
+- [ ] **HIW-04**: Section ends with CTA button linking to sign-up/questionnaire
+- [ ] **HIW-05**: How It Works content available in both English and Hebrew via i18n
 
-**Mobile Requirements:**
-- [ ] **HERO-M01**: Stack text and dashboard vertically on mobile
-- [ ] **HERO-M02**: Reduce heading font size progressively (3xl on mobile, 5xl on desktop)
-- [ ] **HERO-M03**: Adjust rotating text size and animation speed for mobile
-- [ ] **HERO-M04**: Stats grid: 2x2 on mobile (640px+), 1x4 stacked on small phones (320px-640px)
-- [ ] **HERO-M05**: Dashboard mockup: Reduce scale and complexity on mobile
-- [ ] **HERO-M06**: CTA buttons: Stack vertically on mobile (< 640px), horizontal on tablet+
-- [ ] **HERO-M07**: Badge text: Smaller font size on mobile
-- [ ] **HERO-M08**: Viewport height: Use min-h-screen instead of fixed heights
+### Pricing Page
 
-### 2. Navigation Component (`Navigation.tsx`)
+- [ ] **PRICE-01**: User can view pricing page at /pricing with clear tier comparison
+- [ ] **PRICE-02**: Pricing page shows 3 tiers per audience: Investor (free), Broker (monthly), Agency (custom)
+- [ ] **PRICE-03**: Pricing page includes feature comparison table with checkmarks per tier
+- [ ] **PRICE-04**: Pricing page includes annual/monthly billing toggle with savings display
+- [ ] **PRICE-05**: Each tier has a clear CTA button (Get Started Free / Start Trial / Contact Sales)
+- [ ] **PRICE-06**: Pricing page includes "Most Popular" badge on recommended tier
+- [ ] **PRICE-07**: Pricing page includes FAQ section addressing billing questions
+- [ ] **PRICE-08**: Pricing page includes trust signals (security badges, "No credit card required")
+- [ ] **PRICE-09**: Pricing page content available in both English and Hebrew via i18n
+- [ ] **PRICE-10**: Pricing page has proper Next.js metadata (title, description, Open Graph)
 
-**Current State:**
-- Desktop navigation with dropdown menus
-- Animated padding/border-radius on scroll
-- "Get Started" and "Log in" CTAs
+### Legal Pages
 
-**Mobile Requirements:**
-- [ ] **NAV-M01**: Implement hamburger menu for mobile (< 768px)
-- [ ] **NAV-M02**: Slide-out or dropdown mobile menu with smooth animation
-- [ ] **NAV-M03**: Menu items stack vertically in mobile menu
-- [ ] **NAV-M04**: Platform/Solutions dropdowns become accordion items in mobile menu
-- [ ] **NAV-M05**: Logo + hamburger + CTA button layout on mobile
-- [ ] **NAV-M06**: Hide "Log in" text below 640px (show only "Get Started")
-- [ ] **NAV-M07**: Adjust scroll animation thresholds for mobile (less padding reduction)
-- [ ] **NAV-M08**: Touch targets: 44px+ for all menu items and buttons
-- [ ] **NAV-M09**: Close menu on link click or outside tap
+- [ ] **LEGAL-01**: User can view Privacy Policy at /privacy with properly formatted legal content
+- [ ] **LEGAL-02**: User can view Terms of Service at /terms with properly formatted legal content
+- [ ] **LEGAL-03**: Legal pages include table of contents with jump links to sections
+- [ ] **LEGAL-04**: Legal pages show "Last updated" date prominently
+- [ ] **LEGAL-05**: Legal pages use responsive typography (proper line length, font size, heading hierarchy)
+- [ ] **LEGAL-06**: Legal content addresses REOS-specific data processors (Clerk, Convex, Anthropic)
+- [ ] **LEGAL-07**: Legal content covers cross-border data handling (US/Israel)
+- [ ] **LEGAL-08**: Legal pages content available in both English and Hebrew via i18n
+- [ ] **LEGAL-09**: Legal pages have proper Next.js metadata
 
-### 3. SocialProof Component (`SocialProof.tsx`)
+### Contact Page
 
-**Current State:**
-- Horizontal scrolling logo strip
-- "TRUSTED BY INNOVATIVE PROPERTY TEAMS" label
+- [ ] **CONTACT-01**: User can view contact page at /contact with inquiry form
+- [ ] **CONTACT-02**: Contact form includes fields: name, email, subject/inquiry type dropdown, message, optional phone
+- [ ] **CONTACT-03**: Contact form validates input with inline error messages (Zod + react-hook-form)
+- [ ] **CONTACT-04**: Contact form submission saves to Convex contactSubmissions table
+- [ ] **CONTACT-05**: Contact form shows success confirmation with expected response time after submission
+- [ ] **CONTACT-06**: Contact form includes honeypot anti-spam field
+- [ ] **CONTACT-07**: Contact page shows alternative contact methods (email, phone number)
+- [ ] **CONTACT-08**: Contact page content available in both English and Hebrew via i18n
+- [ ] **CONTACT-09**: Contact page has proper Next.js metadata
+- [ ] **CONTACT-10**: Subject dropdown pre-selects based on referral source URL parameter
 
-**Mobile Requirements:**
-- [ ] **SOCIAL-M01**: Maintain horizontal scroll but with mobile-friendly spacing
-- [ ] **SOCIAL-M02**: Reduce logo sizes on mobile
-- [ ] **SOCIAL-M03**: Adjust padding and gap between logos for mobile
-- [ ] **SOCIAL-M04**: Label text: Smaller font size on mobile
-- [ ] **SOCIAL-M05**: Ensure smooth scroll performance on touch devices
+### Service Provider Landing Pages
 
-### 4. Features Component (`Features.tsx`)
+- [ ] **PROV-01**: User can view dedicated landing page per provider type at /services/[type] (brokers, lawyers, mortgage-advisors)
+- [ ] **PROV-02**: Each provider page has a provider-type-specific hero section with tailored headline and CTA
+- [ ] **PROV-03**: Each provider page has a benefits section (3-5 key benefits specific to that provider type)
+- [ ] **PROV-04**: Each provider page has social proof section (stats, testimonials for that provider type)
+- [ ] **PROV-05**: Each provider page has "How it works for [type]" process steps (3-4 steps)
+- [ ] **PROV-06**: Each provider page has CTA linking to sign-up with role pre-selected (/sign-up?role=broker etc.)
+- [ ] **PROV-07**: Provider pages use a shared template component with data-driven content per type
+- [ ] **PROV-08**: Provider pages use generateStaticParams for static generation at build time
+- [ ] **PROV-09**: Provider pages content available in both English and Hebrew via i18n
+- [ ] **PROV-10**: Provider pages have proper Next.js metadata and JSON-LD ProfessionalService structured data
+- [ ] **PROV-11**: Minimum 3 provider types launched: brokers, lawyers, mortgage-advisors
 
-**Current State:**
-- 4 feature cards in LayoutGrid component
-- Complex grid layout (2 large cards, 2 small cards)
-- Different animation directions per card
+### Navigation & Cross-Linking
 
-**Mobile Requirements:**
-- [ ] **FEAT-M01**: Stack all 4 cards vertically on mobile (< 640px)
-- [ ] **FEAT-M02**: 2-column grid on tablet (640px-768px)
-- [ ] **FEAT-M03**: Maintain 4-card grid on desktop (768px+)
-- [ ] **FEAT-M04**: Adjust card heights for mobile (remove fixed aspect ratios)
-- [ ] **FEAT-M05**: Simplify animations on mobile (reduce movement distance)
-- [ ] **FEAT-M06**: Heading: Reduce font size (2xl on mobile, 4xl on desktop)
-- [ ] **FEAT-M07**: Card content: Adjust padding and text sizes for mobile
-- [ ] **FEAT-M08**: Ensure images scale properly within cards
+- [ ] **NAV-01**: Navigation updated: "Pricing" link added to top nav
+- [ ] **NAV-02**: Navigation updated: Provider pages accessible under "Solutions" dropdown
+- [ ] **NAV-03**: Footer updated: Privacy, Terms, Contact links wired to real routes
+- [ ] **NAV-04**: CTA section updated: "Contact Sales" links to /contact, "View Pricing" links to /pricing
+- [ ] **NAV-05**: FAQ "Still have questions?" links to /contact
+- [ ] **NAV-06**: Pricing "Enterprise/Custom" tier links to /contact
+- [ ] **NAV-07**: All internal links use locale-aware Link component
+- [ ] **NAV-08**: Sitemap.ts generated covering all new pages
 
-### 5. Automation Component (`Automation.tsx`)
+## Future Requirements (v1.9+)
 
-**Current State:**
-- Grid layout with 5 provider cards + large video card
-- Diagonal split background
-- Complex grid positioning (video spans 2 columns × 2 rows)
+### Deferred Features
 
-**Mobile Requirements:**
-- [ ] **AUTO-M01**: Stack all cards vertically on mobile (< 640px)
-- [ ] **AUTO-M02**: Video card: Full width, reduced height on mobile
-- [ ] **AUTO-M03**: 2-column grid on tablet (640px-768px)
-- [ ] **AUTO-M04**: Maintain complex grid on desktop (768px+)
-- [ ] **AUTO-M05**: Diagonal background: Adjust angle for mobile (less dramatic)
-- [ ] **AUTO-M06**: Heading: Reduce font size (2xl on mobile, 4xl on desktop)
-- [ ] **AUTO-M07**: Provider cards: Adjust padding and icon sizes for mobile
-- [ ] **AUTO-M08**: Video: Ensure proper aspect ratio and playback on mobile
-- [ ] **AUTO-M09**: Stagger animations differently for vertical layout
-
-### 6. Stats Component (`Stats.tsx`)
-
-**Current State:**
-- 4 stats in horizontal grid
-- Large numbers with labels
-
-**Mobile Requirements:**
-- [ ] **STATS-M01**: Stack stats vertically on small phones (< 640px)
-- [ ] **STATS-M02**: 2x2 grid on tablet (640px-768px)
-- [ ] **STATS-M03**: Maintain horizontal layout on desktop (768px+)
-- [ ] **STATS-M04**: Reduce stat value font size on mobile
-- [ ] **STATS-M05**: Adjust spacing and padding for mobile
-- [ ] **STATS-M06**: Ensure numbers remain readable without truncation
-
-### 7. CTA Component (`CTA.tsx`)
-
-**Current State:**
-- Centered heading and subheading
-- Two action buttons side-by-side
-
-**Mobile Requirements:**
-- [ ] **CTA-M01**: Stack buttons vertically on mobile (< 640px)
-- [ ] **CTA-M02**: Reduce heading font size (2xl on mobile, 4xl on desktop)
-- [ ] **CTA-M03**: Adjust padding and spacing for mobile
-- [ ] **CTA-M04**: Full-width buttons on mobile (with max-width constraint)
-- [ ] **CTA-M05**: Maintain button sizing for touch targets (44px+ height)
-
-### 8. Footer Component (`Footer.tsx`)
-
-**Current State:**
-- Multi-column layout (logo/tagline + Product + Solutions + Company + Legal)
-- Social media links
-- Copyright notice
-
-**Mobile Requirements:**
-- [ ] **FOOT-M01**: Stack all columns vertically on mobile (< 768px)
-- [ ] **FOOT-M02**: Logo/tagline section full width on mobile
-- [ ] **FOOT-M03**: Link columns: 2x2 grid on tablet, stacked on mobile
-- [ ] **FOOT-M04**: Social icons: Horizontal row, centered on mobile
-- [ ] **FOOT-M05**: Copyright: Centered on mobile
-- [ ] **FOOT-M06**: Adjust font sizes and spacing for mobile
-- [ ] **FOOT-M07**: Touch targets: 44px+ for all links and icons
-
-## Technical Requirements
-
-### Breakpoints
-
-Use Tailwind's mobile-first breakpoints:
-- **Base (< 640px)**: Small phones (320px-639px)
-- **sm (640px+)**: Large phones
-- **md (768px+)**: Tablets (preserve desktop layout here)
-- **lg (1024px+)**: Desktop (existing styles)
-
-### Touch Interactions
-
-- [ ] **TOUCH-01**: All interactive elements: min-height 44px, min-width 44px
-- [ ] **TOUCH-02**: Adequate spacing between touch targets (8px minimum)
-- [ ] **TOUCH-03**: No hover-only interactions (use click/tap instead)
-- [ ] **TOUCH-04**: Form inputs: Large enough for mobile keyboards
-
-### Typography
-
-- [ ] **TYPE-01**: Headings scale progressively across breakpoints
-  - H1: text-3xl (mobile), text-4xl (sm), text-5xl (md+)
-  - H2: text-2xl (mobile), text-3xl (sm), text-4xl (md+)
-- [ ] **TYPE-02**: Body text: text-sm (mobile), text-base (sm+)
-- [ ] **TYPE-03**: Line heights: Increased for better readability (1.6-1.8)
-- [ ] **TYPE-04**: No text truncation or overflow on any viewport
-
-### Layouts
-
-- [ ] **LAYOUT-01**: Grid layouts: 1 column (mobile) → 2 columns (tablet) → 3-4 columns (desktop)
-- [ ] **LAYOUT-02**: Flexbox: column direction on mobile, row on desktop
-- [ ] **LAYOUT-03**: Padding: Reduced on mobile (px-4 instead of px-6)
-- [ ] **LAYOUT-04**: Max-width containers: Full bleed on mobile, constrained on desktop
-
-### Animations
-
-- [ ] **ANIM-01**: Reduce animation distances on mobile (30px → 15px)
-- [ ] **ANIM-02**: Adjust animation delays for stacked layouts
-- [ ] **ANIM-03**: Consider prefers-reduced-motion for accessibility
-- [ ] **ANIM-04**: Ensure animations don't cause layout shifts on mobile
-
-### Performance
-
-- [ ] **PERF-01**: Images: Responsive srcset for mobile optimization
-- [ ] **PERF-02**: Video: Preload="metadata" on mobile to save bandwidth
-- [ ] **PERF-03**: Fonts: Ensure proper loading on slow mobile connections
-- [ ] **PERF-04**: No layout shifts during loading
-
-## Testing Checklist
-
-### Viewport Testing
-
-- [ ] **TEST-V01**: 320px (iPhone SE, small phones)
-- [ ] **TEST-V02**: 375px (iPhone 12/13/14)
-- [ ] **TEST-V03**: 390px (iPhone 14 Pro)
-- [ ] **TEST-V04**: 414px (iPhone 12 Pro Max)
-- [ ] **TEST-V05**: 640px (large phones, small tablets)
-- [ ] **TEST-V06**: 768px (iPad, tablet portrait)
-
-### Device Testing
-
-- [ ] **TEST-D01**: iOS Safari (iPhone)
-- [ ] **TEST-D02**: Chrome Mobile (Android)
-- [ ] **TEST-D03**: Firefox Mobile
-- [ ] **TEST-D04**: Samsung Internet
-
-### Orientation Testing
-
-- [ ] **TEST-O01**: Portrait mode on all devices
-- [ ] **TEST-O02**: Landscape mode on phones (optional, but test)
-
-### Interaction Testing
-
-- [ ] **TEST-I01**: Touch targets are easy to tap
-- [ ] **TEST-I02**: Scrolling is smooth
-- [ ] **TEST-I03**: Menus open/close correctly
-- [ ] **TEST-I04**: Forms are usable with mobile keyboards
-- [ ] **TEST-I05**: No horizontal scroll anywhere
-
-### Content Testing
-
-- [ ] **TEST-C01**: All text readable without zooming
-- [ ] **TEST-C02**: No text overflow or truncation
-- [ ] **TEST-C03**: Images load and scale properly
-- [ ] **TEST-C04**: Videos play correctly on mobile
-- [ ] **TEST-C05**: No content hidden off-screen
+- **FAQ-SEARCH**: Search within FAQ (needs analytics data to justify)
+- **FAQ-ANALYTICS**: Track which FAQ questions get opened (needs analytics infrastructure)
+- **PRICE-ROI**: ROI calculator on pricing page (needs real usage data)
+- **PROV-VIDEO**: Video testimonials on provider pages (needs content production)
+- **COOKIE-CONSENT**: Cookie consent banner (separate compliance effort)
+- **EMAIL-NOTIFY**: Email notifications on contact form submission (needs email service setup)
+- **ANALYTICS**: Conversion funnel tracking across all pages (needs analytics tool selection)
+- **A11Y-AUDIT**: Comprehensive accessibility audit of new pages
 
 ## Out of Scope
 
-Explicitly excluded. Documented to prevent scope creep.
-
 | Feature | Reason |
 |---------|--------|
-| Native mobile app functionality | MVP is web responsive only |
-| Mobile-specific features (swipe gestures) | Beyond standard scrolling not needed |
-| Performance optimization beyond basics | Focus is layout, not deep performance tuning |
-| Desktop design changes | Goal is preserve desktop, only fix mobile |
-| New content or features | Mobile responsive only, no new functionality |
-| PWA features | Future milestone |
-
-## Acceptance Criteria
-
-**A component is considered "mobile responsive" when:**
-
-1. ✅ It displays correctly on 320px viewport without horizontal scroll
-2. ✅ All text is readable without zooming
-3. ✅ All interactive elements have 44px+ touch targets
-4. ✅ Layout adapts appropriately at 640px and 768px breakpoints
-5. ✅ Animations work smoothly on mobile
-6. ✅ Desktop experience (768px+) is unchanged
-7. ✅ No console errors or warnings on mobile devices
+| Modifying existing landing components | Explicitly excluded per user request |
+| Payment processing on pricing page | Pricing is display-only; payments deferred to v2.0 |
+| Cookie consent banner | Separate compliance effort, not content pages |
+| CMS for content management | Overkill for pages that change rarely |
+| Native mobile app features | Web-first approach |
+| Email delivery from contact form | Requires email service infrastructure; Convex stores submissions |
+| Analytics/tracking infrastructure | Separate milestone |
+| A/B testing | Requires experiment framework; future milestone |
 
 ## Traceability
 
 Which phases cover which requirements. Updated during roadmap creation.
 
-*To be populated during roadmap creation*
+| Requirement | Phase | Status |
+|-------------|-------|--------|
+| FAQ-01 | TBD | Pending |
+| FAQ-02 | TBD | Pending |
+| FAQ-03 | TBD | Pending |
+| FAQ-04 | TBD | Pending |
+| FAQ-05 | TBD | Pending |
+| FAQ-06 | TBD | Pending |
+| HIW-01 | TBD | Pending |
+| HIW-02 | TBD | Pending |
+| HIW-03 | TBD | Pending |
+| HIW-04 | TBD | Pending |
+| HIW-05 | TBD | Pending |
+| PRICE-01 | TBD | Pending |
+| PRICE-02 | TBD | Pending |
+| PRICE-03 | TBD | Pending |
+| PRICE-04 | TBD | Pending |
+| PRICE-05 | TBD | Pending |
+| PRICE-06 | TBD | Pending |
+| PRICE-07 | TBD | Pending |
+| PRICE-08 | TBD | Pending |
+| PRICE-09 | TBD | Pending |
+| PRICE-10 | TBD | Pending |
+| LEGAL-01 | TBD | Pending |
+| LEGAL-02 | TBD | Pending |
+| LEGAL-03 | TBD | Pending |
+| LEGAL-04 | TBD | Pending |
+| LEGAL-05 | TBD | Pending |
+| LEGAL-06 | TBD | Pending |
+| LEGAL-07 | TBD | Pending |
+| LEGAL-08 | TBD | Pending |
+| LEGAL-09 | TBD | Pending |
+| CONTACT-01 | TBD | Pending |
+| CONTACT-02 | TBD | Pending |
+| CONTACT-03 | TBD | Pending |
+| CONTACT-04 | TBD | Pending |
+| CONTACT-05 | TBD | Pending |
+| CONTACT-06 | TBD | Pending |
+| CONTACT-07 | TBD | Pending |
+| CONTACT-08 | TBD | Pending |
+| CONTACT-09 | TBD | Pending |
+| CONTACT-10 | TBD | Pending |
+| PROV-01 | TBD | Pending |
+| PROV-02 | TBD | Pending |
+| PROV-03 | TBD | Pending |
+| PROV-04 | TBD | Pending |
+| PROV-05 | TBD | Pending |
+| PROV-06 | TBD | Pending |
+| PROV-07 | TBD | Pending |
+| PROV-08 | TBD | Pending |
+| PROV-09 | TBD | Pending |
+| PROV-10 | TBD | Pending |
+| PROV-11 | TBD | Pending |
+| NAV-01 | TBD | Pending |
+| NAV-02 | TBD | Pending |
+| NAV-03 | TBD | Pending |
+| NAV-04 | TBD | Pending |
+| NAV-05 | TBD | Pending |
+| NAV-06 | TBD | Pending |
+| NAV-07 | TBD | Pending |
+| NAV-08 | TBD | Pending |
+
+**Coverage:**
+- v1.8 requirements: 52 total
+- Mapped to phases: 0 (pending roadmap creation)
+- Unmapped: 52
 
 ---
-*Requirements defined: 2026-01-27*
-*Last updated: 2026-01-27*
+*Requirements defined: 2026-01-28*
+*Last updated: 2026-01-28 after initial definition*
