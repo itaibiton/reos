@@ -35,7 +35,11 @@ Add critical conversion and essential pages to the REOS marketing site: FAQ and 
   3. How It Works section animates into view on scroll and ends with a CTA button linking to sign-up
   4. FAQ section includes a "Still have questions?" CTA and emits JSON-LD FAQPage structured data in the page source
   5. Both sections display correctly in English and Hebrew
-**Plans**: TBD (created during phase planning)
+**Plans**: 3 plans
+Plans:
+  - [ ] 53-01-PLAN.md — HowItWorks component with i18n translations (EN + HE)
+  - [ ] 53-02-PLAN.md — FAQ component with tabs, accordion, JSON-LD, and i18n translations (EN + HE)
+  - [ ] 53-03-PLAN.md — Wire both components into landing page and visual verification
 
 ### Phase 54: Legal & Pricing Pages
 **Goal**: Users can review REOS legal terms and compare pricing tiers on dedicated pages
