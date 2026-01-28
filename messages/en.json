@@ -787,6 +787,30 @@
       },
       "copyright": "© {year} REOS Technologies Inc. All rights reserved."
     }
+,
+    "howItWorks": {
+      "heading": "How It Works",
+      "subheading": "From sign-up to closing, REOS guides you through every step of the investment process.",
+      "steps": {
+        "step1": {
+          "title": "Create Your Account",
+          "description": "Sign up and complete your investor profile to receive personalized property recommendations."
+        },
+        "step2": {
+          "title": "Discover Properties",
+          "description": "Browse vetted Israeli real estate opportunities with AI-powered search and smart filters."
+        },
+        "step3": {
+          "title": "Connect with Experts",
+          "description": "Get matched with verified brokers, mortgage advisors, and lawyers who specialize in your market."
+        },
+        "step4": {
+          "title": "Close Your Deal",
+          "description": "Track every stage from offer to closing with full platform support and real-time updates."
+        }
+      },
+      "cta": "Start Investing Today"
+    }
   },
   "properties": {
     "title": "Properties",
