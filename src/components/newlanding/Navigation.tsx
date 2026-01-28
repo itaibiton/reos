@@ -112,7 +112,7 @@ export function Navigation({ className }: NavigationProps) {
           className
         )}
       >
-        <div className="mx-auto px-6 h-16 flex items-center justify-between gap-2">
+        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between gap-2">
           <a href="#" className="flex items-center gap-2 group flex-shrink-0">
             <div className="w-8 h-8 rounded bg-foreground/5 border border-border flex items-center justify-center group-hover:border-border/100 transition-colors">
               <span className="font-medium tracking-tighter text-sm text-foreground">R</span>
