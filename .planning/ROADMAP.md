@@ -50,7 +50,11 @@ Plans:
   2. User can navigate to /pricing and see 3 tiers (Investor free, Broker monthly, Agency custom) with feature comparison table, annual/monthly toggle, "Most Popular" badge, and clear CTA per tier
   3. Pricing page includes a billing FAQ section and trust signals (security badges, "No credit card required")
   4. All three pages have correct Next.js metadata (title, description, Open Graph) and display in both English and Hebrew
-**Plans**: TBD (created during phase planning)
+**Plans**: 3 plans
+Plans:
+  - [ ] 54-01-PLAN.md — Legal i18n content (privacy + terms EN/HE) and shared legal components (TableOfContents, LegalSection)
+  - [ ] 54-02-PLAN.md — Privacy Policy and Terms of Service page routes with metadata
+  - [ ] 54-03-PLAN.md — Pricing page with i18n content, tier components, feature comparison, billing FAQ, and JSON-LD
 
 ### Phase 55: Contact & Provider Landing Pages
 **Goal**: Users can submit inquiries via a contact form and service providers can discover type-specific landing pages
@@ -82,7 +86,7 @@ Plans:
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
 | 53. Landing Page Sections | v1.8 | 0/? | Not Started | - |
-| 54. Legal & Pricing Pages | v1.8 | 0/? | Not Started | - |
+| 54. Legal & Pricing Pages | v1.8 | 0/3 | Not Started | - |
 | 55. Contact & Provider Landing Pages | v1.8 | 0/? | Not Started | - |
 | 56. Navigation Wiring & Cross-Linking | v1.8 | 0/? | Not Started | - |
 
