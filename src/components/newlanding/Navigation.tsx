@@ -78,11 +78,6 @@ export function Navigation({ className }: NavigationProps) {
     <>
     {/* Desktop Navigation - Animated */}
     <motion.div
-      initial={{
-        paddingLeft: "24px",
-        paddingRight: "24px",
-        paddingTop: "16px",
-      }}
       animate={{
         paddingLeft: scrolled ? "0px" : "24px",
         paddingRight: scrolled ? "0px" : "24px",
@@ -95,20 +90,19 @@ export function Navigation({ className }: NavigationProps) {
       className="hidden md:block fixed top-0 left-0 right-0 z-50"
     >
       <motion.nav
-        initial={{
-          borderRadius: "12px",
-          maxWidth: "1280px",
-        }}
+        initial={false}
         animate={{
           borderRadius: scrolled ? "0px" : "12px",
-          maxWidth: scrolled ? "100%" : "1280px",
         }}
         transition={{
           duration: 0.4,
           ease: [0.25, 1, 0.5, 1],
         }}
+        style={{
+          width: scrolled ? "100%" : "min(1280px, 100%)",
+        }}
         className={cn(
-          "mx-auto border bg-background/80 backdrop-blur-xl shadow-lg w-full",
+          "mx-auto border bg-background/80 backdrop-blur-xl shadow-lg transition-all duration-[400ms] ease-[cubic-bezier(0.25,1,0.5,1)]",
           scrolled ? "border-border/50 border-t-0 border-l-0 border-r-0" : "border-border/50",
           className
         )}
