@@ -140,10 +140,12 @@
   }
   html {
     overflow-y: scroll;
+    overflow-x: hidden;
     scroll-behavior: smooth;
   }
   body {
     @apply bg-background text-foreground;
+    overflow-x: hidden;
     transition: background-color 300ms ease-in-out, color 300ms ease-in-out;
   }
 }
