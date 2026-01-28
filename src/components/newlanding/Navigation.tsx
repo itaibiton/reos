@@ -77,32 +77,32 @@ export function Navigation({ className }: NavigationProps) {
   return (
     <motion.div
       animate={{
-        paddingLeft: scrolled ? "0px" : "8px",
-        paddingRight: scrolled ? "0px" : "8px",
-        paddingTop: scrolled ? "0px" : "8px",
+        paddingLeft: scrolled ? "0px" : "0px",
+        paddingRight: scrolled ? "0px" : "0px",
+        paddingTop: scrolled ? "0px" : "0px",
       }}
       transition={{
         duration: 0.4,
         ease: [0.25, 1, 0.5, 1],
       }}
-      className="fixed top-0 left-0 right-0 z-50"
+      className="fixed top-0 left-0 right-0 z-50 md:px-6 md:pt-4"
     >
       <motion.nav
         initial={false}
         animate={{
-          borderRadius: scrolled ? "0px" : "12px",
+          borderRadius: scrolled ? "0px" : "0px",
         }}
         transition={{
           duration: 0.4,
           ease: [0.25, 1, 0.5, 1],
         }}
         className={cn(
-          "mx-auto border bg-background/80 backdrop-blur-xl shadow-lg transition-all duration-[400ms] ease-[cubic-bezier(0.25,1,0.5,1)] w-full max-w-[1280px]",
+          "mx-auto border bg-background/80 backdrop-blur-xl shadow-lg transition-all duration-[400ms] ease-[cubic-bezier(0.25,1,0.5,1)] w-full max-w-[1280px] md:rounded-xl",
           scrolled ? "border-border/50 border-t-0 border-l-0 border-r-0" : "border-border/50",
           className
         )}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-2">
+        <div className="mx-auto px-3 sm:px-4 md:px-6 h-16 flex items-center justify-between gap-2">
           <a href="#" className="flex items-center gap-2 group flex-shrink-0">
             <div className="w-8 h-8 rounded bg-foreground/5 border border-border flex items-center justify-center group-hover:border-border/100 transition-colors">
               <span className="font-medium tracking-tighter text-sm text-foreground">R</span>
