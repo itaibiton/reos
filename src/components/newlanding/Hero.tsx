@@ -402,7 +402,7 @@ export function Hero({ className }: HeroProps) {
 
       {/* Dashboard Preview */}
       <div
-        className="sticky z-20 mt-20 max-w-7xl mx-auto relative px-4 sm:px-6 lg:px-8 top-16 md:top-[calc(50vh-275px)]"
+        className="sticky z-20 mt-20 max-w-7xl mx-auto relative px-4 sm:px-6 lg:px-8 top-20 md:top-[calc(50vh-275px)]"
       >
         <motion.div variants={fadeInUp}>
         {/* MacBook-style bezel - Silver on light, Space Gray on dark */}
@@ -437,7 +437,7 @@ export function Hero({ className }: HeroProps) {
           </div>
 
           {/* Mockup Body */}
-          <div className="flex h-[400px] sm:h-[450px] md:h-[550px]">
+          <div className="flex h-[300px] sm:h-[400px] md:h-[550px]">
             {/* Animated Sidebar */}
             <div
               className={cn(
@@ -757,7 +757,7 @@ export function Hero({ className }: HeroProps) {
         </div>
 
         {/* Stats Section - Below Mockup */}
-        <div className="mt-14 max-w-4xl mx-auto px-4 sm:px-6 relative">
+        <div className="mt-[420px] sm:mt-14 max-w-4xl mx-auto px-4 sm:px-6 relative">
           {/* Initial Stats */}
           <motion.div
             className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8"
