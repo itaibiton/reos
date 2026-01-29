@@ -66,7 +66,10 @@ Plans:
   3. User can navigate to /services/brokers, /services/lawyers, and /services/mortgage-advisors and see a type-specific hero, benefits section, social proof, process steps, and CTA linking to sign-up with role pre-selected
   4. Provider pages use a shared template component with data-driven content, generate statically via generateStaticParams, and include JSON-LD ProfessionalService structured data
   5. All pages display correctly in English and Hebrew with proper Next.js metadata
-**Plans**: TBD (created during phase planning)
+**Plans**: 2 plans
+Plans:
+  - [ ] 55-01-PLAN.md — Contact form Convex backend + react-hook-form/Zod rewrite + honeypot + URL param pre-selection + thank-you page
+  - [ ] 55-02-PLAN.md — Provider pages: social proof, JSON-LD, role CTA, expand to 7 types with full i18n
 
 ### Phase 56: Navigation Wiring & Cross-Linking
 **Goal**: Every new page is discoverable through navigation, footer, and cross-page CTAs with no dead links remaining
@@ -87,7 +90,7 @@ Plans:
 |-------|-----------|----------------|--------|-----------|
 | 53. Landing Page Sections | v1.8 | 3/3 | Complete | 2026-01-28 |
 | 54. Legal & Pricing Pages | v1.8 | 3/3 | Complete | 2026-01-28 |
-| 55. Contact & Provider Landing Pages | v1.8 | 0/? | Not Started | - |
+| 55. Contact & Provider Landing Pages | v1.8 | 0/2 | Not Started | - |
 | 56. Navigation Wiring & Cross-Linking | v1.8 | 0/? | Not Started | - |
 
 ## Requirements Coverage
