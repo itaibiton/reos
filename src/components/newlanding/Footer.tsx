@@ -3,6 +3,7 @@
 import { motion, type Variants } from "framer-motion";
 import { Camera, Twitter, Github } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
 interface FooterProps {
@@ -19,29 +20,24 @@ export function Footer({ className }: FooterProps) {
   const currentYear = new Date().getFullYear();
 
   const productLinks = [
-    { label: t("product.platform"), href: "#" },
-    { label: t("product.dataApi"), href: "#" },
-    { label: t("product.workflows"), href: "#" },
-    { label: t("product.security"), href: "#" },
+    { label: t("product.pricing"), href: "/pricing" },
+    { label: t("product.services"), href: "/services" },
   ];
 
   const solutionsLinks = [
-    { label: t("solutions.residential"), href: "#" },
-    { label: t("solutions.commercial"), href: "#" },
-    { label: t("solutions.industrial"), href: "#" },
+    { label: t("solutions.brokers"), href: "/services/broker" },
+    { label: t("solutions.lawyers"), href: "/services/lawyer" },
+    { label: t("solutions.mortgageAdvisors"), href: "/services/mortgage-advisor" },
+    { label: t("solutions.allServices"), href: "/services" },
   ];
 
   const companyLinks = [
-    { label: t("company.about"), href: "#" },
-    { label: t("company.careers"), href: "#" },
-    { label: t("company.blog"), href: "#" },
-    { label: t("company.contact"), href: "#" },
+    { label: t("company.contact"), href: "/contact" },
   ];
 
   const legalLinks = [
-    { label: t("legal.privacy"), href: "#" },
-    { label: t("legal.terms"), href: "#" },
-    { label: t("legal.sla"), href: "#" },
+    { label: t("legal.privacy"), href: "/privacy" },
+    { label: t("legal.terms"), href: "/terms" },
   ];
 
   return (
@@ -55,12 +51,12 @@ export function Footer({ className }: FooterProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 md:grid-cols-6 gap-10 mb-16">
           <div className="col-span-2">
-            <a href="#" className="flex items-center gap-2 mb-6">
+            <Link href="/" className="flex items-center gap-2 mb-6">
               <div className="w-6 h-6 rounded bg-foreground/10 flex items-center justify-center text-foreground text-xs">
                 R
               </div>
               <span className="font-normal text-sm tracking-widest text-foreground/90">{t("logo")}</span>
-            </a>
+            </Link>
             <p className="text-sm text-muted-foreground font-light max-w-xs">
               {t("tagline")}
             </p>
@@ -71,9 +67,9 @@ export function Footer({ className }: FooterProps) {
             <ul className="space-y-3 text-sm text-foreground/50 font-light">
               {productLinks.map((link, index) => (
                 <li key={index}>
-                  <a href={link.href} className="hover:text-foreground transition-colors">
+                  <Link href={link.href} className="hover:text-foreground transition-colors">
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -84,9 +80,9 @@ export function Footer({ className }: FooterProps) {
             <ul className="space-y-3 text-sm text-foreground/50 font-light">
               {solutionsLinks.map((link, index) => (
                 <li key={index}>
-                  <a href={link.href} className="hover:text-foreground transition-colors">
+                  <Link href={link.href} className="hover:text-foreground transition-colors">
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -97,9 +93,9 @@ export function Footer({ className }: FooterProps) {
             <ul className="space-y-3 text-sm text-foreground/50 font-light">
               {companyLinks.map((link, index) => (
                 <li key={index}>
-                  <a href={link.href} className="hover:text-foreground transition-colors">
+                  <Link href={link.href} className="hover:text-foreground transition-colors">
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -110,9 +106,9 @@ export function Footer({ className }: FooterProps) {
             <ul className="space-y-3 text-sm text-foreground/50 font-light">
               {legalLinks.map((link, index) => (
                 <li key={index}>
-                  <a href={link.href} className="hover:text-foreground transition-colors">
+                  <Link href={link.href} className="hover:text-foreground transition-colors">
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

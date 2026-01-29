@@ -517,26 +517,21 @@
         "legal": "משפטי"
       },
       "product": {
-        "platform": "פלטפורמה",
-        "dataApi": "API נתונים",
-        "workflows": "זרימות עבודה",
-        "security": "אבטחה"
+        "pricing": "תמחור",
+        "services": "שירותים"
       },
       "solutions": {
-        "residential": "מגורים",
-        "commercial": "מסחרי",
-        "industrial": "תעשייתי"
+        "brokers": "מתווכי נדל\"ן",
+        "lawyers": "עורכי דין נדל\"ן",
+        "mortgageAdvisors": "יועצי משכנתאות",
+        "allServices": "כל השירותים"
       },
       "company": {
-        "about": "אודות",
-        "careers": "קריירה",
-        "blog": "בלוג",
         "contact": "צור קשר"
       },
       "legal": {
         "privacy": "פרטיות",
-        "terms": "תנאים",
-        "sla": "SLA"
+        "terms": "תנאים"
       },
       "copyright": "© {year} REOS Technologies Inc. כל הזכויות שמורות."
     },

@@ -782,26 +782,21 @@
         "legal": "Legal"
       },
       "product": {
-        "platform": "Platform",
-        "dataApi": "Data API",
-        "workflows": "Workflows",
-        "security": "Security"
+        "pricing": "Pricing",
+        "services": "Services"
       },
       "solutions": {
-        "residential": "Residential",
-        "commercial": "Commercial",
-        "industrial": "Industrial"
+        "brokers": "Real Estate Brokers",
+        "lawyers": "Real Estate Lawyers",
+        "mortgageAdvisors": "Mortgage Advisors",
+        "allServices": "All Services"
       },
       "company": {
-        "about": "About",
-        "careers": "Careers",
-        "blog": "Blog",
         "contact": "Contact"
       },
       "legal": {
         "privacy": "Privacy",
-        "terms": "Terms",
-        "sla": "SLA"
+        "terms": "Terms"
       },
       "copyright": "© {year} REOS Technologies Inc. All rights reserved."
     },
