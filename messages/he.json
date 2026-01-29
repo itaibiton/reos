@@ -3920,5 +3920,12 @@
       "documents": "מסמכים",
       "noDocuments": "אין מסמכים שהועלו עדיין"
     }
+  },
+  "processTimeline": {
+    "cancelled": "העסקה בוטלה",
+    "completed": "הושלם",
+    "current": "שלב נוכחי",
+    "upcoming": "בהמשך",
+    "stageDate": "השלב הושג בתאריך {date}"
   }
 }

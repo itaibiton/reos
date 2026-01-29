@@ -18,6 +18,7 @@ import {
   Home01Icon,
   FolderOpenIcon,
 } from "@hugeicons/core-free-icons";
+import ProcessTimeline from "@/components/deal/ProcessTimeline";
 
 const FILE_CATEGORY_COLORS: Record<string, string> = {
   contract: "bg-blue-100 text-blue-800",
@@ -152,6 +153,15 @@ export default function ClientDetailContent({ clientId }: { clientId: string }) 
                     </span>
                   </div>
                 )}
+              </div>
+
+              {/* Process Timeline */}
+              <div className="border-t px-4 py-4">
+                <ProcessTimeline
+                  currentStage={deal.stage}
+                  stageHistory={deal.stageHistory || []}
+                  createdAt={deal.createdAt}
+                />
               </div>
 
               {/* Documents Section */}

@@ -3808,5 +3808,12 @@
       "documents": "Documents",
       "noDocuments": "No documents uploaded yet"
     }
+  },
+  "processTimeline": {
+    "cancelled": "This deal has been cancelled",
+    "completed": "Completed",
+    "current": "Current Stage",
+    "upcoming": "Upcoming",
+    "stageDate": "Stage reached on {date}"
   }
 }
