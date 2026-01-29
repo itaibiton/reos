@@ -62,10 +62,19 @@ export default function OnboardingPage() {
     setIsSubmitting(true);
     try {
       await setUserRole({ role: selectedRole });
-      // Investors go to questionnaire, service providers go to dashboard
+
+      // Route based on role
       if (selectedRole === "investor") {
         router.push("/onboarding/questionnaire");
+      } else if (
+        selectedRole === "broker" ||
+        selectedRole === "mortgage_advisor" ||
+        selectedRole === "lawyer"
+      ) {
+        // Service providers go to vendor onboarding
+        router.push("/onboarding/vendor-profile");
       } else {
+        // Admins go directly to dashboard
         router.push("/dashboard");
       }
     } catch (error) {

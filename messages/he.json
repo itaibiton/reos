@@ -3677,5 +3677,152 @@
         }
       }
     }
+  },
+  "vendorOnboarding": {
+    "title": "השלם את הפרופיל שלך",
+    "subtitle": "ספר לנו על הרקע המקצועי שלך",
+    "optional": "אופציונלי",
+    "notProvided": "לא סופק",
+    "steps": {
+      "basicInfo": {
+        "title": "מידע בסיסי",
+        "description": "תן לנו לדעת מי אתה"
+      },
+      "professionalDetails": {
+        "title": "פרטים מקצועיים",
+        "description": "שתף את הרקע המקצועי שלך"
+      },
+      "serviceArea": {
+        "title": "אזור שירות וביוגרפיה",
+        "description": "ספר לנו איפה אתה עובד ועל עצמך"
+      },
+      "review": {
+        "title": "סקירה ושליחה",
+        "description": "סקור את המידע שלך לפני השליחה",
+        "note": "הפרופיל שלך ייבדק על ידי הצוות שלנו תוך 48 שעות. תקבל אימייל לאחר האישור."
+      }
+    },
+    "providerTypes": {
+      "broker": "מתווך נדל\"ן",
+      "mortgageAdvisor": "יועץ משכנתאות",
+      "lawyer": "עורך דין"
+    },
+    "fields": {
+      "fullName": {
+        "label": "שם מלא",
+        "placeholder": "הזן את שמך המלא"
+      },
+      "email": {
+        "label": "אימייל",
+        "placeholder": "your@email.com"
+      },
+      "phoneNumber": {
+        "label": "מספר טלפון",
+        "placeholder": "050-123-4567"
+      },
+      "providerType": {
+        "label": "סוג ספק שירות",
+        "placeholder": "בחר את המקצוע שלך"
+      },
+      "companyName": {
+        "label": "שם חברה",
+        "placeholder": "שם החברה או הסוכנות שלך"
+      },
+      "licenseNumber": {
+        "label": "מספר רישיון",
+        "placeholder": "מספר הרישיון המקצועי שלך"
+      },
+      "yearsExperience": {
+        "label": "שנות ניסיון",
+        "placeholder": "0"
+      },
+      "specializations": {
+        "label": "התמחויות"
+      },
+      "serviceAreas": {
+        "label": "אזורי שירות"
+      },
+      "languages": {
+        "label": "שפות"
+      },
+      "bio": {
+        "label": "ביוגרפיה מקצועית",
+        "placeholder": "ספר ללקוחות פוטנציאליים על הניסיון שלך, הגישה שלך ומה שמייחד אותך...",
+        "charCount": "תווים"
+      },
+      "websiteUrl": {
+        "label": "אתר אינטרנט",
+        "placeholder": "https://yourwebsite.com"
+      },
+      "externalRecommendations": {
+        "label": "המלצות חיצוניות",
+        "placeholder": "כלול כל המלצות או עדויות מחוץ לפלטפורמה",
+        "description": "אתה יכול להדביק עדויות, המלצות מ-LinkedIn או ביקורות ממקורות אחרים"
+      }
+    },
+    "specializations": {
+      "broker": {
+        "residential": "מגורים",
+        "commercial": "מסחרי",
+        "luxury": "נכסי יוקרה",
+        "newConstruction": "בנייה חדשה",
+        "investmentProperties": "נכסי השקעה",
+        "land": "קרקע"
+      },
+      "mortgage_advisor": {
+        "firstTimeBuyers": "קונים ראשונים",
+        "investmentLoans": "הלוואות השקעה",
+        "refinancing": "מימון מחדש",
+        "commercialMortgages": "משכנתאות מסחריות",
+        "internationalBuyers": "קונים בינלאומיים"
+      },
+      "lawyer": {
+        "realEstateTransactions": "עסקאות נדל\"ן",
+        "propertyLaw": "דיני נכסים",
+        "commercialRealEstate": "נדל\"ן מסחרי",
+        "landlordTenant": "בעל בית-שוכר",
+        "zoningLandUse": "תכנון ושימוש בקרקע"
+      }
+    },
+    "photoUpload": {
+      "add": "הוסף תמונה",
+      "change": "שנה תמונה",
+      "uploading": "מעלה תמונה...",
+      "success": "התמונה הועלתה בהצלחה",
+      "error": "העלאת התמונה נכשלה",
+      "invalidFormat": "אנא בחר תמונה בפורמט JPEG, PNG או WebP",
+      "tooLarge": "התמונה חייבת להיות פחות מ-5MB",
+      "helper": "JPG, PNG או WebP. מקסימום 5MB.",
+      "alt": "תמונת פרופיל"
+    },
+    "actions": {
+      "back": "חזור",
+      "next": "הבא",
+      "submit": "שלח לאישור",
+      "edit": "ערוך",
+      "saving": "שומר...",
+      "submitting": "שולח..."
+    },
+    "errors": {
+      "nameMin": "השם חייב להיות לפחות 2 תווים",
+      "emailInvalid": "אנא הזן כתובת אימייל תקינה",
+      "phoneMin": "מספר טלפון חייב להיות לפחות 7 תווים",
+      "providerTypeRequired": "אנא בחר את המקצוע שלך",
+      "licenseRequired": "מספר רישיון נדרש",
+      "experienceRange": "הניסיון חייב להיות בין 0 ל-50 שנים",
+      "specializationRequired": "אנא בחר לפחות התמחות אחת",
+      "serviceAreaRequired": "אנא בחר לפחות אזור שירות אחד",
+      "languageRequired": "אנא בחר לפחות שפה אחת",
+      "bioMin": "הביוגרפיה חייבת להיות לפחות 20 תווים",
+      "bioMax": "הביוגרפיה חייבת להיות פחות מ-500 תווים",
+      "websiteInvalid": "אנא הזן כתובת אתר תקינה",
+      "recommendationsMax": "ההמלצות חייבות להיות פחות מ-2000 תווים",
+      "validationFailed": "אנא בדוק את כל השדות לשגיאות",
+      "saveDraftFailed": "שמירת טיוטה נכשלה",
+      "submitFailed": "שליחת הפרופיל נכשלה. אנא נסה שוב."
+    },
+    "success": {
+      "submitted": "הפרופיל נשלח לאישור! נחזור אליך בקרוב."
+    }
   }
 }

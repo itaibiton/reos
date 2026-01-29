@@ -3565,5 +3565,152 @@
         }
       }
     }
+  },
+  "vendorOnboarding": {
+    "title": "Complete Your Profile",
+    "subtitle": "Tell us about your professional background",
+    "optional": "optional",
+    "notProvided": "Not provided",
+    "steps": {
+      "basicInfo": {
+        "title": "Basic Information",
+        "description": "Let us know who you are"
+      },
+      "professionalDetails": {
+        "title": "Professional Details",
+        "description": "Share your professional background"
+      },
+      "serviceArea": {
+        "title": "Service Area & Bio",
+        "description": "Tell us where you work and about yourself"
+      },
+      "review": {
+        "title": "Review & Submit",
+        "description": "Review your information before submitting",
+        "note": "Your profile will be reviewed by our team within 48 hours. You'll receive an email once approved."
+      }
+    },
+    "providerTypes": {
+      "broker": "Real Estate Broker",
+      "mortgageAdvisor": "Mortgage Advisor",
+      "lawyer": "Lawyer"
+    },
+    "fields": {
+      "fullName": {
+        "label": "Full Name",
+        "placeholder": "Enter your full name"
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "your@email.com"
+      },
+      "phoneNumber": {
+        "label": "Phone Number",
+        "placeholder": "+972 50 123 4567"
+      },
+      "providerType": {
+        "label": "Service Provider Type",
+        "placeholder": "Select your profession"
+      },
+      "companyName": {
+        "label": "Company Name",
+        "placeholder": "Your company or agency name"
+      },
+      "licenseNumber": {
+        "label": "License Number",
+        "placeholder": "Your professional license number"
+      },
+      "yearsExperience": {
+        "label": "Years of Experience",
+        "placeholder": "0"
+      },
+      "specializations": {
+        "label": "Specializations"
+      },
+      "serviceAreas": {
+        "label": "Service Areas"
+      },
+      "languages": {
+        "label": "Languages"
+      },
+      "bio": {
+        "label": "Professional Bio",
+        "placeholder": "Tell potential clients about your experience, approach, and what makes you unique...",
+        "charCount": "characters"
+      },
+      "websiteUrl": {
+        "label": "Website",
+        "placeholder": "https://yourwebsite.com"
+      },
+      "externalRecommendations": {
+        "label": "External Recommendations",
+        "placeholder": "Include any recommendations or testimonials from outside the platform",
+        "description": "You can paste testimonials, LinkedIn recommendations, or reviews from other sources"
+      }
+    },
+    "specializations": {
+      "broker": {
+        "residential": "Residential",
+        "commercial": "Commercial",
+        "luxury": "Luxury Properties",
+        "newConstruction": "New Construction",
+        "investmentProperties": "Investment Properties",
+        "land": "Land"
+      },
+      "mortgage_advisor": {
+        "firstTimeBuyers": "First-time Buyers",
+        "investmentLoans": "Investment Loans",
+        "refinancing": "Refinancing",
+        "commercialMortgages": "Commercial Mortgages",
+        "internationalBuyers": "International Buyers"
+      },
+      "lawyer": {
+        "realEstateTransactions": "Real Estate Transactions",
+        "propertyLaw": "Property Law",
+        "commercialRealEstate": "Commercial Real Estate",
+        "landlordTenant": "Landlord-Tenant",
+        "zoningLandUse": "Zoning & Land Use"
+      }
+    },
+    "photoUpload": {
+      "add": "Add Photo",
+      "change": "Change Photo",
+      "uploading": "Uploading photo...",
+      "success": "Photo uploaded successfully",
+      "error": "Failed to upload photo",
+      "invalidFormat": "Please select a JPEG, PNG, or WebP image",
+      "tooLarge": "Photo must be less than 5MB",
+      "helper": "JPG, PNG, or WebP. Max 5MB.",
+      "alt": "Profile photo"
+    },
+    "actions": {
+      "back": "Back",
+      "next": "Next",
+      "submit": "Submit for Approval",
+      "edit": "Edit",
+      "saving": "Saving...",
+      "submitting": "Submitting..."
+    },
+    "errors": {
+      "nameMin": "Name must be at least 2 characters",
+      "emailInvalid": "Please enter a valid email address",
+      "phoneMin": "Phone number must be at least 7 characters",
+      "providerTypeRequired": "Please select your profession",
+      "licenseRequired": "License number is required",
+      "experienceRange": "Experience must be between 0 and 50 years",
+      "specializationRequired": "Please select at least one specialization",
+      "serviceAreaRequired": "Please select at least one service area",
+      "languageRequired": "Please select at least one language",
+      "bioMin": "Bio must be at least 20 characters",
+      "bioMax": "Bio must be less than 500 characters",
+      "websiteInvalid": "Please enter a valid website URL",
+      "recommendationsMax": "Recommendations must be less than 2000 characters",
+      "validationFailed": "Please check all fields for errors",
+      "saveDraftFailed": "Failed to save draft",
+      "submitFailed": "Failed to submit profile. Please try again."
+    },
+    "success": {
+      "submitted": "Profile submitted for approval! You'll hear from us soon."
+    }
   }
 }
