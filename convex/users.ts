@@ -109,12 +109,13 @@ export const setUserRole = mutation({
       args.role === "mortgage_advisor" ||
       args.role === "lawyer";
 
-    // Service providers complete onboarding after role selection
+    // Service providers now go through vendor onboarding (v1.9)
     // Investors need to complete the questionnaire first
+    // Only admins are fully onboarded after role selection
     await ctx.db.patch(user._id, {
       role: args.role,
-      onboardingComplete: isServiceProvider || args.role === "admin",
-      onboardingStep: isInvestor ? 1 : undefined, // 1 = role selected, questionnaire pending
+      onboardingComplete: args.role === "admin",
+      onboardingStep: isInvestor || isServiceProvider ? 1 : undefined, // 1 = role selected, onboarding pending
       updatedAt: Date.now(),
     });
 
@@ -537,5 +538,83 @@ export const setViewingAsRole = mutation({
       viewingAsRole: args.viewingAsRole,
       updatedAt: Date.now(),
     });
+  },
+});
+
+// ============================================================================
+// PROFILE PHOTO UPLOAD (v1.9)
+// ============================================================================
+
+// Generate upload URL for custom profile photo
+export const generateProfilePhotoUploadUrl = mutation({
+  args: {},
+  handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Not authenticated");
+    }
+
+    return await ctx.storage.generateUploadUrl();
+  },
+});
+
+// Save uploaded profile photo
+export const saveProfilePhoto = mutation({
+  args: {
+    storageId: v.id("_storage"),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Not authenticated");
+    }
+
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_clerk_id", (q) => q.eq("clerkId", identity.subject))
+      .unique();
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    // Delete old photo if exists
+    if (user.customImageStorageId) {
+      await ctx.storage.delete(user.customImageStorageId);
+    }
+
+    // Save new photo
+    await ctx.db.patch(user._id, {
+      customImageStorageId: args.storageId,
+      updatedAt: Date.now(),
+    });
+
+    // Get public URL
+    const url = await ctx.storage.getUrl(args.storageId);
+
+    return {
+      url,
+      storageId: args.storageId,
+    };
+  },
+});
+
+// Get profile photo URL for a user
+export const getProfilePhotoUrl = query({
+  args: {
+    userId: v.id("users"),
+  },
+  handler: async (ctx, args) => {
+    const user = await ctx.db.get(args.userId);
+    if (!user) {
+      return null;
+    }
+
+    // Return custom photo if exists, otherwise Clerk photo
+    if (user.customImageStorageId) {
+      return await ctx.storage.getUrl(user.customImageStorageId);
+    }
+
+    return user.imageUrl;
   },
 });

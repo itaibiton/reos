@@ -163,13 +163,24 @@ const notificationType = v.union(
   v.literal("file_uploaded"),
   v.literal("request_received"),
   v.literal("request_accepted"),
-  v.literal("request_declined")
+  v.literal("request_declined"),
+  v.literal("vendor_submitted"),
+  v.literal("vendor_approved"),
+  v.literal("vendor_rejected")
 );
 
 // Investor questionnaire status
 const questionnaireStatus = v.union(
   v.literal("draft"),
   v.literal("complete")
+);
+
+// Approval status for vendor registration
+const approvalStatus = v.union(
+  v.literal("draft"),
+  v.literal("pending"),
+  v.literal("approved"),
+  v.literal("rejected")
 );
 
 // Post type discriminator
@@ -204,6 +215,8 @@ export default defineSchema({
     name: v.optional(v.string()),
     // Profile image URL
     imageUrl: v.optional(v.string()),
+    // Custom profile photo (Convex storage) - takes precedence over imageUrl
+    customImageStorageId: v.optional(v.id("_storage")),
     // User's role in the system
     role: v.optional(userRoles),
     // Role the admin is viewing as (for testing different perspectives)
@@ -297,12 +310,22 @@ export default defineSchema({
       requestReceivedNotify: v.boolean(),
     })),
 
+    // Vendor approval workflow (v1.9)
+    approvalStatus: v.optional(approvalStatus),
+    submittedAt: v.optional(v.number()),
+    reviewedAt: v.optional(v.number()),
+    reviewedBy: v.optional(v.id("users")),
+    rejectionReason: v.optional(v.string()),
+    websiteUrl: v.optional(v.string()),
+    externalRecommendations: v.optional(v.string()),
+
     // Timestamps
     createdAt: v.number(),
     updatedAt: v.number(),
   })
     .index("by_user", ["userId"])
-    .index("by_provider_type", ["providerType"]),
+    .index("by_provider_type", ["providerType"])
+    .index("by_approval_status", ["approvalStatus"]),
 
   // Property listings
   properties: defineTable({

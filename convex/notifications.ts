@@ -9,7 +9,10 @@ const notificationTypeValidator = v.union(
   v.literal("file_uploaded"),
   v.literal("request_received"),
   v.literal("request_accepted"),
-  v.literal("request_declined")
+  v.literal("request_declined"),
+  v.literal("vendor_submitted"),
+  v.literal("vendor_approved"),
+  v.literal("vendor_rejected")
 );
 
 // Type for notification type
@@ -19,7 +22,10 @@ export type NotificationType =
   | "file_uploaded"
   | "request_received"
   | "request_accepted"
-  | "request_declined";
+  | "request_declined"
+  | "vendor_submitted"
+  | "vendor_approved"
+  | "vendor_rejected";
 
 // ============================================================================
 // HELPER FUNCTION - For use by other modules

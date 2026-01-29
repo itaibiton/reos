@@ -1,5 +1,6 @@
 import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
+import { createNotification } from "./notifications";
 
 // Validators
 const providerTypeValidator = v.union(
@@ -23,6 +24,7 @@ const contactPreferenceValidator = v.union(
 );
 
 // Get current user's service provider profile
+// Returns full profile with user name and email for wizard pre-population and resubmission
 export const getMyProfile = query({
   args: {},
   handler: async (ctx) => {
@@ -42,15 +44,26 @@ export const getMyProfile = query({
     }
 
     // Check if user is a service provider
-    if (!user.role || user.role === "investor") {
+    if (!user.role || user.role === "investor" || user.role === "admin") {
       return null;
     }
 
     // Get service provider profile
-    return await ctx.db
+    const profile = await ctx.db
       .query("serviceProviderProfiles")
       .withIndex("by_user", (q) => q.eq("userId", user._id))
       .unique();
+
+    if (!profile) {
+      return null;
+    }
+
+    // Return full profile object with user data for wizard
+    return {
+      profile,
+      userName: user.name || user.email || "",
+      userEmail: user.email,
+    };
   },
 });
 
@@ -109,7 +122,7 @@ export const upsertProfile = mutation({
     const providerType = user.role as "broker" | "mortgage_advisor" | "lawyer";
 
     if (existingProfile) {
-      // Update existing profile
+      // Update existing profile (do NOT change approvalStatus)
       await ctx.db.patch(existingProfile._id, {
         ...args,
         providerType,
@@ -133,6 +146,7 @@ export const upsertProfile = mutation({
         ...args,
         acceptingNewClients: true, // Default to accepting
         notificationPreferences: defaultNotificationPreferences,
+        approvalStatus: "draft", // New profiles start as draft
         createdAt: now,
         updatedAt: now,
       });
@@ -151,6 +165,11 @@ export const getProvidersByType = query({
       .query("serviceProviderProfiles")
       .withIndex("by_provider_type", (q) => q.eq("providerType", args.providerType))
       .collect();
+
+    // Filter out unapproved vendors (grandfathering: undefined = approved)
+    providers = providers.filter(
+      (p) => p.approvalStatus === "approved" || p.approvalStatus === undefined
+    );
 
     // Filter by service area if specified
     if (args.serviceArea) {
@@ -190,6 +209,11 @@ export const listByType = query({
         q.eq("providerType", args.providerType)
       )
       .collect();
+
+    // Filter out unapproved vendors (grandfathering: undefined = approved)
+    providers = providers.filter(
+      (p) => p.approvalStatus === "approved" || p.approvalStatus === undefined
+    );
 
     // Filter by city if provided (check serviceAreas)
     if (args.city) {
@@ -281,6 +305,30 @@ export const getPublicProfile = query({
 
     if (!profile) {
       return null;
+    }
+
+    // Visibility check: hide unapproved profiles from non-owners and non-admins
+    if (
+      profile.approvalStatus !== "approved" &&
+      profile.approvalStatus !== undefined
+    ) {
+      // Get current user
+      const identity = await ctx.auth.getUserIdentity();
+      let currentUser = null;
+      if (identity) {
+        currentUser = await ctx.db
+          .query("users")
+          .withIndex("by_clerk_id", (q) => q.eq("clerkId", identity.subject))
+          .unique();
+      }
+
+      // Check if current user is the owner or an admin
+      const isOwner = currentUser?._id === args.providerId;
+      const isAdmin = currentUser?.role === "admin";
+
+      if (!isOwner && !isAdmin) {
+        return null;
+      }
     }
 
     // Get reviews for this provider
@@ -395,6 +443,288 @@ export const getPublicProfile = query({
 
       // Portfolio (last 5 completed deals)
       portfolio,
+    };
+  },
+});
+
+// ============================================================================
+// VENDOR APPROVAL WORKFLOW (v1.9)
+// ============================================================================
+
+// Submit vendor profile for approval (vendor-facing)
+export const submitForApproval = mutation({
+  args: {},
+  handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Not authenticated");
+    }
+
+    // Get user
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_clerk_id", (q) => q.eq("clerkId", identity.subject))
+      .unique();
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    // Get profile
+    const profile = await ctx.db
+      .query("serviceProviderProfiles")
+      .withIndex("by_user", (q) => q.eq("userId", user._id))
+      .unique();
+
+    if (!profile) {
+      throw new Error("Profile not found");
+    }
+
+    // Validate required fields
+    if (!profile.bio || profile.bio.trim().length === 0) {
+      throw new Error("Bio is required");
+    }
+    if (!profile.serviceAreas || profile.serviceAreas.length === 0) {
+      throw new Error("At least one service area is required");
+    }
+    if (!profile.languages || profile.languages.length === 0) {
+      throw new Error("At least one language is required");
+    }
+    if (!profile.phoneNumber || profile.phoneNumber.trim().length === 0) {
+      throw new Error("Phone number is required");
+    }
+
+    const now = Date.now();
+
+    // Update profile to pending status
+    await ctx.db.patch(profile._id, {
+      approvalStatus: "pending",
+      submittedAt: now,
+      rejectionReason: undefined,
+      updatedAt: now,
+    });
+
+    // Notify all admin users
+    const admins = await ctx.db
+      .query("users")
+      .withIndex("by_role", (q) => q.eq("role", "admin"))
+      .collect();
+
+    for (const admin of admins) {
+      await createNotification(ctx, {
+        userId: admin._id,
+        type: "vendor_submitted",
+        title: "New vendor pending approval",
+        message: `${user.name || user.email} submitted their profile for approval`,
+        link: "/admin/vendors/pending",
+      });
+    }
+
+    return { success: true };
+  },
+});
+
+// Approve vendor (admin-only)
+export const approveVendor = mutation({
+  args: {
+    profileId: v.id("serviceProviderProfiles"),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Not authenticated");
+    }
+
+    // Get current user (admin check)
+    const adminUser = await ctx.db
+      .query("users")
+      .withIndex("by_clerk_id", (q) => q.eq("clerkId", identity.subject))
+      .unique();
+
+    if (!adminUser || adminUser.role !== "admin") {
+      throw new Error("Only admins can approve vendors");
+    }
+
+    // Get profile
+    const profile = await ctx.db.get(args.profileId);
+    if (!profile) {
+      throw new Error("Profile not found");
+    }
+
+    // State machine guard: only pending profiles can be approved
+    if (profile.approvalStatus !== "pending") {
+      throw new Error("Only pending profiles can be approved");
+    }
+
+    const now = Date.now();
+
+    // Update profile to approved
+    await ctx.db.patch(args.profileId, {
+      approvalStatus: "approved",
+      reviewedAt: now,
+      reviewedBy: adminUser._id,
+      updatedAt: now,
+    });
+
+    // Mark vendor user as onboarding complete
+    await ctx.db.patch(profile.userId, {
+      onboardingComplete: true,
+      updatedAt: now,
+    });
+
+    // Notify vendor
+    await createNotification(ctx, {
+      userId: profile.userId,
+      type: "vendor_approved",
+      title: "Profile approved!",
+      message: "Your service provider profile has been approved. Welcome to REOS!",
+      link: "/dashboard",
+    });
+
+    return { success: true };
+  },
+});
+
+// Reject vendor (admin-only)
+export const rejectVendor = mutation({
+  args: {
+    profileId: v.id("serviceProviderProfiles"),
+    reason: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Not authenticated");
+    }
+
+    // Get current user (admin check)
+    const adminUser = await ctx.db
+      .query("users")
+      .withIndex("by_clerk_id", (q) => q.eq("clerkId", identity.subject))
+      .unique();
+
+    if (!adminUser || adminUser.role !== "admin") {
+      throw new Error("Only admins can reject vendors");
+    }
+
+    // Get profile
+    const profile = await ctx.db.get(args.profileId);
+    if (!profile) {
+      throw new Error("Profile not found");
+    }
+
+    // State machine guard: only pending profiles can be rejected
+    if (profile.approvalStatus !== "pending") {
+      throw new Error("Only pending profiles can be rejected");
+    }
+
+    const now = Date.now();
+
+    // Update profile to rejected
+    await ctx.db.patch(args.profileId, {
+      approvalStatus: "rejected",
+      reviewedAt: now,
+      reviewedBy: adminUser._id,
+      rejectionReason: args.reason,
+      updatedAt: now,
+    });
+
+    // Notify vendor
+    const rejectionMessage = args.reason
+      ? `Your profile was not approved. Reason: ${args.reason}. You can revise and resubmit.`
+      : "Your profile was not approved. Please revise and resubmit.";
+
+    await createNotification(ctx, {
+      userId: profile.userId,
+      type: "vendor_rejected",
+      title: "Profile not approved",
+      message: rejectionMessage,
+      link: "/onboarding",
+    });
+
+    return { success: true };
+  },
+});
+
+// List pending vendors (admin-only)
+export const listPendingVendors = query({
+  args: {},
+  handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      return [];
+    }
+
+    // Get current user (admin check)
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_clerk_id", (q) => q.eq("clerkId", identity.subject))
+      .unique();
+
+    if (!user || user.role !== "admin") {
+      return [];
+    }
+
+    // Query pending vendors
+    const pendingProfiles = await ctx.db
+      .query("serviceProviderProfiles")
+      .withIndex("by_approval_status", (q) => q.eq("approvalStatus", "pending"))
+      .collect();
+
+    // Enrich with user data
+    const enrichedProfiles = await Promise.all(
+      pendingProfiles.map(async (profile) => {
+        const vendorUser = await ctx.db.get(profile.userId);
+        return {
+          ...profile,
+          name: vendorUser?.name,
+          email: vendorUser?.email,
+          imageUrl: vendorUser?.imageUrl,
+        };
+      })
+    );
+
+    // Sort by submittedAt descending (most recent first)
+    enrichedProfiles.sort((a, b) => (b.submittedAt || 0) - (a.submittedAt || 0));
+
+    return enrichedProfiles;
+  },
+});
+
+// Get my approval status (vendor-facing)
+export const getMyApprovalStatus = query({
+  args: {},
+  handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      return null;
+    }
+
+    // Get user
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_clerk_id", (q) => q.eq("clerkId", identity.subject))
+      .unique();
+
+    if (!user) {
+      return null;
+    }
+
+    // Get profile
+    const profile = await ctx.db
+      .query("serviceProviderProfiles")
+      .withIndex("by_user", (q) => q.eq("userId", user._id))
+      .unique();
+
+    if (!profile) {
+      return null;
+    }
+
+    return {
+      status: profile.approvalStatus ?? null,
+      submittedAt: profile.submittedAt,
+      reviewedAt: profile.reviewedAt,
+      rejectionReason: profile.rejectionReason,
     };
   },
 });
