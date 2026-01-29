@@ -1946,7 +1946,9 @@
       "noDeals": "No completed deals yet.",
       "contactInfo": "Contact Information",
       "preferredContact": "Preferred contact method",
-      "license": "License"
+      "license": "License",
+      "recommendations": "Recommendations",
+      "website": "Website"
     },
     "filters": {
       "serviceArea": "Service Area",

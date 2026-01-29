@@ -11,7 +11,7 @@
 - ✅ **v1.6 AI-Powered Investor Experience** - Phases 40-46 (shipped)
 - ✅ **v1.7 Landing Page** - Phases 47-52 (shipped)
 - ✅ **v1.8 Conversion & Essential Pages** - Phases 53-56 (shipped)
-- 🚧 **v1.9 Vendor Registration & Management** - Phases 57-60 (in progress)
+- ✅ **v1.9 Vendor Registration & Management** - Phases 57-60 (shipped)
 
 ---
 
@@ -118,7 +118,7 @@ Plans:
 **Plans:** TBD
 
 Plans:
-- [ ] 60-01: Public profile enhancement with all vendor fields and i18n
+- [x] 60-01: Public profile enhancement with all vendor fields and i18n ✅
 
 ---
 

@@ -2,6 +2,18 @@ import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
 import { createNotification } from "./notifications";
 
+// Helper: resolve custom profile photo URL (prefer custom upload over Clerk photo)
+async function resolveProfilePhotoUrl(
+  ctx: any,
+  user: { imageUrl?: string; customImageStorageId?: any }
+): Promise<string | undefined> {
+  if (user.customImageStorageId) {
+    const customUrl = await ctx.storage.getUrl(user.customImageStorageId);
+    if (customUrl) return customUrl;
+  }
+  return user.imageUrl;
+}
+
 // Validators
 const providerTypeValidator = v.union(
   v.literal("broker"),
@@ -178,15 +190,16 @@ export const getProvidersByType = query({
       );
     }
 
-    // Get user info for each provider
+    // Get user info for each provider (with custom photo)
     const providersWithUser = await Promise.all(
       providers.map(async (provider) => {
         const user = await ctx.db.get(provider.userId);
+        const photoUrl = user ? await resolveProfilePhotoUrl(ctx, user) : undefined;
         return {
           ...provider,
           name: user?.name,
           email: user?.email,
-          imageUrl: user?.imageUrl,
+          imageUrl: photoUrl || user?.imageUrl,
         };
       })
     );
@@ -224,15 +237,16 @@ export const listByType = query({
       );
     }
 
-    // Get user info for each provider
+    // Get user info for each provider (with custom photo)
     const providersWithUser = await Promise.all(
       providers.map(async (provider) => {
         const user = await ctx.db.get(provider.userId);
+        const photoUrl = user ? await resolveProfilePhotoUrl(ctx, user) : undefined;
         return {
           ...provider,
           name: user?.name,
           email: user?.email,
-          imageUrl: user?.imageUrl,
+          imageUrl: photoUrl || user?.imageUrl,
         };
       })
     );
@@ -269,12 +283,13 @@ export const getWithUser = query({
       return null;
     }
 
-    // Return combined profile + user info
+    // Return combined profile + user info (with custom photo)
+    const photoUrl = await resolveProfilePhotoUrl(ctx, user);
     return {
       ...profile,
       name: user.name,
       email: user.email,
-      imageUrl: user.imageUrl,
+      imageUrl: photoUrl || user.imageUrl,
     };
   },
 });
@@ -417,11 +432,14 @@ export const getPublicProfile = query({
       yearsExperience: profile.yearsExperience ?? 0,
     };
 
+    // Resolve profile photo (prefer custom upload)
+    const profilePhotoUrl = await resolveProfilePhotoUrl(ctx, user);
+
     return {
       // User info
       name: user.name,
       email: user.email,
-      imageUrl: user.imageUrl,
+      imageUrl: profilePhotoUrl || user.imageUrl,
       role: user.role,
 
       // Profile info
@@ -434,6 +452,8 @@ export const getPublicProfile = query({
       bio: profile.bio,
       phoneNumber: profile.phoneNumber,
       preferredContact: profile.preferredContact,
+      websiteUrl: profile.websiteUrl,
+      externalRecommendations: profile.externalRecommendations,
 
       // Stats
       stats,
@@ -675,11 +695,12 @@ export const listPendingVendors = query({
     const enrichedProfiles = await Promise.all(
       pendingProfiles.map(async (profile) => {
         const vendorUser = await ctx.db.get(profile.userId);
+        const photoUrl = vendorUser ? await resolveProfilePhotoUrl(ctx, vendorUser) : undefined;
         return {
           ...profile,
           name: vendorUser?.name,
           email: vendorUser?.email,
-          imageUrl: vendorUser?.imageUrl,
+          imageUrl: photoUrl || vendorUser?.imageUrl,
         };
       })
     );

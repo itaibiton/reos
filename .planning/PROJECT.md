@@ -70,6 +70,7 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 - **Client management: vendor client list with search/filter, per-client document access, deal grouping**
 - **Process timeline: 7-stage deal flow visualization, horizontal (desktop) + vertical (mobile), transition dates**
 - **Vendor statistics: total deals, status breakdown by stage, broker sales count, real-time metrics**
+- **Profile polish: custom photos across all views, external recommendations, website URL, full i18n**
 
 ## Requirements
 

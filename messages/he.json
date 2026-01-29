@@ -1455,7 +1455,9 @@
       "noDeals": "אין עסקאות שהושלמו עדיין.",
       "contactInfo": "פרטי התקשרות",
       "preferredContact": "דרך התקשרות מועדפת",
-      "license": "רישיון"
+      "license": "רישיון",
+      "recommendations": "המלצות",
+      "website": "אתר אינטרנט"
     },
     "filters": {
       "serviceArea": "אזור שירות",

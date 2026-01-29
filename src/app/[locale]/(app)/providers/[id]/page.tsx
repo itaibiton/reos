@@ -20,7 +20,7 @@ import {
   Building05Icon,
   Message01Icon,
 } from "@hugeicons/core-free-icons";
-import { Star, User, Briefcase, Globe, Phone, Mail } from "lucide-react";
+import { Star, User, Briefcase, Globe, Phone, Mail, ExternalLink, Quote } from "lucide-react";
 
 // Get initials from name
 function getInitials(name?: string | null) {
@@ -317,6 +317,19 @@ export default function ProviderProfilePage() {
                   </div>
                 </div>
               )}
+
+              {/* External Recommendations */}
+              {profile.externalRecommendations && (
+                <div>
+                  <h4 className="text-sm font-medium mb-2 flex items-center gap-1.5">
+                    <Quote size={14} />
+                    {t("profile.recommendations")}
+                  </h4>
+                  <div className="rounded-lg bg-muted/50 p-4 text-sm text-muted-foreground whitespace-pre-line">
+                    {profile.externalRecommendations}
+                  </div>
+                </div>
+              )}
             </CardContent>
           </Card>
 
@@ -457,6 +470,19 @@ export default function ProviderProfilePage() {
                 <div className="flex items-center gap-2 text-sm">
                   <Phone size={16} className="text-muted-foreground" />
                   <span>{profile.phoneNumber}</span>
+                </div>
+              )}
+              {profile.websiteUrl && (
+                <div className="flex items-center gap-2 text-sm">
+                  <ExternalLink size={16} className="text-muted-foreground" />
+                  <a
+                    href={profile.websiteUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:underline truncate"
+                  >
+                    {profile.websiteUrl.replace(/^https?:\/\//, "")}
+                  </a>
                 </div>
               )}
               {profile.preferredContact && (
