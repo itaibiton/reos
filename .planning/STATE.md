@@ -10,19 +10,19 @@ See: .planning/PROJECT.md (updated 2026-01-28)
 ## Current Position
 
 Milestone: v1.8 Conversion & Essential Pages
-Phase: 55 of 56 (Contact & Provider Landing Pages) -- in progress (2 plans, 1 wave)
-Plan: 01 of 02 complete
-Status: In progress
-Last activity: 2026-01-29 -- Completed 55-01-PLAN.md (Functional contact form)
+Phase: 55 of 56 (Contact & Provider Landing Pages) -- complete (2 plans, 1 wave)
+Plan: 02 of 02 complete
+Status: Phase complete
+Last activity: 2026-01-29 -- Completed 55-02-PLAN.md (Provider landing pages)
 
-Progress: [█████-----] 50% (1/2 plans complete in Phase 55)
+Progress: [██████████] 100% (2/2 plans complete in Phase 55)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 164
-- Average duration: 4.4 min
-- Total execution time: 10.92 hours
+- Total plans completed: 165
+- Average duration: 4.5 min
+- Total execution time: 11.02 hours
 
 **By Phase (v1.7):**
 
@@ -45,7 +45,7 @@ Progress: [█████-----] 50% (1/2 plans complete in Phase 55)
 |-------|-------|-------|----------|
 | 53 | 3/3 | 13 min | 4.3 min |
 | 54 | 3/3 | 22 min | 7.3 min |
-| 55 | 1/2 | 5 min | 5.3 min |
+| 55 | 2/2 | 11 min | 5.5 min |
 
 ## Accumulated Context
 
@@ -74,6 +74,10 @@ Recent decisions affecting current work:
 | CONTACT-SUBJECTS | 5 subject types: general, pricing, support, partnerships, provider | Changed from sales/media to pricing/provider to match platform focus |
 | CONTACT-HONEYPOT-POSITION | Use position absolute left -9999px (not display:none) | Bots detect display:none, position absolute is more effective anti-spam |
 | CONTACT-SUSPENSE-PATTERN | Wrap useSearchParams component in Suspense boundary | Next.js 15 requirement for dynamic APIs in static pages |
+| PROVIDER-TYPE-SET | 7 provider types: broker, lawyer, appraiser, mortgage-advisor, entrepreneur, asset-manager, financial-advisor | Replaced accountant/notary/tax-consultant with types aligned to platform investor focus |
+| PROVIDER-ROLE-MAP | Sign-up CTA includes ?role= query parameter via roleMap | Pre-selects appropriate role (e.g., entrepreneur→investor) to reduce friction |
+| JSON-LD-SERVICE-TYPE | Use Service schema (not deprecated ProfessionalService) | Schema.org Service is current recommended type, includes serviceType property |
+| SOCIAL-PROOF-PLACEMENT | Stats + testimonial between benefits and steps | Users need credibility validation after seeing benefits but before reading process steps |
 
 ### Pending Todos
 
@@ -84,7 +88,7 @@ Recent decisions affecting current work:
 
 - Legal pages (/privacy, /terms) referenced in footer -- addressed in Phase 54
 - Contact page needed for hero CTA -- addressed in Phase 55-01 (functional contact form complete)
-- Provider pages not yet created -- in progress Phase 55-02
+- Provider pages not yet created -- addressed in Phase 55-02 (7 provider landing pages complete)
 
 ### Roadmap Evolution
 
@@ -99,6 +103,6 @@ Recent decisions affecting current work:
 ## Session Continuity
 
 Last session: 2026-01-29
-Stopped at: Completed 55-01-PLAN.md (Functional contact form)
+Stopped at: Completed 55-02-PLAN.md (Provider landing pages)
 Resume file: None
-Next: Execute 55-02-PLAN.md (Provider landing pages)
+Next: Phase 55 complete. Ready for Phase 56 (Navigation Wiring & Cross-Linking)
