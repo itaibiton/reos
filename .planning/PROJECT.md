@@ -8,25 +8,17 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 
 **Deal flow tracking from interest to close.** If the end-to-end process of connecting investors with properties AND moving them through service providers doesn't work seamlessly, nothing else matters.
 
-## Current Milestone: v1.8 Conversion & Essential Pages
+## Current Milestone: (none — ready for next milestone)
 
-**Goal:** Add critical pages and sections to maximize conversion and complete the website experience — FAQ, pricing, legal pages, contact, service provider landing pages, and "How It Works" section.
+**Last completed:** v1.8 Conversion & Essential Pages (2026-01-29)
 
-**Target features:**
-- FAQ section on landing page answering common questions (pricing, safety, process, requirements)
-- Pricing page with clear tiers (Investor/free, Broker/monthly, Agency/custom)
-- Legal pages: Privacy Policy (/privacy) and Terms of Service (/terms)
-- Contact page with form submission (/contact)
-- Service provider landing pages per type (/providers/brokers, /providers/lawyers, /providers/mortgage-advisors, etc.)
-- "How It Works" section on landing page showing step-by-step process flow
-- All new pages mobile responsive from day one
-- i18n support for all new content
+Run `/gsd:new-milestone` to define the next milestone.
 
-## Current State (v1.6)
+## Current State (v1.8)
 
-**Latest Shipped:** 2026-01-26
-**Total Shipped:** 7 milestones (v1.0, v1.1, v1.2, v1.3, v1.4, v1.5, v1.6)
-**LOC:** ~39,549 TypeScript
+**Latest Shipped:** 2026-01-29
+**Total Shipped:** 9 milestones (v1.0, v1.1, v1.2, v1.3, v1.4, v1.5, v1.6, v1.7, v1.8)
+**LOC:** ~48,735 TypeScript
 **Tech Stack:** Next.js 15, Convex, Clerk, Shadcn/ui, Tailwind v4, Hugeicons, next-intl, Framer Motion
 
 **What's Working:**
@@ -52,13 +44,21 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 - ResponsiveDialog pattern (dialogs on desktop, bottom sheets on mobile)
 - 44px touch targets on all interactive elements
 - Pull-to-refresh on feed pages
-- **AI-powered investor summary page with two-panel layout**
-- **Conversational AI assistant with streaming responses**
-- **Property recommendations with match explanations and batch save**
-- **Dream team builder (broker, mortgage, lawyer suggestions)**
-- **AI memory persistence with sliding window + summarization**
-- **Mobile tabbed interface for AI assistant**
-- **Auto-greeting with property and provider recommendations**
+- AI-powered investor summary page with two-panel layout
+- Conversational AI assistant with streaming responses
+- Property recommendations with match explanations and batch save
+- Dream team builder (broker, mortgage, lawyer suggestions)
+- AI memory persistence with sliding window + summarization
+- Mobile tabbed interface for AI assistant
+- Auto-greeting with property and provider recommendations
+- **Modern marketing landing page with hero, social proof, features, automation, testimonials, stats**
+- **"How It Works" 4-step animated process flow with RTL-safe connectors**
+- **FAQ section with 17 questions, audience tabs (Investor/Provider), JSON-LD FAQPage**
+- **Privacy Policy and Terms of Service with scroll-spy TOC, 29 legal sections**
+- **Pricing page with 3 tiers, annual/monthly toggle, feature comparison, billing FAQ**
+- **Contact form with Convex backend, Zod validation, honeypot anti-spam, URL pre-selection**
+- **7 service provider landing pages with social proof, JSON-LD, role-preselected CTAs**
+- **Full navigation wiring: Solutions dropdown (7 providers), footer routes, cross-page CTAs, sitemap.ts (13 pages x 2 locales)**
 
 ## Requirements
 
@@ -102,16 +102,18 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 - [x] AI memory persistence via Convex — v1.6
 - [x] Mobile tabbed interface (Profile / AI Assistant) — v1.6
 - [x] Auto-greeting with property and provider recommendations — v1.6
+- [x] Modern marketing landing page (hero, social proof, features, automation, testimonials, stats) — v1.7
+- [x] FAQ section on landing page with audience tabs and JSON-LD — v1.8
+- [x] "How It Works" animated process flow section — v1.8
+- [x] Pricing page with 3 tiers, comparison table, billing FAQ — v1.8
+- [x] Privacy Policy and Terms of Service with scroll-spy TOC — v1.8
+- [x] Contact page with Convex backend, Zod validation, honeypot anti-spam — v1.8
+- [x] 7 service provider landing pages with JSON-LD and role-preselected CTAs — v1.8
+- [x] Full navigation wiring with Solutions dropdown, footer routes, sitemap — v1.8
 
 ### Active
 
-- [ ] FAQ section on landing page — v1.8
-- [ ] Pricing page with investor/broker/agency tiers — v1.8
-- [ ] Privacy Policy page — v1.8
-- [ ] Terms of Service page — v1.8
-- [ ] Contact page with form — v1.8
-- [ ] Service provider landing pages (brokers, lawyers, mortgage advisors, etc.) — v1.8
-- [ ] "How It Works" section on landing page — v1.8
+(none — run `/gsd:new-milestone` to define next milestone)
 
 ### Out of Scope
 
@@ -166,18 +168,13 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 
 ## Next Milestone Goals
 
-**v1.8: Conversion & Essential Pages** (current)
-- FAQ section answering common questions
-- Pricing page with clear tiers
-- Legal pages (privacy, terms)
-- Contact page
-- Service provider landing pages
-- "How It Works" section
-
-**Future directions:**
+**Future directions (not yet scoped):**
 - v1.9: Analytics and reporting dashboards
 - v1.9: Advanced mobile features (PWA, push notifications)
 - v2.0: Major feature expansion (payments, e-signatures)
+- Email notifications on contact form submission
+- Cookie consent banner
+- A/B testing framework
 
 ---
-*Last updated: 2026-01-28 after v1.8 milestone started (conversion pages)*
+*Last updated: 2026-01-29 after v1.8 milestone completed (59/59 requirements)*
