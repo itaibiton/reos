@@ -2978,5 +2978,249 @@
         "sendAnother": "Send another message"
       }
     }
+  },
+  "services": {
+    "meta": {
+      "title": "Service Providers",
+      "description": "Find trusted Israeli real estate service providers — brokers, lawyers, mortgage advisors, and more — on the REOS platform."
+    },
+    "index": {
+      "title": "Service providers you can trust",
+      "subtitle": "REOS connects US investors with vetted Israeli real estate professionals. Browse our provider categories to find the expert you need.",
+      "learnMore": "Learn more"
+    },
+    "common": {
+      "benefitsTitle": "Why join REOS?",
+      "howItWorksTitle": "How it works",
+      "ctaSignUp": "Get started free",
+      "ctaContact": "Contact us",
+      "viewAllServices": "View all services"
+    },
+    "providers": {
+      "broker": {
+        "name": "Real Estate Broker",
+        "shortDescription": "Help US investors find and acquire the best Israeli properties through local market expertise.",
+        "meta": {
+          "title": "Real Estate Brokers — REOS Provider Network",
+          "description": "Join REOS as a real estate broker and connect with qualified US investors seeking Israeli property."
+        },
+        "heroTitle": "Grow your brokerage with qualified US investors",
+        "heroDescription": "REOS brings you a steady pipeline of US-based investors actively looking for Israeli real estate. List your services, showcase your track record, and close more deals.",
+        "benefits": [
+          {
+            "title": "Pre-qualified investor leads",
+            "description": "Receive inquiries from verified US investors who are ready to buy, not just browse. Our platform filters for serious buyers so you can focus on closing."
+          },
+          {
+            "title": "Showcase your portfolio",
+            "description": "Build a professional profile highlighting your listings, past transactions, and client reviews — all visible to investors searching for brokers on REOS."
+          },
+          {
+            "title": "Streamlined deal management",
+            "description": "Track every deal from first inquiry to closing with built-in CRM tools. Manage documents, coordinate with other providers, and keep investors updated in one place."
+          }
+        ],
+        "steps": [
+          { "title": "Create your provider profile", "description": "Sign up, verify your license, and build your professional profile with your specialties, regions served, and past deals." },
+          { "title": "Get matched with investors", "description": "Our algorithm matches you with US investors based on their criteria — property type, budget, location, and timeline." },
+          { "title": "Manage deals on the platform", "description": "Use the REOS dashboard to communicate with investors, share listings, and coordinate with other service providers." },
+          { "title": "Close and grow", "description": "Complete transactions, collect reviews, and build your reputation. Top-rated brokers get featured placement and more leads." }
+        ],
+        "ctaTitle": "Ready to reach US investors?",
+        "ctaDescription": "Join hundreds of Israeli brokers already using REOS to connect with qualified US real estate investors."
+      },
+      "mortgage-advisor": {
+        "name": "Mortgage Advisor",
+        "shortDescription": "Guide investors through Israeli mortgage options with expert knowledge of cross-border financing.",
+        "meta": {
+          "title": "Mortgage Advisors — REOS Provider Network",
+          "description": "Join REOS as a mortgage advisor and help US investors secure Israeli property financing."
+        },
+        "heroTitle": "Help US investors finance their Israeli property",
+        "heroDescription": "Cross-border mortgages are complex. Your expertise makes them simple. Join REOS to connect with investors who need guidance navigating Israeli mortgage options.",
+        "benefits": [
+          {
+            "title": "Cross-border expertise in demand",
+            "description": "US investors actively seek advisors who understand both American and Israeli lending. Position yourself as the bridge between two financial systems."
+          },
+          {
+            "title": "Integrated deal flow",
+            "description": "Receive referrals directly from brokers and lawyers working deals on the platform. No more cold outreach — the leads come to you."
+          },
+          {
+            "title": "Comparison tools built in",
+            "description": "Use REOS tools to present mortgage options side by side, helping investors make confident decisions faster."
+          }
+        ],
+        "steps": [
+          { "title": "Set up your advisor profile", "description": "Register your credentials, list the banks you work with, and specify mortgage types you specialize in." },
+          { "title": "Receive investor referrals", "description": "Get matched with investors who have been pre-approved or are in the property search phase and need financing." },
+          { "title": "Present mortgage options", "description": "Use the platform's comparison tools to walk investors through rates, terms, and eligibility from multiple Israeli banks." },
+          { "title": "Guide through closing", "description": "Support investors from pre-approval to final disbursement, coordinating with brokers and lawyers on the platform." }
+        ],
+        "ctaTitle": "Become a trusted mortgage advisor",
+        "ctaDescription": "US investors need experts like you to navigate Israeli financing. Start receiving referrals today."
+      },
+      "lawyer": {
+        "name": "Real Estate Lawyer",
+        "shortDescription": "Provide legal counsel for cross-border Israeli property transactions with full regulatory compliance.",
+        "meta": {
+          "title": "Real Estate Lawyers — REOS Provider Network",
+          "description": "Join REOS as a real estate lawyer and provide legal services to US investors purchasing Israeli property."
+        },
+        "heroTitle": "Protect investors in cross-border transactions",
+        "heroDescription": "US investors need trusted legal counsel for Israeli real estate purchases. Join REOS and provide the expertise that makes deals happen safely.",
+        "benefits": [
+          {
+            "title": "Steady stream of legal work",
+            "description": "Every property transaction needs a lawyer. Get connected to US investors at the start of their buying journey, not after contracts are already drafted."
+          },
+          {
+            "title": "Cross-border specialization",
+            "description": "Highlight your expertise in US-Israel transactions, dual taxation, foreign buyer regulations, and title verification to attract the right clients."
+          },
+          {
+            "title": "Secure document exchange",
+            "description": "Share contracts, power of attorney forms, and legal opinions securely through the platform with full audit trails."
+          }
+        ],
+        "steps": [
+          { "title": "Verify your credentials", "description": "Register with your Israel Bar Association number, areas of practice, and languages spoken." },
+          { "title": "Get matched to transactions", "description": "Investors and brokers search for lawyers by specialty, location, and language. Appear in results matching your profile." },
+          { "title": "Handle due diligence", "description": "Use platform tools for title checks, contract reviews, and regulatory compliance documentation." },
+          { "title": "Close with confidence", "description": "Manage the legal side of closing through REOS — signatures, transfers, and post-closing compliance all in one place." }
+        ],
+        "ctaTitle": "Join our legal provider network",
+        "ctaDescription": "US investors need legal protection in unfamiliar territory. Be the lawyer they trust."
+      },
+      "accountant": {
+        "name": "Accountant",
+        "shortDescription": "Help investors manage cross-border tax obligations and financial reporting for Israeli property.",
+        "meta": {
+          "title": "Accountants — REOS Provider Network",
+          "description": "Join REOS as an accountant and help US investors with Israeli real estate tax reporting and compliance."
+        },
+        "heroTitle": "Simplify cross-border tax for real estate investors",
+        "heroDescription": "US investors holding Israeli property face complex tax obligations in two countries. Your expertise keeps them compliant and optimized.",
+        "benefits": [
+          {
+            "title": "Dual-country tax expertise",
+            "description": "Position yourself as the go-to accountant for US-Israel real estate tax matters — capital gains, rental income, and treaty benefits."
+          },
+          {
+            "title": "Recurring client relationships",
+            "description": "Property investors need ongoing accounting support — annual reporting, rental income tracking, and disposition planning. Build long-term client relationships."
+          },
+          {
+            "title": "Platform-integrated reporting",
+            "description": "Pull financial data from investor portfolios on REOS to streamline tax preparation and reporting workflows."
+          }
+        ],
+        "steps": [
+          { "title": "Create your accountant profile", "description": "List your qualifications, specialties (US tax, Israeli tax, or both), and the services you offer." },
+          { "title": "Connect with property owners", "description": "Investors search for accountants who understand cross-border real estate taxation. Match with those who need your skill set." },
+          { "title": "Deliver ongoing services", "description": "Use REOS data to prepare tax returns, generate financial reports, and advise on tax-efficient structuring." },
+          { "title": "Grow your practice", "description": "Earn reviews, get referrals from other providers, and expand your client base across the REOS investor community." }
+        ],
+        "ctaTitle": "Help investors stay tax-compliant",
+        "ctaDescription": "Cross-border real estate tax is complex. Your clients are already on REOS — are you?"
+      },
+      "notary": {
+        "name": "Notary",
+        "shortDescription": "Authenticate documents and signatures for remote Israeli real estate closings.",
+        "meta": {
+          "title": "Notaries — REOS Provider Network",
+          "description": "Join REOS as a notary and provide authentication services for cross-border Israeli real estate deals."
+        },
+        "heroTitle": "Enable remote real estate closings",
+        "heroDescription": "US investors purchasing Israeli property need notarized documents — often across time zones. Offer your notary services through REOS and simplify the process.",
+        "benefits": [
+          {
+            "title": "High-volume transaction flow",
+            "description": "Every cross-border deal requires notarized documents. Get steady work from the growing US-Israel real estate market."
+          },
+          {
+            "title": "Remote notarization support",
+            "description": "Offer in-person or remote online notarization to investors regardless of their US location."
+          },
+          {
+            "title": "Platform coordination",
+            "description": "Receive document packages directly from lawyers and brokers on the platform — no back-and-forth emails with missing pages."
+          }
+        ],
+        "steps": [
+          { "title": "Register as a notary", "description": "Submit your notary commission details, state of authorization, and whether you offer remote online notarization." },
+          { "title": "Receive document requests", "description": "Lawyers and investors on REOS send notarization requests directly through the platform with all required documents attached." },
+          { "title": "Authenticate and return", "description": "Complete notarizations and upload signed documents back to the platform for all parties to access." },
+          { "title": "Build your reputation", "description": "Fast turnaround and reliable service earn reviews that keep you at the top of search results." }
+        ],
+        "ctaTitle": "Streamline your notary practice",
+        "ctaDescription": "Cross-border deals need reliable notaries. Join REOS and serve a growing market."
+      },
+      "tax-consultant": {
+        "name": "Tax Consultant",
+        "shortDescription": "Advise on Israeli real estate tax planning, treaty benefits, and cross-border structuring.",
+        "meta": {
+          "title": "Tax Consultants — REOS Provider Network",
+          "description": "Join REOS as a tax consultant and advise US investors on Israeli real estate tax strategy."
+        },
+        "heroTitle": "Optimize real estate tax strategy across borders",
+        "heroDescription": "US investors need strategic tax advice before, during, and after Israeli property transactions. Your counsel protects their returns.",
+        "benefits": [
+          {
+            "title": "Strategic advisory demand",
+            "description": "Tax planning is the first conversation smart investors have. Position yourself upstream in the investment process for maximum impact."
+          },
+          {
+            "title": "Treaty and structuring expertise",
+            "description": "Help investors leverage the US-Israel tax treaty, choose optimal ownership structures, and plan for capital gains before they buy."
+          },
+          {
+            "title": "Portfolio-level insight",
+            "description": "Access aggregated portfolio data on REOS to provide holistic tax advice across an investor's entire Israeli real estate holdings."
+          }
+        ],
+        "steps": [
+          { "title": "Set up your consultant profile", "description": "Detail your tax specialties — international structuring, capital gains planning, treaty optimization, VAT, and more." },
+          { "title": "Engage with prospective investors", "description": "Connect with investors in the planning stage who want tax advice before committing to a purchase." },
+          { "title": "Deliver strategic advice", "description": "Provide structuring recommendations, tax projections, and ongoing compliance guidance through the platform." },
+          { "title": "Expand your network", "description": "Collaborate with lawyers, accountants, and brokers on REOS to become part of a trusted provider ecosystem." }
+        ],
+        "ctaTitle": "Advise the next generation of investors",
+        "ctaDescription": "Smart investors plan taxes first. Be the consultant they find on REOS."
+      },
+      "appraiser": {
+        "name": "Property Appraiser",
+        "shortDescription": "Provide independent property valuations for US investors entering the Israeli market.",
+        "meta": {
+          "title": "Property Appraisers — REOS Provider Network",
+          "description": "Join REOS as a property appraiser and provide independent valuations for cross-border Israeli real estate deals."
+        },
+        "heroTitle": "Deliver trusted valuations to international buyers",
+        "heroDescription": "US investors need independent, reliable appraisals before purchasing Israeli property. Your local expertise gives them the confidence to invest.",
+        "benefits": [
+          {
+            "title": "Consistent appraisal demand",
+            "description": "Every financing deal and many cash purchases require an independent appraisal. Get a reliable stream of valuation requests."
+          },
+          {
+            "title": "Standardized reporting",
+            "description": "Deliver appraisals in formats that satisfy both Israeli banks and US lenders, making your reports immediately useful."
+          },
+          {
+            "title": "Market data access",
+            "description": "Supplement your local knowledge with REOS market data — comparable sales, rental yields, and neighborhood trends."
+          }
+        ],
+        "steps": [
+          { "title": "Register your qualifications", "description": "Submit your appraiser license, regions you cover, property types you specialize in, and turnaround times." },
+          { "title": "Accept appraisal orders", "description": "Receive valuation requests from investors, brokers, and mortgage advisors directly through the platform." },
+          { "title": "Complete the appraisal", "description": "Conduct your inspection, pull comparable data, and deliver your report through REOS with secure document sharing." },
+          { "title": "Grow your practice", "description": "Reliable turnaround and thorough reports earn top ratings and repeat business from the provider network." }
+        ],
+        "ctaTitle": "Put your valuation expertise to work",
+        "ctaDescription": "International buyers trust local appraisers. Join REOS and grow your practice."
+      }
+    }
   }
 }
