@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono, Heebo, Bebas_Neue, DM_Serif_Display } from "next/font/google";
+import { Inter, JetBrains_Mono, Heebo, Bebas_Neue, DM_Serif_Display, IBM_Plex_Sans_Hebrew } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { hasLocale } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
@@ -39,6 +39,13 @@ const dmSerifDisplay = DM_Serif_Display({
   weight: "400",
   subsets: ["latin"],
   variable: "--font-dm-serif",
+  display: "swap",
+});
+
+const ibmPlexSansHebrew = IBM_Plex_Sans_Hebrew({
+  weight: ["400", "700"],
+  subsets: ["hebrew"],
+  variable: "--font-ibm-hebrew",
   display: "swap",
 });
 
@@ -83,7 +90,7 @@ export default async function LocaleLayout({ children, params }: Props) {
       lang={locale}
       dir={direction}
       suppressHydrationWarning
-      className={`${inter.variable} ${jetbrainsMono.variable} ${heebo.variable} ${bebasNeue.variable} ${dmSerifDisplay.variable}`}
+      className={`${inter.variable} ${jetbrainsMono.variable} ${heebo.variable} ${bebasNeue.variable} ${dmSerifDisplay.variable} ${ibmPlexSansHebrew.variable}`}
     >
       <body className="font-sans antialiased">
         <ClerkProvider

@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 interface SocialProofProps {
   className?: string;
@@ -36,36 +37,20 @@ export function SocialProof({ className }: SocialProofProps) {
         <div className="flex flex-wrap justify-center gap-12 md:gap-20 opacity-40 grayscale">
           {/* VANGUARD */}
           <div className="flex items-center gap-2">
-            <div className="w-5 h-5 bg-foreground rounded-sm"></div>
-            <span className="font-bold text-lg tracking-tight">VANGUARD</span>
+            <Image src="/logos/testimonials/yahad.png" alt="Vanguard" width={200} height={200} />
           </div>
-
-          {/* OAKTREE */}
           <div className="flex items-center gap-2">
-            <div className="w-5 h-5 border-2 border-foreground rounded-full"></div>
-            <span className="font-bold text-lg tracking-tight">OAKTREE</span>
-          </div>
-
-          {/* APEX */}
-          <div className="flex items-center gap-2">
-            <div className="w-5 h-5 bg-foreground rotate-45"></div>
-            <span className="font-bold text-lg tracking-tight">APEX</span>
-          </div>
-
-          {/* PILLAR */}
-          <div className="flex items-center gap-2">
-            <div className="flex gap-0.5">
-              <div className="w-2 h-5 bg-foreground"></div>
-              <div className="w-2 h-5 bg-foreground"></div>
+            {/* <Image src="/logos/testimonials/judaa.png" alt="Vanguard" width={200} height={200} /> */}
+            <div className="flex flex-col items-center">
+              <p className="font-bold text-3xl tracking-tight leading-none font-hebrew">יהודה לוי</p>
+              <p className="tracking-tight leading-none font-hebrew">בנייה ואנרגיה בעולם</p>
             </div>
-            <span className="font-bold text-lg tracking-tight">PILLAR</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Image src="/logos/testimonials/a-credit.png" alt="Vanguard" width={100} height={100} />
           </div>
 
-          {/* FRAME */}
-          <div className="flex items-center gap-2">
-            <div className="w-5 h-5 border border-foreground"></div>
-            <span className="font-bold text-lg tracking-tight">FRAME</span>
-          </div>
+
         </div>
       </div>
     </motion.section>

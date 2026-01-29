@@ -10,6 +10,7 @@
   --font-mono: var(--font-mono);
   --font-display: var(--font-bebas), system-ui, sans-serif;
   --font-serif: var(--font-dm-serif), Georgia, serif;
+  --font-hebrew: var(--font-ibm-hebrew), sans-serif;
   /* Landing page colors */
   --color-landing-primary: var(--landing-primary);
   --color-landing-accent: var(--landing-accent);
@@ -138,9 +139,11 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   html {
     scroll-behavior: smooth;
   }
+
   body {
     @apply bg-background text-foreground;
     overflow-x: hidden;
@@ -151,7 +154,8 @@
 
 /* Smooth scroll for anchor links - Account for fixed navbar height */
 :target {
-  scroll-margin-top: 5rem; /* 80px to account for navbar height */
+  scroll-margin-top: 5rem;
+  /* 80px to account for navbar height */
 }
 
 /* Prevent Radix scroll-lock from hiding scrollbar - must be outside @layer for higher specificity */
@@ -177,6 +181,7 @@ html[data-scroll-locked] body {
   from {
     --angle: 0deg;
   }
+
   to {
     --angle: 360deg;
   }
@@ -184,33 +189,29 @@ html[data-scroll-locked] body {
 
 .animate-gradient-border {
   --angle: 0deg;
-  background: conic-gradient(
-    from var(--angle),
-    #7c3aed,
-    #2563eb,
-    #06b6d4,
-    #10b981,
-    #f59e0b,
-    #ef4444,
-    #ec4899,
-    #7c3aed
-  );
+  background: conic-gradient(from var(--angle),
+      #7c3aed,
+      #2563eb,
+      #06b6d4,
+      #10b981,
+      #f59e0b,
+      #ef4444,
+      #ec4899,
+      #7c3aed);
   animation: spin-gradient 3s linear infinite;
 }
 
 .animate-gradient-border-glow {
   --angle: 0deg;
-  background: conic-gradient(
-    from var(--angle),
-    #7c3aed,
-    #2563eb,
-    #06b6d4,
-    #10b981,
-    #f59e0b,
-    #ef4444,
-    #ec4899,
-    #7c3aed
-  );
+  background: conic-gradient(from var(--angle),
+      #7c3aed,
+      #2563eb,
+      #06b6d4,
+      #10b981,
+      #f59e0b,
+      #ef4444,
+      #ec4899,
+      #7c3aed);
   animation: spin-gradient 3s linear infinite;
   filter: blur(8px);
   opacity: 0.6;
@@ -275,23 +276,19 @@ html[data-scroll-locked] body {
 
 /* Diagonal stripe pattern background */
 .bg-diagonal-stripes {
-  background-image: repeating-linear-gradient(
-    45deg,
-    transparent,
-    transparent 10px,
-    var(--landing-primary) 10px,
-    var(--landing-primary) 11px
-  );
+  background-image: repeating-linear-gradient(45deg,
+      transparent,
+      transparent 10px,
+      var(--landing-primary) 10px,
+      var(--landing-primary) 11px);
 }
 
 .bg-diagonal-stripes-accent {
-  background-image: repeating-linear-gradient(
-    45deg,
-    transparent,
-    transparent 10px,
-    var(--landing-accent) 10px,
-    var(--landing-accent) 11px
-  );
+  background-image: repeating-linear-gradient(45deg,
+      transparent,
+      transparent 10px,
+      var(--landing-accent) 10px,
+      var(--landing-accent) 11px);
 }
 
 /* Font family utilities for landing page */
@@ -365,11 +362,13 @@ html[data-scroll-locked] body {
 
 /* Sidebar transitions */
 .sidebar-expanded {
-  width: 16rem; /* w-64 */
+  width: 16rem;
+  /* w-64 */
 }
 
 .sidebar-collapsed {
-  width: 4.5rem; /* w-[72px] */
+  width: 4.5rem;
+  /* w-[72px] */
 }
 
 .sidebar-text {

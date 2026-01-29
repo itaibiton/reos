@@ -24,24 +24,24 @@ export function CTA({ className }: CTAProps) {
       variants={fadeInUp}
       className={cn("py-24 relative overflow-hidden", className)}
     >
-      <div className="absolute inset-0 bg-blue-900/5"></div>
+      <div className="absolute inset-0 bg-foreground"></div>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-        <h2 className="text-4xl md:text-6xl font-light tracking-tighter text-foreground mb-6">
+        <h2 className="text-4xl md:text-6xl font-light tracking-tighter text-background mb-6">
           {t("heading")}
         </h2>
-        <p className="text-lg text-foreground/50 font-light mb-10 max-w-xl mx-auto">
+        <p className="text-lg text-background/50 font-light mb-10 max-w-xl mx-auto">
           {t("subheading")}
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
             href="/contact"
-            className="px-8 py-4 bg-foreground text-background rounded-full font-medium hover:bg-foreground/90 transition-colors w-full sm:w-auto inline-flex items-center justify-center"
+            className="px-8 py-4 bg-background text- rounded-full font-medium hover:bg-background/90 transition-colors w-full sm:w-auto inline-flex items-center justify-center"
           >
             {t("actions.contactSales")}
           </Link>
           <Link
             href="/pricing"
-            className="px-8 py-4 bg-transparent border border-border text-foreground rounded-full font-medium hover:bg-foreground/5 transition-colors w-full sm:w-auto inline-flex items-center justify-center"
+            className="px-8 py-4 bg-transparent border border-border text-background rounded-full font-medium hover:bg-background/5 transition-colors w-full sm:w-auto inline-flex items-center justify-center"
           >
             {t("actions.viewPricing")}
           </Link>

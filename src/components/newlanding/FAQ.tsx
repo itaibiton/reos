@@ -130,22 +130,6 @@ export function FAQ({ className }: FAQProps) {
               )}
             </TabsContent>
           </Tabs>
-
-          {/* Still have questions CTA */}
-          <div className="text-center mt-16 pt-10 border-t border-border/50">
-            <p className="text-xl font-light text-foreground mb-2">
-              {t("stillHaveQuestions")}
-            </p>
-            <p className="text-foreground/50 font-light mb-6 max-w-md mx-auto">
-              {t("contactDescription")}
-            </p>
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-foreground text-background rounded-full font-medium hover:bg-foreground/90 transition-colors"
-            >
-              {t("contactCta")}
-            </Link>
-          </div>
         </div>
       </motion.section>
     </>

@@ -112,70 +112,70 @@ export function Automation({ className }: AutomationProps) {
         variants={fadeInUp}
         className="relative z-10"
       >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        {/* Header */}
-        <motion.div variants={fadeInUp} className="max-w-3xl mb-12 mt-16 md:mt-24">
-          <h2 className="text-3xl md:text-5xl font-light tracking-tighter text-white mb-6">
-            {t("heading")} <br />
-            <span className="text-white/40">{t("headingAccent")}</span>
-          </h2>
-          <p className="text-lg text-white/70 font-light leading-relaxed">
-            {t("subheading")}
-          </p>
-        </motion.div>
-
-        {/* Providers Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Animation Card - First on mobile, positioned in grid on desktop */}
-          <motion.div
-            initial={getAnimationVariant(4).initial}
-            whileInView={getAnimationVariant(4).animate}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0, ease: [0.25, 0.1, 0.25, 1] }}
-            className="relative rounded-xl border border-white/10 bg-white/5 overflow-hidden md:col-span-2 lg:col-span-2 lg:row-span-2 order-first md:order-none md:col-start-2 md:row-start-1"
-          >
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="auto"
-              className="w-full h-full object-contain"
-              style={{ imageRendering: 'crisp-edges' }}
-            >
-              <source src="/REOSOrchestration.mp4" type="video/mp4" />
-            </video>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          {/* Header */}
+          <motion.div variants={fadeInUp} className="max-w-3xl mb-12 mt-16 md:mt-24">
+            <h2 className="text-3xl md:text-5xl font-light tracking-tighter text-white mb-6">
+              {t("heading")} <br />
+              <span className="text-white/40">{t("headingAccent")}</span>
+            </h2>
+            <p className="text-lg text-white/70 font-light leading-relaxed">
+              {t("subheading")}
+            </p>
           </motion.div>
 
-          {providers.map((provider, index) => {
-            const Icon = provider.icon;
-            const { initial, animate } = getAnimationVariant(index);
-            return (
-              <motion.div
-                key={index}
-                initial={initial}
-                whileInView={animate}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7, delay: (index + 1) * 0.2, ease: [0.25, 0.1, 0.25, 1] }}
-                className="relative p-6 rounded-xl border border-white/10 transition-colors group"
+          {/* Providers Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Animation Card - First on mobile, positioned in grid on desktop */}
+            <motion.div
+              initial={getAnimationVariant(4).initial}
+              whileInView={getAnimationVariant(4).animate}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0, ease: [0.25, 0.1, 0.25, 1] }}
+              className="relative border border-white/10 bg-white/5 overflow-hidden md:col-span-2 lg:col-span-2 lg:row-span-2 order-first md:order-none md:col-start-2 md:row-start-1"
+            >
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="auto"
+                className="w-full h-full object-contain"
+                style={{ imageRendering: 'crisp-edges' }}
               >
-                {/* Icon */}
-                <div className="w-12 h-12 rounded-lg bg-white/10 flex items-center justify-center mb-4 transition-colors">
-                  <Icon className="w-6 h-6 text-white/70" />
-                </div>
+                <source src="/REOSOrchestration.mp4" type="video/mp4" />
+              </video>
+            </motion.div>
 
-                {/* Content */}
-                <h3 className="text-lg font-normal mb-2 text-white">
-                  {provider.title}
-                </h3>
-                <p className="text-sm font-light leading-relaxed text-white/60">
-                  {provider.description}
-                </p>
-              </motion.div>
-            );
-          })}
+            {providers.map((provider, index) => {
+              const Icon = provider.icon;
+              const { initial, animate } = getAnimationVariant(index);
+              return (
+                <motion.div
+                  key={index}
+                  initial={initial}
+                  whileInView={animate}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, delay: (index + 1) * 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+                  className="relative p-6 border border-white/10 transition-colors group"
+                >
+                  {/* Icon */}
+                  <div className="w-12 h-12 bg-white/10 flex items-center justify-center mb-4 transition-colors">
+                    <Icon className="w-6 h-6 text-white/70" />
+                  </div>
+
+                  {/* Content */}
+                  <h3 className="text-lg font-normal mb-2 text-white">
+                    {provider.title}
+                  </h3>
+                  <p className="text-sm font-light leading-relaxed text-white/60">
+                    {provider.description}
+                  </p>
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
-      </div>
       </motion.div>
     </section>
   );

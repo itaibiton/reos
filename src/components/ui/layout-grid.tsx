@@ -41,7 +41,7 @@ export const LayoutGrid = ({ cards }: { cards: Card[] }) => {
               transition={{ duration: 0.7, delay: i * 0.2, ease: [0.25, 0.1, 0.25, 1] }}
               className={cn(
                 card.className,
-                "relative overflow-hidden rounded-xl md:h-full border border-border group",
+                "relative overflow-hidden md:h-full border border-border group",
                 !card.thumbnail && "bg-[#050A12]",
                 card.thumbnail === "white" && "bg-white dark:bg-zinc-900",
                 card.thumbnail === "custom" && "bg-transparent"
