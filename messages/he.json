@@ -2014,7 +2014,12 @@
       "avgRating": "דירוג ממוצע",
       "noReviews": "אין ביקורות עדיין",
       "reviews": "{count} ביקורות",
-      "requestsOf": "{accepted} מתוך {total} בקשות"
+      "requestsOf": "{accepted} מתוך {total} בקשות",
+      "totalDeals": "סה\"כ עסקאות",
+      "dealBreakdown": "{active} פעילות, {completed} הושלמו",
+      "brokerSales": "מכירות מתווך",
+      "closedAsBroker": "עסקאות שנסגרו כמתווך מוקצה",
+      "active": "פעילות"
     },
     "dealValue": {
       "title": "ערך עסקאות",
@@ -2039,6 +2044,18 @@
     "empty": {
       "title": "אין נתוני אנליטיקה עדיין",
       "description": "אנליטיקה תופיע כאן כשתתחיל לקבל בקשות שירות ולהשלים עסקאות."
+    },
+    "statusBreakdown": {
+      "title": "פירוט סטטוס עסקאות"
+    },
+    "stages": {
+      "interest": "התעניינות",
+      "brokerAssigned": "עם מתווך",
+      "mortgage": "משכנתא",
+      "legal": "משפטי",
+      "closing": "סגירה",
+      "completed": "הושלם",
+      "cancelled": "בוטל"
     }
   },
   "deals": {

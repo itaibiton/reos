@@ -42,9 +42,24 @@ export const getProviderAnalytics = query({
     );
 
     const completedDeals = myDeals.filter((d) => d.stage === "completed");
+    const cancelledDeals = myDeals.filter((d) => d.stage === "cancelled");
     const activeDeals = myDeals.filter(
       (d) => d.stage !== "completed" && d.stage !== "cancelled"
     );
+
+    // Broker-specific: total sales count (closed deals where user is the assigned broker)
+    const brokerSalesCount =
+      user.role === "broker"
+        ? allDeals.filter(
+            (d) => d.brokerId === providerId && d.stage === "completed"
+          ).length
+        : null;
+
+    // Deal status breakdown by stage
+    const stageBreakdown: Record<string, number> = {};
+    for (const deal of myDeals) {
+      stageBreakdown[deal.stage] = (stageBreakdown[deal.stage] || 0) + 1;
+    }
 
     // Calculate deal values (from offer price or property price)
     let totalDealValue = 0;
@@ -170,8 +185,12 @@ export const getProviderAnalytics = query({
 
     return {
       // Deal metrics
+      totalDeals: myDeals.length,
       completedDeals: completedDeals.length,
       activeDeals: activeDeals.length,
+      cancelledDeals: cancelledDeals.length,
+      brokerSalesCount,
+      stageBreakdown,
       totalDealValue: Math.round(totalDealValue),
       avgDealValue: Math.round(avgDealValue),
 

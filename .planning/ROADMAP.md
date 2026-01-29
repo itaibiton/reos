@@ -97,7 +97,7 @@ Plans:
 **Plans:** TBD
 
 Plans:
-- [ ] 59-01: Statistics dashboard with deal metrics and broker sales count
+- [x] 59-01: Statistics dashboard with deal metrics and broker sales count ✅
 
 ---
 

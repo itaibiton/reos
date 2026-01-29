@@ -69,6 +69,7 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 - **Vendor visibility gating: unapproved vendors hidden from directory, grandfathering for existing providers**
 - **Client management: vendor client list with search/filter, per-client document access, deal grouping**
 - **Process timeline: 7-stage deal flow visualization, horizontal (desktop) + vertical (mobile), transition dates**
+- **Vendor statistics: total deals, status breakdown by stage, broker sales count, real-time metrics**
 
 ## Requirements
 
@@ -130,7 +131,7 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 - [x] Admin approval gate for new vendors — v1.9
 - [x] Vendor personal area: client management with document access — v1.9
 - [x] Process timeline per client with current stage display — v1.9
-- [ ] Vendor deal statistics dashboard — v1.9
+- [x] Vendor deal statistics dashboard — v1.9
 - [x] Profile photo upload for vendors — v1.9
 
 ### Out of Scope

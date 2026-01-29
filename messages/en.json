@@ -473,7 +473,12 @@
       "avgRating": "Average Rating",
       "noReviews": "No reviews yet",
       "reviews": "{count} reviews",
-      "requestsOf": "{accepted} of {total} requests"
+      "requestsOf": "{accepted} of {total} requests",
+      "totalDeals": "Total Deals",
+      "dealBreakdown": "{active} active, {completed} closed",
+      "brokerSales": "Broker Sales",
+      "closedAsBroker": "Closed deals as assigned broker",
+      "active": "active"
     },
     "dealValue": {
       "title": "Deal Value",
@@ -498,6 +503,18 @@
     "empty": {
       "title": "No Analytics Data Yet",
       "description": "Analytics will appear here once you start receiving service requests and completing deals."
+    },
+    "statusBreakdown": {
+      "title": "Deal Status Breakdown"
+    },
+    "stages": {
+      "interest": "Interest",
+      "brokerAssigned": "With Broker",
+      "mortgage": "Mortgage",
+      "legal": "Legal",
+      "closing": "Closing",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
     }
   },
   "landing": {

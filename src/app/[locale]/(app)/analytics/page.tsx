@@ -207,20 +207,32 @@ export default function AnalyticsPage() {
       {/* Top Stats Row */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
+          title={t("stats.totalDeals")}
+          value={analytics.totalDeals}
+          icon={<Briefcase size={20} />}
+          subtitle={t("stats.dealBreakdown", {
+            active: analytics.activeDeals,
+            completed: analytics.completedDeals,
+          })}
+        />
+        <StatCard
           title={t("stats.completedDeals")}
           value={analytics.completedDeals}
           icon={<CheckCircle size={20} />}
           subtitle={
             analytics.activeDeals > 0
-              ? `${analytics.activeDeals} active`
+              ? `${analytics.activeDeals} ${t("stats.active")}`
               : undefined
           }
         />
-        <StatCard
-          title={t("stats.activeDeals")}
-          value={analytics.activeDeals}
-          icon={<Briefcase size={20} />}
-        />
+        {analytics.brokerSalesCount !== null && (
+          <StatCard
+            title={t("stats.brokerSales")}
+            value={analytics.brokerSalesCount}
+            icon={<DollarSign size={20} />}
+            subtitle={t("stats.closedAsBroker")}
+          />
+        )}
         <StatCard
           title={t("stats.conversionRate")}
           value={`${analytics.conversionRate}%`}
@@ -248,6 +260,53 @@ export default function AnalyticsPage() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Deal Status Breakdown */}
+      {analytics.stageBreakdown && Object.keys(analytics.stageBreakdown).length > 0 && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <BarChart3 size={20} />
+              {t("statusBreakdown.title")}
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-wrap gap-3">
+              {Object.entries(analytics.stageBreakdown).map(([stage, count]) => {
+                const stageColors: Record<string, string> = {
+                  interest: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300",
+                  broker_assigned: "bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300",
+                  mortgage: "bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300",
+                  legal: "bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300",
+                  closing: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300",
+                  completed: "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300",
+                  cancelled: "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300",
+                };
+                const stageLabels: Record<string, string> = {
+                  interest: t("stages.interest"),
+                  broker_assigned: t("stages.brokerAssigned"),
+                  mortgage: t("stages.mortgage"),
+                  legal: t("stages.legal"),
+                  closing: t("stages.closing"),
+                  completed: t("stages.completed"),
+                  cancelled: t("stages.cancelled"),
+                };
+                return (
+                  <div
+                    key={stage}
+                    className={`inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium ${stageColors[stage] || "bg-gray-100 text-gray-800"}`}
+                  >
+                    <span>{stageLabels[stage] || stage}</span>
+                    <span className="rounded-full bg-white/50 px-2 py-0.5 text-xs font-bold">
+                      {count as number}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Second Row: Revenue & Performance */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
