@@ -80,7 +80,10 @@ Plans:
   2. Footer includes working links to Privacy, Terms, Contact, and other relevant pages
   3. Cross-page CTAs work: FAQ "Still have questions?" goes to /contact, Pricing enterprise tier goes to /contact, CTA section "Contact Sales" goes to /contact and "View Pricing" goes to /pricing
   4. All internal links use locale-aware Link component and sitemap.ts covers all new pages
-**Plans**: TBD (created during phase planning)
+**Plans**: 2 plans
+Plans:
+  - [ ] 56-01-PLAN.md — Navigation & footer wiring: Solutions dropdown with 7 provider pages, Pricing link, footer real routes, locale-aware Links
+  - [ ] 56-02-PLAN.md — Cross-page CTAs (CTA section, FAQ, Pricing enterprise) + sitemap.ts generation
 
 ## Progress
 
@@ -91,7 +94,7 @@ Plans:
 | 53. Landing Page Sections | v1.8 | 3/3 | Complete | 2026-01-28 |
 | 54. Legal & Pricing Pages | v1.8 | 3/3 | Complete | 2026-01-28 |
 | 55. Contact & Provider Landing Pages | v1.8 | 2/2 | Complete | 2026-01-29 |
-| 56. Navigation Wiring & Cross-Linking | v1.8 | 0/? | Not Started | - |
+| 56. Navigation Wiring & Cross-Linking | v1.8 | 0/2 | Not Started | - |
 
 ## Requirements Coverage
 
