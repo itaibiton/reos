@@ -10,10 +10,10 @@ See: .planning/PROJECT.md (updated 2026-01-28)
 ## Current Position
 
 Milestone: v1.8 Conversion & Essential Pages
-Phase: 56 of 56 (Navigation Wiring & Cross-Linking) -- in progress (2 plans, 1 wave)
+Phase: 56 of 56 (Navigation Wiring & Cross-Linking) -- complete (2 plans, 1 wave)
 Plan: 02 of 02 complete
-Status: Phase complete
-Last activity: 2026-01-29 -- Completed 56-02-PLAN.md (CTA link wiring & sitemap)
+Status: Phase complete, Milestone complete
+Last activity: 2026-01-29 -- Completed 56-01-PLAN.md (Navigation & footer wiring)
 
 Progress: [██████████] 100% (2/2 plans complete in Phase 56)
 
@@ -107,6 +107,6 @@ Recent decisions affecting current work:
 ## Session Continuity
 
 Last session: 2026-01-29
-Stopped at: Completed 56-02-PLAN.md (CTA link wiring & sitemap)
+Stopped at: Completed 56-01-PLAN.md (Navigation & footer wiring)
 Resume file: None
-Next: Phase 56 complete. Milestone v1.8 (Conversion & Essential Pages) complete.
+Next: Phase 56 complete. Milestone v1.8 (Conversion & Essential Pages) complete. All landing navigation now wired to real routes.
