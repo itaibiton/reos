@@ -2962,21 +2962,35 @@
       },
       "subjects": {
         "general": "General inquiry",
-        "sales": "Sales & pricing",
+        "pricing": "Pricing question",
         "support": "Technical support",
         "partnerships": "Partnerships",
-        "media": "Press & media"
+        "provider": "Become a provider"
       },
       "message": {
         "label": "Message",
         "placeholder": "Tell us how we can help..."
       },
       "submit": "Send message",
+      "submitting": "Sending...",
       "success": {
         "title": "Message sent!",
         "description": "Thank you for reaching out. Our team will get back to you within one business day.",
         "sendAnother": "Send another message"
+      },
+      "errors": {
+        "nameMin": "Name must be at least 2 characters",
+        "emailInvalid": "Please enter a valid email address",
+        "subjectRequired": "Please select a subject",
+        "messageRequired": "Message is required",
+        "submitFailed": "Failed to submit. Please try again."
       }
+    },
+    "thankYou": {
+      "title": "Thank you!",
+      "description": "Your message has been sent successfully. Our team will get back to you within one business day.",
+      "backToHome": "Back to home",
+      "sendAnother": "Send another message"
     }
   },
   "services": {

@@ -1,10 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useEffect } from "react";
 import { useTranslations } from "next-intl";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useParams } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod/v4";
+import { useMutation } from "convex/react";
+import { api } from "../../../../../convex/_generated/api";
 import { motion, type Variants } from "framer-motion";
+import { Mail, Phone, MapPin, Send, Loader2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
@@ -13,7 +20,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Mail, Phone, MapPin, Send, CheckCircle } from "lucide-react";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
 
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -25,22 +40,109 @@ const staggerContainer: Variants = {
   visible: { transition: { staggerChildren: 0.1 } },
 };
 
-export function ContactPageContent() {
-  const t = useTranslations("contact");
-  const [submitted, setSubmitted] = useState(false);
-  const [subject, setSubject] = useState("");
+// Subject enum matching Convex schema
+const subjectEnum = ["general", "pricing", "support", "partnerships", "provider"] as const;
+type Subject = (typeof subjectEnum)[number];
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setSubmitted(true);
+// Zod schema
+const contactFormSchema = z.object({
+  name: z.string().min(2, "nameMin"),
+  email: z.string().email("emailInvalid"),
+  phone: z.string().optional(),
+  subject: z.enum(subjectEnum).refine((val) => val !== undefined, {
+    message: "subjectRequired",
+  }),
+  message: z.string().min(1, "messageRequired"),
+  honeypot: z.string().max(0), // Honeypot must be empty
+});
+
+type ContactFormValues = z.infer<typeof contactFormSchema>;
+
+// Skeleton for Suspense fallback
+function ContactPageSkeleton() {
+  return (
+    <div className="animate-pulse">
+      <section className="bg-[#050A12] py-24 md:py-32">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="h-12 bg-white/10 rounded-lg mb-6 max-w-md mx-auto"></div>
+          <div className="h-6 bg-white/10 rounded-lg max-w-2xl mx-auto"></div>
+        </div>
+      </section>
+      <section className="py-20 md:py-28">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-5 gap-12 lg:gap-16">
+            <div className="lg:col-span-2 space-y-8">
+              <div className="h-8 bg-gray-200 rounded-lg w-48"></div>
+              <div className="h-20 bg-gray-200 rounded-lg"></div>
+            </div>
+            <div className="lg:col-span-3">
+              <div className="h-96 bg-gray-200 rounded-2xl"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+// Inner component that uses useSearchParams
+function ContactPageInner() {
+  const t = useTranslations("contact");
+  const router = useRouter();
+  const params = useParams();
+  const locale = params.locale as string;
+  const searchParams = useSearchParams();
+  const subjectParam = searchParams.get("subject");
+
+  const submitContact = useMutation(api.contactSubmissions.submit);
+
+  const form = useForm<ContactFormValues>({
+    resolver: zodResolver(contactFormSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      subject: undefined,
+      message: "",
+      honeypot: "",
+    },
+  });
+
+  const { isSubmitting } = form.formState;
+
+  // Pre-select subject from URL parameter
+  useEffect(() => {
+    if (subjectParam && subjectEnum.includes(subjectParam as Subject)) {
+      form.setValue("subject", subjectParam as Subject);
+    }
+  }, [subjectParam, form]);
+
+  async function onSubmit(values: ContactFormValues) {
+    try {
+      await submitContact({
+        name: values.name,
+        email: values.email,
+        phone: values.phone || undefined,
+        subject: values.subject,
+        message: values.message,
+      });
+
+      // Redirect to thank-you page after successful submission
+      router.push(`/${locale}/contact/thank-you`);
+    } catch (error) {
+      console.error("Failed to submit contact form:", error);
+      form.setError("root", {
+        message: t("form.errors.submitFailed"),
+      });
+    }
   }
 
-  const subjectOptions = [
+  const subjectOptions: { value: Subject; label: string }[] = [
     { value: "general", label: t("form.subjects.general") },
-    { value: "sales", label: t("form.subjects.sales") },
+    { value: "pricing", label: t("form.subjects.pricing") },
     { value: "support", label: t("form.subjects.support") },
     { value: "partnerships", label: t("form.subjects.partnerships") },
-    { value: "media", label: t("form.subjects.media") },
+    { value: "provider", label: t("form.subjects.provider") },
   ];
 
   return (
@@ -135,113 +237,205 @@ export function ContactPageContent() {
               className="lg:col-span-3"
             >
               <div className="rounded-2xl border border-gray-200 bg-white p-6 md:p-8 shadow-sm">
-                {submitted ? (
-                  <div className="flex flex-col items-center justify-center py-12 text-center">
-                    <div className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mb-6">
-                      <CheckCircle className="w-8 h-8 text-[#050A12]" aria-hidden="true" />
-                    </div>
-                    <h3 className="text-2xl font-light tracking-tight text-[#050A12] mb-2">
-                      {t("form.success.title")}
-                    </h3>
-                    <p className="text-gray-600 font-light max-w-md">
-                      {t("form.success.description")}
-                    </p>
-                    <button
-                      onClick={() => setSubmitted(false)}
-                      className="mt-6 px-6 py-2.5 text-sm font-medium text-[#050A12] border border-gray-200 rounded-full hover:bg-gray-50 transition-colors"
-                    >
-                      {t("form.success.sendAnother")}
-                    </button>
-                  </div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="space-y-6">
+                <Form {...form}>
+                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                    {/* Name & Email Row */}
                     <div className="grid sm:grid-cols-2 gap-6">
-                      <div className="space-y-2">
-                        <Label htmlFor="contact-name" className="text-[#050A12]">
-                          {t("form.name.label")}
-                        </Label>
-                        <Input
-                          id="contact-name"
-                          name="name"
-                          placeholder={t("form.name.placeholder")}
-                          required
-                          className="rounded-lg border-gray-200"
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="contact-email" className="text-[#050A12]">
-                          {t("form.email.label")}
-                        </Label>
-                        <Input
-                          id="contact-email"
-                          name="email"
-                          type="email"
-                          placeholder={t("form.email.placeholder")}
-                          required
-                          className="rounded-lg border-gray-200"
-                        />
-                      </div>
-                    </div>
+                      <FormField
+                        control={form.control}
+                        name="name"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-[#050A12]">
+                              {t("form.name.label")}
+                            </FormLabel>
+                            <FormControl>
+                              <Input
+                                placeholder={t("form.name.placeholder")}
+                                className="rounded-lg border-gray-200"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage>
+                              {form.formState.errors.name?.message &&
+                                t(`form.errors.${form.formState.errors.name.message}`)}
+                            </FormMessage>
+                          </FormItem>
+                        )}
+                      />
 
-                    <div className="grid sm:grid-cols-2 gap-6">
-                      <div className="space-y-2">
-                        <Label htmlFor="contact-phone" className="text-[#050A12]">
-                          {t("form.phone.label")}
-                        </Label>
-                        <Input
-                          id="contact-phone"
-                          name="phone"
-                          type="tel"
-                          placeholder={t("form.phone.placeholder")}
-                          className="rounded-lg border-gray-200"
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="contact-subject" className="text-[#050A12]">
-                          {t("form.subject.label")}
-                        </Label>
-                        <Select value={subject} onValueChange={setSubject} required>
-                          <SelectTrigger id="contact-subject" className="w-full rounded-lg border-gray-200">
-                            <SelectValue placeholder={t("form.subject.placeholder")} />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {subjectOptions.map((option) => (
-                              <SelectItem key={option.value} value={option.value}>
-                                {option.label}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="contact-message" className="text-[#050A12]">
-                        {t("form.message.label")}
-                      </Label>
-                      <Textarea
-                        id="contact-message"
-                        name="message"
-                        placeholder={t("form.message.placeholder")}
-                        className="min-h-[140px] rounded-lg border-gray-200"
-                        required
+                      <FormField
+                        control={form.control}
+                        name="email"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-[#050A12]">
+                              {t("form.email.label")}
+                            </FormLabel>
+                            <FormControl>
+                              <Input
+                                type="email"
+                                placeholder={t("form.email.placeholder")}
+                                className="rounded-lg border-gray-200"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage>
+                              {form.formState.errors.email?.message &&
+                                t(`form.errors.${form.formState.errors.email.message}`)}
+                            </FormMessage>
+                          </FormItem>
+                        )}
                       />
                     </div>
 
-                    <button
+                    {/* Phone & Subject Row */}
+                    <div className="grid sm:grid-cols-2 gap-6">
+                      <FormField
+                        control={form.control}
+                        name="phone"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-[#050A12]">
+                              {t("form.phone.label")}
+                            </FormLabel>
+                            <FormControl>
+                              <Input
+                                type="tel"
+                                placeholder={t("form.phone.placeholder")}
+                                className="rounded-lg border-gray-200"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={form.control}
+                        name="subject"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-[#050A12]">
+                              {t("form.subject.label")}
+                            </FormLabel>
+                            <Select
+                              onValueChange={field.onChange}
+                              value={field.value}
+                            >
+                              <FormControl>
+                                <SelectTrigger className="w-full rounded-lg border-gray-200">
+                                  <SelectValue placeholder={t("form.subject.placeholder")} />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                {subjectOptions.map((option) => (
+                                  <SelectItem key={option.value} value={option.value}>
+                                    {option.label}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                            <FormMessage>
+                              {form.formState.errors.subject?.message &&
+                                t(`form.errors.${form.formState.errors.subject.message}`)}
+                            </FormMessage>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+
+                    {/* Message */}
+                    <FormField
+                      control={form.control}
+                      name="message"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-[#050A12]">
+                            {t("form.message.label")}
+                          </FormLabel>
+                          <FormControl>
+                            <Textarea
+                              placeholder={t("form.message.placeholder")}
+                              className="min-h-[140px] rounded-lg border-gray-200"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage>
+                            {form.formState.errors.message?.message &&
+                              t(`form.errors.${form.formState.errors.message.message}`)}
+                          </FormMessage>
+                        </FormItem>
+                      )}
+                    />
+
+                    {/* Honeypot field - hidden from real users */}
+                    <FormField
+                      control={form.control}
+                      name="honeypot"
+                      render={({ field }) => (
+                        <FormItem
+                          style={{
+                            position: "absolute",
+                            left: "-9999px",
+                          }}
+                        >
+                          <FormLabel>Website</FormLabel>
+                          <FormControl>
+                            <Input
+                              type="text"
+                              tabIndex={-1}
+                              autoComplete="off"
+                              aria-hidden="true"
+                              {...field}
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+
+                    {/* Root Error */}
+                    {form.formState.errors.root && (
+                      <p className="text-sm text-destructive text-center">
+                        {form.formState.errors.root.message}
+                      </p>
+                    )}
+
+                    {/* Submit Button */}
+                    <Button
                       type="submit"
                       className="w-full inline-flex items-center justify-center gap-2 px-8 py-3 text-sm font-medium bg-[#050A12] text-white rounded-full hover:bg-[#050A12]/90 transition-colors"
+                      disabled={isSubmitting}
                     >
-                      <Send className="w-4 h-4" aria-hidden="true" />
-                      {t("form.submit")}
-                    </button>
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" />
+                          {t("form.submitting")}
+                        </>
+                      ) : (
+                        <>
+                          <Send className="w-4 h-4" aria-hidden="true" />
+                          {t("form.submit")}
+                        </>
+                      )}
+                    </Button>
                   </form>
-                )}
+                </Form>
               </div>
             </motion.div>
           </div>
         </div>
       </section>
     </div>
+  );
+}
+
+// Outer component with Suspense wrapper
+export function ContactPageContent() {
+  return (
+    <Suspense fallback={<ContactPageSkeleton />}>
+      <ContactPageInner />
+    </Suspense>
   );
 }

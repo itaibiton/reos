@@ -3074,21 +3074,35 @@
       },
       "subjects": {
         "general": "פנייה כללית",
-        "sales": "מכירות ותמחור",
+        "pricing": "שאלת תמחור",
         "support": "תמיכה טכנית",
         "partnerships": "שותפויות",
-        "media": "עיתונות ומדיה"
+        "provider": "הצטרפות כספק שירות"
       },
       "message": {
         "label": "הודעה",
         "placeholder": "ספרו לנו איך נוכל לעזור..."
       },
       "submit": "שלח הודעה",
+      "submitting": "שולח...",
       "success": {
         "title": "ההודעה נשלחה!",
         "description": "תודה שפניתם אלינו. הצוות שלנו יחזור אליכם תוך יום עסקים אחד.",
         "sendAnother": "שלח הודעה נוספת"
+      },
+      "errors": {
+        "nameMin": "השם חייב להכיל לפחות 2 תווים",
+        "emailInvalid": "נא להזין כתובת אימייל תקינה",
+        "subjectRequired": "נא לבחור נושא",
+        "messageRequired": "הודעה היא שדה חובה",
+        "submitFailed": "השליחה נכשלה. נא לנסות שוב."
       }
+    },
+    "thankYou": {
+      "title": "תודה!",
+      "description": "ההודעה שלך נשלחה בהצלחה. הצוות שלנו יחזור אליך תוך יום עסקים אחד.",
+      "backToHome": "חזרה לדף הבית",
+      "sendAnother": "שליחת הודעה נוספת"
     }
   },
   "services": {
