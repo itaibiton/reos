@@ -64,6 +64,9 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 - **Contact form with Convex backend, Zod validation, honeypot anti-spam, URL pre-selection**
 - **7 service provider landing pages with social proof, JSON-LD, role-preselected CTAs**
 - **Full navigation wiring: Solutions dropdown (7 providers), footer routes, cross-page CTAs, sitemap.ts (13 pages x 2 locales)**
+- **Vendor onboarding: 4-step wizard with profile photo upload, draft persistence, validation**
+- **Admin approval workflow: pending vendors queue, approve/reject with reason, status banners**
+- **Vendor visibility gating: unapproved vendors hidden from directory, grandfathering for existing providers**
 
 ## Requirements
 
@@ -115,15 +118,18 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 - [x] Contact page with Convex backend, Zod validation, honeypot anti-spam — v1.8
 - [x] 7 service provider landing pages with JSON-LD and role-preselected CTAs — v1.8
 - [x] Full navigation wiring with Solutions dropdown, footer routes, sitemap — v1.8
+- [x] Vendor onboarding questionnaire with all registration fields — v1.9
+- [x] Admin approval gate for new vendors — v1.9
+- [x] Profile photo upload for vendors — v1.9
 
 ### Active
 
-- [ ] Vendor onboarding questionnaire with all registration fields — v1.9
-- [ ] Admin approval gate for new vendors — v1.9
+- [x] Vendor onboarding questionnaire with all registration fields — v1.9
+- [x] Admin approval gate for new vendors — v1.9
 - [ ] Vendor personal area: client management with document access — v1.9
 - [ ] Process timeline per client with current stage display — v1.9
 - [ ] Vendor deal statistics dashboard — v1.9
-- [ ] Profile photo upload for vendors — v1.9
+- [x] Profile photo upload for vendors — v1.9
 
 ### Out of Scope
 
@@ -189,4 +195,4 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 - Internal social chat between professionals by topic
 
 ---
-*Last updated: 2026-01-29 after v1.9 milestone started (Vendor Registration & Management)*
+*Last updated: 2026-01-29 after Phase 57 complete (Vendor Onboarding & Admin Approval)*

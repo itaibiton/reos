@@ -52,9 +52,9 @@
 **Plans:** 3 plans
 
 Plans:
-- [ ] 57-01-PLAN.md -- Schema extension and approval backend (Convex mutations, queries, approval state machine)
-- [ ] 57-02-PLAN.md -- Vendor onboarding questionnaire UI (multi-step form with photo upload, draft persistence)
-- [ ] 57-03-PLAN.md -- Admin approval interface and vendor visibility gating
+- [x] 57-01-PLAN.md -- Schema extension and approval backend (Convex mutations, queries, approval state machine)
+- [x] 57-02-PLAN.md -- Vendor onboarding questionnaire UI (multi-step form with photo upload, draft persistence)
+- [x] 57-03-PLAN.md -- Admin approval interface and vendor visibility gating
 
 ---
 
@@ -128,7 +128,7 @@ Plans:
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
-| 57. Vendor Onboarding & Admin Approval | v1.9 | 0/3 | Planning complete | - |
+| 57. Vendor Onboarding & Admin Approval | v1.9 | 3/3 | ✅ Complete | 2026-01-29 |
 | 58. Client Management & Process Timeline | v1.9 | 0/2 | Not started | - |
 | 59. Vendor Statistics Dashboard | v1.9 | 0/1 | Not started | - |
 | 60. Profile Polish & Public Display | v1.9 | 0/1 | Not started | - |
