@@ -18,6 +18,7 @@ import type * as ai_tools_propertyQueries from "../ai/tools/propertyQueries.js";
 import type * as ai_tools_propertySearch from "../ai/tools/propertySearch.js";
 import type * as ai_tools_providerQueries from "../ai/tools/providerQueries.js";
 import type * as ai_tools_providerSearch from "../ai/tools/providerSearch.js";
+import type * as clientManagement from "../clientManagement.js";
 import type * as clients from "../clients.js";
 import type * as contactSubmissions from "../contactSubmissions.js";
 import type * as conversations from "../conversations.js";
@@ -71,6 +72,7 @@ declare const fullApi: ApiFromModules<{
   "ai/tools/propertySearch": typeof ai_tools_propertySearch;
   "ai/tools/providerQueries": typeof ai_tools_providerQueries;
   "ai/tools/providerSearch": typeof ai_tools_providerSearch;
+  clientManagement: typeof clientManagement;
   clients: typeof clients;
   contactSubmissions: typeof contactSubmissions;
   conversations: typeof conversations;

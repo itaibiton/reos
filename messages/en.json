@@ -3779,5 +3779,34 @@
       "action": "Revise & Resubmit",
       "reviewedAt": "Reviewed on {date}"
     }
+  },
+  "clientManagement": {
+    "title": "My Clients",
+    "subtitle": "{count} clients",
+    "searchPlaceholder": "Search clients...",
+    "columns": {
+      "client": "Client",
+      "property": "Property",
+      "stage": "Stage",
+      "startDate": "Start Date",
+      "actions": "Actions"
+    },
+    "empty": {
+      "title": "No Clients Yet",
+      "description": "Clients will appear here once you are assigned to deals."
+    },
+    "noResults": "No clients match your search.",
+    "back": "Back",
+    "noDealFound": "No deals found for this client.",
+    "detail": {
+      "title": "Client Details",
+      "dealCount": "{count} deals",
+      "unknownProperty": "Unknown Property",
+      "started": "Started",
+      "price": "Price",
+      "lastUpdate": "Last Update",
+      "documents": "Documents",
+      "noDocuments": "No documents uploaded yet"
+    }
   }
 }

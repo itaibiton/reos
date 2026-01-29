@@ -3891,5 +3891,34 @@
       "action": "תקן ושלח מחדש",
       "reviewedAt": "נבדק ב-{date}"
     }
+  },
+  "clientManagement": {
+    "title": "הלקוחות שלי",
+    "subtitle": "{count} לקוחות",
+    "searchPlaceholder": "חיפוש לקוחות...",
+    "columns": {
+      "client": "לקוח",
+      "property": "נכס",
+      "stage": "שלב",
+      "startDate": "תאריך התחלה",
+      "actions": "פעולות"
+    },
+    "empty": {
+      "title": "אין לקוחות עדיין",
+      "description": "לקוחות יופיעו כאן ברגע שתוקצו לעסקאות."
+    },
+    "noResults": "אין לקוחות תואמים לחיפוש.",
+    "back": "חזרה",
+    "noDealFound": "לא נמצאו עסקאות ללקוח זה.",
+    "detail": {
+      "title": "פרטי לקוח",
+      "dealCount": "{count} עסקאות",
+      "unknownProperty": "נכס לא ידוע",
+      "started": "התחלה",
+      "price": "מחיר",
+      "lastUpdate": "עדכון אחרון",
+      "documents": "מסמכים",
+      "noDocuments": "אין מסמכים שהועלו עדיין"
+    }
   }
 }
