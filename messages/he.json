@@ -3824,5 +3824,72 @@
     "success": {
       "submitted": "הפרופיל נשלח לאישור! נחזור אליך בקרוב."
     }
+  },
+  "adminVendors": {
+    "title": "אישורי ספקים ממתינים",
+    "subtitle": "{count, plural, =0 {אין בקשות ממתינות} =1 {בקשה אחת לבדיקה} other {# בקשות לבדיקה}}",
+    "empty": "אין בקשות ממתינות",
+    "emptyDescription": "כל בקשות הספקים נבדקו",
+    "pendingCount": "{count, plural, =1 {ממתין אחד} other {# ממתינים}}",
+    "columns": {
+      "photo": "תמונה",
+      "name": "שם",
+      "type": "סוג",
+      "company": "חברה",
+      "submitted": "נשלח",
+      "actions": "פעולות"
+    },
+    "review": "בדוק",
+    "approve": "אשר",
+    "reject": "דחה",
+    "confirmReject": "אשר דחייה",
+    "cancel": "ביטול",
+    "cancelReject": "ביטול",
+    "processing": "מעבד...",
+    "rejectionReason": "סיבת דחייה",
+    "rejectionReasonPlaceholder": "למה הבקשה נדחית? (אופציונלי)",
+    "approveSuccess": "הספק אושר בהצלחה",
+    "rejectSuccess": "הספק נדחה",
+    "profileDetails": "פרטי פרופיל",
+    "reviewDescription": "בדוק את הפרופיל של הספק ואשר או דחה את הבקשה",
+    "professionalDetails": "פרטים מקצועיים",
+    "serviceArea": "אזור שירות",
+    "bio": "ביוגרפיה מקצועית",
+    "additional": "מידע נוסף",
+    "submittedAt": "נשלח",
+    "providerTypes": {
+      "broker": "מתווך נדל\"ן",
+      "mortgageAdvisor": "יועץ משכנתאות",
+      "lawyer": "עורך דין"
+    },
+    "fields": {
+      "company": "חברה",
+      "license": "מספר רישיון",
+      "experience": "ניסיון",
+      "specializations": "התמחויות",
+      "serviceAreas": "אזורי שירות",
+      "languages": "שפות",
+      "website": "אתר אינטרנט",
+      "recommendations": "המלצות חיצוניות"
+    }
+  },
+  "vendorStatus": {
+    "draft": {
+      "title": "השלם את הפרופיל שלך",
+      "description": "השלם את פרופיל הספק שלך כדי להתחיל לקבל לקוחות בפלטפורמה.",
+      "action": "השלם פרופיל"
+    },
+    "pending": {
+      "title": "הפרופיל בבדיקה",
+      "description": "הפרופיל שלך נבדק על ידי הצוות שלנו. נודיע לך תוך 48 שעות.",
+      "submittedAt": "נשלח ב-{date}"
+    },
+    "rejected": {
+      "title": "הפרופיל לא אושר",
+      "description": "הפרופיל שלך לא אושר. אנא עיין במשוב ושלח מחדש.",
+      "reason": "סיבה: {reason}",
+      "action": "תקן ושלח מחדש",
+      "reviewedAt": "נבדק ב-{date}"
+    }
   }
 }

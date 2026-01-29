@@ -16,6 +16,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ProviderDashboard } from "@/components/dashboard/ProviderDashboard";
+import { VendorApprovalBanner } from "@/components/vendor/VendorApprovalBanner";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
   Home01Icon,
@@ -79,6 +80,7 @@ export default function DashboardPage() {
   if (effectiveRole === "broker" || effectiveRole === "mortgage_advisor" || effectiveRole === "lawyer") {
     return (
       <div className="p-6">
+        <VendorApprovalBanner />
         <ProviderDashboard userName={user?.name} />
       </div>
     );

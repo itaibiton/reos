@@ -3712,5 +3712,72 @@
     "success": {
       "submitted": "Profile submitted for approval! You'll hear from us soon."
     }
+  },
+  "adminVendors": {
+    "title": "Pending Vendor Approvals",
+    "subtitle": "{count, plural, =0 {No pending applications} =1 {1 application to review} other {# applications to review}}",
+    "empty": "No pending applications",
+    "emptyDescription": "All vendor applications have been reviewed",
+    "pendingCount": "{count, plural, =1 {1 pending} other {# pending}}",
+    "columns": {
+      "photo": "Photo",
+      "name": "Name",
+      "type": "Type",
+      "company": "Company",
+      "submitted": "Submitted",
+      "actions": "Actions"
+    },
+    "review": "Review",
+    "approve": "Approve",
+    "reject": "Reject",
+    "confirmReject": "Confirm Rejection",
+    "cancel": "Cancel",
+    "cancelReject": "Cancel",
+    "processing": "Processing...",
+    "rejectionReason": "Rejection Reason",
+    "rejectionReasonPlaceholder": "Why is this application being rejected? (optional)",
+    "approveSuccess": "Vendor approved successfully",
+    "rejectSuccess": "Vendor rejected",
+    "profileDetails": "Profile Details",
+    "reviewDescription": "Review the vendor's profile and approve or reject their application",
+    "professionalDetails": "Professional Details",
+    "serviceArea": "Service Area",
+    "bio": "Professional Bio",
+    "additional": "Additional Information",
+    "submittedAt": "Submitted",
+    "providerTypes": {
+      "broker": "Real Estate Broker",
+      "mortgageAdvisor": "Mortgage Advisor",
+      "lawyer": "Lawyer"
+    },
+    "fields": {
+      "company": "Company",
+      "license": "License Number",
+      "experience": "Experience",
+      "specializations": "Specializations",
+      "serviceAreas": "Service Areas",
+      "languages": "Languages",
+      "website": "Website",
+      "recommendations": "External Recommendations"
+    }
+  },
+  "vendorStatus": {
+    "draft": {
+      "title": "Complete Your Profile",
+      "description": "Complete your vendor profile to start accepting clients on the platform.",
+      "action": "Complete Profile"
+    },
+    "pending": {
+      "title": "Profile Under Review",
+      "description": "Your profile is being reviewed by our team. We'll notify you within 48 hours.",
+      "submittedAt": "Submitted on {date}"
+    },
+    "rejected": {
+      "title": "Profile Not Approved",
+      "description": "Your profile was not approved. Please review the feedback and resubmit.",
+      "reason": "Reason: {reason}",
+      "action": "Revise & Resubmit",
+      "reviewedAt": "Reviewed on {date}"
+    }
   }
 }
