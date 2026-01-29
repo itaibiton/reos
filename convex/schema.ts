@@ -826,6 +826,29 @@ export default defineSchema({
     .index("by_type", ["investorType"]),
 
   // ============================================================================
+  // CONTACT SUBMISSIONS TABLE (Phase 55)
+  // ============================================================================
+
+  // Contact page form submissions
+  contactSubmissions: defineTable({
+    name: v.string(),
+    email: v.string(),
+    phone: v.optional(v.string()),
+    subject: v.union(
+      v.literal("general"),
+      v.literal("pricing"),
+      v.literal("support"),
+      v.literal("partnerships"),
+      v.literal("provider")
+    ),
+    message: v.string(),
+    createdAt: v.number(),
+  })
+    .index("by_email", ["email"])
+    .index("by_created", ["createdAt"])
+    .index("by_subject", ["subject"]),
+
+  // ============================================================================
   // AI ASSISTANT TABLES (Phase 40)
   // ============================================================================
 
