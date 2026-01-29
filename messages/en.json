@@ -2887,32 +2887,131 @@
       "title": "Compare plan features",
       "feature": "Feature",
       "features": [
-        { "name": "Property marketplace", "investor": true, "provider": true, "enterprise": true },
-        { "name": "AI property search", "investor": true, "provider": true, "enterprise": true },
-        { "name": "Save & compare properties", "investor": true, "provider": true, "enterprise": true },
-        { "name": "Connect with providers", "investor": true, "provider": true, "enterprise": true },
-        { "name": "Deal tracking", "investor": true, "provider": true, "enterprise": true },
-        { "name": "Client management", "investor": false, "provider": true, "enterprise": true },
-        { "name": "Lead pipeline", "investor": false, "provider": true, "enterprise": true },
-        { "name": "Provider profile", "investor": false, "provider": true, "enterprise": true },
-        { "name": "Analytics & insights", "investor": false, "provider": true, "enterprise": true },
-        { "name": "Deal handoff", "investor": false, "provider": true, "enterprise": true },
-        { "name": "Team management", "investor": false, "provider": false, "enterprise": true },
-        { "name": "Custom integrations", "investor": false, "provider": false, "enterprise": true },
-        { "name": "API access", "investor": false, "provider": false, "enterprise": true },
-        { "name": "Dedicated account manager", "investor": false, "provider": false, "enterprise": true },
-        { "name": "SLA guarantee", "investor": false, "provider": false, "enterprise": true }
+        {
+          "name": "Property marketplace",
+          "investor": true,
+          "provider": true,
+          "enterprise": true
+        },
+        {
+          "name": "AI property search",
+          "investor": true,
+          "provider": true,
+          "enterprise": true
+        },
+        {
+          "name": "Save & compare properties",
+          "investor": true,
+          "provider": true,
+          "enterprise": true
+        },
+        {
+          "name": "Connect with providers",
+          "investor": true,
+          "provider": true,
+          "enterprise": true
+        },
+        {
+          "name": "Deal tracking",
+          "investor": true,
+          "provider": true,
+          "enterprise": true
+        },
+        {
+          "name": "Client management",
+          "investor": false,
+          "provider": true,
+          "enterprise": true
+        },
+        {
+          "name": "Lead pipeline",
+          "investor": false,
+          "provider": true,
+          "enterprise": true
+        },
+        {
+          "name": "Provider profile",
+          "investor": false,
+          "provider": true,
+          "enterprise": true
+        },
+        {
+          "name": "Analytics & insights",
+          "investor": false,
+          "provider": true,
+          "enterprise": true
+        },
+        {
+          "name": "Deal handoff",
+          "investor": false,
+          "provider": true,
+          "enterprise": true
+        },
+        {
+          "name": "Team management",
+          "investor": false,
+          "provider": false,
+          "enterprise": true
+        },
+        {
+          "name": "Custom integrations",
+          "investor": false,
+          "provider": false,
+          "enterprise": true
+        },
+        {
+          "name": "API access",
+          "investor": false,
+          "provider": false,
+          "enterprise": true
+        },
+        {
+          "name": "Dedicated account manager",
+          "investor": false,
+          "provider": false,
+          "enterprise": true
+        },
+        {
+          "name": "SLA guarantee",
+          "investor": false,
+          "provider": false,
+          "enterprise": true
+        }
       ]
     },
     "faq": {
       "title": "Billing FAQ",
       "questions": [
-        { "id": "trial", "question": "Is there a free trial?", "answer": "Yes! The Provider plan includes a 14-day free trial. No credit card required to start." },
-        { "id": "upgrade", "question": "Can I upgrade or downgrade anytime?", "answer": "Absolutely. You can change your plan at any time. When upgrading, you'll be prorated for the remainder of your billing cycle. When downgrading, the change takes effect at your next billing date." },
-        { "id": "cancel", "question": "What happens if I cancel?", "answer": "You can cancel anytime. Your access continues until the end of your current billing period. Your data is retained for 30 days after cancellation in case you change your mind." },
-        { "id": "payment", "question": "What payment methods do you accept?", "answer": "We accept all major credit cards (Visa, Mastercard, American Express) and bank transfers for annual plans." },
-        { "id": "enterprise", "question": "How does Enterprise pricing work?", "answer": "Enterprise pricing is customized based on team size, volume, and specific requirements. Contact our sales team for a personalized quote." },
-        { "id": "refund", "question": "Do you offer refunds?", "answer": "We offer a full refund within the first 14 days of any paid plan. After that, you can cancel anytime but refunds are not provided for partial billing periods." }
+        {
+          "id": "trial",
+          "question": "Is there a free trial?",
+          "answer": "Yes! The Provider plan includes a 14-day free trial. No credit card required to start."
+        },
+        {
+          "id": "upgrade",
+          "question": "Can I upgrade or downgrade anytime?",
+          "answer": "Absolutely. You can change your plan at any time. When upgrading, you'll be prorated for the remainder of your billing cycle. When downgrading, the change takes effect at your next billing date."
+        },
+        {
+          "id": "cancel",
+          "question": "What happens if I cancel?",
+          "answer": "You can cancel anytime. Your access continues until the end of your current billing period. Your data is retained for 30 days after cancellation in case you change your mind."
+        },
+        {
+          "id": "payment",
+          "question": "What payment methods do you accept?",
+          "answer": "We accept all major credit cards (Visa, Mastercard, American Express) and bank transfers for annual plans."
+        },
+        {
+          "id": "enterprise",
+          "question": "How does Enterprise pricing work?",
+          "answer": "Enterprise pricing is customized based on team size, volume, and specific requirements. Contact our sales team for a personalized quote."
+        },
+        {
+          "id": "refund",
+          "question": "Do you offer refunds?",
+          "answer": "We offer a full refund within the first 14 days of any paid plan. After that, you can cancel anytime but refunds are not provided for partial billing periods."
+        }
       ]
     },
     "trustSignals": {
@@ -3035,13 +3134,44 @@
           }
         ],
         "steps": [
-          { "title": "Create your provider profile", "description": "Sign up, verify your license, and build your professional profile with your specialties, regions served, and past deals." },
-          { "title": "Get matched with investors", "description": "Our algorithm matches you with US investors based on their criteria — property type, budget, location, and timeline." },
-          { "title": "Manage deals on the platform", "description": "Use the REOS dashboard to communicate with investors, share listings, and coordinate with other service providers." },
-          { "title": "Close and grow", "description": "Complete transactions, collect reviews, and build your reputation. Top-rated brokers get featured placement and more leads." }
+          {
+            "title": "Create your provider profile",
+            "description": "Sign up, verify your license, and build your professional profile with your specialties, regions served, and past deals."
+          },
+          {
+            "title": "Get matched with investors",
+            "description": "Our algorithm matches you with US investors based on their criteria — property type, budget, location, and timeline."
+          },
+          {
+            "title": "Manage deals on the platform",
+            "description": "Use the REOS dashboard to communicate with investors, share listings, and coordinate with other service providers."
+          },
+          {
+            "title": "Close and grow",
+            "description": "Complete transactions, collect reviews, and build your reputation. Top-rated brokers get featured placement and more leads."
+          }
         ],
         "ctaTitle": "Ready to reach US investors?",
-        "ctaDescription": "Join hundreds of Israeli brokers already using REOS to connect with qualified US real estate investors."
+        "ctaDescription": "Join hundreds of Israeli brokers already using REOS to connect with qualified US real estate investors.",
+        "stats": [
+          {
+            "value": "2,500+",
+            "label": "Active brokers"
+          },
+          {
+            "value": "$1.2B",
+            "label": "Deals closed"
+          },
+          {
+            "value": "4.8/5",
+            "label": "Average rating"
+          }
+        ],
+        "testimonial": {
+          "quote": "REOS transformed my brokerage. The quality of investor leads is unmatched — I closed three deals in my first month.",
+          "name": "Yossi M.",
+          "role": "Licensed Real Estate Broker"
+        }
       },
       "mortgage-advisor": {
         "name": "Mortgage Advisor",
@@ -3067,13 +3197,44 @@
           }
         ],
         "steps": [
-          { "title": "Set up your advisor profile", "description": "Register your credentials, list the banks you work with, and specify mortgage types you specialize in." },
-          { "title": "Receive investor referrals", "description": "Get matched with investors who have been pre-approved or are in the property search phase and need financing." },
-          { "title": "Present mortgage options", "description": "Use the platform's comparison tools to walk investors through rates, terms, and eligibility from multiple Israeli banks." },
-          { "title": "Guide through closing", "description": "Support investors from pre-approval to final disbursement, coordinating with brokers and lawyers on the platform." }
+          {
+            "title": "Set up your advisor profile",
+            "description": "Register your credentials, list the banks you work with, and specify mortgage types you specialize in."
+          },
+          {
+            "title": "Receive investor referrals",
+            "description": "Get matched with investors who have been pre-approved or are in the property search phase and need financing."
+          },
+          {
+            "title": "Present mortgage options",
+            "description": "Use the platform's comparison tools to walk investors through rates, terms, and eligibility from multiple Israeli banks."
+          },
+          {
+            "title": "Guide through closing",
+            "description": "Support investors from pre-approval to final disbursement, coordinating with brokers and lawyers on the platform."
+          }
         ],
         "ctaTitle": "Become a trusted mortgage advisor",
-        "ctaDescription": "US investors need experts like you to navigate Israeli financing. Start receiving referrals today."
+        "ctaDescription": "US investors need experts like you to navigate Israeli financing. Start receiving referrals today.",
+        "stats": [
+          {
+            "value": "3,200+",
+            "label": "Mortgages arranged"
+          },
+          {
+            "value": "95%",
+            "label": "Approval rate"
+          },
+          {
+            "value": "12+",
+            "label": "Banking partners"
+          }
+        ],
+        "testimonial": {
+          "quote": "Working with US investors through REOS has grown my practice significantly. The pre-qualified leads save me hours.",
+          "name": "Daniel S.",
+          "role": "Mortgage Advisor"
+        }
       },
       "lawyer": {
         "name": "Real Estate Lawyer",
@@ -3099,109 +3260,44 @@
           }
         ],
         "steps": [
-          { "title": "Verify your credentials", "description": "Register with your Israel Bar Association number, areas of practice, and languages spoken." },
-          { "title": "Get matched to transactions", "description": "Investors and brokers search for lawyers by specialty, location, and language. Appear in results matching your profile." },
-          { "title": "Handle due diligence", "description": "Use platform tools for title checks, contract reviews, and regulatory compliance documentation." },
-          { "title": "Close with confidence", "description": "Manage the legal side of closing through REOS — signatures, transfers, and post-closing compliance all in one place." }
+          {
+            "title": "Verify your credentials",
+            "description": "Register with your Israel Bar Association number, areas of practice, and languages spoken."
+          },
+          {
+            "title": "Get matched to transactions",
+            "description": "Investors and brokers search for lawyers by specialty, location, and language. Appear in results matching your profile."
+          },
+          {
+            "title": "Handle due diligence",
+            "description": "Use platform tools for title checks, contract reviews, and regulatory compliance documentation."
+          },
+          {
+            "title": "Close with confidence",
+            "description": "Manage the legal side of closing through REOS — signatures, transfers, and post-closing compliance all in one place."
+          }
         ],
         "ctaTitle": "Join our legal provider network",
-        "ctaDescription": "US investors need legal protection in unfamiliar territory. Be the lawyer they trust."
-      },
-      "accountant": {
-        "name": "Accountant",
-        "shortDescription": "Help investors manage cross-border tax obligations and financial reporting for Israeli property.",
-        "meta": {
-          "title": "Accountants — REOS Provider Network",
-          "description": "Join REOS as an accountant and help US investors with Israeli real estate tax reporting and compliance."
-        },
-        "heroTitle": "Simplify cross-border tax for real estate investors",
-        "heroDescription": "US investors holding Israeli property face complex tax obligations in two countries. Your expertise keeps them compliant and optimized.",
-        "benefits": [
+        "ctaDescription": "US investors need legal protection in unfamiliar territory. Be the lawyer they trust.",
+        "stats": [
           {
-            "title": "Dual-country tax expertise",
-            "description": "Position yourself as the go-to accountant for US-Israel real estate tax matters — capital gains, rental income, and treaty benefits."
+            "value": "800+",
+            "label": "Transactions completed"
           },
           {
-            "title": "Recurring client relationships",
-            "description": "Property investors need ongoing accounting support — annual reporting, rental income tracking, and disposition planning. Build long-term client relationships."
+            "value": "15+",
+            "label": "Years average experience"
           },
           {
-            "title": "Platform-integrated reporting",
-            "description": "Pull financial data from investor portfolios on REOS to streamline tax preparation and reporting workflows."
+            "value": "99%",
+            "label": "Closing success rate"
           }
         ],
-        "steps": [
-          { "title": "Create your accountant profile", "description": "List your qualifications, specialties (US tax, Israeli tax, or both), and the services you offer." },
-          { "title": "Connect with property owners", "description": "Investors search for accountants who understand cross-border real estate taxation. Match with those who need your skill set." },
-          { "title": "Deliver ongoing services", "description": "Use REOS data to prepare tax returns, generate financial reports, and advise on tax-efficient structuring." },
-          { "title": "Grow your practice", "description": "Earn reviews, get referrals from other providers, and expand your client base across the REOS investor community." }
-        ],
-        "ctaTitle": "Help investors stay tax-compliant",
-        "ctaDescription": "Cross-border real estate tax is complex. Your clients are already on REOS — are you?"
-      },
-      "notary": {
-        "name": "Notary",
-        "shortDescription": "Authenticate documents and signatures for remote Israeli real estate closings.",
-        "meta": {
-          "title": "Notaries — REOS Provider Network",
-          "description": "Join REOS as a notary and provide authentication services for cross-border Israeli real estate deals."
-        },
-        "heroTitle": "Enable remote real estate closings",
-        "heroDescription": "US investors purchasing Israeli property need notarized documents — often across time zones. Offer your notary services through REOS and simplify the process.",
-        "benefits": [
-          {
-            "title": "High-volume transaction flow",
-            "description": "Every cross-border deal requires notarized documents. Get steady work from the growing US-Israel real estate market."
-          },
-          {
-            "title": "Remote notarization support",
-            "description": "Offer in-person or remote online notarization to investors regardless of their US location."
-          },
-          {
-            "title": "Platform coordination",
-            "description": "Receive document packages directly from lawyers and brokers on the platform — no back-and-forth emails with missing pages."
-          }
-        ],
-        "steps": [
-          { "title": "Register as a notary", "description": "Submit your notary commission details, state of authorization, and whether you offer remote online notarization." },
-          { "title": "Receive document requests", "description": "Lawyers and investors on REOS send notarization requests directly through the platform with all required documents attached." },
-          { "title": "Authenticate and return", "description": "Complete notarizations and upload signed documents back to the platform for all parties to access." },
-          { "title": "Build your reputation", "description": "Fast turnaround and reliable service earn reviews that keep you at the top of search results." }
-        ],
-        "ctaTitle": "Streamline your notary practice",
-        "ctaDescription": "Cross-border deals need reliable notaries. Join REOS and serve a growing market."
-      },
-      "tax-consultant": {
-        "name": "Tax Consultant",
-        "shortDescription": "Advise on Israeli real estate tax planning, treaty benefits, and cross-border structuring.",
-        "meta": {
-          "title": "Tax Consultants — REOS Provider Network",
-          "description": "Join REOS as a tax consultant and advise US investors on Israeli real estate tax strategy."
-        },
-        "heroTitle": "Optimize real estate tax strategy across borders",
-        "heroDescription": "US investors need strategic tax advice before, during, and after Israeli property transactions. Your counsel protects their returns.",
-        "benefits": [
-          {
-            "title": "Strategic advisory demand",
-            "description": "Tax planning is the first conversation smart investors have. Position yourself upstream in the investment process for maximum impact."
-          },
-          {
-            "title": "Treaty and structuring expertise",
-            "description": "Help investors leverage the US-Israel tax treaty, choose optimal ownership structures, and plan for capital gains before they buy."
-          },
-          {
-            "title": "Portfolio-level insight",
-            "description": "Access aggregated portfolio data on REOS to provide holistic tax advice across an investor's entire Israeli real estate holdings."
-          }
-        ],
-        "steps": [
-          { "title": "Set up your consultant profile", "description": "Detail your tax specialties — international structuring, capital gains planning, treaty optimization, VAT, and more." },
-          { "title": "Engage with prospective investors", "description": "Connect with investors in the planning stage who want tax advice before committing to a purchase." },
-          { "title": "Deliver strategic advice", "description": "Provide structuring recommendations, tax projections, and ongoing compliance guidance through the platform." },
-          { "title": "Expand your network", "description": "Collaborate with lawyers, accountants, and brokers on REOS to become part of a trusted provider ecosystem." }
-        ],
-        "ctaTitle": "Advise the next generation of investors",
-        "ctaDescription": "Smart investors plan taxes first. Be the consultant they find on REOS."
+        "testimonial": {
+          "quote": "The platform streamlines the entire legal process for cross-border transactions. My clients love the transparency.",
+          "name": "Rachel L.",
+          "role": "Real Estate Attorney"
+        }
       },
       "appraiser": {
         "name": "Property Appraiser",
@@ -3227,13 +3323,233 @@
           }
         ],
         "steps": [
-          { "title": "Register your qualifications", "description": "Submit your appraiser license, regions you cover, property types you specialize in, and turnaround times." },
-          { "title": "Accept appraisal orders", "description": "Receive valuation requests from investors, brokers, and mortgage advisors directly through the platform." },
-          { "title": "Complete the appraisal", "description": "Conduct your inspection, pull comparable data, and deliver your report through REOS with secure document sharing." },
-          { "title": "Grow your practice", "description": "Reliable turnaround and thorough reports earn top ratings and repeat business from the provider network." }
+          {
+            "title": "Register your qualifications",
+            "description": "Submit your appraiser license, regions you cover, property types you specialize in, and turnaround times."
+          },
+          {
+            "title": "Accept appraisal orders",
+            "description": "Receive valuation requests from investors, brokers, and mortgage advisors directly through the platform."
+          },
+          {
+            "title": "Complete the appraisal",
+            "description": "Conduct your inspection, pull comparable data, and deliver your report through REOS with secure document sharing."
+          },
+          {
+            "title": "Grow your practice",
+            "description": "Reliable turnaround and thorough reports earn top ratings and repeat business from the provider network."
+          }
         ],
         "ctaTitle": "Put your valuation expertise to work",
-        "ctaDescription": "International buyers trust local appraisers. Join REOS and grow your practice."
+        "ctaDescription": "International buyers trust local appraisers. Join REOS and grow your practice.",
+        "stats": [
+          {
+            "value": "5,000+",
+            "label": "Appraisals completed"
+          },
+          {
+            "value": "48hr",
+            "label": "Average turnaround"
+          },
+          {
+            "value": "100%",
+            "label": "Licensed appraisers"
+          }
+        ],
+        "testimonial": {
+          "quote": "REOS connects me with serious investors who value professional appraisals. The steady deal flow speaks for itself.",
+          "name": "Amit B.",
+          "role": "Certified Property Appraiser"
+        }
+      },
+      "entrepreneur": {
+        "name": "Real Estate Entrepreneur",
+        "shortDescription": "Launch and scale your Israeli real estate ventures with access to deals, funding, and professional networks.",
+        "meta": {
+          "title": "Real Estate Entrepreneurs — REOS Platform",
+          "description": "Join REOS as an entrepreneur and access Israeli real estate deals, connect with investors, and scale your portfolio."
+        },
+        "heroTitle": "Turn Israeli real estate into your next venture",
+        "heroDescription": "REOS gives entrepreneurs direct access to curated Israeli property deals, investor networks, and the professional services needed to close fast.",
+        "benefits": [
+          {
+            "title": "Curated deal access",
+            "description": "Browse pre-vetted Israeli properties before they hit the open market. Get early access to off-market deals through our exclusive network of brokers and sellers."
+          },
+          {
+            "title": "Investor networking",
+            "description": "Connect with accredited US investors actively seeking Israeli real estate opportunities. Build partnerships, secure co-investment, or find exit buyers for your projects."
+          },
+          {
+            "title": "Full-service support",
+            "description": "Access vetted lawyers, mortgage advisors, appraisers, and asset managers all in one platform. Build your team faster and focus on deal execution instead of vendor search."
+          }
+        ],
+        "steps": [
+          {
+            "title": "Sign up as an entrepreneur",
+            "description": "Create your profile, outline your investment thesis, and specify the types of Israeli properties you target — residential, commercial, or mixed-use."
+          },
+          {
+            "title": "Browse exclusive deals",
+            "description": "Access our marketplace of Israeli properties with detailed financials, neighborhood analysis, and verified ownership. Save favorites and set deal alerts."
+          },
+          {
+            "title": "Connect with providers",
+            "description": "Message brokers, schedule calls with mortgage advisors, and hire lawyers directly through the platform. All communication tracked in your deal dashboard."
+          },
+          {
+            "title": "Close and scale",
+            "description": "Use REOS tools to manage due diligence, coordinate closings, and track portfolio performance. Build your track record and attract more investors."
+          }
+        ],
+        "ctaTitle": "Ready to build your portfolio?",
+        "ctaDescription": "Join entrepreneurs already using REOS to find and close Israeli real estate deals.",
+        "stats": [
+          {
+            "value": "500+",
+            "label": "Active deals"
+          },
+          {
+            "value": "$2B+",
+            "label": "Total deal value"
+          },
+          {
+            "value": "92%",
+            "label": "Client satisfaction"
+          }
+        ],
+        "testimonial": {
+          "quote": "REOS connected me with the right professionals and deals to build my Israeli portfolio from scratch.",
+          "name": "David R.",
+          "role": "Real Estate Entrepreneur"
+        }
+      },
+      "asset-manager": {
+        "name": "Asset Manager",
+        "shortDescription": "Manage Israeli real estate portfolios for clients with institutional-grade tools and local market intelligence.",
+        "meta": {
+          "title": "Asset Managers — REOS Provider Network",
+          "description": "Join REOS as an asset manager and access tools, market data, and client connections for Israeli real estate portfolio management."
+        },
+        "heroTitle": "Manage Israeli portfolios with institutional-grade tools",
+        "heroDescription": "REOS provides asset managers with market intelligence, deal flow, and client management tools purpose-built for the Israeli real estate market.",
+        "benefits": [
+          {
+            "title": "Portfolio analytics dashboard",
+            "description": "Track performance across multiple Israeli properties with real-time valuations, rental income reporting, and tax optimization insights. Export custom reports for clients."
+          },
+          {
+            "title": "Client acquisition pipeline",
+            "description": "Get matched with US investors seeking professional asset management for their Israeli holdings. Showcase your AUM, track record, and investment philosophy."
+          },
+          {
+            "title": "Market intelligence access",
+            "description": "Leverage REOS data on Israeli property trends, rental yields, and neighborhood forecasts. Make data-driven decisions for client portfolios."
+          }
+        ],
+        "steps": [
+          {
+            "title": "Create your professional profile",
+            "description": "Highlight your AUM, specialization (residential, commercial, mixed), and years managing Israeli real estate. Upload case studies and client testimonials."
+          },
+          {
+            "title": "Access market data",
+            "description": "Use REOS analytics to research properties, compare yields, and identify acquisition opportunities for client portfolios."
+          },
+          {
+            "title": "Manage client portfolios",
+            "description": "Onboard clients, import their existing Israeli holdings, and track performance with automated reporting. Coordinate maintenance and tenant management."
+          },
+          {
+            "title": "Scale your operations",
+            "description": "Grow your AUM by accepting new client referrals from the REOS network. Top-performing managers get featured placement and priority leads."
+          }
+        ],
+        "ctaTitle": "Ready to scale your AUM?",
+        "ctaDescription": "Join asset managers already leveraging REOS for Israeli real estate portfolio management.",
+        "stats": [
+          {
+            "value": "$5B+",
+            "label": "Assets managed"
+          },
+          {
+            "value": "150+",
+            "label": "Active managers"
+          },
+          {
+            "value": "35%",
+            "label": "Average portfolio growth"
+          }
+        ],
+        "testimonial": {
+          "quote": "The market data and client matching on REOS transformed how we manage Israeli real estate portfolios.",
+          "name": "Sarah K.",
+          "role": "Senior Asset Manager"
+        }
+      },
+      "financial-advisor": {
+        "name": "Financial Advisor",
+        "shortDescription": "Guide clients through Israeli real estate investments with market insights, tax planning tools, and deal analysis.",
+        "meta": {
+          "title": "Financial Advisors — REOS Provider Network",
+          "description": "Join REOS as a financial advisor and help clients navigate Israeli real estate investments with data-driven insights."
+        },
+        "heroTitle": "Guide clients to smarter Israeli real estate investments",
+        "heroDescription": "REOS empowers financial advisors with market analytics, deal comparisons, and client management tools to deliver expert Israeli real estate guidance.",
+        "benefits": [
+          {
+            "title": "Data-driven client advice",
+            "description": "Access comprehensive Israeli property data, rental yield forecasts, and currency risk analysis. Present side-by-side deal comparisons with tax implications modeled."
+          },
+          {
+            "title": "Client portfolio integration",
+            "description": "Add Israeli real estate to client portfolios within the REOS platform. Track performance alongside other assets and model diversification scenarios."
+          },
+          {
+            "title": "Cross-border tax expertise",
+            "description": "Leverage REOS tax planning tools for US-Israel property ownership. Stay updated on treaty changes, foreign tax credits, and reporting requirements."
+          }
+        ],
+        "steps": [
+          {
+            "title": "Join the advisor network",
+            "description": "Register your credentials (CFP, CFA, etc.), specify your expertise areas, and set your advisory fees. Build your profile with client success stories."
+          },
+          {
+            "title": "Access analytics and tools",
+            "description": "Use REOS market data to research Israeli properties, model cash flows, and assess risk for client recommendations."
+          },
+          {
+            "title": "Advise clients on Israeli deals",
+            "description": "Guide clients through property selection, financing options, and portfolio allocation. Coordinate with brokers and lawyers on the platform."
+          },
+          {
+            "title": "Grow your practice",
+            "description": "Receive referrals from investors seeking professional guidance. Build your reputation with verified client reviews and successful deal closings."
+          }
+        ],
+        "ctaTitle": "Ready to advise on Israeli real estate?",
+        "ctaDescription": "Join financial advisors already using REOS to deliver data-driven Israeli property investment guidance.",
+        "stats": [
+          {
+            "value": "1,200+",
+            "label": "Clients advised"
+          },
+          {
+            "value": "$800M+",
+            "label": "Investments guided"
+          },
+          {
+            "value": "98%",
+            "label": "Advisor retention"
+          }
+        ],
+        "testimonial": {
+          "quote": "REOS gives me the data and tools to confidently guide my clients through Israeli real estate opportunities.",
+          "name": "Michael T.",
+          "role": "Certified Financial Advisor"
+        }
       }
     }
   }
