@@ -10,25 +10,26 @@ See: .planning/PROJECT.md (updated 2026-01-29)
 ## Current Position
 
 Milestone: v1.9 Vendor Registration & Management
-Phase: 57 of 60 (Vendor Onboarding & Admin Approval) ✅ COMPLETE
-Plan: 3 of 3 in current phase — ALL DONE
-Status: Phase 57 complete, Phase 58 ready
-Last activity: 2026-01-29 — Phase 57 shipped (3 plans, +3,179 lines)
+Phase: 58 of 60 (Client Management & Process Timeline) ✅ COMPLETE
+Plan: 2 of 2 in current phase — ALL DONE
+Status: Phase 58 complete, Phase 59 ready
+Last activity: 2026-01-29 — Phase 58 shipped (2 plans, +1,403 lines)
 
-Progress: [███░░░░░░░] 25% — Phase 57 complete (1 of 4 phases in v1.9)
+Progress: [█████░░░░░] 50% — Phases 57-58 complete (2 of 4 phases in v1.9)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 170
+- Total plans completed: 172
 - Average duration: 4.4 min
-- Total execution time: ~11.5 hours
+- Total execution time: ~12 hours
 
 **By Phase (v1.9):**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 57 | 3/3 | ~45 min | ~15 min |
+| 58 | 2/2 | ~30 min | ~15 min |
 
 **By Phase (v1.8):**
 
@@ -59,6 +60,14 @@ Phase 57 implementation decisions:
 - Admin route at /admin/vendors/pending
 - Vendor status banners on dashboard (draft/pending/rejected states)
 
+Phase 58 implementation decisions:
+- Client identification via investorId from deals table
+- Deduplicate investors across multiple deals (show most recent)
+- convex/clientManagement.ts as separate module (clean separation)
+- ProcessTimeline is a reusable component (can be used on deal detail pages too)
+- Horizontal timeline on desktop, vertical on mobile
+- Document access control: provider must be participant in the deal
+
 ### Pending Todos
 
 - Replace placeholder partner logos with real partner/media logos (deferred)
@@ -74,10 +83,11 @@ None.
 - Milestone v1.8 complete: Conversion & Essential Pages (Phases 53-56)
 - Milestone v1.9 in progress: Vendor Registration & Management (Phases 57-60)
   - Phase 57 ✅ complete (Vendor Onboarding & Admin Approval)
+  - Phase 58 ✅ complete (Client Management & Process Timeline)
 
 ## Session Continuity
 
 Last session: 2026-01-29
-Stopped at: Phase 57 complete
+Stopped at: Phase 58 complete
 Resume file: None
-Next: Phase 58 (Client Management & Process Timeline)
+Next: Phase 59 (Vendor Statistics Dashboard)

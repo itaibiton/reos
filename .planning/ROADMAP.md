@@ -75,8 +75,8 @@ Plans:
 **Plans:** TBD
 
 Plans:
-- [ ] 58-01: Client list view with filtering and per-client document access
-- [ ] 58-02: Process timeline visualization component with stage transitions
+- [x] 58-01: Client list view with filtering and per-client document access ✅
+- [x] 58-02: Process timeline visualization component with stage transitions ✅
 
 ---
 

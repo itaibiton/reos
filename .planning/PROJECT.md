@@ -67,6 +67,8 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 - **Vendor onboarding: 4-step wizard with profile photo upload, draft persistence, validation**
 - **Admin approval workflow: pending vendors queue, approve/reject with reason, status banners**
 - **Vendor visibility gating: unapproved vendors hidden from directory, grandfathering for existing providers**
+- **Client management: vendor client list with search/filter, per-client document access, deal grouping**
+- **Process timeline: 7-stage deal flow visualization, horizontal (desktop) + vertical (mobile), transition dates**
 
 ## Requirements
 
@@ -126,8 +128,8 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 
 - [x] Vendor onboarding questionnaire with all registration fields — v1.9
 - [x] Admin approval gate for new vendors — v1.9
-- [ ] Vendor personal area: client management with document access — v1.9
-- [ ] Process timeline per client with current stage display — v1.9
+- [x] Vendor personal area: client management with document access — v1.9
+- [x] Process timeline per client with current stage display — v1.9
 - [ ] Vendor deal statistics dashboard — v1.9
 - [x] Profile photo upload for vendors — v1.9
 
