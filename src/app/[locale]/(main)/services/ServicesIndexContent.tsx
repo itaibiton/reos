@@ -7,32 +7,32 @@ import {
   Briefcase,
   Landmark,
   Scale,
-  Calculator,
-  Stamp,
-  FileSpreadsheet,
   ClipboardCheck,
   ArrowRight,
+  Rocket,
+  PieChart,
+  TrendingUp,
   type LucideIcon,
 } from "lucide-react";
 
 const PROVIDER_TYPES = [
   "broker",
-  "mortgage-advisor",
   "lawyer",
-  "accountant",
-  "notary",
-  "tax-consultant",
   "appraiser",
+  "mortgage-advisor",
+  "entrepreneur",
+  "asset-manager",
+  "financial-advisor",
 ] as const;
 
 const providerIcons: Record<string, LucideIcon> = {
   broker: Briefcase,
   "mortgage-advisor": Landmark,
   lawyer: Scale,
-  accountant: Calculator,
-  notary: Stamp,
-  "tax-consultant": FileSpreadsheet,
   appraiser: ClipboardCheck,
+  entrepreneur: Rocket,
+  "asset-manager": PieChart,
+  "financial-advisor": TrendingUp,
 };
 
 const fadeInUp: Variants = {

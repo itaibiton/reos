@@ -7,12 +7,12 @@ import {
   Briefcase,
   Landmark,
   Scale,
-  Calculator,
-  Stamp,
-  FileSpreadsheet,
   ClipboardCheck,
   CheckCircle2,
   ArrowRight,
+  Rocket,
+  PieChart,
+  TrendingUp,
   type LucideIcon,
 } from "lucide-react";
 
@@ -20,10 +20,20 @@ const providerIcons: Record<string, LucideIcon> = {
   broker: Briefcase,
   "mortgage-advisor": Landmark,
   lawyer: Scale,
-  accountant: Calculator,
-  notary: Stamp,
-  "tax-consultant": FileSpreadsheet,
   appraiser: ClipboardCheck,
+  entrepreneur: Rocket,
+  "asset-manager": PieChart,
+  "financial-advisor": TrendingUp,
+};
+
+const roleMap: Record<string, string> = {
+  broker: "broker",
+  lawyer: "lawyer",
+  appraiser: "broker", // No specific appraiser role, default to broker
+  "mortgage-advisor": "mortgage_advisor",
+  entrepreneur: "investor", // Entrepreneurs sign up as investors
+  "asset-manager": "broker", // Asset managers closest to broker role
+  "financial-advisor": "broker", // Financial advisors closest to broker role
 };
 
 const fadeInUp: Variants = {
@@ -51,6 +61,18 @@ export function ProviderPageContent({ type }: ProviderPageContentProps) {
     { title: t("benefits.1.title"), description: t("benefits.1.description") },
     { title: t("benefits.2.title"), description: t("benefits.2.description") },
   ];
+
+  const stats = [
+    { value: t("stats.0.value"), label: t("stats.0.label") },
+    { value: t("stats.1.value"), label: t("stats.1.label") },
+    { value: t("stats.2.value"), label: t("stats.2.label") },
+  ];
+
+  const testimonial = {
+    quote: t("testimonial.quote"),
+    name: t("testimonial.name"),
+    role: t("testimonial.role"),
+  };
 
   const steps = [
     { title: t("steps.0.title"), description: t("steps.0.description") },
@@ -80,7 +102,7 @@ export function ProviderPageContent({ type }: ProviderPageContentProps) {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href={`/${locale}/sign-up`}
+              href={`/${locale}/sign-up?role=${roleMap[type] || "broker"}`}
               className="inline-flex items-center justify-center px-8 py-3 text-sm font-medium bg-white text-[#050A12] rounded-full hover:bg-white/90 transition-colors"
             >
               {tCommon("ctaSignUp")}
@@ -139,8 +161,56 @@ export function ProviderPageContent({ type }: ProviderPageContentProps) {
         </div>
       </section>
 
-      {/* How it works */}
+      {/* Social Proof */}
       <section className="py-20 md:py-28 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Stats */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+            className="grid md:grid-cols-3 gap-6 mb-16"
+          >
+            {stats.map((stat, index) => (
+              <motion.div
+                key={index}
+                variants={fadeInUp}
+                className="p-8 rounded-2xl bg-white border border-gray-200 text-center"
+              >
+                <div className="text-4xl md:text-5xl font-light tracking-tight text-[#050A12] mb-2">
+                  {stat.value}
+                </div>
+                <div className="text-sm text-gray-600 font-light">
+                  {stat.label}
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Testimonial */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            className="max-w-2xl mx-auto text-center"
+          >
+            <blockquote className="text-lg md:text-xl font-light italic text-gray-600 mb-6">
+              &ldquo;{testimonial.quote}&rdquo;
+            </blockquote>
+            <div className="text-sm font-medium text-[#050A12]">
+              {testimonial.name}
+            </div>
+            <div className="text-sm text-gray-500 font-light">
+              {testimonial.role}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* How it works */}
+      <section className="py-20 md:py-28 bg-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.h2
             initial="hidden"
@@ -196,7 +266,7 @@ export function ProviderPageContent({ type }: ProviderPageContentProps) {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href={`/${locale}/sign-up`}
+                href={`/${locale}/sign-up?role=${roleMap[type] || "broker"}`}
                 className="inline-flex items-center justify-center px-8 py-3 text-sm font-medium bg-white text-[#050A12] rounded-full hover:bg-white/90 transition-colors"
               >
                 {tCommon("ctaSignUp")}
