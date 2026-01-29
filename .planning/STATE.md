@@ -10,19 +10,19 @@ See: .planning/PROJECT.md (updated 2026-01-28)
 ## Current Position
 
 Milestone: v1.8 Conversion & Essential Pages
-Phase: 55 of 56 (Contact & Provider Landing Pages) -- complete (2 plans, 1 wave)
+Phase: 56 of 56 (Navigation Wiring & Cross-Linking) -- in progress (2 plans, 1 wave)
 Plan: 02 of 02 complete
 Status: Phase complete
-Last activity: 2026-01-29 -- Completed 55-02-PLAN.md (Provider landing pages)
+Last activity: 2026-01-29 -- Completed 56-02-PLAN.md (CTA link wiring & sitemap)
 
-Progress: [██████████] 100% (2/2 plans complete in Phase 55)
+Progress: [██████████] 100% (2/2 plans complete in Phase 56)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 165
-- Average duration: 4.5 min
-- Total execution time: 11.02 hours
+- Total plans completed: 167
+- Average duration: 4.4 min
+- Total execution time: 11.13 hours
 
 **By Phase (v1.7):**
 
@@ -46,6 +46,7 @@ Progress: [██████████] 100% (2/2 plans complete in Phase 55)
 | 53 | 3/3 | 13 min | 4.3 min |
 | 54 | 3/3 | 22 min | 7.3 min |
 | 55 | 2/2 | 11 min | 5.5 min |
+| 56 | 2/2 | 6 min | 3 min |
 
 ## Accumulated Context
 
@@ -78,6 +79,9 @@ Recent decisions affecting current work:
 | PROVIDER-ROLE-MAP | Sign-up CTA includes ?role= query parameter via roleMap | Pre-selects appropriate role (e.g., entrepreneur→investor) to reduce friction |
 | JSON-LD-SERVICE-TYPE | Use Service schema (not deprecated ProfessionalService) | Schema.org Service is current recommended type, includes serviceType property |
 | SOCIAL-PROOF-PLACEMENT | Stats + testimonial between benefits and steps | Users need credibility validation after seeing benefits but before reading process steps |
+| NAV-SITEMAP-LOCATION | Place sitemap.ts at app root, not inside [locale] | Next.js convention for sitemap generation at /sitemap.xml |
+| NAV-CTA-STYLING | Use Link with inline className instead of Button asChild for CTA section | Preserves exact rounded-full styling without shadcn Button class conflicts |
+| NAV-PRICING-CONDITIONAL | Conditionally route enterprise to /contact, others to /sign-up | Enterprise requires sales discussion, self-service tiers go to signup |
 
 ### Pending Todos
 
@@ -103,6 +107,6 @@ Recent decisions affecting current work:
 ## Session Continuity
 
 Last session: 2026-01-29
-Stopped at: Completed 55-02-PLAN.md (Provider landing pages)
+Stopped at: Completed 56-02-PLAN.md (CTA link wiring & sitemap)
 Resume file: None
-Next: Phase 55 complete. Ready for Phase 56 (Navigation Wiring & Cross-Linking)
+Next: Phase 56 complete. Milestone v1.8 (Conversion & Essential Pages) complete.
