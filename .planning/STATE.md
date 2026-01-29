@@ -10,12 +10,12 @@ See: .planning/PROJECT.md (updated 2026-01-29)
 ## Current Position
 
 Milestone: v1.9 Vendor Registration & Management
-Phase: Not started (defining requirements)
-Plan: —
-Status: Defining requirements
-Last activity: 2026-01-29 — Milestone v1.9 started
+Phase: 57 of 60 (Vendor Onboarding & Admin Approval)
+Plan: 0 of 3 in current phase
+Status: Ready to plan
+Last activity: 2026-01-29 — Roadmap created for v1.9 (4 phases, 7 plans)
 
-Progress: [░░░░░░░░░░] 0% — Requirements phase
+Progress: [░░░░░░░░░░] 0% — Phase 57 ready to plan
 
 ## Performance Metrics
 
@@ -38,7 +38,12 @@ Progress: [░░░░░░░░░░] 0% — Requirements phase
 ### Decisions
 
 Decisions are logged in PROJECT.md Key Decisions table.
-v1.8 decisions archived with milestone.
+
+v1.9 research decisions:
+- Extend existing `serviceProviderProfiles` table (not separate vendor table)
+- Manual admin approval for MVP (automate at scale)
+- Convex storage for profile photos (consistent with deal files)
+- Approval status as enum field on profile (not separate table)
 
 ### Pending Todos
 
@@ -46,17 +51,18 @@ v1.8 decisions archived with milestone.
 
 ### Blockers/Concerns
 
-None — all v1.8 blockers resolved.
+None.
 
 ### Roadmap Evolution
 
 - Milestone v1.6 complete: AI-Powered Investor Experience (Phases 40-46)
 - Milestone v1.7 complete: New Landing Page (Phases 47-52)
 - Milestone v1.8 complete: Conversion & Essential Pages (Phases 53-56)
+- Milestone v1.9 roadmap created: Vendor Registration & Management (Phases 57-60)
 
 ## Session Continuity
 
 Last session: 2026-01-29
-Stopped at: Milestone v1.8 archived
+Stopped at: v1.9 roadmap created
 Resume file: None
-Next: Define requirements for v1.9 Vendor Registration & Management
+Next: Plan Phase 57 (Vendor Onboarding & Admin Approval)
