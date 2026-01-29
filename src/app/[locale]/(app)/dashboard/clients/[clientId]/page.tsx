@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import ClientDetailContent from "@/components/vendor/ClientDetailContent";
+import { use } from "react";
 
 export const metadata: Metadata = {
   title: "Client Details | Reos",
@@ -9,7 +10,8 @@ export const metadata: Metadata = {
 export default function ClientDetailPage({
   params,
 }: {
-  params: { clientId: string };
+  params: Promise<{ clientId: string }>;
 }) {
-  return <ClientDetailContent clientId={params.clientId} />;
+  const { clientId } = use(params);
+  return <ClientDetailContent clientId={clientId} />;
 }
