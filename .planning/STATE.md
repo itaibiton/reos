@@ -5,16 +5,17 @@
 See: .planning/PROJECT.md (updated 2026-01-29)
 
 **Core value:** Deal flow tracking from interest to close.
-**Current focus:** Between milestones — v1.8 complete, next milestone not yet defined
+**Current focus:** v1.9 Vendor Registration & Management
 
 ## Current Position
 
-Milestone: v1.8 Conversion & Essential Pages — COMPLETE (archived)
-Phase: All 4 phases complete (53-56)
-Status: Milestone archived, ready for next milestone
-Last activity: 2026-01-29 — Milestone v1.8 archived
+Milestone: v1.9 Vendor Registration & Management
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-01-29 — Milestone v1.9 started
 
-Progress: [██████████] 100% — Milestone complete
+Progress: [░░░░░░░░░░] 0% — Requirements phase
 
 ## Performance Metrics
 
@@ -58,4 +59,4 @@ None — all v1.8 blockers resolved.
 Last session: 2026-01-29
 Stopped at: Milestone v1.8 archived
 Resume file: None
-Next: Run /gsd:new-milestone to define the next milestone
+Next: Define requirements for v1.9 Vendor Registration & Management

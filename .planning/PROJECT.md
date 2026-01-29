@@ -8,11 +8,16 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 
 **Deal flow tracking from interest to close.** If the end-to-end process of connecting investors with properties AND moving them through service providers doesn't work seamlessly, nothing else matters.
 
-## Current Milestone: (none — ready for next milestone)
+## Current Milestone: v1.9 Vendor Registration & Management
 
-**Last completed:** v1.8 Conversion & Essential Pages (2026-01-29)
+**Goal:** Rebuild the service provider experience with a structured onboarding questionnaire, admin approval gate, and revamped vendor personal area — client management, process timeline, and deal statistics.
 
-Run `/gsd:new-milestone` to define the next milestone.
+**Target features:**
+- Vendor onboarding questionnaire (full name, phone, email, profession, experience, company, language, license number, profile photo, bio, website link, geographic area, external recommendations)
+- Admin approval workflow — vendors must be approved before appearing on platform
+- Vendor personal area with client list, document access per client, process timeline per client with current stage
+- Deal statistics dashboard (total deals, sales count for brokers)
+- Profile photo upload for vendors
 
 ## Current State (v1.8)
 
@@ -113,7 +118,12 @@ Run `/gsd:new-milestone` to define the next milestone.
 
 ### Active
 
-(none — run `/gsd:new-milestone` to define next milestone)
+- [ ] Vendor onboarding questionnaire with all registration fields — v1.9
+- [ ] Admin approval gate for new vendors — v1.9
+- [ ] Vendor personal area: client management with document access — v1.9
+- [ ] Process timeline per client with current stage display — v1.9
+- [ ] Vendor deal statistics dashboard — v1.9
+- [ ] Profile photo upload for vendors — v1.9
 
 ### Out of Scope
 
@@ -169,12 +179,14 @@ Run `/gsd:new-milestone` to define the next milestone.
 ## Next Milestone Goals
 
 **Future directions (not yet scoped):**
-- v1.9: Analytics and reporting dashboards
-- v1.9: Advanced mobile features (PWA, push notifications)
+- Analytics and reporting dashboards
+- Advanced mobile features (PWA, push notifications)
 - v2.0: Major feature expansion (payments, e-signatures)
 - Email notifications on contact form submission
 - Cookie consent banner
 - A/B testing framework
+- Enhanced vendor exposure to investors (paid tier)
+- Internal social chat between professionals by topic
 
 ---
-*Last updated: 2026-01-29 after v1.8 milestone completed (59/59 requirements)*
+*Last updated: 2026-01-29 after v1.9 milestone started (Vendor Registration & Management)*
