@@ -10,7 +10,7 @@ export const step1Schema = z.object({
   email: z.string().email("emailInvalid"),
   phoneNumber: z.string().min(7, "phoneMin"),
   providerType: z.enum(["broker", "mortgage_advisor", "lawyer"], {
-    errorMap: () => ({ message: "providerTypeRequired" }),
+    error: "providerTypeRequired",
   }),
 });
 
@@ -31,7 +31,7 @@ export const step3Schema = z.object({
   languages: z
     .array(
       z.enum(["english", "hebrew", "russian", "french", "spanish"], {
-        errorMap: () => ({ message: "languageRequired" }),
+        error: "languageRequired",
       })
     )
     .min(1, "languageRequired"),

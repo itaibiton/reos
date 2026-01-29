@@ -79,7 +79,8 @@ export function ProviderProfileForm() {
     flag: lang.flag,
   }));
   const { user } = useCurrentUser();
-  const profile = useQuery(api.serviceProviderProfiles.getMyProfile);
+  const profileData = useQuery(api.serviceProviderProfiles.getMyProfile);
+  const profile = profileData?.profile;
   const upsertProfile = useMutation(api.serviceProviderProfiles.upsertProfile);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -180,7 +181,7 @@ export function ProviderProfileForm() {
   };
 
   // Loading state
-  if (profile === undefined || !user) {
+  if (profileData === undefined || !user) {
     return (
       <div className="flex min-h-[40vh] items-center justify-center">
         <Spinner className="h-8 w-8" />

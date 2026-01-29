@@ -172,9 +172,9 @@ export function VendorOnboardingWizard() {
 
     if (!result.success) {
       // Trigger validation errors
-      result.error.errors.forEach((error) => {
-        form.setError(error.path[0] as any, {
-          message: error.message,
+      result.error.issues.forEach((issue) => {
+        form.setError(String(issue.path[0]) as any, {
+          message: issue.message,
         });
       });
       return;

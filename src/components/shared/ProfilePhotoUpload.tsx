@@ -73,12 +73,14 @@ export function ProfilePhotoUpload({
       const result = await saveProfilePhoto({ storageId });
 
       // Update UI
-      setPhotoUrl(result.url);
+      setPhotoUrl(result.url ?? null);
       toast.dismiss();
       toast.success(t("photoUpload.success"));
 
       // Notify parent
-      onPhotoSaved?.(result.url, result.storageId);
+      if (result.url) {
+        onPhotoSaved?.(result.url, result.storageId);
+      }
     } catch (error) {
       console.error("Photo upload error:", error);
       toast.dismiss();
