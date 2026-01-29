@@ -62,21 +62,21 @@ type ContactFormValues = z.infer<typeof contactFormSchema>;
 function ContactPageSkeleton() {
   return (
     <div className="animate-pulse">
-      <section className="bg-[#050A12] py-24 md:py-32">
+      <section className="pt-32 pb-8 md:pt-48 md:pb-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="h-12 bg-white/10 rounded-lg mb-6 max-w-md mx-auto"></div>
-          <div className="h-6 bg-white/10 rounded-lg max-w-2xl mx-auto"></div>
+          <div className="h-12 bg-gray-200 rounded-lg mb-6 max-w-md mx-auto"></div>
+          <div className="h-6 bg-gray-200 rounded-lg max-w-2xl mx-auto"></div>
         </div>
       </section>
-      <section className="py-20 md:py-28">
+      <section className="bg-[#050A12] py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-5 gap-12 lg:gap-16">
             <div className="lg:col-span-2 space-y-8">
-              <div className="h-8 bg-gray-200 rounded-lg w-48"></div>
-              <div className="h-20 bg-gray-200 rounded-lg"></div>
+              <div className="h-8 bg-white/10 rounded-lg w-48"></div>
+              <div className="h-20 bg-white/10 rounded-lg"></div>
             </div>
             <div className="lg:col-span-3">
-              <div className="h-96 bg-gray-200 rounded-2xl"></div>
+              <div className="h-96 bg-white/10 rounded-2xl"></div>
             </div>
           </div>
         </div>
@@ -152,20 +152,20 @@ function ContactPageInner() {
         initial="hidden"
         animate="visible"
         variants={fadeInUp}
-        className="bg-[#050A12] py-24 md:py-32"
+        className="pt-32 pb-8 md:pt-48 md:pb-12"
       >
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-6xl font-light tracking-tighter text-white mb-6">
+          <h1 className="text-4xl md:text-6xl font-light tracking-tighter text-[#050A12] mb-6">
             {t("title")}
           </h1>
-          <p className="text-lg md:text-xl text-white/50 font-light max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-foreground/50 font-light max-w-2xl mx-auto leading-relaxed">
             {t("subtitle")}
           </p>
         </div>
       </motion.section>
 
       {/* Content */}
-      <section className="py-20 md:py-28">
+      <section className="bg-[#050A12] py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-5 gap-12 lg:gap-16">
             {/* Contact info sidebar */}
@@ -177,24 +177,24 @@ function ContactPageInner() {
               className="lg:col-span-2 space-y-8"
             >
               <motion.div variants={fadeInUp}>
-                <h2 className="text-2xl font-light tracking-tight text-[#050A12] mb-4">
+                <h2 className="text-2xl font-light tracking-tight text-white mb-4">
                   {t("info.title")}
                 </h2>
-                <p className="text-gray-600 font-light leading-relaxed">
+                <p className="text-white/60 font-light leading-relaxed">
                   {t("info.description")}
                 </p>
               </motion.div>
 
               <div className="space-y-6">
                 <motion.div variants={fadeInUp} className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
-                    <Mail className="w-5 h-5 text-[#050A12]" aria-hidden="true" />
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
+                    <Mail className="w-5 h-5 text-white" aria-hidden="true" />
                   </div>
                   <div>
-                    <h3 className="font-medium text-[#050A12]">{t("info.email.label")}</h3>
+                    <h3 className="font-medium text-white">{t("info.email.label")}</h3>
                     <a
                       href="mailto:hello@reos.co"
-                      className="text-gray-600 hover:text-[#050A12] transition-colors"
+                      className="text-white/60 hover:text-white transition-colors"
                     >
                       hello@reos.co
                     </a>
@@ -202,14 +202,14 @@ function ContactPageInner() {
                 </motion.div>
 
                 <motion.div variants={fadeInUp} className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
-                    <Phone className="w-5 h-5 text-[#050A12]" aria-hidden="true" />
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
+                    <Phone className="w-5 h-5 text-white" aria-hidden="true" />
                   </div>
                   <div>
-                    <h3 className="font-medium text-[#050A12]">{t("info.phone.label")}</h3>
+                    <h3 className="font-medium text-white">{t("info.phone.label")}</h3>
                     <a
                       href="tel:+972-3-000-0000"
-                      className="text-gray-600 hover:text-[#050A12] transition-colors"
+                      className="text-white/60 hover:text-white transition-colors"
                     >
                       +972-3-000-0000
                     </a>
@@ -217,12 +217,12 @@ function ContactPageInner() {
                 </motion.div>
 
                 <motion.div variants={fadeInUp} className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
-                    <MapPin className="w-5 h-5 text-[#050A12]" aria-hidden="true" />
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
+                    <MapPin className="w-5 h-5 text-white" aria-hidden="true" />
                   </div>
                   <div>
-                    <h3 className="font-medium text-[#050A12]">{t("info.office.label")}</h3>
-                    <p className="text-gray-600 font-light">{t("info.office.address")}</p>
+                    <h3 className="font-medium text-white">{t("info.office.label")}</h3>
+                    <p className="text-white/60 font-light">{t("info.office.address")}</p>
                   </div>
                 </motion.div>
               </div>
@@ -236,7 +236,7 @@ function ContactPageInner() {
               variants={fadeInUp}
               className="lg:col-span-3"
             >
-              <div className="rounded-2xl border border-gray-200 bg-white p-6 md:p-8 shadow-sm">
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-6 md:p-8">
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                     {/* Name & Email Row */}
@@ -246,13 +246,13 @@ function ContactPageInner() {
                         name="name"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-[#050A12]">
+                            <FormLabel className="text-white">
                               {t("form.name.label")}
                             </FormLabel>
                             <FormControl>
                               <Input
                                 placeholder={t("form.name.placeholder")}
-                                className="rounded-lg border-gray-200"
+                                className="rounded-lg border-white/20 bg-white/5 text-white placeholder:text-white/30"
                                 {...field}
                               />
                             </FormControl>
@@ -269,14 +269,14 @@ function ContactPageInner() {
                         name="email"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-[#050A12]">
+                            <FormLabel className="text-white">
                               {t("form.email.label")}
                             </FormLabel>
                             <FormControl>
                               <Input
                                 type="email"
                                 placeholder={t("form.email.placeholder")}
-                                className="rounded-lg border-gray-200"
+                                className="rounded-lg border-white/20 bg-white/5 text-white placeholder:text-white/30"
                                 {...field}
                               />
                             </FormControl>
@@ -296,14 +296,14 @@ function ContactPageInner() {
                         name="phone"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-[#050A12]">
+                            <FormLabel className="text-white">
                               {t("form.phone.label")}
                             </FormLabel>
                             <FormControl>
                               <Input
                                 type="tel"
                                 placeholder={t("form.phone.placeholder")}
-                                className="rounded-lg border-gray-200"
+                                className="rounded-lg border-white/20 bg-white/5 text-white placeholder:text-white/30"
                                 {...field}
                               />
                             </FormControl>
@@ -317,7 +317,7 @@ function ContactPageInner() {
                         name="subject"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-[#050A12]">
+                            <FormLabel className="text-white">
                               {t("form.subject.label")}
                             </FormLabel>
                             <Select
@@ -325,7 +325,7 @@ function ContactPageInner() {
                               value={field.value}
                             >
                               <FormControl>
-                                <SelectTrigger className="w-full rounded-lg border-gray-200">
+                                <SelectTrigger className="w-full rounded-lg border-white/20 bg-white/5 text-white">
                                   <SelectValue placeholder={t("form.subject.placeholder")} />
                                 </SelectTrigger>
                               </FormControl>
@@ -352,13 +352,13 @@ function ContactPageInner() {
                       name="message"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-[#050A12]">
+                          <FormLabel className="text-white">
                             {t("form.message.label")}
                           </FormLabel>
                           <FormControl>
                             <Textarea
                               placeholder={t("form.message.placeholder")}
-                              className="min-h-[140px] rounded-lg border-gray-200"
+                              className="min-h-[140px] rounded-lg border-white/20 bg-white/5 text-white placeholder:text-white/30"
                               {...field}
                             />
                           </FormControl>
@@ -405,7 +405,7 @@ function ContactPageInner() {
                     {/* Submit Button */}
                     <Button
                       type="submit"
-                      className="w-full inline-flex items-center justify-center gap-2 px-8 py-3 text-sm font-medium bg-[#050A12] text-white rounded-full hover:bg-[#050A12]/90 transition-colors"
+                      className="w-full inline-flex items-center justify-center gap-2 px-8 py-3 text-sm font-medium bg-white text-[#050A12] rounded-full hover:bg-white/90 transition-colors"
                       disabled={isSubmitting}
                     >
                       {isSubmitting ? (

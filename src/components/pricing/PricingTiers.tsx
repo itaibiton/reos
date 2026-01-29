@@ -66,17 +66,17 @@ export function PricingTiers({ isAnnual }: PricingTiersProps) {
             )}
 
             <div className="flex-1">
-              <h3 className="text-2xl font-bold mb-2">{tierT.name}</h3>
+              <h3 className="text-2xl font-light tracking-tight mb-2">{tierT.name}</h3>
               <p className="text-sm text-muted-foreground mb-6">
                 {tierT.description}
               </p>
 
               <div className="mb-6">
                 {price === "Custom" || price === "מותאם אישית" ? (
-                  <div className="text-3xl font-bold">{price}</div>
+                  <div className="text-3xl font-light">{price}</div>
                 ) : (
                   <div className="flex items-baseline gap-1">
-                    <span className="text-4xl font-bold">${price}</span>
+                    <span className="text-4xl font-light">${price}</span>
                     <span className="text-muted-foreground">{period}</span>
                   </div>
                 )}

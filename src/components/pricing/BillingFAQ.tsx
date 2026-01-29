@@ -19,7 +19,7 @@ export function BillingFAQ() {
 
   return (
     <div>
-      <h2 className="text-3xl font-bold text-center mb-8">{t("title")}</h2>
+      <h2 className="text-3xl md:text-5xl font-light tracking-tighter text-center mb-8">{t("title")}</h2>
       <Accordion type="multiple">
         {questions.map((q) => (
           <AccordionItem key={q.id} value={q.id}>

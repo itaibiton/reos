@@ -83,34 +83,34 @@ export function ProviderPageContent({ type }: ProviderPageContentProps) {
 
   return (
     <div>
-      {/* Dark hero */}
+      {/* Light hero */}
       <motion.section
         initial="hidden"
         animate="visible"
         variants={fadeInUp}
-        className="bg-[#050A12] py-24 md:py-32"
+        className="pt-32 pb-8 md:pt-48 md:pb-12"
       >
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="w-16 h-16 rounded-full bg-white/10 border border-white/20 flex items-center justify-center mx-auto mb-8">
-            <Icon className="w-7 h-7 text-white" aria-hidden="true" />
+          <div className="w-16 h-16 rounded-full bg-[#050A12]/10 border border-[#050A12]/20 flex items-center justify-center mx-auto mb-8">
+            <Icon className="w-7 h-7 text-[#050A12]" aria-hidden="true" />
           </div>
-          <h1 className="text-4xl md:text-6xl font-light tracking-tighter text-white mb-6">
+          <h1 className="text-4xl md:text-6xl font-light tracking-tighter text-[#050A12] mb-6">
             {t("heroTitle")}
           </h1>
-          <p className="text-lg md:text-xl text-white/50 font-light max-w-2xl mx-auto leading-relaxed mb-10">
+          <p className="text-lg md:text-xl text-foreground/50 font-light max-w-2xl mx-auto leading-relaxed mb-10">
             {t("heroDescription")}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href={`/${locale}/sign-up?role=${roleMap[type] || "broker"}`}
-              className="inline-flex items-center justify-center px-8 py-3 text-sm font-medium bg-white text-[#050A12] rounded-full hover:bg-white/90 transition-colors"
+              className="inline-flex items-center justify-center px-8 py-3 text-sm font-medium bg-[#050A12] text-white rounded-full hover:bg-[#050A12]/90 transition-colors"
             >
               {tCommon("ctaSignUp")}
               <ArrowRight className="w-4 h-4 ms-2" aria-hidden="true" />
             </Link>
             <Link
               href={`/${locale}/contact`}
-              className="inline-flex items-center justify-center px-8 py-3 text-sm font-medium text-white border border-white/20 rounded-full hover:bg-white/5 transition-colors"
+              className="inline-flex items-center justify-center px-8 py-3 text-sm font-medium text-[#050A12] border border-[#050A12]/20 rounded-full hover:bg-[#050A12]/5 transition-colors"
             >
               {tCommon("ctaContact")}
             </Link>
@@ -119,14 +119,14 @@ export function ProviderPageContent({ type }: ProviderPageContentProps) {
       </motion.section>
 
       {/* Benefits */}
-      <section className="py-20 md:py-28">
+      <section className="bg-[#050A12] py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.h2
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeInUp}
-            className="text-3xl md:text-4xl font-light tracking-tight text-[#050A12] text-center mb-16"
+            className="text-3xl md:text-4xl font-light tracking-tight text-white text-center mb-16"
           >
             {tCommon("benefitsTitle")}
           </motion.h2>
@@ -141,18 +141,18 @@ export function ProviderPageContent({ type }: ProviderPageContentProps) {
               <motion.div
                 key={index}
                 variants={fadeInUp}
-                className="group p-8 rounded-2xl bg-white border border-gray-200 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                className="group p-8 rounded-2xl bg-white/5 border border-white/10 transition-all duration-300 hover:bg-white/10 hover:-translate-y-1"
               >
-                <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mb-5">
+                <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center mb-5">
                   <CheckCircle2
-                    className="w-5 h-5 text-[#050A12]"
+                    className="w-5 h-5 text-white"
                     aria-hidden="true"
                   />
                 </div>
-                <h3 className="text-lg font-medium tracking-tight text-[#050A12] mb-2">
+                <h3 className="text-lg font-medium tracking-tight text-white mb-2">
                   {benefit.title}
                 </h3>
-                <p className="text-sm text-gray-600 font-light leading-relaxed">
+                <p className="text-sm text-white/60 font-light leading-relaxed">
                   {benefit.description}
                 </p>
               </motion.div>
@@ -162,7 +162,7 @@ export function ProviderPageContent({ type }: ProviderPageContentProps) {
       </section>
 
       {/* Social Proof */}
-      <section className="py-20 md:py-28 bg-gray-50">
+      <section className="bg-[#050A12] py-20 md:py-28 border-t border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Stats */}
           <motion.div
@@ -176,12 +176,12 @@ export function ProviderPageContent({ type }: ProviderPageContentProps) {
               <motion.div
                 key={index}
                 variants={fadeInUp}
-                className="p-8 rounded-2xl bg-white border border-gray-200 text-center"
+                className="p-8 rounded-2xl bg-white/5 border border-white/10 text-center"
               >
-                <div className="text-4xl md:text-5xl font-light tracking-tight text-[#050A12] mb-2">
+                <div className="text-4xl md:text-5xl font-light tracking-tight text-white mb-2">
                   {stat.value}
                 </div>
-                <div className="text-sm text-gray-600 font-light">
+                <div className="text-sm text-white/60 font-light">
                   {stat.label}
                 </div>
               </motion.div>
@@ -196,13 +196,13 @@ export function ProviderPageContent({ type }: ProviderPageContentProps) {
             variants={fadeInUp}
             className="max-w-2xl mx-auto text-center"
           >
-            <blockquote className="text-lg md:text-xl font-light italic text-gray-600 mb-6">
+            <blockquote className="text-lg md:text-xl font-light italic text-white/60 mb-6">
               &ldquo;{testimonial.quote}&rdquo;
             </blockquote>
-            <div className="text-sm font-medium text-[#050A12]">
+            <div className="text-sm font-medium text-white">
               {testimonial.name}
             </div>
-            <div className="text-sm text-gray-500 font-light">
+            <div className="text-sm text-white/50 font-light">
               {testimonial.role}
             </div>
           </motion.div>
@@ -210,14 +210,14 @@ export function ProviderPageContent({ type }: ProviderPageContentProps) {
       </section>
 
       {/* How it works */}
-      <section className="py-20 md:py-28 bg-white">
+      <section className="bg-[#050A12] py-20 md:py-28 border-t border-white/5">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.h2
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeInUp}
-            className="text-3xl md:text-4xl font-light tracking-tight text-[#050A12] text-center mb-16"
+            className="text-3xl md:text-4xl font-light tracking-tight text-white text-center mb-16"
           >
             {tCommon("howItWorksTitle")}
           </motion.h2>
@@ -231,15 +231,15 @@ export function ProviderPageContent({ type }: ProviderPageContentProps) {
             {steps.map((step, index) => (
               <motion.div key={index} variants={fadeInUp} className="flex gap-6">
                 <div className="flex-shrink-0">
-                  <div className="w-10 h-10 rounded-full bg-[#050A12] flex items-center justify-center text-sm font-medium text-white">
+                  <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-sm font-medium text-[#050A12]">
                     {index + 1}
                   </div>
                 </div>
                 <div className="pt-1">
-                  <h3 className="text-lg font-medium tracking-tight text-[#050A12] mb-1">
+                  <h3 className="text-lg font-medium tracking-tight text-white mb-1">
                     {step.title}
                   </h3>
-                  <p className="text-sm text-gray-600 font-light leading-relaxed">
+                  <p className="text-sm text-white/60 font-light leading-relaxed">
                     {step.description}
                   </p>
                 </div>
@@ -250,7 +250,7 @@ export function ProviderPageContent({ type }: ProviderPageContentProps) {
       </section>
 
       {/* CTA */}
-      <section className="bg-[#050A12] py-20 md:py-28">
+      <section className="bg-[#050A12] py-20 md:py-28 border-t border-white/5">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial="hidden"

@@ -30,7 +30,7 @@ export function FeatureComparison() {
 
   return (
     <div>
-      <h2 className="text-3xl font-bold text-center mb-8">{t("title")}</h2>
+      <h2 className="text-3xl md:text-5xl font-light tracking-tighter text-center mb-8">{t("title")}</h2>
 
       {/* Desktop table */}
       <div className="hidden md:block">
@@ -103,7 +103,7 @@ export function FeatureComparison() {
 
           return (
             <div key={tier.key} className="border rounded-lg p-4">
-              <h3 className="text-xl font-bold mb-4">{tier.name}</h3>
+              <h3 className="text-xl font-light tracking-tight mb-4">{tier.name}</h3>
               <ul className="space-y-2">
                 {includedFeatures.map((feature, index) => (
                   <li key={index} className="flex items-start gap-3">
