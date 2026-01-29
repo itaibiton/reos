@@ -608,7 +608,9 @@
         "platform": "Platform",
         "solutions": "Solutions",
         "institutions": "Institutions",
-        "developers": "Developers"
+        "developers": "Developers",
+        "pricing": "Pricing",
+        "contact": "Contact"
       },
       "platform": {
         "propertyManagement": {
@@ -625,17 +627,33 @@
         }
       },
       "solutions": {
-        "residential": {
-          "title": "Residential",
-          "description": "Purpose-built for multifamily and residential properties"
+        "broker": {
+          "title": "Real Estate Brokers",
+          "description": "Connect investors with top properties across Israel"
         },
-        "commercial": {
-          "title": "Commercial",
-          "description": "Optimize office, retail, and mixed-use properties"
+        "lawyer": {
+          "title": "Real Estate Lawyers",
+          "description": "Legal expertise for cross-border property transactions"
         },
-        "industrial": {
-          "title": "Industrial",
-          "description": "Manage warehouses and industrial facilities at scale"
+        "appraiser": {
+          "title": "Property Appraisers",
+          "description": "Professional property valuations and market analysis"
+        },
+        "mortgageAdvisor": {
+          "title": "Mortgage Advisors",
+          "description": "Tailored financing solutions for international investors"
+        },
+        "entrepreneur": {
+          "title": "Entrepreneurs & Investors",
+          "description": "Discover and manage real estate investment opportunities"
+        },
+        "assetManager": {
+          "title": "Asset Managers",
+          "description": "Portfolio management and optimization tools"
+        },
+        "financialAdvisor": {
+          "title": "Financial Advisors",
+          "description": "Comprehensive financial planning for property investments"
         }
       },
       "actions": {

@@ -343,7 +343,9 @@
         "platform": "פלטפורמה",
         "solutions": "פתרונות",
         "institutions": "מוסדות",
-        "developers": "מפתחים"
+        "developers": "מפתחים",
+        "pricing": "תמחור",
+        "contact": "צור קשר"
       },
       "platform": {
         "propertyManagement": {
@@ -360,17 +362,33 @@
         }
       },
       "solutions": {
-        "residential": {
-          "title": "מגורים",
-          "description": "נבנה במיוחד לנכסי מגורים ורב-משפחתיים"
+        "broker": {
+          "title": "מתווכי נדל\"ן",
+          "description": "חיבור משקיעים עם נכסים מובילים בישראל"
         },
-        "commercial": {
-          "title": "מסחרי",
-          "description": "אופטימיזציה למשרדים, קמעונאות ונכסי שימוש מעורב"
+        "lawyer": {
+          "title": "עורכי דין נדל\"ן",
+          "description": "מומחיות משפטית לעסקאות נדל\"ן בינלאומיות"
         },
-        "industrial": {
-          "title": "תעשייתי",
-          "description": "ניהול מחסנים ומתקנים תעשייתיים בקנה מידה"
+        "appraiser": {
+          "title": "שמאי מקרקעין",
+          "description": "הערכות שווי מקצועיות וניתוח שוק"
+        },
+        "mortgageAdvisor": {
+          "title": "יועצי משכנתאות",
+          "description": "פתרונות מימון מותאמים למשקיעים בינלאומיים"
+        },
+        "entrepreneur": {
+          "title": "יזמים ומשקיעים",
+          "description": "גילוי וניהול הזדמנויות השקעה בנדל\"ן"
+        },
+        "assetManager": {
+          "title": "מנהלי נכסים",
+          "description": "כלים לניהול ומיטוב תיק נכסים"
+        },
+        "financialAdvisor": {
+          "title": "יועצים פיננסיים",
+          "description": "תכנון פיננסי מקיף להשקעות בנדל\"ן"
         }
       },
       "actions": {
