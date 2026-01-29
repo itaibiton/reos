@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useTranslations, useLocale } from "next-intl";
+import { motion, type Variants } from "framer-motion";
 import {
   Briefcase,
   Landmark,
@@ -14,8 +15,6 @@ import {
   ArrowRight,
   type LucideIcon,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 
 const providerIcons: Record<string, LucideIcon> = {
   broker: Briefcase,
@@ -25,6 +24,16 @@ const providerIcons: Record<string, LucideIcon> = {
   notary: Stamp,
   "tax-consultant": FileSpreadsheet,
   appraiser: ClipboardCheck,
+};
+
+const fadeInUp: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+};
+
+const staggerContainer: Variants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08 } },
 };
 
 interface ProviderPageContentProps {
@@ -52,152 +61,155 @@ export function ProviderPageContent({ type }: ProviderPageContentProps) {
 
   return (
     <div>
-      {/* Hero */}
-      <section className="py-16 md:py-24 bg-gradient-to-b from-landing-primary/5 to-transparent">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center">
-            <div className="w-16 h-16 rounded-xl bg-landing-primary/10 flex items-center justify-center mx-auto mb-6">
-              <Icon
-                className="w-8 h-8 text-landing-primary"
-                aria-hidden="true"
-              />
-            </div>
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 text-landing-text">
-              {t("heroTitle")}
-            </h1>
-            <p className="text-xl text-muted-foreground mb-8">
-              {t("heroDescription")}
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                asChild
-                size="lg"
-                className="bg-landing-primary hover:bg-landing-primary/90 text-white"
-              >
-                <Link href={`/${locale}/sign-up`}>{tCommon("ctaSignUp")}</Link>
-              </Button>
-              <Button asChild variant="outline" size="lg">
-                <Link href={`/${locale}/contact`}>{tCommon("ctaContact")}</Link>
-              </Button>
-            </div>
+      {/* Dark hero */}
+      <motion.section
+        initial="hidden"
+        animate="visible"
+        variants={fadeInUp}
+        className="bg-[#050A12] py-24 md:py-32"
+      >
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="w-16 h-16 rounded-full bg-white/10 border border-white/20 flex items-center justify-center mx-auto mb-8">
+            <Icon className="w-7 h-7 text-white" aria-hidden="true" />
+          </div>
+          <h1 className="text-4xl md:text-6xl font-light tracking-tighter text-white mb-6">
+            {t("heroTitle")}
+          </h1>
+          <p className="text-lg md:text-xl text-white/50 font-light max-w-2xl mx-auto leading-relaxed mb-10">
+            {t("heroDescription")}
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href={`/${locale}/sign-up`}
+              className="inline-flex items-center justify-center px-8 py-3 text-sm font-medium bg-white text-[#050A12] rounded-full hover:bg-white/90 transition-colors"
+            >
+              {tCommon("ctaSignUp")}
+              <ArrowRight className="w-4 h-4 ms-2" aria-hidden="true" />
+            </Link>
+            <Link
+              href={`/${locale}/contact`}
+              className="inline-flex items-center justify-center px-8 py-3 text-sm font-medium text-white border border-white/20 rounded-full hover:bg-white/5 transition-colors"
+            >
+              {tCommon("ctaContact")}
+            </Link>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Benefits */}
-      <section className="py-16 md:py-20">
+      <section className="py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-landing-text">
+          <motion.h2
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            className="text-3xl md:text-4xl font-light tracking-tight text-[#050A12] text-center mb-16"
+          >
             {tCommon("benefitsTitle")}
-          </h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {benefits.map((benefit, index) => {
-              const isEven = index % 2 === 0;
-              return (
-                <div
-                  key={index}
-                  className={cn(
-                    "rounded-xl border border-border bg-card p-6",
-                    "shadow-sm transition-all duration-300",
-                    "hover:shadow-md hover:border-landing-primary/20"
-                  )}
-                >
-                  <div
-                    className={cn(
-                      "w-10 h-10 rounded-lg mb-4 flex items-center justify-center",
-                      isEven
-                        ? "bg-landing-primary/10"
-                        : "bg-landing-accent/10"
-                    )}
-                  >
-                    <CheckCircle2
-                      className={cn(
-                        "w-5 h-5",
-                        isEven
-                          ? "text-landing-primary"
-                          : "text-landing-accent"
-                      )}
-                      aria-hidden="true"
-                    />
-                  </div>
-                  <h3 className="text-lg font-semibold mb-2 text-landing-text">
-                    {benefit.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {benefit.description}
-                  </p>
+          </motion.h2>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+            className="grid md:grid-cols-3 gap-6"
+          >
+            {benefits.map((benefit, index) => (
+              <motion.div
+                key={index}
+                variants={fadeInUp}
+                className="group p-8 rounded-2xl bg-white border border-gray-200 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+              >
+                <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mb-5">
+                  <CheckCircle2
+                    className="w-5 h-5 text-[#050A12]"
+                    aria-hidden="true"
+                  />
                 </div>
-              );
-            })}
-          </div>
+                <h3 className="text-lg font-medium tracking-tight text-[#050A12] mb-2">
+                  {benefit.title}
+                </h3>
+                <p className="text-sm text-gray-600 font-light leading-relaxed">
+                  {benefit.description}
+                </p>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </section>
 
       {/* How it works */}
-      <section className="py-16 md:py-20 bg-muted/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-landing-text">
+      <section className="py-20 md:py-28 bg-gray-50">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.h2
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            className="text-3xl md:text-4xl font-light tracking-tight text-[#050A12] text-center mb-16"
+          >
             {tCommon("howItWorksTitle")}
-          </h2>
-          <div className="max-w-3xl mx-auto space-y-8">
+          </motion.h2>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+            className="space-y-10"
+          >
             {steps.map((step, index) => (
-              <div key={index} className="flex gap-6">
-                {/* Step number */}
+              <motion.div key={index} variants={fadeInUp} className="flex gap-6">
                 <div className="flex-shrink-0">
-                  <div
-                    className={cn(
-                      "w-10 h-10 rounded-full flex items-center justify-center font-bold text-white",
-                      index % 2 === 0
-                        ? "bg-landing-primary"
-                        : "bg-landing-accent"
-                    )}
-                  >
+                  <div className="w-10 h-10 rounded-full bg-[#050A12] flex items-center justify-center text-sm font-medium text-white">
                     {index + 1}
                   </div>
                 </div>
-                {/* Step content */}
                 <div className="pt-1">
-                  <h3 className="text-lg font-semibold mb-1 text-landing-text">
+                  <h3 className="text-lg font-medium tracking-tight text-[#050A12] mb-1">
                     {step.title}
                   </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
+                  <p className="text-sm text-gray-600 font-light leading-relaxed">
                     {step.description}
                   </p>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="py-16 md:py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="rounded-2xl bg-gradient-to-r from-landing-primary/10 via-landing-accent/5 to-landing-primary/10 border border-landing-primary/10 p-8 md:p-12 text-center">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4 text-landing-text">
+      <section className="bg-[#050A12] py-20 md:py-28">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+          >
+            <h2 className="text-3xl md:text-4xl font-light tracking-tighter text-white mb-4">
               {t("ctaTitle")}
             </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto mb-8">
+            <p className="text-lg text-white/50 font-light max-w-2xl mx-auto mb-10">
               {t("ctaDescription")}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                asChild
-                size="lg"
-                className="bg-landing-primary hover:bg-landing-primary/90 text-white"
+              <Link
+                href={`/${locale}/sign-up`}
+                className="inline-flex items-center justify-center px-8 py-3 text-sm font-medium bg-white text-[#050A12] rounded-full hover:bg-white/90 transition-colors"
               >
-                <Link href={`/${locale}/sign-up`}>
-                  {tCommon("ctaSignUp")}
-                  <ArrowRight className="w-4 h-4 ms-2" aria-hidden="true" />
-                </Link>
-              </Button>
-              <Button asChild variant="outline" size="lg">
-                <Link href={`/${locale}/services`}>
-                  {tCommon("viewAllServices")}
-                </Link>
-              </Button>
+                {tCommon("ctaSignUp")}
+                <ArrowRight className="w-4 h-4 ms-2" aria-hidden="true" />
+              </Link>
+              <Link
+                href={`/${locale}/services`}
+                className="inline-flex items-center justify-center px-8 py-3 text-sm font-medium text-white border border-white/20 rounded-full hover:bg-white/5 transition-colors"
+              >
+                {tCommon("viewAllServices")}
+              </Link>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
     </div>
