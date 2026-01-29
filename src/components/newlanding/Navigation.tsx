@@ -10,11 +10,13 @@ import {
   Shield,
   Home,
   Building,
-  Factory,
+  Briefcase,
   Users,
   FileCode,
+  Factory,
   X,
 } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import {
   NavigationMenu,
@@ -130,12 +132,12 @@ export function Navigation({ className }: NavigationProps) {
         )}
       >
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between gap-2">
-          <a href="#" className="flex items-center gap-2 group flex-shrink-0">
+          <Link href="/" className="flex items-center gap-2 group flex-shrink-0">
             <div className="w-8 h-8 rounded bg-white/10 border border-white/20 flex items-center justify-center group-hover:border-white/30 transition-colors">
               <span className="font-medium tracking-tighter text-sm text-white">R</span>
             </div>
             <span className="font-normal text-sm tracking-widest text-white/90">{t("logo")}</span>
-          </a>
+          </Link>
 
           <div className="hidden md:flex items-center">
             <NavigationMenu>
@@ -199,48 +201,104 @@ export function Navigation({ className }: NavigationProps) {
                     {t("menu.solutions")}
                   </NavigationMenuTrigger>
                   <NavigationMenuContent className="bg-[#050A12] border-white/10">
-                    <ul className="grid w-[400px] gap-3 p-4">
+                    <ul className="grid w-[500px] grid-cols-2 gap-3 p-4">
                       <li>
-                        <a
-                          href="#"
-                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors  text-white"
+                        <Link
+                          href="/services/broker"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors text-white"
+                        >
+                          <div className="flex items-center gap-2 text-sm font-medium leading-none">
+                            <Building2 className="h-4 w-4" />
+                            {t("solutions.broker.title")}
+                          </div>
+                          <p className="line-clamp-2 text-sm leading-snug text-white/60">
+                            {t("solutions.broker.description")}
+                          </p>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          href="/services/lawyer"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors text-white"
+                        >
+                          <div className="flex items-center gap-2 text-sm font-medium leading-none">
+                            <Shield className="h-4 w-4" />
+                            {t("solutions.lawyer.title")}
+                          </div>
+                          <p className="line-clamp-2 text-sm leading-snug text-white/60">
+                            {t("solutions.lawyer.description")}
+                          </p>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          href="/services/appraiser"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors text-white"
+                        >
+                          <div className="flex items-center gap-2 text-sm font-medium leading-none">
+                            <FileCode className="h-4 w-4" />
+                            {t("solutions.appraiser.title")}
+                          </div>
+                          <p className="line-clamp-2 text-sm leading-snug text-white/60">
+                            {t("solutions.appraiser.description")}
+                          </p>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          href="/services/mortgage-advisor"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors text-white"
                         >
                           <div className="flex items-center gap-2 text-sm font-medium leading-none">
                             <Home className="h-4 w-4" />
-                            {t("solutions.residential.title")}
+                            {t("solutions.mortgageAdvisor.title")}
                           </div>
                           <p className="line-clamp-2 text-sm leading-snug text-white/60">
-                            {t("solutions.residential.description")}
+                            {t("solutions.mortgageAdvisor.description")}
                           </p>
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a
-                          href="#"
-                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors  text-white"
+                        <Link
+                          href="/services/entrepreneur"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors text-white"
+                        >
+                          <div className="flex items-center gap-2 text-sm font-medium leading-none">
+                            <Users className="h-4 w-4" />
+                            {t("solutions.entrepreneur.title")}
+                          </div>
+                          <p className="line-clamp-2 text-sm leading-snug text-white/60">
+                            {t("solutions.entrepreneur.description")}
+                          </p>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          href="/services/asset-manager"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors text-white"
                         >
                           <div className="flex items-center gap-2 text-sm font-medium leading-none">
                             <Building className="h-4 w-4" />
-                            {t("solutions.commercial.title")}
+                            {t("solutions.assetManager.title")}
                           </div>
                           <p className="line-clamp-2 text-sm leading-snug text-white/60">
-                            {t("solutions.commercial.description")}
+                            {t("solutions.assetManager.description")}
                           </p>
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a
-                          href="#"
-                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors  text-white"
+                        <Link
+                          href="/services/financial-advisor"
+                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors text-white"
                         >
                           <div className="flex items-center gap-2 text-sm font-medium leading-none">
-                            <Factory className="h-4 w-4" />
-                            {t("solutions.industrial.title")}
+                            <Briefcase className="h-4 w-4" />
+                            {t("solutions.financialAdvisor.title")}
                           </div>
                           <p className="line-clamp-2 text-sm leading-snug text-white/60">
-                            {t("solutions.industrial.description")}
+                            {t("solutions.financialAdvisor.description")}
                           </p>
-                        </a>
+                        </Link>
                       </li>
                     </ul>
                   </NavigationMenuContent>
@@ -248,32 +306,32 @@ export function Navigation({ className }: NavigationProps) {
 
                 {/* Simple Links */}
                 <NavigationMenuItem>
-                  <a
-                    href="#"
+                  <Link
+                    href="/pricing"
                     className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent text-white/80 hover:text-white px-4 py-2 text-sm font-light hover:bg-white/5 transition-colors"
                   >
-                    {t("menu.institutions")}
-                  </a>
+                    {t("menu.pricing")}
+                  </Link>
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <a
-                    href="#"
+                  <Link
+                    href="/contact"
                     className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent text-white/80 hover:text-white px-4 py-2 text-sm font-light hover:bg-white/5 transition-colors"
                   >
-                    {t("menu.developers")}
-                  </a>
+                    {t("menu.contact")}
+                  </Link>
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
           </div>
 
           <div className="flex items-center gap-4">
-            <a href="#" className="text-xs font-medium text-white/70 hover:text-white transition-colors hidden sm:block">{t("actions.login")}</a>
+            <Link href="/sign-in" className="text-xs font-medium text-white/70 hover:text-white transition-colors hidden sm:block">{t("actions.login")}</Link>
 
-            <a href="#" className="text-xs font-medium bg-white text-[#050A12] px-4 py-2 rounded-full hover:bg-white/90 transition-colors">
+            <Link href="/sign-up" className="text-xs font-medium bg-white text-[#050A12] px-4 py-2 rounded-full hover:bg-white/90 transition-colors">
               {t("actions.getStarted")}
-            </a>
+            </Link>
           </div>
         </div>
       </motion.nav>
@@ -290,12 +348,12 @@ export function Navigation({ className }: NavigationProps) {
       }}
     >
       <div className="w-full max-w-[100vw] px-2 h-16 flex items-center justify-between gap-1">
-        <a href="#" className="flex items-center gap-1.5 group flex-shrink min-w-0">
+        <Link href="/" className="flex items-center gap-1.5 group flex-shrink min-w-0">
           <div className="w-8 h-8 rounded bg-white/10 border border-white/20 flex items-center justify-center group-hover:border-white/30 transition-colors flex-shrink-0">
             <span className="font-medium tracking-tighter text-sm text-white">R</span>
           </div>
           <span className="font-normal text-sm tracking-widest text-white/90 truncate">{t("logo")}</span>
-        </a>
+        </Link>
 
         {/* Mobile Menu Trigger */}
         <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
@@ -365,30 +423,62 @@ export function Navigation({ className }: NavigationProps) {
                     </AccordionTrigger>
                     <AccordionContent className="pb-2">
                       <div className="flex flex-col gap-1">
-                        <a
-                          href="#"
+                        <Link
+                          href="/services/broker"
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="flex items-center gap-3 px-4 py-3 min-h-[44px] text-sm hover:bg-white/5 rounded-lg transition-colors text-white"
+                        >
+                          <Building2 className="h-5 w-5 text-white/60" />
+                          <span>{t("solutions.broker.title")}</span>
+                        </Link>
+                        <Link
+                          href="/services/lawyer"
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="flex items-center gap-3 px-4 py-3 min-h-[44px] text-sm hover:bg-white/5 rounded-lg transition-colors text-white"
+                        >
+                          <Shield className="h-5 w-5 text-white/60" />
+                          <span>{t("solutions.lawyer.title")}</span>
+                        </Link>
+                        <Link
+                          href="/services/appraiser"
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="flex items-center gap-3 px-4 py-3 min-h-[44px] text-sm hover:bg-white/5 rounded-lg transition-colors text-white"
+                        >
+                          <FileCode className="h-5 w-5 text-white/60" />
+                          <span>{t("solutions.appraiser.title")}</span>
+                        </Link>
+                        <Link
+                          href="/services/mortgage-advisor"
                           onClick={() => setMobileMenuOpen(false)}
                           className="flex items-center gap-3 px-4 py-3 min-h-[44px] text-sm hover:bg-white/5 rounded-lg transition-colors text-white"
                         >
                           <Home className="h-5 w-5 text-white/60" />
-                          <span>{t("solutions.residential.title")}</span>
-                        </a>
-                        <a
-                          href="#"
+                          <span>{t("solutions.mortgageAdvisor.title")}</span>
+                        </Link>
+                        <Link
+                          href="/services/entrepreneur"
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="flex items-center gap-3 px-4 py-3 min-h-[44px] text-sm hover:bg-white/5 rounded-lg transition-colors text-white"
+                        >
+                          <Users className="h-5 w-5 text-white/60" />
+                          <span>{t("solutions.entrepreneur.title")}</span>
+                        </Link>
+                        <Link
+                          href="/services/asset-manager"
                           onClick={() => setMobileMenuOpen(false)}
                           className="flex items-center gap-3 px-4 py-3 min-h-[44px] text-sm hover:bg-white/5 rounded-lg transition-colors text-white"
                         >
                           <Building className="h-5 w-5 text-white/60" />
-                          <span>{t("solutions.commercial.title")}</span>
-                        </a>
-                        <a
-                          href="#"
+                          <span>{t("solutions.assetManager.title")}</span>
+                        </Link>
+                        <Link
+                          href="/services/financial-advisor"
                           onClick={() => setMobileMenuOpen(false)}
                           className="flex items-center gap-3 px-4 py-3 min-h-[44px] text-sm hover:bg-white/5 rounded-lg transition-colors text-white"
                         >
-                          <Factory className="h-5 w-5 text-white/60" />
-                          <span>{t("solutions.industrial.title")}</span>
-                        </a>
+                          <Briefcase className="h-5 w-5 text-white/60" />
+                          <span>{t("solutions.financialAdvisor.title")}</span>
+                        </Link>
                       </div>
                     </AccordionContent>
                   </AccordionItem>
@@ -396,38 +486,38 @@ export function Navigation({ className }: NavigationProps) {
 
                 {/* Simple Links */}
                 <div className="px-4 mt-2 flex flex-col gap-1">
-                  <a
-                    href="#"
+                  <Link
+                    href="/pricing"
                     onClick={() => setMobileMenuOpen(false)}
                     className="px-4 py-3 min-h-[44px] text-base hover:bg-white/5 rounded-lg transition-colors flex items-center text-white"
                   >
-                    {t("menu.institutions")}
-                  </a>
-                  <a
-                    href="#"
+                    {t("menu.pricing")}
+                  </Link>
+                  <Link
+                    href="/contact"
                     onClick={() => setMobileMenuOpen(false)}
                     className="px-4 py-3 min-h-[44px] text-base hover:bg-white/5 rounded-lg transition-colors flex items-center text-white"
                   >
-                    {t("menu.developers")}
-                  </a>
+                    {t("menu.contact")}
+                  </Link>
                 </div>
 
                 {/* Mobile-only Log In and Get Started at bottom */}
                 <div className="mt-auto px-4 pb-8 flex flex-col gap-3">
-                  <a
-                    href="#"
+                  <Link
+                    href="/sign-in"
                     onClick={() => setMobileMenuOpen(false)}
                     className="px-4 py-3 min-h-[44px] text-base text-center border border-white/20 rounded-full hover:bg-white/5 transition-colors text-white"
                   >
                     {t("actions.login")}
-                  </a>
-                  <a
-                    href="#"
+                  </Link>
+                  <Link
+                    href="/sign-up"
                     onClick={() => setMobileMenuOpen(false)}
                     className="px-4 py-3 min-h-[44px] text-base text-center bg-white text-[#050A12] rounded-full hover:bg-white/90 transition-colors"
                   >
                     {t("actions.getStarted")}
-                  </a>
+                  </Link>
                 </div>
               </div>
             </SheetContent>

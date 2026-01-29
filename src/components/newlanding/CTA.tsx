@@ -2,6 +2,7 @@
 
 import { motion, type Variants } from "framer-motion";
 import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
 interface CTAProps {
@@ -32,12 +33,18 @@ export function CTA({ className }: CTAProps) {
           {t("subheading")}
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <button className="px-8 py-4 bg-foreground text-background rounded-full font-medium hover:bg-foreground/90 transition-colors w-full sm:w-auto">
+          <Link
+            href="/contact"
+            className="px-8 py-4 bg-foreground text-background rounded-full font-medium hover:bg-foreground/90 transition-colors w-full sm:w-auto inline-flex items-center justify-center"
+          >
             {t("actions.contactSales")}
-          </button>
-          <button className="px-8 py-4 bg-transparent border border-border text-foreground rounded-full font-medium hover:bg-foreground/5 transition-colors w-full sm:w-auto">
+          </Link>
+          <Link
+            href="/pricing"
+            className="px-8 py-4 bg-transparent border border-border text-foreground rounded-full font-medium hover:bg-foreground/5 transition-colors w-full sm:w-auto inline-flex items-center justify-center"
+          >
             {t("actions.viewPricing")}
-          </button>
+          </Link>
         </div>
       </div>
     </motion.section>

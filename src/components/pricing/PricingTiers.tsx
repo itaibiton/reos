@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { Check } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -81,12 +82,23 @@ export function PricingTiers({ isAnnual }: PricingTiersProps) {
                 )}
               </div>
 
-              <Button
-                className="w-full mb-6"
-                variant={tier.isPopular ? "default" : "outline"}
-              >
-                {tierT.cta}
-              </Button>
+              {tier.key === "enterprise" ? (
+                <Button
+                  className="w-full mb-6"
+                  variant="outline"
+                  asChild
+                >
+                  <Link href="/contact">{tierT.cta}</Link>
+                </Button>
+              ) : (
+                <Button
+                  className="w-full mb-6"
+                  variant={tier.isPopular ? "default" : "outline"}
+                  asChild
+                >
+                  <Link href="/sign-up">{tierT.cta}</Link>
+                </Button>
+              )}
 
               {tier.trustSignal && (
                 <p className="text-xs text-center text-muted-foreground mb-6">

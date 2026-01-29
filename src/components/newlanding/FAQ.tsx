@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion, type Variants, useInView, useReducedMotion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import Script from "next/script";
+import { Link } from "@/i18n/navigation";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
@@ -138,12 +139,12 @@ export function FAQ({ className }: FAQProps) {
             <p className="text-foreground/50 font-light mb-6 max-w-md mx-auto">
               {t("contactDescription")}
             </p>
-            <a
+            <Link
               href="/contact"
               className="inline-flex items-center gap-2 px-8 py-4 bg-foreground text-background rounded-full font-medium hover:bg-foreground/90 transition-colors"
             >
               {t("contactCta")}
-            </a>
+            </Link>
           </div>
         </div>
       </motion.section>
