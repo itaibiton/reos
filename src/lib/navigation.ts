@@ -19,6 +19,7 @@ import {
   Settings,
   BarChart3,
   Rss,
+  ShieldCheck,
 } from "lucide-react";
 import type { IconSvgElement } from "@hugeicons/react";
 import {
@@ -364,6 +365,12 @@ const adminNavigation: RoleNavigation = {
       items: [
         { labelKey: "navigation.items.dashboard", href: "/dashboard", icon: Home },
         { labelKey: "navigation.items.analytics", href: "/analytics", icon: BarChart3 },
+      ],
+    },
+    {
+      labelKey: "navigation.groups.admin",
+      items: [
+        { labelKey: "navigation.items.pendingVendors", href: "/admin/vendors/pending", icon: ShieldCheck },
       ],
     },
     {

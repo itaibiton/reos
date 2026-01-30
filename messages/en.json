@@ -201,7 +201,8 @@
       "accountingServices": "Accounting Services",
       "notarizationServices": "Notarization Services",
       "taxServices": "Tax Services",
-      "appraisalServices": "Appraisal Services"
+      "appraisalServices": "Appraisal Services",
+      "admin": "Administration"
     },
     "items": {
       "dashboard": "Dashboard",
@@ -228,6 +229,7 @@
       "appraisalRequests": "Appraisal Requests",
       "propertyValuations": "Property Valuations",
       "valuationReports": "Valuation Reports",
+      "pendingVendors": "Pending Vendors",
       "clients": "Clients",
       "feed": "Feed",
       "chat": "Chat",
@@ -2660,6 +2662,8 @@
     "newProperty": "New Property",
     "onboarding": "Onboarding",
     "questionnaire": "Questionnaire",
+    "vendorProfile": "Vendor Profile",
+    "pendingVendors": "Pending Vendors",
     "designSystem": "Design System",
     "search": "Search",
     "feed": "Feed",

@@ -108,11 +108,13 @@ const breadcrumbConfig: Record<string, BreadcrumbConfig> = {
   "/properties/new": { groupKey: "breadcrumbs.groups.marketplace", labelKey: "breadcrumbs.newProperty" },
   "/onboarding": { labelKey: "breadcrumbs.onboarding" },
   "/onboarding/questionnaire": { labelKey: "breadcrumbs.questionnaire" },
+  "/onboarding/vendor-profile": { labelKey: "breadcrumbs.vendorProfile" },
   "/design-system": { labelKey: "breadcrumbs.designSystem" },
   "/search": { labelKey: "breadcrumbs.search" },
   "/feed": { labelKey: "breadcrumbs.feed" },
   "/providers": { labelKey: "breadcrumbs.providers" },
   "/analytics": { labelKey: "breadcrumbs.analytics" },
+  "/admin/vendors/pending": { labelKey: "breadcrumbs.pendingVendors" },
 };
 
 interface AppShellProps {

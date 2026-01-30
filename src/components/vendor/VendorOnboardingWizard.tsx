@@ -1,9 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "@/i18n/navigation";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery } from "convex/react";
 import { useTranslations } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
@@ -66,8 +65,6 @@ export function VendorOnboardingWizard() {
 
   // Form setup
   const form = useForm<VendorOnboardingFormData>({
-    resolver: zodResolver(combinedVendorSchema),
-    mode: "onChange",
     defaultValues: {
       fullName: "",
       email: "",
@@ -85,9 +82,11 @@ export function VendorOnboardingWizard() {
     },
   });
 
-  // Load draft or existing profile on mount
+  // Load draft or existing profile on initial mount only
+  const hasInitialized = useRef(false);
   useEffect(() => {
     if (!user) return;
+    if (hasInitialized.current) return;
 
     // Priority 1: Check localStorage for draft
     const draftStr = localStorage.getItem(DRAFT_KEY);
@@ -102,6 +101,7 @@ export function VendorOnboardingWizard() {
         if (daysOld < DRAFT_EXPIRY_DAYS) {
           form.reset(draft.formData as VendorOnboardingFormData);
           setCurrentStep(draft.currentStep);
+          hasInitialized.current = true;
           return;
         } else {
           // Clear expired draft
@@ -131,6 +131,7 @@ export function VendorOnboardingWizard() {
         websiteUrl: (profile as any).websiteUrl || "",
         externalRecommendations: (profile as any).externalRecommendations || "",
       });
+      hasInitialized.current = true;
     } else if (user.email) {
       // Default: Pre-fill email and name from Clerk
       form.setValue("email", user.email);
@@ -140,6 +141,7 @@ export function VendorOnboardingWizard() {
       if (user.role && (user.role === "broker" || user.role === "mortgage_advisor" || user.role === "lawyer")) {
         form.setValue("providerType", user.role);
       }
+      hasInitialized.current = true;
     }
   }, [user, existingProfile, form]);
 

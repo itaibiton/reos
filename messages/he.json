@@ -201,7 +201,8 @@
       "accountingServices": "שירותי חשבונאות",
       "notarizationServices": "שירותי נוטריון",
       "taxServices": "שירותי מס",
-      "appraisalServices": "שירותי שמאות"
+      "appraisalServices": "שירותי שמאות",
+      "admin": "ניהול"
     },
     "items": {
       "dashboard": "לוח בקרה",
@@ -228,6 +229,7 @@
       "appraisalRequests": "בקשות שמאות",
       "propertyValuations": "הערכות נכסים",
       "valuationReports": "דוחות שמאות",
+      "pendingVendors": "נותני שירות ממתינים",
       "clients": "לקוחות",
       "feed": "פיד",
       "chat": "צ'אט",
@@ -2772,6 +2774,8 @@
     "newProperty": "נכס חדש",
     "onboarding": "הצטרפות",
     "questionnaire": "שאלון",
+    "vendorProfile": "פרופיל נותן שירות",
+    "pendingVendors": "נותני שירות ממתינים",
     "designSystem": "מערכת עיצוב",
     "search": "חיפוש",
     "feed": "פיד",

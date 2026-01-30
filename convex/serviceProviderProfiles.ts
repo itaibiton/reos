@@ -113,15 +113,6 @@ export const upsertProfile = mutation({
       throw new Error("Only service providers can create service provider profiles");
     }
 
-    // Validation
-    if (args.serviceAreas.length === 0) {
-      throw new Error("At least one service area is required");
-    }
-
-    if (args.languages.length === 0) {
-      throw new Error("At least one language is required");
-    }
-
     // Check for existing profile
     const existingProfile = await ctx.db
       .query("serviceProviderProfiles")
