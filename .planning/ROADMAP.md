@@ -199,6 +199,12 @@ Plans:
 3. Each role can only access tools scoped to their permissions -- a broker cannot invoke investor-only tools, and an investor cannot invoke admin tools
 4. Every tool handler independently verifies the calling user's identity and role via server-side auth (ctx.auth), never relying on the LLM to enforce authorization
 
+**Plans:** 2 plans
+
+Plans:
+- [ ] 63-01-PLAN.md -- Role definitions + auth enforcement backend (instructions, tool sets, auth helper, existing tool retrofit)
+- [ ] 63-02-PLAN.md -- Wire role system into chat + frontend (chat.ts integration, agent.ts cleanup, role-aware hooks, i18n)
+
 ---
 
 ### Phase 64: Action Tools (Read + Write)
@@ -258,7 +264,7 @@ Plans:
 | 60. Profile Polish & Public Display | v1.9 | 1/1 | Complete | 2026-02-01 |
 | 61. Panel Shell + Streaming Infrastructure | v1.10 | 3/3 | Complete | 2026-02-01 |
 | 62. Context Awareness + Help Guidance | v1.10 | 2/2 | Complete | 2026-02-01 |
-| 63. Multi-Role Agent + Auth Enforcement | v1.10 | 0/TBD | Not started | - |
+| 63. Multi-Role Agent + Auth Enforcement | v1.10 | 0/2 | Not started | - |
 | 64. Action Tools (Read + Write) | v1.10 | 0/TBD | Not started | - |
 | 65. Investor AI Migration | v1.10 | 0/TBD | Not started | - |
 | 66. Proactive Nudges | v1.10 | 0/TBD | Not started | - |
