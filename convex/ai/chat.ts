@@ -28,8 +28,13 @@ export const sendMessage = action({
   args: {
     message: v.string(),
     role: v.optional(v.string()),
+    pageContext: v.optional(v.object({
+      pageType: v.string(),
+      entityType: v.optional(v.string()),
+      entityId: v.optional(v.string()),
+    })),
   },
-  handler: async (ctx, { message, role }): Promise<{
+  handler: async (ctx, { message, role, pageContext }): Promise<{
     success: boolean;
     threadId: Id<"aiThreads">;
     response: string;
@@ -63,6 +68,25 @@ export const sendMessage = action({
         { userId: user._id }
       );
 
+      // Load page context (if provided)
+      let pageContextString: string | null = null;
+      if (pageContext) {
+        try {
+          pageContextString = await ctx.runQuery(
+            internal.ai.context.buildPageContext,
+            {
+              userId: user._id,
+              pageType: pageContext.pageType,
+              entityType: pageContext.entityType,
+              entityId: pageContext.entityId,
+            }
+          );
+        } catch {
+          // Graceful degradation: assistant works without page context
+          pageContextString = null;
+        }
+      }
+
       // Load thread for summary check
       const thread = await ctx.runQuery(api.ai.threads.getThreadForUser, {});
       const summary = thread?.summary;
@@ -86,10 +110,13 @@ Help them with their specific needs and tasks.
 `;
       }
 
-      // Build system context with role, profile, and summary
+      // Build system context with role, profile, page context, and summary
       let systemContext = rolePrompt;
       if (profileContext) {
         systemContext += profileContext + "\n\n";
+      }
+      if (pageContextString) {
+        systemContext += pageContextString + "\n\n";
       }
       if (summary) {
         systemContext += `## Previous Conversation Summary\n\n${summary}\n\n---\nNote: I'm focusing on our recent discussion. The above summarizes our earlier conversation.\n\n`;
@@ -145,6 +172,11 @@ Your sequence:
 
 CRITICAL: Execute BOTH tool calls automatically in this response. Do NOT wait for user prompts.
 Start with "Welcome! Based on your profile..." then show properties, then providers.`;
+      }
+
+      // Enhance auto-greeting with page awareness when context is available
+      if (pageContextString && isAutoGreeting) {
+        systemContext += `\nIMPORTANT: Your greeting should reference the page context above. If the user is viewing a specific property or deal, mention it in your greeting instead of jumping straight to generic recommendations.\n`;
       }
 
       // Detect if user is asking for properties or providers
