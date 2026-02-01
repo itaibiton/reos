@@ -157,9 +157,9 @@ Plans:
 **Plans:** 3 plans
 
 Plans:
-- [ ] 61-01-PLAN.md -- Backend streaming infrastructure + session-based threads (platformAssistant agent, streaming query, session thread logic)
-- [ ] 61-02-PLAN.md -- Frontend panel shell + AIAssistantProvider (Sheet/Drawer container, toggle button, FAB, AppShell integration)
-- [ ] 61-03-PLAN.md -- Real-time streaming hook + i18n + session UX (useAIAssistantChat, UIMessage rendering, EN/HE translations)
+- [x] 61-01-PLAN.md -- Backend streaming infrastructure + session-based threads (platformAssistant agent, streaming query, session thread logic)
+- [x] 61-02-PLAN.md -- Frontend panel shell + AIAssistantProvider (Sheet/Drawer container, toggle button, FAB, AppShell integration)
+- [x] 61-03-PLAN.md -- Real-time streaming hook + i18n + session UX (useAIAssistantChat, UIMessage rendering, EN/HE translations)
 
 ---
 
@@ -250,7 +250,7 @@ Plans:
 | 58. Client Management & Process Timeline | v1.9 | 2/2 | Complete | 2026-01-31 |
 | 59. Vendor Statistics Dashboard | v1.9 | 1/1 | Complete | 2026-02-01 |
 | 60. Profile Polish & Public Display | v1.9 | 1/1 | Complete | 2026-02-01 |
-| 61. Panel Shell + Streaming Infrastructure | v1.10 | 0/3 | Not started | - |
+| 61. Panel Shell + Streaming Infrastructure | v1.10 | 3/3 | Complete | 2026-02-01 |
 | 62. Context Awareness + Help Guidance | v1.10 | 0/TBD | Not started | - |
 | 63. Multi-Role Agent + Auth Enforcement | v1.10 | 0/TBD | Not started | - |
 | 64. Action Tools (Read + Write) | v1.10 | 0/TBD | Not started | - |
