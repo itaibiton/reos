@@ -37,6 +37,12 @@ v1.10 architecture decisions (from research):
 - Streaming via `useUIMessages` + `syncStreams` replacing action-based polling
 - Server-side auth on every tool handler via `ctx.auth` (never trust LLM for authorization)
 
+61-01 implementation decisions:
+- 24-hour session timeout for AI threads (balance between context continuity and memory freshness)
+- Role injection via system prompts (not separate agents - single platformAssistant serves all roles)
+- Preserve previousSummary on session expiry (maintain long-term context across daily sessions)
+- Real-time streaming via query (enables reactive UI updates without polling)
+
 61-02 implementation decisions:
 - Split context pattern for AIAssistantProvider (state/dispatch separation prevents unnecessary re-renders)
 - sessionStorage for panel state (not localStorage - state should reset per browser session)
