@@ -8,21 +8,26 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 
 **Deal flow tracking from interest to close.** If the end-to-end process of connecting investors with properties AND moving them through service providers doesn't work seamlessly, nothing else matters.
 
-## Current Milestone: v1.9 Vendor Registration & Management
+## Current Milestone: v1.10 Super AI Assistant
 
-**Goal:** Rebuild the service provider experience with a structured onboarding questionnaire, admin approval gate, and revamped vendor personal area — client management, process timeline, and deal statistics.
+**Goal:** Platform-wide context-aware AI assistant that replaces the investor-only AI, available to all roles (investors, service providers, admins) as a side panel on desktop and full-screen sheet on mobile — with data lookups, quick actions, proactive suggestions, and help guidance.
 
 **Target features:**
-- Vendor onboarding questionnaire (full name, phone, email, profession, experience, company, language, license number, profile photo, bio, website link, geographic area, external recommendations)
-- Admin approval workflow — vendors must be approved before appearing on platform
-- Vendor personal area with client list, document access per client, process timeline per client with current stage
-- Deal statistics dashboard (total deals, sales count for brokers)
-- Profile photo upload for vendors
+- Side panel AI assistant accessible from every page via toggle button (desktop: slide-in panel, mobile: full-screen bottom sheet)
+- Context-aware — knows current page, pre-loads relevant data (property, deal, client), adapts greeting and suggestions
+- Proactive nudges — notifies about deal stage changes, actionable suggestions, insights
+- Quick actions — auto-execute reads/navigation, confirm-first for writes (save property, create deal, send message)
+- Real-time data lookups — query deals, properties, clients, stats within conversation
+- Role-aware — different capabilities and suggestions per role (investor, broker, mortgage_advisor, lawyer, admin)
+- Session-based with memory — fresh conversation each session, but AI remembers preferences from past chats
+- Replaces v1.6 investor-only AI assistant — auto-opens on investor summary page
+- Help & guidance — feature explanations, how-to, onboarding assistance
+- Full i18n support (EN/HE)
 
-## Current State (v1.8)
+## Current State (v1.9)
 
-**Latest Shipped:** 2026-01-29
-**Total Shipped:** 9 milestones (v1.0, v1.1, v1.2, v1.3, v1.4, v1.5, v1.6, v1.7, v1.8)
+**Latest Shipped:** 2026-02-01
+**Total Shipped:** 10 milestones (v1.0, v1.1, v1.2, v1.3, v1.4, v1.5, v1.6, v1.7, v1.8, v1.9)
 **LOC:** ~48,735 TypeScript
 **Tech Stack:** Next.js 15, Convex, Clerk, Shadcn/ui, Tailwind v4, Hugeicons, next-intl, Framer Motion
 
@@ -128,12 +133,15 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 
 ### Active
 
-- [x] Vendor onboarding questionnaire with all registration fields — v1.9
-- [x] Admin approval gate for new vendors — v1.9
-- [x] Vendor personal area: client management with document access — v1.9
-- [x] Process timeline per client with current stage display — v1.9
-- [x] Vendor deal statistics dashboard — v1.9
-- [x] Profile photo upload for vendors — v1.9
+- [ ] Platform-wide AI assistant side panel (desktop + mobile) — v1.10
+- [ ] Context-aware page detection and data pre-loading — v1.10
+- [ ] Proactive nudges and suggestions based on user activity — v1.10
+- [ ] Quick actions (navigation, saves, deal creation with confirmation) — v1.10
+- [ ] Real-time data lookups within conversation — v1.10
+- [ ] Role-aware assistant behavior (investor/provider/admin) — v1.10
+- [ ] Session-based conversations with cross-session memory — v1.10
+- [ ] Replace v1.6 investor AI with unified assistant — v1.10
+- [ ] Help & guidance system for all roles — v1.10
 
 ### Out of Scope
 
@@ -199,4 +207,4 @@ An A-Z real estate investment platform connecting US investors (primarily NYC) w
 - Internal social chat between professionals by topic
 
 ---
-*Last updated: 2026-01-29 after Phase 57 complete (Vendor Onboarding & Admin Approval)*
+*Last updated: 2026-02-01 after v1.10 milestone start (Super AI Assistant)*
