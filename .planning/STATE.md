@@ -5,15 +5,15 @@
 See: .planning/PROJECT.md (updated 2026-02-01)
 
 **Core value:** Deal flow tracking from interest to close.
-**Current focus:** v1.10 Super AI Assistant
+**Current focus:** v1.10 Super AI Assistant -- Phase 61: Panel Shell + Streaming Infrastructure
 
 ## Current Position
 
 Milestone: v1.10 Super AI Assistant
-Phase: Not started (defining requirements)
-Plan: —
-Status: Defining requirements
-Last activity: 2026-02-01 — Milestone v1.10 started
+Phase: 61 of 66 (Panel Shell + Streaming Infrastructure)
+Plan: 0 of TBD in current phase
+Status: Ready to plan
+Last activity: 2026-02-01 -- Roadmap created for v1.10 (6 phases, 23 requirements)
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -28,14 +28,14 @@ Progress: [░░░░░░░░░░] 0%
 
 ### Decisions
 
-v1.10 scope decisions:
-- Platform-wide AI assistant replacing v1.6 investor-only AI
-- Side panel (desktop) + full-screen bottom sheet (mobile)
-- Context-aware: knows current page, pre-loads data
-- Proactive nudges for deal changes and suggestions
-- Quick actions: auto-execute reads, confirm writes
-- Session-based conversations with cross-session memory
-- Role-aware: different behavior for investor/provider/admin
+v1.10 architecture decisions (from research):
+- Single `platformAssistant` agent with role-injected system prompts (not separate agents per role)
+- Overlay Sheet pattern on desktop (not content-pushing) to avoid breaking AppShell layout
+- FAB trigger on mobile above tab bar, full-screen Drawer that hides MobileBottomNav
+- Context is lazy-loaded on panel open only (not on every page navigation)
+- Stay on `ai@5.0.123` -- AI SDK 6 breaks `@convex-dev/agent@0.3.2` (GitHub issue #202)
+- Streaming via `useUIMessages` + `syncStreams` replacing action-based polling
+- Server-side auth on every tool handler via `ctx.auth` (never trust LLM for authorization)
 
 ### Pending Todos
 
@@ -47,14 +47,12 @@ None.
 
 ### Roadmap Evolution
 
-- Milestone v1.6 complete: AI-Powered Investor Experience (Phases 40-46)
-- Milestone v1.7 complete: New Landing Page (Phases 47-52)
-- Milestone v1.8 complete: Conversion & Essential Pages (Phases 53-56)
-- Milestone v1.9 complete: Vendor Registration & Management (Phases 57-60)
+- Milestones v1.0 through v1.9 shipped (Phases 1-60)
+- v1.10 Super AI Assistant: Phases 61-66 (6 phases, 23 requirements)
 
 ## Session Continuity
 
 Last session: 2026-02-01
-Stopped at: v1.10 milestone started, defining requirements
+Stopped at: Roadmap created for v1.10 milestone
 Resume file: None
-Next: Research → Requirements → Roadmap
+Next: `/gsd:plan-phase 61` to plan Panel Shell + Streaming Infrastructure
