@@ -1860,7 +1860,9 @@
       "us_resident": "תושב ארה״ב",
       "israeli_citizen": "אזרח ישראלי",
       "resident": "תושב ישראל",
+      "returning_resident": "תושב חוזר",
       "returningResident": "תושב חוזר",
+      "non_resident": "לא תושב",
       "nonResident": "לא תושב",
       "unsure": "לא בטוח",
       "first_time": "משקיע בפעם הראשונה",
@@ -2657,6 +2659,7 @@
       }
     },
     "providerForm": {
+      "heading": "ערוך פרופיל",
       "labels": {
         "serviceProvider": "נותן שירות",
         "companyName": "שם החברה (אופציונלי)",
@@ -2667,7 +2670,9 @@
         "languagesSpoken": "שפות מדוברות",
         "phoneNumber": "מספר טלפון (אופציונלי)",
         "preferredContact": "אמצעי קשר מועדף (אופציונלי)",
-        "bio": "תיאור מקצועי (אופציונלי)"
+        "bio": "תיאור מקצועי (אופציונלי)",
+        "websiteUrl": "כתובת אתר (אופציונלי)",
+        "externalRecommendations": "המלצות חיצוניות (אופציונלי)"
       },
       "placeholders": {
         "companyName": "שם החברה או המשרד שלך",
@@ -2675,7 +2680,12 @@
         "selectSpecializations": "בחר התמחויות...",
         "selectServiceAreas": "בחר אזורי שירות...",
         "selectLanguages": "בחר שפות...",
-        "bio": "ספר למשקיעים על הניסיון והמומחיות שלך..."
+        "bio": "ספר למשקיעים על הניסיון והמומחיות שלך...",
+        "websiteUrl": "https://yourwebsite.com",
+        "externalRecommendations": "קישורים לביקורות, המלצות או מכתבי המלצה..."
+      },
+      "descriptions": {
+        "externalRecommendations": "שתף קישורים לביקורות חיצוניות, המלצות או מכתבי המלצה"
       },
       "errors": {
         "selectServiceArea": "בחר לפחות אזור שירות אחד",
@@ -2797,6 +2807,43 @@
       "showingProviders": "מצאתי גם כמה נותני שירות שיכולים לעזור במסע ההשקעה שלך.",
       "quickRepliesHint": "השתמש בכפתורי התגובה המהירה למטה לשאלות נוספות."
     }
+  },
+  "aiAssistant": {
+    "panelTitle": "עוזר AI",
+    "panelDescription": "העוזר החכם שלך להשקעות נדל\"ן",
+    "toggle": "עוזר AI",
+    "toggleTooltip": "פתח/סגור עוזר AI (Ctrl+J)",
+    "toggleTooltipMac": "פתח/סגור עוזר AI (Cmd+J)",
+    "fabLabel": "פתח עוזר AI",
+    "welcome": {
+      "title": "ברוכים הבאים לעוזר ה-AI שלך",
+      "subtitle": "שאלו אותי כל דבר על השקעות נדל\"ן בישראל.",
+      "newSession": "מתחילים שיחה חדשה. אני זוכר פרטים חשובים מהשיחה הקודמת שלנו."
+    },
+    "input": {
+      "placeholder": "הקלידו הודעה...",
+      "placeholderMobile": "הודעה...",
+      "send": "שלח הודעה",
+      "stop": "עצור יצירה"
+    },
+    "header": {
+      "title": "עוזר AI",
+      "clear": "נקה",
+      "close": "סגור"
+    },
+    "clearDialog": {
+      "title": "לנקות את השיחה?",
+      "description": "פעולה זו תמחק לצמיתות את כל ההודעות ותאפס את זיכרון ה-AI. לא ניתן לבטל פעולה זו.",
+      "cancel": "ביטול",
+      "confirm": "נקה שיחה"
+    },
+    "errors": {
+      "sendFailed": "שליחת ההודעה נכשלה. אנא נסו שוב.",
+      "connectionLost": "החיבור נותק. מתחבר מחדש...",
+      "generic": "משהו השתבש. אנא נסו שוב."
+    },
+    "loading": "טוען שיחה...",
+    "streaming": "ה-AI חושב..."
   },
   "legal": {
     "privacy": {

@@ -10,17 +10,22 @@ import { api } from "../../../convex/_generated/api";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { getMobileTabsForRole, type UserRole } from "@/lib/navigation";
 import { Badge } from "@/components/ui/badge";
+import { useAIAssistant } from "@/providers/AIAssistantProvider";
 
 export function MobileBottomNav() {
   const pathname = usePathname();
   const t = useTranslations();
   const { effectiveRole } = useCurrentUser();
+  const { isOpen: isAIPanelOpen } = useAIAssistant();
 
   // Fetch chat unread count for badge
   const chatUnread = useQuery(api.directMessages.getTotalUnreadCount);
 
   // Get role-based tabs (defaults to investor if role not yet loaded)
   const tabs = getMobileTabsForRole((effectiveRole as UserRole) ?? "investor");
+
+  // Hide when AI panel is open
+  if (isAIPanelOpen) return null;
 
   return (
     <nav className="fixed bottom-0 inset-x-0 z-50 border-t bg-background md:hidden safe-area-bottom">

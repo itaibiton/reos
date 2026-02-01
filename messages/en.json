@@ -2008,6 +2008,7 @@
       }
     },
     "providerForm": {
+      "heading": "Edit Profile",
       "labels": {
         "serviceProvider": "Service Provider",
         "companyName": "Company Name (Optional)",
@@ -2018,7 +2019,9 @@
         "languagesSpoken": "Languages Spoken",
         "phoneNumber": "Phone Number (Optional)",
         "preferredContact": "Preferred Contact Method (Optional)",
-        "bio": "Professional Bio (Optional)"
+        "bio": "Professional Bio (Optional)",
+        "websiteUrl": "Website URL (Optional)",
+        "externalRecommendations": "External Recommendations (Optional)"
       },
       "placeholders": {
         "companyName": "Your company or firm name",
@@ -2026,7 +2029,12 @@
         "selectSpecializations": "Select specializations...",
         "selectServiceAreas": "Select service areas...",
         "selectLanguages": "Select languages...",
-        "bio": "Tell investors about your experience and expertise..."
+        "bio": "Tell investors about your experience and expertise...",
+        "websiteUrl": "https://yourwebsite.com",
+        "externalRecommendations": "Links to reviews, testimonials, or recommendation letters..."
+      },
+      "descriptions": {
+        "externalRecommendations": "Share links to external reviews, testimonials, or recommendation letters"
       },
       "errors": {
         "selectServiceArea": "Select at least one service area",
@@ -2508,7 +2516,9 @@
       "us_resident": "US Resident",
       "israeli_citizen": "Israeli Citizen",
       "resident": "Israeli Resident",
+      "returning_resident": "Returning Resident",
       "returningResident": "Returning Resident",
+      "non_resident": "Non-Resident",
       "nonResident": "Non-Resident",
       "unsure": "Unsure",
       "first_time": "First Time Investor",
@@ -2685,6 +2695,43 @@
       "showingProviders": "I've also found some service providers who can help with your investment journey.",
       "quickRepliesHint": "Use the quick reply buttons below for follow-up questions."
     }
+  },
+  "aiAssistant": {
+    "panelTitle": "AI Assistant",
+    "panelDescription": "Your AI-powered real estate assistant",
+    "toggle": "AI Assistant",
+    "toggleTooltip": "Toggle AI Assistant (Ctrl+J)",
+    "toggleTooltipMac": "Toggle AI Assistant (Cmd+J)",
+    "fabLabel": "Open AI Assistant",
+    "welcome": {
+      "title": "Welcome to your AI Assistant",
+      "subtitle": "Ask me anything about real estate investing in Israel.",
+      "newSession": "Starting a new conversation. I remember key details from our last chat."
+    },
+    "input": {
+      "placeholder": "Type a message...",
+      "placeholderMobile": "Message...",
+      "send": "Send message",
+      "stop": "Stop generating"
+    },
+    "header": {
+      "title": "AI Assistant",
+      "clear": "Clear",
+      "close": "Close"
+    },
+    "clearDialog": {
+      "title": "Clear conversation?",
+      "description": "This will permanently delete all messages and reset the AI's memory. This action cannot be undone.",
+      "cancel": "Cancel",
+      "confirm": "Clear conversation"
+    },
+    "errors": {
+      "sendFailed": "Failed to send message. Please try again.",
+      "connectionLost": "Connection lost. Reconnecting...",
+      "generic": "Something went wrong. Please try again."
+    },
+    "loading": "Loading conversation...",
+    "streaming": "AI is thinking..."
   },
   "legal": {
     "privacy": {

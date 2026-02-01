@@ -49,6 +49,9 @@ import {
 import { IncompleteProfileReminder } from "@/components/IncompleteProfileReminder";
 import { GlobalSearchBar } from "@/components/search";
 import { AvatarDropdown, MobileSearchExpander } from "@/components/header";
+import { AIAssistantProvider } from "@/providers/AIAssistantProvider";
+import { AIAssistantPanel } from "@/components/ai/AIAssistantPanel";
+import { AIToggleButton, AIToggleFAB } from "@/components/ai/AIToggleButton";
 
 // Breadcrumb config: maps paths to their group and label translation keys
 // Format: { groupKey?: string, labelKey: string }
@@ -292,10 +295,11 @@ export function AppShell({ children }: AppShellProps) {
 
   // Unified sidebar layout for all roles
   return (
-    <SidebarProvider>
-      <IncompleteProfileReminder />
-      <AppSidebar />
-      <SidebarInset>
+    <AIAssistantProvider>
+      <SidebarProvider>
+        <IncompleteProfileReminder />
+        <AppSidebar />
+        <SidebarInset>
         {/* Header */}
         <header className="sticky top-0 z-50 flex h-16 shrink-0 items-center justify-between border-b bg-background px-4">
           {/* Left: Sidebar trigger + breadcrumbs */}
@@ -353,12 +357,13 @@ export function AppShell({ children }: AppShellProps) {
           </Authenticated>
 
           {/* Right: Auth section */}
-          <div className="flex items-center">
+          <div className="flex items-center gap-2">
             <AuthLoading>
               <Skeleton className="h-8 w-8 rounded-full" />
             </AuthLoading>
 
             <Authenticated>
+              <AIToggleButton />
               <ProviderHeaderContent />
             </Authenticated>
 
@@ -391,6 +396,11 @@ export function AppShell({ children }: AppShellProps) {
         </main>
       </SidebarInset>
       <MobileBottomNav />
+      <Authenticated>
+        <AIAssistantPanel />
+        <AIToggleFAB />
+      </Authenticated>
     </SidebarProvider>
+  </AIAssistantProvider>
   );
 }
