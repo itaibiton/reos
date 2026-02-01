@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useAIAssistant } from "@/providers/AIAssistantProvider";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useTranslations } from "next-intl";
@@ -17,8 +18,102 @@ import {
   DrawerTitle,
   DrawerDescription,
 } from "@/components/ui/drawer";
-import { AIChatPanel } from "./AIChatPanel";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import { Button } from "@/components/ui/button";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Delete02Icon } from "@hugeicons/core-free-icons";
+import { useAIAssistantChat } from "./hooks/useAIAssistantChat";
+import { StreamingChatMessageList } from "./ChatMessageList";
+import { AIChatInput } from "./AIChatInput";
+
+/**
+ * AssistantChatContent - Inner content for the AI Assistant panel.
+ *
+ * Uses the new useAIAssistantChat hook with real-time streaming.
+ * Renders StreamingChatMessageList for UIMessage support.
+ */
+function AssistantChatContent() {
+  const t = useTranslations("aiAssistant");
+  const [showClearDialog, setShowClearDialog] = useState(false);
+
+  const {
+    messages,
+    isStreaming,
+    isLoading,
+    error,
+    sendMessage,
+    stopGeneration,
+    clearMemory,
+  } = useAIAssistantChat();
+
+  const handleClearMemory = async () => {
+    await clearMemory();
+    setShowClearDialog(false);
+  };
+
+  return (
+    <div className="flex flex-col h-full">
+      {/* Header */}
+      <div className="flex items-center justify-between px-4 py-3 border-b flex-shrink-0">
+        <h2 className="text-lg font-semibold">{t("header.title")}</h2>
+        <AlertDialog open={showClearDialog} onOpenChange={setShowClearDialog}>
+          <AlertDialogTrigger asChild>
+            <Button variant="ghost" size="icon" aria-label={t("header.clear")}>
+              <HugeiconsIcon icon={Delete02Icon} size={18} />
+            </Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>{t("clearDialog.title")}</AlertDialogTitle>
+              <AlertDialogDescription>
+                {t("clearDialog.description")}
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>{t("clearDialog.cancel")}</AlertDialogCancel>
+              <AlertDialogAction onClick={handleClearMemory}>
+                {t("clearDialog.confirm")}
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </div>
+
+      {/* Error display */}
+      {error && (
+        <div className="px-4 py-2 bg-destructive/10 text-destructive text-sm border-b flex-shrink-0">
+          {error}
+        </div>
+      )}
+
+      {/* Message list */}
+      <StreamingChatMessageList
+        messages={messages}
+        isStreaming={isStreaming}
+        isLoading={isLoading}
+      />
+
+      {/* Input */}
+      <AIChatInput
+        onSend={sendMessage}
+        onStop={stopGeneration}
+        isStreaming={isStreaming}
+        placeholder={t("input.placeholder")}
+      />
+    </div>
+  );
+}
 
 export function AIAssistantPanel() {
   const { isOpen, close } = useAIAssistant();
@@ -35,7 +130,7 @@ export function AIAssistantPanel() {
               <DrawerDescription>{t("panelDescription")}</DrawerDescription>
             </DrawerHeader>
           </VisuallyHidden>
-          <AIChatPanel className="h-full" />
+          <AssistantChatContent />
         </DrawerContent>
       </Drawer>
     );
@@ -53,7 +148,7 @@ export function AIAssistantPanel() {
             <SheetDescription>{t("panelDescription")}</SheetDescription>
           </SheetHeader>
         </VisuallyHidden>
-        <AIChatPanel className="h-full" />
+        <AssistantChatContent />
       </SheetContent>
     </Sheet>
   );

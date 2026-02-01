@@ -1,13 +1,15 @@
 "use client";
 
 import { useUser } from "@clerk/nextjs";
-import { ChatMessage } from "./ChatMessage";
+import { ChatMessage, StreamingChatMessage } from "./ChatMessage";
 import { TypingIndicator } from "./TypingIndicator";
 import { useSmartScroll } from "./hooks/useSmartScroll";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { ArrowDown01Icon } from "@hugeicons/core-free-icons";
+import type { UIMessage } from "./hooks/useAIAssistantChat";
+import { useTranslations } from "next-intl";
 
 interface ToolCall {
   toolCallId: string;
@@ -80,6 +82,103 @@ export function ChatMessageList({ messages, isStreaming, isLoading = false }: Ch
 
           {/* Typing indicator when waiting for AI response */}
           {isStreaming && (!lastMessage || lastMessage.role === "user") && (
+            <div className="flex gap-3">
+              <div className="h-8 w-8 rounded-full bg-muted flex items-center justify-center text-xs flex-shrink-0">
+                AI
+              </div>
+              <div className="bg-muted rounded-2xl rounded-es-sm">
+                <TypingIndicator />
+              </div>
+            </div>
+          )}
+
+          {/* Scroll anchor */}
+          <div ref={bottomRef} className="h-px" />
+        </div>
+      </ScrollArea>
+
+      {/* Scroll to bottom button (shown when not near bottom) */}
+      {!isNearBottom && (
+        <Button
+          variant="secondary"
+          size="icon"
+          className="absolute bottom-4 right-4 rounded-full shadow-lg"
+          onClick={scrollToBottom}
+          aria-label="Scroll to bottom"
+        >
+          <HugeiconsIcon icon={ArrowDown01Icon} size={18} />
+        </Button>
+      )}
+    </div>
+  );
+}
+
+// =============================================================================
+// StreamingChatMessageList - NEW component for UIMessage streaming
+// =============================================================================
+
+interface StreamingChatMessageListProps {
+  messages: UIMessage[];
+  isStreaming: boolean;
+  isLoading?: boolean;
+}
+
+/**
+ * StreamingChatMessageList - Real-time streaming message list for AI Assistant panel.
+ *
+ * Uses UIMessage from @convex-dev/agent/react for token-by-token updates.
+ * Features same layout as ChatMessageList but adapted for streaming.
+ */
+export function StreamingChatMessageList({
+  messages,
+  isStreaming,
+  isLoading = false,
+}: StreamingChatMessageListProps) {
+  const { user } = useUser();
+  const t = useTranslations("aiAssistant");
+  const { scrollRef, bottomRef, isNearBottom, scrollToBottom } = useSmartScroll(messages);
+
+  // Get the last message to check if it's still streaming
+  const lastMessage = messages[messages.length - 1];
+  const isLastMessageStreaming = isStreaming && lastMessage?.role === "assistant";
+
+  return (
+    <div className="relative flex-1 overflow-hidden">
+      <ScrollArea className="h-full" ref={scrollRef}>
+        <div
+          className="flex flex-col gap-4 p-4"
+          role="log"
+          aria-live="polite"
+          aria-relevant="additions"
+        >
+          {/* Loading state */}
+          {isLoading && messages.length === 0 && (
+            <div className="text-center text-muted-foreground py-8">
+              <p className="text-sm">{t("welcome.title")}</p>
+            </div>
+          )}
+
+          {/* Welcome message if no messages and not loading */}
+          {!isLoading && messages.length === 0 && !isStreaming && (
+            <div className="text-center text-muted-foreground py-8">
+              <p className="text-lg font-medium">{t("welcome.title")}</p>
+              <p className="text-sm mt-1">{t("welcome.subtitle")}</p>
+            </div>
+          )}
+
+          {/* Message list - shows immediately when available */}
+          {messages.map((message, index) => (
+            <StreamingChatMessage
+              key={message.key}
+              message={message}
+              isLastAndStreaming={isLastMessageStreaming && index === messages.length - 1}
+              userImage={user?.imageUrl}
+              userName={user?.fullName ?? user?.firstName ?? undefined}
+            />
+          ))}
+
+          {/* Typing indicator when waiting for AI response */}
+          {isStreaming && messages.length > 0 && messages[messages.length - 1].role === "user" && (
             <div className="flex gap-3">
               <div className="h-8 w-8 rounded-full bg-muted flex items-center justify-center text-xs flex-shrink-0">
                 AI

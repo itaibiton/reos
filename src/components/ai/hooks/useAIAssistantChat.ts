@@ -96,7 +96,7 @@ export function useAIAssistantChat() {
   }, [clearMemoryMutation]);
 
   return {
-    messages: messages ?? [],
+    messages: (messages ?? []) as UIMessage[],
     isStreaming: isSending,
     isLoading: messagesLoading,
     error,
