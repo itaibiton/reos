@@ -885,6 +885,10 @@ export default defineSchema({
     summary: v.optional(v.string()),
     // Number of messages summarized (for tracking)
     summarizedMessageCount: v.optional(v.number()),
+    // Session identifier (for 24h session grouping)
+    sessionId: v.optional(v.string()),
+    // Last role used in this thread (investor, vendor, etc.)
+    lastRole: v.optional(v.string()),
     // Last activity timestamp
     lastActivityAt: v.number(),
     // Timestamps
@@ -892,5 +896,6 @@ export default defineSchema({
     updatedAt: v.number(),
   })
     .index("by_user", ["userId"])
+    .index("by_user_and_session", ["userId", "sessionId"])
     .index("by_last_activity", ["lastActivityAt"]),
 });
