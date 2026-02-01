@@ -34,8 +34,11 @@ import {
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Delete02Icon } from "@hugeicons/core-free-icons";
 import { useAIAssistantChat } from "./hooks/useAIAssistantChat";
+import { usePageContext } from "./hooks/usePageContext";
+import { useSuggestedPrompts } from "./hooks/useSuggestedPrompts";
 import { StreamingChatMessageList } from "./ChatMessageList";
 import { AIChatInput } from "./AIChatInput";
+import { SuggestedPrompts } from "./SuggestedPrompts";
 
 /**
  * AssistantChatContent - Inner content for the AI Assistant panel.
@@ -47,6 +50,9 @@ function AssistantChatContent() {
   const t = useTranslations("aiAssistant");
   const [showClearDialog, setShowClearDialog] = useState(false);
 
+  const pageContext = usePageContext();
+  const suggestedPrompts = useSuggestedPrompts(pageContext.pageType);
+
   const {
     messages,
     isStreaming,
@@ -55,7 +61,7 @@ function AssistantChatContent() {
     sendMessage,
     stopGeneration,
     clearMemory,
-  } = useAIAssistantChat();
+  } = useAIAssistantChat(pageContext);
 
   const handleClearMemory = async () => {
     await clearMemory();
@@ -103,6 +109,14 @@ function AssistantChatContent() {
         isStreaming={isStreaming}
         isLoading={isLoading}
       />
+
+      {/* Suggested prompts - shown when conversation is empty */}
+      {!isLoading && messages.length === 0 && suggestedPrompts.length > 0 && (
+        <SuggestedPrompts
+          prompts={suggestedPrompts}
+          onSelect={sendMessage}
+        />
+      )}
 
       {/* Input */}
       <AIChatInput

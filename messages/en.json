@@ -2731,7 +2731,58 @@
       "generic": "Something went wrong. Please try again."
     },
     "loading": "Loading conversation...",
-    "streaming": "AI is thinking..."
+    "streaming": "AI is thinking...",
+    "suggestions": {
+      "propertyDetail": {
+        "investmentAnalysis": "What do you think of this property as an investment?",
+        "comparison": "How does this compare to similar properties?",
+        "startDeal": "What should I know before starting a deal?"
+      },
+      "dealDetail": {
+        "nextStep": "What's the next step in this deal?",
+        "currentStage": "Help me understand the current stage",
+        "documents": "What documents do I need?"
+      },
+      "propertyBrowse": {
+        "matchProfile": "Help me find properties matching my profile",
+        "bestAreas": "What areas have the best investment potential?",
+        "explainTypes": "Explain the property types available"
+      },
+      "dealsList": {
+        "summary": "Show me a summary of my active deals",
+        "attention": "Which deal needs my attention?",
+        "explainStages": "Explain the deal stages"
+      },
+      "dashboard": {
+        "portfolio": "Give me a summary of my portfolio",
+        "nextAction": "What should I do next?",
+        "help": "Help me understand my dashboard"
+      },
+      "providersBrowse": {
+        "findBroker": "Help me find a broker for my area",
+        "mortgageAdvice": "What should I look for in a mortgage advisor?",
+        "recommend": "Recommend providers for my investment team"
+      },
+      "providerDetail": {
+        "evaluate": "What can you tell me about this provider?",
+        "connect": "How do I connect with this provider?",
+        "compare": "How does this provider compare to others?"
+      },
+      "propertySaved": {
+        "compare": "Compare my saved properties",
+        "bestMatch": "Which saved property is the best match for me?",
+        "nextStep": "What should I do with my saved properties?"
+      },
+      "onboarding": {
+        "helpQuestion": "Help me with this question",
+        "whyMatters": "Why does this matter for my recommendations?",
+        "canChange": "Can I change my answers later?"
+      },
+      "settings": {
+        "help": "What settings can I change?",
+        "features": "What features does the platform offer?"
+      }
+    }
   },
   "legal": {
     "privacy": {

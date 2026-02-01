@@ -1,9 +1,10 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useState, useRef, useEffect } from "react";
 import { useQuery, useAction, useMutation } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
 import { useUIMessages, type UIMessage } from "@convex-dev/agent/react";
+import { type PageContext } from "./usePageContext";
 
 // Re-export UIMessage type for components
 export type { UIMessage };
@@ -20,9 +21,15 @@ export type { UIMessage };
  * 3. Send messages via sendMessage action
  * 4. Track local streaming state during send
  */
-export function useAIAssistantChat() {
+export function useAIAssistantChat(pageContext?: PageContext) {
   const [error, setError] = useState<string | null>(null);
   const [isSending, setIsSending] = useState(false);
+
+  // Ref keeps pageContext fresh without destabilizing the sendMessage callback
+  const pageContextRef = useRef(pageContext);
+  useEffect(() => {
+    pageContextRef.current = pageContext;
+  }, [pageContext]);
 
   // Get current thread
   const thread = useQuery(api.ai.threads.getThreadForUser);
@@ -57,7 +64,17 @@ export function useAIAssistantChat() {
       setIsSending(true);
 
       try {
-        await sendMessageAction({ message: text });
+        const ctx = pageContextRef.current;
+        await sendMessageAction({
+          message: text,
+          ...(ctx && {
+            pageContext: {
+              pageType: ctx.pageType,
+              ...(ctx.entityType && { entityType: ctx.entityType }),
+              ...(ctx.entityId && { entityId: ctx.entityId }),
+            },
+          }),
+        });
       } catch (err) {
         // Ignore abort errors (user stopped generation)
         if (err instanceof Error && !err.message.includes("abort")) {
