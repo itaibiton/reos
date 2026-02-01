@@ -1,6 +1,6 @@
 import { action } from "../_generated/server";
 import { api } from "../_generated/api";
-import { investorAssistant } from "./agent";
+import { platformAssistant } from "./agent";
 
 /**
  * Tool call data extracted from assistant message content
@@ -28,7 +28,7 @@ interface RawAgentMessage {
  * List messages for the current user's AI thread.
  * Returns messages in chronological order (oldest first) for chat display.
  *
- * Note: This is an action (not a query) because investorAssistant.listMessages
+ * Note: This is an action (not a query) because platformAssistant.listMessages
  * requires action context. Frontend should refetch after sendMessage completes.
  *
  * Tool results can come from:
@@ -59,7 +59,7 @@ export const listMessages = action({
 
     // List messages using agent API (requires action context)
     // Include tool messages to capture tool results
-    const messagesResult = await investorAssistant.listMessages(ctx, {
+    const messagesResult = await platformAssistant.listMessages(ctx, {
       threadId: thread.agentThreadId,
       paginationOpts: { numItems: 100, cursor: null },
       excludeToolMessages: false, // Include tool messages to get tool results

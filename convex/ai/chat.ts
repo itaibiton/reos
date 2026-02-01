@@ -2,7 +2,7 @@ import { action } from "../_generated/server";
 import { internal, api } from "../_generated/api";
 import { v } from "convex/values";
 import { Id } from "../_generated/dataModel";
-import { investorAssistant } from "./agent";
+import { platformAssistant } from "./agent";
 import { shouldSummarize } from "./summarization";
 
 /**
@@ -17,16 +17,19 @@ const activeGenerations = new Map<string, AbortController>();
  * Flow:
  * 1. Get or create thread for user
  * 2. Load profile context from questionnaire
- * 3. Stream response using agent with saveStreamDeltas
- * 4. Trigger summarization if message count exceeds threshold
+ * 3. Build role-specific system prompt
+ * 4. Stream response using agent with saveStreamDeltas
+ * 5. Trigger summarization if message count exceeds threshold
+ * 6. Update thread role
  *
  * Uses saveStreamDeltas for persistent real-time updates with word chunking.
  */
 export const sendMessage = action({
   args: {
     message: v.string(),
+    role: v.optional(v.string()),
   },
-  handler: async (ctx, { message }): Promise<{
+  handler: async (ctx, { message, role }): Promise<{
     success: boolean;
     threadId: Id<"aiThreads">;
     response: string;
@@ -64,19 +67,42 @@ export const sendMessage = action({
       const thread = await ctx.runQuery(api.ai.threads.getThreadForUser, {});
       const summary = thread?.summary;
 
-      // Build system context with profile and summary
-      let systemContext = "";
+      // Build role-specific system prompt
+      const userRole = role ?? "investor";
+      let rolePrompt = "";
+      if (userRole === "investor") {
+        rolePrompt = `## Your Role
+
+You are assisting an investor looking to invest in Israeli real estate.
+Focus on: property discovery, investment analysis, provider recommendations, and deal guidance.
+
+`;
+      } else {
+        rolePrompt = `## Your Role
+
+You are assisting a ${userRole} on the REOS platform.
+Help them with their specific needs and tasks.
+
+`;
+      }
+
+      // Build system context with role, profile, and summary
+      let systemContext = rolePrompt;
       if (profileContext) {
         systemContext += profileContext + "\n\n";
       }
       if (summary) {
         systemContext += `## Previous Conversation Summary\n\n${summary}\n\n---\nNote: I'm focusing on our recent discussion. The above summarizes our earlier conversation.\n\n`;
       }
+      // If continuing from previous summary (new session), prepend it
+      if (threadResult.previousSummary && !summary) {
+        systemContext = `## Previous Session Summary\n\n${threadResult.previousSummary}\n\n---\n\n` + systemContext;
+      }
 
       // For a new thread, create it first using the agent
       let currentThreadId = agentThreadId;
       if (isNew || !currentThreadId) {
-        const { threadId: newAgentThreadId } = await investorAssistant.createThread(ctx, {
+        const { threadId: newAgentThreadId } = await platformAssistant.createThread(ctx, {
           userId: identity.subject,
         });
         currentThreadId = newAgentThreadId;
@@ -89,14 +115,14 @@ export const sendMessage = action({
       }
 
       // Continue the thread and stream the response
-      const { thread: agentThread } = await investorAssistant.continueThread(ctx, {
+      const { thread: agentThread } = await platformAssistant.continueThread(ctx, {
         threadId: currentThreadId,
         userId: identity.subject,
       });
 
       // Detect auto-greeting scenario: empty message + new/empty thread
       // Get message count from agent thread to check if it's empty
-      const messagesCheck = await investorAssistant.listMessages(ctx, {
+      const messagesCheck = await platformAssistant.listMessages(ctx, {
         threadId: currentThreadId,
         paginationOpts: { numItems: 1, cursor: null },
         excludeToolMessages: true,
@@ -164,7 +190,7 @@ Start with "Welcome! Based on your profile..." then show properties, then provid
 
       if (shouldSummarize(messageCount)) {
         // Get messages for summarization from agent thread
-        const messagesResult = await investorAssistant.listMessages(ctx, {
+        const messagesResult = await platformAssistant.listMessages(ctx, {
           threadId: currentThreadId,
           paginationOpts: { numItems: 50, cursor: null },
           excludeToolMessages: true,
@@ -192,6 +218,12 @@ Start with "Welcome! Based on your profile..." then show properties, then provid
           });
         }
       }
+
+      // Update thread role
+      void ctx.runMutation(internal.ai.threads.updateThreadRole, {
+        threadId,
+        role: role ?? "investor",
+      });
 
       return {
         success: true,

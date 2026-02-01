@@ -12,6 +12,7 @@ import type * as ai_agent from "../ai/agent.js";
 import type * as ai_chat from "../ai/chat.js";
 import type * as ai_context from "../ai/context.js";
 import type * as ai_messages from "../ai/messages.js";
+import type * as ai_streaming from "../ai/streaming.js";
 import type * as ai_summarization from "../ai/summarization.js";
 import type * as ai_threads from "../ai/threads.js";
 import type * as ai_tools_propertyQueries from "../ai/tools/propertyQueries.js";
@@ -66,6 +67,7 @@ declare const fullApi: ApiFromModules<{
   "ai/chat": typeof ai_chat;
   "ai/context": typeof ai_context;
   "ai/messages": typeof ai_messages;
+  "ai/streaming": typeof ai_streaming;
   "ai/summarization": typeof ai_summarization;
   "ai/threads": typeof ai_threads;
   "ai/tools/propertyQueries": typeof ai_tools_propertyQueries;
