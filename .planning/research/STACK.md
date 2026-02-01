@@ -1,395 +1,426 @@
-# Technology Stack: Mobile Responsive + Theme Switching
+# Technology Stack: Platform-Wide AI Assistant Side Panel
 
-**Project:** REOS Mobile Responsiveness & Header Redesign
-**Researched:** 2026-01-21
+**Project:** REOS Platform-Wide Context-Aware AI Assistant
+**Researched:** 2026-02-01
 **Overall Confidence:** HIGH
 
 ## Executive Summary
 
-Your existing stack already has everything needed for mobile responsiveness, bottom tab navigation, and theme switching. **No new packages required.** The key insight: `next-themes` is already installed (v0.4.6) but not wired up, Tailwind v4 has the dark mode CSS variables configured, and Framer Motion is available for animations. The bottom tab bar is a custom component built with existing primitives.
+REOS already has a working AI assistant for investors with streaming, memory, and tool use via `@convex-dev/agent@0.3.2` + `ai@5.0.123` + `@ai-sdk/anthropic@2.0.57`. The new milestone extends this to a **platform-wide** assistant available to all roles (investor, broker, mortgage_advisor, lawyer, admin) with a side panel UI, context injection, quick action execution, and proactive nudges.
+
+**The key finding is that zero new npm packages are needed.** The existing stack has everything required. The work is primarily architectural: generalizing the investor-only agent into a multi-role agent, upgrading from the custom `useAIChat` hook to the agent-native `useUIMessages` hook for proper streaming, building the side panel with existing Shadcn Sheet/Drawer primitives, and adding Convex scheduled functions for proactive nudges.
+
+**Critical version constraint:** `@convex-dev/agent@0.3.2` requires `ai@^5.0.29` as a peer dependency. AI SDK 6 support is tracked in GitHub issue #202 but is NOT yet available. Do NOT upgrade to `ai@6.x` -- it will produce 53+ build errors. Stay on `ai@5.0.123`.
+
+---
 
 ## What You Already Have (DO NOT ADD)
 
-| Technology | Version | Ready For | Notes |
-|------------|---------|-----------|-------|
-| **next-themes** | 0.4.6 | Theme switching | Installed, needs ThemeProvider setup |
-| **Tailwind CSS v4** | 4.1.18 | Dark mode, responsive | `.dark` class variant configured, CSS vars defined |
-| **framer-motion** | 12.26.2 | Animations | Page transitions, tab bar animations |
-| **vaul** | 1.1.2 | Mobile drawers | Bottom sheet component for mobile dropdowns |
-| **@radix-ui/react-tabs** | 1.1.13 | Tab navigation | Base for bottom tab bar |
-| **Shadcn/ui sidebar** | N/A | Mobile detection | `useIsMobile()` hook at 768px breakpoint |
-| **Hugeicons** | 3.1.1 | Tab icons | Icon library already in use |
+These packages are installed, configured, and working. No changes needed.
 
-## Stack Changes Required
+| Package | Installed Version | Current Use | Ready for Side Panel |
+|---------|-------------------|-------------|----------------------|
+| `@convex-dev/agent` | 0.3.2 | Agent definition, thread memory, tool calling, streaming | YES -- supports `createTool`, `streamText`, `saveStreamDeltas`, `listUIMessages`, `syncStreams`, `useUIMessages` |
+| `ai` | 5.0.123 | Vercel AI SDK core (model interfaces, streaming primitives) | YES -- provides `streamText`, tool definitions, `UIMessage` type |
+| `@ai-sdk/anthropic` | 2.0.57 | Claude provider for AI SDK | YES -- supports Claude Sonnet 4, tool_use, streaming |
+| `@anthropic-ai/sdk` | 0.71.2 | Direct Anthropic SDK (used for summarization, search parsing) | YES -- keep for Haiku calls (summarization) |
+| `convex` | 1.31.3 | Backend: real-time DB, actions, mutations, scheduled functions | YES -- `ctx.scheduler` for nudges, mutations for quick actions |
+| `convex-helpers` | 0.1.111 | Utility helpers for Convex | YES -- triggers for event-driven nudges |
+| `vaul` | 1.1.2 | Drawer primitive (mobile bottom sheets) | YES -- used by existing `Drawer` component |
+| `@radix-ui/react-dialog` | 1.1.15 | Dialog/Sheet primitives | YES -- used by existing `Sheet` component |
+| `react-resizable-panels` | 4.4.0 | Resizable panel layout | MAYBE -- for adjustable side panel width on desktop in v2 |
+| `framer-motion` | 12.26.2 | Animations | YES -- typing indicators, panel transitions, nudge toasts |
+| `react-markdown` | 10.1.0 | Markdown rendering in chat messages | YES -- already used for AI responses |
+| `zod` | 4.3.5 | Schema validation for tool args | YES -- used by `createTool` |
+| `sonner` | 2.0.7 | Toast notifications | YES -- for nudge notification toasts |
 
-### 1. Wire Up next-themes (CONFIGURATION ONLY)
+---
 
-**Current state:** Package installed, not integrated into Providers.
+## What NOT to Add (and Why)
 
-**Required change:** Add `ThemeProvider` to your existing Providers component.
-
-```typescript
-// src/app/[locale]/Providers.tsx - UPDATE
-"use client";
-
-import { DirectionProvider } from "@radix-ui/react-direction";
-import { NextIntlClientProvider, type Messages } from "next-intl";
-import { ThemeProvider } from "next-themes";
-
-type Props = {
-  children: React.ReactNode;
-  locale: string;
-  direction: "ltr" | "rtl";
-  messages: Messages;
-};
-
-export function Providers({ children, locale, direction, messages }: Props) {
-  return (
-    <ThemeProvider
-      attribute="class"
-      defaultTheme="system"
-      enableSystem
-      disableTransitionOnChange
-    >
-      <DirectionProvider dir={direction}>
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          {children}
-        </NextIntlClientProvider>
-      </DirectionProvider>
-    </ThemeProvider>
-  );
-}
-```
-
-**Root layout update:** Add `suppressHydrationWarning` to `<html>` element.
-
-```typescript
-// src/app/[locale]/layout.tsx - UPDATE <html> tag
-<html
-  lang={locale}
-  dir={direction}
-  suppressHydrationWarning  // ADD THIS
-  className={`${inter.variable} ...`}
->
-```
-
-**Why `attribute="class"`:** Your CSS already uses `@custom-variant dark (&:is(.dark *));` which expects a `.dark` class on the HTML element. This matches next-themes' `attribute="class"` setting.
-
-**Why `disableTransitionOnChange`:** Prevents flash of wrong colors during theme switch. Recommended for production.
-
-### 2. Theme Toggle Component (NEW COMPONENT)
-
-Create using existing Shadcn/ui primitives and Hugeicons.
-
-```typescript
-// src/components/ThemeSwitcher.tsx - NEW FILE
-"use client";
-
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { Sun02Icon, Moon02Icon, Settings02Icon } from "@hugeicons/core-free-icons";
-import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
-
-export function ThemeSwitcher() {
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  // Prevent hydration mismatch
-  useEffect(() => setMounted(true), []);
-  if (!mounted) return null;
-
-  return (
-    <div className="flex flex-col gap-1">
-      <DropdownMenuItem onClick={() => setTheme("light")}>
-        <HugeiconsIcon icon={Sun02Icon} size={16} />
-        <span>Light</span>
-        {theme === "light" && <CheckIcon />}
-      </DropdownMenuItem>
-      <DropdownMenuItem onClick={() => setTheme("dark")}>
-        <HugeiconsIcon icon={Moon02Icon} size={16} />
-        <span>Dark</span>
-        {theme === "dark" && <CheckIcon />}
-      </DropdownMenuItem>
-      <DropdownMenuItem onClick={() => setTheme("system")}>
-        <HugeiconsIcon icon={Settings02Icon} size={16} />
-        <span>System</span>
-        {theme === "system" && <CheckIcon />}
-      </DropdownMenuItem>
-    </div>
-  );
-}
-```
-
-**Critical pattern:** The `mounted` state check prevents hydration mismatch because `useTheme()` returns undefined on server.
-
-### 3. Bottom Tab Bar (NEW COMPONENT - NO NEW DEPS)
-
-Build with existing primitives. No external bottom nav library needed.
-
-**Why custom, not a library:**
-- Shadcn/ui has no official bottom nav component
-- Material UI's BottomNavigation requires installing all of MUI
-- React Navigation is for React Native, not web
-- Your existing components (Radix tabs, Framer Motion) are sufficient
-
-**Component structure:**
-
-```typescript
-// src/components/layout/BottomTabBar.tsx - NEW FILE
-"use client";
-
-import { usePathname } from "@/i18n/navigation";
-import { Link } from "@/i18n/navigation";
-import { motion } from "framer-motion";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { cn } from "@/lib/utils";
-
-interface Tab {
-  href: string;
-  icon: React.ComponentType;
-  label: string;
-}
-
-interface BottomTabBarProps {
-  tabs: Tab[];
-}
-
-export function BottomTabBar({ tabs }: BottomTabBarProps) {
-  const pathname = usePathname();
-
-  return (
-    <nav
-      className={cn(
-        "fixed bottom-0 inset-x-0 z-50 md:hidden",
-        "bg-background/95 backdrop-blur-sm border-t",
-        "pb-[env(safe-area-inset-bottom,0px)]"  // Safe area for notch devices
-      )}
-    >
-      <div className="flex justify-around items-center h-16">
-        {tabs.map((tab) => {
-          const isActive = pathname === tab.href || pathname.startsWith(tab.href + "/");
-          return (
-            <Link
-              key={tab.href}
-              href={tab.href}
-              className={cn(
-                "flex flex-col items-center justify-center flex-1 h-full",
-                "text-muted-foreground transition-colors",
-                isActive && "text-primary"
-              )}
-            >
-              <motion.div
-                initial={false}
-                animate={{ scale: isActive ? 1.1 : 1 }}
-                transition={{ type: "spring", stiffness: 500, damping: 30 }}
-              >
-                <HugeiconsIcon icon={tab.icon} size={24} />
-              </motion.div>
-              <span className="text-xs mt-1">{tab.label}</span>
-            </Link>
-          );
-        })}
-      </div>
-    </nav>
-  );
-}
-```
-
-**Key patterns:**
-- `md:hidden` - Only shows on mobile (< 768px)
-- `pb-[env(safe-area-inset-bottom)]` - Handles iPhone notch/home indicator
-- `backdrop-blur-sm` - Modern glass effect
-- Framer Motion for subtle active state animation
-
-### 4. Custom Clerk Sign Out (REPLACE UserButton)
-
-Replace `<UserButton>` with custom dropdown using `useClerk()`.
-
-```typescript
-// src/components/layout/UserMenu.tsx - NEW FILE
-"use client";
-
-import { useClerk, useUser } from "@clerk/nextjs";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-  DropdownMenuSeparator,
-} from "@/components/ui/dropdown-menu";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { Logout01Icon } from "@hugeicons/core-free-icons";
-
-export function UserMenu() {
-  const { signOut } = useClerk();
-  const { user } = useUser();
-
-  const initials = user?.firstName?.[0] ?? user?.emailAddresses?.[0]?.emailAddress?.[0] ?? "?";
-
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <button className="rounded-full focus:outline-none focus:ring-2 focus:ring-ring">
-          <Avatar className="h-8 w-8">
-            <AvatarImage src={user?.imageUrl} alt={user?.fullName ?? ""} />
-            <AvatarFallback>{initials.toUpperCase()}</AvatarFallback>
-          </Avatar>
-        </button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-56">
-        {/* Notifications tab content */}
-        {/* Settings tab content with ThemeSwitcher and LocaleSwitcher */}
-        <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => signOut({ redirectUrl: "/" })}>
-          <HugeiconsIcon icon={Logout01Icon} size={16} />
-          <span>Sign out</span>
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  );
-}
-```
-
-**Why replace UserButton:**
-- Custom dropdown allows embedding theme switcher and language switcher
-- Consistent styling with rest of app
-- Full control over menu items
-- Uses existing Avatar and DropdownMenu components
-
-### 5. Responsive Layout Wrapper (MODIFICATION)
-
-Update AppShell to handle mobile bottom nav and adjust main content padding.
-
-```typescript
-// Key changes to AppShell:
-// 1. Add padding-bottom on mobile for tab bar: pb-20 md:pb-0
-// 2. Hide sidebar on mobile: hidden md:block in sidebar
-// 3. Conditionally render BottomTabBar on mobile
-```
-
-## What NOT to Add
-
-| Library | Why Not |
+| Package | Why NOT |
 |---------|---------|
-| **@mui/material** | Massive bundle, different design system |
-| **react-navigation** | For React Native, not web |
-| **any bottom-nav package** | Unnecessary - build with existing Radix + Framer Motion |
-| **tailwindcss-animate** | You have `tw-animate-css` and Framer Motion |
-| **any viewport meta package** | Use CSS `env(safe-area-inset-*)` directly |
+| `ai@6.x` (upgrade) | `@convex-dev/agent@0.3.2` requires `ai@^5.0.29`. GitHub issue #202 tracks v6 support but it is not yet released. Upgrading breaks the build with 53+ errors. **Stay on ai@5.0.123.** |
+| `@ai-sdk/anthropic@3.x` (upgrade) | Version 3.x is for AI SDK 6. The installed 2.0.57 works correctly with `ai@5.x` and `@convex-dev/agent@0.3.2`. **Stay on 2.0.57.** |
+| `@langchain/*` | Overkill. Convex Agent + AI SDK already provides tool calling, streaming, memory. LangChain adds unnecessary abstraction. |
+| `zustand` / `jotai` / `@tanstack/store` | Not needed for AI panel state. React Context + `useQuery`/`useMutation` from Convex handles state. The side panel open/close state is simple `useState`. |
+| `@convex-dev/agent-playground` | Development/debugging tool, not a production dependency. Useful for testing but should not be a prod dependency. |
+| `pusher` / `socket.io` / `ably` | Convex provides real-time WebSocket subscriptions natively. No external pub/sub needed for nudge delivery. |
+| `@convex-dev/crons` | Runtime cron registration is not needed. Proactive nudges use `ctx.scheduler.runAfter()` (one-off scheduled functions) triggered by mutations, not periodic crons. If periodic scanning is needed later, static `crons.ts` suffices. |
+| `openai` / `@ai-sdk/openai` | No second LLM provider needed. Claude handles all assistant capabilities. |
+| Any state machine library (`xstate`, `robot`) | Agent conversation flow does not need a formal state machine. Tool calling loop is handled by `maxSteps` in the agent config. |
 
-## CSS Additions Required
+---
 
-### Safe Area Insets for PWA/Mobile
+## Stack Changes Required (Code-Level, Not Package-Level)
 
-```css
-/* Add to globals.css or component styles */
+The work is architectural, not dependency-related. Here is what changes.
 
-/* For PWA standalone mode */
-@supports (padding-bottom: env(safe-area-inset-bottom)) {
-  .safe-area-bottom {
-    padding-bottom: env(safe-area-inset-bottom, 0px);
-  }
+### 1. Agent Definition: Generalize from Investor-Only to Multi-Role
+
+**Current state:** Single `investorAssistant` agent in `convex/ai/agent.ts` with investor-specific instructions and two tools (searchProperties, searchProviders).
+
+**Required change:** Create a generalized `platformAssistant` agent (or keep `investorAssistant` and add role-specific tool sets). The recommended approach is a **single Agent with role-aware system prompts and conditional tools**.
+
+**Why single agent, not multiple agents:**
+- All roles share the same thread persistence and memory infrastructure
+- Tools are conditionally available based on role (passed at runtime via system prompt context)
+- Simpler to maintain one agent with role-specific behavior than 5 separate agents
+- `@convex-dev/agent` supports passing different `system` prompts per `streamText` call -- role context is injected at call time, not at agent definition time
+
+**Implementation pattern:**
+```typescript
+// convex/ai/agent.ts -- evolve investorAssistant
+export const platformAssistant = new Agent(components.agent, {
+  name: "REOS Assistant",
+  languageModel: anthropic("claude-sonnet-4-20250514"),
+  instructions: "Base instructions shared across all roles...",
+  tools: {
+    // Universal tools (all roles)
+    searchProperties: searchPropertiesTool,
+    searchProviders: searchProvidersTool,
+    // Quick action tools (new)
+    navigateTo: navigateToTool,
+    saveProperty: savePropertyTool,
+    createDeal: createDealTool,
+    getDealStatus: getDealStatusTool,
+    // Context tools (new)
+    getPageContext: getPageContextTool,
+    getUserProfile: getUserProfileTool,
+  },
+  maxSteps: 8, // Increased from 5 for complex multi-tool workflows
+  contextOptions: { recentMessages: 10 },
+});
+```
+
+**Confidence:** HIGH -- This pattern is documented in Convex Agent docs and matches how multiple-role agents are typically structured.
+
+### 2. Client-Side Streaming: Migrate to `useUIMessages` Hook
+
+**Current state:** Custom `useAIChat` hook (`src/components/ai/hooks/useAIChat.ts`) that:
+- Calls `listMessagesAction` (a Convex action) to fetch messages
+- Manages local `useState<Message[]>` manually
+- Does NOT use real-time subscriptions for messages
+- Has no streaming delta display (shows full response only after completion)
+
+**Required change:** Migrate to `@convex-dev/agent/react` hooks:
+- `useUIMessages` for paginated messages with real-time streaming
+- `useSmoothText` for smooth token-by-token display
+- Backend: expose `listUIMessages` + `syncStreams` as a query
+
+**Why migrate:**
+- Current hook fetches via action (no real-time updates) -- panel must refetch manually after each message
+- `useUIMessages` with `stream: true` provides real-time streaming via WebSocket subscriptions
+- Eliminates the optimistic update workaround in current `useAIChat`
+- Supports pagination (`loadMore`) for long conversation histories
+- `UIMessage` type includes `parts` (text, toolCall, toolResult) for richer rendering
+
+**Implementation pattern (backend):**
+```typescript
+// convex/ai/streaming.ts (new file)
+import { listUIMessages, syncStreams } from "@convex-dev/agent";
+import { query } from "../_generated/server";
+import { paginationOptsValidator } from "convex/server";
+import { v } from "convex/values";
+
+export const listMessages = query({
+  args: {
+    threadId: v.string(),
+    paginationOpts: paginationOptsValidator,
+    streamArgs: v.optional(v.any()),
+  },
+  handler: async (ctx, args) => {
+    // Auth check here
+    const messages = await listUIMessages(ctx, components.agent, args);
+    const streams = await syncStreams(ctx, components.agent, args);
+    return { ...messages, ...streams };
+  },
+});
+```
+
+**Implementation pattern (client):**
+```typescript
+// hooks/useAssistantMessages.ts (new file)
+import { useUIMessages } from "@convex-dev/agent/react";
+import { api } from "../../convex/_generated/api";
+
+export function useAssistantMessages(threadId: string | undefined) {
+  return useUIMessages(
+    api.ai.streaming.listMessages,
+    threadId ? { threadId } : "skip",
+    { initialNumItems: 20, stream: true }
+  );
 }
 ```
 
-### Viewport Meta (Already likely set, verify)
+**Confidence:** HIGH -- `useUIMessages` and `syncStreams` are the official Convex Agent client APIs, documented at docs.convex.dev/agents/streaming and docs.convex.dev/agents/messages.
 
-```html
-<!-- In your root layout or document -->
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-```
+### 3. Side Panel UI: Sheet (Desktop) + Full-Screen Drawer (Mobile)
 
-The `viewport-fit=cover` is required for `safe-area-inset-*` to work on iOS.
+**Current state:** AI chat is embedded as `AIChatPanel` component inside the investor summary page. Not accessible from other pages.
 
-## Tailwind Responsive Strategy
+**Required change:** Create a `ResponsiveAssistantPanel` component pattern:
+- **Desktop:** Shadcn `Sheet` (side="right", ~400px wide), slide-in from right edge
+- **Mobile:** Vaul `Drawer` (direction="bottom", full-screen height), swipe-to-dismiss
 
-Your existing breakpoints are standard Tailwind:
-- `sm:` - 640px+
-- `md:` - 768px+ (your mobile/desktop breakpoint)
-- `lg:` - 1024px+
-- `xl:` - 1280px+
+**Why Sheet + Drawer (not a new package):**
+- Both components already exist in `src/components/ui/sheet.tsx` and `src/components/ui/drawer.tsx`
+- This follows the existing `ResponsiveDialog` pattern in `src/components/ui/responsive-dialog.tsx` (dialog on desktop, drawer on mobile)
+- No new primitives to learn or install
 
-**Mobile-first approach:**
-- Default styles = mobile
-- Add `md:` prefix for desktop overrides
-- Bottom tab bar: shows by default, `md:hidden`
-- Sidebar: `hidden md:block`
+**Decision point -- Sheet vs. fixed panel:**
 
-## Integration Points
+| Approach | Pros | Cons |
+|----------|------|------|
+| **Shadcn Sheet** (overlay) | Already built, familiar UX, focuses attention | Blocks interaction with main content |
+| **Fixed side panel** (no overlay) | Can interact with main content alongside assistant | Needs layout shift, more complex |
+| **Hybrid** (Sheet without overlay, main content shifts) | Best of both | Requires custom Sheet variant |
 
-### With Existing i18n
+**Recommendation:** Start with Shadcn Sheet (overlay) for v1. It is simpler, already built, and focuses user attention on the conversation. Upgrade to overlay-free fixed panel in a later iteration if users request simultaneous interaction. The existing `react-resizable-panels@4.4.0` package can be used later for a resizable side panel.
 
-The theme switcher and bottom tab bar both use translations:
-- Add keys to `messages/en.json` and `messages/he.json`
-- Tab labels are translatable
-- Theme options (Light/Dark/System) need translation keys
+**Confidence:** HIGH -- Sheet and Drawer are already in the codebase and working.
 
-### With Existing Convex Auth
+### 4. Context Injection: Page-Aware System Prompts
 
-Use `useConvexAuth()` instead of Clerk's `useAuth()` for checking auth state:
+**Current state:** Context injection builds investor profile from questionnaire data (`convex/ai/context.ts`). Only investor role supported.
+
+**Required change:** Create a role-aware, page-aware context builder:
+
 ```typescript
-import { useConvexAuth } from "convex/react";
-
-const { isAuthenticated, isLoading } = useConvexAuth();
+// convex/ai/context.ts -- extend with:
+export const buildPageContext = internalQuery({
+  args: {
+    userId: v.id("users"),
+    role: v.string(),
+    currentPage: v.string(),
+    pageEntityId: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    // Build context based on role + current page
+    // e.g., on /properties/abc123: fetch property details
+    // e.g., on /deals/def456: fetch deal pipeline status
+    // e.g., on /clients: fetch client list summary
+  },
+});
 ```
 
-This ensures the auth token is ready for Convex requests.
+**How page context flows from client to backend:**
+1. Client reads current URL via `usePathname()` from `next-intl` (already used in `AppShell.tsx`)
+2. Client sends `currentPage` + `pageEntityId` with each message
+3. Backend `context.ts` resolves entity data from Convex DB
+4. Context string is injected as system prompt alongside role instructions
 
-### With RTL Support
+**No new packages needed.** `usePathname()` is already used throughout the app. The context data is fetched from existing Convex tables.
 
-Bottom tab bar works with RTL automatically because:
-- Uses `inset-x-0` (logical, not `left-0 right-0`)
-- Flexbox `justify-around` is direction-agnostic
-- Icons don't flip (intentional for navigation)
+**Confidence:** HIGH -- This is a straightforward extension of the existing `buildProfileContext` pattern.
 
-## Configuration Checklist
+### 5. Quick Action Execution: Convex Mutations via Tools
 
-| Item | Status | Action |
+**Current state:** Tools only do read operations (searchProperties, searchProviders).
+
+**Required change:** Add write-capable tools that execute Convex mutations:
+
+```typescript
+// convex/ai/tools/actions.ts (new file)
+export const savePropertyTool = createTool({
+  description: "Save a property to the user's favorites",
+  args: z.object({ propertyId: z.string() }),
+  handler: async (ctx, args) => {
+    await ctx.runMutation(api.properties.toggleFavorite, {
+      propertyId: args.propertyId as Id<"properties">,
+    });
+    return { success: true, message: "Property saved to favorites" };
+  },
+});
+```
+
+**Key design decision:** Tools that trigger navigation should return a `{ action: "navigate", url: "/path" }` response. The client renders this as a clickable link/button, NOT an automatic redirect. This keeps the user in control.
+
+**Confidence:** HIGH -- `createTool` handler can call `ctx.runMutation` just as easily as `ctx.runQuery`. The pattern is identical to existing tools.
+
+### 6. Proactive Nudges: Convex Scheduled Functions + Notifications
+
+**Current state:** Notification system exists (`convex/notifications.ts`) with types like `deal_stage_change`, `new_message`, etc. No scheduled functions or cron jobs exist.
+
+**Required change:** Two nudge delivery mechanisms:
+
+**A. Event-driven nudges (immediate):**
+When a mutation fires (e.g., deal stage changes), schedule an AI analysis:
+```typescript
+// In deal stage change mutation:
+await ctx.scheduler.runAfter(0, internal.ai.nudges.analyzeDealChange, {
+  userId: deal.investorId,
+  dealId: deal._id,
+  newStage: args.stage,
+});
+```
+
+The nudge analyzer calls the AI to generate a contextual suggestion, then writes to the `notifications` table. The client picks it up via existing `useQuery(api.notifications.list)` real-time subscription.
+
+**B. Periodic nudges (optional, later):**
+If needed, add a `convex/crons.ts` for periodic scans:
+```typescript
+// convex/crons.ts
+import { cronJobs } from "convex/server";
+import { internal } from "./_generated/api";
+
+const crons = cronJobs();
+crons.daily("nudge-check", { hourUTC: 9 }, internal.ai.nudges.dailyScan);
+export default crons;
+```
+
+**No new packages needed.** `ctx.scheduler.runAfter()` is built into Convex. The `notifications` table and real-time subscription already exist. Nudge notifications can include a special type (extend the notification type union) that the client renders as an AI suggestion card.
+
+**Confidence:** HIGH for event-driven nudges (standard Convex pattern). MEDIUM for periodic nudges (needs design work on what to scan for).
+
+---
+
+## Version Pinning Recommendations
+
+| Package | Current | Target | Rationale |
+|---------|---------|--------|-----------|
+| `@convex-dev/agent` | 0.3.2 | 0.3.2 (stay) | Latest stable. When a new version with AI SDK 6 support ships, evaluate upgrade. |
+| `ai` | 5.0.123 | 5.0.123 (stay) | Pinned by `@convex-dev/agent` peer dep `^5.0.29`. Do NOT upgrade to 6.x. |
+| `@ai-sdk/anthropic` | 2.0.57 | 2.0.57 (stay) | Works with `ai@5.x`. Version 3.x is for AI SDK 6, incompatible. |
+| `@anthropic-ai/sdk` | 0.71.2 | 0.71.2 (stay) | Used for direct Haiku calls in summarization. No need to change. |
+| `convex` | 1.31.3 | 1.31.5 (minor bump OK) | Latest is 1.31.5 (3 days old). Safe minor bump for bug fixes. |
+| `framer-motion` | 12.26.2 | 12.26.2 (stay) | Stable, no need to upgrade. |
+| `sonner` | 2.0.7 | 2.0.7 (stay) | Used for nudge toasts. Stable. |
+
+---
+
+## Model Selection
+
+| Use Case | Model | Rationale |
+|----------|-------|-----------|
+| **Platform assistant (all roles)** | `claude-sonnet-4-20250514` | Best balance of capability, speed, and cost for multi-tool conversations. Already used by `investorAssistant`. |
+| **Summarization** | `claude-3-haiku-20240307` | Cheap, fast. Already used in `summarization.ts`. |
+| **Search parsing** | `claude-3-haiku-20240307` | Already working. No change needed. |
+| **Nudge analysis** | `claude-3-haiku-20240307` | Short analysis tasks (is this deal change worth nudging about?). Cost-effective. |
+
+**Note on model aliases:** The `@ai-sdk/anthropic` provider accepts full model IDs like `anthropic("claude-sonnet-4-20250514")`. The project already uses the full model ID. Keep this convention for reproducibility -- aliases can silently resolve to different models when new versions release.
+
+**Confidence:** HIGH -- Model selection is already validated in the existing implementation.
+
+---
+
+## Integration Points with Existing Code
+
+### Files to Modify (Not Replace)
+
+| File | Change | Reason |
 |------|--------|--------|
-| next-themes installed | Done | Wire up ThemeProvider |
-| Tailwind dark mode CSS | Done | Already has `.dark` vars |
-| Framer Motion | Done | Use for animations |
-| useIsMobile hook | Done | Already exists |
-| Radix primitives | Done | Use for dropdowns, tabs |
-| Safe area CSS | TODO | Add to globals.css |
-| viewport-fit meta | Verify | Check root layout |
+| `convex/ai/agent.ts` | Generalize instructions, add new tools, rename to `platformAssistant` | Multi-role support |
+| `convex/ai/context.ts` | Add `buildPageContext` and role-specific context builders | Page awareness, multi-role |
+| `convex/ai/chat.ts` | Accept `currentPage`, `role` params; use generalized agent | Context-aware messages |
+| `convex/ai/threads.ts` | Add role field to thread creation | Track which role owns each thread |
+| `convex/schema.ts` | Extend `aiThreads` with `role` field; extend `notifications` with AI nudge types | Multi-role threads, nudge delivery |
+| `src/components/layout/AppShell.tsx` | Add assistant FAB/trigger button and panel mounting | Platform-wide access point |
+| `convex/notifications.ts` | Add `ai_nudge` notification type and nudge-specific metadata | Nudge delivery |
 
-## Effort Estimation
+### Files to Create
 
-| Task | Complexity | Notes |
-|------|------------|-------|
-| Wire up ThemeProvider | Low | Modify Providers.tsx, add suppressHydrationWarning |
-| Create ThemeSwitcher | Low | ~30 lines, uses existing hooks |
-| Create BottomTabBar | Medium | New component, ~80 lines |
-| Create UserMenu (replace UserButton) | Medium | New component, consolidates header items |
-| Update AppShell for mobile layout | Medium | Add responsive classes, bottom padding |
-| Add safe area CSS | Low | ~5 lines |
-| Test across breakpoints | Medium | Visual verification |
+| File | Purpose |
+|------|---------|
+| `src/components/ai/AssistantPanel.tsx` | The responsive side panel (Sheet desktop, Drawer mobile) |
+| `src/components/ai/AssistantProvider.tsx` | React Context providing panel state + page context to entire app |
+| `src/components/ai/AssistantTrigger.tsx` | FAB / header button to open the assistant |
+| `src/components/ai/hooks/useAssistantMessages.ts` | Wraps `useUIMessages` from `@convex-dev/agent/react` |
+| `src/components/ai/hooks/usePageContext.ts` | Reads current page/route and resolves entity context |
+| `convex/ai/streaming.ts` | Backend query exposing `listUIMessages` + `syncStreams` |
+| `convex/ai/tools/actions.ts` | Write-capable tools (save property, create deal, etc.) |
+| `convex/ai/tools/navigation.ts` | Navigation suggestion tool (returns URLs) |
+| `convex/ai/nudges.ts` | Nudge analysis and scheduling logic |
+
+### Files to Deprecate/Remove (After Migration)
+
+| File | Reason |
+|------|--------|
+| `src/components/ai/hooks/useAIChat.ts` | Replaced by `useAssistantMessages.ts` using `useUIMessages` |
+| `convex/ai/messages.ts` | Replaced by `convex/ai/streaming.ts` using `listUIMessages` |
+
+---
+
+## Alternatives Considered
+
+| Decision | Recommended | Alternative | Why Not Alternative |
+|----------|-------------|-------------|---------------------|
+| Side panel approach | Shadcn Sheet + Vaul Drawer | Custom panel with `react-resizable-panels` | Sheet is simpler for v1; resizable panel adds complexity and requires layout restructuring. Can upgrade later. |
+| Agent architecture | Single agent, role-injected at runtime | Multiple agent instances per role | Single agent is simpler, all roles share memory infrastructure. Per-role instructions are injected as system prompt context. |
+| Streaming approach | `useUIMessages` with `stream: true` | Keep custom `useAIChat` hook | `useUIMessages` provides real-time WebSocket streaming, pagination, and `UIMessage` type. Current hook has no real-time updates. |
+| Nudge delivery | Convex scheduled functions + notifications table | External push service (Pusher, etc.) | Convex real-time subscriptions already push to clients via WebSocket. Notifications table already works. No external service needed. |
+| Context injection | System prompt with page data | Vector search over page content | System prompt is simpler, deterministic, and page context is structured data (not unstructured text). Vector search adds latency for no benefit here. |
+| AI SDK version | Stay on 5.0.123 | Upgrade to 6.0.39 | `@convex-dev/agent` does not yet support AI SDK 6 (GitHub issue #202). Upgrading breaks the build. |
+| New packages | Zero new packages | Add state management library for panel state | React Context + useState is sufficient for panel open/close state. No global state library needed for one piece of UI state. |
+
+---
+
+## Installation Commands
+
+**No installation needed.** All required packages are already installed. If Convex is bumped:
+
+```bash
+# Optional: minor Convex bump for bug fixes
+npm install convex@1.31.5
+```
+
+---
+
+## Confidence Assessment
+
+| Area | Confidence | Source | Notes |
+|------|------------|--------|-------|
+| Version constraints (ai@5 vs 6) | HIGH | npm peer deps + GitHub issue #202 | Verified installed peer dependencies directly |
+| `useUIMessages` / `syncStreams` API | HIGH | docs.convex.dev/agents/streaming, docs.convex.dev/agents/messages | Official documentation, verified available in 0.3.2 |
+| Sheet/Drawer for side panel | HIGH | Existing components in codebase | Already built and used (`sheet.tsx`, `drawer.tsx`, `responsive-dialog.tsx`) |
+| `createTool` for mutations | HIGH | Existing codebase pattern | Already working with `ctx.runQuery`, `ctx.runMutation` documented |
+| Scheduled functions for nudges | HIGH | docs.convex.dev/scheduling | Built-in Convex feature, no extra packages |
+| Single vs multi-agent design | MEDIUM | Convex Agent docs + community patterns | Documented pattern but this specific multi-role design needs validation during implementation |
+| `useSmoothText` hook | MEDIUM | docs.convex.dev/agents/streaming | Documented but not yet used in this codebase; needs integration testing |
+
+---
 
 ## Sources
 
-### Official Documentation (HIGH confidence)
-- [next-themes GitHub](https://github.com/pacocoursey/next-themes) - v0.4.6 setup verified
-- [Tailwind CSS Dark Mode](https://tailwindcss.com/docs/dark-mode) - v4 selector strategy
-- [Shadcn/ui Dark Mode](https://ui.shadcn.com/docs/dark-mode/next) - ThemeProvider pattern
-- [Clerk Custom Sign-Out](https://clerk.com/docs/custom-flows/sign-out) - useClerk().signOut() API
-- [MDN env() CSS](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/env) - safe-area-inset-*
-- [Motion (Framer Motion)](https://motion.dev/) - Animation library docs
+### Official Documentation (HIGH Confidence)
+- [Convex Agent - Streaming](https://docs.convex.dev/agents/streaming) -- `useUIMessages`, `syncStreams`, `saveStreamDeltas`, `useSmoothText`
+- [Convex Agent - Messages](https://docs.convex.dev/agents/messages) -- `listUIMessages`, `UIMessage` type, `useUIMessages` hook
+- [Convex Agent - Overview](https://docs.convex.dev/agents) -- Agent constructor, tools, threads
+- [Convex Scheduling](https://docs.convex.dev/scheduling) -- `ctx.scheduler.runAfter()`, scheduled functions
+- [Convex Cron Jobs](https://docs.convex.dev/scheduling/cron-jobs) -- Static cron definitions
+- [AI SDK Anthropic Provider](https://ai-sdk.dev/providers/ai-sdk-providers/anthropic) -- Tool use, streaming, model options
 
-### Community Sources (MEDIUM confidence)
-- [Tailwind v4 + next-themes](https://medium.com/@kevstrosky/theme-colors-with-tailwind-css-v4-0-and-next-themes-dark-light-custom-mode-36dca1e20419)
-- [Shadcn Bottom Nav Request](https://github.com/shadcn-ui/ui/issues/8847) - Confirms no official component
-- [Chrome Edge-to-Edge](https://developer.chrome.com/docs/css-ui/edge-to-edge) - Safe area insets on Android
+### Package Registry (HIGH Confidence)
+- [@convex-dev/agent@0.3.2](https://www.npmjs.com/package/@convex-dev/agent) -- Peer dep: `ai@^5.0.29`
+- [ai@5.0.123](https://www.npmjs.com/package/ai) -- Latest 5.x; 6.0.39 exists but incompatible
+- [@ai-sdk/anthropic@2.0.57](https://www.npmjs.com/package/@ai-sdk/anthropic) -- Works with ai@5.x
+- [ai@6.0.39](https://www.npmjs.com/package/ai) -- Latest, NOT compatible with current agent
+
+### GitHub Issues (HIGH Confidence)
+- [get-convex/agent#202: Support for AI SDK v6](https://github.com/get-convex/agent/issues/202) -- Confirms incompatibility, open issue
+
+### Verified in Codebase (HIGH Confidence)
+- `package.json` -- Current installed versions
+- `node_modules/@convex-dev/agent/package.json` -- Peer dependency verification
+- `convex/ai/agent.ts` -- Current agent definition
+- `src/components/ai/hooks/useAIChat.ts` -- Current chat hook (to be replaced)
+- `src/components/ui/sheet.tsx` -- Existing Sheet component
+- `src/components/ui/drawer.tsx` -- Existing Drawer component
+- `src/components/ui/responsive-dialog.tsx` -- Existing responsive pattern
+- `convex/notifications.ts` -- Existing notification system
+- `convex/ai/context.ts` -- Existing context builder
+
+---
 
 ## Summary
 
-**No new packages needed.** Your stack is complete for this milestone:
+**Zero new packages.** The platform-wide AI assistant side panel is built entirely with the existing stack:
 
-1. **Theme switching:** Wire up existing `next-themes` with `ThemeProvider`
-2. **Bottom tab bar:** Build custom component with Radix + Framer Motion + Tailwind
-3. **Header consolidation:** Replace `UserButton` with custom dropdown using `useClerk()`
-4. **Mobile responsiveness:** Apply mobile-first Tailwind classes, add safe area insets
+1. **Side Panel UI:** Shadcn Sheet (desktop) + Vaul Drawer (mobile) -- both already installed
+2. **Streaming:** Migrate from custom `useAIChat` to `useUIMessages` from `@convex-dev/agent/react` -- already in the package
+3. **Tool Use / Actions:** Add more `createTool` definitions for write operations -- same pattern as existing tools
+4. **Context Injection:** Extend `convex/ai/context.ts` with role + page awareness -- pure code, no deps
+5. **Proactive Nudges:** `ctx.scheduler.runAfter()` + existing `notifications` table -- built into Convex
+6. **Multi-Role:** Single agent with runtime role injection via system prompt -- supported by Agent API
 
-The implementation is pure configuration and component authoring, not dependency management.
+The only potential version change is a minor Convex bump (1.31.3 to 1.31.5) for bug fixes, which is optional and low-risk.
