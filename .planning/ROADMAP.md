@@ -154,12 +154,12 @@ Plans:
 4. Messages stream token-by-token in real-time as the AI responds (no block-wait followed by full text dump), and tool results render as structured cards inline in the conversation
 5. Conversations start fresh each session, but the assistant recalls user preferences and context summaries from previous sessions
 
-**Plans:** TBD
+**Plans:** 3 plans
 
 Plans:
-- [ ] 61-01: TBD
-- [ ] 61-02: TBD
-- [ ] 61-03: TBD
+- [ ] 61-01-PLAN.md -- Backend streaming infrastructure + session-based threads (platformAssistant agent, streaming query, session thread logic)
+- [ ] 61-02-PLAN.md -- Frontend panel shell + AIAssistantProvider (Sheet/Drawer container, toggle button, FAB, AppShell integration)
+- [ ] 61-03-PLAN.md -- Real-time streaming hook + i18n + session UX (useAIAssistantChat, UIMessage rendering, EN/HE translations)
 
 ---
 
