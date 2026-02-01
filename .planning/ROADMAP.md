@@ -177,6 +177,12 @@ Plans:
 3. The assistant can explain any feature on the current page, guide the user through a workflow step-by-step, and provide role-appropriate onboarding tips for first-time users
 4. Page context is resolved server-side from a lightweight entityType/entityId sent by the frontend -- the assistant never receives raw client-side data that could be spoofed
 
+**Plans:** 2 plans
+
+Plans:
+- [ ] 62-01-PLAN.md -- Backend context resolution (buildPageContext internalQuery, sendMessage args extension, help guidance strings)
+- [ ] 62-02-PLAN.md -- Frontend context detection + suggested prompts (usePageContext hook, useSuggestedPrompts hook, SuggestedPrompts component, i18n)
+
 ---
 
 ### Phase 63: Multi-Role Agent + Auth Enforcement
@@ -251,7 +257,7 @@ Plans:
 | 59. Vendor Statistics Dashboard | v1.9 | 1/1 | Complete | 2026-02-01 |
 | 60. Profile Polish & Public Display | v1.9 | 1/1 | Complete | 2026-02-01 |
 | 61. Panel Shell + Streaming Infrastructure | v1.10 | 3/3 | Complete | 2026-02-01 |
-| 62. Context Awareness + Help Guidance | v1.10 | 0/TBD | Not started | - |
+| 62. Context Awareness + Help Guidance | v1.10 | 0/2 | Not started | - |
 | 63. Multi-Role Agent + Auth Enforcement | v1.10 | 0/TBD | Not started | - |
 | 64. Action Tools (Read + Write) | v1.10 | 0/TBD | Not started | - |
 | 65. Investor AI Migration | v1.10 | 0/TBD | Not started | - |
