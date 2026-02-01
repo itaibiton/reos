@@ -180,8 +180,8 @@ Plans:
 **Plans:** 2 plans
 
 Plans:
-- [ ] 62-01-PLAN.md -- Backend context resolution (buildPageContext internalQuery, sendMessage args extension, help guidance strings)
-- [ ] 62-02-PLAN.md -- Frontend context detection + suggested prompts (usePageContext hook, useSuggestedPrompts hook, SuggestedPrompts component, i18n)
+- [x] 62-01-PLAN.md -- Backend context resolution (buildPageContext internalQuery, sendMessage args extension, help guidance strings)
+- [x] 62-02-PLAN.md -- Frontend context detection + suggested prompts (usePageContext hook, useSuggestedPrompts hook, SuggestedPrompts component, i18n)
 
 ---
 
@@ -257,7 +257,7 @@ Plans:
 | 59. Vendor Statistics Dashboard | v1.9 | 1/1 | Complete | 2026-02-01 |
 | 60. Profile Polish & Public Display | v1.9 | 1/1 | Complete | 2026-02-01 |
 | 61. Panel Shell + Streaming Infrastructure | v1.10 | 3/3 | Complete | 2026-02-01 |
-| 62. Context Awareness + Help Guidance | v1.10 | 0/2 | Not started | - |
+| 62. Context Awareness + Help Guidance | v1.10 | 2/2 | Complete | 2026-02-01 |
 | 63. Multi-Role Agent + Auth Enforcement | v1.10 | 0/TBD | Not started | - |
 | 64. Action Tools (Read + Write) | v1.10 | 0/TBD | Not started | - |
 | 65. Investor AI Migration | v1.10 | 0/TBD | Not started | - |
